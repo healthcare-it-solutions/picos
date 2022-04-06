@@ -1,0 +1,21 @@
+{
+    "overview": "Overview",
+    "@overview": {
+      "description": "Overview"
+    },
+
+    "inbox": "Inbox",
+    "@inbox": {
+        "description": "Inbox"
+    },
+    
+    "calendar": "Calendar",
+    "@calendar": {
+        "description": "Calendar"
+    },
+
+    "myPicos": "MyPICOS",
+    "@MyPICOS": {
+        "description": "MyPICOS"
+    }
+}
