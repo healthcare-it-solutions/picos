@@ -1,18 +1,13 @@
-# picos
+# PICOS
 
-A new Flutter project.
+Picos is a mobile app that lets an ICU discharge patient track their health
+parameters, recieve medication reminders and keep track of follow up visits to
+the doctor.
 
-## Getting Started
+This application is suitable for offline use, if the user does not participate
+in the
+["DISTANCE"](https://www.gesundheitsforschung-bmbf.de/de/distance-krankheitsverlaufe-nach-intensivmedizinischer-betreuung-besser-vorhersagen-13021.php)
+data donation program.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-[![style: lint](https://img.shields.io/badge/style-lint-4BC0F5.svg)](https://pub.dev/packages/lint)
+## License 
+This program is subject to the GNU General Public License 3.0
