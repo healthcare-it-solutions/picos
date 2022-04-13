@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'catalog_of_items.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      routes: Map.fromIterable({ 'something', CatalogOfItems}),
     );
   }
 }
