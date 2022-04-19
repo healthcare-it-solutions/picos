@@ -1,5 +1,3 @@
-// ignore_for_file: public_member_api_docs
-
 /*
 Copyright 2022 by Mustafa Sezer <mustafa.sezer@hit-solutions.de>
 
