@@ -15,12 +15,10 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../questionaire_screen/questionaire_screen.dart';
 
 // TODO: add proper docs
 
