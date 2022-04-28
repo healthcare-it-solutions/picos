@@ -1,7 +1,22 @@
+/*   This file is part of Picos, a health trcking mobile app
+*    Copyright (C) 2022 Healthcare IT Solutions GmbH
+*
+*    This program is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    This program is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
 import 'package:flutter/material.dart';
 
-// TODO: use this class to generate cards, move a part from the screen
-// functionality to this class
 class _QuestionaireCardState extends State<QuestionaireCard> {
   int? _selectedElement;
 
@@ -42,6 +57,7 @@ class _QuestionaireCardState extends State<QuestionaireCard> {
   }
 }
 
+/// This is a widget that returns a [Card].
 class QuestionaireCard extends StatefulWidget {
   const QuestionaireCard(
       {required this.question, required this.answers, Key? key})
@@ -50,6 +66,9 @@ class QuestionaireCard extends StatefulWidget {
   @override
   State<QuestionaireCard> createState() => _QuestionaireCardState();
 
+  /// This is the question text rendered on the card the user has to answer
   final String question;
+
+  /// These are the possible replies the user can choose from.
   final Map<int, String> answers;
 }

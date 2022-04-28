@@ -1,61 +1,27 @@
+/*   This file is part of Picos, a health trcking mobile app
+*    Copyright (C) 2022 Healthcare IT Solutions GmbH
+*
+*    This program is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    This program is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
 
 import 'package:flutter/material.dart';
 import 'package:picos/screens/questionaire_screen/questionaire_card.dart';
-import 'question.dart';
 
+/// This is the screen a user should see when prompted to provide some
+/// information about their health status.
 class QuestionaireScreen extends StatelessWidget {
   QuestionaireScreen({Key? key}) : super(key: key);
-
-  List<Question> questionList = <Question>[
-    Question('the first one', ['reply1', 'reply2', 'reply3']),
-    Question('second question', ['another reply', 'yet another one']),
-    Question('yet another question', ['reply to yet another question'])
-  ];
-
-  /// This method generates the cards. It takes the supplied questions and
-  /// puts them on cards. The supplied answers
-/*  Iterable<Widget> genCards() sync* {
-    // TODO: make it a fancy stream returning function
-    for (Question card in questionList) {
-      yield Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-        Expanded(
-        flex: 1,
-        child: Card( 
-          child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Center(
-              child: Text(
-                card.question,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 20, 
-                  fontWeight: FontWeight.bold
-                ),
-              )
-            ),
-            Text(card.question),
-            ..._genReplies(card.replies)
-          ],
-        ),
-      )
-      )
-      ]);
-    }
-  }
-*/
-
-  Iterable<Widget> _genReplies(Map<int, String> replies) sync* {
-    for (MapEntry reply in replies.entries) {
-      yield Row(children: <Widget>[
-        Text(reply.value)
-      ]);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
