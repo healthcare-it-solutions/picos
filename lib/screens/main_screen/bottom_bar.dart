@@ -62,8 +62,8 @@ class _BottomBarState extends State<BottomBar> {
       'MyPicos'
     ];
 
-    if (index > appBarTitles.length - 1) {
-      throw Exception('The index is bigger than the array');
+    if (index > appBarTitles.length - 1 || index < 0) {
+      throw Exception('Out of bounds');
     }
 
     return appBarTitles[index];
@@ -82,7 +82,7 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(25, 102, 117, 1.0),
+        backgroundColor: const Color.fromRGBO(25, 102, 117, 1.0),
         title: Center(child: Text(_appBarTitles[selectedIndex]))
       ),
       body: Center(

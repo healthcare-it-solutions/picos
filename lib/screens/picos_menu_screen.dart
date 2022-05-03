@@ -27,7 +27,7 @@ class PicosMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.all(15.0),
-      children: const <Widget>[
+      children: const <Widget> [
         Text(
           'PLACEHOLDER',
           style: TextStyle(
