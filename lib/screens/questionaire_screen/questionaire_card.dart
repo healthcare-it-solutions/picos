@@ -23,15 +23,14 @@ class _QuestionaireCardState extends State<QuestionaireCard> {
   Iterable<Widget> _genReplies() sync* {
     for (MapEntry<int, String> answer in widget.answers.entries) {
       yield RadioListTile<int>(
-        title: Text(answer.value),
-        value: answer.key,
-        groupValue: _selectedElement,
-        onChanged: (int? newSelection) {
-          setState(() {
-            _selectedElement = newSelection;
+          title: Text(answer.value),
+          value: answer.key,
+          groupValue: _selectedElement,
+          onChanged: (int? newSelection) {
+            setState(() {
+              _selectedElement = newSelection;
+            });
           });
-        }
-      );
     }
   }
 
@@ -59,6 +58,7 @@ class _QuestionaireCardState extends State<QuestionaireCard> {
 
 /// This is a widget that returns a [Card].
 class QuestionaireCard extends StatefulWidget {
+  /// Self explainatory
   const QuestionaireCard(
       {required this.question, required this.answers, Key? key})
       : super(key: key);
