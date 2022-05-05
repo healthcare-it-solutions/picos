@@ -15,10 +15,9 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'package:picos/screens/picos_menu_screen.dart';
 
 // TODO: add proper docs
 
@@ -44,7 +43,6 @@ class BottomBar extends StatefulWidget {
 /// This class contains all relevant Widgets for the UI.
 /// The needed variables and functions/methods are also implemented here.
 class _BottomBarState extends State<BottomBar> {
-
   /// stores the currently selected element of the navbar
   int selectedIndex = 0;
 
@@ -64,26 +62,23 @@ class _BottomBarState extends State<BottomBar> {
       ),
       body: Center(
         child: <Widget>[
-    MaterialButton(
-      color: Colors.amber,
-      child: const Text('something'),
-      onPressed: () {
-        Navigator.pushNamed(context, '/questionaire');
-      },
-    ),
-    const Icon(
-      Icons.mail,
-      size: 150,
-    ),
-    const Icon(
-      Icons.calendar_month,
-      size: 150,
-    ),
-    const Icon(
-      Icons.bubble_chart,
-      size: 150,
-    )
-  ].elementAt(selectedIndex),
+          MaterialButton(
+            color: Colors.amber,
+            child: const Text('something'),
+            onPressed: () {
+              Navigator.pushNamed(context, '/questionaire');
+            },
+          ),
+          const Icon(
+            Icons.mail,
+            size: 150,
+          ),
+          const Icon(
+            Icons.calendar_month,
+            size: 150,
+          ),
+          const PicosMenu()
+        ].elementAt(selectedIndex),
       ),
       backgroundColor: Colors.grey,
       bottomNavigationBar: BottomNavigationBar(
