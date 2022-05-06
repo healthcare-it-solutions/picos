@@ -2,5 +2,18 @@
     "overview": "Übersicht",
     "inbox": "Postfach",
     "calendar": "Kalender",
-    "MyPICOS": "MyPICOS"
+    "MyPICOS": "MyPICOS",
+    "myMedications": "Meine Medikamente",
+    "inTheMorning": "Morgens",
+    "inTheEvening": "Abends",
+    "noon": "Mittags",
+    "toTheNight": "Zur Nacht",
+    "addMedication": "Medikament hinzufügen",
+    "addMedicationInfoPart1": "Bitte geben Sie ",
+    "addMedicationInfoPart2": "genaue und aktuelle Medikamentenpläne",
+    "addMedicationInfoPart3": " ein. Diese können den behandelnden Einrichtungen von großem Nutzen sein und in Ihre Behandlung einbezogen werden.",
+    "selectCompound": "Präparat auswählen",
+    "compound": "Präparat",
+    "intake": "Einnahme",
+    "add": "Hinzufügen"
 }

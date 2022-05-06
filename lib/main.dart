@@ -20,7 +20,12 @@ with picos. If not, see <https://www.gnu.org/licenses/>.
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/screens/add_medication_screen/add_medication_screen.dart';
+import 'package:picos/screens/my_medications_screen/medication_card.dart';
+import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
+import 'package:picos/states/medications_list_state.dart';
 
 /// This is the main entry point of the application.
 void main() {
@@ -39,14 +44,37 @@ class MainAppScreen extends StatefulWidget {
 class MainAppScreenState extends State<MainAppScreen> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'PICOS',
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'PICOS'),
+    return MultiBlocProvider(
+      providers: <BlocProvider<dynamic>>[
+        BlocProvider<MedicationsListState>(
+          create: (_) => MedicationsListState(<MedicationCard>[]),
+        ),
+      ],
+      child: MaterialApp(
+          title: 'PICOS',
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          theme: ThemeData(
+            primaryColor: Colors.blue,
+            primarySwatch: Colors.blue,
+            appBarTheme: const AppBarTheme(
+              backgroundColor: Colors.blue,
+            ),
+            backgroundColor: const Color(0xFFF2F2F2),
+            scaffoldBackgroundColor: const Color(0xFFF2F2F2),
+            shadowColor: Colors.grey,
+            textButtonTheme: TextButtonThemeData(
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+              ),
+            ),
+          ),
+          home: const MyHomePage(title: 'PICOS'),
+          routes: <String, Widget Function(BuildContext)>{
+            '/my-medications': (BuildContext ctx) =>
+                const MyMedicationsScreen(),
+            '/add-medication': (BuildContext ctx) => const AddMedicationScreen()
+          }),
     );
   }
 }
@@ -68,29 +96,42 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => MainAppClass();
 }
 
-/// This class contains all relevant Widgets for the UI.
-/// The needed variables and functions/methods are also implemented here.
-class MainAppClass extends State<MyHomePage> {
-  /// This is a list of Widgets to build the pages.
-  static const List<Widget> pages = <Widget>[
-    Icon(
+void pushScreen(String screen, BuildContext ctx) {
+  Navigator.of(ctx).pushNamed(screen);
+}
+
+/// This is a list of Widgets to build the pages.
+List<Widget> createHomeScreenWidgets(BuildContext ctx) {
+  return <Widget>[
+    const Icon(
       Icons.house,
       size: 150,
     ),
-    Icon(
+    const Icon(
       Icons.mail,
       size: 150,
     ),
-    Icon(
+    const Icon(
       Icons.calendar_month,
       size: 150,
     ),
-    Icon(
-      Icons.bubble_chart,
-      size: 150,
-    )
+    SizedBox(
+      width: double.infinity,
+      height: double.infinity,
+      child: IconButton(
+        onPressed: () => Navigator.of(ctx).pushNamed('/my-medications'),
+        icon: const Icon(
+          Icons.bubble_chart,
+          size: 150,
+        ),
+      ),
+    ),
   ];
+}
 
+/// This class contains all relevant Widgets for the UI.
+/// The needed variables and functions/methods are also implemented here.
+class MainAppClass extends State<MyHomePage> {
   // Variable to store the value of the currently clicked navbar-item.
   int selectedIndex = 0;
 
@@ -110,7 +151,7 @@ class MainAppClass extends State<MyHomePage> {
         backgroundColor: Colors.white,
       ),
       body: Center(
-        child: pages.elementAt(selectedIndex),
+        child: createHomeScreenWidgets(context).elementAt(selectedIndex),
       ),
       backgroundColor: Colors.grey,
       bottomNavigationBar: BottomNavigationBar(
