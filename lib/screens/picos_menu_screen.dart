@@ -26,36 +26,70 @@ class PicosMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      padding: const EdgeInsets.all(15.0),
       children: const <Widget>[
-        Text('PLACEHOLDER'),
+        Text(
+          'PLACEHOLDER',
+          style: TextStyle(
+            fontWeight: FontWeight.bold
+          )
+        ),
+        SizedBox(height: 20),
         ListTile(
-          leading: Icon(Icons.wb_sunny),
+          leading: Icon(Icons.insights),
           title: Text('Sun'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
         ListTile(
-          leading: Icon(Icons.brightness_3),
+          leading: Icon(Icons.medication),
           title: Text('Moon'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
         ListTile(
-          leading: Icon(Icons.star),
+          leading: Icon(Icons.groups),
           title: Text('Star'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
-        Text('PLACEHOLDER'),
         ListTile(
-          leading: Icon(Icons.wb_sunny),
+          leading: Icon(Icons.people),
+          title: Text('Star'),
+          trailing: Icon(Icons.keyboard_arrow_right),
+        ),
+        ListTile(
+          leading: Icon(Icons.description),
+          title: Text('Star'),
+          trailing: Icon(Icons.keyboard_arrow_right),
+        ),
+        SizedBox(height: 20,),
+        Text(
+          'PLACEHOLDER',
+          style: TextStyle(
+            fontWeight: FontWeight.bold
+          )
+        ),
+        SizedBox(height: 20),
+        ListTile(
+          leading: Icon(Icons.notifications),
           title: Text('Sun'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
         ListTile(
-          leading: Icon(Icons.brightness_3),
+          leading: Icon(Icons.settings),
           title: Text('Moon'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
         ListTile(
-          leading: Icon(Icons.star),
+          leading: Icon(Icons.lock),
+          title: Text('Star'),
+          trailing: Icon(Icons.keyboard_arrow_right),
+        ),
+        ListTile(
+          leading: Icon(Icons.gavel),
+          title: Text('Star'),
+          trailing: Icon(Icons.keyboard_arrow_right),
+        ),
+        ListTile(
+          leading: Icon(Icons.logout),
           title: Text('Star'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),

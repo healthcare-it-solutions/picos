@@ -46,6 +46,30 @@ class _BottomBarState extends State<BottomBar> {
   /// stores the currently selected element of the navbar
   int selectedIndex = 0;
 
+  final List<String> _appBarTitles = <String> [
+    'overview',
+    'inbox',
+    'calender',
+    'MyPicos'
+  ];
+
+  // TODO: refactor the appBarTitiles to return localized messages
+  String appBarTitle(BuildContext context, int index) {
+    final List<String> appBarTitles = <String> [
+      'overview',
+      'inbox',
+      'calender',
+      'MyPicos'
+    ];
+
+    if (index > appBarTitles.length - 1) {
+      throw Exception('The index is bigger than the array');
+    }
+
+    return appBarTitles[index];
+  } 
+
+
   /// This function gets called when tapping on an element on the bottom bar.
   /// It keeps track of the currently selected element.
   void onItemTapped(int index) {
@@ -58,13 +82,14 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromRGBO(25, 102, 117, 1.0),
+        title: Center(child: Text(_appBarTitles[selectedIndex]))
       ),
       body: Center(
         child: <Widget>[
           MaterialButton(
             color: Colors.amber,
-            child: const Text('something'),
+            child: const Text('start questionaire'),
             onPressed: () {
               Navigator.pushNamed(context, '/questionaire');
             },
@@ -80,7 +105,7 @@ class _BottomBarState extends State<BottomBar> {
           const PicosMenu()
         ].elementAt(selectedIndex),
       ),
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.white,
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
