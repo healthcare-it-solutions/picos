@@ -23,7 +23,7 @@ import 'bottom_bar.dart';
 
 /// This is the screen which contains all relevant informations
 class MainScreen extends StatelessWidget {
-  /// Self explainatory
+  // ignore: public_member_api_docs
   const MainScreen({Key? key}) : super(key: key);
 
   @override
@@ -33,7 +33,7 @@ class MainScreen extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       routes: <String, WidgetBuilder> {
-        '/questionaire': (BuildContext context) => QuestionaireScreen()
+        '/questionaire': (BuildContext context) => const QuestionaireScreen()
       },
       theme: ThemeData(
         primarySwatch: Colors.blue,
