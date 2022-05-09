@@ -15,21 +15,10 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
-// TODO: add proper docs
-
-/// This widget is the home page of your application. It is stateful, meaning
-/// that it has a State object (defined below) that contains fields that affect
-/// how it looks.
-
-/// This class is the configuration for the state. It holds the values (in this
-/// case the title) provided by the parent (in this case the App widget) and
-/// used by the build method of the State. Fields in a Widget subclass are
-/// always marked "final".
+// ignore: public_member_api_docs
 class BottomBar extends StatefulWidget {
   /// Constructor
   const BottomBar({required this.title, Key? key}) : super(key: key);
