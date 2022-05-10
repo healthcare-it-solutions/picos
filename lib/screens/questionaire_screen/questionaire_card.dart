@@ -59,6 +59,10 @@ class _QuestionaireCardState extends State<QuestionaireCard> {
 
 /// This is a widget that returns a [Card].
 class QuestionaireCard extends StatefulWidget {
+  /// The constructor accepts a question string and a [Map] of answers.
+  /// The answers must be in the following format
+  /// 1: 'answer1'
+  /// 2: 'answer2'
   const QuestionaireCard(
       {required this.question, required this.answers, Key? key})
       : super(key: key);
