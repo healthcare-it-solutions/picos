@@ -21,7 +21,8 @@ import 'package:picos/screens/questionaire_screen/questionaire_card.dart';
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
 class QuestionaireScreen extends StatelessWidget {
-  QuestionaireScreen({Key? key}) : super(key: key);
+  // ignore: public_member_api_docs
+  const QuestionaireScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +30,10 @@ class QuestionaireScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       verticalDirection: VerticalDirection.down,
-      children: const <Widget>[
+      children: const <Widget> [
         QuestionaireCard(
           question: 'What food do you like the most?',
-          answers: <int, String>{
+          answers: <int, String> {
             1: 'Pizza',
             2: 'Sushi',
             3: 'Curry'
