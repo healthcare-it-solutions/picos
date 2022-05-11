@@ -28,12 +28,11 @@ class MiniCalendar extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 100,
-          height: 30,
+          constraints: BoxConstraints.expand(width: 100, height: 30),
           //color: Colors.blue,
           decoration: BoxDecoration(
             color: Colors.blue,
-            border: Border.all(color: Colors.black),
+            border: Border.all(),
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(10),
               topRight: Radius.circular(10)
@@ -42,7 +41,7 @@ class MiniCalendar extends StatelessWidget {
           child: Center(
             child: Text(
               DateFormat
-                .EEEE(
+                .E(
                   Localizations
                   .localeOf(context)
                   .toString())
@@ -55,7 +54,7 @@ class MiniCalendar extends StatelessWidget {
           height: 70,
           //color: Colors.white,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(10),
               bottomRight: Radius.circular(10)
             ),
