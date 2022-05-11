@@ -35,6 +35,7 @@ class MainScreen extends StatelessWidget {
       routes: <String, WidgetBuilder> {
         '/questionaire': (BuildContext context) => const QuestionaireScreen()
       },
+      // TODO: implement a proper global theme
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
