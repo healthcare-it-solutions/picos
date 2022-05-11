@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/models/medication_model.dart';
+import 'package:picos/models/medication.dart';
 import 'package:picos/screens/my_medications_screen/medication_card_tile.dart';
 
-///The card displaying a medication plan.
+/// The card displaying a medication plan.
 class MedicationCard extends StatelessWidget {
-  ///Creates the card with the medication plan.
+  /// Creates the card with the medication plan.
   const MedicationCard(
     this._medication, {
     Key? key,
   }) : super(key: key);
 
-  final MedicationModel _medication;
+  final Medication _medication;
 
   _createCardColumn(BuildContext context, String topTime, String bottomTime,
       String topAmount, String bottomAmount) {
@@ -69,7 +69,7 @@ class MedicationCard extends StatelessWidget {
                   children: <Widget>[
                     const Icon(Icons.medication),
                     Container(
-                      child: Text(_medication.compound!),
+                      child: Text(_medication.compound),
                       padding: const EdgeInsets.fromLTRB(7, 0, 0, 0),
                     ),
                   ],

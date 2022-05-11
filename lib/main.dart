@@ -22,10 +22,12 @@ with picos. If not, see <https://www.gnu.org/licenses/>.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/repository/medications_repository.dart';
 import 'package:picos/screens/add_medication_screen/add_medication_screen.dart';
-import 'package:picos/screens/my_medications_screen/medication_card.dart';
 import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
-import 'package:picos/states/medications_list_state.dart';
+import 'package:picos/states/medications_list_bloc.dart';
+
+import 'api/local_storage_medications_api.dart';
 
 /// This is the main entry point of the application.
 void main() {
@@ -42,39 +44,53 @@ class MainAppScreen extends StatefulWidget {
 
 /// This class builds the application with its certain properties.
 class MainAppScreenState extends State<MainAppScreen> {
+  final MedicationsRepository medicationsRepository =
+      MedicationsRepository(medicationsApi: LocalStorageMedicationsApi());
+
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: <BlocProvider<dynamic>>[
-        BlocProvider<MedicationsListState>(
-          create: (_) => MedicationsListState(<MedicationCard>[]),
-        ),
+    return MultiRepositoryProvider(
+      providers: <RepositoryProvider<MedicationsRepository>>[
+        RepositoryProvider<MedicationsRepository>.value(
+          value: medicationsRepository,
+        )
       ],
-      child: MaterialApp(
-          title: 'PICOS',
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          theme: ThemeData(
-            primaryColor: Colors.blue,
-            primarySwatch: Colors.blue,
-            appBarTheme: const AppBarTheme(
-              backgroundColor: Colors.blue,
-            ),
-            backgroundColor: const Color(0xFFF2F2F2),
-            scaffoldBackgroundColor: const Color(0xFFF2F2F2),
-            shadowColor: Colors.grey,
-            textButtonTheme: TextButtonThemeData(
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+      child: MultiBlocProvider(
+        providers: <BlocProvider<MedicationsListBloc>>[
+          BlocProvider<MedicationsListBloc>(
+            create: (BuildContext context) => MedicationsListBloc(
+              medicationsRepository: context.read<MedicationsRepository>(),
+            )..add(const MedicationsListSubscriptionRequested()),
+          ),
+        ],
+        child: MaterialApp(
+            title: 'PICOS',
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            theme: ThemeData(
+              primaryColor: Colors.blue,
+              primarySwatch: Colors.blue,
+              appBarTheme: const AppBarTheme(
+                backgroundColor: Colors.blue,
+              ),
+              backgroundColor: const Color(0xFFF2F2F2),
+              scaffoldBackgroundColor: const Color(0xFFF2F2F2),
+              shadowColor: Colors.grey,
+              textButtonTheme: TextButtonThemeData(
+                style: ButtonStyle(
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                ),
               ),
             ),
-          ),
-          home: const MyHomePage(title: 'PICOS'),
-          routes: <String, Widget Function(BuildContext)>{
-            '/my-medications': (BuildContext ctx) =>
-                const MyMedicationsScreen(),
-            '/add-medication': (BuildContext ctx) => const AddMedicationScreen()
-          }),
+            home: const MyHomePage(title: 'PICOS'),
+            routes: <String, Widget Function(BuildContext)>{
+              '/my-medications': (BuildContext ctx) =>
+                  const MyMedicationsScreen(),
+              '/add-medication': (BuildContext ctx) =>
+                  const AddMedicationScreen()
+            }),
+      ),
     );
   }
 }

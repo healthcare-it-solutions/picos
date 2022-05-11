@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-///Creates a simple label.
+/// Creates a simple label.
 class AddMedicationScreenLabel extends StatelessWidget {
-  ///Creates the label.
+  /// Creates the label.
   const AddMedicationScreenLabel({required this.label, Key? key})
       : super(key: key);
 
-  ///The label to be shown.
+  /// The label to be shown.
   final String label;
 
   @override

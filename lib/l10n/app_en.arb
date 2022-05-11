@@ -46,7 +46,7 @@
         "description": "Add medication"
     },
 
-    "addMedicationInfoPart1": "Please enter",
+    "addMedicationInfoPart1": "Please enter ",
     "@addMedicationInfoPart1": {
         "description": "Patient advice for adding medication schedules. (Part 1)"
     },

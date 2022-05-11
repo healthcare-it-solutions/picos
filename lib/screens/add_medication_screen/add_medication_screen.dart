@@ -1,18 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/models/medication_model.dart';
+import 'package:picos/models/medication.dart';
 import 'package:picos/screens/add_medication_screen/add_medication_screen_label.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
 import 'package:picos/widgets/picos_select.dart';
-import '../../states/medications_list_state.dart';
-import '../../widgets/picos_body.dart';
-import '../my_medications_screen/medication_card.dart';
 
-///A screen for adding new medication schedules.
-class AddMedicationScreen extends StatelessWidget {
-  ///Creates the AddMedicationScreen.
+import '../../states/medications_list_bloc.dart';
+import '../../widgets/picos_body.dart';
+
+/// A screen for adding new medication schedules.
+class AddMedicationScreen extends StatefulWidget {
+  /// Creates the AddMedicationScreen.
   const AddMedicationScreen({Key? key}) : super(key: key);
+
+  @override
+  _AddMedicationScreenState createState() => _AddMedicationScreenState();
+}
+
+class _AddMedicationScreenState extends State<AddMedicationScreen> {
+  /// The amount to take in the morning.
+  String _morning = '0';
+
+  /// The amount to take in the noon.
+  String _noon = '0';
+
+  /// The amount to take in the evening.
+  String _evening = '0';
+
+  /// The amount to take before night.
+  String _night = '0';
+
+  /// The compound to be taken.
+  String? _compound;
+
+  Expanded _createAmountSelect(
+      EdgeInsets padding, String hint, String medicationTime) {
+    return Expanded(
+      child: Padding(
+        padding: padding,
+        child: PicosSelect(
+          selection: Medication.selection,
+          hint: hint,
+          callBackFunction: (String value) {
+            //Since mirrors are disabled or prohibited in Flutter.
+            switch (medicationTime) {
+              case 'morning':
+                _morning = value;
+                break;
+              case 'noon':
+                _noon = value;
+                break;
+              case 'evening':
+                _evening = value;
+                break;
+              case 'night':
+                _night = value;
+                break;
+            }
+          },
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,40 +78,8 @@ class AddMedicationScreen extends StatelessWidget {
       top: 5,
     );
 
-    final MedicationModel medication = MedicationModel();
-
-    Expanded _createAmountSelect(
-        EdgeInsets padding, String hint, String medicationTime) {
-      return Expanded(
-        child: Padding(
-          padding: padding,
-          child: PicosSelect(
-            selection: MedicationModel.selection,
-            hint: hint,
-            callBackFunction: (String value) {
-              //Since mirrors are disabled or prohibited in Flutter.
-              switch (medicationTime) {
-                case 'morning':
-                  medication.morning = value;
-                  break;
-                case 'noon':
-                  medication.noon = value;
-                  break;
-                case 'evening':
-                  medication.evening = value;
-                  break;
-                case 'night':
-                  medication.night = value;
-                  break;
-              }
-            },
-          ),
-        ),
-      );
-    }
-
-    return BlocBuilder<MedicationsListState, List<MedicationCard>>(
-      builder: (BuildContext context, List<MedicationCard> state) {
+    return BlocBuilder<MedicationsListBloc, MedicationsListState>(
+      builder: (BuildContext context, MedicationsListState state) {
         return Container(
           color: Theme.of(context).backgroundColor,
           child: SafeArea(
@@ -69,7 +87,15 @@ class AddMedicationScreen extends StatelessWidget {
               bottomNavigationBar: PicosInkWellButton(
                 text: AppLocalizations.of(context)!.add,
                 onTap: () {
-                  context.read<MedicationsListState>().addCard(medication);
+                  context
+                      .read<MedicationsListBloc>()
+                      .add(SaveMedication(Medication(
+                        compound: _compound!,
+                        morning: _morning,
+                        noon: _noon,
+                        evening: _evening,
+                        night: _night,
+                      )));
                   Navigator.of(context).pop();
                 },
               ),
@@ -136,7 +162,7 @@ class AddMedicationScreen extends StatelessWidget {
                       width: double.infinity,
                       child: PicosSelect(
                           callBackFunction: (String value) {
-                            medication.compound = value;
+                            _compound = value;
                           },
                           // Placeholder values to be changed.
                           selection: const <String>['Aspirin', 'Vitamin C'],

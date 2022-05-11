@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-///A defined button with InkWell animation.
+/// A defined button with InkWell animation.
 class PicosInkWellButton extends StatelessWidget {
-  ///Creates the PicosInkWellButton.
+  /// Creates the PicosInkWellButton.
   const PicosInkWellButton({required this.text, required this.onTap, Key? key})
       : super(key: key);
 
-  ///The text shown on the button.
+  /// The text shown on the button.
   final String text;
 
-  ///The function to execute on tap.
+  /// The function to execute on tap.
   final void Function() onTap;
 
   @override

@@ -1,15 +1,41 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:picos/models/medication_model.dart';
-import 'package:picos/screens/my_medications_screen/medication_card.dart';
+part of 'medications_list_bloc.dart';
 
-///A BloC holding the MedicationsList.
-class MedicationsListState extends Cubit<List<MedicationCard>> {
-  ///Creates the MedicationsListState.
-  MedicationsListState(List<MedicationCard> initialState) : super(initialState);
+/// Possible states for the list can contain.
+enum MedicationsListStatus {
+  /// The initial state on creation.
+  initial,
+  /// State for loading or processing.
+  loading,
+  /// State when loading was successful.
+  success,
+  /// State when loading failed.
+  failure
+}
 
-  ///Adds a new Card to the medication list.
-  void addCard(MedicationModel medication) {
-    state.add(MedicationCard(medication));
-    emit(state);
+/// Handles the MedicationsListState.
+class MedicationsListState extends Equatable {
+  /// MedicationsListState constructor.
+  const MedicationsListState(
+      {this.medicationsList = const <Medication>[],
+      this.status = MedicationsListStatus.initial,
+      });
+
+  /// The current [MedicationsListStatus].
+  final MedicationsListStatus status;
+  /// The current [medicationsList] containing all medications.
+  final List<Medication> medicationsList;
+
+  /// Creates a copy with updated values.
+  MedicationsListState copyWith(
+      {List<Medication>? medicationsList,
+      MedicationsListStatus? status,
+      bool? hasReachedMax}) {
+    return MedicationsListState(
+        status: status ?? this.status,
+        medicationsList: medicationsList ?? this.medicationsList,
+    );
   }
+
+  @override
+  List<Object> get props => <Object>[status, medicationsList];
 }

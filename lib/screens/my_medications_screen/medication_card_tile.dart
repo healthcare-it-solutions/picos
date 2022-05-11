@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-///Each quarter of the medication card showing when and how much medicine you
-///have to take.
+/// Each quarter of the medication card showing when and how much medicine you
+/// have to take.
 class MedicationCardTile extends StatelessWidget {
-  ///MedicationCardTile(Time:[String], Amount:[String])
+  /// MedicationCardTile(Time:[String], Amount:[String])
   const MedicationCardTile(this._time, this._amount, {Key? key})
       : super(key: key);
 

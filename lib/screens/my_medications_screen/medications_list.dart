@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:picos/states/medications_list_state.dart';
+import 'package:picos/states/medications_list_bloc.dart';
 import 'medication_card.dart';
 
-///A List with all medications.
+/// A List with all medications.
 class MedicationsList extends StatefulWidget {
-  ///Creates the medication list.
+  /// Creates the medication list.
   const MedicationsList({Key? key}) : super(key: key);
 
   @override
@@ -15,14 +15,22 @@ class MedicationsList extends StatefulWidget {
 class _MedicationsListState extends State<MedicationsList> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MedicationsListState, List<MedicationCard>>(
-      builder: (BuildContext context, List<MedicationCard> state) =>
-          ListView.builder(
-        itemCount: context.read<MedicationsListState>().state.length,
-        itemBuilder: (BuildContext context, int index) {
-          return context.read<MedicationsListState>().state[index];
-        },
-      ),
+    return BlocBuilder<MedicationsListBloc, MedicationsListState>(
+      builder: (BuildContext context, MedicationsListState state) {
+        if (state.medicationsList.isEmpty &&
+            state.status == MedicationsListStatus.loading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        return ListView.builder(
+          itemCount: state.medicationsList.length,
+          itemBuilder: (BuildContext context, int index) {
+            return MedicationCard(state.medicationsList[index]);
+          },
+        );
+      },
     );
   }
 }

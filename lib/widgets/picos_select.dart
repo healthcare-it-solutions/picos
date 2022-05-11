@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-///A pre configured selection widget.
+/// A pre configured selection widget.
 class PicosSelect extends StatefulWidget {
-  ///Creates a select-dropdown-item.
+  /// Creates a select-dropdown-item.
   const PicosSelect(
       {required this.selection,
       required this.callBackFunction,
@@ -10,13 +10,13 @@ class PicosSelect extends StatefulWidget {
       this.hint})
       : super(key: key);
 
-  ///The array of items selectable in the dropdown.
+  /// The array of items selectable in the dropdown.
   final List<String> selection;
 
-  ///The function that is executed when an item gets selected.
+  /// The function that is executed when an item gets selected.
   final Function(String) callBackFunction;
 
-  ///The hint shown in the select.
+  /// The hint shown in the select.
   final String? hint;
 
   @override
