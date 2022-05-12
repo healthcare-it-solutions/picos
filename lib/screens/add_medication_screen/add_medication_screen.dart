@@ -21,18 +21,16 @@ class AddMedicationScreen extends StatefulWidget {
 class _AddMedicationScreenState extends State<AddMedicationScreen> {
   /// The amount to take in the morning.
   String _morning = '0';
-
   /// The amount to take in the noon.
   String _noon = '0';
-
   /// The amount to take in the evening.
   String _evening = '0';
-
   /// The amount to take before night.
   String _night = '0';
-
   /// The compound to be taken.
   String? _compound;
+  /// Determines if you are able to add the medication.
+  bool _addDisabled = true;
 
   Expanded _createAmountSelect(
       EdgeInsets padding, String hint, String medicationTime) {
@@ -78,6 +76,12 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
       top: 5,
     );
 
+    String addText = AppLocalizations.of(context)!.selectCompound;
+
+    if (!_addDisabled) {
+      addText = AppLocalizations.of(context)!.add;
+    }
+
     return BlocBuilder<MedicationsListBloc, MedicationsListState>(
       builder: (BuildContext context, MedicationsListState state) {
         return Container(
@@ -85,7 +89,8 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
           child: SafeArea(
             child: Scaffold(
               bottomNavigationBar: PicosInkWellButton(
-                text: AppLocalizations.of(context)!.add,
+                disabled: _addDisabled,
+                text: addText,
                 onTap: () {
                   context
                       .read<MedicationsListBloc>()
@@ -163,6 +168,9 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                       child: PicosSelect(
                           callBackFunction: (String value) {
                             _compound = value;
+                            setState(() {
+                              _addDisabled = false;
+                            });
                           },
                           // Placeholder values to be changed.
                           selection: const <String>['Aspirin', 'Vitamin C'],
