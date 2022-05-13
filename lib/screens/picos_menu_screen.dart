@@ -29,7 +29,7 @@ class PicosMenu extends StatelessWidget {
       padding: const EdgeInsets.all(15.0),
       children: const <Widget>[
         Text(
-          'PLACEHOLDER',
+          'Meine Gesundheit',
           style: TextStyle(
             fontWeight: FontWeight.bold
           )
@@ -37,32 +37,32 @@ class PicosMenu extends StatelessWidget {
         SizedBox(height: 20),
         ListTile(
           leading: Icon(Icons.insights),
-          title: Text('Sun'),
+          title: Text('Werte'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
         ListTile(
           leading: Icon(Icons.medication),
-          title: Text('Moon'),
+          title: Text('Medikationsplan'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
         ListTile(
           leading: Icon(Icons.groups),
-          title: Text('Star'),
+          title: Text('BehandlerInnen'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
         ListTile(
           leading: Icon(Icons.people),
-          title: Text('Star'),
+          title: Text('Angehörige'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
         ListTile(
           leading: Icon(Icons.description),
-          title: Text('Star'),
+          title: Text('Dokumente'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
         SizedBox(height: 20,),
         Text(
-          'PLACEHOLDER',
+          'Mehr',
           style: TextStyle(
             fontWeight: FontWeight.bold
           )
@@ -70,27 +70,27 @@ class PicosMenu extends StatelessWidget {
         SizedBox(height: 20),
         ListTile(
           leading: Icon(Icons.notifications),
-          title: Text('Sun'),
+          title: Text('Benachrichtigungen'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
         ListTile(
           leading: Icon(Icons.settings),
-          title: Text('Moon'),
+          title: Text('Profil'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
         ListTile(
           leading: Icon(Icons.lock),
-          title: Text('Star'),
+          title: Text('Datenschutzhinweise'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
         ListTile(
           leading: Icon(Icons.gavel),
-          title: Text('Star'),
+          title: Text('Impressum'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
         ListTile(
           leading: Icon(Icons.logout),
-          title: Text('Star'),
+          title: Text('Ausloggen'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
       ],
