@@ -33,7 +33,7 @@ class MainScreen extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       routes: <String, WidgetBuilder>{
-        '/questionaire': (BuildContext context) => QuestionaireScreen()
+        '/questionaire': (BuildContext context) => const QuestionaireScreen()
       },
       theme: ThemeData(
         primarySwatch: Colors.blue,

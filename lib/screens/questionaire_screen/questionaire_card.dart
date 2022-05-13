@@ -59,6 +59,7 @@ class _QuestionaireCardState extends State<QuestionaireCard> {
 
 /// This is a widget that returns a [Card].
 class QuestionaireCard extends StatefulWidget {
+  // ignore: public_member_api_docs
   const QuestionaireCard(
       {required this.question, required this.answers, Key? key})
       : super(key: key);

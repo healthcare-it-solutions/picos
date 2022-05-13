@@ -82,7 +82,7 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(25, 102, 117, 1.0),
+        backgroundColor: const Color.fromRGBO(25, 102, 117, 1.0),
         title: Center(child: Text(_appBarTitles[selectedIndex]))
       ),
       body: Center(
