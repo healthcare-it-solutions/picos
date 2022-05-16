@@ -12,14 +12,14 @@ class OverviewScreen extends StatelessWidget {
       children: [
         Container(
           color: Colors.green,
-          child: InputCard(),
+          child: const InputCard(),
         ),
         Container(
           color: Colors.lightGreen
         ),
         Container(
           color: Colors.blue,
-          child: Progress()
+          child: const Progress()
         )
       ]
     );

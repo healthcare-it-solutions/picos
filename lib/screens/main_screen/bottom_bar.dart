@@ -86,7 +86,7 @@ class _BottomBarState extends State<BottomBar> {
           title: Center(child: Text(_appBarTitles[selectedIndex]))),
       body: Center(
         child: <Widget>[
-          OverviewScreen(),
+          const OverviewScreen(),
           const Icon(
             Icons.mail,
             size: 150,

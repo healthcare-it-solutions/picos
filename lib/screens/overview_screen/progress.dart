@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class Progress extends StatelessWidget {
   const Progress({Key? key}) : super(key: key);
@@ -7,19 +6,19 @@ class Progress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Column(
-              children: [
-                Text("lorem ipsum dolor sit amet"),
+              children: const <Widget> [
+                Text('lorem ipsum dolor sit amet'),
                 SizedBox(height: 20),
-                ElevatedButton(onPressed: null, child: Text("PLACEHOLDER"))
+                ElevatedButton(onPressed: null, child: Text('PLACEHOLDER'))
               ],
             ),
-            Text(
-              "75 %",
+            const Text(
+              '75 %',
               textScaleFactor: 5,
             )
           ],
