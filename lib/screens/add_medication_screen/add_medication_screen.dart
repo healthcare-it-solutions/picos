@@ -20,17 +20,29 @@ class AddMedicationScreen extends StatefulWidget {
 
 class _AddMedicationScreenState extends State<AddMedicationScreen> {
   /// The amount to take in the morning.
-  String _morning = '0';
+  double _morning = 0;
   /// The amount to take in the noon.
-  String _noon = '0';
+  double _noon = 0;
   /// The amount to take in the evening.
-  String _evening = '0';
+  double _evening = 0;
   /// The amount to take before night.
-  String _night = '0';
+  double _night = 0;
   /// The compound to be taken.
   String? _compound;
   /// Determines if you are able to add the medication.
   bool _addDisabled = true;
+
+  double _convertMedicationAmount(String value) {
+    if (value.length >= 3 && value.substring(value.length - 3) == '1/2') {
+      return 0.5;
+    }
+
+    if (value.length >= 4 && value.substring(value.length - 4) == ' 1/2') {
+      return double.parse(value.split(' ')[0]) + 0.5;
+    }
+
+    return double.parse(value);
+  }
 
   Expanded _createAmountSelect(
       EdgeInsets padding, String hint, String medicationTime) {
@@ -44,16 +56,16 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
             //Since mirrors are disabled or prohibited in Flutter.
             switch (medicationTime) {
               case 'morning':
-                _morning = value;
+                _morning = _convertMedicationAmount(value);
                 break;
               case 'noon':
-                _noon = value;
+                _noon = _convertMedicationAmount(value);
                 break;
               case 'evening':
-                _evening = value;
+                _evening = _convertMedicationAmount(value);
                 break;
               case 'night':
-                _night = value;
+                _night = _convertMedicationAmount(value);
                 break;
             }
           },

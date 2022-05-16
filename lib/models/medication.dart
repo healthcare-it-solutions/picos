@@ -11,16 +11,16 @@ class Medication extends Equatable {
       required this.night});
 
   /// The amount to take in the morning.
-  final String morning;
+  final double morning;
 
   /// The amount to take in the noon.
-  final String noon;
+  final double noon;
 
   /// The amount to take in the evening.
-  final String evening;
+  final double evening;
 
   /// The amount to take before night.
-  final String night;
+  final double night;
 
   /// The compound to be taken.
   final String compound;
@@ -31,10 +31,10 @@ class Medication extends Equatable {
   /// Returns a copy of this medication with the given values updated.
   Medication copyWith(
       {String? compound,
-      String? morning,
-      String? noon,
-      String? evening,
-      String? night}) {
+      double? morning,
+      double? noon,
+      double? evening,
+      double? night}) {
     return Medication(
         compound: compound ?? this.compound,
         morning: morning ?? this.morning,

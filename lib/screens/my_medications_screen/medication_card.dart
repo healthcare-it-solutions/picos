@@ -43,6 +43,22 @@ class MedicationCard extends StatelessWidget {
     );
   }
 
+  String _convertMedicationAmountType(double value) {
+    List<String> values = value.toString().split('.');
+    String intValue = values[0];
+    String half = values[1];
+
+    if (intValue == '0' && half != '0') {
+      return '1/2';
+    }
+
+    if (intValue != '0' && half != '0') {
+      return intValue + ' 1/2';
+    }
+
+    return intValue;
+  }
+
   @override
   Widget build(BuildContext context) {
     final BorderRadius borderRadius = BorderRadius.circular(10);
@@ -80,17 +96,19 @@ class MedicationCard extends StatelessWidget {
                 child: Row(
                   children: <Expanded>[
                     _createCardColumn(
-                        context,
-                        AppLocalizations.of(context)!.inTheMorning,
-                        AppLocalizations.of(context)!.inTheEvening,
-                        _medication.morning,
-                        _medication.evening),
+                      context,
+                      AppLocalizations.of(context)!.inTheMorning,
+                      AppLocalizations.of(context)!.inTheEvening,
+                      _convertMedicationAmountType(_medication.morning),
+                      _convertMedicationAmountType(_medication.evening),
+                    ),
                     _createCardColumn(
-                        context,
-                        AppLocalizations.of(context)!.noon,
-                        AppLocalizations.of(context)!.toTheNight,
-                        _medication.noon,
-                        _medication.night),
+                      context,
+                      AppLocalizations.of(context)!.noon,
+                      AppLocalizations.of(context)!.toTheNight,
+                      _convertMedicationAmountType(_medication.noon),
+                      _convertMedicationAmountType(_medication.night),
+                    ),
                   ],
                 ),
               ),
