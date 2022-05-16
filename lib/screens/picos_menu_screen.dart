@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:picos/screens/family_members_screen.dart';
 
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
@@ -27,68 +28,69 @@ class PicosMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.all(15.0),
-      children: const <Widget>[
-        Text(
-          'Meine Gesundheit',
-          style: TextStyle(
-            fontWeight: FontWeight.bold
+      children: <Widget>[
+        const Text('Meine Gesundheit', style: TextStyle(
+          fontWeight: FontWeight.bold
           )
         ),
-        SizedBox(height: 20),
-        ListTile(
+        const SizedBox(height: 20),
+        const ListTile(
           leading: Icon(Icons.insights),
           title: Text('Werte'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
-        ListTile(
+        const ListTile(
           leading: Icon(Icons.medication),
           title: Text('Medikationsplan'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
-        ListTile(
+        const ListTile(
           leading: Icon(Icons.groups),
           title: Text('BehandlerInnen'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
         ListTile(
-          leading: Icon(Icons.people),
-          title: Text('Angehörige'),
-          trailing: Icon(Icons.keyboard_arrow_right),
+          leading: const Icon(Icons.people),
+          title: const Text('Angehörige'),
+          trailing: const Icon(Icons.keyboard_arrow_right),
+          onTap: () => Navigator.push(
+            context, 
+            MaterialPageRoute(
+              builder: (BuildContext context) => const FamilyMembers()
+            )
+          ),
         ),
-        ListTile(
+        const ListTile(
           leading: Icon(Icons.description),
           title: Text('Dokumente'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
-        SizedBox(height: 20,),
-        Text(
-          'Mehr',
-          style: TextStyle(
-            fontWeight: FontWeight.bold
-          )
+        const SizedBox(
+          height: 20,
         ),
-        SizedBox(height: 20),
-        ListTile(
+        const Text('Mehr', style: TextStyle(fontWeight: FontWeight.bold)),
+        const SizedBox(height: 20),
+        const ListTile(
           leading: Icon(Icons.notifications),
           title: Text('Benachrichtigungen'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
-        ListTile(
+        const ListTile(
           leading: Icon(Icons.settings),
           title: Text('Profil'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
-        ListTile(
+        const ListTile(
           leading: Icon(Icons.lock),
           title: Text('Datenschutzhinweise'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
-        ListTile(
+        const ListTile(
           leading: Icon(Icons.gavel),
           title: Text('Impressum'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
-        ListTile(
+        const ListTile(
           leading: Icon(Icons.logout),
           title: Text('Ausloggen'),
           trailing: Icon(Icons.keyboard_arrow_right),
