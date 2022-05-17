@@ -6,6 +6,7 @@ import 'package:picos/screens/add_medication_screen/add_medication_screen_label.
 import 'package:picos/widgets/picos_ink_well_button.dart';
 import 'package:picos/widgets/picos_select.dart';
 
+import '../../repository/medications_repository.dart';
 import '../../states/medications_list_bloc.dart';
 import '../../widgets/picos_body.dart';
 
@@ -21,28 +22,21 @@ class AddMedicationScreen extends StatefulWidget {
 class _AddMedicationScreenState extends State<AddMedicationScreen> {
   /// The amount to take in the morning.
   double _morning = 0;
+
   /// The amount to take in the noon.
   double _noon = 0;
+
   /// The amount to take in the evening.
   double _evening = 0;
+
   /// The amount to take before night.
   double _night = 0;
+
   /// The compound to be taken.
   String? _compound;
+
   /// Determines if you are able to add the medication.
   bool _addDisabled = true;
-
-  double _convertMedicationAmount(String value) {
-    if (value.length >= 3 && value.substring(value.length - 3) == '1/2') {
-      return 0.5;
-    }
-
-    if (value.length >= 4 && value.substring(value.length - 4) == ' 1/2') {
-      return double.parse(value.split(' ')[0]) + 0.5;
-    }
-
-    return double.parse(value);
-  }
 
   Expanded _createAmountSelect(
       EdgeInsets padding, String hint, String medicationTime) {
@@ -56,16 +50,16 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
             //Since mirrors are disabled or prohibited in Flutter.
             switch (medicationTime) {
               case 'morning':
-                _morning = _convertMedicationAmount(value);
+                _morning = MedicationsRepository.amountToDouble(value);
                 break;
               case 'noon':
-                _noon = _convertMedicationAmount(value);
+                _noon = MedicationsRepository.amountToDouble(value);
                 break;
               case 'evening':
-                _evening = _convertMedicationAmount(value);
+                _evening = MedicationsRepository.amountToDouble(value);
                 break;
               case 'night':
-                _night = _convertMedicationAmount(value);
+                _night = MedicationsRepository.amountToDouble(value);
                 break;
             }
           },
@@ -76,6 +70,34 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String title = AppLocalizations.of(context)!.addMedication;
+    String? compoundHint = AppLocalizations.of(context)!.selectCompound;
+    String morningHint = AppLocalizations.of(context)!.inTheMorning;
+    String noonHint = AppLocalizations.of(context)!.noon;
+    String eveningHint = AppLocalizations.of(context)!.inTheEvening;
+    String nightHint = AppLocalizations.of(context)!.toTheNight;
+
+    Object? medicationEdit = ModalRoute.of(context)!.settings.arguments;
+
+    if (medicationEdit != null) {
+      medicationEdit = medicationEdit as Medication;
+      _addDisabled = false;
+
+      _morning = medicationEdit.morning;
+      _noon = medicationEdit.noon;
+      _evening = medicationEdit.evening;
+      _night = medicationEdit.night;
+      _compound = medicationEdit.compound;
+
+      title = AppLocalizations.of(context)!.editMedication;
+      compoundHint = _compound;
+
+      morningHint += ' ' + MedicationsRepository.amountToString(_morning);
+      noonHint += ' ' + MedicationsRepository.amountToString(_noon);
+      eveningHint += ' ' + MedicationsRepository.amountToString(_evening);
+      nightHint += ' ' + MedicationsRepository.amountToString(_night);
+    }
+
     const Color infoTextFontColor = Colors.white;
     const EdgeInsets selectPaddingRight = EdgeInsets.only(
       bottom: 5,
@@ -92,6 +114,10 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
 
     if (!_addDisabled) {
       addText = AppLocalizations.of(context)!.add;
+    }
+
+    if (!_addDisabled && medicationEdit != null) {
+      addText = AppLocalizations.of(context)!.save;
     }
 
     return BlocBuilder<MedicationsListBloc, MedicationsListState>(
@@ -118,7 +144,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
               ),
               appBar: AppBar(
                 centerTitle: true,
-                title: Text(AppLocalizations.of(context)!.addMedication),
+                title: Text(title),
                 backgroundColor: Theme.of(context).backgroundColor,
                 foregroundColor: Colors.black,
                 elevation: 0,
@@ -186,7 +212,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                           },
                           // Placeholder values to be changed.
                           selection: const <String>['Aspirin', 'Vitamin C'],
-                          hint: AppLocalizations.of(context)!.selectCompound),
+                          hint: compoundHint),
                     ),
                     const SizedBox(
                       height: 30,
@@ -197,21 +223,17 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                     Row(
                       children: <Expanded>[
                         _createAmountSelect(
-                            selectPaddingRight,
-                            AppLocalizations.of(context)!.inTheMorning,
-                            'morning'),
-                        _createAmountSelect(selectPaddingLeft,
-                            AppLocalizations.of(context)!.noon, 'noon'),
+                            selectPaddingRight, morningHint, 'morning'),
+                        _createAmountSelect(
+                            selectPaddingLeft, noonHint, 'noon'),
                       ],
                     ),
                     Row(
                       children: <Expanded>[
                         _createAmountSelect(
-                            selectPaddingRight,
-                            AppLocalizations.of(context)!.inTheEvening,
-                            'evening'),
-                        _createAmountSelect(selectPaddingLeft,
-                            AppLocalizations.of(context)!.toTheNight, 'night'),
+                            selectPaddingRight, eveningHint, 'evening'),
+                        _createAmountSelect(
+                            selectPaddingLeft, nightHint, 'night'),
                       ],
                     ),
                   ],

@@ -3,6 +3,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/models/medication.dart';
 import 'package:picos/screens/my_medications_screen/medication_card_tile.dart';
 
+import '../../repository/medications_repository.dart';
+
 /// The card displaying a medication plan.
 class MedicationCard extends StatelessWidget {
   /// Creates the card with the medication plan.
@@ -43,22 +45,6 @@ class MedicationCard extends StatelessWidget {
     );
   }
 
-  String _convertMedicationAmountType(double value) {
-    List<String> values = value.toString().split('.');
-    String intValue = values[0];
-    String half = values[1];
-
-    if (intValue == '0' && half != '0') {
-      return '1/2';
-    }
-
-    if (intValue != '0' && half != '0') {
-      return intValue + ' 1/2';
-    }
-
-    return intValue;
-  }
-
   @override
   Widget build(BuildContext context) {
     final BorderRadius borderRadius = BorderRadius.circular(10);
@@ -70,7 +56,10 @@ class MedicationCard extends StatelessWidget {
         elevation: 5,
         child: InkWell(
           borderRadius: borderRadius,
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context)
+                .pushNamed('/add-medication', arguments: _medication);
+          },
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -99,15 +88,15 @@ class MedicationCard extends StatelessWidget {
                       context,
                       AppLocalizations.of(context)!.inTheMorning,
                       AppLocalizations.of(context)!.inTheEvening,
-                      _convertMedicationAmountType(_medication.morning),
-                      _convertMedicationAmountType(_medication.evening),
+                      MedicationsRepository.amountToString(_medication.morning),
+                      MedicationsRepository.amountToString(_medication.evening),
                     ),
                     _createCardColumn(
                       context,
                       AppLocalizations.of(context)!.noon,
                       AppLocalizations.of(context)!.toTheNight,
-                      _convertMedicationAmountType(_medication.noon),
-                      _convertMedicationAmountType(_medication.night),
+                      MedicationsRepository.amountToString(_medication.noon),
+                      MedicationsRepository.amountToString(_medication.night),
                     ),
                   ],
                 ),

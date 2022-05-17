@@ -45,6 +45,10 @@
     "@addMedication": {
         "description": "Add medication"
     },
+    "editMedication": "Edit medication",
+    "@editMedication": {
+        "description": "Edit medication"
+    },
 
     "addMedicationInfoPart1": "Please enter ",
     "@addMedicationInfoPart1": {
@@ -66,16 +70,21 @@
 
     "compound": "Compound",
     "@compound": {
-        "descriptions": "Compound"
+        "description": "Compound"
     },
 
     "intake": "Intake",
     "@intake": {
-        "descriptions": "Intake"
+        "description": "Intake"
     },
 
     "add": "Add",
     "@add": {
-        "descriptions": "Add"
+        "description": "Add"
+    },
+
+    "save": "Save",
+    "@save": {
+        "description": "Save"
     }
 }
