@@ -36,7 +36,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MedicationsRepository medicationsRepository =
-    MedicationsRepository(medicationsApi: LocalStorageMedicationsApi());
+        MedicationsRepository(medicationsApi: LocalStorageMedicationsApi());
 
     return MultiRepositoryProvider(
       providers: <RepositoryProvider<MedicationsRepository>>[
@@ -68,16 +68,16 @@ class MainScreen extends StatelessWidget {
               textButtonTheme: TextButtonThemeData(
                 style: ButtonStyle(
                   foregroundColor:
-                  MaterialStateProperty.all<Color>(Colors.white),
+                      MaterialStateProperty.all<Color>(Colors.white),
                 ),
               ),
             ),
             home: const BottomBar(title: 'PICOS'),
             routes: <String, Widget Function(BuildContext)>{
               '/my-medications': (BuildContext ctx) =>
-              const MyMedicationsScreen(),
+                  const MyMedicationsScreen(),
               '/add-medication': (BuildContext ctx) =>
-              const AddMedicationScreen()
+                  const AddMedicationScreen()
             }),
       ),
     );

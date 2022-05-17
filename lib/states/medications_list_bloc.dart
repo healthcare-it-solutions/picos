@@ -44,8 +44,8 @@ class MedicationsListBloc
     );
   }
 
-  Future<void> _onAddMedication(SaveMedication event,
-      Emitter<MedicationsListState> emit) async {
+  Future<void> _onAddMedication(
+      SaveMedication event, Emitter<MedicationsListState> emit) async {
     await _medicationsRepository.saveMedication(event.medication);
   }
 }

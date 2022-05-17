@@ -4,10 +4,13 @@ part of 'medications_list_bloc.dart';
 enum MedicationsListStatus {
   /// The initial state on creation.
   initial,
+
   /// State for loading or processing.
   loading,
+
   /// State when loading was successful.
   success,
+
   /// State when loading failed.
   failure
 }
@@ -15,13 +18,14 @@ enum MedicationsListStatus {
 /// Handles the MedicationsListState.
 class MedicationsListState extends Equatable {
   /// MedicationsListState constructor.
-  const MedicationsListState(
-      {this.medicationsList = const <Medication>[],
-      this.status = MedicationsListStatus.initial,
-      });
+  const MedicationsListState({
+    this.medicationsList = const <Medication>[],
+    this.status = MedicationsListStatus.initial,
+  });
 
   /// The current [MedicationsListStatus].
   final MedicationsListStatus status;
+
   /// The current [medicationsList] containing all medications.
   final List<Medication> medicationsList;
 
@@ -31,8 +35,8 @@ class MedicationsListState extends Equatable {
       MedicationsListStatus? status,
       bool? hasReachedMax}) {
     return MedicationsListState(
-        status: status ?? this.status,
-        medicationsList: medicationsList ?? this.medicationsList,
+      status: status ?? this.status,
+      medicationsList: medicationsList ?? this.medicationsList,
     );
   }
 
