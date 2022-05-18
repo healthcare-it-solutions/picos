@@ -46,7 +46,7 @@ class _BottomBarState extends State<BottomBar> {
   /// stores the currently selected element of the navbar
   int selectedIndex = 0;
 
-  final List<String> _appBarTitles = <String> [
+  final List<String> _appBarTitles = <String>[
     'overview',
     'inbox',
     'calender',
@@ -55,7 +55,7 @@ class _BottomBarState extends State<BottomBar> {
 
   // TODO: refactor the appBarTitiles to return localized messages
   String appBarTitle(BuildContext context, int index) {
-    final List<String> appBarTitles = <String> [
+    final List<String> appBarTitles = <String>[
       'overview',
       'inbox',
       'calender',
@@ -67,8 +67,7 @@ class _BottomBarState extends State<BottomBar> {
     }
 
     return appBarTitles[index];
-  } 
-
+  }
 
   /// This function gets called when tapping on an element on the bottom bar.
   /// It keeps track of the currently selected element.
@@ -82,9 +81,8 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(25, 102, 117, 1.0),
-        title: Center(child: Text(_appBarTitles[selectedIndex]))
-      ),
+          backgroundColor: const Color.fromRGBO(25, 102, 117, 1.0),
+          title: Center(child: Text(_appBarTitles[selectedIndex]))),
       body: Center(
         child: <Widget>[
           MaterialButton(

@@ -27,33 +27,36 @@ class _QuestionaireCardState extends State<QuestionaireCard> {
         value: answer.key,
         groupValue: _selectedElement,
         onChanged: (int? newSelection) {
-          setState(() {
-            _selectedElement = newSelection;
-          });
-        }
+          setState(
+            () {
+              _selectedElement = newSelection;
+            },
+          );
+        },
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return (Card(
+    return Card(
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Center(
-              child: Text(
-            widget.question,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          )),
+            child: Text(
+              widget.question,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
           Text(widget.question),
           ..._genReplies()
         ],
       ),
-    ));
+    );
   }
 }
 

@@ -29,10 +29,8 @@ class PicosMenu extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(15.0),
       children: <Widget>[
-        const Text('Meine Gesundheit', style: TextStyle(
-          fontWeight: FontWeight.bold
-          )
-        ),
+        const Text('Meine Gesundheit',
+            style: TextStyle(fontWeight: FontWeight.bold)),
         const SizedBox(height: 20),
         const ListTile(
           leading: Icon(Icons.insights),
@@ -54,10 +52,10 @@ class PicosMenu extends StatelessWidget {
           title: const Text('Angehörige'),
           trailing: const Icon(Icons.keyboard_arrow_right),
           onTap: () => Navigator.push(
-            context, 
+            context,
             MaterialPageRoute(
-              builder: (BuildContext context) => const FamilyMembers()
-            )
+              builder: (BuildContext context) => const FamilyMembers(),
+            ),
           ),
         ),
         const ListTile(
