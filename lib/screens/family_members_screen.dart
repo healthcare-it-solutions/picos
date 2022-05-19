@@ -18,7 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:picos/screens/family_members_add_screen.dart';
 
-/// This is the screen a user will see a list of his family members
+/// This is the screen in which a user will see a list of his family members
 class FamilyMembers extends StatelessWidget {
   // ignore: public_member_api_docs
   const FamilyMembers({Key? key}) : super(key: key);

@@ -17,7 +17,8 @@
 
 import 'package:flutter/material.dart';
 
-/// This is the screen a user will see a list of his family members
+/// This is the screen in which a user can add/edit
+/// information about his family members
 class FamilyMembersAdd extends StatefulWidget {
   // ignore: public_member_api_docs
   const FamilyMembersAdd({Key? key}) : super(key: key);
