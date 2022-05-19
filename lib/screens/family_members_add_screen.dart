@@ -17,6 +17,9 @@
 
 import 'package:flutter/material.dart';
 
+/// contains the gender of the corresponding family member
+enum Gender { male, female }
+
 /// This is the screen in which a user can add/edit
 /// information about his family members
 class FamilyMembersAdd extends StatefulWidget {
@@ -28,7 +31,9 @@ class FamilyMembersAdd extends StatefulWidget {
 }
 
 class _FamilyMembersAddState extends State<FamilyMembersAdd> {
-  String dropDownValue = '';
+  String dropDownValue = 'Vater';
+
+  Gender? _gender = Gender.male;
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +48,16 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
         ),
       ),
       body: SingleChildScrollView(
+        padding: const EdgeInsets.all(10),
         child: Form(
           //key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              DropdownButton<String>(
-                hint: const Text('Art der Familienzugehörigkeit'),
+              DropdownButtonFormField<String>(
+                decoration: const InputDecoration(
+                  labelText: 'Wählen Sie Ihren Familienangehörigen aus.',
+                ),
                 isExpanded: true,
                 value: dropDownValue,
                 icon: const Icon(Icons.arrow_downward),
@@ -57,10 +65,6 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                 style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
-                ),
-                underline: Container(
-                  height: 2,
-                  color: Colors.black,
                 ),
                 onChanged: (String? newValue) {
                   setState(
@@ -84,6 +88,107 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                     );
                   },
                 ).toList(),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  const Text(
+                    'Geschlecht *',
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                  ),
+                  Expanded(
+                    child: RadioListTile(
+                      title: const Text(
+                        'Männlich',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      value: Gender.male,
+                      groupValue: _gender,
+                      onChanged: (Gender? value) {
+                        setState(
+                          () {
+                            _gender = value;
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                  Expanded(
+                    child: RadioListTile(
+                      title: const Text(
+                        'Weiblich',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      value: Gender.female,
+                      groupValue: _gender,
+                      onChanged: (Gender? value) {
+                        setState(
+                          () {
+                            _gender = value;
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.person),
+                  labelText: 'Vorname *',
+                ),
+                keyboardType: TextInputType.name,
+                onSaved: (String? value) {
+                  // This optional block of code can be used to run
+                  // code when the user saves the form.
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.person),
+                  labelText: 'Nachname *',
+                ),
+                keyboardType: TextInputType.name,
+                onSaved: (String? value) {
+                  // This optional block of code can be used to run
+                  // code when the user saves the form.
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.email),
+                  labelText: 'E-Mail-Adresse *',
+                ),
+                keyboardType: TextInputType.emailAddress,
+                onSaved: (String? value) {
+                  // This optional block of code can be used to run
+                  // code when the user saves the form.
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.numbers),
+                  labelText: 'Telefon *',
+                ),
+                keyboardType: TextInputType.number,
+                onSaved: (String? value) {
+                  // This optional block of code can be used to run
+                  // code when the user saves the form.
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.house),
+                  hintText: 'Straßenname Hausnummer\nPLZ Stadt',
+                  labelText: 'Anschrift *',
+                ),
+                keyboardType: TextInputType.multiline,
+                minLines: 2,
+                maxLines: null,
+                onSaved: (String? value) {
+                  // This optional block of code can be used to run
+                  // code when the user saves the form.
+                },
               ),
             ],
           ),
@@ -110,7 +215,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                   ),
                   child: ElevatedButton(
                     onPressed: () {
-                      debugPrint('Abbrechen');
+                      Navigator.pop(context);
                     },
                     child: const Text(
                       'Abbrechen',
