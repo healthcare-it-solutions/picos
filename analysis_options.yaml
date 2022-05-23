@@ -29,7 +29,6 @@ linter:
 
     # The new tabs vs. spaces. Choose wisely
     prefer_single_quotes: true
-    prefer_double_quotes: false
 
     # Good packages document everything
     public_member_api_docs: true
@@ -45,6 +44,9 @@ linter:
 
     # Util classes are awesome!
     avoid_classes_with_only_static_members: true
+
+    # For the sake of everything
+    require_trailing_commas: true
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
