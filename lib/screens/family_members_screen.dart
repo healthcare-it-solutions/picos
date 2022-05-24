@@ -28,7 +28,12 @@ class FamilyMembers extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Meine Angehörigen'),
-        backgroundColor: const Color.fromRGBO(25, 102, 117, 1.0),
+        backgroundColor: const Color.fromRGBO(
+          25,
+          102,
+          117,
+          1.0,
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -48,23 +53,33 @@ class FamilyMembers extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      tileColor: const Color.fromRGBO(25, 102, 117, 1.0),
+                      tileColor: const Color.fromRGBO(
+                        25,
+                        102,
+                        117,
+                        1.0,
+                      ),
                       textColor: Colors.white,
                       title: const Text(
                         'Vater',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsets.only(left: 16, top: 20, right: 16),
+                      padding: const EdgeInsets.only(
+                        left: 16,
+                        top: 20,
+                        right: 16,
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const <Widget>[
                           Text('Herr Max Mustermann'),
                           Text('Musterstraße 1'),
                           Text('Tel. +49 000 12 34 56'),
-                          Text('name@webmail.de')
+                          Text('name@webmail.de'),
                         ],
                       ),
                     ),
@@ -104,16 +119,26 @@ class FamilyMembers extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      tileColor: const Color.fromRGBO(25, 102, 117, 1.0),
+                      tileColor: const Color.fromRGBO(
+                        25,
+                        102,
+                        117,
+                        1.0,
+                      ),
                       textColor: Colors.white,
                       title: const Text(
                         'Vater',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsets.only(left: 16, top: 20, right: 16),
+                      padding: const EdgeInsets.only(
+                        left: 16,
+                        top: 20,
+                        right: 16,
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const <Widget>[
@@ -160,7 +185,12 @@ class FamilyMembers extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      tileColor: const Color.fromRGBO(25, 102, 117, 1.0),
+                      tileColor: const Color.fromRGBO(
+                        25,
+                        102,
+                        117,
+                        1.0,
+                      ),
                       textColor: Colors.white,
                       title: const Text(
                         'Vater',
@@ -219,11 +249,18 @@ class FamilyMembers extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      tileColor: const Color.fromRGBO(25, 102, 117, 1.0),
+                      tileColor: const Color.fromRGBO(
+                        25,
+                        102,
+                        117,
+                        1.0,
+                      ),
                       textColor: Colors.white,
                       title: const Text(
                         'Vater',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Padding(
@@ -279,8 +316,18 @@ class FamilyMembers extends StatelessWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: <Color>[
-                        Color.fromRGBO(149, 193, 31, 1),
-                        Color.fromRGBO(110, 171, 39, 1),
+                        Color.fromRGBO(
+                          149,
+                          193,
+                          31,
+                          1,
+                        ),
+                        Color.fromRGBO(
+                          110,
+                          171,
+                          39,
+                          1,
+                        ),
                       ],
                     ),
                     borderRadius: BorderRadius.circular(5),
