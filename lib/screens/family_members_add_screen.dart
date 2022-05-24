@@ -85,7 +85,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                   'Ehefrau',
                 ].map<DropdownMenuItem<String>>(
                   (String value) {
-                    return DropdownMenuItem(
+                    return DropdownMenuItem<String>(
                       child: Text(value),
                       value: value,
                     );
@@ -103,7 +103,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                     ),
                   ),
                   Expanded(
-                    child: RadioListTile(
+                    child: RadioListTile<Gender>(
                       title: const Text(
                         'Herr',
                         style: TextStyle(
@@ -123,7 +123,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                     ),
                   ),
                   Expanded(
-                    child: RadioListTile(
+                    child: RadioListTile<Gender>(
                       title: const Text(
                         'Frau',
                         style: TextStyle(
@@ -244,7 +244,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                     gradient: const LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [
+                      colors: <Color>[
                         Color.fromRGBO(135, 150, 162, 1),
                         Color.fromRGBO(95, 115, 131, 1),
                       ],

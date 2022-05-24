@@ -53,7 +53,7 @@ class PicosMenu extends StatelessWidget {
           trailing: const Icon(Icons.keyboard_arrow_right),
           onTap: () => Navigator.push(
             context,
-            MaterialPageRoute(
+            MaterialPageRoute<Widget>(
               builder: (BuildContext context) => const FamilyMembers(),
             ),
           ),

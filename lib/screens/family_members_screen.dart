@@ -32,7 +32,7 @@ class FamilyMembers extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [
+          children: <Widget>[
             Card(
               margin: const EdgeInsets.all(20),
               shape: RoundedRectangleBorder(
@@ -43,7 +43,7 @@ class FamilyMembers extends StatelessWidget {
                 padding: const EdgeInsets.all(2.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: <Widget>[
                     ListTile(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
@@ -70,7 +70,7 @@ class FamilyMembers extends StatelessWidget {
                     ),
                     ButtonBar(
                       alignment: MainAxisAlignment.start,
-                      children: [
+                      children: <Widget>[
                         TextButton(
                           onPressed: () {
                             //Implement here
@@ -99,7 +99,7 @@ class FamilyMembers extends StatelessWidget {
                 padding: const EdgeInsets.all(2.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: <Widget>[
                     ListTile(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
@@ -126,7 +126,7 @@ class FamilyMembers extends StatelessWidget {
                     ),
                     ButtonBar(
                       alignment: MainAxisAlignment.start,
-                      children: [
+                      children: <Widget>[
                         TextButton(
                           onPressed: () {
                             //Implement here
@@ -155,7 +155,7 @@ class FamilyMembers extends StatelessWidget {
                 padding: const EdgeInsets.all(2.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: <Widget>[
                     ListTile(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
@@ -185,7 +185,7 @@ class FamilyMembers extends StatelessWidget {
                     ),
                     ButtonBar(
                       alignment: MainAxisAlignment.start,
-                      children: [
+                      children: <Widget>[
                         TextButton(
                           onPressed: () {
                             //Implement here
@@ -214,7 +214,7 @@ class FamilyMembers extends StatelessWidget {
                 padding: const EdgeInsets.all(2.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: <Widget>[
                     ListTile(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
@@ -244,7 +244,7 @@ class FamilyMembers extends StatelessWidget {
                     ),
                     ButtonBar(
                       alignment: MainAxisAlignment.start,
-                      children: [
+                      children: <Widget>[
                         TextButton(
                           onPressed: () {
                             //Implement here
@@ -268,7 +268,7 @@ class FamilyMembers extends StatelessWidget {
       ),
       bottomNavigationBar: BottomAppBar(
         child: Row(
-          children: [
+          children: <Widget>[
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(5),
@@ -278,7 +278,7 @@ class FamilyMembers extends StatelessWidget {
                     gradient: const LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [
+                      colors: <Color>[
                         Color.fromRGBO(149, 193, 31, 1),
                         Color.fromRGBO(110, 171, 39, 1),
                       ],
@@ -288,7 +288,7 @@ class FamilyMembers extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () => Navigator.push(
                       context,
-                      MaterialPageRoute(
+                      MaterialPageRoute<Widget>(
                         builder: (BuildContext context) =>
                             const FamilyMembersAdd(),
                       ),
