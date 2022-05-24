@@ -26,3 +26,15 @@ class SaveMedication extends MedicationsListEvent {
   @override
   List<Object> get props => <Object>[medication];
 }
+
+/// Removes a medication.
+class RemoveMedication extends MedicationsListEvent {
+  /// RemoveMedication constructor.
+  const RemoveMedication(this.medication);
+
+  /// The [medication] to be removed.
+  final Medication medication;
+
+  @override
+  List<Object> get props => <Object>[medication];
+}

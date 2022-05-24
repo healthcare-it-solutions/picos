@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/models/medication.dart';
 import 'package:picos/screens/my_medications_screen/medication_card_tile.dart';
+import 'package:picos/states/medications_list_bloc.dart';
 
 import '../../repository/medications_repository.dart';
 
@@ -59,6 +61,11 @@ class MedicationCard extends StatelessWidget {
           onTap: () {
             Navigator.of(context)
                 .pushNamed('/add-medication', arguments: _medication);
+          },
+          onLongPress: () {
+            context
+                .read<MedicationsListBloc>()
+                .add(RemoveMedication(_medication));
           },
           child: Column(
             mainAxisSize: MainAxisSize.min,

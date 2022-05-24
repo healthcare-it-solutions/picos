@@ -23,11 +23,36 @@ class LocalStorageMedicationsApi extends MedicationsApi {
 
   @override
   Future<void> saveMedication(Medication medication) async {
-    _medicationsList = <Medication>[..._medicationsList, medication];
+    final int medicationIndex = _getIndex(medication);
+
+    if (medicationIndex >= 0) {
+      _medicationsList[medicationIndex] = medication;
+      _medicationsList = <Medication>[..._medicationsList];
+    }
+
+    if (medicationIndex < 0) {
+      _medicationsList = <Medication>[..._medicationsList, medication];
+    }
+
+    _dispatch();
+  }
+
+  @override
+  Future<void> removeMedication(Medication medication) async {
+    final int medicationIndex = _getIndex(medication);
+
+    _medicationsList.removeAt(medicationIndex);
+    _medicationsList = <Medication>[..._medicationsList];
+
     _dispatch();
   }
 
   void _dispatch() {
     _medicationsController.sink.add(_medicationsList);
+  }
+
+  int _getIndex(Medication medication) {
+    return _medicationsList.indexWhere(
+        (Medication element) => element.compound == medication.compound);
   }
 }

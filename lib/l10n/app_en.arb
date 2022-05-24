@@ -63,9 +63,9 @@
         "description": "Patient advice for adding medication schedules. (Part 3)"
     },
 
-    "selectCompound": "Select compound",
-    "@selectCompound": {
-        "description": "Select compound"
+    "enterCompound": "Enter compound",
+    "@enterCompound": {
+        "description": "Enter compound"
     },
 
     "compound": "Compound",

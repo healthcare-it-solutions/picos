@@ -20,6 +20,11 @@ class MedicationsRepository {
     return _medicationsApi.saveMedication(medication);
   }
 
+  /// Removes a given [medication].
+  Future<void> removeMedication(Medication medication) {
+    return _medicationsApi.removeMedication(medication);
+  }
+
   /// Converts a Medication amount Double to String.
   static String amountToString(double value) {
     List<String> values = value.toString().split('.');
@@ -39,7 +44,7 @@ class MedicationsRepository {
 
   /// Converts a Medication amount String to Double.
   static double amountToDouble(String value) {
-    if (value.length >= 3 && value.substring(value.length - 3) == '1/2') {
+    if (value.length == 3 && value.substring(value.length - 3) == '1/2') {
       return 0.5;
     }
 

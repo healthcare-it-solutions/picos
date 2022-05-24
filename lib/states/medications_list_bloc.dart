@@ -18,7 +18,8 @@ class MedicationsListBloc
       : _medicationsRepository = medicationsRepository,
         super(const MedicationsListState()) {
     on<MedicationsListSubscriptionRequested>(_onSubscriptionRequested);
-    on<SaveMedication>(_onAddMedication);
+    on<SaveMedication>(_onSaveMedication);
+    on<RemoveMedication>(_onRemoveMedication);
   }
 
   final MedicationsRepository _medicationsRepository;
@@ -44,8 +45,49 @@ class MedicationsListBloc
     );
   }
 
-  Future<void> _onAddMedication(
+  Future<void> _onSaveMedication(
       SaveMedication event, Emitter<MedicationsListState> emit) async {
-    await _medicationsRepository.saveMedication(event.medication);
+    emit(state.copyWith(status: MedicationsListStatus.loading));
+    await _medicationsRepository
+        .saveMedication(
+          event.medication,
+        )
+        .onError(
+          (_, __) => emit(
+            state.copyWith(
+              status: MedicationsListStatus.failure,
+            ),
+          ),
+        )
+        .whenComplete(
+          () => emit(
+            state.copyWith(
+              status: MedicationsListStatus.success,
+            ),
+          ),
+        );
+  }
+
+  Future<void> _onRemoveMedication(
+      RemoveMedication event, Emitter<MedicationsListState> emit) async {
+    emit(state.copyWith(status: MedicationsListStatus.loading));
+    await _medicationsRepository
+        .removeMedication(
+          event.medication,
+        )
+        .onError(
+          (_, __) => emit(
+            state.copyWith(
+              status: MedicationsListStatus.failure,
+            ),
+          ),
+        )
+        .whenComplete(
+          () => emit(
+            state.copyWith(
+              status: MedicationsListStatus.success,
+            ),
+          ),
+        );
   }
 }

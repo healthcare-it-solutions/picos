@@ -10,4 +10,7 @@ abstract class MedicationsApi {
 
   /// Saves or replaces a [medication].
   Future<void> saveMedication(Medication medication);
+
+  /// Removes the given [medication].
+  Future<void> removeMedication(Medication medication);
 }

@@ -9,6 +9,7 @@ import 'package:picos/widgets/picos_select.dart';
 import '../../repository/medications_repository.dart';
 import '../../states/medications_list_bloc.dart';
 import '../../widgets/picos_body.dart';
+import '../../widgets/picos_text_field.dart';
 
 /// A screen for adding new medication schedules.
 class AddMedicationScreen extends StatefulWidget {
@@ -71,13 +72,16 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
   @override
   Widget build(BuildContext context) {
     String title = AppLocalizations.of(context)!.addMedication;
-    String? compoundHint = AppLocalizations.of(context)!.selectCompound;
+    String? compoundHint = AppLocalizations.of(context)!.enterCompound;
     String morningHint = AppLocalizations.of(context)!.inTheMorning;
     String noonHint = AppLocalizations.of(context)!.noon;
     String eveningHint = AppLocalizations.of(context)!.inTheEvening;
     String nightHint = AppLocalizations.of(context)!.toTheNight;
 
     Object? medicationEdit = ModalRoute.of(context)!.settings.arguments;
+
+    bool disabledCompoundSelect = false;
+    bool compoundAutoFocus = true;
 
     if (medicationEdit != null) {
       medicationEdit = medicationEdit as Medication;
@@ -96,6 +100,9 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
       noonHint += ' ' + MedicationsRepository.amountToString(_noon);
       eveningHint += ' ' + MedicationsRepository.amountToString(_evening);
       nightHint += ' ' + MedicationsRepository.amountToString(_night);
+
+      disabledCompoundSelect = true;
+      compoundAutoFocus = false;
     }
 
     const Color infoTextFontColor = Colors.white;
@@ -110,7 +117,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
       top: 5,
     );
 
-    String addText = AppLocalizations.of(context)!.selectCompound;
+    String addText = AppLocalizations.of(context)!.enterCompound;
 
     if (!_addDisabled) {
       addText = AppLocalizations.of(context)!.add;
@@ -201,18 +208,22 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                     AddMedicationScreenLabel(
                       label: AppLocalizations.of(context)!.compound,
                     ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: PicosSelect(
-                          callBackFunction: (String value) {
-                            _compound = value;
-                            setState(() {
-                              _addDisabled = false;
-                            });
-                          },
-                          // Placeholder values to be changed.
-                          selection: const <String>['Aspirin', 'Vitamin C'],
-                          hint: compoundHint),
+                    PicosTextField(
+                      onChanged: (String value) {
+                        _compound = value;
+
+                        setState(() {
+                          if (value.isNotEmpty) {
+                            _addDisabled = false;
+                            return;
+                          }
+
+                          _addDisabled = true;
+                        });
+                      },
+                      disabled: disabledCompoundSelect,
+                      autofocus: compoundAutoFocus,
+                      hint: compoundHint!,
                     ),
                     const SizedBox(
                       height: 30,
