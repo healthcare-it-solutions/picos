@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 
 /// contains the gender of the corresponding family member
+// ignore: public_member_api_docs
 enum Gender { male, female }
 
 /// This is the screen in which a user can add/edit
@@ -35,6 +36,8 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
 
   Gender? _gender = Gender.male;
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +53,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(10),
         child: Form(
-          //key: _formKey,
+          key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -79,7 +82,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                   'Bruder',
                   'Schwester',
                   'Ehemann',
-                  'Ehefrau'
+                  'Ehefrau',
                 ].map<DropdownMenuItem<String>>(
                   (String value) {
                     return DropdownMenuItem(
@@ -94,13 +97,18 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                 children: <Widget>[
                   const Text(
                     'Geschlecht *',
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Expanded(
                     child: RadioListTile(
                       title: const Text(
-                        'Männlich',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        'Herr',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       value: Gender.male,
                       groupValue: _gender,
@@ -111,13 +119,16 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                           },
                         );
                       },
+                      selected: true,
                     ),
                   ),
                   Expanded(
                     child: RadioListTile(
                       title: const Text(
-                        'Weiblich',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        'Frau',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       value: Gender.female,
                       groupValue: _gender,
@@ -128,6 +139,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                           },
                         );
                       },
+                      selected: false,
                     ),
                   ),
                 ],
@@ -139,8 +151,13 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                 ),
                 keyboardType: TextInputType.name,
                 onSaved: (String? value) {
-                  // This optional block of code can be used to run
-                  // code when the user saves the form.
+                  //Implement here
+                },
+                validator: (String? value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Bitte geben Sie den Vornamen ein.';
+                  }
+                  return null;
                 },
               ),
               TextFormField(
@@ -150,8 +167,13 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                 ),
                 keyboardType: TextInputType.name,
                 onSaved: (String? value) {
-                  // This optional block of code can be used to run
-                  // code when the user saves the form.
+                  //Implement here
+                },
+                validator: (String? value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Bitte geben Sie den Nachnamen ein.';
+                  }
+                  return null;
                 },
               ),
               TextFormField(
@@ -161,8 +183,14 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                 ),
                 keyboardType: TextInputType.emailAddress,
                 onSaved: (String? value) {
-                  // This optional block of code can be used to run
-                  // code when the user saves the form.
+                  //Implement here
+                },
+                validator: (String? value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Bitte geben Sie die E-Mail-Adresse ein.';
+                  } else {
+                    return validateEmail(value);
+                  }
                 },
               ),
               TextFormField(
@@ -172,8 +200,13 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                 ),
                 keyboardType: TextInputType.number,
                 onSaved: (String? value) {
-                  // This optional block of code can be used to run
-                  // code when the user saves the form.
+                  //Implement here
+                },
+                validator: (String? value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Bitte geben Sie die Telefonnummer ein.';
+                  }
+                  return null;
                 },
               ),
               TextFormField(
@@ -186,8 +219,13 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                 minLines: 2,
                 maxLines: null,
                 onSaved: (String? value) {
-                  // This optional block of code can be used to run
-                  // code when the user saves the form.
+                  //Implement here
+                },
+                validator: (String? value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Bitte geben Sie die Adresse ein.';
+                  }
+                  return null;
                 },
               ),
             ],
@@ -196,7 +234,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
       ),
       bottomNavigationBar: BottomAppBar(
         child: Row(
-          children: [
+          children: <Widget>[
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(5),
@@ -241,7 +279,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                     gradient: const LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [
+                      colors: <Color>[
                         Color.fromRGBO(149, 193, 31, 1),
                         Color.fromRGBO(110, 171, 39, 1),
                       ],
@@ -250,7 +288,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                   ),
                   child: ElevatedButton(
                     onPressed: () {
-                      debugPrint('Speichern');
+                      addFamilyMember(context, _formKey);
                     },
                     child: const Text(
                       'Speichern',
@@ -269,6 +307,32 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// returns a message (String)
+/// whether e-mail-address validation is successful or not
+String? validateEmail(String value) {
+  String pattern =
+      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+      r'{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]'
+      r'{0,253}[a-zA-Z0-9])?)*$';
+  RegExp regex = RegExp(pattern);
+  if (!regex.hasMatch(value)) {
+    return 'Bitte geben Sie eine gültige E-Mail-Adresse ein!';
+  }
+  return null;
+}
+
+/// When 'save'-button is pressed, this method will be triggered.
+/// After successful validation, data will be written in database.
+void addFamilyMember(BuildContext context, GlobalKey<FormState> _key) {
+  if (_key.currentState!.validate()) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Die Daten werden übermittelt!'),
       ),
     );
   }

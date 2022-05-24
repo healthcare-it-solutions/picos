@@ -48,9 +48,9 @@ class FamilyMembers extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      tileColor: Color.fromRGBO(25, 102, 117, 1.0),
+                      tileColor: const Color.fromRGBO(25, 102, 117, 1.0),
                       textColor: Colors.white,
-                      title: Text(
+                      title: const Text(
                         'Vater',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -104,9 +104,9 @@ class FamilyMembers extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      tileColor: Color.fromRGBO(25, 102, 117, 1.0),
+                      tileColor: const Color.fromRGBO(25, 102, 117, 1.0),
                       textColor: Colors.white,
-                      title: Text(
+                      title: const Text(
                         'Vater',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -160,9 +160,9 @@ class FamilyMembers extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      tileColor: Color.fromRGBO(25, 102, 117, 1.0),
+                      tileColor: const Color.fromRGBO(25, 102, 117, 1.0),
                       textColor: Colors.white,
-                      title: Text(
+                      title: const Text(
                         'Vater',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -227,8 +227,11 @@ class FamilyMembers extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsets.only(left: 16, top: 20, right: 16),
+                      padding: const EdgeInsets.only(
+                        left: 16,
+                        top: 20,
+                        right: 16,
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const <Widget>[
