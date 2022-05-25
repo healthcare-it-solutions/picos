@@ -30,10 +30,11 @@ class MedicationsListState extends Equatable {
   final List<Medication> medicationsList;
 
   /// Creates a copy with updated values.
-  MedicationsListState copyWith(
-      {List<Medication>? medicationsList,
-      MedicationsListStatus? status,
-      bool? hasReachedMax}) {
+  MedicationsListState copyWith({
+    List<Medication>? medicationsList,
+    MedicationsListStatus? status,
+    bool? hasReachedMax,
+  }) {
     return MedicationsListState(
       status: status ?? this.status,
       medicationsList: medicationsList ?? this.medicationsList,
