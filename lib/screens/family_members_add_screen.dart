@@ -42,7 +42,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Angehörige/n hinzüfügen'),
+        title: const Text('Angehörige/n hinzufügen'),
         backgroundColor: const Color.fromRGBO(
           25,
           102,
@@ -96,7 +96,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   const Text(
-                    'Geschlecht *',
+                    'Anrede *',
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
@@ -119,7 +119,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                           },
                         );
                       },
-                      selected: true,
+                      selected: false,
                     ),
                   ),
                   Expanded(
@@ -319,7 +319,9 @@ String? validateEmail(String value) {
       r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
       r'{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]'
       r'{0,253}[a-zA-Z0-9])?)*$';
-  RegExp regex = RegExp(pattern);
+  RegExp regex = RegExp(
+    pattern,
+  );
   if (!regex.hasMatch(value)) {
     return 'Bitte geben Sie eine gültige E-Mail-Adresse ein!';
   }
