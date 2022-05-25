@@ -17,6 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:picos/screens/family_members_screen.dart';
+import 'package:picos/screens/physicians_screen.dart';
 
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
@@ -42,10 +43,16 @@ class PicosMenu extends StatelessWidget {
           title: Text('Medikationsplan'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
-        const ListTile(
-          leading: Icon(Icons.groups),
-          title: Text('BehandlerInnen'),
-          trailing: Icon(Icons.keyboard_arrow_right),
+        ListTile(
+          leading: const Icon(Icons.groups),
+          title: const Text('BehandlerInnen'),
+          trailing: const Icon(Icons.keyboard_arrow_right),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute<Widget>(
+              builder: (BuildContext context) => const Physicians(),
+            ),
+          ),
         ),
         ListTile(
           leading: const Icon(Icons.people),
