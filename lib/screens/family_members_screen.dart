@@ -132,6 +132,15 @@ class CustomCard extends StatelessWidget {
                           onPressed: () {
                             // TODO: Implement here
                           },
+                          style: ElevatedButton.styleFrom(
+                            primary: const Color.fromRGBO(
+                              232,
+                              241,
+                              243,
+                              1,
+                            ),
+                            shadowColor: Colors.transparent,
+                          ),
                           child: const Text(
                             'Bearbeiten',
                             style: TextStyle(
@@ -144,15 +153,6 @@ class CustomCard extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
                             ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            primary: const Color.fromRGBO(
-                              232,
-                              241,
-                              243,
-                              1,
-                            ),
-                            shadowColor: Colors.transparent,
                           ),
                         ),
                       ),
@@ -167,6 +167,15 @@ class CustomCard extends StatelessWidget {
                           onPressed: () {
                             // TODO: Implement here
                           },
+                          style: ElevatedButton.styleFrom(
+                            primary: const Color.fromRGBO(
+                              232,
+                              241,
+                              243,
+                              1,
+                            ),
+                            shadowColor: Colors.transparent,
+                          ),
                           child: const Text(
                             'Löschen',
                             style: TextStyle(
@@ -179,15 +188,6 @@ class CustomCard extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
                             ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            primary: const Color.fromRGBO(
-                              232,
-                              241,
-                              243,
-                              1,
-                            ),
-                            shadowColor: Colors.transparent,
                           ),
                         ),
                       ),
@@ -268,16 +268,16 @@ class FamilyMembers extends StatelessWidget {
                             const FamilyMembersAdd(),
                       ),
                     ),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                    ),
                     child: const Text(
                       'Hinzufügen',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent,
-                      shadowColor: Colors.transparent,
                     ),
                   ),
                 ),

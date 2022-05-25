@@ -86,8 +86,8 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                 ].map<DropdownMenuItem<String>>(
                   (String value) {
                     return DropdownMenuItem<String>(
-                      child: Text(value),
                       value: value,
+                      child: Text(value),
                     );
                   },
                 ).toList(),
@@ -255,16 +255,16 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                    ),
                     child: const Text(
                       'Abbrechen',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent,
-                      shadowColor: Colors.transparent,
                     ),
                   ),
                 ),
@@ -290,16 +290,16 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                     onPressed: () {
                       addFamilyMember(context, _formKey);
                     },
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                    ),
                     child: const Text(
                       'Speichern',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent,
-                      shadowColor: Colors.transparent,
                     ),
                   ),
                 ),
@@ -328,8 +328,8 @@ String? validateEmail(String value) {
 
 /// When 'save'-button is pressed, this method will be triggered.
 /// After successful validation, data will be written in database.
-void addFamilyMember(BuildContext context, GlobalKey<FormState> _key) {
-  if (_key.currentState!.validate()) {
+void addFamilyMember(BuildContext context, GlobalKey<FormState> key) {
+  if (key.currentState!.validate()) {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Die Daten werden übermittelt!'),
