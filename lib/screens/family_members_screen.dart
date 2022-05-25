@@ -18,6 +18,191 @@
 import 'package:flutter/material.dart';
 import 'package:picos/screens/family_members_add_screen.dart';
 
+/// builds 'Column' as a parent widget for the given cards
+class MyCard extends StatelessWidget {
+  // ignore: public_member_api_docs
+  MyCard({Key? key}) : super(key: key) {
+    /// A fixed list of Strings denoting the type of family members
+    List<String> familyMemberType = <String>[
+      'Vater',
+      'Mutter',
+      'Bruder',
+      'Schwester',
+    ];
+
+    /// generates a list of CustomCard-Widgets
+    cards = List<CustomCard>.generate(
+      4,
+      (int index) => CustomCard(
+        memberType: familyMemberType.elementAt(index),
+      ),
+    );
+  }
+
+  /// Declaration of the List-variable 'cards' for building
+  /// the main components of the UI of this screen
+  late final List<CustomCard> cards;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: cards,
+    );
+  }
+}
+
+/// This class serves for customizing the card properties showing information
+/// about the corresponding family member
+class CustomCard extends StatelessWidget {
+  // ignore: public_member_api_docs
+  const CustomCard({
+    required this.memberType,
+    Key? key,
+  }) : super(key: key);
+
+  /// initialized memberType-variable which is used to
+  /// show the family member type
+  final String memberType;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.all(20),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5),
+      ),
+      clipBehavior: Clip.none,
+      child: Padding(
+        padding: const EdgeInsets.all(2.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            ListTile(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+              tileColor: const Color.fromRGBO(
+                25,
+                102,
+                117,
+                1.0,
+              ),
+              textColor: Colors.white,
+              title: Text(
+                memberType,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 16,
+                top: 20,
+                right: 16,
+                bottom: 15,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const <Widget>[
+                  Text(
+                    'Herr Max Mustermann',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text('Musterstraße 1'),
+                  Text('00000 Musterstadt'),
+                  Text('Tel. +49 000 12 34 56'),
+                  Text('name@webmail.de'),
+                ],
+              ),
+            ),
+            BottomAppBar(
+              color: Colors.transparent,
+              elevation: 0,
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: SizedBox(
+                        height: 44,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // TODO: Implement here
+                          },
+                          child: const Text(
+                            'Bearbeiten',
+                            style: TextStyle(
+                              color: Color.fromRGBO(
+                                95,
+                                115,
+                                131,
+                                1,
+                              ),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            primary: const Color.fromRGBO(
+                              232,
+                              241,
+                              243,
+                              1,
+                            ),
+                            shadowColor: Colors.transparent,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: SizedBox(
+                        height: 44,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // TODO: Implement here
+                          },
+                          child: const Text(
+                            'Löschen',
+                            style: TextStyle(
+                              color: Color.fromRGBO(
+                                95,
+                                115,
+                                131,
+                                1,
+                              ),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            primary: const Color.fromRGBO(
+                              232,
+                              241,
+                              243,
+                              1,
+                            ),
+                            shadowColor: Colors.transparent,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 /// This is the screen in which a user will see a list of his family members
 class FamilyMembers extends StatelessWidget {
   // ignore: public_member_api_docs
@@ -36,271 +221,14 @@ class FamilyMembers extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Card(
-              margin: const EdgeInsets.all(20),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
-              ),
-              clipBehavior: Clip.none,
-              child: Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    ListTile(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      tileColor: const Color.fromRGBO(
-                        25,
-                        102,
-                        117,
-                        1.0,
-                      ),
-                      textColor: Colors.white,
-                      title: const Text(
-                        'Vater',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 16,
-                        top: 20,
-                        right: 16,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const <Widget>[
-                          Text('Herr Max Mustermann'),
-                          Text('Musterstraße 1'),
-                          Text('Tel. +49 000 12 34 56'),
-                          Text('name@webmail.de'),
-                        ],
-                      ),
-                    ),
-                    ButtonBar(
-                      alignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        TextButton(
-                          onPressed: () {
-                            // TODO: Implement here
-                          },
-                          child: const Text('Bearbeiten'),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            // TODO: Implement here
-                          },
-                          child: const Text('Löschen'),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Card(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
-              ),
-              clipBehavior: Clip.none,
-              child: Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    ListTile(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      tileColor: const Color.fromRGBO(
-                        25,
-                        102,
-                        117,
-                        1.0,
-                      ),
-                      textColor: Colors.white,
-                      title: const Text(
-                        'Vater',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 16,
-                        top: 20,
-                        right: 16,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const <Widget>[
-                          Text('Herr Max Mustermann'),
-                          Text('Musterstraße 1'),
-                          Text('Tel. +49 000 12 34 56'),
-                          Text('name@webmail.de')
-                        ],
-                      ),
-                    ),
-                    ButtonBar(
-                      alignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        TextButton(
-                          onPressed: () {
-                            // TODO: Implement here
-                          },
-                          child: const Text('Bearbeiten'),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            // TODO: Implement here
-                          },
-                          child: const Text('Löschen'),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Card(
-              margin: const EdgeInsets.all(20),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
-              ),
-              clipBehavior: Clip.none,
-              child: Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    ListTile(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      tileColor: const Color.fromRGBO(
-                        25,
-                        102,
-                        117,
-                        1.0,
-                      ),
-                      textColor: Colors.white,
-                      title: const Text(
-                        'Vater',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 16,
-                        top: 20,
-                        right: 16,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const <Widget>[
-                          Text('Herr Max Mustermann'),
-                          Text('Musterstraße 1'),
-                          Text('Tel. +49 000 12 34 56'),
-                          Text('name@webmail.de'),
-                        ],
-                      ),
-                    ),
-                    ButtonBar(
-                      alignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        TextButton(
-                          onPressed: () {
-                            // TODO: Implement here
-                          },
-                          child: const Text('Bearbeiten'),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            // TODO: Implement here
-                          },
-                          child: const Text('Löschen'),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Card(
-              margin: const EdgeInsets.all(20),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
-              ),
-              clipBehavior: Clip.none,
-              child: Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    ListTile(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      tileColor: const Color.fromRGBO(
-                        25,
-                        102,
-                        117,
-                        1.0,
-                      ),
-                      textColor: Colors.white,
-                      title: const Text(
-                        'Vater',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 16,
-                        top: 20,
-                        right: 16,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const <Widget>[
-                          Text('Herr Max Mustermann'),
-                          Text('Musterstraße 1'),
-                          Text('Tel. +49 000 12 34 56'),
-                          Text('name@webmail.de'),
-                        ],
-                      ),
-                    ),
-                    ButtonBar(
-                      alignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        TextButton(
-                          onPressed: () {
-                            // TODO: Implement here
-                          },
-                          child: const Text('Bearbeiten'),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            // TODO: Implement here
-                          },
-                          child: const Text('Löschen'),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+        child: Container(
+          color: const Color.fromRGBO(
+            232,
+            241,
+            243,
+            1,
+          ),
+          child: MyCard(),
         ),
       ),
       bottomNavigationBar: BottomAppBar(
