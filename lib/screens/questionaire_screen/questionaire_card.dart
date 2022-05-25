@@ -23,42 +23,46 @@ class _QuestionaireCardState extends State<QuestionaireCard> {
   Iterable<Widget> _genReplies() sync* {
     for (MapEntry<int, String> answer in widget.answers.entries) {
       yield RadioListTile<int>(
-          title: Text(answer.value),
-          value: answer.key,
-          groupValue: _selectedElement,
-          onChanged: (int? newSelection) {
-            setState(() {
+        title: Text(answer.value),
+        value: answer.key,
+        groupValue: _selectedElement,
+        onChanged: (int? newSelection) {
+          setState(
+            () {
               _selectedElement = newSelection;
-            });
-          });
+            },
+          );
+        },
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return (Card(
+    return Card(
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Center(
-              child: Text(
-            widget.question,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          )),
+            child: Text(
+              widget.question,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
           Text(widget.question),
           ..._genReplies()
         ],
       ),
-    ));
+    );
   }
 }
 
 /// This is a widget that returns a [Card].
 class QuestionaireCard extends StatefulWidget {
-  /// Self explainatory
+  // ignore: public_member_api_docs
   const QuestionaireCard(
       {required this.question, required this.answers, Key? key})
       : super(key: key);
