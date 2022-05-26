@@ -22,9 +22,7 @@ class OverviewScreen extends StatelessWidget {
           color: Color.fromARGB(255, 9, 70, 85),
           child: const ProgressSection(),
         ),
-        Container(
-          child: GraphSection(),
-        ),
+        GraphSection(),
         Container(
           color: Colors.blue,
           child: MyHealthSection(),
