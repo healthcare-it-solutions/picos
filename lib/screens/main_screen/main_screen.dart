@@ -53,32 +53,31 @@ class MainScreen extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
-            title: 'PICOS',
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
-            theme: ThemeData(
-              primaryColor: Colors.blue,
-              primarySwatch: Colors.blue,
-              appBarTheme: const AppBarTheme(
-                backgroundColor: Colors.blue,
-              ),
-              backgroundColor: const Color(0xFFF2F2F2),
-              scaffoldBackgroundColor: const Color(0xFFF2F2F2),
-              shadowColor: Colors.grey,
-              textButtonTheme: TextButtonThemeData(
-                style: ButtonStyle(
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                ),
+          title: 'PICOS',
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          theme: ThemeData(
+            primaryColor: Colors.blue,
+            primarySwatch: Colors.blue,
+            appBarTheme: const AppBarTheme(
+              backgroundColor: Colors.blue,
+            ),
+            backgroundColor: const Color(0xFFF2F2F2),
+            scaffoldBackgroundColor: const Color(0xFFF2F2F2),
+            shadowColor: Colors.grey,
+            textButtonTheme: TextButtonThemeData(
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
               ),
             ),
-            home: const BottomBar(title: 'PICOS'),
-            routes: <String, Widget Function(BuildContext)>{
-              '/my-medications': (BuildContext ctx) =>
-                  const MyMedicationsScreen(),
-              '/add-medication': (BuildContext ctx) =>
-                  const AddMedicationScreen()
-            }),
+          ),
+          home: const BottomBar(title: 'PICOS'),
+          routes: <String, Widget Function(BuildContext)>{
+            '/my-medications': (BuildContext ctx) =>
+                const MyMedicationsScreen(),
+            '/add-medication': (BuildContext ctx) => const AddMedicationScreen()
+          },
+        ),
       ),
     );
   }
