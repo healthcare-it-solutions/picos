@@ -3,6 +3,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/my_medications_screen/medications_list.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
 
+import '../../themes/global_theme.dart';
+
 /// Shows a list with all personal medication plans.
 class MyMedicationsScreen extends StatelessWidget {
   /// Creates MyMedicationsScreen
@@ -10,13 +12,15 @@ class MyMedicationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
     return Container(
-      color: Theme.of(context).appBarTheme.backgroundColor,
+      color: theme.darkGreen1,
       child: SafeArea(
         child: Scaffold(
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
+              color: theme.bottomNavigationBar,
               boxShadow: <BoxShadow>[
                 BoxShadow(
                   color: Theme.of(context).shadowColor,

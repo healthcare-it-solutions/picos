@@ -23,6 +23,7 @@ import 'package:picos/repository/medications_repository.dart';
 import 'package:picos/screens/add_medication_screen/add_medication_screen.dart';
 import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
 import 'package:picos/states/medications_list_bloc.dart';
+import 'package:picos/themes/global_theme.dart';
 
 import '../../api/local_storage_medications_api.dart';
 
@@ -35,6 +36,8 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const GlobalTheme theme = GlobalTheme();
+
     final MedicationsRepository medicationsRepository =
         MedicationsRepository(medicationsApi: LocalStorageMedicationsApi());
 
@@ -57,20 +60,15 @@ class MainScreen extends StatelessWidget {
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           theme: ThemeData(
-            primaryColor: Colors.blue,
-            primarySwatch: Colors.blue,
-            appBarTheme: const AppBarTheme(
-              backgroundColor: Colors.blue,
+            appBarTheme: AppBarTheme(
+              backgroundColor: theme.darkGreen1,
             ),
-            backgroundColor: const Color(0xFFF2F2F2),
-            scaffoldBackgroundColor: const Color(0xFFF2F2F2),
-            shadowColor: Colors.grey,
-            textButtonTheme: TextButtonThemeData(
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-              ),
-            ),
-          ),
+            dialogBackgroundColor: theme.darkGreen2,
+            focusColor: theme.darkGreen3,
+            shadowColor: theme.grey2,
+          ).copyWith(extensions: <ThemeExtension<dynamic>>{
+            theme,
+          }),
           home: const BottomBar(title: 'PICOS'),
           routes: <String, Widget Function(BuildContext)>{
             '/my-medications': (BuildContext ctx) =>

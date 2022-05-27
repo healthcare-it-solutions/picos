@@ -22,8 +22,10 @@ class PicosTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final BorderRadius borderRadius = BorderRadius.circular(7);
+
     OutlineInputBorder border = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(7),
+      borderRadius: borderRadius,
       borderSide: BorderSide(
         color: Colors.grey.shade400,
       ),
@@ -40,6 +42,13 @@ class PicosTextField extends StatelessWidget {
         decoration: InputDecoration(
           enabledBorder: border,
           border: border,
+          focusedBorder: OutlineInputBorder(
+            borderRadius: borderRadius,
+            borderSide: BorderSide(
+              color: Theme.of(context).focusColor,
+              width: 2.5,
+            ),
+          ),
           hintText: hint,
           contentPadding: const EdgeInsets.only(
             bottom: textFieldHeight / 2,

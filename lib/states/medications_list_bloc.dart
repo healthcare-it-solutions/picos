@@ -10,7 +10,7 @@ part 'medications_list_event.dart';
 
 part 'medications_list_state.dart';
 
-/// Bloc for gluing MedicationsListEvents and MedicationsListState together.
+/// BloC for gluing MedicationsListEvents and MedicationsListState together.
 class MedicationsListBloc
     extends Bloc<MedicationsListEvent, MedicationsListState> {
   /// Creates the MedicationsListBloc.

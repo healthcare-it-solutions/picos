@@ -133,7 +133,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
     return BlocBuilder<MedicationsListBloc, MedicationsListState>(
       builder: (BuildContext context, MedicationsListState state) {
         return Container(
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).appBarTheme.backgroundColor,
           child: SafeArea(
             child: Scaffold(
               bottomNavigationBar: PicosInkWellButton(
@@ -155,8 +155,6 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
               appBar: AppBar(
                 centerTitle: true,
                 title: Text(title),
-                backgroundColor: Theme.of(context).backgroundColor,
-                foregroundColor: Colors.black,
                 elevation: 0,
               ),
               body: PicosBody(
@@ -165,21 +163,17 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                     Card(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(7)),
-                      color: Theme.of(context).colorScheme.secondary,
+                      color: Theme.of(context).dialogBackgroundColor,
                       child: Padding(
-                        padding: const EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(15),
                         child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Column(
-                                children: const <Widget>[
-                                  Icon(Icons.info, color: infoTextFontColor),
-                                  SizedBox(
-                                    height: 60,
-                                  ),
-                                ],
+                            const Padding(
+                              padding: EdgeInsets.only(
+                                right: 15,
                               ),
+                              child: Icon(Icons.info, color: infoTextFontColor),
                             ),
                             Flexible(
                               child: RichText(
@@ -187,7 +181,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                                   text: AppLocalizations.of(context)!
                                       .addMedicationInfoPart1,
                                   style: const TextStyle(
-                                      color: infoTextFontColor, fontSize: 15),
+                                      color: infoTextFontColor, fontSize: 20),
                                   children: <TextSpan>[
                                     TextSpan(
                                         text: AppLocalizations.of(context)!

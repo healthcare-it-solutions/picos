@@ -17,10 +17,8 @@ class _MedicationsListState extends State<MedicationsList> {
   Widget build(BuildContext context) {
     return BlocBuilder<MedicationsListBloc, MedicationsListState>(
       builder: (BuildContext context, MedicationsListState state) {
-
         if (state.medicationsList.isEmpty &&
             state.status == MedicationsListStatus.loading) {
-
           return const Center(
             child: CircularProgressIndicator(),
           );
@@ -29,7 +27,6 @@ class _MedicationsListState extends State<MedicationsList> {
         return ListView.builder(
           itemCount: state.medicationsList.length,
           itemBuilder: (BuildContext context, int index) {
-
             return MedicationCard(state.medicationsList[index]);
           },
         );

@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/models/medication.dart';
 import 'package:picos/screens/my_medications_screen/medication_card_tile.dart';
 import 'package:picos/states/medications_list_bloc.dart';
+import 'package:picos/themes/global_theme.dart';
 
 import '../../repository/medications_repository.dart';
 
@@ -80,7 +81,7 @@ class MedicationCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(10)),
-                  color: Theme.of(context).colorScheme.secondary,
+                  color: Theme.of(context).extension<GlobalTheme>()!.darkGreen2,
                 ),
                 child: Row(
                   children: <Widget>[
