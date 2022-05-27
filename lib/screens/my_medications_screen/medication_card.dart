@@ -83,14 +83,20 @@ class MedicationCard extends StatelessWidget {
                       const BorderRadius.vertical(top: Radius.circular(10)),
                   color: Theme.of(context).extension<GlobalTheme>()!.darkGreen2,
                 ),
-                child: Row(
-                  children: <Widget>[
-                    const Icon(Icons.medication),
-                    Container(
-                      child: Text(_medication.compound),
-                      padding: const EdgeInsets.fromLTRB(7, 0, 0, 0),
+                child: Container(
+                  width: double.infinity,
+                  child: Text(
+                    _medication.compound,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 5,
+                  ),
                 ),
               ),
               Padding(
