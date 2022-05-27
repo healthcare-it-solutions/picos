@@ -1,4 +1,4 @@
-/*   This file is part of Picos, a health trcking mobile app
+/*   This file is part of Picos, a health tracking mobile app
 *    Copyright (C) 2022 Healthcare IT Solutions GmbH
 *
 *    This program is free software: you can redistribute it and/or modify
@@ -28,7 +28,7 @@ import '../../api/local_storage_medications_api.dart';
 
 import 'bottom_bar.dart';
 
-/// This is the screen which contains all relevant informations
+/// This is the screen which contains all relevant information
 class MainScreen extends StatelessWidget {
   // ignore: public_member_api_docs
   const MainScreen({Key? key}) : super(key: key);
