@@ -13,13 +13,13 @@ class OverviewScreen extends StatelessWidget {
     return ListView(
       children: [
         Container(
-          color: Color.fromARGB(255, 15, 88, 104),
+          color: const Color.fromARGB(255, 15, 88, 104),
           child: const InputCardSection(),
         ),
         Container(
           constraints: const BoxConstraints(minWidth: double.infinity),
           alignment: Alignment.center,
-          color: Color.fromARGB(255, 9, 70, 85),
+          color: const Color.fromARGB(255, 9, 70, 85),
           child: const ProgressSection(),
         ),
         const GraphSection(),
