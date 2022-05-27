@@ -22,6 +22,7 @@ import 'package:picos/screens/family_members_add_screen.dart';
 class MyCard extends StatelessWidget {
   // ignore: public_member_api_docs
   MyCard({Key? key}) : super(key: key) {
+    // TODO: Internatilize it
     /// A fixed list of Strings denoting the type of family members
     List<String> familyMemberType = <String>[
       'Vater',
@@ -32,7 +33,7 @@ class MyCard extends StatelessWidget {
 
     /// generates a list of CustomCard-Widgets
     cards = List<CustomCard>.generate(
-      4,
+      familyMemberType.length,
       (int index) => CustomCard(
         memberType: familyMemberType.elementAt(index),
       ),
@@ -142,6 +143,7 @@ class CustomCard extends StatelessWidget {
                             shadowColor: Colors.transparent,
                           ),
                           child: const Text(
+                            // TODO: Internatilize it
                             'Bearbeiten',
                             style: TextStyle(
                               color: Color.fromRGBO(
@@ -177,6 +179,7 @@ class CustomCard extends StatelessWidget {
                             shadowColor: Colors.transparent,
                           ),
                           child: const Text(
+                            // TODO: Internatilize it
                             'Löschen',
                             style: TextStyle(
                               color: Color.fromRGBO(
@@ -212,6 +215,7 @@ class FamilyMembers extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // TODO: Internatilize it
         title: const Text('Meine Angehörigen'),
         backgroundColor: const Color.fromRGBO(
           25,
@@ -273,6 +277,7 @@ class FamilyMembers extends StatelessWidget {
                       shadowColor: Colors.transparent,
                     ),
                     child: const Text(
+                      // TODO: Internatilize it
                       'Hinzufügen',
                       style: TextStyle(
                         color: Colors.white,

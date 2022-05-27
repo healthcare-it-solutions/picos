@@ -32,6 +32,7 @@ class FamilyMembersAdd extends StatefulWidget {
 }
 
 class _FamilyMembersAddState extends State<FamilyMembersAdd> {
+  // TODO: Internatilize it
   String dropDownValue = 'Vater';
 
   Gender? _gender = Gender.male;
@@ -42,6 +43,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // TODO: Internatilize it
         title: const Text('Angehörige/n hinzufügen'),
         backgroundColor: const Color.fromRGBO(
           25,
@@ -59,6 +61,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
             children: <Widget>[
               DropdownButtonFormField<String>(
                 decoration: const InputDecoration(
+                  // TODO: Internatilize it
                   labelText: 'Wählen Sie Ihren Familienangehörigen aus.',
                 ),
                 isExpanded: true,
@@ -76,6 +79,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                     },
                   );
                 },
+                // TODO: Internatilize it
                 items: <String>[
                   'Vater',
                   'Mutter',
@@ -96,6 +100,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   const Text(
+                    // TODO: Internatilize it
                     'Anrede *',
                     style: TextStyle(
                       fontSize: 12,
@@ -105,6 +110,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                   Expanded(
                     child: RadioListTile<Gender>(
                       title: const Text(
+                        // TODO: Internatilize it
                         'Herr',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -125,6 +131,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                   Expanded(
                     child: RadioListTile<Gender>(
                       title: const Text(
+                        // TODO: Internatilize it
                         'Frau',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -147,6 +154,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
               TextFormField(
                 decoration: const InputDecoration(
                   icon: Icon(Icons.person),
+                  // TODO: Internatilize it
                   labelText: 'Vorname *',
                 ),
                 keyboardType: TextInputType.name,
@@ -155,6 +163,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                 },
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
+                    // TODO: Internatilize it
                     return 'Bitte geben Sie den Vornamen ein.';
                   }
                   return null;
@@ -163,6 +172,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
               TextFormField(
                 decoration: const InputDecoration(
                   icon: Icon(Icons.person),
+                  // TODO: Internatilize it
                   labelText: 'Nachname *',
                 ),
                 keyboardType: TextInputType.name,
@@ -171,6 +181,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                 },
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
+                    // TODO: Internatilize it
                     return 'Bitte geben Sie den Nachnamen ein.';
                   }
                   return null;
@@ -179,6 +190,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
               TextFormField(
                 decoration: const InputDecoration(
                   icon: Icon(Icons.email),
+                  // TODO: Internatilize it
                   labelText: 'E-Mail-Adresse *',
                 ),
                 keyboardType: TextInputType.emailAddress,
@@ -187,6 +199,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                 },
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
+                    // TODO: Internatilize it
                     return 'Bitte geben Sie die E-Mail-Adresse ein.';
                   } else {
                     return validateEmail(value);
@@ -196,6 +209,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
               TextFormField(
                 decoration: const InputDecoration(
                   icon: Icon(Icons.numbers),
+                  // TODO: Internatilize it
                   labelText: 'Telefon *',
                 ),
                 keyboardType: TextInputType.number,
@@ -204,6 +218,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                 },
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
+                    // TODO: Internatilize it
                     return 'Bitte geben Sie die Telefonnummer ein.';
                   }
                   return null;
@@ -212,7 +227,9 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
               TextFormField(
                 decoration: const InputDecoration(
                   icon: Icon(Icons.house),
+                  // TODO: Internatilize it
                   hintText: 'Straßenname Hausnummer\nPLZ Stadt',
+                  // TODO: Internatilize it
                   labelText: 'Anschrift *',
                 ),
                 keyboardType: TextInputType.multiline,
@@ -223,6 +240,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                 },
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
+                    // TODO: Internatilize it
                     return 'Bitte geben Sie die Adresse ein.';
                   }
                   return null;
@@ -260,6 +278,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                       shadowColor: Colors.transparent,
                     ),
                     child: const Text(
+                      // TODO: Internatilize it
                       'Abbrechen',
                       style: TextStyle(
                         color: Colors.white,
@@ -295,6 +314,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                       shadowColor: Colors.transparent,
                     ),
                     child: const Text(
+                      // TODO: Internatilize it
                       'Speichern',
                       style: TextStyle(
                         color: Colors.white,
@@ -319,12 +339,17 @@ String? validateEmail(String value) {
       r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
       r'{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]'
       r'{0,253}[a-zA-Z0-9])?)*$';
+
   RegExp regex = RegExp(
     pattern,
   );
+
+  // TODO: Internatilize it
   if (!regex.hasMatch(value)) {
+    // TODO: Internatilize it
     return 'Bitte geben Sie eine gültige E-Mail-Adresse ein!';
   }
+  
   return null;
 }
 
@@ -334,6 +359,7 @@ void addFamilyMember(BuildContext context, GlobalKey<FormState> key) {
   if (key.currentState!.validate()) {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
+        // TODO: Internatilize it
         content: Text('Die Daten werden übermittelt!'),
       ),
     );
