@@ -40,7 +40,10 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
   bool _addDisabled = true;
 
   Expanded _createAmountSelect(
-      EdgeInsets padding, String hint, String medicationTime) {
+    EdgeInsets padding,
+    String hint,
+    String medicationTime,
+  ) {
     return Expanded(
       child: Padding(
         padding: padding,
