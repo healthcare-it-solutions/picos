@@ -17,6 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/screens/overview_screen/overview_screen.dart';
 import 'package:picos/screens/picos_menu_screen.dart';
 
 // TODO: add proper docs
@@ -46,6 +47,7 @@ class _BottomBarState extends State<BottomBar> {
   /// stores the currently selected element of the navbar
   int selectedIndex = 0;
 
+  // TODO: refactor and remove this List
   final List<String> _appBarTitles = <String>[
     'overview',
     'inbox',
@@ -62,8 +64,8 @@ class _BottomBarState extends State<BottomBar> {
       'MyPicos'
     ];
 
-    if (index > appBarTitles.length - 1) {
-      throw Exception('The index is bigger than the array');
+    if (index > appBarTitles.length - 1 || index < 0) {
+      throw Exception('Out of bounds');
     }
 
     return appBarTitles[index];
@@ -84,14 +86,10 @@ class _BottomBarState extends State<BottomBar> {
           backgroundColor: const Color.fromRGBO(25, 102, 117, 1.0),
           title: Center(child: Text(_appBarTitles[selectedIndex]))),
       body: Center(
+        // TODO: move this widget list outside of the build function, 
+        // TODO: implement a function that returns a title instead
         child: <Widget>[
-          MaterialButton(
-            color: Colors.amber,
-            child: const Text('start questionaire'),
-            onPressed: () {
-              Navigator.pushNamed(context, '/questionaire');
-            },
-          ),
+          const OverviewScreen(),
           const Icon(
             Icons.mail,
             size: 150,

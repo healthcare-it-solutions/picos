@@ -30,10 +30,14 @@ class QuestionaireScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       verticalDirection: VerticalDirection.down,
-      children: const <Widget>[
+      children: const <Widget> [
         QuestionaireCard(
           question: 'What food do you like the most?',
-          answers: <int, String>{1: 'Pizza', 2: 'Sushi', 3: 'Curry'},
+          answers: <int, String> {
+            1: 'Pizza',
+            2: 'Sushi',
+            3: 'Curry'
+          }
         ),
         QuestionaireCard(
           question: 'Are you feeling well today?',

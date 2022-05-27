@@ -25,6 +25,8 @@ class PicosMenu extends StatelessWidget {
   // ignore: public_member_api_docs
   const PicosMenu({Key? key}) : super(key: key);
 
+
+  // TODO: Internationalize every string
   @override
   Widget build(BuildContext context) {
     return ListView(

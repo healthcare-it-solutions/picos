@@ -23,7 +23,7 @@ import 'bottom_bar.dart';
 
 /// This is the screen which contains all relevant informations
 class MainScreen extends StatelessWidget {
-  /// Self explainatory
+  // ignore: public_member_api_docs
   const MainScreen({Key? key}) : super(key: key);
 
   @override
@@ -32,9 +32,10 @@ class MainScreen extends StatelessWidget {
       title: 'PICOS',
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      routes: <String, WidgetBuilder>{
+      routes: <String, WidgetBuilder> {
         '/questionaire': (BuildContext context) => const QuestionaireScreen()
       },
+      // TODO: implement a proper global theme
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
