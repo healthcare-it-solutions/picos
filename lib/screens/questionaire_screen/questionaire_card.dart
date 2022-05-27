@@ -66,9 +66,11 @@ class QuestionaireCard extends StatefulWidget {
   /// The answers must be in the following format
   /// 1: 'answer1'
   /// 2: 'answer2'
-  const QuestionaireCard(
-      {required this.question, required this.answers, Key? key})
-      : super(key: key);
+  const QuestionaireCard({
+    required this.question,
+    required this.answers,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<QuestionaireCard> createState() => _QuestionaireCardState();

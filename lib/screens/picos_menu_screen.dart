@@ -25,15 +25,16 @@ class PicosMenu extends StatelessWidget {
   // ignore: public_member_api_docs
   const PicosMenu({Key? key}) : super(key: key);
 
-
   // TODO: Internationalize every string
   @override
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.all(15.0),
       children: <Widget>[
-        const Text('Meine Gesundheit',
-            style: TextStyle(fontWeight: FontWeight.bold)),
+        const Text(
+          'Meine Gesundheit',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 20),
         const ListTile(
           leading: Icon(Icons.insights),

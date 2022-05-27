@@ -22,7 +22,9 @@ import 'package:intl/intl.dart';
 // TODO: add some configuration, maybe even hard coded
 // TODO: make widget follow global theme setting
 
+/// Widget which displays a calendar on the "overview"-screen
 class MiniCalendar extends StatelessWidget {
+  // ignore: public_member_api_docs
   MiniCalendar({Key? key}) : super(key: key);
 
   final DateTime _dateTime = DateTime.now();
@@ -30,7 +32,7 @@ class MiniCalendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget> [
+      children: <Widget>[
         Container(
           constraints: const BoxConstraints.expand(width: 100, height: 30),
           //color: Colors.blue,
@@ -39,19 +41,16 @@ class MiniCalendar extends StatelessWidget {
             border: Border.all(),
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(5),
-              topRight: Radius.circular(5)
-            )
+              topRight: Radius.circular(5),
+            ),
           ),
           child: Center(
             child: Text(
-              DateFormat
-                .E(
-                  Localizations
-                  .localeOf(context)
-                  .toString())
-                .format(_dateTime)
-            )
-          )
+              DateFormat.E(
+                Localizations.localeOf(context).toString(),
+              ).format(_dateTime),
+            ),
+          ),
         ),
         Container(
           width: 100,
@@ -61,16 +60,16 @@ class MiniCalendar extends StatelessWidget {
             color: Colors.white,
             borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(5),
-              bottomRight: Radius.circular(5)
+              bottomRight: Radius.circular(5),
             ),
-            border: Border.all()
+            border: Border.all(),
           ),
           child: Center(
             child: Text(
-                _dateTime.day.toString(),
-                textScaleFactor: 4,
-              )
-            )
+              _dateTime.day.toString(),
+              textScaleFactor: 4,
+            ),
+          ),
         ),
       ],
     );

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:picos/screens/overview_screen/widgets/graph_section.dart';
 import 'package:picos/screens/overview_screen/widgets/my_health_section.dart';
 import 'widgets/input_card_section.dart';
 import 'widgets/progress_section.dart';
 
+/// Main widget for the
 class OverviewScreen extends StatelessWidget {
+  // ignore: public_member_api_docs
   const OverviewScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: [
+      children: <Widget>[
         Container(
           color: const Color.fromARGB(255, 15, 88, 104),
           child: const InputCardSection(),
@@ -25,7 +26,7 @@ class OverviewScreen extends StatelessWidget {
         const GraphSection(),
         Container(
           color: Colors.blue,
-          child: MyHealthSection(),
+          child: const MyHealthSection(),
         ),
       ],
     );

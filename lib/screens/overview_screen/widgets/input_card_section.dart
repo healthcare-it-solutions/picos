@@ -16,12 +16,12 @@
 *  along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:picos/screens/overview_screen/widgets/mini_calendar.dart';
 
 /// This class implements the top section of the 'overview'.
 class InputCardSection extends StatelessWidget {
+  // ignore: public_member_api_docs
   const InputCardSection({Key? key}) : super(key: key);
 
   @override
@@ -47,7 +47,7 @@ class InputCardSection extends StatelessWidget {
                 alignment: Alignment.center,
                 children: <Widget>[
                   Image.network(
-                      'https://www.matawebsite.com/images/blog/436_flutter_flexible_widget.jpg',
+                    'https://www.matawebsite.com/images/blog/436_flutter_flexible_widget.jpg',
                   ),
                   Align(
                     heightFactor: 1,

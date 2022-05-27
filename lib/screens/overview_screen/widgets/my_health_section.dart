@@ -18,20 +18,27 @@
 
 import 'package:flutter/material.dart';
 
+/// Widget which displays health-related information
 class MyHealthSection extends StatelessWidget {
-  MyHealthSection({Key? key}) : super(key: key);
+  // ignore: public_member_api_docs
+  const MyHealthSection({Key? key}) : super(key: key);
 
   // final double h = MediaQuery.of(context).size.height;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          const Text('PLACEHOLDER', style: TextStyle(color: Colors.white)),
+          const Text(
+            'PLACEHOLDER',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
           // This is a horizontal line
           // be my guest to make it better if you know how
           SizedBox(
@@ -40,7 +47,7 @@ class MyHealthSection extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Center(
             child: Wrap(
               alignment: WrapAlignment.center,

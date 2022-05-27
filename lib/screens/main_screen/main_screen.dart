@@ -32,7 +32,7 @@ class MainScreen extends StatelessWidget {
       title: 'PICOS',
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      routes: <String, WidgetBuilder> {
+      routes: <String, WidgetBuilder>{
         '/questionaire': (BuildContext context) => const QuestionaireScreen()
       },
       // TODO: implement a proper global theme

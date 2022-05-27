@@ -19,7 +19,9 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
+/// Widget which shows a graph
 class GraphSection extends StatefulWidget {
+  // ignore: public_member_api_docs
   const GraphSection({Key? key}) : super(key: key);
 
   @override
@@ -44,14 +46,34 @@ class _GraphState extends State<GraphSection> {
           ),
           ButtonBar(
             alignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(onPressed: () => null, child: Text('asdf')),
-              ElevatedButton(onPressed: () => null, child: Text('asdf')),
-              ElevatedButton(onPressed: () => null, child: Text('asdf')),
-              ElevatedButton(onPressed: () => null, child: Text('asdf')),
+            children: <Widget>[
+              ElevatedButton(
+                onPressed: () {
+                  return;
+                },
+                child: const Text('asdf'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  return;
+                },
+                child: const Text('asdf'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  return;
+                },
+                child: const Text('asdf'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  return;
+                },
+                child: const Text('asdf'),
+              ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 250,
             child: _BarChart(),
           ),
@@ -135,7 +157,7 @@ class _BarChart extends StatelessWidget {
   //       text = '';
   //       break;
   //   }
-  //   return 
+  //   return
   // }
 
   FlTitlesData get titlesData => FlTitlesData(
@@ -162,8 +184,8 @@ class _BarChart extends StatelessWidget {
         show: false,
       );
 
-  final _barsGradient = const LinearGradient(
-    colors: [
+  final LinearGradient _barsGradient = const LinearGradient(
+    colors: <Color>[
       Colors.lightBlueAccent,
       Colors.greenAccent,
     ],
@@ -171,67 +193,66 @@ class _BarChart extends StatelessWidget {
     end: Alignment.topCenter,
   );
 
-  List<BarChartGroupData> get barGroups => [
+  List<BarChartGroupData> get barGroups => <BarChartGroupData>[
         BarChartGroupData(
           x: 0,
-          barRods: [
+          barRods: <BarChartRodData>[
             BarChartRodData(
               toY: 8,
               gradient: _barsGradient,
             )
           ],
-          showingTooltipIndicators: [0],
+          showingTooltipIndicators: <int>[0],
         ),
         BarChartGroupData(
           x: 1,
-          barRods: [
+          barRods: <BarChartRodData>[
             BarChartRodData(
               toY: 10,
               gradient: _barsGradient,
             )
           ],
-          showingTooltipIndicators: [0],
+          showingTooltipIndicators: <int>[0],
         ),
         BarChartGroupData(
           x: 2,
-          barRods: [
+          barRods: <BarChartRodData>[
             BarChartRodData(
               toY: 14,
               gradient: _barsGradient,
             )
           ],
-          showingTooltipIndicators: [0],
+          showingTooltipIndicators: <int>[0],
         ),
         BarChartGroupData(
           x: 3,
-          barRods: [
+          barRods: <BarChartRodData>[
             BarChartRodData(
               toY: 15,
               gradient: _barsGradient,
             )
           ],
-          showingTooltipIndicators: [0],
+          showingTooltipIndicators: <int>[0],
         ),
         BarChartGroupData(
           x: 3,
-          barRods: [
+          barRods: <BarChartRodData>[
             BarChartRodData(
               toY: 13,
               gradient: _barsGradient,
             )
           ],
-          showingTooltipIndicators: [0],
+          showingTooltipIndicators: <int>[0],
         ),
         BarChartGroupData(
           x: 3,
-          barRods: [
+          barRods: <BarChartRodData>[
             BarChartRodData(
               toY: 10,
               gradient: _barsGradient,
             )
           ],
-          showingTooltipIndicators: [0],
+          showingTooltipIndicators: <int>[0],
         ),
       ];
 }
-

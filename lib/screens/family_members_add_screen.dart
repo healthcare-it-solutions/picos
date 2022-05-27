@@ -349,7 +349,7 @@ String? validateEmail(String value) {
     // TODO: Internatilize it
     return 'Bitte geben Sie eine gültige E-Mail-Adresse ein!';
   }
-  
+
   return null;
 }
 
