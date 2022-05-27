@@ -25,8 +25,9 @@ class MedicationsListBloc
   final MedicationsRepository _medicationsRepository;
 
   Future<void> _onSubscriptionRequested(
-      MedicationsListSubscriptionRequested event,
-      Emitter<MedicationsListState> emit) async {
+    MedicationsListSubscriptionRequested event,
+    Emitter<MedicationsListState> emit,
+  ) async {
     emit(state.copyWith(status: MedicationsListStatus.loading));
 
     await emit.forEach<List<Medication>>(
@@ -46,7 +47,9 @@ class MedicationsListBloc
   }
 
   Future<void> _onSaveMedication(
-      SaveMedication event, Emitter<MedicationsListState> emit) async {
+    SaveMedication event,
+    Emitter<MedicationsListState> emit,
+  ) async {
     emit(state.copyWith(status: MedicationsListStatus.loading));
     await _medicationsRepository
         .saveMedication(
@@ -69,7 +72,9 @@ class MedicationsListBloc
   }
 
   Future<void> _onRemoveMedication(
-      RemoveMedication event, Emitter<MedicationsListState> emit) async {
+    RemoveMedication event,
+    Emitter<MedicationsListState> emit,
+  ) async {
     emit(state.copyWith(status: MedicationsListStatus.loading));
     await _medicationsRepository
         .removeMedication(

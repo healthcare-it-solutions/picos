@@ -17,8 +17,13 @@ class MedicationCard extends StatelessWidget {
 
   final Medication _medication;
 
-  _createCardColumn(BuildContext context, String topTime, String bottomTime,
-      String topAmount, String bottomAmount) {
+  _createCardColumn(
+    BuildContext context,
+    String topTime,
+    String bottomTime,
+    String topAmount,
+    String bottomAmount,
+  ) {
     const double dividerThickness = 1.5;
     const EdgeInsets symmetricPadding = EdgeInsets.symmetric(horizontal: 10);
 
