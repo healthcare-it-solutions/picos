@@ -229,8 +229,6 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   labelText: 'Webseite *',
                 ),
                 keyboardType: TextInputType.url,
-                minLines: 2,
-                maxLines: null,
                 onSaved: (String? value) {
                   // TODO: Implement here
                 },
