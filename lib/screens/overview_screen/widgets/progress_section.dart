@@ -38,7 +38,7 @@ class ProgressSection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               const Text(
-                'lorem ipsum dolor sit amet',
+                'Heute erreichte Gesamteingabe',
                 style: TextStyle(
                   color: Colors.white,
                 ),
@@ -48,7 +48,7 @@ class ProgressSection extends StatelessWidget {
                     const BoxConstraints(minHeight: 20, maxHeight: 100),
               ),
               ElevatedButton(
-                child: const Text('PLACEHOLDER'),
+                child: const Text('Fortsetzen'),
                 onPressed: () {
                   return;
                 },

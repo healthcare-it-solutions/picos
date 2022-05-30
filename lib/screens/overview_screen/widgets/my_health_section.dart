@@ -34,7 +34,7 @@ class MyHealthSection extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           const Text(
-            'PLACEHOLDER',
+            'Meine Gesundheit',
             style: TextStyle(
               color: Colors.white,
             ),

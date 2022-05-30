@@ -35,7 +35,7 @@ class InputCardSection extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Row(children: const <Widget>[Text('PLACEHOLDER')]),
+              Row(children: const <Widget>[Text('Meine Eingaben')]),
               // Ok, this is a horizontal line, if there are better solutions
               // to this, be my guest to refactor this.
               Container(
@@ -62,7 +62,7 @@ class InputCardSection extends StatelessWidget {
                 stepWidth: double.infinity,
                 child: ElevatedButton(
                   onPressed: null,
-                  child: Text('PLACEHOLDER'),
+                  child: Text('Eingabe starten'),
                 ),
               )
             ],

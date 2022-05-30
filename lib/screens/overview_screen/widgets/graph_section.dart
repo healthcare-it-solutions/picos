@@ -38,7 +38,7 @@ class _GraphState extends State<GraphSection> {
         children: <Widget>[
           const SizedBox(
             width: double.infinity,
-            child: Text('PLACEHOLDER'),
+            child: Text('Meine Werte'),
           ),
           Container(
             color: Colors.black,
@@ -51,25 +51,25 @@ class _GraphState extends State<GraphSection> {
                 onPressed: () {
                   return;
                 },
-                child: const Text('asdf'),
+                child: const Text('Blutzucker'),
               ),
               ElevatedButton(
                 onPressed: () {
                   return;
                 },
-                child: const Text('asdf'),
+                child: const Text('Herzfrequenz'),
               ),
               ElevatedButton(
                 onPressed: () {
                   return;
                 },
-                child: const Text('asdf'),
+                child: const Text('Blutdruck'),
               ),
               ElevatedButton(
                 onPressed: () {
                   return;
                 },
-                child: const Text('asdf'),
+                child: const Text('Leberwerte'),
               ),
             ],
           ),
