@@ -17,7 +17,7 @@ class AddMedicationScreen extends StatefulWidget {
   const AddMedicationScreen({Key? key}) : super(key: key);
 
   @override
-  _AddMedicationScreenState createState() => _AddMedicationScreenState();
+  State<AddMedicationScreen> createState() => _AddMedicationScreenState();
 }
 
 class _AddMedicationScreenState extends State<AddMedicationScreen> {
@@ -99,10 +99,10 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
       title = AppLocalizations.of(context)!.editMedication;
       compoundHint = _compound;
 
-      morningHint += ' ' + MedicationsRepository.amountToString(_morning);
-      noonHint += ' ' + MedicationsRepository.amountToString(_noon);
-      eveningHint += ' ' + MedicationsRepository.amountToString(_evening);
-      nightHint += ' ' + MedicationsRepository.amountToString(_night);
+      morningHint += ' ${MedicationsRepository.amountToString(_morning)}';
+      noonHint += ' ${MedicationsRepository.amountToString(_noon)}';
+      eveningHint += ' ${MedicationsRepository.amountToString(_evening)}';
+      nightHint += ' ${MedicationsRepository.amountToString(_night)}';
 
       disabledCompoundSelect = true;
       compoundAutoFocus = false;
@@ -140,15 +140,17 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                 disabled: _addDisabled,
                 text: addText,
                 onTap: () {
-                  context
-                      .read<MedicationsListBloc>()
-                      .add(SaveMedication(Medication(
-                        compound: _compound!,
-                        morning: _morning,
-                        noon: _noon,
-                        evening: _evening,
-                        night: _night,
-                      )));
+                  context.read<MedicationsListBloc>().add(
+                        SaveMedication(
+                          Medication(
+                            compound: _compound!,
+                            morning: _morning,
+                            noon: _noon,
+                            evening: _evening,
+                            night: _night,
+                          ),
+                        ),
+                      );
                   Navigator.of(context).pop();
                 },
               ),
@@ -162,7 +164,8 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                   children: <Widget>[
                     Card(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(7)),
+                        borderRadius: BorderRadius.circular(7),
+                      ),
                       color: Theme.of(context).dialogBackgroundColor,
                       child: Padding(
                         padding: const EdgeInsets.all(15),
@@ -181,16 +184,21 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                                   text: AppLocalizations.of(context)!
                                       .addMedicationInfoPart1,
                                   style: const TextStyle(
-                                      color: infoTextFontColor, fontSize: 20),
+                                    color: infoTextFontColor,
+                                    fontSize: 20,
+                                  ),
                                   children: <TextSpan>[
                                     TextSpan(
-                                        text: AppLocalizations.of(context)!
-                                            .addMedicationInfoPart2,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold)),
+                                      text: AppLocalizations.of(context)!
+                                          .addMedicationInfoPart2,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                     TextSpan(
-                                        text: AppLocalizations.of(context)!
-                                            .addMedicationInfoPart3),
+                                      text: AppLocalizations.of(context)!
+                                          .addMedicationInfoPart3,
+                                    ),
                                   ],
                                 ),
                               ),
@@ -231,17 +239,29 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                     Row(
                       children: <Expanded>[
                         _createAmountSelect(
-                            selectPaddingRight, morningHint, 'morning'),
+                          selectPaddingRight,
+                          morningHint,
+                          'morning',
+                        ),
                         _createAmountSelect(
-                            selectPaddingLeft, noonHint, 'noon'),
+                          selectPaddingLeft,
+                          noonHint,
+                          'noon',
+                        ),
                       ],
                     ),
                     Row(
                       children: <Expanded>[
                         _createAmountSelect(
-                            selectPaddingRight, eveningHint, 'evening'),
+                          selectPaddingRight,
+                          eveningHint,
+                          'evening',
+                        ),
                         _createAmountSelect(
-                            selectPaddingLeft, nightHint, 'night'),
+                          selectPaddingLeft,
+                          nightHint,
+                          'night',
+                        ),
                       ],
                     ),
                   ],

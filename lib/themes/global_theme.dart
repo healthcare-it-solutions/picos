@@ -22,24 +22,34 @@ class GlobalTheme extends ThemeExtension<GlobalTheme> {
 
   /// Standard: #197888
   final Color? darkGreen1;
+
   /// Standard: #4a8a96
   final Color? darkGreen2;
+
   /// Standard: #0f5868
   final Color? darkGreen3;
+
   /// Standard: #e8f1f3
   final Color? white;
+
   /// Standard: #236fa8
   final Color? blue;
+
   /// Standard: #95c11f
   final Color? green1;
+
   /// Standard: #6eab27
   final Color? green2;
+
   /// Standard: #5f7383
   final Color? grey1;
+
   /// Standard: #bfc7cd
   final Color? grey2;
+
   /// Standard: #8796a2
   final Color? grey3;
+
   /// Standard: 0xFFF2F2F2, blends well with Android bottom navigation menu.
   /// Open for debate.
   final Color? bottomNavigationBar;

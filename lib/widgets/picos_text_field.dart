@@ -13,10 +13,13 @@ class PicosTextField extends StatelessWidget {
 
   /// Determines if the text field is disabled.
   final bool disabled;
+
   /// The hint shown in the text field.
   final String hint;
+
   /// Determines if the text field should focus itself.
   final bool autofocus;
+
   /// The function hta is executed when the writes something.
   final Function(String) onChanged;
 
