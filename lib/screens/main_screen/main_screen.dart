@@ -1,4 +1,4 @@
-/*   This file is part of Picos, a health trcking mobile app
+/*   This file is part of Picos, a health tracking mobile app
 *    Copyright (C) 2022 Healthcare IT Solutions GmbH
 *
 *    This program is free software: you can redistribute it and/or modify
@@ -17,29 +17,68 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/screens/questionaire_screen/questionaire_screen.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:picos/repository/medications_repository.dart';
+import 'package:picos/screens/add_medication_screen/add_medication_screen.dart';
+import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
+import 'package:picos/states/medications_list_bloc.dart';
+import 'package:picos/themes/global_theme.dart';
+
+import '../../api/local_storage_medications_api.dart';
 
 import 'bottom_bar.dart';
 
-/// This is the screen which contains all relevant informations
+/// This is the screen which contains all relevant information
 class MainScreen extends StatelessWidget {
   // ignore: public_member_api_docs
   const MainScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'PICOS',
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      routes: <String, WidgetBuilder>{
-        '/questionaire': (BuildContext context) => const QuestionaireScreen()
-      },
-      // TODO: implement a proper global theme
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    const GlobalTheme theme = GlobalTheme();
+
+    final MedicationsRepository medicationsRepository =
+        MedicationsRepository(medicationsApi: LocalStorageMedicationsApi());
+
+    return MultiRepositoryProvider(
+      providers: <RepositoryProvider<MedicationsRepository>>[
+        RepositoryProvider<MedicationsRepository>.value(
+          value: medicationsRepository,
+        )
+      ],
+      child: MultiBlocProvider(
+        providers: <BlocProvider<MedicationsListBloc>>[
+          BlocProvider<MedicationsListBloc>(
+            create: (BuildContext context) => MedicationsListBloc(
+              medicationsRepository: context.read<MedicationsRepository>(),
+            )..add(const MedicationsListSubscriptionRequested()),
+          ),
+        ],
+        child: MaterialApp(
+          title: 'PICOS',
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          theme: ThemeData(
+            appBarTheme: AppBarTheme(
+              backgroundColor: theme.darkGreen1,
+            ),
+            dialogBackgroundColor: theme.darkGreen2,
+            focusColor: theme.darkGreen3,
+            shadowColor: theme.grey2,
+          ).copyWith(
+            extensions: <ThemeExtension<dynamic>>{
+              theme,
+            },
+          ),
+          home: const BottomBar(title: 'PICOS'),
+          routes: <String, Widget Function(BuildContext)>{
+            '/my-medications': (BuildContext ctx) =>
+                const MyMedicationsScreen(),
+            '/add-medication': (BuildContext ctx) => const AddMedicationScreen()
+          },
+        ),
       ),
-      home: const BottomBar(title: 'PICOS'),
     );
   }
 }

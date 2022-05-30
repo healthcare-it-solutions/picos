@@ -17,6 +17,74 @@
     "myPicos": "MyPICOS",
     "@MyPICOS": {
         "description": "MyPICOS"
+    },
+
+    "myMedications": "My medications",
+    "@myMedications": {
+        "description": "My medications"
+    },
+
+    "inTheMorning": "Morning",
+    "@inTheMorning": {
+        "description": "Morning"
+    },
+    "inTheEvening": "Evening",
+    "@inTheEvening": {
+        "description": "Evening"
+    },
+    "noon": "Noon",
+    "@noon": {
+        "description": "Noon"
+    },
+    "toTheNight": "To the night",
+    "@toTheNight": {
+        "description": "To the night"
+    },
+
+    "addMedication": "Add medication",
+    "@addMedication": {
+        "description": "Add medication"
+    },
+    "editMedication": "Edit medication",
+    "@editMedication": {
+        "description": "Edit medication"
+    },
+
+    "addMedicationInfoPart1": "Please enter ",
+    "@addMedicationInfoPart1": {
+        "description": "Patient advice for adding medication schedules. (Part 1)"
+    },
+    "addMedicationInfoPart2": "accurate and current medication schedules",
+    "@addMedicationInfoPart2": {
+        "description": "Patient advice for adding medication schedules. (Part 2)"
+    },
+    "addMedicationInfoPart3": ". These can be be of great use to the treating facilities and be incorporated into your treatment.",
+    "@addMedicationInfoPart3": {
+        "description": "Patient advice for adding medication schedules. (Part 3)"
+    },
+
+    "enterCompound": "Enter compound",
+    "@enterCompound": {
+        "description": "Enter compound"
+    },
+
+    "compound": "Compound",
+    "@compound": {
+        "description": "Compound"
+    },
+
+    "intake": "Intake",
+    "@intake": {
+        "description": "Intake"
+    },
+
+    "add": "Add",
+    "@add": {
+        "description": "Add"
+    },
+
+    "save": "Save",
+    "@save": {
+        "description": "Save"
     }
-    
 }
