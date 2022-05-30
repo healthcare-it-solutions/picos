@@ -41,10 +41,11 @@ class PicosMenu extends StatelessWidget {
           title: Text('Werte'),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
-        const ListTile(
-          leading: Icon(Icons.medication),
-          title: Text('Medikationsplan'),
-          trailing: Icon(Icons.keyboard_arrow_right),
+        ListTile(
+          leading: const Icon(Icons.medication),
+          title: const Text('Medikationsplan'),
+          trailing: const Icon(Icons.keyboard_arrow_right),
+          onTap: () => Navigator.of(context).pushNamed('/my-medications'),
         ),
         ListTile(
           leading: const Icon(Icons.groups),
