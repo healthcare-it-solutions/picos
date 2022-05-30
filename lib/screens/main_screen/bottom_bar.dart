@@ -49,18 +49,18 @@ class _BottomBarState extends State<BottomBar> {
 
   // TODO: refactor and remove this List
   final List<String> _appBarTitles = <String>[
-    'overview',
-    'inbox',
-    'calender',
+    'Overview',
+    'Inbox',
+    'Calender',
     'MyPicos'
   ];
 
   // TODO: refactor the appBarTitiles to return localized messages
   String appBarTitle(BuildContext context, int index) {
     final List<String> appBarTitles = <String>[
-      'overview',
-      'inbox',
-      'calender',
+      'Overview',
+      'Inbox',
+      'Calender',
       'MyPicos'
     ];
 
