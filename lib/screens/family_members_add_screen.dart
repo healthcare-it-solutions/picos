@@ -158,9 +158,6 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                   labelText: 'Vorname *',
                 ),
                 keyboardType: TextInputType.name,
-                onSaved: (String? value) {
-                  // TODO: Implement here
-                },
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     // TODO: Internatilize it
@@ -176,9 +173,6 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                   labelText: 'Nachname *',
                 ),
                 keyboardType: TextInputType.name,
-                onSaved: (String? value) {
-                  // TODO: Implement here
-                },
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     // TODO: Internatilize it
@@ -194,9 +188,6 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                   labelText: 'E-Mail-Adresse *',
                 ),
                 keyboardType: TextInputType.emailAddress,
-                onSaved: (String? value) {
-                  // TODO: Implement here
-                },
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     // TODO: Internatilize it
@@ -213,9 +204,6 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                   labelText: 'Telefon *',
                 ),
                 keyboardType: TextInputType.number,
-                onSaved: (String? value) {
-                  // TODO: Implement here
-                },
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     // TODO: Internatilize it
@@ -235,9 +223,6 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                 keyboardType: TextInputType.multiline,
                 minLines: 2,
                 maxLines: null,
-                onSaved: (String? value) {
-                  // TODO: Implement here
-                },
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     // TODO: Internatilize it

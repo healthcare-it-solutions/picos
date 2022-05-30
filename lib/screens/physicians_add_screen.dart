@@ -96,9 +96,6 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   labelText: 'Praxisname *',
                 ),
                 keyboardType: TextInputType.name,
-                onSaved: (String? value) {
-                  // TODO: Implement here
-                },
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return 'Bitte geben Sie den Namen der Praxis ein.';
@@ -164,9 +161,6 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   labelText: 'Vorname *',
                 ),
                 keyboardType: TextInputType.name,
-                onSaved: (String? value) {
-                  // TODO: Implement here
-                },
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return 'Bitte geben Sie den Vornamen ein.';
@@ -180,9 +174,6 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   labelText: 'Nachname *',
                 ),
                 keyboardType: TextInputType.name,
-                onSaved: (String? value) {
-                  // TODO: Implement here
-                },
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return 'Bitte geben Sie den Nachnamen ein.';
@@ -196,9 +187,6 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   labelText: 'E-Mail-Adresse *',
                 ),
                 keyboardType: TextInputType.emailAddress,
-                onSaved: (String? value) {
-                  // TODO: Implement here
-                },
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return 'Bitte geben Sie die E-Mail-Adresse ein.';
@@ -213,9 +201,6 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   labelText: 'Telefon *',
                 ),
                 keyboardType: TextInputType.number,
-                onSaved: (String? value) {
-                  // TODO: Implement here
-                },
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return 'Bitte geben Sie die Telefonnummer ein.';
@@ -229,9 +214,6 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   labelText: 'Webseite *',
                 ),
                 keyboardType: TextInputType.url,
-                onSaved: (String? value) {
-                  // TODO: Implement here
-                },
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return 'Bitte geben Sie die Webseite ein.';
@@ -249,9 +231,6 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                 keyboardType: TextInputType.multiline,
                 minLines: 2,
                 maxLines: null,
-                onSaved: (String? value) {
-                  // TODO: Implement here
-                },
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return 'Bitte geben Sie die Adresse ein.';

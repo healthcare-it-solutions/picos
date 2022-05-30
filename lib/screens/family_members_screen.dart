@@ -131,7 +131,7 @@ class CustomCard extends StatelessWidget {
                         height: 44,
                         child: ElevatedButton(
                           onPressed: () {
-                            // TODO: Implement here
+                            return;
                           },
                           style: ElevatedButton.styleFrom(
                             primary: const Color.fromRGBO(
@@ -167,7 +167,7 @@ class CustomCard extends StatelessWidget {
                         height: 44,
                         child: ElevatedButton(
                           onPressed: () {
-                            // TODO: Implement here
+                            return;
                           },
                           style: ElevatedButton.styleFrom(
                             primary: const Color.fromRGBO(
