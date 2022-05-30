@@ -11,8 +11,8 @@ class PicosBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: child,
       padding: const EdgeInsets.all(10),
+      child: child,
     );
   }
 }

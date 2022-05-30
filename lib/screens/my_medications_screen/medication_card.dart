@@ -85,6 +85,10 @@ class MedicationCard extends StatelessWidget {
                 ),
                 child: Container(
                   width: double.infinity,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 5,
+                  ),
                   child: Text(
                     _medication.compound,
                     style: const TextStyle(
@@ -92,10 +96,6 @@ class MedicationCard extends StatelessWidget {
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
                     ),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 5,
                   ),
                 ),
               ),

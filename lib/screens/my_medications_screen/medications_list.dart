@@ -9,7 +9,7 @@ class MedicationsList extends StatefulWidget {
   const MedicationsList({Key? key}) : super(key: key);
 
   @override
-  _MedicationsListState createState() => _MedicationsListState();
+  State<MedicationsList> createState() => _MedicationsListState();
 }
 
 class _MedicationsListState extends State<MedicationsList> {

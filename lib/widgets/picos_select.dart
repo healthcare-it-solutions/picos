@@ -24,7 +24,7 @@ class PicosSelect extends StatefulWidget {
   final bool disabled;
 
   @override
-  _PicosSelectState createState() => _PicosSelectState();
+  State<PicosSelect> createState() => _PicosSelectState();
 }
 
 class _PicosSelectState extends State<PicosSelect> {
