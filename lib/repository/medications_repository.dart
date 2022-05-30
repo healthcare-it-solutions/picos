@@ -36,7 +36,7 @@ class MedicationsRepository {
     }
 
     if (intValue != '0' && half != '0') {
-      return intValue + ' 1/2';
+      return '$intValue 1/2';
     }
 
     return intValue;

@@ -47,5 +47,11 @@ class Medication extends Equatable {
   }
 
   @override
-  List<Object> get props => <Object>[compound, morning, noon, evening, night,];
+  List<Object> get props => <Object>[
+        compound,
+        morning,
+        noon,
+        evening,
+        night,
+      ];
 }

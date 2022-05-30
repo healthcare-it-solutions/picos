@@ -53,6 +53,7 @@ class LocalStorageMedicationsApi extends MedicationsApi {
 
   int _getIndex(Medication medication) {
     return _medicationsList.indexWhere(
-        (Medication element) => element.compound == medication.compound);
+      (Medication element) => element.compound == medication.compound,
+    );
   }
 }
