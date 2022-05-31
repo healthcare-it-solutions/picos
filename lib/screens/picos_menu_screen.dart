@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:picos/screens/family_members_screen.dart';
 import 'package:picos/screens/physicians_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
@@ -25,31 +26,32 @@ class PicosMenu extends StatelessWidget {
   // ignore: public_member_api_docs
   const PicosMenu({Key? key}) : super(key: key);
 
-  // TODO: Internationalize every string
   @override
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.all(15.0),
       children: <Widget>[
-        const Text(
-          'Meine Gesundheit',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        Text(
+          AppLocalizations.of(context)!.myhealth,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 20),
-        const ListTile(
-          leading: Icon(Icons.insights),
-          title: Text('Werte'),
-          trailing: Icon(Icons.keyboard_arrow_right),
+        ListTile(
+          leading: const Icon(Icons.insights),
+          title: Text(AppLocalizations.of(context)!.medicaldata),
+          trailing: const Icon(Icons.keyboard_arrow_right),
         ),
         ListTile(
           leading: const Icon(Icons.medication),
-          title: const Text('Medikationsplan'),
+          title: Text(AppLocalizations.of(context)!.medicationscheme),
           trailing: const Icon(Icons.keyboard_arrow_right),
           onTap: () => Navigator.of(context).pushNamed('/my-medications'),
         ),
         ListTile(
           leading: const Icon(Icons.groups),
-          title: const Text('BehandlerInnen'),
+          title: Text(AppLocalizations.of(context)!.physicians),
           trailing: const Icon(Icons.keyboard_arrow_right),
           onTap: () => Navigator.push(
             context,
@@ -60,7 +62,7 @@ class PicosMenu extends StatelessWidget {
         ),
         ListTile(
           leading: const Icon(Icons.people),
-          title: const Text('Angehörige'),
+          title: Text(AppLocalizations.of(context)!.familymembers),
           trailing: const Icon(Icons.keyboard_arrow_right),
           onTap: () => Navigator.push(
             context,
@@ -69,40 +71,45 @@ class PicosMenu extends StatelessWidget {
             ),
           ),
         ),
-        const ListTile(
-          leading: Icon(Icons.description),
-          title: Text('Dokumente'),
-          trailing: Icon(Icons.keyboard_arrow_right),
+        ListTile(
+          leading: const Icon(Icons.description),
+          title: Text(AppLocalizations.of(context)!.documents),
+          trailing: const Icon(Icons.keyboard_arrow_right),
         ),
         const SizedBox(
           height: 20,
         ),
-        const Text('Mehr', style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          AppLocalizations.of(context)!.more,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         const SizedBox(height: 20),
-        const ListTile(
-          leading: Icon(Icons.notifications),
-          title: Text('Benachrichtigungen'),
-          trailing: Icon(Icons.keyboard_arrow_right),
+        ListTile(
+          leading: const Icon(Icons.notifications),
+          title: Text(AppLocalizations.of(context)!.notifications),
+          trailing: const Icon(Icons.keyboard_arrow_right),
         ),
-        const ListTile(
-          leading: Icon(Icons.settings),
-          title: Text('Profil'),
-          trailing: Icon(Icons.keyboard_arrow_right),
+        ListTile(
+          leading: const Icon(Icons.settings),
+          title: Text(AppLocalizations.of(context)!.profil),
+          trailing: const Icon(Icons.keyboard_arrow_right),
         ),
-        const ListTile(
-          leading: Icon(Icons.lock),
-          title: Text('Datenschutzhinweise'),
-          trailing: Icon(Icons.keyboard_arrow_right),
+        ListTile(
+          leading: const Icon(Icons.lock),
+          title: Text(AppLocalizations.of(context)!.privacynotice),
+          trailing: const Icon(Icons.keyboard_arrow_right),
         ),
-        const ListTile(
-          leading: Icon(Icons.gavel),
-          title: Text('Impressum'),
-          trailing: Icon(Icons.keyboard_arrow_right),
+        ListTile(
+          leading: const Icon(Icons.gavel),
+          title: Text(AppLocalizations.of(context)!.imprint),
+          trailing: const Icon(Icons.keyboard_arrow_right),
         ),
-        const ListTile(
-          leading: Icon(Icons.logout),
-          title: Text('Ausloggen'),
-          trailing: Icon(Icons.keyboard_arrow_right),
+        ListTile(
+          leading: const Icon(Icons.logout),
+          title: Text(AppLocalizations.of(context)!.logout),
+          trailing: const Icon(Icons.keyboard_arrow_right),
         ),
       ],
     );

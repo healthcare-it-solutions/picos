@@ -17,6 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:picos/screens/physicians_add_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// builds 'Column' as a parent widget for the given cards
 class MyCard extends StatelessWidget {
@@ -104,19 +105,21 @@ class CustomCard extends StatelessWidget {
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[
+                children: <Widget>[
                   Text(
-                    'Praxis xyz',
-                    style: TextStyle(
+                    '${AppLocalizations.of(context)!.practice} xyz',
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text('Frau/Herr Dr. Vorname Nachname'),
-                  Text('Musterstraße 1'),
-                  Text('00000 Musterstadt'),
-                  Text('Tel. +49 000 12 34 56'),
-                  Text('name@webmail.de'),
-                  Text('www.praxis-name.de')
+                  Text(
+                    '${AppLocalizations.of(context)!.mister}/${AppLocalizations.of(context)!.mistress} Dr. Vorname Nachname',
+                  ),
+                  const Text('Musterstraße 1'),
+                  const Text('00000 Musterstadt'),
+                  const Text('Tel. +49 000 12 34 56'),
+                  const Text('name@webmail.de'),
+                  const Text('www.praxis-name.de')
                 ],
               ),
             ),
@@ -143,9 +146,9 @@ class CustomCard extends StatelessWidget {
                             ),
                             shadowColor: Colors.transparent,
                           ),
-                          child: const Text(
-                            'Bearbeiten',
-                            style: TextStyle(
+                          child: Text(
+                            AppLocalizations.of(context)!.edit,
+                            style: const TextStyle(
                               color: Color.fromRGBO(
                                 95,
                                 115,
@@ -178,9 +181,9 @@ class CustomCard extends StatelessWidget {
                             ),
                             shadowColor: Colors.transparent,
                           ),
-                          child: const Text(
-                            'Löschen',
-                            style: TextStyle(
+                          child: Text(
+                            AppLocalizations.of(context)!.delete,
+                            style: const TextStyle(
                               color: Color.fromRGBO(
                                 95,
                                 115,
@@ -214,7 +217,7 @@ class Physicians extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Meine BehandlerInnen'),
+        title: Text(AppLocalizations.of(context)!.myphysicians),
         backgroundColor: const Color.fromRGBO(
           25,
           102,
@@ -274,9 +277,9 @@ class Physicians extends StatelessWidget {
                       primary: Colors.transparent,
                       shadowColor: Colors.transparent,
                     ),
-                    child: const Text(
-                      'Hinzufügen',
-                      style: TextStyle(
+                    child: Text(
+                      AppLocalizations.of(context)!.add,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
