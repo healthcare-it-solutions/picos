@@ -86,5 +86,210 @@
     "save": "Save",
     "@save": {
         "description": "Save"
+    },
+
+    "myhealth": "My Health",
+    "@myhealth": {
+        "description": "My Health"
+    },
+
+    "medicaldata": "Medical Data",
+    "@medicaldata": {
+        "description": "Medical Data"
+    },
+
+    "medicationscheme": "Medication Scheme",
+    "@medicationscheme": {
+        "description": "Medication Scheme"
+    },
+
+    "physicians": "Physicians",
+    "@physicians": {
+        "description": "Physicians"
+    },
+
+    "familymembers": "Family Members",
+    "@familymembers": {
+        "description": "Family Members"
+    },
+
+    "documents": "Documents",
+    "@documents": {
+        "description": "Documents"
+    },
+
+    "more": "More",
+    "@more": {
+        "description": "More"
+    },
+
+    "notifications": "Motifications",
+    "@notifications": {
+        "description": "Notifications"
+    },
+
+    "profil": "Profil",
+    "@profil": {
+        "description": "Profil"
+    },
+
+    "privacynotice": "Privacy Notice",
+    "@privacynotice": {
+        "description": "Privacy Notice"
+    },
+
+    "imprint": "Imprint",
+    "@imprint": {
+        "description": "Imprint"
+    },
+
+    "logout": "Logout",
+    "@logout": {
+        "description": "Logout"
+    },
+
+    "father": "Father",
+    "@father": {
+        "description": "Father"
+    },
+
+    "mother": "Mother",
+    "@mother": {
+        "Mother": "Mother"
+    },
+
+    "brother": "Brother",
+    "@brother": {
+        "description": "Brother"
+    },
+
+    "sister": "Sister",
+    "@sister": {
+        "description": "Sister"
+    },
+
+    "edit": "Edit",
+    "@edit": {
+        "description": "Edit"
+    },
+
+    "delete": "Delete",
+    "@delete": {
+        "description": "Delete"
+    },
+
+    "mister": "Mr.",
+    "@mister": {
+        "description": "Mr."
+    },
+
+    "mistress": "Mrs.",
+    "@mistress": {
+        "description": "Mrs."
+    },
+
+    "choosefamilymember": "Choose your family member",
+    "@choosefamilymember": {
+        "description": "Choose your family member"
+    },
+
+    "title": "Title",
+    "@title": {
+        "description": "Title"
+    },
+
+    "firstname": "First Name",
+    "@firstname": {
+        "description": "First Name"
+    },
+
+    "familyname": "Family Name",
+    "@familyname": {
+        "description": "Family Name"
+    },
+
+    "email": "E-Mail",
+    "@email": {
+        "description": "E-Mail"
+    },
+
+    "phonenumber": "Telephone Number",
+    "@phonenumber": {
+        "description": "Telephone Number"
+    },
+
+    "address": "Address",
+    "@address": {
+        "description": "Address"
+    },
+
+    "abort": "Abort",
+    "@abort": {
+        "description": "Abort"
+    },
+
+    "proceed": "Continue",
+    "@proceed": {
+        "description": "Continue"
+    },
+
+    "myentries": "My Entries",
+    "@myentries": {
+        "description": "My Entries"
+    },
+
+    "startentry": "Start Entry",
+    "@startentry": {
+        "description": "Start Entry"
+    },
+
+    "submitdata": "The entered will be submitted.",
+    "@submitdata": {
+        "description": "The entered will be submitted."
+    },
+
+    "husband": "Husband",
+    "@husband": {
+        "description": "Husband"
+    },
+
+    "wife": "Wife",
+    "@wife": {
+        "description": "Wife"
+    },
+
+    "entryemail": "Please enter the e-mail-address!",
+    "@entryemail": {
+        "description": "Please enter the e-mail-address!"
+    },
+
+    "entryfirstname": "Please enter the first name!",
+    "@entryfirstname": {
+        "description": "Please enter the first name"
+    },
+
+    "entryfamilyname": "Please enter the family name!",
+    "@entryfamilyname": {
+        "description": "Please enter the family name"
+    },
+
+    "entryaddress": "Please enter the address!",
+    "@entryaddress": {
+        "description": "Please enter the family name"
+    },
+
+    "entryphonenumber": "Please enter the phone number!",
+    "@entryphonenumber": {
+        "description": "Please enter the phone number!"
+    },
+
+    "myphysicians": "My Physicians",
+    "@myphysicians": {
+        "description": "My Physicians"
+    },
+
+    "practice": "Practice",
+    "@practice": {
+        "description": "Practice"
     }
 }
