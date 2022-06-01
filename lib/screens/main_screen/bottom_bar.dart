@@ -85,7 +85,9 @@ class _BottomBarState extends State<BottomBar> {
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(25, 102, 117, 1.0),
         title: Center(
-          child: Text(_appBarTitles[selectedIndex]),
+          child: Text(
+            _appBarTitles[selectedIndex],
+          ),
         ),
       ),
       body: Center(

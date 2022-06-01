@@ -52,7 +52,7 @@ class _QuestionaireCardState extends State<QuestionaireCard> {
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
-          Text(widget.question),
+          //Text(widget.question),
           ..._genReplies()
         ],
       ),
