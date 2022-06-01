@@ -263,6 +263,11 @@
         "description": "Please enter the e-mail-address!"
     },
 
+    "entryvalidemail": "Please enter a valid e-mail-address!",
+    "@entryvalidemail": {
+        "description": ""
+    },
+
     "entryfirstname": "Please enter the first name!",
     "@entryfirstname": {
         "description": "Please enter the first name"
@@ -291,5 +296,90 @@
     "practice": "Practice",
     "@practice": {
         "description": "Practice"
+    },
+
+    "practicename": "Name of practice",
+    "@practicename": {
+        "description": "Name of Practice"
+    },
+
+    "website": "Website",
+    "@website": {
+        "description": "Website"
+    },
+
+    "familydoctor": "Family doctor",
+    "@familydoctor": {
+        "description": "Family doctor"
+    },
+
+    "cardiologist": "Cardiologist",
+    "@cardiologist": {
+        "description": "Cardiologist"
+    },
+
+    "nephrologist": "Nephrologist",
+    "@nephrologist": {
+        "description": "Nephrologist"
+    },
+
+    "neurologist": "Neurologist",
+    "@neurologist": {
+        "description": "Neurologist"
+    },
+
+    "addfamilymember": "Add Family Member",
+    "@addfamilymember": {
+        "description": "Add Family Member"
+    },
+
+    "addphysician": "Add Physician",
+    "@addphysician": {
+        "description": "Add Physician"
+    },
+
+    "choosefield": "Choose your medical field",
+    "@choosefield": {
+        "description": "Choose your medical field"
+    },
+
+    "entrywebsite": "Please enter the website!",
+    "@entrywebsite": {
+        "description": "Please enter the website!"
+    },
+
+    "entryvalidwebsite": "Please enter a valid website!",
+    "@entryvalidwebsite": {
+        "description": "Please enter a valid website!"
+    },
+
+    "entrypracticename": "Please enter the practice name!",
+    "@entrypracticename": {
+        "description": "Please enter the practice name!"
+    },
+
+    "mymedicaldata": "My medical data",
+    "@medicaldata": {
+        "description": "My medical data"
+    },
+
+    "achievedvalues": "Today's achieved values",
+    "@achievedvalues": {
+        "description": "Today's achieved values"
+    },
+
+    "days": "days",
+    "@days": {
+        "description": "days"
+    },
+
+    "month": "month",
+    "@month": {
+        "description": "month"
+    },
+
+    "months": "months",
+    "@months": {
+        "description": "months"
     }
 }

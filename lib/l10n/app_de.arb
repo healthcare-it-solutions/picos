@@ -58,5 +58,22 @@
     "entryaddress": "Bitte geben Sie die Adresse ein!",
     "entryphonenumber": "Bitte geben Sie die Telefonnummer ein!",
     "myphysicians": "Meine BehandlerInnen",
-    "practice": "Praxis"
+    "practice": "Praxis",
+    "practicename": "Praxisname",
+    "website": "Webseite",
+    "familydoctor": "Hausarzt",
+    "cardiologist": "Kardiologe",
+    "nephrologist": "Nephrologe",
+    "cardiologist": "Kardiologe",
+    "addfamilymember": "Angehörige/n hinzufügen",
+    "addphysician": "BehandlerIn hinzufügen",
+    "choosefield": "Bitte wählen Sie Ihren Fachbereich aus.",
+    "entrywebsite": "Bitte geben Sie die Webseite ein!",
+    "entryvalidwebsite": "Bitte geben Sie eine gültige Website ein!",
+    "entrypracticename": "Bitte geben Sie den Praxisnamen ein!",
+    "mymedicaldata": "Meine Werte",
+    "achievedvalues": "Heute erreichte Gesamteingabe",
+    "days": "Tage",
+    "month": "Monat",
+    "months": "Monate"
 }
