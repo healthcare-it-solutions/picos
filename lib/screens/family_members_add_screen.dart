@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// contains the gender of the corresponding family member
 // ignore: public_member_api_docs
@@ -33,7 +34,7 @@ class FamilyMembersAdd extends StatefulWidget {
 
 class _FamilyMembersAddState extends State<FamilyMembersAdd> {
   // TODO: Internatilize it
-  String dropDownValue = 'Vater';
+  String dropDownValue = 'Father';
 
   Gender? _gender = Gender.male;
 
@@ -43,8 +44,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // TODO: Internatilize it
-        title: const Text('Angehörige/n hinzufügen'),
+        title: Text(AppLocalizations.of(context)!.addfamilymember),
         backgroundColor: const Color.fromRGBO(
           25,
           102,
@@ -60,9 +60,8 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               DropdownButtonFormField<String>(
-                decoration: const InputDecoration(
-                  // TODO: Internatilize it
-                  labelText: 'Wählen Sie Ihren Familienangehörigen aus.',
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.choosefamilymember,
                 ),
                 isExpanded: true,
                 value: dropDownValue,
@@ -79,14 +78,13 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                     },
                   );
                 },
-                // TODO: Internatilize it
                 items: <String>[
-                  'Vater',
-                  'Mutter',
-                  'Bruder',
-                  'Schwester',
-                  'Ehemann',
-                  'Ehefrau',
+                  AppLocalizations.of(context)!.father,
+                  AppLocalizations.of(context)!.mother,
+                  AppLocalizations.of(context)!.brother,
+                  AppLocalizations.of(context)!.sister,
+                  AppLocalizations.of(context)!.husband,
+                  AppLocalizations.of(context)!.wife,
                 ].map<DropdownMenuItem<String>>(
                   (String value) {
                     return DropdownMenuItem<String>(
@@ -99,20 +97,18 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  const Text(
-                    // TODO: Internatilize it
-                    'Anrede *',
-                    style: TextStyle(
+                  Text(
+                    AppLocalizations.of(context)!.title,
+                    style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Expanded(
                     child: RadioListTile<Gender>(
-                      title: const Text(
-                        // TODO: Internatilize it
-                        'Herr',
-                        style: TextStyle(
+                      title: Text(
+                        AppLocalizations.of(context)!.mister,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -130,10 +126,9 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                   ),
                   Expanded(
                     child: RadioListTile<Gender>(
-                      title: const Text(
-                        // TODO: Internatilize it
-                        'Frau',
-                        style: TextStyle(
+                      title: Text(
+                        AppLocalizations.of(context)!.mistress,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -152,81 +147,69 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                 ],
               ),
               TextFormField(
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.person),
-                  // TODO: Internatilize it
-                  labelText: 'Vorname *',
+                decoration: InputDecoration(
+                  icon: const Icon(Icons.person),
+                  labelText: AppLocalizations.of(context)!.firstname,
                 ),
                 keyboardType: TextInputType.name,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    // TODO: Internatilize it
-                    return 'Bitte geben Sie den Vornamen ein.';
+                    return AppLocalizations.of(context)!.entryfirstname;
                   }
                   return null;
                 },
               ),
               TextFormField(
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.person),
-                  // TODO: Internatilize it
-                  labelText: 'Nachname *',
+                decoration: InputDecoration(
+                  icon: const Icon(Icons.person),
+                  labelText: AppLocalizations.of(context)!.familyname,
                 ),
                 keyboardType: TextInputType.name,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    // TODO: Internatilize it
-                    return 'Bitte geben Sie den Nachnamen ein.';
+                    return AppLocalizations.of(context)!.entryfamilyname;
                   }
                   return null;
                 },
               ),
               TextFormField(
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.email),
-                  // TODO: Internatilize it
-                  labelText: 'E-Mail-Adresse *',
+                decoration: InputDecoration(
+                  icon: const Icon(Icons.email),
+                  labelText: AppLocalizations.of(context)!.email,
                 ),
                 keyboardType: TextInputType.emailAddress,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    // TODO: Internatilize it
-                    return 'Bitte geben Sie die E-Mail-Adresse ein.';
+                    return AppLocalizations.of(context)!.entryemail;
                   } else {
-                    return validateEmail(value);
+                    return validateEmail(value, context);
                   }
                 },
               ),
               TextFormField(
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.numbers),
-                  // TODO: Internatilize it
-                  labelText: 'Telefon *',
+                decoration: InputDecoration(
+                  icon: const Icon(Icons.numbers),
+                  labelText: AppLocalizations.of(context)!.phonenumber,
                 ),
                 keyboardType: TextInputType.number,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    // TODO: Internatilize it
-                    return 'Bitte geben Sie die Telefonnummer ein.';
+                    return AppLocalizations.of(context)!.entryphonenumber;
                   }
                   return null;
                 },
               ),
               TextFormField(
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.house),
-                  // TODO: Internatilize it
-                  hintText: 'Straßenname Hausnummer\nPLZ Stadt',
-                  // TODO: Internatilize it
-                  labelText: 'Anschrift *',
+                decoration: InputDecoration(
+                  icon: const Icon(Icons.house),
+                  labelText: '${AppLocalizations.of(context)!.address} *',
                 ),
                 keyboardType: TextInputType.multiline,
                 minLines: 2,
                 maxLines: null,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    // TODO: Internatilize it
-                    return 'Bitte geben Sie die Adresse ein.';
+                    return AppLocalizations.of(context)!.entryaddress;
                   }
                   return null;
                 },
@@ -262,10 +245,9 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                       primary: Colors.transparent,
                       shadowColor: Colors.transparent,
                     ),
-                    child: const Text(
-                      // TODO: Internatilize it
-                      'Abbrechen',
-                      style: TextStyle(
+                    child: Text(
+                      AppLocalizations.of(context)!.abort,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
@@ -298,10 +280,9 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                       primary: Colors.transparent,
                       shadowColor: Colors.transparent,
                     ),
-                    child: const Text(
-                      // TODO: Internatilize it
-                      'Speichern',
-                      style: TextStyle(
+                    child: Text(
+                      AppLocalizations.of(context)!.save,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
@@ -319,7 +300,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
 
 /// returns a message (String)
 /// whether e-mail-address validation is successful or not
-String? validateEmail(String value) {
+String? validateEmail(String value, BuildContext context) {
   String pattern =
       r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
       r'{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]'
@@ -329,10 +310,8 @@ String? validateEmail(String value) {
     pattern,
   );
 
-  // TODO: Internatilize it
   if (!regex.hasMatch(value)) {
-    // TODO: Internatilize it
-    return 'Bitte geben Sie eine gültige E-Mail-Adresse ein!';
+    return AppLocalizations.of(context)!.entryvalidemail;
   }
 
   return null;
@@ -343,9 +322,10 @@ String? validateEmail(String value) {
 void addFamilyMember(BuildContext context, GlobalKey<FormState> key) {
   if (key.currentState!.validate()) {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        // TODO: Internatilize it
-        content: Text('Die Daten werden übermittelt!'),
+      SnackBar(
+        content: Text(
+          AppLocalizations.of(context)!.submitdata,
+        ),
       ),
     );
   }

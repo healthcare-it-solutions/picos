@@ -17,6 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:picos/screens/family_members_add_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// builds 'Column' as a parent widget for the given cards
 class MyCard extends StatelessWidget {
@@ -25,10 +26,10 @@ class MyCard extends StatelessWidget {
     // TODO: Internatilize it
     /// A fixed list of Strings denoting the type of family members
     List<String> familyMemberType = <String>[
-      'Vater',
-      'Mutter',
-      'Bruder',
-      'Schwester',
+      'Father',
+      'Mother',
+      'Brother',
+      'Sister',
     ];
 
     /// generates a list of CustomCard-Widgets
@@ -105,17 +106,17 @@ class CustomCard extends StatelessWidget {
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[
+                children: <Widget>[
                   Text(
-                    'Herr Max Mustermann',
-                    style: TextStyle(
+                    '${AppLocalizations.of(context)!.mister} Max Mustermann',
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text('Musterstraße 1'),
-                  Text('00000 Musterstadt'),
-                  Text('Tel. +49 000 12 34 56'),
-                  Text('name@webmail.de'),
+                  const Text('Musterstraße 1'),
+                  const Text('00000 Musterstadt'),
+                  const Text('Tel. +49 000 12 34 56'),
+                  const Text('name@webmail.de'),
                 ],
               ),
             ),
@@ -142,10 +143,9 @@ class CustomCard extends StatelessWidget {
                             ),
                             shadowColor: Colors.transparent,
                           ),
-                          child: const Text(
-                            // TODO: Internatilize it
-                            'Bearbeiten',
-                            style: TextStyle(
+                          child: Text(
+                            AppLocalizations.of(context)!.edit,
+                            style: const TextStyle(
                               color: Color.fromRGBO(
                                 95,
                                 115,
@@ -178,10 +178,9 @@ class CustomCard extends StatelessWidget {
                             ),
                             shadowColor: Colors.transparent,
                           ),
-                          child: const Text(
-                            // TODO: Internatilize it
-                            'Löschen',
-                            style: TextStyle(
+                          child: Text(
+                            AppLocalizations.of(context)!.delete,
+                            style: const TextStyle(
                               color: Color.fromRGBO(
                                 95,
                                 115,
@@ -215,8 +214,7 @@ class FamilyMembers extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // TODO: Internatilize it
-        title: const Text('Meine Angehörigen'),
+        title: Text(AppLocalizations.of(context)!.familymembers),
         backgroundColor: const Color.fromRGBO(
           25,
           102,
@@ -276,10 +274,9 @@ class FamilyMembers extends StatelessWidget {
                       primary: Colors.transparent,
                       shadowColor: Colors.transparent,
                     ),
-                    child: const Text(
-                      // TODO: Internatilize it
-                      'Hinzufügen',
-                      style: TextStyle(
+                    child: Text(
+                      AppLocalizations.of(context)!.add,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),

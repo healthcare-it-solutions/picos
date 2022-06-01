@@ -23,12 +23,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class MyCard extends StatelessWidget {
   // ignore: public_member_api_docs
   MyCard({Key? key}) : super(key: key) {
+    // TODO: Localize it
     /// A fixed list of Strings denoting the type of physicians
     List<String> physicianType = <String>[
-      'Hausarzt',
-      'Kardiologe',
-      'Nephrologe',
-      'Neurologe',
+      'Family doctor',
+      'Cardiologist',
+      'Nephrologist',
+      'Neurologist',
     ];
 
     /// generates a list of CustomCard-Widgets

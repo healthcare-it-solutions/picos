@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// contains the gender of the corresponding physician
 // ignore: public_member_api_docs
@@ -32,7 +33,8 @@ class PhysiciansAdd extends StatefulWidget {
 }
 
 class _PhysiciansAddState extends State<PhysiciansAdd> {
-  String dropDownValue = 'Hausarzt';
+  // TODO: Localize it
+  String dropDownValue = 'Family doctor';
 
   Gender? _gender = Gender.male;
 
@@ -42,7 +44,7 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BehandlerIn hinzufügen'),
+        title: Text(AppLocalizations.of(context)!.addphysician),
         backgroundColor: const Color.fromRGBO(
           25,
           102,
@@ -58,8 +60,8 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               DropdownButtonFormField<String>(
-                decoration: const InputDecoration(
-                  labelText: 'Wählen Sie den Fachbereich aus.',
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.choosefield,
                 ),
                 isExpanded: true,
                 value: dropDownValue,
@@ -77,10 +79,10 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   );
                 },
                 items: <String>[
-                  'Hausarzt',
-                  'Kardiologe',
-                  'Nephrologe',
-                  'Neurologe',
+                  AppLocalizations.of(context)!.familydoctor,
+                  AppLocalizations.of(context)!.cardiologist,
+                  AppLocalizations.of(context)!.nephrologist,
+                  AppLocalizations.of(context)!.neurologist,
                 ].map<DropdownMenuItem<String>>(
                   (String value) {
                     return DropdownMenuItem<String>(
@@ -91,14 +93,14 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                 ).toList(),
               ),
               TextFormField(
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.local_hospital),
-                  labelText: 'Praxisname *',
+                decoration: InputDecoration(
+                  icon: const Icon(Icons.local_hospital),
+                  labelText: '${AppLocalizations.of(context)!.practicename} *',
                 ),
                 keyboardType: TextInputType.name,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return 'Bitte geben Sie den Namen der Praxis ein.';
+                    return AppLocalizations.of(context)!.entrypracticename;
                   }
                   return null;
                 },
@@ -106,18 +108,18 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  const Text(
-                    'Anrede *',
-                    style: TextStyle(
+                  Text(
+                    '${AppLocalizations.of(context)!.title} *',
+                    style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Expanded(
                     child: RadioListTile<Gender>(
-                      title: const Text(
-                        'Herr',
-                        style: TextStyle(
+                      title: Text(
+                        AppLocalizations.of(context)!.mister,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -135,9 +137,9 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   ),
                   Expanded(
                     child: RadioListTile<Gender>(
-                      title: const Text(
-                        'Frau',
-                        style: TextStyle(
+                      title: Text(
+                        AppLocalizations.of(context)!.mistress,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -156,84 +158,83 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                 ],
               ),
               TextFormField(
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.person),
-                  labelText: 'Vorname *',
+                decoration: InputDecoration(
+                  icon: const Icon(Icons.person),
+                  labelText: '${AppLocalizations.of(context)!.firstname} *',
                 ),
                 keyboardType: TextInputType.name,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return 'Bitte geben Sie den Vornamen ein.';
+                    return AppLocalizations.of(context)!.entryfirstname;
                   }
                   return null;
                 },
               ),
               TextFormField(
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.person),
-                  labelText: 'Nachname *',
+                decoration: InputDecoration(
+                  icon: const Icon(Icons.person),
+                  labelText: '${AppLocalizations.of(context)!.familyname} *',
                 ),
                 keyboardType: TextInputType.name,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return 'Bitte geben Sie den Nachnamen ein.';
+                    return AppLocalizations.of(context)!.entryfamilyname;
                   }
                   return null;
                 },
               ),
               TextFormField(
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.email),
-                  labelText: 'E-Mail-Adresse *',
+                decoration: InputDecoration(
+                  icon: const Icon(Icons.email),
+                  labelText: '${AppLocalizations.of(context)!.email} *',
                 ),
                 keyboardType: TextInputType.emailAddress,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return 'Bitte geben Sie die E-Mail-Adresse ein.';
+                    return AppLocalizations.of(context)!.entryemail;
                   } else {
-                    return validateEmail(value);
+                    return validateEmail(value, context);
                   }
                 },
               ),
               TextFormField(
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.numbers),
-                  labelText: 'Telefon *',
+                decoration: InputDecoration(
+                  icon: const Icon(Icons.numbers),
+                  labelText: '${AppLocalizations.of(context)!.phonenumber} *',
                 ),
                 keyboardType: TextInputType.number,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return 'Bitte geben Sie die Telefonnummer ein.';
+                    return AppLocalizations.of(context)!.entryphonenumber;
                   }
                   return null;
                 },
               ),
               TextFormField(
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.web),
-                  labelText: 'Webseite *',
+                decoration: InputDecoration(
+                  icon: const Icon(Icons.web),
+                  labelText: '${AppLocalizations.of(context)!.website} *',
                 ),
                 keyboardType: TextInputType.url,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return 'Bitte geben Sie die Webseite ein.';
+                    return AppLocalizations.of(context)!.entrywebsite;
                   } else {
-                    return validateURL(value);
+                    return validateURL(value, context);
                   }
                 },
               ),
               TextFormField(
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.house),
-                  hintText: 'Straßenname Hausnummer\nPLZ Stadt',
-                  labelText: 'Anschrift *',
+                decoration: InputDecoration(
+                  icon: const Icon(Icons.house),
+                  labelText: '${AppLocalizations.of(context)!.address} *',
                 ),
                 keyboardType: TextInputType.multiline,
                 minLines: 2,
                 maxLines: null,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return 'Bitte geben Sie die Adresse ein.';
+                    return AppLocalizations.of(context)!.entryaddress;
                   }
                   return null;
                 },
@@ -269,9 +270,9 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                       primary: Colors.transparent,
                       shadowColor: Colors.transparent,
                     ),
-                    child: const Text(
-                      'Abbrechen',
-                      style: TextStyle(
+                    child: Text(
+                      AppLocalizations.of(context)!.abort,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
@@ -304,9 +305,9 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                       primary: Colors.transparent,
                       shadowColor: Colors.transparent,
                     ),
-                    child: const Text(
-                      'Speichern',
-                      style: TextStyle(
+                    child: Text(
+                      AppLocalizations.of(context)!.save,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
@@ -324,7 +325,7 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
 
 /// returns a message (String)
 /// whether e-mail-address validation is successful or not
-String? validateEmail(String value) {
+String? validateEmail(String value, BuildContext context) {
   String pattern =
       r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
       r'{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]'
@@ -333,16 +334,16 @@ String? validateEmail(String value) {
     pattern,
   );
   if (!regex.hasMatch(value)) {
-    return 'Bitte geben Sie eine gültige E-Mail-Adresse ein!';
+    return AppLocalizations.of(context)!.entryvalidemail;
   }
   return null;
 }
 
 /// returns a message (String)
 /// whether URL validation is successful or not
-String? validateURL(String value) {
+String? validateURL(String value, BuildContext context) {
   if (!Uri.parse(value).isAbsolute) {
-    return 'Bitte geben Sie eine gültige Webseite ein!';
+    return AppLocalizations.of(context)!.entryvalidwebsite;
   }
   return null;
 }
@@ -352,8 +353,10 @@ String? validateURL(String value) {
 void addFamilyMember(BuildContext context, GlobalKey<FormState> key) {
   if (key.currentState!.validate()) {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Die Daten werden übermittelt!'),
+      SnackBar(
+        content: Text(
+          AppLocalizations.of(context)!.submitdata,
+        ),
       ),
     );
   }

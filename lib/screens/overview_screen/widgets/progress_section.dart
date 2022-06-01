@@ -17,6 +17,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// Widget which is used for displaying
 /// the progress bar in the corresponding section on the "overview"-screen
@@ -37,9 +38,9 @@ class ProgressSection extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              const Text(
-                'Heute erreichte Gesamteingabe',
-                style: TextStyle(
+              Text(
+                AppLocalizations.of(context)!.achievedvalues,
+                style: const TextStyle(
                   color: Colors.white,
                 ),
               ),
@@ -48,7 +49,7 @@ class ProgressSection extends StatelessWidget {
                     const BoxConstraints(minHeight: 20, maxHeight: 100),
               ),
               ElevatedButton(
-                child: const Text('Fortsetzen'),
+                child: Text(AppLocalizations.of(context)!.proceed),
                 onPressed: () {
                   return;
                 },
@@ -62,7 +63,7 @@ class ProgressSection extends StatelessWidget {
                 width: 100,
                 height: 100,
                 child: CircularProgressIndicator(
-                  color: Colors.amber,
+                  color: Colors.green,
                   value: 0.96,
                 ),
               ),

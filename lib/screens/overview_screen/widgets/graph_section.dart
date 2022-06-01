@@ -18,6 +18,7 @@
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// Widget which shows a graph
 class GraphSection extends StatefulWidget {
@@ -36,9 +37,11 @@ class _GraphState extends State<GraphSection> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          const SizedBox(
+          SizedBox(
             width: double.infinity,
-            child: Text('Meine Werte'),
+            child: Text(
+              AppLocalizations.of(context)!.mymedicaldata,
+            ),
           ),
           Container(
             color: Colors.black,
@@ -51,25 +54,34 @@ class _GraphState extends State<GraphSection> {
                 onPressed: () {
                   return;
                 },
-                child: const Text('Blutzucker'),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.green,
+                ),
+                child: Text(
+                  '7 ${AppLocalizations.of(context)!.days}',
+                ),
               ),
               ElevatedButton(
                 onPressed: () {
                   return;
                 },
-                child: const Text('Herzfrequenz'),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.green,
+                ),
+                child: Text(
+                  '1 ${AppLocalizations.of(context)!.month}',
+                ),
               ),
               ElevatedButton(
                 onPressed: () {
                   return;
                 },
-                child: const Text('Blutdruck'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  return;
-                },
-                child: const Text('Leberwerte'),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.green,
+                ),
+                child: Text(
+                  '3 ${AppLocalizations.of(context)!.months}',
+                ),
               ),
             ],
           ),
