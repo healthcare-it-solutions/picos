@@ -17,6 +17,10 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
+import 'package:picos/screens/physicians_screen.dart';
+import 'package:picos/screens/family_members_screen.dart';
 
 /// Widget which displays health-related information
 class MyHealthSection extends StatelessWidget {
@@ -33,9 +37,9 @@ class MyHealthSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Meine Gesundheit',
-            style: TextStyle(
+          Text(
+            AppLocalizations.of(context)!.myentries,
+            style: const TextStyle(
               color: Colors.white,
             ),
           ),
@@ -56,24 +60,134 @@ class MyHealthSection extends StatelessWidget {
               runSpacing: 10,
               children: <Widget>[
                 Container(
-                  color: Colors.lime,
+                  color: Colors.green,
                   width: 180,
                   height: 180,
+                  child: GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute<Widget>(
+                        builder: (BuildContext context) =>
+                            const MyMedicationsScreen(),
+                      ),
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        Flexible(
+                          flex: 3,
+                          child: Image.asset('./assets/Medikationsplan.png'),
+                        ),
+                        Flexible(
+                          flex: 2,
+                          child: Center(
+                            child: Text(
+                              AppLocalizations.of(context)!.medicationscheme,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 Container(
-                  color: Colors.black26,
+                  color: Colors.green,
                   width: 180,
                   height: 180,
+                  child: GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute<Widget>(
+                        builder: (BuildContext context) => const Physicians(),
+                      ),
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        Flexible(
+                          flex: 3,
+                          child: Image.asset('assets/BehandlerInnen.png'),
+                        ),
+                        Flexible(
+                          flex: 2,
+                          child: Center(
+                            child: Text(
+                              AppLocalizations.of(context)!.myphysicians,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 Container(
-                  color: Colors.black45,
+                  color: Colors.green,
                   width: 180,
                   height: 180,
+                  child: GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute<Widget>(
+                        builder: (BuildContext context) =>
+                            const FamilyMembers(),
+                      ),
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        Flexible(
+                          flex: 3,
+                          child: Image.asset('./assets/Angehoerige.png'),
+                        ),
+                        Flexible(
+                          flex: 2,
+                          child: Center(
+                            child: Text(
+                              AppLocalizations.of(context)!.familymembers,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 Container(
-                  color: Colors.black87,
+                  color: Colors.green,
                   width: 180,
                   height: 180,
+                  child: Column(
+                    children: <Widget>[
+                      Flexible(
+                        flex: 3,
+                        child: Image.asset('./assets/Dokumente.png'),
+                      ),
+                      Flexible(
+                        flex: 2,
+                        child: Center(
+                          child: Text(
+                            AppLocalizations.of(context)!.documents,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

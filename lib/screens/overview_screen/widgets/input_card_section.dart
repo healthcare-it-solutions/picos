@@ -18,6 +18,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:picos/screens/overview_screen/widgets/mini_calendar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/screens/questionaire_screen/questionaire_screen.dart';
 
 /// This class implements the top section of the 'overview'.
 class InputCardSection extends StatelessWidget {
@@ -35,20 +37,26 @@ class InputCardSection extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Row(children: const <Widget>[Text('Meine Eingaben')]),
+              Row(
+                children: <Widget>[
+                  Text(
+                    AppLocalizations.of(context)!.myentries,
+                  ),
+                ],
+              ),
               // Ok, this is a horizontal line, if there are better solutions
               // to this, be my guest to refactor this.
               Container(
                 color: Colors.black,
                 height: 1,
               ),
-              const SizedBox(height: 10),
+              const SizedBox(
+                height: 10,
+              ),
               Stack(
-                alignment: Alignment.center,
+                alignment: Alignment.topLeft,
                 children: <Widget>[
-                  Image.network(
-                    'https://www.matawebsite.com/images/blog/436_flutter_flexible_widget.jpg',
-                  ),
+                  Image.asset('assets/Eingabe_Start.png'),
                   Align(
                     heightFactor: 1,
                     widthFactor: 3,
@@ -58,11 +66,24 @@ class InputCardSection extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              const IntrinsicWidth(
+              IntrinsicWidth(
                 stepWidth: double.infinity,
                 child: ElevatedButton(
-                  onPressed: null,
-                  child: Text('Eingabe starten'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<Widget>(
+                        builder: (BuildContext context) =>
+                            const QuestionaireScreen(),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.green,
+                  ),
+                  child: Text(
+                    AppLocalizations.of(context)!.startentry,
+                  ),
                 ),
               )
             ],
