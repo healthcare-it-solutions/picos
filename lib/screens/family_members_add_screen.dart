@@ -44,7 +44,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.addfamilymember),
+        title: Text(AppLocalizations.of(context)!.addFamilyMember),
         backgroundColor: const Color.fromRGBO(
           25,
           102,
@@ -61,7 +61,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
             children: <Widget>[
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.choosefamilymember,
+                  labelText: AppLocalizations.of(context)!.chooseFamilyMember,
                 ),
                 isExpanded: true,
                 value: dropDownValue,
@@ -107,7 +107,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                   Expanded(
                     child: RadioListTile<Gender>(
                       title: Text(
-                        AppLocalizations.of(context)!.mister,
+                        AppLocalizations.of(context)!.mr,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
@@ -127,7 +127,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                   Expanded(
                     child: RadioListTile<Gender>(
                       title: Text(
-                        AppLocalizations.of(context)!.mistress,
+                        AppLocalizations.of(context)!.mrs,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
@@ -149,12 +149,12 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
               TextFormField(
                 decoration: InputDecoration(
                   icon: const Icon(Icons.person),
-                  labelText: AppLocalizations.of(context)!.firstname,
+                  labelText: AppLocalizations.of(context)!.firstName,
                 ),
                 keyboardType: TextInputType.name,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryfirstname;
+                    return AppLocalizations.of(context)!.entryFirstName;
                   }
                   return null;
                 },
@@ -162,12 +162,12 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
               TextFormField(
                 decoration: InputDecoration(
                   icon: const Icon(Icons.person),
-                  labelText: AppLocalizations.of(context)!.familyname,
+                  labelText: AppLocalizations.of(context)!.familyName,
                 ),
                 keyboardType: TextInputType.name,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryfamilyname;
+                    return AppLocalizations.of(context)!.entryFamilyName;
                   }
                   return null;
                 },
@@ -180,7 +180,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                 keyboardType: TextInputType.emailAddress,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryemail;
+                    return AppLocalizations.of(context)!.entryEmail;
                   } else {
                     return validateEmail(value, context);
                   }
@@ -189,12 +189,12 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
               TextFormField(
                 decoration: InputDecoration(
                   icon: const Icon(Icons.numbers),
-                  labelText: AppLocalizations.of(context)!.phonenumber,
+                  labelText: AppLocalizations.of(context)!.phoneNumber,
                 ),
                 keyboardType: TextInputType.number,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryphonenumber;
+                    return AppLocalizations.of(context)!.entryPhoneNumber;
                   }
                   return null;
                 },
@@ -209,7 +209,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                 maxLines: null,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryaddress;
+                    return AppLocalizations.of(context)!.entryAddress;
                   }
                   return null;
                 },
@@ -311,7 +311,7 @@ String? validateEmail(String value, BuildContext context) {
   );
 
   if (!regex.hasMatch(value)) {
-    return AppLocalizations.of(context)!.entryvalidemail;
+    return AppLocalizations.of(context)!.entryValidEmail;
   }
 
   return null;
@@ -324,7 +324,7 @@ void addFamilyMember(BuildContext context, GlobalKey<FormState> key) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          AppLocalizations.of(context)!.submitdata,
+          AppLocalizations.of(context)!.submitData,
         ),
       ),
     );

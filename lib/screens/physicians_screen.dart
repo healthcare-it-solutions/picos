@@ -114,7 +114,7 @@ class CustomCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${AppLocalizations.of(context)!.mister}/${AppLocalizations.of(context)!.mistress} Dr. Vorname Nachname',
+                    '${AppLocalizations.of(context)!.mr}/${AppLocalizations.of(context)!.mrs} Dr. Vorname Nachname',
                   ),
                   const Text('Musterstraße 1'),
                   const Text('00000 Musterstadt'),
@@ -218,7 +218,7 @@ class Physicians extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.myphysicians),
+        title: Text(AppLocalizations.of(context)!.myPhysicians),
         backgroundColor: const Color.fromRGBO(
           25,
           102,

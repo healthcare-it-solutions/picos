@@ -22,7 +22,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// Widget which shows a graph
 class GraphSection extends StatefulWidget {
-  // ignore: public_member_api_docs
+  /// GraphSection constructor
   const GraphSection({Key? key}) : super(key: key);
 
   @override
@@ -40,7 +40,7 @@ class _GraphState extends State<GraphSection> {
           SizedBox(
             width: double.infinity,
             child: Text(
-              AppLocalizations.of(context)!.mymedicaldata,
+              AppLocalizations.of(context)!.myMedicalData,
             ),
           ),
           Container(

@@ -22,10 +22,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 /// Widget which is used for displaying
 /// the progress bar in the corresponding section on the "overview"-screen
 class ProgressSection extends StatelessWidget {
-  // ignore: public_member_api_docs
+  /// ProgressSection constructor
   const ProgressSection({Key? key}) : super(key: key);
 
-  /// Declarion of the value (percentage) which is shown on the progress bar
+  /// Declaration of the value (percentage) which is shown on the progress bar
   final double progressPercentage = 0.95;
 
   @override
@@ -39,7 +39,7 @@ class ProgressSection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               Text(
-                AppLocalizations.of(context)!.achievedvalues,
+                AppLocalizations.of(context)!.achievedValues,
                 style: const TextStyle(
                   color: Colors.white,
                 ),

@@ -23,7 +23,7 @@ import 'package:picos/screens/questionaire_screen/questionaire_screen.dart';
 
 /// This class implements the top section of the 'overview'.
 class InputCardSection extends StatelessWidget {
-  // ignore: public_member_api_docs
+  /// InputCardSection constructor
   const InputCardSection({Key? key}) : super(key: key);
 
   @override
@@ -40,7 +40,7 @@ class InputCardSection extends StatelessWidget {
               Row(
                 children: <Widget>[
                   Text(
-                    AppLocalizations.of(context)!.myentries,
+                    AppLocalizations.of(context)!.myEntries,
                   ),
                 ],
               ),
@@ -82,7 +82,7 @@ class InputCardSection extends StatelessWidget {
                     primary: Colors.green,
                   ),
                   child: Text(
-                    AppLocalizations.of(context)!.startentry,
+                    AppLocalizations.of(context)!.startEntry,
                   ),
                 ),
               )

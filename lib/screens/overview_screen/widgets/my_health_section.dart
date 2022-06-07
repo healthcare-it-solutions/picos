@@ -24,7 +24,7 @@ import 'package:picos/screens/family_members_screen.dart';
 
 /// Widget which displays health-related information
 class MyHealthSection extends StatelessWidget {
-  // ignore: public_member_api_docs
+  /// MyHealthSection constructor
   const MyHealthSection({Key? key}) : super(key: key);
 
   // final double h = MediaQuery.of(context).size.height;
@@ -38,7 +38,7 @@ class MyHealthSection extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Text(
-            AppLocalizations.of(context)!.myentries,
+            AppLocalizations.of(context)!.myEntries,
             style: const TextStyle(
               color: Colors.white,
             ),
@@ -81,7 +81,7 @@ class MyHealthSection extends StatelessWidget {
                           flex: 2,
                           child: Center(
                             child: Text(
-                              AppLocalizations.of(context)!.medicationscheme,
+                              AppLocalizations.of(context)!.medicationScheme,
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                 color: Colors.white,
@@ -115,7 +115,7 @@ class MyHealthSection extends StatelessWidget {
                           flex: 2,
                           child: Center(
                             child: Text(
-                              AppLocalizations.of(context)!.myphysicians,
+                              AppLocalizations.of(context)!.myPhysicians,
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                 color: Colors.white,
@@ -150,7 +150,7 @@ class MyHealthSection extends StatelessWidget {
                           flex: 2,
                           child: Center(
                             child: Text(
-                              AppLocalizations.of(context)!.familymembers,
+                              AppLocalizations.of(context)!.familyMembers,
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                 color: Colors.white,

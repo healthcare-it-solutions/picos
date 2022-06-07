@@ -44,7 +44,7 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.addphysician),
+        title: Text(AppLocalizations.of(context)!.addPhysician),
         backgroundColor: const Color.fromRGBO(
           25,
           102,
@@ -61,7 +61,7 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
             children: <Widget>[
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.choosefield,
+                  labelText: AppLocalizations.of(context)!.chooseField,
                 ),
                 isExpanded: true,
                 value: dropDownValue,
@@ -79,7 +79,7 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   );
                 },
                 items: <String>[
-                  AppLocalizations.of(context)!.familydoctor,
+                  AppLocalizations.of(context)!.familyDoctor,
                   AppLocalizations.of(context)!.cardiologist,
                   AppLocalizations.of(context)!.nephrologist,
                   AppLocalizations.of(context)!.neurologist,
@@ -95,12 +95,12 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
               TextFormField(
                 decoration: InputDecoration(
                   icon: const Icon(Icons.local_hospital),
-                  labelText: '${AppLocalizations.of(context)!.practicename} *',
+                  labelText: '${AppLocalizations.of(context)!.practiceName} *',
                 ),
                 keyboardType: TextInputType.name,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entrypracticename;
+                    return AppLocalizations.of(context)!.entryPracticeName;
                   }
                   return null;
                 },
@@ -118,7 +118,7 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   Expanded(
                     child: RadioListTile<Gender>(
                       title: Text(
-                        AppLocalizations.of(context)!.mister,
+                        AppLocalizations.of(context)!.mr,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
@@ -138,7 +138,7 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   Expanded(
                     child: RadioListTile<Gender>(
                       title: Text(
-                        AppLocalizations.of(context)!.mistress,
+                        AppLocalizations.of(context)!.mrs,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
@@ -160,12 +160,12 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
               TextFormField(
                 decoration: InputDecoration(
                   icon: const Icon(Icons.person),
-                  labelText: '${AppLocalizations.of(context)!.firstname} *',
+                  labelText: '${AppLocalizations.of(context)!.firstName} *',
                 ),
                 keyboardType: TextInputType.name,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryfirstname;
+                    return AppLocalizations.of(context)!.entryFirstName;
                   }
                   return null;
                 },
@@ -173,12 +173,12 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
               TextFormField(
                 decoration: InputDecoration(
                   icon: const Icon(Icons.person),
-                  labelText: '${AppLocalizations.of(context)!.familyname} *',
+                  labelText: '${AppLocalizations.of(context)!.familyName} *',
                 ),
                 keyboardType: TextInputType.name,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryfamilyname;
+                    return AppLocalizations.of(context)!.entryFamilyName;
                   }
                   return null;
                 },
@@ -191,7 +191,7 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                 keyboardType: TextInputType.emailAddress,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryemail;
+                    return AppLocalizations.of(context)!.entryEmail;
                   } else {
                     return validateEmail(value, context);
                   }
@@ -200,12 +200,12 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
               TextFormField(
                 decoration: InputDecoration(
                   icon: const Icon(Icons.numbers),
-                  labelText: '${AppLocalizations.of(context)!.phonenumber} *',
+                  labelText: '${AppLocalizations.of(context)!.phoneNumber} *',
                 ),
                 keyboardType: TextInputType.number,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryphonenumber;
+                    return AppLocalizations.of(context)!.entryPhoneNumber;
                   }
                   return null;
                 },
@@ -218,7 +218,7 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                 keyboardType: TextInputType.url,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entrywebsite;
+                    return AppLocalizations.of(context)!.entryWebsite;
                   } else {
                     return validateURL(value, context);
                   }
@@ -234,7 +234,7 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                 maxLines: null,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryaddress;
+                    return AppLocalizations.of(context)!.entryAddress;
                   }
                   return null;
                 },
@@ -334,7 +334,7 @@ String? validateEmail(String value, BuildContext context) {
     pattern,
   );
   if (!regex.hasMatch(value)) {
-    return AppLocalizations.of(context)!.entryvalidemail;
+    return AppLocalizations.of(context)!.entryValidEmail;
   }
   return null;
 }
@@ -343,7 +343,7 @@ String? validateEmail(String value, BuildContext context) {
 /// whether URL validation is successful or not
 String? validateURL(String value, BuildContext context) {
   if (!Uri.parse(value).isAbsolute) {
-    return AppLocalizations.of(context)!.entryvalidwebsite;
+    return AppLocalizations.of(context)!.entryValidWebsite;
   }
   return null;
 }
@@ -355,7 +355,7 @@ void addFamilyMember(BuildContext context, GlobalKey<FormState> key) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          AppLocalizations.of(context)!.submitdata,
+          AppLocalizations.of(context)!.submitData,
         ),
       ),
     );

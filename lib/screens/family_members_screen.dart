@@ -108,7 +108,7 @@ class CustomCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    '${AppLocalizations.of(context)!.mister} Max Mustermann',
+                    '${AppLocalizations.of(context)!.mr} Max Mustermann',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -214,7 +214,7 @@ class FamilyMembers extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.familymembers),
+        title: Text(AppLocalizations.of(context)!.familyMembers),
         backgroundColor: const Color.fromRGBO(
           25,
           102,

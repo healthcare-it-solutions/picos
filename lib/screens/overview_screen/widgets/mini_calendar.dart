@@ -26,7 +26,7 @@ import 'package:intl/intl.dart';
 
 /// Widget which displays a calendar on the "overview"-screen
 class MiniCalendar extends StatelessWidget {
-  // ignore: public_member_api_docs
+  /// MiniCalendar constructor
   MiniCalendar({Key? key}) : super(key: key);
 
   final DateTime _dateTime = DateTime.now();

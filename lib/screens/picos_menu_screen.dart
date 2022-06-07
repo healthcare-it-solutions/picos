@@ -32,7 +32,7 @@ class PicosMenu extends StatelessWidget {
       padding: const EdgeInsets.all(15.0),
       children: <Widget>[
         Text(
-          AppLocalizations.of(context)!.myhealth,
+          AppLocalizations.of(context)!.myHealth,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
@@ -40,12 +40,12 @@ class PicosMenu extends StatelessWidget {
         const SizedBox(height: 20),
         ListTile(
           leading: const Icon(Icons.insights),
-          title: Text(AppLocalizations.of(context)!.medicaldata),
+          title: Text(AppLocalizations.of(context)!.medicalData),
           trailing: const Icon(Icons.keyboard_arrow_right),
         ),
         ListTile(
           leading: const Icon(Icons.medication),
-          title: Text(AppLocalizations.of(context)!.medicationscheme),
+          title: Text(AppLocalizations.of(context)!.medicationScheme),
           trailing: const Icon(Icons.keyboard_arrow_right),
           onTap: () => Navigator.of(context).pushNamed('/my-medications'),
         ),
@@ -62,7 +62,7 @@ class PicosMenu extends StatelessWidget {
         ),
         ListTile(
           leading: const Icon(Icons.people),
-          title: Text(AppLocalizations.of(context)!.familymembers),
+          title: Text(AppLocalizations.of(context)!.familyMembers),
           trailing: const Icon(Icons.keyboard_arrow_right),
           onTap: () => Navigator.push(
             context,
@@ -93,17 +93,17 @@ class PicosMenu extends StatelessWidget {
         ),
         ListTile(
           leading: const Icon(Icons.settings),
-          title: Text(AppLocalizations.of(context)!.profil),
+          title: Text(AppLocalizations.of(context)!.profile),
           trailing: const Icon(Icons.keyboard_arrow_right),
         ),
         ListTile(
           leading: const Icon(Icons.lock),
-          title: Text(AppLocalizations.of(context)!.privacynotice),
+          title: Text(AppLocalizations.of(context)!.privacyNotice),
           trailing: const Icon(Icons.keyboard_arrow_right),
         ),
         ListTile(
           leading: const Icon(Icons.gavel),
-          title: Text(AppLocalizations.of(context)!.imprint),
+          title: Text(AppLocalizations.of(context)!.legals),
           trailing: const Icon(Icons.keyboard_arrow_right),
         ),
         ListTile(

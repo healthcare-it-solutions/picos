@@ -4,9 +4,9 @@ import 'package:picos/screens/overview_screen/widgets/my_health_section.dart';
 import 'widgets/input_card_section.dart';
 import 'widgets/progress_section.dart';
 
-/// Main widget for the
+/// Main widget using all subwidgets to build up the "overview"-screen
 class OverviewScreen extends StatelessWidget {
-  // ignore: public_member_api_docs
+  /// OverviewScreen constructor
   const OverviewScreen({Key? key}) : super(key: key);
 
   @override

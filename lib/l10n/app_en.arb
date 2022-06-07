@@ -88,19 +88,19 @@
         "description": "Save"
     },
 
-    "myhealth": "My Health",
-    "@myhealth": {
-        "description": "My Health"
+    "myHealth": "My health",
+    "@myHealth": {
+        "description": "My health"
     },
 
-    "medicaldata": "Medical Data",
-    "@medicaldata": {
-        "description": "Medical Data"
+    "medicalData": "Medical data",
+    "@medicalData": {
+        "description": "Medical data"
     },
 
-    "medicationscheme": "Medication Scheme",
-    "@medicationscheme": {
-        "description": "Medication Scheme"
+    "medicationScheme": "Medication scheme",
+    "@medicationScheme": {
+        "description": "Medication scheme"
     },
 
     "physicians": "Physicians",
@@ -108,9 +108,9 @@
         "description": "Physicians"
     },
 
-    "familymembers": "Family Members",
-    "@familymembers": {
-        "description": "Family Members"
+    "familyMembers": "Family members",
+    "@familyMembers": {
+        "description": "Family members"
     },
 
     "documents": "Documents",
@@ -123,24 +123,24 @@
         "description": "More"
     },
 
-    "notifications": "Motifications",
+    "notifications": "Notifications",
     "@notifications": {
         "description": "Notifications"
     },
 
-    "profil": "Profil",
-    "@profil": {
+    "profile": "Profil",
+    "@profile": {
         "description": "Profil"
     },
 
-    "privacynotice": "Privacy Notice",
-    "@privacynotice": {
-        "description": "Privacy Notice"
+    "privacyNotice": "Privacy notice",
+    "@privacyNotice": {
+        "description": "Privacy notice"
     },
 
-    "imprint": "Imprint",
-    "@imprint": {
-        "description": "Imprint"
+    "legals": "Legals",
+    "@legals": {
+        "description": "Legals"
     },
 
     "logout": "Logout",
@@ -178,18 +178,18 @@
         "description": "Delete"
     },
 
-    "mister": "Mr.",
-    "@mister": {
+    "mr": "Mr.",
+    "@mr": {
         "description": "Mr."
     },
 
-    "mistress": "Mrs.",
-    "@mistress": {
+    "mrs": "Mrs.",
+    "@mrs": {
         "description": "Mrs."
     },
 
-    "choosefamilymember": "Choose your family member",
-    "@choosefamilymember": {
+    "chooseFamilyMember": "Choose your family member",
+    "@chooseFamilyMember": {
         "description": "Choose your family member"
     },
 
@@ -198,14 +198,14 @@
         "description": "Title"
     },
 
-    "firstname": "First Name",
-    "@firstname": {
-        "description": "First Name"
+    "firstName": "First name",
+    "@firstName": {
+        "description": "First name"
     },
 
-    "familyname": "Family Name",
-    "@familyname": {
-        "description": "Family Name"
+    "familyName": "Family name",
+    "@familyName": {
+        "description": "Family name"
     },
 
     "email": "E-Mail",
@@ -213,9 +213,9 @@
         "description": "E-Mail"
     },
 
-    "phonenumber": "Telephone Number",
-    "@phonenumber": {
-        "description": "Telephone Number"
+    "phoneNumber": "Telephone number",
+    "@phoneNumber": {
+        "description": "Telephone number"
     },
 
     "address": "Address",
@@ -233,19 +233,19 @@
         "description": "Continue"
     },
 
-    "myentries": "My Entries",
-    "@myentries": {
-        "description": "My Entries"
+    "myEntries": "My entries",
+    "@myEntries": {
+        "description": "My entries"
     },
 
-    "startentry": "Start Entry",
-    "@startentry": {
-        "description": "Start Entry"
+    "startEntry": "Start entry",
+    "@startEntry": {
+        "description": "Start entry"
     },
 
-    "submitdata": "The entered will be submitted.",
-    "@submitdata": {
-        "description": "The entered will be submitted."
+    "submitData": "The data is transmitted.",
+    "@submitData": {
+        "description": "The data is transmitted."
     },
 
     "husband": "Husband",
@@ -258,39 +258,39 @@
         "description": "Wife"
     },
 
-    "entryemail": "Please enter the e-mail-address!",
-    "@entryemail": {
+    "entryEmail": "Please enter the e-mail-address!",
+    "@entryEmail": {
         "description": "Please enter the e-mail-address!"
     },
 
-    "entryvalidemail": "Please enter a valid e-mail-address!",
-    "@entryvalidemail": {
-        "description": ""
+    "entryValidEmail": "Please enter a valid e-mail-address!",
+    "@entryValidEmail": {
+        "description": "Please enter a valid e-mail-address!"
     },
 
-    "entryfirstname": "Please enter the first name!",
-    "@entryfirstname": {
-        "description": "Please enter the first name"
+    "entryFirstName": "Please enter the first name!",
+    "@entryFirstName": {
+        "description": "Please enter the first name!"
     },
 
-    "entryfamilyname": "Please enter the family name!",
-    "@entryfamilyname": {
-        "description": "Please enter the family name"
+    "entryFamilyName": "Please enter the family name!",
+    "@entryFamilyName": {
+        "description": "Please enter the family name!"
     },
 
-    "entryaddress": "Please enter the address!",
-    "@entryaddress": {
-        "description": "Please enter the family name"
+    "entryAddress": "Please enter the address!",
+    "@entryAddress": {
+        "description": "Please enter the address!"
     },
 
-    "entryphonenumber": "Please enter the phone number!",
-    "@entryphonenumber": {
+    "entryPhoneNumber": "Please enter the phone number!",
+    "@entryPhoneNumber": {
         "description": "Please enter the phone number!"
     },
 
-    "myphysicians": "My Physicians",
-    "@myphysicians": {
-        "description": "My Physicians"
+    "myPhysicians": "My physicians",
+    "@myPhysicians": {
+        "description": "My physicians"
     },
 
     "practice": "Practice",
@@ -298,9 +298,9 @@
         "description": "Practice"
     },
 
-    "practicename": "Name of practice",
-    "@practicename": {
-        "description": "Name of Practice"
+    "practiceName": "Name of practice",
+    "@practiceName": {
+        "description": "Name of practice"
     },
 
     "website": "Website",
@@ -308,8 +308,8 @@
         "description": "Website"
     },
 
-    "familydoctor": "Family doctor",
-    "@familydoctor": {
+    "familyDoctor": "Family doctor",
+    "@familyDoctor": {
         "description": "Family doctor"
     },
 
@@ -328,43 +328,43 @@
         "description": "Neurologist"
     },
 
-    "addfamilymember": "Add Family Member",
-    "@addfamilymember": {
-        "description": "Add Family Member"
+    "addFamilyMember": "Add family member",
+    "@addFamilyMember": {
+        "description": "Add family member"
     },
 
-    "addphysician": "Add Physician",
-    "@addphysician": {
-        "description": "Add Physician"
+    "addPhysician": "Add physician",
+    "@addPhysician": {
+        "description": "Add physician"
     },
 
-    "choosefield": "Choose your medical field",
-    "@choosefield": {
+    "chooseField": "Choose your medical field",
+    "@chooseField": {
         "description": "Choose your medical field"
     },
 
-    "entrywebsite": "Please enter the website!",
-    "@entrywebsite": {
+    "entryWebsite": "Please enter the website!",
+    "@entryWebsite": {
         "description": "Please enter the website!"
     },
 
-    "entryvalidwebsite": "Please enter a valid website!",
-    "@entryvalidwebsite": {
+    "entryValidWebsite": "Please enter a valid website!",
+    "@entryValidWebsite": {
         "description": "Please enter a valid website!"
     },
 
-    "entrypracticename": "Please enter the practice name!",
-    "@entrypracticename": {
+    "entryPracticeName": "Please enter the practice name!",
+    "@entryPracticeName": {
         "description": "Please enter the practice name!"
     },
 
-    "mymedicaldata": "My medical data",
-    "@medicaldata": {
+    "myMedicalData": "My medical data",
+    "@myMedicalData": {
         "description": "My medical data"
     },
 
-    "achievedvalues": "Today's achieved values",
-    "@achievedvalues": {
+    "achievedValues": "Today's achieved values",
+    "@achievedValues": {
         "description": "Today's achieved values"
     },
 

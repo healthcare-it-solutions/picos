@@ -31,7 +31,7 @@ import 'bottom_bar.dart';
 
 /// This is the screen which contains all relevant information
 class MainScreen extends StatelessWidget {
-  // ignore: public_member_api_docs
+  /// MainScreen constructor
   const MainScreen({Key? key}) : super(key: key);
 
   @override
