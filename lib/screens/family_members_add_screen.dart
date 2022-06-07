@@ -33,7 +33,7 @@ class FamilyMembersAdd extends StatefulWidget {
 }
 
 class _FamilyMembersAddState extends State<FamilyMembersAdd> {
-  // TODO: Internatilize it
+  // TODO: Localize it
   String dropDownValue = 'Father';
 
   Gender? _gender = Gender.male;

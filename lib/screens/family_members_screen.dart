@@ -23,7 +23,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class MyCard extends StatelessWidget {
   // ignore: public_member_api_docs
   MyCard({Key? key}) : super(key: key) {
-    // TODO: Internatilize it
+    // TODO: Localize it
     /// A fixed list of Strings denoting the type of family members
     List<String> familyMemberType = <String>[
       'Father',
