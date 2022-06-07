@@ -31,7 +31,7 @@ import 'package:picos/screens/picos_menu_screen.dart';
 /// used by the build method of the State. Fields in a Widget subclass are
 /// always marked "final".
 class BottomBar extends StatefulWidget {
-  /// Constructor
+  /// Bottombar constructor
   const BottomBar({required this.title, Key? key}) : super(key: key);
 
   /// home screen title

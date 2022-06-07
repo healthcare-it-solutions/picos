@@ -25,7 +25,7 @@ enum Gender { male, female }
 /// This is the screen in which a user can add/edit
 /// information about his physicians
 class PhysiciansAdd extends StatefulWidget {
-  // ignore: public_member_api_docs
+  /// PhysiciansAdd constructor
   const PhysiciansAdd({Key? key}) : super(key: key);
 
   @override

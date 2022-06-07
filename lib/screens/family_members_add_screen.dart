@@ -25,7 +25,7 @@ enum Gender { male, female }
 /// This is the screen in which a user can add/edit
 /// information about his family members
 class FamilyMembersAdd extends StatefulWidget {
-  // ignore: public_member_api_docs
+  /// FamilyMembersAdd constructor
   const FamilyMembersAdd({Key? key}) : super(key: key);
 
   @override

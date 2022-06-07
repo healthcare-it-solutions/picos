@@ -21,7 +21,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// builds 'Column' as a parent widget for the given cards
 class MyCard extends StatelessWidget {
-  // ignore: public_member_api_docs
+  /// MyCard constructor
   MyCard({Key? key}) : super(key: key) {
     // TODO: Localize it
     /// A fixed list of Strings denoting the type of family members
@@ -56,7 +56,7 @@ class MyCard extends StatelessWidget {
 /// This class serves for customizing the card properties showing information
 /// about the corresponding family member
 class CustomCard extends StatelessWidget {
-  // ignore: public_member_api_docs
+  /// CustomCard constructor
   const CustomCard({
     required this.memberType,
     Key? key,
@@ -207,7 +207,7 @@ class CustomCard extends StatelessWidget {
 
 /// This is the screen in which a user will see a list of his family members
 class FamilyMembers extends StatelessWidget {
-  // ignore: public_member_api_docs
+  /// FamilyMembers constructor
   const FamilyMembers({Key? key}) : super(key: key);
 
   @override

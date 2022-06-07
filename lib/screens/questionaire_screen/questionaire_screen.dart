@@ -21,7 +21,7 @@ import 'package:picos/screens/questionaire_screen/questionaire_card.dart';
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
 class QuestionaireScreen extends StatelessWidget {
-  // ignore: public_member_api_docs
+  /// QuestionaireScreen constructor
   const QuestionaireScreen({Key? key}) : super(key: key);
 
   @override

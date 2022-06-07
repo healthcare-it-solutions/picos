@@ -23,7 +23,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
 class PicosMenu extends StatelessWidget {
-  // ignore: public_member_api_docs
+  /// PicosMenu constructor
   const PicosMenu({Key? key}) : super(key: key);
 
   @override
