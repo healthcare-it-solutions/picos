@@ -19,8 +19,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// contains the gender of the corresponding physician
-// ignore: public_member_api_docs
-enum Gender { male, female }
+enum Gender {
+  /// element for denoting the title of men
+  male,
+  /// element for denoting the title of women
+  female,
+}
 
 /// This is the screen in which a user can add/edit
 /// information about his physicians
