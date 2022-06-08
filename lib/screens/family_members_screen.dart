@@ -22,14 +22,20 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 /// builds 'Column' as a parent widget for the given cards
 class MyCard extends StatelessWidget {
   /// MyCard constructor
-  MyCard({Key? key}) : super(key: key) {
-    // TODO: Localize it
+  const MyCard({Key? key}) : super(key: key);  
+
+  @override
+  Widget build(BuildContext context) {
+    /// Declaration of the List-variable 'cards' for building
+    /// the main components of the UI of this screen
+    List<CustomCard> cards;
+    
     /// A fixed list of Strings denoting the type of family members
     List<String> familyMemberType = <String>[
-      'Father',
-      'Mother',
-      'Brother',
-      'Sister',
+      AppLocalizations.of(context)!.father,
+      AppLocalizations.of(context)!.mother,
+      AppLocalizations.of(context)!.brother,
+      AppLocalizations.of(context)!.sister,
     ];
 
     /// generates a list of CustomCard-Widgets
@@ -39,14 +45,7 @@ class MyCard extends StatelessWidget {
         memberType: familyMemberType.elementAt(index),
       ),
     );
-  }
 
-  /// Declaration of the List-variable 'cards' for building
-  /// the main components of the UI of this screen
-  late final List<CustomCard> cards;
-
-  @override
-  Widget build(BuildContext context) {
     return Column(
       children: cards,
     );
@@ -230,7 +229,7 @@ class FamilyMembers extends StatelessWidget {
             243,
             1,
           ),
-          child: MyCard(),
+          child: const MyCard(),
         ),
       ),
       bottomNavigationBar: BottomAppBar(

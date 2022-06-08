@@ -22,14 +22,20 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 /// builds 'Column' as a parent widget for the given cards
 class MyCard extends StatelessWidget {
   /// MyCard constructor
-  MyCard({Key? key}) : super(key: key) {
-    // TODO: Localize it
+  const MyCard({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    /// Declaration of the List-variable 'cards' for building
+    /// the main components of the UI of this screen
+    List<CustomCard> cards;
+
     /// A fixed list of Strings denoting the type of physicians
     List<String> physicianType = <String>[
-      'Family doctor',
-      'Cardiologist',
-      'Nephrologist',
-      'Neurologist',
+      AppLocalizations.of(context)!.familyDoctor,
+      AppLocalizations.of(context)!.cardiologist,
+      AppLocalizations.of(context)!.nephrologist,
+      AppLocalizations.of(context)!.neurologist,
     ];
 
     /// generates a list of CustomCard-Widgets
@@ -39,14 +45,7 @@ class MyCard extends StatelessWidget {
         physicianType: physicianType.elementAt(index),
       ),
     );
-  }
-
-  /// Declaration of the List-variable 'cards' for building
-  /// the main components of the UI of this screen
-  late final List<CustomCard> cards;
-
-  @override
-  Widget build(BuildContext context) {
+    
     return Column(
       children: cards,
     );
@@ -234,7 +233,7 @@ class Physicians extends StatelessWidget {
             243,
             1,
           ),
-          child: MyCard(),
+          child: const MyCard(),
         ),
       ),
       bottomNavigationBar: BottomAppBar(

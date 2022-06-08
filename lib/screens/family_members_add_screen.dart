@@ -37,15 +37,13 @@ class FamilyMembersAdd extends StatefulWidget {
 }
 
 class _FamilyMembersAddState extends State<FamilyMembersAdd> {
-  // TODO: Localize it
-  String dropDownValue = 'Father';
-
   Gender? _gender = Gender.male;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    String dropDownValue = AppLocalizations.of(context)!.father;
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.addFamilyMember),
@@ -153,7 +151,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
               TextFormField(
                 decoration: InputDecoration(
                   icon: const Icon(Icons.person),
-                  labelText: AppLocalizations.of(context)!.firstName,
+                  labelText: '${AppLocalizations.of(context)!.firstName} *',
                 ),
                 keyboardType: TextInputType.name,
                 validator: (String? value) {
@@ -166,7 +164,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
               TextFormField(
                 decoration: InputDecoration(
                   icon: const Icon(Icons.person),
-                  labelText: AppLocalizations.of(context)!.familyName,
+                  labelText: '${AppLocalizations.of(context)!.familyName} *',
                 ),
                 keyboardType: TextInputType.name,
                 validator: (String? value) {
@@ -179,7 +177,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
               TextFormField(
                 decoration: InputDecoration(
                   icon: const Icon(Icons.email),
-                  labelText: AppLocalizations.of(context)!.email,
+                  labelText: '${AppLocalizations.of(context)!.email} *',
                 ),
                 keyboardType: TextInputType.emailAddress,
                 validator: (String? value) {
@@ -193,7 +191,7 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
               TextFormField(
                 decoration: InputDecoration(
                   icon: const Icon(Icons.numbers),
-                  labelText: AppLocalizations.of(context)!.phoneNumber,
+                  labelText: '${AppLocalizations.of(context)!.phoneNumber} *',
                 ),
                 keyboardType: TextInputType.number,
                 validator: (String? value) {

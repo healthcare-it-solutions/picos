@@ -37,15 +37,13 @@ class PhysiciansAdd extends StatefulWidget {
 }
 
 class _PhysiciansAddState extends State<PhysiciansAdd> {
-  // TODO: Localize it
-  String dropDownValue = 'Family doctor';
-
   Gender? _gender = Gender.male;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    String dropDownValue = AppLocalizations.of(context)!.familyDoctor;
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.addPhysician),
