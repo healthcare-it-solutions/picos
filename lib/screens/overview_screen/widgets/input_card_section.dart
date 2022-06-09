@@ -44,11 +44,10 @@ class InputCardSection extends StatelessWidget {
                   ),
                 ],
               ),
-              // Ok, this is a horizontal line, if there are better solutions
-              // to this, be my guest to refactor this.
-              Container(
-                color: Colors.black,
+              const Divider(
                 height: 1,
+                color: Colors.black,
+                thickness: 1,
               ),
               const SizedBox(
                 height: 10,
