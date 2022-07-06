@@ -27,33 +27,36 @@ class _QuestionaireCardState extends State<QuestionaireCard> {
         value: answer.key,
         groupValue: _selectedElement,
         onChanged: (int? newSelection) {
-          setState(() {
-            _selectedElement = newSelection;
-          });
-        }
+          setState(
+            () {
+              _selectedElement = newSelection;
+            },
+          );
+        },
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return (Card(
+    return Card(
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Center(
-              child: Text(
-            widget.question,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          )),
-          Text(widget.question),
+            child: Text(
+              widget.question,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
+          //Text(widget.question),
           ..._genReplies()
         ],
       ),
-    ));
+    );
   }
 }
 
@@ -63,9 +66,11 @@ class QuestionaireCard extends StatefulWidget {
   /// The answers must be in the following format
   /// 1: 'answer1'
   /// 2: 'answer2'
-  const QuestionaireCard(
-      {required this.question, required this.answers, Key? key})
-      : super(key: key);
+  const QuestionaireCard({
+    required this.question,
+    required this.answers,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<QuestionaireCard> createState() => _QuestionaireCardState();

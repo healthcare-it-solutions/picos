@@ -21,32 +21,38 @@ import 'package:picos/screens/questionaire_screen/questionaire_card.dart';
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
 class QuestionaireScreen extends StatelessWidget {
-  // ignore: public_member_api_docs
+  /// QuestionaireScreen constructor
   const QuestionaireScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      verticalDirection: VerticalDirection.down,
-      children: const <Widget> [
-        QuestionaireCard(
-          question: 'What food do you like the most?',
-          answers: <int, String> {
-            1: 'Pizza',
-            2: 'Sushi',
-            3: 'Curry'
-          }
-        ),
-        QuestionaireCard(
-          question: 'Are you feeling well today?',
-          answers: <int, String> {
-            1: 'Feeling great! :)',
-            2: 'Feeling ok'
-          },
-        )
-      ],
+    return Scaffold(
+      appBar: AppBar(),
+      body: PageView(
+        scrollDirection: Axis.horizontal,
+        children: const <QuestionaireCard>[
+          QuestionaireCard(
+            question: 'HAI',
+            answers: <int, String>{1: 'hai', 2: 'asdf'},
+          ),
+          QuestionaireCard(
+            question: 'HAI',
+            answers: <int, String>{1: 'hai', 2: 'asdf'},
+          ),
+          QuestionaireCard(
+            question: 'HAI',
+            answers: <int, String>{1: 'hai', 2: 'asdf'},
+          ),
+          QuestionaireCard(
+            question: 'HAI',
+            answers: <int, String>{1: 'hai', 2: 'asdf'},
+          ),
+          QuestionaireCard(
+            question: 'HAI',
+            answers: <int, String>{1: 'hai', 2: 'asdf'},
+          ),
+        ],
+      ),
     );
   }
 }

@@ -1,0 +1,3 @@
+[submodule "assets"]
+	path = assets
+	url = git@github.com:healthcare-it-solutions/picos-assets.git

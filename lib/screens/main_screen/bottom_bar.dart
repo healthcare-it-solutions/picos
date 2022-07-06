@@ -1,4 +1,4 @@
-/*   This file is part of Picos, a health trcking mobile app
+/*   This file is part of Picos, a health tracking mobile app
 *    Copyright (C) 2022 Healthcare IT Solutions GmbH
 *
 *    This program is free software: you can redistribute it and/or modify
@@ -17,10 +17,21 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/screens/overview_screen/overview_screen.dart';
+import 'package:picos/screens/picos_menu_screen.dart';
 
-// ignore: public_member_api_docs
+// TODO: add proper docs
+
+/// This widget is the home page of your application. It is stateful, meaning
+/// that it has a State object (defined below) that contains fields that affect
+/// how it looks.
+
+/// This class is the configuration for the state. It holds the values (in this
+/// case the title) provided by the parent (in this case the App widget) and
+/// used by the build method of the State. Fields in a Widget subclass are
+/// always marked "final".
 class BottomBar extends StatefulWidget {
-  /// Constructor
+  /// Bottombar constructor
   const BottomBar({required this.title, Key? key}) : super(key: key);
 
   /// home screen title
@@ -33,9 +44,32 @@ class BottomBar extends StatefulWidget {
 /// This class contains all relevant Widgets for the UI.
 /// The needed variables and functions/methods are also implemented here.
 class _BottomBarState extends State<BottomBar> {
-
   /// stores the currently selected element of the navbar
   int selectedIndex = 0;
+
+  // TODO: refactor and remove this List
+  final List<String> _appBarTitles = <String>[
+    'Overview',
+    'Inbox',
+    'Calender',
+    'MyPicos'
+  ];
+
+  // TODO: refactor the appBarTitiles to return localized messages
+  String appBarTitle(BuildContext context, int index) {
+    final List<String> appBarTitles = <String>[
+      'Overview',
+      'Inbox',
+      'Calender',
+      'MyPicos'
+    ];
+
+    if (index > appBarTitles.length - 1 || index < 0) {
+      throw Exception('Out of bounds');
+    }
+
+    return appBarTitles[index];
+  }
 
   /// This function gets called when tapping on an element on the bottom bar.
   /// It keeps track of the currently selected element.
@@ -49,32 +83,30 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color.fromRGBO(25, 102, 117, 1.0),
+        title: Center(
+          child: Text(
+            _appBarTitles[selectedIndex],
+          ),
+        ),
       ),
       body: Center(
+        // TODO: move this widget list outside of the build function,
+        // TODO: implement a function that returns a title instead
         child: <Widget>[
-    MaterialButton(
-      color: Colors.amber,
-      child: const Text('something'),
-      onPressed: () {
-        Navigator.pushNamed(context, '/questionaire');
-      },
-    ),
-    const Icon(
-      Icons.mail,
-      size: 150,
-    ),
-    const Icon(
-      Icons.calendar_month,
-      size: 150,
-    ),
-    const Icon(
-      Icons.bubble_chart,
-      size: 150,
-    )
-  ].elementAt(selectedIndex),
+          const OverviewScreen(),
+          const Icon(
+            Icons.mail,
+            size: 150,
+          ),
+          const Icon(
+            Icons.calendar_month,
+            size: 150,
+          ),
+          const PicosMenu()
+        ].elementAt(selectedIndex),
       ),
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.white,
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -85,23 +117,26 @@ class _BottomBarState extends State<BottomBar> {
             label: Text(AppLocalizations.of(context)!.overview).data,
           ),
           BottomNavigationBarItem(
-              icon: const Icon(
-                Icons.mail_outline,
-                color: Colors.black,
-              ),
-              label: Text(AppLocalizations.of(context)!.inbox).data),
+            icon: const Icon(
+              Icons.mail_outline,
+              color: Colors.black,
+            ),
+            label: Text(AppLocalizations.of(context)!.inbox).data,
+          ),
           BottomNavigationBarItem(
-              icon: const Icon(
-                Icons.calendar_month_outlined,
-                color: Colors.black,
-              ),
-              label: Text(AppLocalizations.of(context)!.calendar).data),
+            icon: const Icon(
+              Icons.calendar_month_outlined,
+              color: Colors.black,
+            ),
+            label: Text(AppLocalizations.of(context)!.calendar).data,
+          ),
           BottomNavigationBarItem(
-              icon: const Icon(
-                Icons.chat_bubble_outline,
-                color: Colors.black,
-              ),
-              label: Text(AppLocalizations.of(context)!.myPicos).data),
+            icon: const Icon(
+              Icons.chat_bubble_outline,
+              color: Colors.black,
+            ),
+            label: Text(AppLocalizations.of(context)!.myPicos).data,
+          ),
         ],
         type: BottomNavigationBarType.fixed,
         currentIndex: selectedIndex,
