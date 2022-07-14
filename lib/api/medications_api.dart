@@ -15,16 +15,19 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:picos/screens/main_screen/main_screen.dart';
+import '../models/medication.dart';
 
-/// This is the main entry point of the application.
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations(
-    <DeviceOrientation>[DeviceOrientation.portraitUp],
-  ).then((_) {
-    runApp(const MainScreen());
-  });
+/// The interface for an API that provides access to a list of medications.
+abstract class MedicationsApi {
+  /// Medications API constructor.
+  const MedicationsApi();
+
+  /// Provides a [Stream] of all medications.
+  Stream<List<Medication>> getMedications();
+
+  /// Saves or replaces a [medication].
+  Future<void> saveMedication(Medication medication);
+
+  /// Removes the given [medication].
+  Future<void> removeMedication(Medication medication);
 }
