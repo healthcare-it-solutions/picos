@@ -21,7 +21,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/models/medication.dart';
 import 'package:picos/screens/my_medications_screen/medication_card_tile.dart';
 import 'package:picos/states/medications_list_bloc.dart';
-import 'package:picos/themes/global_theme.dart';
+import 'package:picos/widgets/list_card.dart';
 
 import '../../repository/medications_repository.dart';
 
@@ -43,22 +43,27 @@ class MedicationCard extends StatelessWidget {
     String bottomAmount,
   ) {
     const double dividerThickness = 1.5;
-    const EdgeInsets symmetricPadding = EdgeInsets.symmetric(horizontal: 10);
+
+    EdgeInsetsGeometry padding = const EdgeInsets.only(right: 15);
+
+    if (topTime == AppLocalizations.of(context)!.noon) {
+      padding = const EdgeInsets.only(left: 5);
+    }
 
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.all(5),
+        padding: padding,
         child: Column(
           children: <Widget>[
-            Padding(
-              padding: symmetricPadding,
+            Container(
+              padding: const EdgeInsets.only(right: 15),
               child: MedicationCardTile(topTime, topAmount),
             ),
             const Divider(
               thickness: dividerThickness,
             ),
-            Padding(
-              padding: symmetricPadding,
+            Container(
+              padding: const EdgeInsets.only(right: 15),
               child: MedicationCardTile(bottomTime, bottomAmount),
             ),
             const Divider(
@@ -72,74 +77,32 @@ class MedicationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final BorderRadius borderRadius = BorderRadius.circular(10);
-
-    return Padding(
-      padding: const EdgeInsets.only(top: 10, bottom: 0, left: 10, right: 10),
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: borderRadius),
-        elevation: 5,
-        child: InkWell(
-          borderRadius: borderRadius,
-          onTap: () {
-            Navigator.of(context)
-                .pushNamed('/add-medication', arguments: _medication);
-          },
-          onLongPress: () {
-            context
-                .read<MedicationsListBloc>()
-                .add(RemoveMedication(_medication));
-          },
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Ink(
-                padding: const EdgeInsets.all(3),
-                decoration: BoxDecoration(
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(10)),
-                  color: Theme.of(context).extension<GlobalTheme>()!.darkGreen2,
-                ),
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 5,
-                  ),
-                  child: Text(
-                    _medication.compound,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(5),
-                child: Row(
-                  children: <Expanded>[
-                    _createCardColumn(
-                      context,
-                      AppLocalizations.of(context)!.inTheMorning,
-                      AppLocalizations.of(context)!.inTheEvening,
-                      MedicationsRepository.amountToString(_medication.morning),
-                      MedicationsRepository.amountToString(_medication.evening),
-                    ),
-                    _createCardColumn(
-                      context,
-                      AppLocalizations.of(context)!.noon,
-                      AppLocalizations.of(context)!.toTheNight,
-                      MedicationsRepository.amountToString(_medication.noon),
-                      MedicationsRepository.amountToString(_medication.night),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+    return ListCard(
+      title: _medication.compound,
+      edit: () {
+        Navigator.of(context)
+            .pushNamed('/add-medication', arguments: _medication);
+      },
+      delete: () {
+        context.read<MedicationsListBloc>().add(RemoveMedication(_medication));
+      },
+      child: Row(
+        children: <Expanded>[
+          _createCardColumn(
+            context,
+            AppLocalizations.of(context)!.inTheMorning,
+            AppLocalizations.of(context)!.inTheEvening,
+            MedicationsRepository.amountToString(_medication.morning),
+            MedicationsRepository.amountToString(_medication.evening),
           ),
-        ),
+          _createCardColumn(
+            context,
+            AppLocalizations.of(context)!.noon,
+            AppLocalizations.of(context)!.toTheNight,
+            MedicationsRepository.amountToString(_medication.noon),
+            MedicationsRepository.amountToString(_medication.night),
+          ),
+        ],
       ),
     );
   }

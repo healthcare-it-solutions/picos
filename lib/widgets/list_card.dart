@@ -32,10 +32,13 @@ class ListCard extends StatelessWidget {
 
   /// Function to edit the card.
   final Function()? edit;
+
   /// Function to delete the card.
   final Function()? delete;
+
   /// Title shown on the card.
   final String title;
+
   /// The content displayed inside the card.
   final Widget child;
 
@@ -79,7 +82,8 @@ class ListCard extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(5),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 23),
                 child: child,
               ),
             ],
