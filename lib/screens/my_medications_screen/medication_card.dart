@@ -44,10 +44,10 @@ class MedicationCard extends StatelessWidget {
   ) {
     const double dividerThickness = 1.5;
 
-    EdgeInsetsGeometry padding = const EdgeInsets.only(right: 15);
+    EdgeInsetsGeometry padding = const EdgeInsets.only(right: 13);
 
     if (topTime == AppLocalizations.of(context)!.noon) {
-      padding = const EdgeInsets.only(left: 5);
+      padding = const EdgeInsets.only(left: 13);
     }
 
     return Expanded(
