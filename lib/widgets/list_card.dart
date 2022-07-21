@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../themes/global_theme.dart';
 
@@ -45,20 +46,17 @@ class ListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final BorderRadius borderRadius = BorderRadius.circular(10);
+    final BorderRadius buttonBorderRadius = BorderRadius.circular(5);
 
     return Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 0, left: 10, right: 10),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: borderRadius),
         elevation: 5,
-        child: InkWell(
-          borderRadius: borderRadius,
-          onTap: edit ?? () {},
-          onLongPress: delete ?? () {},
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Ink(
+              Container(
                 padding: const EdgeInsets.all(3),
                 decoration: BoxDecoration(
                   borderRadius:
@@ -86,9 +84,76 @@ class ListCard extends StatelessWidget {
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 23),
                 child: child,
               ),
+              Row(
+                children: <Expanded>[
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 10,
+                        top: 0,
+                        left: 20,
+                        right: 10,
+                      ),
+                      child: TextButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                            Theme.of(context)
+                                .extension<GlobalTheme>()!
+                                .cardButton,
+                          ),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: buttonBorderRadius,
+                            ),
+                          ),
+                          foregroundColor: MaterialStateProperty.all(
+                            Theme.of(context)
+                                .extension<GlobalTheme>()!
+                                .grey1,
+                          ),
+                        ),
+                        onPressed: edit,
+                        child: Text(AppLocalizations.of(context)!.edit),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 10,
+                        top: 0,
+                        left: 10,
+                        right: 20,
+                      ),
+                      child: TextButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                            Theme.of(context)
+                                .extension<GlobalTheme>()!
+                                .cardButton,
+                          ),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: buttonBorderRadius,
+                            ),
+                          ),
+                          foregroundColor: MaterialStateProperty.all(
+                            Theme.of(context)
+                                .extension<GlobalTheme>()!
+                                .grey1,
+                          ),
+                        ),
+                        onPressed: delete,
+                        child: Text(AppLocalizations.of(context)!.delete),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
-        ),
       ),
     );
   }
