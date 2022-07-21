@@ -21,9 +21,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../themes/global_theme.dart';
 
 /// Card item for displaying in a list.
-class ListCard extends StatelessWidget {
+class PicosListCard extends StatelessWidget {
   /// Creates a card.
-  const ListCard({
+  const PicosListCard({
     required this.title,
     required this.child,
     this.edit,

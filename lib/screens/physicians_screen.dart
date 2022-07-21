@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:picos/screens/physicians_add_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../widgets/list_card.dart';
+import '../widgets/picos_list_card.dart';
 
 /// builds 'Column' as a parent widget for the given cards
 class MyCard extends StatelessWidget {
@@ -69,7 +69,7 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListCard(
+    return PicosListCard(
       title: physicianType,
       child: SizedBox(
         width: double.infinity,
