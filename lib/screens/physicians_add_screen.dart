@@ -17,6 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/widgets/picos_ink_well_button.dart';
 
 /// contains the gender of the corresponding physician
 enum Gender {
@@ -245,81 +246,28 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: Container(
-                  height: 44,
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: <Color>[
-                        Color.fromRGBO(135, 150, 162, 1),
-                        Color.fromRGBO(95, 115, 131, 1),
-                      ],
-                    ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent,
-                      shadowColor: Colors.transparent,
-                    ),
-                    child: Text(
-                      AppLocalizations.of(context)!.abort,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+      bottomNavigationBar: Row(
+        children: <Widget>[
+          Expanded(
+            child: PicosInkWellButton(
+              text: AppLocalizations.of(context)!.abort,
+              onTap: () {
+                Navigator.pop(context);
+              },
+              disabled: false,
+              enabledGrey: true,
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: Container(
-                  height: 44,
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: <Color>[
-                        Color.fromRGBO(149, 193, 31, 1),
-                        Color.fromRGBO(110, 171, 39, 1),
-                      ],
-                    ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      addFamilyMember(context, _formKey);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent,
-                      shadowColor: Colors.transparent,
-                    ),
-                    child: Text(
-                      AppLocalizations.of(context)!.save,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+          ),
+          Expanded(
+            child: PicosInkWellButton(
+              text: AppLocalizations.of(context)!.save,
+              onTap: () {
+                addPhysician(context, _formKey);
+              },
+              disabled: false,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -352,7 +300,7 @@ String? validateURL(String value, BuildContext context) {
 
 /// When 'save'-button is pressed, this method will be triggered.
 /// After successful validation, data will be written in database.
-void addFamilyMember(BuildContext context, GlobalKey<FormState> key) {
+void addPhysician(BuildContext context, GlobalKey<FormState> key) {
   if (key.currentState!.validate()) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
