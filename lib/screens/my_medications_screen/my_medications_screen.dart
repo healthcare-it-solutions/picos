@@ -51,6 +51,7 @@ class MyMedicationsScreen extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).pushNamed('/add-medication');
               },
+              disabled: false,
             ),
           ),
           appBar: AppBar(
