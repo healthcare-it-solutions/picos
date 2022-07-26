@@ -35,6 +35,7 @@ class GlobalTheme extends ThemeExtension<GlobalTheme> {
     this.grey2 = const Color(0xFFbfc7cd),
     this.grey3 = const Color(0xFF8796a2),
     this.bottomNavigationBar = const Color(0xFFF2F2F2),
+    this.cardButton = const Color(0xFFe4edef),
   });
 
   /// Standard: #197888
@@ -71,6 +72,9 @@ class GlobalTheme extends ThemeExtension<GlobalTheme> {
   /// Open for debate.
   final Color? bottomNavigationBar;
 
+  /// Color used in the mockup for delete and edit buttons.
+  final Color? cardButton;
+
   @override
   GlobalTheme copyWith({
     Color? darkGreen1,
@@ -84,6 +88,7 @@ class GlobalTheme extends ThemeExtension<GlobalTheme> {
     Color? grey2,
     Color? grey3,
     Color? bottomNavigationBar,
+    Color? cardButton,
   }) {
     return GlobalTheme(
       darkGreen1: darkGreen1 ?? this.darkGreen1,
@@ -97,6 +102,7 @@ class GlobalTheme extends ThemeExtension<GlobalTheme> {
       grey2: grey2 ?? this.grey2,
       grey3: grey3 ?? this.grey3,
       bottomNavigationBar: bottomNavigationBar ?? this.bottomNavigationBar,
+      cardButton: cardButton ?? this.cardButton,
     );
   }
 
@@ -125,6 +131,7 @@ class GlobalTheme extends ThemeExtension<GlobalTheme> {
         other.bottomNavigationBar,
         t,
       ),
+      cardButton: Color.lerp(cardButton, other.cardButton, t),
     );
   }
 }
