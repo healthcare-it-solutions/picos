@@ -23,7 +23,6 @@ import 'package:picos/widgets/picos_ink_well_button.dart';
 enum Gender {
   /// element for denoting the title of men
   male,
-
   /// element for denoting the title of women
   female,
 }
