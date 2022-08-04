@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
+import 'package:picos/themes/global_theme.dart';
 
 /// contains the gender of the corresponding physician
 enum Gender {
@@ -45,6 +46,9 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
   @override
   Widget build(BuildContext context) {
     String dropDownValue = AppLocalizations.of(context)!.familyDoctor;
+    
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.addPhysician),
@@ -255,7 +259,8 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                 Navigator.pop(context);
               },
               disabled: false,
-              enabledGrey: true,
+              buttonColor1: theme.grey3,
+              buttonColor2: theme.grey1,
             ),
           ),
           Expanded(

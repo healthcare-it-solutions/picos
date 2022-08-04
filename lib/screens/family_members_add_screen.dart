@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
+import 'package:picos/themes/global_theme.dart';
 
 /// contains the gender of the corresponding family member
 enum Gender {
@@ -45,6 +46,8 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
   @override
   Widget build(BuildContext context) {
     String dropDownValue = AppLocalizations.of(context)!.father;
+
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
 
     return Scaffold(
       appBar: AppBar(
@@ -231,7 +234,8 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                 Navigator.pop(context);
               },
               disabled: false,
-              enabledGrey: true,
+              buttonColor1: theme.grey3,
+              buttonColor2: theme.grey1,
             ),
           ),
           Expanded(
