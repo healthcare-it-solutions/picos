@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
+import 'package:email_validator/email_validator.dart';
 
 /// contains the gender of the corresponding family member
 enum Gender {
@@ -186,7 +187,9 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
                   if (value == null || value.isEmpty) {
                     return AppLocalizations.of(context)!.entryEmail;
                   } else {
-                    return validateEmail(value, context);
+                    return EmailValidator.validate(value)
+                        ? 'Valid'
+                        : AppLocalizations.of(context)!.entryValidEmail;
                   }
                 },
               ),
@@ -227,23 +230,4 @@ class _FamilyMembersAddState extends State<FamilyMembersAdd> {
       ),
     );
   }
-}
-
-/// returns a message (String)
-/// whether e-mail-address validation is successful or not
-String? validateEmail(String value, BuildContext context) {
-  String pattern =
-      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-      r'{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]'
-      r'{0,253}[a-zA-Z0-9])?)*$';
-
-  RegExp regex = RegExp(
-    pattern,
-  );
-
-  if (!regex.hasMatch(value)) {
-    return AppLocalizations.of(context)!.entryValidEmail;
-  }
-
-  return null;
 }
