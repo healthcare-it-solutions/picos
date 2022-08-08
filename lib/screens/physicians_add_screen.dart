@@ -17,6 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/util/persistance/validators.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
 import 'package:email_validator/email_validator.dart';
 
@@ -46,6 +47,8 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
   @override
   Widget build(BuildContext context) {
     String dropDownValue = AppLocalizations.of(context)!.familyDoctor;
+
+    Validators validators = Validators(context: context);
 
     return Scaffold(
       appBar: AppBar(
@@ -221,13 +224,14 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                 decoration: InputDecoration(
                   icon: const Icon(Icons.web),
                   labelText: '${AppLocalizations.of(context)!.website} *',
+                  prefix: const Text('https://'), 
                 ),
                 keyboardType: TextInputType.url,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return AppLocalizations.of(context)!.entryWebsite;
                   } else {
-                    return validateURL(value, context);
+                    return validators.validateURL('https://$value');
                   }
                 },
               ),
@@ -255,13 +259,4 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
       ),
     );
   }
-}
-
-/// returns a message (String)
-/// whether URL validation is successful or not
-String? validateURL(String value, BuildContext context) {
-  if (!Uri.parse(value).isAbsolute) {
-    return AppLocalizations.of(context)!.entryValidWebsite;
-  }
-  return null;
 }
