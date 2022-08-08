@@ -17,13 +17,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/widgets/picos_ink_well_button.dart';
-import 'package:picos/themes/global_theme.dart';
+import 'package:picos/widgets/picos_add_button_bar.dart';
 
 /// contains the gender of the corresponding physician
 enum Gender {
   /// element for denoting the title of men
   male,
+
   /// element for denoting the title of women
   female,
 }
@@ -46,8 +46,6 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
   @override
   Widget build(BuildContext context) {
     String dropDownValue = AppLocalizations.of(context)!.familyDoctor;
-    
-    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
 
     return Scaffold(
       appBar: AppBar(
@@ -250,29 +248,8 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
           ),
         ),
       ),
-      bottomNavigationBar: Row(
-        children: <Widget>[
-          Expanded(
-            child: PicosInkWellButton(
-              text: AppLocalizations.of(context)!.abort,
-              onTap: () {
-                Navigator.pop(context);
-              },
-              disabled: false,
-              buttonColor1: theme.grey3,
-              buttonColor2: theme.grey1,
-            ),
-          ),
-          Expanded(
-            child: PicosInkWellButton(
-              text: AppLocalizations.of(context)!.save,
-              onTap: () {
-                addPhysician(context, _formKey);
-              },
-              disabled: false,
-            ),
-          ),
-        ],
+      bottomNavigationBar: PicosAddButtonBar(
+        formKey: _formKey,
       ),
     );
   }
@@ -301,18 +278,4 @@ String? validateURL(String value, BuildContext context) {
     return AppLocalizations.of(context)!.entryValidWebsite;
   }
   return null;
-}
-
-/// When 'save'-button is pressed, this method will be triggered.
-/// After successful validation, data will be written in database.
-void addPhysician(BuildContext context, GlobalKey<FormState> key) {
-  if (key.currentState!.validate()) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          AppLocalizations.of(context)!.submitData,
-        ),
-      ),
-    );
-  }
 }

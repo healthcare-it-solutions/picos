@@ -18,11 +18,9 @@
 import 'package:flutter/material.dart';
 import 'package:picos/screens/physicians_add_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/widgets/picos_ink_well_button.dart';
+import 'package:picos/widgets/picos_single_add_button_bar.dart';
 
 import '../widgets/picos_list_card.dart';
-
-import '../../themes/global_theme.dart';
 
 /// builds 'Column' as a parent widget for the given cards
 class MyCard extends StatelessWidget {
@@ -107,8 +105,6 @@ class Physicians extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.myPhysicians),
@@ -130,29 +126,8 @@ class Physicians extends StatelessWidget {
           child: const MyCard(),
         ),
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: theme.bottomNavigationBar,
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Theme.of(context).shadowColor,
-              spreadRadius: 2,
-              blurRadius: 2,
-            ),
-          ],
-        ),
-        child: PicosInkWellButton(
-          text: AppLocalizations.of(context)!.add,
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute<Widget>(
-                builder: (BuildContext context) => const PhysiciansAdd(),
-              ),
-            );
-          },
-          disabled: false,
-        ),
+      bottomNavigationBar: const PicosSingleAddButtonBar(
+        routeToAddPage: PhysiciansAdd(),
       ),
     );
   }
