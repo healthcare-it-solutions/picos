@@ -43,7 +43,6 @@ class PicosAddButtonBar extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
             },
-            disabled: false,
             buttonColor1: theme.grey3,
             buttonColor2: theme.grey1,
           ),
@@ -52,7 +51,6 @@ class PicosAddButtonBar extends StatelessWidget {
           child: PicosInkWellButton(
             text: AppLocalizations.of(context)!.save,
             onTap: () => addListElement(context, formKey),
-            disabled: false,
           ),
         ),
       ],
