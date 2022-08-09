@@ -17,9 +17,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/util/persistance/validators.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
-import 'package:email_validator/email_validator.dart';
+import 'package:queen_validators/queen_validators.dart';
 
 /// contains the gender of the corresponding physician
 enum Gender {
@@ -47,8 +46,6 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
   @override
   Widget build(BuildContext context) {
     String dropDownValue = AppLocalizations.of(context)!.familyDoctor;
-
-    Validators validators = Validators(context: context);
 
     return Scaffold(
       appBar: AppBar(
@@ -106,12 +103,11 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   labelText: '${AppLocalizations.of(context)!.practiceName} *',
                 ),
                 keyboardType: TextInputType.name,
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryPracticeName;
-                  }
-                  return null;
-                },
+                validator: qValidator(
+                  <TextValidationRule>[
+                    IsRequired(AppLocalizations.of(context)!.entryPracticeName),
+                  ],
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -171,12 +167,11 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   labelText: '${AppLocalizations.of(context)!.firstName} *',
                 ),
                 keyboardType: TextInputType.name,
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryFirstName;
-                  }
-                  return null;
-                },
+                validator: qValidator(
+                  <TextValidationRule>[
+                    IsRequired(AppLocalizations.of(context)!.entryFirstName),
+                  ],
+                ),
               ),
               TextFormField(
                 decoration: InputDecoration(
@@ -184,12 +179,11 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   labelText: '${AppLocalizations.of(context)!.familyName} *',
                 ),
                 keyboardType: TextInputType.name,
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryFamilyName;
-                  }
-                  return null;
-                },
+                validator: qValidator(
+                  <TextValidationRule>[
+                    IsRequired(AppLocalizations.of(context)!.entryFamilyName),
+                  ],
+                ),
               ),
               TextFormField(
                 decoration: InputDecoration(
@@ -197,15 +191,12 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   labelText: '${AppLocalizations.of(context)!.email} *',
                 ),
                 keyboardType: TextInputType.emailAddress,
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryEmail;
-                  } else {
-                    return EmailValidator.validate(value)
-                        ? 'Valid'
-                        : AppLocalizations.of(context)!.entryValidEmail;
-                  }
-                },
+                validator: qValidator(
+                  <TextValidationRule>[
+                    IsRequired(AppLocalizations.of(context)!.entryEmail),
+                    IsEmail(AppLocalizations.of(context)!.entryValidEmail),
+                  ],
+                ),
               ),
               TextFormField(
                 decoration: InputDecoration(
@@ -213,27 +204,24 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   labelText: '${AppLocalizations.of(context)!.phoneNumber} *',
                 ),
                 keyboardType: TextInputType.number,
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryPhoneNumber;
-                  }
-                  return null;
-                },
+                validator: qValidator(
+                  <TextValidationRule>[
+                    IsRequired(AppLocalizations.of(context)!.entryPhoneNumber),
+                  ],
+                ),
               ),
               TextFormField(
                 decoration: InputDecoration(
                   icon: const Icon(Icons.web),
                   labelText: '${AppLocalizations.of(context)!.website} *',
-                  prefix: const Text('https://'), 
                 ),
                 keyboardType: TextInputType.url,
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryWebsite;
-                  } else {
-                    return validators.validateURL('https://$value');
-                  }
-                },
+                validator: qValidator(
+                  <TextValidationRule>[
+                    IsRequired(AppLocalizations.of(context)!.entryWebsite),
+                    IsUrl(AppLocalizations.of(context)!.entryValidWebsite),
+                  ],
+                ),
               ),
               TextFormField(
                 decoration: InputDecoration(
@@ -243,12 +231,11 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                 keyboardType: TextInputType.multiline,
                 minLines: 2,
                 maxLines: null,
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryAddress;
-                  }
-                  return null;
-                },
+                validator: qValidator(
+                  <TextValidationRule>[
+                    IsRequired(AppLocalizations.of(context)!.entryAddress),
+                  ],
+                ),
               ),
             ],
           ),
