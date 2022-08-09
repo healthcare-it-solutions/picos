@@ -25,6 +25,8 @@ class PicosInkWellButton extends StatelessWidget {
     required this.text,
     required this.onTap,
     this.disabled = false,
+    this.buttonColor1,
+    this.buttonColor2,
     Key? key,
   }) : super(key: key);
 
@@ -37,13 +39,19 @@ class PicosInkWellButton extends StatelessWidget {
   /// Disables the button.
   final bool disabled;
 
+  /// The optional, first color of the button.
+  final Color? buttonColor1;
+
+  /// The optional, second color of the button.
+  final Color? buttonColor2;
+
   @override
   Widget build(BuildContext context) {
     final BorderRadius buttonBorderRadius = BorderRadius.circular(7);
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
 
-    Color gradientColor1 = theme.green1!;
-    Color gradientColor2 = theme.green2!;
+    Color gradientColor1 = buttonColor1 ?? theme.green1!;
+    Color gradientColor2 = buttonColor2 ?? theme.green2!;
 
     if (disabled) {
       gradientColor1 = theme.grey3!;

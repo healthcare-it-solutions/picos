@@ -17,6 +17,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/widgets/picos_add_button_bar.dart';
+import 'package:queen_validators/queen_validators.dart';
 
 /// contains the gender of the corresponding physician
 enum Gender {
@@ -44,6 +46,7 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
   @override
   Widget build(BuildContext context) {
     String dropDownValue = AppLocalizations.of(context)!.familyDoctor;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.addPhysician),
@@ -100,12 +103,11 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   labelText: '${AppLocalizations.of(context)!.practiceName} *',
                 ),
                 keyboardType: TextInputType.name,
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryPracticeName;
-                  }
-                  return null;
-                },
+                validator: qValidator(
+                  <TextValidationRule>[
+                    IsRequired(AppLocalizations.of(context)!.entryPracticeName),
+                  ],
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -165,12 +167,11 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   labelText: '${AppLocalizations.of(context)!.firstName} *',
                 ),
                 keyboardType: TextInputType.name,
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryFirstName;
-                  }
-                  return null;
-                },
+                validator: qValidator(
+                  <TextValidationRule>[
+                    IsRequired(AppLocalizations.of(context)!.entryFirstName),
+                  ],
+                ),
               ),
               TextFormField(
                 decoration: InputDecoration(
@@ -178,12 +179,11 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   labelText: '${AppLocalizations.of(context)!.familyName} *',
                 ),
                 keyboardType: TextInputType.name,
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryFamilyName;
-                  }
-                  return null;
-                },
+                validator: qValidator(
+                  <TextValidationRule>[
+                    IsRequired(AppLocalizations.of(context)!.entryFamilyName),
+                  ],
+                ),
               ),
               TextFormField(
                 decoration: InputDecoration(
@@ -191,13 +191,12 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   labelText: '${AppLocalizations.of(context)!.email} *',
                 ),
                 keyboardType: TextInputType.emailAddress,
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryEmail;
-                  } else {
-                    return validateEmail(value, context);
-                  }
-                },
+                validator: qValidator(
+                  <TextValidationRule>[
+                    IsRequired(AppLocalizations.of(context)!.entryEmail),
+                    IsEmail(AppLocalizations.of(context)!.entryValidEmail),
+                  ],
+                ),
               ),
               TextFormField(
                 decoration: InputDecoration(
@@ -205,12 +204,11 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   labelText: '${AppLocalizations.of(context)!.phoneNumber} *',
                 ),
                 keyboardType: TextInputType.number,
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryPhoneNumber;
-                  }
-                  return null;
-                },
+                validator: qValidator(
+                  <TextValidationRule>[
+                    IsRequired(AppLocalizations.of(context)!.entryPhoneNumber),
+                  ],
+                ),
               ),
               TextFormField(
                 decoration: InputDecoration(
@@ -218,13 +216,12 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                   labelText: '${AppLocalizations.of(context)!.website} *',
                 ),
                 keyboardType: TextInputType.url,
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryWebsite;
-                  } else {
-                    return validateURL(value, context);
-                  }
-                },
+                validator: qValidator(
+                  <TextValidationRule>[
+                    IsRequired(AppLocalizations.of(context)!.entryWebsite),
+                    IsUrl(AppLocalizations.of(context)!.entryValidWebsite),
+                  ],
+                ),
               ),
               TextFormField(
                 decoration: InputDecoration(
@@ -234,131 +231,18 @@ class _PhysiciansAddState extends State<PhysiciansAdd> {
                 keyboardType: TextInputType.multiline,
                 minLines: 2,
                 maxLines: null,
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.entryAddress;
-                  }
-                  return null;
-                },
+                validator: qValidator(
+                  <TextValidationRule>[
+                    IsRequired(AppLocalizations.of(context)!.entryAddress),
+                  ],
+                ),
               ),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: Container(
-                  height: 44,
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: <Color>[
-                        Color.fromRGBO(135, 150, 162, 1),
-                        Color.fromRGBO(95, 115, 131, 1),
-                      ],
-                    ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent,
-                      shadowColor: Colors.transparent,
-                    ),
-                    child: Text(
-                      AppLocalizations.of(context)!.abort,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: Container(
-                  height: 44,
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: <Color>[
-                        Color.fromRGBO(149, 193, 31, 1),
-                        Color.fromRGBO(110, 171, 39, 1),
-                      ],
-                    ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      addFamilyMember(context, _formKey);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent,
-                      shadowColor: Colors.transparent,
-                    ),
-                    child: Text(
-                      AppLocalizations.of(context)!.save,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// returns a message (String)
-/// whether e-mail-address validation is successful or not
-String? validateEmail(String value, BuildContext context) {
-  String pattern =
-      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-      r'{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]'
-      r'{0,253}[a-zA-Z0-9])?)*$';
-  RegExp regex = RegExp(
-    pattern,
-  );
-  if (!regex.hasMatch(value)) {
-    return AppLocalizations.of(context)!.entryValidEmail;
-  }
-  return null;
-}
-
-/// returns a message (String)
-/// whether URL validation is successful or not
-String? validateURL(String value, BuildContext context) {
-  if (!Uri.parse(value).isAbsolute) {
-    return AppLocalizations.of(context)!.entryValidWebsite;
-  }
-  return null;
-}
-
-/// When 'save'-button is pressed, this method will be triggered.
-/// After successful validation, data will be written in database.
-void addFamilyMember(BuildContext context, GlobalKey<FormState> key) {
-  if (key.currentState!.validate()) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          AppLocalizations.of(context)!.submitData,
-        ),
+      bottomNavigationBar: PicosAddButtonBar(
+        formKey: _formKey,
       ),
     );
   }
