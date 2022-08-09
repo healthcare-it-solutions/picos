@@ -24,7 +24,7 @@ class PicosInkWellButton extends StatelessWidget {
   const PicosInkWellButton({
     required this.text,
     required this.onTap,
-    required this.disabled,
+    this.disabled = false,
     this.buttonColor1,
     this.buttonColor2,
     Key? key,
