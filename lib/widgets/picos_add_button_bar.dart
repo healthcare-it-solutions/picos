@@ -31,6 +31,20 @@ class PicosAddButtonBar extends StatelessWidget {
   /// Class variable for form key.
   final GlobalKey<FormState> formKey;
 
+  /// When 'save'-button is pressed, this method will be triggered.
+  /// After successful validation, data will be written in database.
+  void addListElement(BuildContext context, GlobalKey<FormState> key) {
+    if (key.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            AppLocalizations.of(context)!.submitData,
+          ),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
@@ -55,19 +69,5 @@ class PicosAddButtonBar extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  /// When 'save'-button is pressed, this method will be triggered.
-  /// After successful validation, data will be written in database.
-  void addListElement(BuildContext context, GlobalKey<FormState> key) {
-    if (key.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            AppLocalizations.of(context)!.submitData,
-          ),
-        ),
-      );
-    }
   }
 }
