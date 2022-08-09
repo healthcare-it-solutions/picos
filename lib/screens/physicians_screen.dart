@@ -18,7 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:picos/screens/physicians_add_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/widgets/picos_single_add_button_bar.dart';
+import 'package:picos/widgets/picos_add_mono_button_bar.dart';
 
 import '../widgets/picos_list_card.dart';
 
@@ -126,7 +126,7 @@ class Physicians extends StatelessWidget {
           child: const MyCard(),
         ),
       ),
-      bottomNavigationBar: const PicosSingleAddButtonBar(
+      bottomNavigationBar: const PicosAddMonoButtonBar(
         routeToAddPage: PhysiciansAdd(),
       ),
     );
