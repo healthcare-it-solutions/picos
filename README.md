@@ -1,7 +1,7 @@
 # PICOS
 
 Picos is a mobile app that lets an ICU discharge patient track their health
-parameters, recieve medication reminders and keep track of follow up visits to
+parameters, receive medication reminders and keep track of follow up visits to
 the doctor.
 
 This application is suitable for offline use, if the user does not participate
