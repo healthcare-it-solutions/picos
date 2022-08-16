@@ -15,4 +15,118 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-// TODO: Implement
+import 'package:flutter/material.dart';
+
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(seconds: 1),
+    vsync: this,
+  );
+
+  late final Animation<Offset> _offsetAnimation = Tween<Offset>(
+    begin: const Offset(1.5, 0.0),
+    end: Offset.zero,
+  ).animate(
+    CurvedAnimation(
+      parent: _controller,
+      curve: Curves.decelerate,
+    ),
+  );
+
+  late final TextEditingController _loginController;
+  late final TextEditingController _passwordController;
+
+  bool _loginfailure = false;
+
+  void _submitHandler(String login, String password, BuildContext context) {
+    if (login == 'Funkner' && password == 'Funkner') {
+      Navigator.of(context).pushNamed('/mainscreen');
+    } else {
+      setState(() {
+        _loginfailure = true;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loginController = TextEditingController(text: '');
+    _passwordController = TextEditingController(text: '');
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _loginController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                _controller.forward();
+                // Navigator.of(context).pushNamed('/mainscreen');
+              },
+              child: const Text('log in'),
+            ),
+            SlideTransition(
+              position: _offsetAnimation,
+              child: FadeTransition(
+                opacity: _controller,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    SizedBox(
+                      width: 200,
+                      child: TextField(
+                        controller: _loginController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Login',
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    SizedBox(
+                      width: 200,
+                      child: TextField(
+                        controller: _passwordController,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Password',
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () => _submitHandler(_loginController.text,
+                          _passwordController.text, context),
+                      child: Text('Submit'),
+                    ),
+                    _loginfailure ? Text('Wrong Password') : Text('')
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}

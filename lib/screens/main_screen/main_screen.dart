@@ -21,6 +21,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/repository/medications_repository.dart';
 import 'package:picos/screens/add_medication_screen/add_medication_screen.dart';
+import 'package:picos/screens/login_screen.dart';
 import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
 import 'package:picos/states/medications_list_bloc.dart';
 import 'package:picos/themes/global_theme.dart';
@@ -71,11 +72,12 @@ class MainScreen extends StatelessWidget {
               theme,
             },
           ),
-          home: const BottomBar(title: 'PICOS'),
+          home: LoginScreen(),
           routes: <String, Widget Function(BuildContext)>{
             '/my-medications': (BuildContext ctx) =>
                 const MyMedicationsScreen(),
-            '/add-medication': (BuildContext ctx) => const AddMedicationScreen()
+            '/add-medication': (BuildContext ctx) => const AddMedicationScreen(),
+            '/mainscreen': (BuildContext ctx) => const BottomBar(title: 'PICOS')
           },
         ),
       ),
