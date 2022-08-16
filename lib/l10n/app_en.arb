@@ -128,9 +128,9 @@
         "description": "Notifications"
     },
 
-    "profile": "Profil",
+    "profile": "Profile",
     "@profile": {
-        "description": "Profil"
+        "description": "Profile"
     },
 
     "privacyNotice": "Privacy notice",

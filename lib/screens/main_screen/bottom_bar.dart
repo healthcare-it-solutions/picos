@@ -31,7 +31,7 @@ import 'package:picos/screens/picos_menu_screen.dart';
 /// used by the build method of the State. Fields in a Widget subclass are
 /// always marked "final".
 class BottomBar extends StatefulWidget {
-  /// Bottombar constructor
+  /// BottomBar constructor
   const BottomBar({required this.title, Key? key}) : super(key: key);
 
   /// home screen title
@@ -55,7 +55,7 @@ class _BottomBarState extends State<BottomBar> {
     'MyPicos'
   ];
 
-  // TODO: refactor the appBarTitiles to return localized messages
+  // TODO: refactor the appBarTitle to return localized messages
   String appBarTitle(BuildContext context, int index) {
     final List<String> appBarTitles = <String>[
       'Overview',
