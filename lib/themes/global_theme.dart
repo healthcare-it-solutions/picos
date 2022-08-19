@@ -34,7 +34,7 @@ class GlobalTheme extends ThemeExtension<GlobalTheme> {
     this.grey1 = const Color(0xFF5f7383),
     this.grey2 = const Color(0xFFbfc7cd),
     this.grey3 = const Color(0xFF8796a2),
-    this.bottomNavigationBar = const Color(0xFFF2F2F2),
+    this.bottomNavigationBar = const Color(0xF8F8F8F8),
     this.cardButton = const Color(0xFFe4edef),
   });
 
