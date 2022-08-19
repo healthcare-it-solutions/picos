@@ -56,7 +56,7 @@ class PicosMenu extends StatelessWidget {
           onTap: () => Navigator.push(
             context,
             MaterialPageRoute<Widget>(
-              builder: (BuildContext context) => const Physicians(),
+              builder: (BuildContext context) => const PhysiciansScreen(),
             ),
           ),
         ),
@@ -67,7 +67,7 @@ class PicosMenu extends StatelessWidget {
           onTap: () => Navigator.push(
             context,
             MaterialPageRoute<Widget>(
-              builder: (BuildContext context) => const FamilyMembers(),
+              builder: (BuildContext context) => const FamilyMembersScreen(),
             ),
           ),
         ),
