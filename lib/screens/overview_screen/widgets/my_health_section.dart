@@ -102,7 +102,8 @@ class MyHealthSection extends StatelessWidget {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute<Widget>(
-                        builder: (BuildContext context) => const Physicians(),
+                        builder: (BuildContext context) =>
+                            const PhysiciansScreen(),
                       ),
                     ),
                     child: Column(
@@ -137,7 +138,7 @@ class MyHealthSection extends StatelessWidget {
                       context,
                       MaterialPageRoute<Widget>(
                         builder: (BuildContext context) =>
-                            const FamilyMembers(),
+                            const FamilyMembersScreen(),
                       ),
                     ),
                     child: Column(

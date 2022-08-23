@@ -16,7 +16,6 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/screens/family_members_add_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_add_mono_button_bar.dart';
 
@@ -95,9 +94,9 @@ class CustomCard extends StatelessWidget {
 }
 
 /// This is the screen in which a user will see a list of his family members
-class FamilyMembers extends StatelessWidget {
+class FamilyMembersScreen extends StatelessWidget {
   /// FamilyMembers constructor
-  const FamilyMembers({Key? key}) : super(key: key);
+  const FamilyMembersScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +122,7 @@ class FamilyMembers extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: const PicosAddMonoButtonBar(
-        routeToAddPage: FamilyMembersAdd(),
+        route: '/add-family-member',
       ),
     );
   }

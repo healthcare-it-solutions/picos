@@ -30,15 +30,15 @@ enum Gender {
 
 /// This is the screen in which a user can add/edit
 /// information about his family members
-class FamilyMembersAdd extends StatefulWidget {
+class AddFamilyMemberScreen extends StatefulWidget {
   /// FamilyMembersAdd constructor
-  const FamilyMembersAdd({Key? key}) : super(key: key);
+  const AddFamilyMemberScreen({Key? key}) : super(key: key);
 
   @override
-  State<FamilyMembersAdd> createState() => _FamilyMembersAddState();
+  State<AddFamilyMemberScreen> createState() => _AddFamilyMemberScreenState();
 }
 
-class _FamilyMembersAddState extends State<FamilyMembersAdd> {
+class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
   Gender? _gender = Gender.male;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

@@ -16,7 +16,6 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/screens/physicians_add_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_add_mono_button_bar.dart';
 
@@ -99,9 +98,9 @@ class CustomCard extends StatelessWidget {
 }
 
 /// This is the screen in which a user will see a list of his physicians
-class Physicians extends StatelessWidget {
+class PhysiciansScreen extends StatelessWidget {
   /// Physicians constructor
-  const Physicians({Key? key}) : super(key: key);
+  const PhysiciansScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +126,7 @@ class Physicians extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: const PicosAddMonoButtonBar(
-        routeToAddPage: PhysiciansAdd(),
+        route: '/add-physician',
       ),
     );
   }

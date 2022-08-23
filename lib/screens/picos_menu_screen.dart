@@ -16,8 +16,6 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/screens/family_members_screen.dart';
-import 'package:picos/screens/physicians_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// This is the screen a user should see when prompted to provide some
@@ -53,23 +51,13 @@ class PicosMenu extends StatelessWidget {
           leading: const Icon(Icons.groups),
           title: Text(AppLocalizations.of(context)!.physicians),
           trailing: const Icon(Icons.keyboard_arrow_right),
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute<Widget>(
-              builder: (BuildContext context) => const Physicians(),
-            ),
-          ),
+          onTap: () => Navigator.of(context).pushNamed('/physicians'),
         ),
         ListTile(
           leading: const Icon(Icons.people),
           title: Text(AppLocalizations.of(context)!.familyMembers),
           trailing: const Icon(Icons.keyboard_arrow_right),
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute<Widget>(
-              builder: (BuildContext context) => const FamilyMembers(),
-            ),
-          ),
+          onTap: () => Navigator.of(context).pushNamed('/family-members'),
         ),
         ListTile(
           leading: const Icon(Icons.description),
