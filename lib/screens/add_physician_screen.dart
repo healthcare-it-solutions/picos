@@ -30,15 +30,15 @@ enum Gender {
 
 /// This is the screen in which a user can add/edit
 /// information about his physicians
-class PhysiciansAdd extends StatefulWidget {
+class AddPhysicianScreen extends StatefulWidget {
   /// PhysiciansAdd constructor
-  const PhysiciansAdd({Key? key}) : super(key: key);
+  const AddPhysicianScreen({Key? key}) : super(key: key);
 
   @override
-  State<PhysiciansAdd> createState() => _PhysiciansAddState();
+  State<AddPhysicianScreen> createState() => _AddPhysicianScreenState();
 }
 
-class _PhysiciansAddState extends State<PhysiciansAdd> {
+class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
   Gender? _gender = Gender.male;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

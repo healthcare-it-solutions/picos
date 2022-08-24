@@ -24,12 +24,12 @@ import '../themes/global_theme.dart';
 class PicosAddMonoButtonBar extends StatelessWidget {
   /// Creates a single add-button-bar.
   const PicosAddMonoButtonBar({
-    required this.routeToAddPage,
+    required this.route,
     Key? key,
   }) : super(key: key);
 
-  /// Class variable for the routing method.
-  final Widget routeToAddPage;
+  /// Route for pushing a new page. Check routes.dart for available routes.
+  final String route;
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +49,7 @@ class PicosAddMonoButtonBar extends StatelessWidget {
       child: PicosInkWellButton(
         text: AppLocalizations.of(context)!.add,
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute<Widget>(
-              builder: (BuildContext context) => routeToAddPage,
-            ),
-          );
+          Navigator.of(context).pushNamed(route);
         },
       ),
     );
