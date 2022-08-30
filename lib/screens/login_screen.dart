@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:picos/api/local_storage_medications_api.dart';
 import 'package:picos/util/backend.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
@@ -30,6 +31,9 @@ class LoginScreen extends StatefulWidget {
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
+
+// TODO: make the text widgets go red on login failure
+// TODO: display an animated toast
 
 class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
@@ -54,14 +58,16 @@ class _LoginScreenState extends State<LoginScreen>
   bool _loginfailure = false;
 
   Future<void> _submitHandler(
-      String login, String password, BuildContext con) async {
-   
-    bool res = await Backend().login(login, password);
+      String login, String password, BuildContext con,) async {
+        
+    Backend b = Backend();
+    bool res = await b.login(login, password);
+    String route = await b.getRole();
 
     // This belongs here, because of context usage in async
     if (!mounted) return;
     if (res) {
-      Navigator.of(con).pushNamed('/mainscreen');
+      Navigator.of(con).pushNamed(route);
     } else {
       setState(() {
         _loginfailure = true;
@@ -128,8 +134,11 @@ class _LoginScreenState extends State<LoginScreen>
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () => _submitHandler(_loginController.text,
-                          _passwordController.text, context,),
+                      onPressed: () => _submitHandler(
+                        _loginController.text,
+                        _passwordController.text,
+                        context,
+                      ),
                       child: const Text('Submit'),
                     ),
                     _loginfailure

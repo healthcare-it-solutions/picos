@@ -16,6 +16,8 @@
 */
 
 // ignore: depend_on_referenced_packages
+import 'dart:convert';
+
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:picos/secrets.dart';
 
@@ -34,19 +36,28 @@ class Backend {
     );
   }
 
+  late ParseUser user;
+
   Future<bool> login(String login, String password) async {
     // in case the next line throws a null is not int compatible or
     // something like 'os broken pipe' remember to set the appid,
     // server url and the client key properly above.
-    //final Parse parse = await _init();
-
-    ParseUser user = ParseUser.createUser(login, password);
+    user = ParseUser.createUser(login, password);
 
     ParseResponse res = await user.login();
 
-    print(user.getAll());
-    //print(await user.getAll());
-
     return res.success;
+  }
+
+  Future<String> getRole() async {
+    // these are thr routes we are going to forward the user to
+    Map<String, String> routes = <String, String>{
+      'Patient': '/mainscreen',
+      'Doctor': '/studynursescreen'
+    };
+
+    // TODO: maybe refactor for type safety
+    String res = await user.get('Role');
+    return routes[res]!;
   }
 }
