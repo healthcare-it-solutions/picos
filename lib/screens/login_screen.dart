@@ -16,6 +16,13 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:picos/util/backend.dart';
+import 'package:parse_server_sdk/parse_server_sdk.dart';
+
+// We don't reference provider directly but
+// to invoke context.read<T>()
+// ignore: depend_on_referenced_packages, unused_import
+// import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -46,9 +53,15 @@ class _LoginScreenState extends State<LoginScreen>
 
   bool _loginfailure = false;
 
-  void _submitHandler(String login, String password, BuildContext context) {
-    if (login == 'Funkner' && password == 'Funkner') {
-      Navigator.of(context).pushNamed('/mainscreen');
+  Future<void> _submitHandler(
+      String login, String password, BuildContext con) async {
+   
+    bool res = await Backend().login(login, password);
+
+    // This belongs here, because of context usage in async
+    if (!mounted) return;
+    if (res) {
+      Navigator.of(con).pushNamed('/mainscreen');
     } else {
       setState(() {
         _loginfailure = true;
@@ -96,19 +109,19 @@ class _LoginScreenState extends State<LoginScreen>
                       width: 200,
                       child: TextField(
                         controller: _loginController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Login',
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     SizedBox(
                       width: 200,
                       child: TextField(
                         controller: _passwordController,
                         obscureText: true,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Password',
                         ),
@@ -116,10 +129,12 @@ class _LoginScreenState extends State<LoginScreen>
                     ),
                     ElevatedButton(
                       onPressed: () => _submitHandler(_loginController.text,
-                          _passwordController.text, context),
-                      child: Text('Submit'),
+                          _passwordController.text, context,),
+                      child: const Text('Submit'),
                     ),
-                    _loginfailure ? Text('Wrong Password') : Text('')
+                    _loginfailure
+                        ? const Text('Wrong Password')
+                        : const Text('')
                   ],
                 ),
               ),

@@ -23,7 +23,6 @@ import 'package:picos/repository/medications_repository.dart';
 import 'package:picos/screens/add_medication_screen/add_medication_screen.dart';
 import 'package:picos/screens/login_screen.dart';
 import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
-import 'package:picos/state/token.dart';
 import 'package:picos/state/medications_list_bloc.dart';
 import 'package:picos/themes/global_theme.dart';
 
@@ -55,9 +54,6 @@ class MainScreen extends StatelessWidget {
             create: (BuildContext context) => MedicationsListBloc(
               medicationsRepository: context.read<MedicationsRepository>(),
             )..add(const MedicationsListSubscriptionRequested()),
-          ),
-          BlocProvider<Token>(
-            create: ((BuildContext context) => Token()),
           ),
         ],
         child: MaterialApp(
