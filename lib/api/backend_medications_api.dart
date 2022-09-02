@@ -37,7 +37,7 @@ class BackendMedicationsApi extends MedicationsApi {
     ParseResponse response = await Backend.getAll('PICOS_medication');
 
     if (!response.success && response.error != null) {
-      throw response.error!.exception!;
+      return Stream<List<Medication>>.error(response.error!);
     }
 
     for (ParseObject object in response.results!) {
