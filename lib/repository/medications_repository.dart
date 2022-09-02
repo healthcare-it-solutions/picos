@@ -28,7 +28,7 @@ class MedicationsRepository {
   final MedicationsApi _medicationsApi;
 
   /// Provides a [Stream] of all medications.
-  Stream<List<Medication>> getMedications() {
+  Future<Stream<List<Medication>>> getMedications() {
     return _medicationsApi.getMedications();
   }
 

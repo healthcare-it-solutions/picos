@@ -48,7 +48,7 @@ class MedicationsListBloc
     emit(state.copyWith(status: MedicationsListStatus.loading));
 
     await emit.forEach<List<Medication>>(
-      _medicationsRepository.getMedications(),
+      await _medicationsRepository.getMedications(),
       onData: (List<Medication> medications) {
         return state.copyWith(
           status: MedicationsListStatus.success,
