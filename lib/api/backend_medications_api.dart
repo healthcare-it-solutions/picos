@@ -48,6 +48,9 @@ class BackendMedicationsApi extends MedicationsApi {
           noon: object.get('Noon').toDouble(),
           evening: object.get('Evening').toDouble(),
           night: object.get('AtNight').toDouble(),
+          objectId: object.objectId,
+          createdAt: object.createdAt,
+          updatedAt: object.updatedAt,
         ),
       );
     }
