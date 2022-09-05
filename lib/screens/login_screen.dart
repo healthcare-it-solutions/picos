@@ -23,7 +23,9 @@ import 'package:picos/util/backend.dart';
 // ignore: depend_on_referenced_packages, unused_import
 // import 'package:provider/provider.dart';
 
+///Displays the login screen.
 class LoginScreen extends StatefulWidget {
+  ///LoginScreen constructor.
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
