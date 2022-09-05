@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+///StudyNurseScreen
 class StudyNurseScreen extends StatelessWidget {
-  @override
+  ///StudyNurseScreen Constructor
+  const StudyNurseScreen({Key? key}) : super(key: key);
+
+  @OverRide
   Widget build(BuildContext context) {
-    return Text('This is the stuff a study nurse should see');
+    return const Text('This is the stuff a study nurse should see');
   }
 }
