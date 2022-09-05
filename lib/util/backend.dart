@@ -21,7 +21,7 @@ import 'dart:convert';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:picos/secrets.dart';
 
-/// Serves as a fascade for all backend calls, so that the calls don't need
+/// Serves as a facade for all backend calls, so that the calls don't need
 /// to be extracted with shotgun surgery, should the decision fall not to use
 /// the parse_server_sdk lib.
 class Backend {
