@@ -16,9 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/api/local_storage_medications_api.dart';
 import 'package:picos/util/backend.dart';
-import 'package:parse_server_sdk/parse_server_sdk.dart';
 
 // We don't reference provider directly but
 // to invoke context.read<T>()
@@ -59,8 +57,8 @@ class _LoginScreenState extends State<LoginScreen>
 
   Future<void> _submitHandler(
       String login, String password, BuildContext con,) async {
-        
-    Backend b = Backend();
+
+    Backend b = await Backend();
     bool res = await b.login(login, password);
     String route = await b.getRole();
 

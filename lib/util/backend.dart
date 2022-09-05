@@ -15,9 +15,6 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-// ignore: depend_on_referenced_packages
-import 'dart:convert';
-
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:picos/secrets.dart';
 
@@ -25,7 +22,7 @@ import 'package:picos/secrets.dart';
 /// to be extracted with shotgun surgery, should the decision fall not to use
 /// the parse_server_sdk lib.
 class Backend {
-  /// Initializes the parse object
+  /// initializes the parse server
   Backend() {
     Parse().initialize(
       appId,
@@ -58,6 +55,7 @@ class Backend {
 
     // TODO: maybe refactor for type safety
     String res = await user.get('Role');
-    return routes[res]!;
+
+    return routes[res] ?? '/mainscreen';
   }
 }

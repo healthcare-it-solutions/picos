@@ -20,16 +20,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/repository/medications_repository.dart';
-import 'package:picos/screens/add_medication_screen/add_medication_screen.dart';
 import 'package:picos/screens/login_screen.dart';
-import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
 import 'package:picos/state/medications_list_bloc.dart';
 import 'package:picos/themes/global_theme.dart';
 
 import '../../api/local_storage_medications_api.dart';
 
 import '../../routes.dart';
-import 'bottom_bar.dart';
 
 /// This is the screen which contains all relevant information
 class MainScreen extends StatelessWidget {

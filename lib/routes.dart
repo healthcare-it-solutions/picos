@@ -21,7 +21,6 @@ import 'package:picos/screens/add_medication_screen/add_medication_screen.dart';
 import 'package:picos/screens/add_physician_screen.dart';
 import 'package:picos/screens/family_members_screen.dart';
 import 'package:picos/screens/main_screen/bottom_bar.dart';
-import 'package:picos/screens/main_screen/main_screen.dart';
 import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
 import 'package:picos/screens/physicians_screen.dart';
 import 'package:picos/screens/study_nurse_screen/study_nurse_screen.dart';
