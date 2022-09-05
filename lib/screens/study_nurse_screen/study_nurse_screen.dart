@@ -5,7 +5,7 @@ class StudyNurseScreen extends StatelessWidget {
   ///StudyNurseScreen Constructor
   const StudyNurseScreen({Key? key}) : super(key: key);
 
-  @OverRide
+  @override
   Widget build(BuildContext context) {
     return const Text('This is the stuff a study nurse should see');
   }

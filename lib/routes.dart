@@ -38,7 +38,7 @@ class Routes {
       '/physicians': (BuildContext ctx) => const PhysiciansScreen(),
       '/family-members': (BuildContext ctx) => const FamilyMembersScreen(),
       '/mainscreen': (BuildContext ctx) => const BottomBar(title: 'PICOS',),
-      '/studynursescreen': (BuildContext ctx) => StudyNurseScreen(),
+      '/studynursescreen': (BuildContext ctx) => const StudyNurseScreen(),
     };
   }
 

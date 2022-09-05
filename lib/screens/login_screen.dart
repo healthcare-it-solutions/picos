@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen>
   Future<void> _submitHandler(
       String login, String password, BuildContext con,) async {
 
-    Backend b = await Backend();
+    Backend b = Backend();
     bool res = await b.login(login, password);
     String route = await b.getRole();
 
