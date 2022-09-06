@@ -15,12 +15,8 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../util/backend.dart';
 
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
@@ -102,12 +98,6 @@ class PicosMenu extends StatelessWidget {
           leading: const Icon(Icons.logout),
           title: Text(AppLocalizations.of(context)!.logout),
           trailing: const Icon(Icons.keyboard_arrow_right),
-          onTap: () async {
-            await Backend.login('patienttest1', 'asdqwe');
-
-            log((await Backend.getObject('PICOS_medication', 'VAlHoxSy2c'))
-                .toString());
-          },
         ),
       ],
     );

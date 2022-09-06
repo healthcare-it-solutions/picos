@@ -15,10 +15,10 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import 'package:picos/models/general_database_object.dart';
+import 'package:picos/models/abstract_database_object.dart';
 
 /// Class with medication information.
-class Medication extends GeneralDatabaseObject {
+class Medication extends AbstractDatabaseObject {
   /// Creates a medication object.
   const Medication({
     required this.compound,
@@ -30,6 +30,9 @@ class Medication extends GeneralDatabaseObject {
     DateTime? createdAt,
     DateTime? updatedAt,
   }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt);
+
+  /// The database table the objects are stored in.
+  static const String databaseTable = 'PICOS_medication';
 
   /// The amount to take in the morning.
   final double morning;
@@ -48,6 +51,11 @@ class Medication extends GeneralDatabaseObject {
 
   /// All possible amount values.
   static const List<String> selection = <String>['0', '1/2', '1', '2', '3'];
+
+  @override
+  get table {
+    return databaseTable;
+  }
 
   /// Returns a copy of this medication with the given values updated.
   @override
@@ -81,4 +89,13 @@ class Medication extends GeneralDatabaseObject {
         evening,
         night,
       ];
+
+  @override
+  Map<String, dynamic> get databaseMapping => <String, dynamic>{
+        'MedicalProduct': compound,
+        'Morning': morning,
+        'Noon': noon,
+        'Evening': evening,
+        'AtNight': night,
+      };
 }

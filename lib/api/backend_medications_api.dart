@@ -34,7 +34,7 @@ class BackendMedicationsApi extends MedicationsApi {
 
   @override
   Future<Stream<List<Medication>>> getMedications() async {
-    ParseResponse response = await Backend.getAll('PICOS_medication');
+    BackendResponse response = await Backend.getAll(Medication.databaseTable);
 
     if (!response.success && response.error != null) {
       return Stream<List<Medication>>.error(response.error!);
@@ -76,6 +76,8 @@ class BackendMedicationsApi extends MedicationsApi {
     }
 
     _dispatch();
+
+    Backend.saveObject(medication);
   }
 
   @override

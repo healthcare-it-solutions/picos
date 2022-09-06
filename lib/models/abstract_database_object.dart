@@ -18,9 +18,10 @@
 import 'package:equatable/equatable.dart';
 
 /// Class with database object information.
-class GeneralDatabaseObject extends Equatable {
+/// Every model, that represents data at the database should extend this class!
+abstract class AbstractDatabaseObject extends Equatable {
   /// Creates a object that is represented in the database.
-  const GeneralDatabaseObject({
+  const AbstractDatabaseObject({
     this.objectId,
     this.createdAt,
     this.updatedAt,
@@ -33,19 +34,21 @@ class GeneralDatabaseObject extends Equatable {
   /// The time the object was last time updated at.
   final DateTime? updatedAt;
 
-  /// Returns a copy of this medication with the given values updated.
-  GeneralDatabaseObject copyWith({
+  /// The database table the objects are stored in.
+  String get table;
+
+  /// Returns a copy of this object with the given values updated.
+  AbstractDatabaseObject copyWith({
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
-  }) {
-    return GeneralDatabaseObject(
-      objectId: objectId ?? this.objectId,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
-    );
-  }
+  });
 
   @override
-  List<Object> get props => <Object>[];
+  List<Object> get props;
+
+  /// Maps the attributes of a model to it's database fields.
+  /// [String] is the field name inside the table.
+  /// [dynamic] is the attribute of the model.
+  Map<String, dynamic> get databaseMapping;
 }
