@@ -11,6 +11,7 @@
 .buildlog/
 .history
 .svn/
+*.env
 
 # IntelliJ related
 *.iml
@@ -25,10 +26,12 @@
 **/doc/api/
 .dart_tool/
 .flutter-plugins
+.flutter-plugins-dependencies
 .packages
 .pub-cache/
 .pub/
 build/
+**/secrets.dart
 
 # Android related
 **/android/**/gradle-wrapper.jar

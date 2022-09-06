@@ -17,7 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:picos/states/medications_list_bloc.dart';
+import 'package:picos/state/medications_list_bloc.dart';
 import 'medication_card.dart';
 
 /// A List with all medications.

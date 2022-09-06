@@ -15,7 +15,6 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-// ignore: depend_on_referenced_packages
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:picos/secrets.dart';
 
@@ -23,51 +22,48 @@ import 'package:picos/secrets.dart';
 /// to be extracted with shotgun surgery, should the decision fall not to use
 /// the parse_server_sdk lib.
 class Backend {
-  /// Initializes the parse object
+  /// initializes the parse server
   Backend() {
-    if (!_initialized) {
-      Parse().initialize(
-        appId,
-        serverUrl,
-        clientKey: clientKey,
-        appName: appName,
-        debug: true,
-      );
-
-      _initialized = true;
-    }
+    Parse().initialize(
+      appId,
+      serverUrl,
+      clientKey: clientKey,
+      appName: appName,
+      debug: true,
+    );
   }
 
-  static bool _initialized = false;
-  static bool _loggedIn = false;
+  late ParseUser user;
 
-  static Future<bool> login(String login, String password) async {
-    if (!_loggedIn) {
-      // in case the next line throws a null is not int compatible or
-      // something like 'os broken pipe' remember to set the appid,
-      // server url and the client key properly above.
-      //final Parse parse = await _init();
+  Future<bool> login(String login, String password) async {
+    // in case the next line throws a null is not int compatible or
+    // something like 'os broken pipe' remember to set the appid,
+    // server url and the client key properly above.
+    user = ParseUser.createUser(login, password);
 
-      ParseUser user = ParseUser.createUser(login, password);
+    ParseResponse res = await user.login();
 
-      ParseResponse res = await user.login();
+    return res.success;
+  }
 
-      print(user.getAll());
-      //print(await user.getAll());
+  Future<String> getRole() async {
+    // these are thr routes we are going to forward the user to
+    Map<String, String> routes = <String, String>{
+      'Patient': '/mainscreen',
+      'Doctor': '/studynursescreen'
+    };
 
-      _loggedIn = res.success;
+    // TODO: maybe refactor for type safety
+    String res = await user.get('Role');
 
-      return res.success;
-    }
-
-    return true;
+    return routes[res] ?? '/mainscreen';
   }
 
   ///Retrieves an object from the database by id.
   static Future<ParseResponse> getObject(
-    String className,
-    String objectId,
-  ) async {
+      String className,
+      String objectId,
+      ) async {
     return ParseObject(className).getObject(objectId);
   }
 }
