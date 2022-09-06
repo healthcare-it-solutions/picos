@@ -20,13 +20,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/repository/medications_repository.dart';
-import 'package:picos/states/medications_list_bloc.dart';
+import 'package:picos/screens/login_screen.dart';
+import 'package:picos/state/medications_list_bloc.dart';
 import 'package:picos/themes/global_theme.dart';
 
 import '../../api/local_storage_medications_api.dart';
 
 import '../../routes.dart';
-import 'bottom_bar.dart';
 
 /// This is the screen which contains all relevant information
 class MainScreen extends StatelessWidget {
@@ -47,7 +47,7 @@ class MainScreen extends StatelessWidget {
         )
       ],
       child: MultiBlocProvider(
-        providers: <BlocProvider<MedicationsListBloc>>[
+        providers: <BlocProvider<dynamic>>[
           BlocProvider<MedicationsListBloc>(
             create: (BuildContext context) => MedicationsListBloc(
               medicationsRepository: context.read<MedicationsRepository>(),
@@ -70,7 +70,7 @@ class MainScreen extends StatelessWidget {
               theme,
             },
           ),
-          home: const BottomBar(title: 'PICOS'),
+          home: const LoginScreen(),
           routes: Routes(context).getRoutes(),
         ),
       ),

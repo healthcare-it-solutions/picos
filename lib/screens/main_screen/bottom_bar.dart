@@ -64,10 +64,6 @@ class _BottomBarState extends State<BottomBar> {
       'MyPicos'
     ];
 
-    if (index > appBarTitles.length - 1 || index < 0) {
-      throw Exception('Out of bounds');
-    }
-
     return appBarTitles[index];
   }
 
