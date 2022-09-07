@@ -19,8 +19,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:picos/screens/add_family_member_screen.dart';
 import 'package:picos/screens/add_medication_screen/add_medication_screen.dart';
 import 'package:picos/screens/add_physician_screen.dart';
+import 'package:picos/screens/configuration_screen/configuration_finished_screen.dart';
+import 'package:picos/screens/configuration_screen/configuration_pages.dart';
+import 'package:picos/screens/configuration_screen/configuration_screen.dart';
 import 'package:picos/screens/family_members_screen.dart';
 import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
+import 'package:picos/screens/overview_screen/overview_screen.dart';
 import 'package:picos/screens/physicians_screen.dart';
 
 ///This is a central place to manage all routes contained in the app.
@@ -35,6 +39,10 @@ class Routes {
       '/add-physician': (BuildContext ctx) => const AddPhysicianScreen(),
       '/physicians': (BuildContext ctx) => const PhysiciansScreen(),
       '/family-members': (BuildContext ctx) => const FamilyMembersScreen(),
+      '/configuration-screen': (BuildContext ctx) => const ConfigurationScreen(),
+      '/configuration-pages': (BuildContext ctx) => const ConfigurationPages(),
+      '/configuration-finish-screen': (BuildContext ctx) => const ConfigurationFinishedScreen(),
+      '/overview': (BuildContext ctx) => const OverviewScreen(),
     };
   }
 
