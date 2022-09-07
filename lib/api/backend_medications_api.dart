@@ -39,7 +39,7 @@ class BackendMedicationsApi extends MedicationsApi {
       return Stream<List<Medication>>.error(response.error!);
     }
 
-    for (BackendObject object in response.results!) {
+    for (BackendObject object in response.results) {
       _medicationsList.add(
         Medication(
           compound: object.get('MedicalProduct'),
@@ -71,9 +71,9 @@ class BackendMedicationsApi extends MedicationsApi {
 
     int medicationIndex = _getIndex(medication);
     medication = medication.copyWith(
-      objectId: response.results!.first.objectId,
-      updatedAt: response.results!.first.updatedAt,
-      createdAt: response.results!.first.createdAt,
+      objectId: response.results.first.objectId,
+      updatedAt: response.results.first.updatedAt,
+      createdAt: response.results.first.createdAt,
     );
 
     if (medicationIndex >= 0) {

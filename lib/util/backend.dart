@@ -72,13 +72,20 @@ class Backend {
 
   /// Saves an [object] at the backend.
   static Future<BackendResponse> saveObject(
-    AbstractDatabaseObject object,
-  ) async {
+    AbstractDatabaseObject object, {
+    bool? acl,
+  }) async {
     ParseObject parseObject = ParseObject(object.table);
+    ParseACL parseACL = ParseACL();
 
     if (object.objectId != null) {
       parseObject.objectId = object.objectId;
     }
+
+    parseACL.setReadAccess(userId: user.objectId!);
+    parseACL.setWriteAccess(userId: user.objectId!);
+
+    parseObject.setACL(parseACL);
 
     object.databaseMapping.forEach((String key, dynamic value) {
       parseObject.set(key, value);
@@ -102,15 +109,15 @@ class BackendResponse {
   BackendResponse(ParseResponse response) {
     statusCode = response.statusCode;
     success = response.success;
+    _results = <BackendObject>[];
 
     if (response.error != null) {
       error = BackendError(response.error!);
     }
 
     if (response.results != null) {
-      _results = <BackendObject>[];
       for (ParseObject element in response.results!) {
-        _results!.add(BackendObject(element));
+        _results.add(BackendObject(element));
       }
     }
   }
@@ -125,10 +132,10 @@ class BackendResponse {
   late final bool success;
 
   /// All results stored as a list - Even if only one result is returned.
-  late final List<BackendObject>? _results;
+  late final List<BackendObject> _results;
 
-  /// All results stored as a list - Even if only one result is returned.
-  List<BackendObject>? get results {
+  /// All results stored as a list - Can be empty or having just one value.
+  List<BackendObject> get results {
     return _results;
   }
 }
