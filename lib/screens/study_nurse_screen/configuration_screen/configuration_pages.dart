@@ -17,15 +17,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/screens/configuration_screen/pages/page1.dart';
-import 'package:picos/screens/configuration_screen/pages/page2.dart';
-import 'package:picos/screens/configuration_screen/pages/page3.dart';
-import 'package:picos/screens/configuration_screen/pages/page4.dart';
-import 'package:picos/screens/configuration_screen/pages/page5.dart';
-import 'package:picos/screens/configuration_screen/pages/page6.dart';
+import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/page1.dart';
+import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/page2.dart';
+import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/page3.dart';
+import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/page4.dart';
+import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/page5.dart';
+import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/page6.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
 
-import '../../themes/global_theme.dart';
+import '../../../themes/global_theme.dart';
 
 /// Stateful Widget for the PageView of configuration.
 class ConfigurationPages extends StatefulWidget {

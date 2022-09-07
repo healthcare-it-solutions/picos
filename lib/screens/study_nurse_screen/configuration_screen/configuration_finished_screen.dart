@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
 
-import '../../themes/global_theme.dart';
+import '../../../themes/global_theme.dart';
 
 /// Screen which contains all relevant form elements in order to
 /// create a new patient.
@@ -69,7 +69,7 @@ class ConfigurationFinishedScreen extends StatelessWidget {
             PicosInkWellButton(
               text: AppLocalizations.of(context)!.endConfiguration,
               onTap: () {
-                Navigator.pushNamed(context, '/overview');
+                Navigator.pushNamed(context, '/configuration-screen');
               },
             ),
           ],
