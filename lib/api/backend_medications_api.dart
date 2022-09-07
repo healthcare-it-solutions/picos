@@ -90,6 +90,12 @@ class BackendMedicationsApi extends MedicationsApi {
 
   @override
   Future<void> removeMedication(Medication medication) async {
+    BackendResponse response = await Backend.removeObject(medication);
+
+    if (!response.success) {
+      return;
+    }
+
     int medicationIndex = _getIndex(medication);
 
     _medicationsList.removeAt(medicationIndex);

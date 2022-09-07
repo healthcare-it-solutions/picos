@@ -86,11 +86,19 @@ class Backend {
 
     return BackendResponse(await parseObject.save());
   }
+
+  /// Deletes the [object]
+  static Future<BackendResponse> removeObject(
+    AbstractDatabaseObject object,
+  ) async {
+    ParseObject parseObject = ParseObject(object.table);
+    return BackendResponse(await parseObject.delete(id: object.objectId));
+  }
 }
 
 /// Handles the response from the backend.
 class BackendResponse {
-  /// Creates an BackendResponse object.
+  /// Creates an BackendResponse object using the [response].
   BackendResponse(ParseResponse response) {
     statusCode = response.statusCode;
     success = response.success;
@@ -147,7 +155,7 @@ class BackendError {
 /// Handles objects from the backend.
 /// Each [BackendObject] represents a single record from a database table.
 class BackendObject {
-  /// Creates a [BackendObject] from a [ParseObject].
+  /// Creates a [BackendObject] from a [object].
   BackendObject(ParseObject object) {
     _object = object;
   }
