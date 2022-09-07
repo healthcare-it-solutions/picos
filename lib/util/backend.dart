@@ -100,18 +100,29 @@ class BackendResponse {
     }
 
     if (response.results != null) {
-      results = response.results;
+      _results = <BackendObject>[];
+      for (ParseObject element in response.results!) {
+        _results!.add(BackendObject(element));
+      }
     }
   }
 
   /// Status code.
   late final int statusCode;
+
   /// The error that could occur connection to the backend.
   late final BackendError? error;
+
   /// Whether the request succeeded or not.
   late final bool success;
+
   /// All results stored as a list - Even if only one result is returned.
-  late final List<dynamic>? results;
+  late final List<BackendObject>? _results;
+
+  /// All results stored as a list - Even if only one result is returned.
+  List<BackendObject>? get results {
+    return _results;
+  }
 }
 
 /// Handles errors with the backend communication.
@@ -125,8 +136,43 @@ class BackendError {
 
   /// Error code.
   late final int code;
+
   /// Error message.
   late final String message;
+
   /// Exception.
   late final Exception? exception;
+}
+
+/// Handles objects from the backend.
+/// Each [BackendObject] represents a single record from a database table.
+class BackendObject {
+  /// Creates a [BackendObject] from a [ParseObject].
+  BackendObject(ParseObject object) {
+    _object = object;
+  }
+
+  late final ParseObject _object;
+
+  /// Returns null or [defaultValue] if provided from the object.
+  /// To get an int, call getType<int> and an int will be returned, null,
+  /// or a defaultValue if provided.
+  dynamic get(String key, {dynamic defaultValue}) {
+    return _object.get(key, defaultValue: defaultValue);
+  }
+
+  /// Returns [String] objectId.
+  String? get objectId {
+    return _object.objectId;
+  }
+
+  /// Returns [DateTime] createdAt.
+  DateTime? get createdAt {
+    return _object.createdAt;
+  }
+
+  /// Returns [DateTime] updatedAt.
+  DateTime? get updatedAt {
+    return _object.updatedAt;
+  }
 }

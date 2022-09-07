@@ -19,7 +19,6 @@
 
 import 'dart:async';
 
-import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:picos/api/medications_api.dart';
 import 'package:picos/models/medication.dart';
 
@@ -40,7 +39,7 @@ class BackendMedicationsApi extends MedicationsApi {
       return Stream<List<Medication>>.error(response.error!);
     }
 
-    for (ParseObject object in response.results!) {
+    for (BackendObject object in response.results!) {
       _medicationsList.add(
         Medication(
           compound: object.get('MedicalProduct'),
@@ -64,7 +63,18 @@ class BackendMedicationsApi extends MedicationsApi {
 
   @override
   Future<void> saveMedication(Medication medication) async {
-    final int medicationIndex = _getIndex(medication);
+    BackendResponse response = await Backend.saveObject(medication);
+
+    if (!response.success) {
+      return;
+    }
+
+    int medicationIndex = _getIndex(medication);
+    medication = medication.copyWith(
+      objectId: response.results!.first.objectId,
+      updatedAt: response.results!.first.updatedAt,
+      createdAt: response.results!.first.createdAt,
+    );
 
     if (medicationIndex >= 0) {
       _medicationsList[medicationIndex] = medication;
@@ -76,13 +86,11 @@ class BackendMedicationsApi extends MedicationsApi {
     }
 
     _dispatch();
-
-    Backend.saveObject(medication);
   }
 
   @override
   Future<void> removeMedication(Medication medication) async {
-    final int medicationIndex = _getIndex(medication);
+    int medicationIndex = _getIndex(medication);
 
     _medicationsList.removeAt(medicationIndex);
     _medicationsList = <Medication>[..._medicationsList];
@@ -96,7 +104,7 @@ class BackendMedicationsApi extends MedicationsApi {
 
   int _getIndex(Medication medication) {
     return _medicationsList.indexWhere(
-      (Medication element) => element.compound == medication.compound,
+      (Medication element) => element.objectId == medication.objectId,
     );
   }
 }
