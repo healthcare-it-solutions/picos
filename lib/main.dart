@@ -18,15 +18,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:picos/screens/main_screen/main_screen.dart';
-import 'package:picos/util/backend.dart';
 
 /// This is the main entry point of the application.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
     <DeviceOrientation>[DeviceOrientation.portraitUp],
-  ).then((_) async {
-    Backend();
+  ).then((_) {
     runApp(const MainScreen());
   });
 }
