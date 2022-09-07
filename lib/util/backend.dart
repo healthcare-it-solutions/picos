@@ -71,21 +71,24 @@ class Backend {
   }
 
   /// Saves an [object] at the backend.
+  /// You can provide an [acl] for custom read/write permissions.
+  /// Otherwise default read/write permissions are set.
   static Future<BackendResponse> saveObject(
     AbstractDatabaseObject object, {
-    bool? acl,
+    BackendACL? acl,
   }) async {
     ParseObject parseObject = ParseObject(object.table);
-    ParseACL parseACL = ParseACL();
+
+    if (acl == null) {
+      acl = BackendACL();
+      acl.setDefault();
+    }
 
     if (object.objectId != null) {
       parseObject.objectId = object.objectId;
     }
 
-    parseACL.setReadAccess(userId: user.objectId!);
-    parseACL.setWriteAccess(userId: user.objectId!);
-
-    parseObject.setACL(parseACL);
+    parseObject.setACL(acl.acl);
 
     object.databaseMapping.forEach((String key, dynamic value) {
       parseObject.set(key, value);
@@ -189,5 +192,32 @@ class BackendObject {
   /// Returns [DateTime] updatedAt.
   DateTime? get updatedAt {
     return _object.updatedAt;
+  }
+}
+
+/// Allows to prepare read and write permissions for an object to be saved.
+/// Can be expanded upon for further functionality.
+class BackendACL {
+  final ParseACL _parseACL = ParseACL();
+
+  /// Returns the ACL.
+  ParseACL get acl {
+    return _parseACL;
+  }
+
+  /// Sets some default ACL.
+  void setDefault() {
+    setReadAccess(userId: Backend.user.objectId!);
+    setWriteAccess(userId: Backend.user.objectId!);
+  }
+
+  /// Set whether the user is allowed to read this object.
+  void setReadAccess({required String userId, bool allowed = true}) {
+    _parseACL.setReadAccess(userId: userId, allowed: allowed);
+  }
+
+  /// Set whether the user is allowed to write this object.
+  void setWriteAccess({required String userId, bool allowed = true}) {
+    _parseACL.setWriteAccess(userId: userId, allowed: allowed);
   }
 }
