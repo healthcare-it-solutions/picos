@@ -20,7 +20,7 @@ import 'package:flutter/services.dart';
 import 'package:picos/screens/main_screen/main_screen.dart';
 
 /// This is the main entry point of the application.
-Future<void> main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
     <DeviceOrientation>[DeviceOrientation.portraitUp],
