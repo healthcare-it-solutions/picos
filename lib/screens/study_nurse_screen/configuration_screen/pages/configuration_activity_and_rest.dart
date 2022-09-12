@@ -27,23 +27,22 @@ bool sleepDurationEnabled = false;
 /// contains patient's sleep quality.
 bool sleepQualityEnabled = false;
 
-/// First page of Configurations
-class Page3 extends StatefulWidget {
-  /// Constructor of Page1
-  const Page3({Key? key}) : super(key: key);
+/// shows page for configuration of "Activity & Rest"-information.
+class ConfigurationActivityAndRest extends StatefulWidget {
+  /// Constructor of page for configuration of "Activity & Rest"-information.
+  const ConfigurationActivityAndRest({Key? key}) : super(key: key);
 
   @override
-  State<Page3> createState() => _Page3State();
+  State<ConfigurationActivityAndRest> createState() =>
+      _ConfigurationActivityAndRestState();
 }
 
-class _Page3State extends State<Page3> {
+class _ConfigurationActivityAndRestState
+    extends State<ConfigurationActivityAndRest> {
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
     return Padding(
       padding: const EdgeInsets.all(10),
-      key: formKey,
       child: Form(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

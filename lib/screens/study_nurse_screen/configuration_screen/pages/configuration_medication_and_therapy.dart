@@ -18,35 +18,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-/// contains patient's weight.
-bool weightBMIEnabled = false;
+/// contains patient's medication.
+bool medicationEnabled = false;
 
-/// contains patient's heart frequency.
-bool heartFrequencyEnabled = false;
+/// contains patient's therapy.
+bool therapyEnabled = false;
 
-/// contains patient's blood pressure.
-bool bloodPressureEnabled = false;
+/// contains patient's doctor's visit.
+bool doctorsVisitEnabled = false;
 
-/// contains patient's blood sugar level.
-bool bloodSugarLevelsEnabled = false;
-
-/// First page of Configurations
-class Page2 extends StatefulWidget {
-  /// Constructor of Page1
-  const Page2({Key? key}) : super(key: key);
+/// shows page for configuration of "Medication & Therapy"-information.
+class ConfigurationMedicationAndTherapy extends StatefulWidget {
+  /// Constructor of page for configuration of
+  /// "Medication & Therapy"-information.
+  const ConfigurationMedicationAndTherapy({Key? key}) : super(key: key);
 
   @override
-  State<Page2> createState() => _Page2State();
+  State<ConfigurationMedicationAndTherapy> createState() =>
+      _ConfigurationMedicationAndTherapyState();
 }
 
-class _Page2State extends State<Page2> {
+class _ConfigurationMedicationAndTherapyState
+    extends State<ConfigurationMedicationAndTherapy> {
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
     return Padding(
       padding: const EdgeInsets.all(10),
-      key: formKey,
       child: Form(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -55,7 +52,7 @@ class _Page2State extends State<Page2> {
               padding: const EdgeInsets.all(20),
               child: Text(
                 '''${AppLocalizations.of(context)!.infoText1} '''
-                '''"${AppLocalizations.of(context)!.vitalValues}" '''
+                '''"${AppLocalizations.of(context)!.medicationAndTherapy}" '''
                 '''${AppLocalizations.of(context)!.infoText2}''',
                 style: const TextStyle(
                   fontSize: 18,
@@ -63,15 +60,15 @@ class _Page2State extends State<Page2> {
               ),
             ),
             SwitchListTile(
-              value: weightBMIEnabled,
+              value: medicationEnabled,
               onChanged: (bool value) {
                 setState(() {
-                  weightBMIEnabled = value;
+                  medicationEnabled = value;
                 });
               },
-              secondary: const Icon(Icons.monitor_weight_outlined),
+              secondary: const Icon(Icons.medication),
               title: Text(
-                AppLocalizations.of(context)!.weightBMI,
+                AppLocalizations.of(context)!.medication,
                 style: const TextStyle(
                   fontSize: 16,
                 ),
@@ -81,15 +78,15 @@ class _Page2State extends State<Page2> {
               ),
             ),
             SwitchListTile(
-              value: heartFrequencyEnabled,
+              value: therapyEnabled,
               onChanged: (bool value) {
                 setState(() {
-                  heartFrequencyEnabled = value;
+                  therapyEnabled = value;
                 });
               },
-              secondary: const Icon(Icons.monitor_heart_outlined),
+              secondary: const Icon(Icons.healing_outlined),
               title: Text(
-                AppLocalizations.of(context)!.heartFrequency,
+                AppLocalizations.of(context)!.therapy,
                 style: const TextStyle(
                   fontSize: 16,
                 ),
@@ -99,33 +96,15 @@ class _Page2State extends State<Page2> {
               ),
             ),
             SwitchListTile(
-              value: bloodPressureEnabled,
+              value: doctorsVisitEnabled,
               onChanged: (bool value) {
                 setState(() {
-                  bloodPressureEnabled = value;
+                  doctorsVisitEnabled = value;
                 });
               },
-              secondary: const Icon(Icons.bloodtype_outlined),
+              secondary: const Icon(Icons.local_hospital_outlined),
               title: Text(
-                AppLocalizations.of(context)!.bloodPressure,
-                style: const TextStyle(
-                  fontSize: 16,
-                ),
-              ),
-              shape: const Border(
-                bottom: BorderSide(color: Colors.grey),
-              ),
-            ),
-            SwitchListTile(
-              value: bloodSugarLevelsEnabled,
-              onChanged: (bool value) {
-                setState(() {
-                  bloodSugarLevelsEnabled = value;
-                });
-              },
-              secondary: const Icon(Icons.device_thermostat_outlined),
-              title: Text(
-                AppLocalizations.of(context)!.bloodSugarLevels,
+                AppLocalizations.of(context)!.doctorsVisit,
                 style: const TextStyle(
                   fontSize: 16,
                 ),

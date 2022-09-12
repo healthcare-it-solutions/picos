@@ -17,12 +17,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/page1.dart';
-import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/page2.dart';
-import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/page3.dart';
-import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/page4.dart';
-import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/page5.dart';
-import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/page6.dart';
+import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_form.dart';
+import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_vital_values.dart';
+import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_activity_and_rest.dart';
+import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_body_and_mind.dart';
+import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_medication_and_therapy.dart';
+import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_summary.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
 
 import '../../../themes/global_theme.dart';
@@ -40,12 +40,12 @@ class _ConfigurationPages extends State<ConfigurationPages> {
   PageController controller = PageController();
 
   final List<Widget> _list = <Widget>[
-    const Page1(),
-    const Page2(),
-    const Page3(),
-    const Page4(),
-    const Page5(),
-    const Page6()
+    const ConfigurationForm(),
+    const ConfigurationVitalValues(),
+    const ConfigurationActivityAndRest(),
+    const ConfigurationBodyAndMind(),
+    const ConfigurationMedicationAndTherapy(),
+    const ConfigurationSummary()
   ];
 
   int _currentPage = 0;

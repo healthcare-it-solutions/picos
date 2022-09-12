@@ -18,32 +18,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-/// contains patient's medication.
-bool medicationEnabled = false;
+/// contains patient's weight.
+bool weightBMIEnabled = false;
 
-/// contains patient's therapy.
-bool therapyEnabled = false;
+/// contains patient's heart frequency.
+bool heartFrequencyEnabled = false;
 
-/// contains patient's doctor's visit.
-bool doctorsVisitEnabled = false;
+/// contains patient's blood pressure.
+bool bloodPressureEnabled = false;
 
-/// First page of Configurations
-class Page5 extends StatefulWidget {
-  /// Constructor of Page1
-  const Page5({Key? key}) : super(key: key);
+/// contains patient's blood sugar level.
+bool bloodSugarLevelsEnabled = false;
+
+/// shows page for configuration of vital values.
+class ConfigurationVitalValues extends StatefulWidget {
+  /// Constructor of page for configuration of vital values.
+  const ConfigurationVitalValues({Key? key}) : super(key: key);
 
   @override
-  State<Page5> createState() => _Page5State();
+  State<ConfigurationVitalValues> createState() =>
+      _ConfigurationVitalValuesState();
 }
 
-class _Page5State extends State<Page5> {
+class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
     return Padding(
       padding: const EdgeInsets.all(10),
-      key: formKey,
       child: Form(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -52,7 +53,7 @@ class _Page5State extends State<Page5> {
               padding: const EdgeInsets.all(20),
               child: Text(
                 '''${AppLocalizations.of(context)!.infoText1} '''
-                '''"${AppLocalizations.of(context)!.medicationAndTherapy}" '''
+                '''"${AppLocalizations.of(context)!.vitalValues}" '''
                 '''${AppLocalizations.of(context)!.infoText2}''',
                 style: const TextStyle(
                   fontSize: 18,
@@ -60,15 +61,15 @@ class _Page5State extends State<Page5> {
               ),
             ),
             SwitchListTile(
-              value: medicationEnabled,
+              value: weightBMIEnabled,
               onChanged: (bool value) {
                 setState(() {
-                  medicationEnabled = value;
+                  weightBMIEnabled = value;
                 });
               },
-              secondary: const Icon(Icons.medication),
+              secondary: const Icon(Icons.monitor_weight_outlined),
               title: Text(
-                AppLocalizations.of(context)!.medication,
+                AppLocalizations.of(context)!.weightBMI,
                 style: const TextStyle(
                   fontSize: 16,
                 ),
@@ -78,15 +79,15 @@ class _Page5State extends State<Page5> {
               ),
             ),
             SwitchListTile(
-              value: therapyEnabled,
+              value: heartFrequencyEnabled,
               onChanged: (bool value) {
                 setState(() {
-                  therapyEnabled = value;
+                  heartFrequencyEnabled = value;
                 });
               },
-              secondary: const Icon(Icons.healing_outlined),
+              secondary: const Icon(Icons.monitor_heart_outlined),
               title: Text(
-                AppLocalizations.of(context)!.therapy,
+                AppLocalizations.of(context)!.heartFrequency,
                 style: const TextStyle(
                   fontSize: 16,
                 ),
@@ -96,15 +97,33 @@ class _Page5State extends State<Page5> {
               ),
             ),
             SwitchListTile(
-              value: doctorsVisitEnabled,
+              value: bloodPressureEnabled,
               onChanged: (bool value) {
                 setState(() {
-                  doctorsVisitEnabled = value;
+                  bloodPressureEnabled = value;
                 });
               },
-              secondary: const Icon(Icons.local_hospital_outlined),
+              secondary: const Icon(Icons.bloodtype_outlined),
               title: Text(
-                AppLocalizations.of(context)!.doctorsVisit,
+                AppLocalizations.of(context)!.bloodPressure,
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+              shape: const Border(
+                bottom: BorderSide(color: Colors.grey),
+              ),
+            ),
+            SwitchListTile(
+              value: bloodSugarLevelsEnabled,
+              onChanged: (bool value) {
+                setState(() {
+                  bloodSugarLevelsEnabled = value;
+                });
+              },
+              secondary: const Icon(Icons.device_thermostat_outlined),
+              title: Text(
+                AppLocalizations.of(context)!.bloodSugarLevels,
                 style: const TextStyle(
                   fontSize: 16,
                 ),

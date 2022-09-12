@@ -27,26 +27,23 @@ enum Gender {
   female,
 }
 
-/// First page of Configurations
-class Page1 extends StatefulWidget {
-  /// Constructor of Page1
-  const Page1({Key? key}) : super(key: key);
+/// shows form for patient registration.
+class ConfigurationForm extends StatefulWidget {
+  /// Constructor of form for patient registration.
+  const ConfigurationForm({Key? key}) : super(key: key);
 
   @override
-  State<Page1> createState() => _Page1State();
+  State<ConfigurationForm> createState() => _ConfigurationFormState();
 }
 
-class _Page1State extends State<Page1> {
+class _ConfigurationFormState extends State<ConfigurationForm> {
   @override
   Widget build(BuildContext context) {
     Gender? gender = Gender.male;
 
-    //final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
     return Padding(
       padding: const EdgeInsets.all(10),
-      //key: formKey,
-      child: //Form(
+      child:
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[

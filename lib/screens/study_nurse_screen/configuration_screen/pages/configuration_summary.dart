@@ -18,16 +18,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-/// First page of Configurations
-class Page6 extends StatefulWidget {
-  /// Constructor of Page1
-  const Page6({Key? key}) : super(key: key);
+/// shows summary page for configuration.
+class ConfigurationSummary extends StatefulWidget {
+  /// Constructor of summary page for configuration.
+  const ConfigurationSummary({Key? key}) : super(key: key);
 
   @override
-  State<Page6> createState() => _Page6State();
+  State<ConfigurationSummary> createState() => _ConfigurationSummaryState();
 }
 
-class _Page6State extends State<Page6> {
+class _ConfigurationSummaryState extends State<ConfigurationSummary> {
   @override
   Widget build(BuildContext context) {
     return Padding(

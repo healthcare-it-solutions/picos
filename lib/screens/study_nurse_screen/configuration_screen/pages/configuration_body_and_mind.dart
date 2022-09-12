@@ -24,23 +24,21 @@ bool painEnabled = false;
 /// contains patient's PHQ-4.
 bool phq4Enabled = false;
 
-/// First page of Configurations
-class Page4 extends StatefulWidget {
-  /// Constructor of Page1
-  const Page4({Key? key}) : super(key: key);
+/// shows page for configuration of "Body & Mind"-information.
+class ConfigurationBodyAndMind extends StatefulWidget {
+  /// Constructor of page for configuration of "Body & Mind"-information.
+  const ConfigurationBodyAndMind({Key? key}) : super(key: key);
 
   @override
-  State<Page4> createState() => _Page4State();
+  State<ConfigurationBodyAndMind> createState() =>
+      _ConfigurationBodyAndMindState();
 }
 
-class _Page4State extends State<Page4> {
+class _ConfigurationBodyAndMindState extends State<ConfigurationBodyAndMind> {
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
     return Padding(
       padding: const EdgeInsets.all(10),
-      key: formKey,
       child: Form(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
