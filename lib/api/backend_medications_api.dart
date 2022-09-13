@@ -24,7 +24,7 @@ import 'package:picos/models/medication.dart';
 
 import '../util/backend.dart';
 
-/// API for storing medications at local storage. Currently a placeholder.
+/// API for storing medications at the backend.
 class BackendMedicationsApi extends MedicationsApi {
   List<Medication> _medicationsList = <Medication>[];
 
@@ -33,75 +33,84 @@ class BackendMedicationsApi extends MedicationsApi {
 
   @override
   Future<Stream<List<Medication>>> getMedications() async {
-    BackendResponse response = await Backend.getAll(Medication.databaseTable);
+    try {
+      List<dynamic> response = await Backend.getAll(Medication.databaseTable);
 
-    if (!response.success && response.error != null) {
-      return Stream<List<Medication>>.error(response.error!);
-    }
+      for (dynamic element in response) {
+        _medicationsList.add(
+          Medication(
+            compound: element['MedicalProduct'],
+            morning: element['Morning'].toDouble(),
+            noon: element['Noon'].toDouble(),
+            evening: element['Evening'].toDouble(),
+            night: element['AtNight'].toDouble(),
+            objectId: element['objectId'],
+            createdAt: DateTime.parse(element['createdAt']),
+            updatedAt: DateTime.parse(element['updatedAt']),
+          ),
+        );
+      }
 
-    for (BackendObject object in response.results) {
-      _medicationsList.add(
-        Medication(
-          compound: object.get('MedicalProduct'),
-          morning: object.get('Morning').toDouble(),
-          noon: object.get('Noon').toDouble(),
-          evening: object.get('Evening').toDouble(),
-          night: object.get('AtNight').toDouble(),
-          objectId: object.objectId,
-          createdAt: object.createdAt,
-          updatedAt: object.updatedAt,
-        ),
+      return _medicationsController.stream.asBroadcastStream(
+        onListen: (StreamSubscription<List<Medication>> subscription) {
+          _dispatch();
+        },
       );
+    } catch (e) {
+      return Stream<List<Medication>>.error(e);
     }
-
-    return _medicationsController.stream.asBroadcastStream(
-      onListen: (StreamSubscription<List<Medication>> subscription) {
-        _dispatch();
-      },
-    );
   }
 
   @override
   Future<void> saveMedication(Medication medication) async {
-    BackendResponse response = await Backend.saveObject(medication);
+    try {
+      dynamic response = await Backend.saveObject(medication);
 
-    if (!response.success) {
+      if (response['updatedAt'] != null) {
+        medication = medication.copyWith(
+          objectId: response['objectId'],
+          updatedAt: DateTime.parse(response['updatedAt']),
+        );
+      }
+
+      if (response['createdAt'] != null) {
+        medication = medication.copyWith(
+          objectId: response['objectId'],
+          createdAt: DateTime.parse(response['createdAt']),
+        );
+      }
+
+      int medicationIndex = _getIndex(medication);
+
+      if (medicationIndex >= 0) {
+        _medicationsList[medicationIndex] = medication;
+        _medicationsList = <Medication>[..._medicationsList];
+      }
+
+      if (medicationIndex < 0) {
+        _medicationsList = <Medication>[..._medicationsList, medication];
+      }
+
+      _dispatch();
+    } catch (e) {
       return;
     }
-
-    int medicationIndex = _getIndex(medication);
-    medication = medication.copyWith(
-      objectId: response.results.first.objectId,
-      updatedAt: response.results.first.updatedAt,
-      createdAt: response.results.first.createdAt,
-    );
-
-    if (medicationIndex >= 0) {
-      _medicationsList[medicationIndex] = medication;
-      _medicationsList = <Medication>[..._medicationsList];
-    }
-
-    if (medicationIndex < 0) {
-      _medicationsList = <Medication>[..._medicationsList, medication];
-    }
-
-    _dispatch();
   }
 
   @override
   Future<void> removeMedication(Medication medication) async {
-    BackendResponse response = await Backend.removeObject(medication);
+    try {
+      await Backend.removeObject(medication);
 
-    if (!response.success) {
+      int medicationIndex = _getIndex(medication);
+
+      _medicationsList.removeAt(medicationIndex);
+      _medicationsList = <Medication>[..._medicationsList];
+
+      _dispatch();
+    } catch (e) {
       return;
     }
-
-    int medicationIndex = _getIndex(medication);
-
-    _medicationsList.removeAt(medicationIndex);
-    _medicationsList = <Medication>[..._medicationsList];
-
-    _dispatch();
   }
 
   void _dispatch() {

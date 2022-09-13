@@ -15,6 +15,8 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import 'dart:convert';
+
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:picos/secrets.dart';
 
@@ -66,14 +68,25 @@ class Backend {
   }
 
   /// Retrieves all possible objects from a [table].
-  static Future<BackendResponse> getAll(String table) async {
-    return BackendResponse(await ParseObject(table).getAll());
+  static Future<List<dynamic>> getAll(String table) async {
+    try {
+      ParseResponse parses = await ParseObject(table).getAll();
+      List<dynamic> res = parses.results ?? <dynamic>[];
+
+      return res.map((dynamic e) => jsonDecode(e.toString())).toList();
+    } catch (e) {
+      rethrow;
+    }
   }
 
   /// Saves an [object] at the backend.
   /// You can provide an [acl] for custom read/write permissions.
   /// Otherwise default read/write permissions are set.
-  static Future<BackendResponse> saveObject(
+  ///
+  /// Info:
+  /// Depending if it's an update or a create the response may miss 'updatedAt'
+  /// or 'createdAt' values.
+  static Future<dynamic> saveObject(
     AbstractDatabaseObject object, {
     BackendACL? acl,
   }) async {
@@ -94,104 +107,23 @@ class Backend {
       parseObject.set(key, value);
     });
 
-    return BackendResponse(await parseObject.save());
+    try {
+      return jsonDecode((await parseObject.save()).results!.first.toString());
+    } catch (e) {
+      rethrow;
+    }
   }
 
-  /// Deletes the [object]
-  static Future<BackendResponse> removeObject(
+  /// Deletes the [object].
+  static Future<void> removeObject(
     AbstractDatabaseObject object,
   ) async {
     ParseObject parseObject = ParseObject(object.table);
-    return BackendResponse(await parseObject.delete(id: object.objectId));
-  }
-}
-
-/// Handles the response from the backend.
-class BackendResponse {
-  /// Creates an BackendResponse object using the [response].
-  BackendResponse(ParseResponse response) {
-    statusCode = response.statusCode;
-    success = response.success;
-    _results = <BackendObject>[];
-
-    if (response.error != null) {
-      error = BackendError(response.error!);
+    try {
+      await parseObject.delete(id: object.objectId);
+    } catch (e) {
+      rethrow;
     }
-
-    if (response.results != null) {
-      for (ParseObject element in response.results!) {
-        _results.add(BackendObject(element));
-      }
-    }
-  }
-
-  /// Status code.
-  late final int statusCode;
-
-  /// The error that could occur connection to the backend.
-  late final BackendError? error;
-
-  /// Whether the request succeeded or not.
-  late final bool success;
-
-  /// All results stored as a list - Even if only one result is returned.
-  late final List<BackendObject> _results;
-
-  /// All results stored as a list - Can be empty or having just one value.
-  List<BackendObject> get results {
-    return _results;
-  }
-}
-
-/// Handles errors with the backend communication.
-class BackendError {
-  /// Creates an BackendError object.
-  BackendError(ParseError error) {
-    code = error.code;
-    message = error.message;
-    exception = error.exception;
-  }
-
-  /// Error code.
-  late final int code;
-
-  /// Error message.
-  late final String message;
-
-  /// Exception.
-  late final Exception? exception;
-}
-
-/// Handles objects from the backend.
-/// Each [BackendObject] represents a single record from a database table.
-class BackendObject {
-  /// Creates a [BackendObject] from a [object].
-  BackendObject(ParseObject object) {
-    _object = object;
-  }
-
-  late final ParseObject _object;
-
-  /// Returns null or [defaultValue] if provided from the object.
-  /// To get an int, call getType<int> and an int will be returned, null,
-  /// or a defaultValue if provided.
-  dynamic get(String key, {dynamic defaultValue}) {
-    return _object.get(key, defaultValue: defaultValue);
-  }
-
-  /// Returns [String] objectId.
-  String? get objectId {
-    return _object.objectId;
-  }
-
-  /// Returns [DateTime] createdAt.
-  DateTime? get createdAt {
-    return _object.createdAt;
-  }
-
-  /// Returns [DateTime] updatedAt.
-  DateTime? get updatedAt {
-    return _object.updatedAt;
   }
 }
 
