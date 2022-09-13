@@ -66,21 +66,13 @@ class BackendMedicationsApi extends MedicationsApi {
     try {
       dynamic response = await Backend.saveObject(medication);
 
-      if (response['updatedAt'] != null) {
-        medication = medication.copyWith(
-          objectId: response['objectId'],
-          createdAt: medication.createdAt,
-          updatedAt: DateTime.parse(response['updatedAt']),
-        );
-      }
-
-      if (response['createdAt'] != null) {
-        medication = medication.copyWith(
-          objectId: response['objectId'],
-          createdAt: DateTime.parse(response['createdAt']),
-          updatedAt: medication.updatedAt,
-        );
-      }
+      medication = medication.copyWith(
+        objectId: response['objectId'],
+        createdAt: DateTime.tryParse(response['createdAt'] ?? '') ??
+            medication.createdAt,
+        updatedAt: DateTime.tryParse(response['updatedAt'] ?? '') ??
+            medication.updatedAt,
+      );
 
       int medicationIndex = _getIndex(medication);
 
