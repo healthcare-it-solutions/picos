@@ -69,6 +69,7 @@ class BackendMedicationsApi extends MedicationsApi {
       if (response['updatedAt'] != null) {
         medication = medication.copyWith(
           objectId: response['objectId'],
+          createdAt: medication.createdAt,
           updatedAt: DateTime.parse(response['updatedAt']),
         );
       }
@@ -77,6 +78,7 @@ class BackendMedicationsApi extends MedicationsApi {
         medication = medication.copyWith(
           objectId: response['objectId'],
           createdAt: DateTime.parse(response['createdAt']),
+          updatedAt: medication.updatedAt,
         );
       }
 
