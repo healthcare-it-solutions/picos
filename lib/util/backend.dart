@@ -69,14 +69,10 @@ class Backend {
 
   /// Retrieves all possible objects from a [table].
   static Future<List<dynamic>> getAll(String table) async {
-    try {
-      ParseResponse parses = await ParseObject(table).getAll();
-      List<dynamic> res = parses.results ?? <dynamic>[];
+    ParseResponse parses = await ParseObject(table).getAll();
+    List<dynamic> res = parses.results ?? <dynamic>[];
 
-      return res.map((dynamic e) => jsonDecode(e.toString())).toList();
-    } catch (e) {
-      rethrow;
-    }
+    return res.map((dynamic e) => jsonDecode(e.toString())).toList();
   }
 
   /// Saves an [object] at the backend.
@@ -107,11 +103,7 @@ class Backend {
       parseObject.set(key, value);
     });
 
-    try {
-      return jsonDecode((await parseObject.save()).results!.first.toString());
-    } catch (e) {
-      rethrow;
-    }
+    return jsonDecode((await parseObject.save()).results!.first.toString());
   }
 
   /// Deletes the [object].
@@ -119,11 +111,7 @@ class Backend {
     AbstractDatabaseObject object,
   ) async {
     ParseObject parseObject = ParseObject(object.table);
-    try {
-      await parseObject.delete(id: object.objectId);
-    } catch (e) {
-      rethrow;
-    }
+    await parseObject.delete(id: object.objectId);
   }
 }
 
