@@ -18,9 +18,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/my_medications_screen/medications_list.dart';
-import 'package:picos/widgets/picos_ink_well_button.dart';
 
 import '../../themes/global_theme.dart';
+import '../../widgets/picos_add_mono_button_bar.dart';
 
 /// Shows a list with all personal medication plans.
 class MyMedicationsScreen extends StatelessWidget {
@@ -46,11 +46,8 @@ class MyMedicationsScreen extends StatelessWidget {
                 ),
               ],
             ),
-            child: PicosInkWellButton(
-              text: AppLocalizations.of(context)!.addMedication,
-              onTap: () {
-                Navigator.of(context).pushNamed('/add-medication');
-              },
+            child: const PicosAddMonoButtonBar(
+              route: '/add-medication',
             ),
           ),
           appBar: AppBar(
