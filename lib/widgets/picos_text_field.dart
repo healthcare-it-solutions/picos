@@ -21,11 +21,13 @@ import 'package:flutter/material.dart';
 class PicosTextField extends StatelessWidget {
   /// Creates a text field.
   const PicosTextField({
-    required this.onChanged,
+    this.onChanged,
     Key? key,
     this.disabled = false,
     this.hint = '',
     this.autofocus = false,
+    this.onTap,
+    this.readOnly = false,
   }) : super(key: key);
 
   /// Determines if the text field is disabled.
@@ -37,8 +39,14 @@ class PicosTextField extends StatelessWidget {
   /// Determines if the text field should focus itself.
   final bool autofocus;
 
-  /// The function hta is executed when the writes something.
-  final Function(String) onChanged;
+  /// The function that is executed when the user writes something.
+  final Function(String)? onChanged;
+
+  /// The function that is executed when the user taps the field.
+  final Function()? onTap;
+
+  /// Whether the text can be changed.
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +85,9 @@ class PicosTextField extends StatelessWidget {
           ),
         ),
         autofocus: autofocus,
-        onChanged: onChanged,
+        onChanged: onChanged ?? (_) {},
+        onTap: onTap ?? () {},
+        readOnly: readOnly,
       ),
     );
   }
