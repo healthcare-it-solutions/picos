@@ -19,14 +19,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/models/medication.dart';
-import 'package:picos/screens/add_medication_screen/add_medication_screen_label.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
 import 'package:picos/widgets/picos_select.dart';
 
-import '../../repository/medications_repository.dart';
-import '../../state/medications_list_bloc.dart';
-import '../../widgets/picos_body.dart';
-import '../../widgets/picos_text_field.dart';
+import '../repository/medications_repository.dart';
+import '../state/medications_list_bloc.dart';
+import '../widgets/picos_body.dart';
+import '../widgets/picos_form_label.dart';
+import '../widgets/picos_text_field.dart';
 
 /// A screen for adding new medication schedules.
 class AddMedicationScreen extends StatefulWidget {
@@ -282,7 +282,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                     const SizedBox(
                       height: 25,
                     ),
-                    AddMedicationScreenLabel(
+                    PicosFormLabel(
                       label: AppLocalizations.of(context)!.compound,
                     ),
                     PicosTextField(
@@ -305,7 +305,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                     const SizedBox(
                       height: 30,
                     ),
-                    AddMedicationScreenLabel(
+                    PicosFormLabel(
                       label: AppLocalizations.of(context)!.intake,
                     ),
                     Row(
