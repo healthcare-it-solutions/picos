@@ -381,5 +381,10 @@
     "months": "months",
     "@months": {
         "description": "months"
+    },
+
+    "therapy": "therapy",
+    "@therapy": {
+        "description": "therapy"
     }
 }

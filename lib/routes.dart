@@ -22,6 +22,7 @@ import 'package:picos/screens/add_physician_screen.dart';
 import 'package:picos/screens/family_members_screen.dart';
 import 'package:picos/screens/main_screen/bottom_bar.dart';
 import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
+import 'package:picos/screens/my_therapies_screen/my_therapies_screen.dart';
 import 'package:picos/screens/physicians_screen.dart';
 import 'package:picos/screens/study_nurse_screen/study_nurse_screen.dart';
 
@@ -39,6 +40,7 @@ class Routes {
       '/family-members': (BuildContext ctx) => const FamilyMembersScreen(),
       '/mainscreen': (BuildContext ctx) => const BottomBar(title: 'PICOS',),
       '/studynursescreen': (BuildContext ctx) => const StudyNurseScreen(),
+      '/my-therapy': (BuildContext ctx) => const MyTherapiesScreen(),
     };
   }
 
