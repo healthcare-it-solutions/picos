@@ -383,8 +383,13 @@
         "description": "months"
     },
 
-    "therapy": "therapy",
+    "therapy": "Therapy",
     "@therapy": {
-        "description": "therapy"
+        "description": "Therapy"
+    },
+
+    "myTherapy": "My Therapy",
+    "@myTherapy": {
+        "description": "My Therapy"
     }
 }
