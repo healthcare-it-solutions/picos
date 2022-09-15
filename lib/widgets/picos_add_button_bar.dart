@@ -24,50 +24,60 @@ import '../themes/global_theme.dart';
 class PicosAddButtonBar extends StatelessWidget {
   /// Creates an App-Button-Bar.
   const PicosAddButtonBar({
-    required this.formKey,
+    required this.onTap,
     Key? key,
   }) : super(key: key);
 
-  /// Class variable for form key.
-  final GlobalKey<FormState> formKey;
-
-  /// When 'save'-button is pressed, this method will be triggered.
-  /// After successful validation, data will be written in database.
-  void addListElement(BuildContext context, GlobalKey<FormState> key) {
-    if (key.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            AppLocalizations.of(context)!.submitData,
-          ),
-        ),
-      );
-    }
-  }
+  /// Function to execute when tapped.
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
 
-    return Row(
-      children: <Widget>[
-        Expanded(
-          child: PicosInkWellButton(
-            text: AppLocalizations.of(context)!.abort,
-            onTap: () {
-              Navigator.pop(context);
-            },
-            buttonColor1: theme.grey3,
-            buttonColor2: theme.grey1,
+    return Container(
+      decoration: BoxDecoration(
+        color: theme.bottomNavigationBar,
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Theme.of(context).shadowColor,
+            spreadRadius: 2,
+            blurRadius: 2,
           ),
-        ),
-        Expanded(
-          child: PicosInkWellButton(
-            text: AppLocalizations.of(context)!.save,
-            onTap: () => addListElement(context, formKey),
+        ],
+      ),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: PicosInkWellButton(
+              padding: const EdgeInsets.only(
+                left: 30,
+                right: 13,
+                top: 15,
+                bottom: 10,
+              ),
+              text: AppLocalizations.of(context)!.abort,
+              onTap: () {
+                Navigator.pop(context);
+              },
+              buttonColor1: theme.grey3,
+              buttonColor2: theme.grey1,
+            ),
           ),
-        ),
-      ],
+          Expanded(
+            child: PicosInkWellButton(
+              padding: const EdgeInsets.only(
+                right: 30,
+                left: 13,
+                top: 15,
+                bottom: 10,
+              ),
+              text: AppLocalizations.of(context)!.save,
+              onTap: onTap,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
