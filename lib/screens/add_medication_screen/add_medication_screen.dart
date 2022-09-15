@@ -50,8 +50,29 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
   /// The amount to take before night.
   double _night = 0;
 
+  /// The amount to take in the morning (check value).
+  double _morningOld = 0;
+
+  /// The amount to take in the noon (check value).
+  double _noonOld = 0;
+
+  /// The amount to take in the evening (check value).
+  double _eveningOld = 0;
+
+  /// The amount to take before night (check value).
+  double _nightOld = 0;
+
   /// The compound to be taken.
   String? _compound;
+  Medication? _medicationEdit;
+  String? _title;
+  String? _compoundHint;
+  late String _morningHint;
+  late String _noonHint;
+  late String _eveningHint;
+  late String _nightHint;
+  bool _disabledCompoundSelect = false;
+  bool _compoundAutoFocus = true;
 
   /// Determines if you are able to add the medication.
   bool _addDisabled = true;
@@ -83,46 +104,70 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                 _night = MedicationsRepository.amountToDouble(value);
                 break;
             }
+
+            checkSelectValues();
           },
         ),
       ),
     );
   }
 
+  void checkSelectValues() {
+    if (_medicationEdit == null) {
+      return;
+    }
+
+    setState(() {
+      if (_morning == _morningOld &&
+          _noon == _noonOld &&
+          _evening == _eveningOld &&
+          _night == _nightOld) {
+        _addDisabled = true;
+        return;
+      }
+
+      _addDisabled = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    String title = AppLocalizations.of(context)!.addMedication;
-    String? compoundHint = AppLocalizations.of(context)!.enterCompound;
-    String morningHint = AppLocalizations.of(context)!.inTheMorning;
-    String noonHint = AppLocalizations.of(context)!.noon;
-    String eveningHint = AppLocalizations.of(context)!.inTheEvening;
-    String nightHint = AppLocalizations.of(context)!.toTheNight;
+    // Init variables.
+    if (_title == null) {
+      _title = AppLocalizations.of(context)!.addMedication;
+      _compoundHint = AppLocalizations.of(context)!.enterCompound;
+      _morningHint = AppLocalizations.of(context)!.inTheMorning;
+      _noonHint = AppLocalizations.of(context)!.noon;
+      _eveningHint = AppLocalizations.of(context)!.inTheEvening;
+      _nightHint = AppLocalizations.of(context)!.toTheNight;
+    }
 
     Object? medicationEdit = ModalRoute.of(context)!.settings.arguments;
 
-    bool disabledCompoundSelect = false;
-    bool compoundAutoFocus = true;
+    //Initialize medicationEdit if the medication is to be edited.
+    if (_medicationEdit == null && medicationEdit != null) {
+      _medicationEdit = medicationEdit as Medication;
 
-    if (medicationEdit != null) {
-      medicationEdit = medicationEdit as Medication;
-      _addDisabled = false;
+      _morning = _medicationEdit!.morning;
+      _noon = _medicationEdit!.noon;
+      _evening = _medicationEdit!.evening;
+      _night = _medicationEdit!.night;
+      _compound = _medicationEdit!.compound;
+      _morningOld = _medicationEdit!.morning;
+      _noonOld = _medicationEdit!.noon;
+      _eveningOld = _medicationEdit!.evening;
+      _nightOld = _medicationEdit!.night;
 
-      _morning = medicationEdit.morning;
-      _noon = medicationEdit.noon;
-      _evening = medicationEdit.evening;
-      _night = medicationEdit.night;
-      _compound = medicationEdit.compound;
+      _title = AppLocalizations.of(context)!.editMedication;
+      _compoundHint = _compound;
 
-      title = AppLocalizations.of(context)!.editMedication;
-      compoundHint = _compound;
+      _morningHint += ' ${MedicationsRepository.amountToString(_morning)}';
+      _noonHint += ' ${MedicationsRepository.amountToString(_noon)}';
+      _eveningHint += ' ${MedicationsRepository.amountToString(_evening)}';
+      _nightHint += ' ${MedicationsRepository.amountToString(_night)}';
 
-      morningHint += ' ${MedicationsRepository.amountToString(_morning)}';
-      noonHint += ' ${MedicationsRepository.amountToString(_noon)}';
-      eveningHint += ' ${MedicationsRepository.amountToString(_evening)}';
-      nightHint += ' ${MedicationsRepository.amountToString(_night)}';
-
-      disabledCompoundSelect = true;
-      compoundAutoFocus = false;
+      _disabledCompoundSelect = true;
+      _compoundAutoFocus = false;
     }
 
     const Color infoTextFontColor = Colors.white;
@@ -157,23 +202,33 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                 disabled: _addDisabled,
                 text: addText,
                 onTap: () {
-                  context.read<MedicationsListBloc>().add(
-                        SaveMedication(
-                          Medication(
-                            compound: _compound!,
-                            morning: _morning,
-                            noon: _noon,
-                            evening: _evening,
-                            night: _night,
-                          ),
-                        ),
+                  Medication medication = _medicationEdit ??
+                      Medication(
+                        compound: _compound!,
+                        morning: _morning,
+                        noon: _noon,
+                        evening: _evening,
+                        night: _night,
                       );
+
+                  if (_medicationEdit != null) {
+                    medication = medication.copyWith(
+                      morning: _morning,
+                      noon: _noon,
+                      evening: _evening,
+                      night: _night,
+                    );
+                  }
+
+                  context
+                      .read<MedicationsListBloc>()
+                      .add(SaveMedication(medication));
                   Navigator.of(context).pop();
                 },
               ),
               appBar: AppBar(
                 centerTitle: true,
-                title: Text(title),
+                title: Text(_title!),
                 elevation: 0,
               ),
               body: PicosBody(
@@ -243,9 +298,9 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                           _addDisabled = true;
                         });
                       },
-                      disabled: disabledCompoundSelect,
-                      autofocus: compoundAutoFocus,
-                      hint: compoundHint!,
+                      disabled: _disabledCompoundSelect,
+                      autofocus: _compoundAutoFocus,
+                      hint: _compoundHint!,
                     ),
                     const SizedBox(
                       height: 30,
@@ -257,12 +312,12 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                       children: <Expanded>[
                         _createAmountSelect(
                           selectPaddingRight,
-                          morningHint,
+                          _morningHint,
                           'morning',
                         ),
                         _createAmountSelect(
                           selectPaddingLeft,
-                          noonHint,
+                          _noonHint,
                           'noon',
                         ),
                       ],
@@ -271,12 +326,12 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                       children: <Expanded>[
                         _createAmountSelect(
                           selectPaddingRight,
-                          eveningHint,
+                          _eveningHint,
                           'evening',
                         ),
                         _createAmountSelect(
                           selectPaddingLeft,
-                          nightHint,
+                          _nightHint,
                           'night',
                         ),
                       ],

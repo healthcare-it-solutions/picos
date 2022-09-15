@@ -23,7 +23,7 @@ abstract class MedicationsApi {
   const MedicationsApi();
 
   /// Provides a [Stream] of all medications.
-  Stream<List<Medication>> getMedications();
+  Future<Stream<List<Medication>>> getMedications();
 
   /// Saves or replaces a [medication].
   Future<void> saveMedication(Medication medication);
