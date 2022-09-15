@@ -391,5 +391,15 @@
     "myTherapy": "My Therapy",
     "@myTherapy": {
         "description": "My Therapy"
+    },
+
+    "addTherapy": "Add therapy",
+    "@addTherapy": {
+        "description": "Add therapy"
+    },
+
+    "date": "Date",
+    "@date": {
+        "description": "Date"
     }
 }

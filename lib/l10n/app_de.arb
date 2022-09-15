@@ -78,5 +78,7 @@
     "month": "Monat",
     "months": "Monate",
     "therapy": "Therapie",
-    "myTherapy": "Meine Therapie"
+    "myTherapy": "Meine Therapie",
+    "addTherapy": "Therapie hinzufügen",
+    "date": "Datum"
 }
