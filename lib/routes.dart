@@ -17,8 +17,9 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:picos/screens/add_family_member_screen.dart';
-import 'package:picos/screens/add_medication_screen/add_medication_screen.dart';
+import 'package:picos/screens/add_medication_screen.dart';
 import 'package:picos/screens/add_physician_screen.dart';
+import 'package:picos/screens/add_therapy_screen.dart';
 import 'package:picos/screens/family_members_screen.dart';
 import 'package:picos/screens/main_screen/bottom_bar.dart';
 import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
@@ -40,7 +41,8 @@ class Routes {
       '/family-members': (BuildContext ctx) => const FamilyMembersScreen(),
       '/mainscreen': (BuildContext ctx) => const BottomBar(title: 'PICOS',),
       '/studynursescreen': (BuildContext ctx) => const StudyNurseScreen(),
-      '/my-therapy': (BuildContext ctx) => const MyTherapiesScreen(),
+      '/my-therapies': (BuildContext ctx) => const MyTherapiesScreen(),
+      '/add-therapy': (BuildContext ctx) => const AddTherapyScreen(),
     };
   }
 
