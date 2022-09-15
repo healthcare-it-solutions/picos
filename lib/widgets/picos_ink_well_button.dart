@@ -28,6 +28,12 @@ class PicosInkWellButton extends StatelessWidget {
     this.buttonColor1,
     this.buttonColor2,
     Key? key,
+    this.padding = const EdgeInsets.only(
+      left: 30,
+      right: 30,
+      top: 15,
+      bottom: 10,
+    ),
   }) : super(key: key);
 
   /// The text shown on the button.
@@ -45,6 +51,9 @@ class PicosInkWellButton extends StatelessWidget {
   /// The optional, second color of the button.
   final Color? buttonColor2;
 
+  /// The amount of space by which to inset the button.
+  final EdgeInsetsGeometry padding;
+
   @override
   Widget build(BuildContext context) {
     final BorderRadius buttonBorderRadius = BorderRadius.circular(7);
@@ -59,7 +68,7 @@ class PicosInkWellButton extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 30),
+      padding: padding,
       child: Material(
         color: Colors.transparent,
         child: AbsorbPointer(
@@ -80,7 +89,7 @@ class PicosInkWellButton extends StatelessWidget {
               onTap: onTap,
               borderRadius: buttonBorderRadius,
               child: SizedBox(
-                height: 50,
+                height: 45,
                 child: Center(
                   child: Text(
                     text,
