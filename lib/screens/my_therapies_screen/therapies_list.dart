@@ -47,10 +47,19 @@ class _TherapiesListState extends State<TherapiesList> {
           );
         }
 
-        return ListView.builder(
+        return ListView.separated(
           itemCount: state.medicationsList.length,
           itemBuilder: (BuildContext context, int index) {
             return TherapyItem(state.medicationsList[index]);
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Divider(
+                thickness: 1,
+                height: 0,
+              ),
+            );
           },
         );
       },
