@@ -80,5 +80,9 @@
     "therapy": "Therapie",
     "myTherapy": "Meine Therapie",
     "addTherapy": "Therapie hinzufügen",
-    "date": "Datum"
+    "date": "Datum",
+    "day": "Tag",
+    "year": "Jahr",
+    "selectDate": "Datum auswählen",
+    "editTherapy": "Therapie bearbeiten"
 }

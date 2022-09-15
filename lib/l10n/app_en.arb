@@ -401,5 +401,25 @@
     "date": "Date",
     "@date": {
         "description": "Date"
+    },
+
+    "day": "Day",
+    "@day": {
+        "description": "Day"
+    },
+
+    "year": "Year",
+    "@year": {
+        "description": "Year"
+    },
+
+    "selectDate": "Select date",
+    "@selectDate": {
+        "description": "Select date"
+    },
+
+    "editTherapy": "Edit therapy",
+    "@editTherapy": {
+        "description": "Edit therapy"
     }
 }
