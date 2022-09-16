@@ -25,11 +25,15 @@ class PicosAddButtonBar extends StatelessWidget {
   /// Creates an App-Button-Bar.
   const PicosAddButtonBar({
     required this.onTap,
+    this.disabled = false,
     Key? key,
   }) : super(key: key);
 
   /// Function to execute when tapped.
   final Function() onTap;
+
+  /// Whether the button to save is disabled or not.
+  final bool disabled;
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +78,7 @@ class PicosAddButtonBar extends StatelessWidget {
               ),
               text: AppLocalizations.of(context)!.save,
               onTap: onTap,
+              disabled: disabled,
             ),
           ),
         ],
