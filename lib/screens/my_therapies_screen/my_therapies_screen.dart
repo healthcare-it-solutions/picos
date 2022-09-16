@@ -47,7 +47,7 @@ class MyTherapiesScreen extends StatelessWidget {
               ],
             ),
             child: const PicosAddMonoButtonBar(
-              route: '/add-medication',
+              route: '/add-therapy',
             ),
           ),
           appBar: AppBar(
