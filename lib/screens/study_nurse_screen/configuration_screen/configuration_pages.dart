@@ -15,6 +15,8 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_form.dart';
@@ -23,9 +25,13 @@ import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/conf
 import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_body_and_mind.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_medication_and_therapy.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_summary.dart';
+import 'package:picos/util/backend.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
 
-import '../../../themes/global_theme.dart';
+import 'package:picos/themes/global_theme.dart';
+
+/// FormKey for the underlying PageView-Elements. 
+final GlobalKey<FormState> formKeyConfiguration = GlobalKey<FormState>();
 
 /// Stateful Widget for the PageView of configuration.
 class ConfigurationPages extends StatefulWidget {
@@ -49,8 +55,6 @@ class _ConfigurationPages extends State<ConfigurationPages> {
   ];
 
   int _currentPage = 0;
-
-  final GlobalKey<FormState> formKeyConfiguration = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -94,10 +98,18 @@ class _ConfigurationPages extends State<ConfigurationPages> {
           Expanded(
             child: PicosInkWellButton(
               text: AppLocalizations.of(context)!.proceed,
-              onTap: () {
+              onTap: () async {
                 if (_currentPage == _list.length - 1) {
-                  Navigator.of(context)
-                      .pushNamed('/configuration-finish-screen');
+                  formKeyConfiguration.currentState!.save();
+                  bool backendCreatePatient = await Backend.createPatient();
+                  if (backendCreatePatient) {
+                    await Future<bool>.delayed(const Duration(seconds: 1));
+                    if (!mounted) return;
+                    Navigator.of(context)
+                        .pushNamed('/configuration-finish-screen');
+                  } else {
+                    log('Fehler beim Anlegen des Patienten!');
+                  }
                 } else {
                   if (_currentPage == 0) {
                     if (formKeyConfiguration.currentState!.validate()) {
@@ -110,8 +122,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
                       );
                       controller.jumpToPage(_currentPage + 1);
                     }
-                  }
-                  else {
+                  } else {
                     controller.jumpToPage(_currentPage + 1);
                   }
                 }

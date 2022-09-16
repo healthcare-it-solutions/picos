@@ -18,17 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-/// contains patient's weight.
-bool weightBMIEnabled = false;
-
-/// contains patient's heart frequency.
-bool heartFrequencyEnabled = false;
-
-/// contains patient's blood pressure.
-bool bloodPressureEnabled = false;
-
-/// contains patient's blood sugar level.
-bool bloodSugarLevelsEnabled = false;
+import 'package:picos/util/backend_data.dart';
 
 /// shows page for configuration of vital values.
 class ConfigurationVitalValues extends StatefulWidget {
@@ -61,10 +51,10 @@ class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
               ),
             ),
             SwitchListTile(
-              value: weightBMIEnabled,
+              value: Parameters.weightBMIEnabled,
               onChanged: (bool value) {
                 setState(() {
-                  weightBMIEnabled = value;
+                  Parameters.weightBMIEnabled = value;
                 });
               },
               secondary: const Icon(Icons.monitor_weight_outlined),
@@ -79,10 +69,10 @@ class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
               ),
             ),
             SwitchListTile(
-              value: heartFrequencyEnabled,
+              value: Parameters.heartFrequencyEnabled,
               onChanged: (bool value) {
                 setState(() {
-                  heartFrequencyEnabled = value;
+                  Parameters.heartFrequencyEnabled = value;
                 });
               },
               secondary: const Icon(Icons.monitor_heart_outlined),
@@ -97,10 +87,10 @@ class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
               ),
             ),
             SwitchListTile(
-              value: bloodPressureEnabled,
+              value: Parameters.bloodPressureEnabled,
               onChanged: (bool value) {
                 setState(() {
-                  bloodPressureEnabled = value;
+                  Parameters.bloodPressureEnabled = value;
                 });
               },
               secondary: const Icon(Icons.bloodtype_outlined),
@@ -115,10 +105,10 @@ class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
               ),
             ),
             SwitchListTile(
-              value: bloodSugarLevelsEnabled,
+              value: Parameters.bloodSugarLevelsEnabled,
               onChanged: (bool value) {
                 setState(() {
-                  bloodSugarLevelsEnabled = value;
+                  Parameters.bloodSugarLevelsEnabled = value;
                 });
               },
               secondary: const Icon(Icons.device_thermostat_outlined),

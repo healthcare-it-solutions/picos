@@ -18,14 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-/// contains patient's walk distance.
-bool walkDistanceEnabled = false;
-
-/// contains patient's sleep duration.
-bool sleepDurationEnabled = false;
-
-/// contains patient's sleep quality.
-bool sleepQualityEnabled = false;
+import 'package:picos/util/backend_data.dart';
 
 /// shows page for configuration of "Activity & Rest"-information.
 class ConfigurationActivityAndRest extends StatefulWidget {
@@ -59,10 +52,10 @@ class _ConfigurationActivityAndRestState
               ),
             ),
             SwitchListTile(
-              value: walkDistanceEnabled,
+              value: Parameters.walkDistanceEnabled,
               onChanged: (bool value) {
                 setState(() {
-                  walkDistanceEnabled = value;
+                  Parameters.walkDistanceEnabled = value;
                 });
               },
               secondary: const Icon(Icons.directions_walk_outlined),
@@ -77,10 +70,10 @@ class _ConfigurationActivityAndRestState
               ),
             ),
             SwitchListTile(
-              value: sleepDurationEnabled,
+              value: Parameters.sleepDurationEnabled,
               onChanged: (bool value) {
                 setState(() {
-                  sleepDurationEnabled = value;
+                  Parameters.sleepDurationEnabled = value;
                 });
               },
               secondary: const Icon(Icons.access_alarm_outlined),
@@ -95,10 +88,10 @@ class _ConfigurationActivityAndRestState
               ),
             ),
             SwitchListTile(
-              value: sleepQualityEnabled,
+              value: Parameters.sleepQualityEnabled,
               onChanged: (bool value) {
                 setState(() {
-                  sleepQualityEnabled = value;
+                  Parameters.sleepQualityEnabled = value;
                 });
               },
               secondary: const Icon(Icons.bed_outlined),

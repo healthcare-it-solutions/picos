@@ -19,6 +19,7 @@ import 'dart:convert';
 
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:picos/secrets.dart';
+import 'package:picos/util/backend_data.dart';
 
 import '../models/abstract_database_object.dart';
 
@@ -112,6 +113,60 @@ class Backend {
   ) async {
     ParseObject parseObject = ParseObject(object.table);
     await parseObject.delete(id: object.objectId);
+  }
+
+  /// method to create a patient entry in the database.
+  static Future<bool> createPatient() async {
+    ParseResponse resPatientLogin;
+    ParseResponse resProfileValues;
+
+    ParseUser currentUser = await ParseUser.currentUser();
+    String sessionToken = currentUser.sessionToken!;
+
+    ParseUser patient = ParseUser.createUser(
+      'PatientTest',
+      'TestPassword123',
+      PersonalData.email,
+    );
+
+    await patient.signUp().then(
+          (ParseResponse value) => currentUser.login(),
+        );
+
+    await patient.login();
+
+    await patient.logout();
+
+    patient
+      ..set('Form', PersonalData.gender.toString())
+      ..set('Firstname', PersonalData.firstName)
+      ..set('Lastname', PersonalData.familyName)
+      ..set('PhoneNo', PersonalData.number)
+      ..set('Address', PersonalData.address)
+      ..set('Role', 'Patient');
+
+    resPatientLogin = await patient.save();
+
+    ParseCoreData().setSessionId(patient['sessionToken']!);
+
+    ParseObject profileValues = ParseObject('PICOS_Q_profile')
+      ..set('Weight_BMI', Parameters.weightBMIEnabled)
+      ..set('HeartRate', Parameters.heartFrequencyEnabled)
+      ..set('BloodPressure', Parameters.bloodPressureEnabled)
+      ..set('BloodSugar', Parameters.bloodSugarLevelsEnabled)
+      ..set('WalkingDistamce', Parameters.walkDistanceEnabled)
+      ..set('SleepDuration', Parameters.sleepDurationEnabled)
+      ..set('SISQS', Parameters.sleepQualityEnabled)
+      ..set('Pain', Parameters.painEnabled)
+      ..set('PHQ4', Parameters.phq4Enabled)
+      ..set('Medication', Parameters.medicationEnabled)
+      ..set('Therapies', Parameters.therapyEnabled)
+      ..set('Stays', Parameters.doctorsVisitEnabled)
+      ..set('Patient', patient);
+
+    resProfileValues = await profileValues.save();
+
+    return resPatientLogin.success && resProfileValues.success;
   }
 }
 

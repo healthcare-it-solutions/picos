@@ -17,12 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-/// contains patient's pain.
-bool painEnabled = false;
-
-/// contains patient's PHQ-4.
-bool phq4Enabled = false;
+import 'package:picos/util/backend_data.dart';
 
 /// shows page for configuration of "Body & Mind"-information.
 class ConfigurationBodyAndMind extends StatefulWidget {
@@ -55,10 +50,10 @@ class _ConfigurationBodyAndMindState extends State<ConfigurationBodyAndMind> {
               ),
             ),
             SwitchListTile(
-              value: painEnabled,
+              value: Parameters.painEnabled,
               onChanged: (bool value) {
                 setState(() {
-                  painEnabled = value;
+                  Parameters.painEnabled = value;
                 });
               },
               secondary: const Icon(Icons.mood_bad_outlined),
@@ -73,10 +68,10 @@ class _ConfigurationBodyAndMindState extends State<ConfigurationBodyAndMind> {
               ),
             ),
             SwitchListTile(
-              value: phq4Enabled,
+              value: Parameters.phq4Enabled,
               onChanged: (bool value) {
                 setState(() {
-                  phq4Enabled = value;
+                  Parameters.phq4Enabled = value;
                 });
               },
               secondary: const Icon(Icons.psychology_outlined),

@@ -17,15 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-/// contains patient's medication.
-bool medicationEnabled = false;
-
-/// contains patient's therapy.
-bool therapyEnabled = false;
-
-/// contains patient's doctor's visit.
-bool doctorsVisitEnabled = false;
+import 'package:picos/util/backend_data.dart';
 
 /// shows page for configuration of "Medication & Therapy"-information.
 class ConfigurationMedicationAndTherapy extends StatefulWidget {
@@ -60,10 +52,10 @@ class _ConfigurationMedicationAndTherapyState
               ),
             ),
             SwitchListTile(
-              value: medicationEnabled,
+              value: Parameters.medicationEnabled,
               onChanged: (bool value) {
                 setState(() {
-                  medicationEnabled = value;
+                  Parameters.medicationEnabled = value;
                 });
               },
               secondary: const Icon(Icons.medication),
@@ -78,10 +70,10 @@ class _ConfigurationMedicationAndTherapyState
               ),
             ),
             SwitchListTile(
-              value: therapyEnabled,
+              value: Parameters.therapyEnabled,
               onChanged: (bool value) {
                 setState(() {
-                  therapyEnabled = value;
+                  Parameters.therapyEnabled = value;
                 });
               },
               secondary: const Icon(Icons.healing_outlined),
@@ -96,10 +88,10 @@ class _ConfigurationMedicationAndTherapyState
               ),
             ),
             SwitchListTile(
-              value: doctorsVisitEnabled,
+              value: Parameters.doctorsVisitEnabled,
               onChanged: (bool value) {
                 setState(() {
-                  doctorsVisitEnabled = value;
+                  Parameters.doctorsVisitEnabled = value;
                 });
               },
               secondary: const Icon(Icons.local_hospital_outlined),
