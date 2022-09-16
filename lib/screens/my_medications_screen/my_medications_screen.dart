@@ -18,8 +18,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/my_medications_screen/medications_list.dart';
+import 'package:picos/widgets/picos_screen_frame.dart';
 
-import '../../themes/global_theme.dart';
 import '../../widgets/picos_add_mono_button_bar.dart';
 
 /// Shows a list with all personal medication plans.
@@ -29,21 +29,11 @@ class MyMedicationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-
-    return Container(
-      color: theme.darkGreen1,
-      child: SafeArea(
-        child: Scaffold(
-          bottomNavigationBar: const PicosAddMonoButtonBar(
-              route: '/add-medication',
-            ),
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text(AppLocalizations.of(context)!.myMedications),
-          ),
-          body: const MedicationsList(),
-        ),
+    return PicosScreenFrame(
+      title: AppLocalizations.of(context)!.myMedications,
+      body: const MedicationsList(),
+      bottomNavigationBar: const PicosAddMonoButtonBar(
+        route: '/add-medication',
       ),
     );
   }

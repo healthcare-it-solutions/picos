@@ -19,8 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/my_therapies_screen/therapies_list.dart';
 import 'package:picos/widgets/picos_add_mono_button_bar.dart';
-
-import '../../themes/global_theme.dart';
+import 'package:picos/widgets/picos_screen_frame.dart';
 
 /// Shows a list with all personal therapies.
 class MyTherapiesScreen extends StatelessWidget {
@@ -29,22 +28,12 @@ class MyTherapiesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-
-    return Container(
-      color: theme.darkGreen1,
-      child: SafeArea(
-        child: Scaffold(
-          bottomNavigationBar: const PicosAddMonoButtonBar(
-              route: '/add-therapy',
-            ),
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text(AppLocalizations.of(context)!.myTherapy),
-          ),
-          body: const TherapiesList(),
-        ),
+    return PicosScreenFrame(
+      body: const TherapiesList(),
+      bottomNavigationBar: const PicosAddMonoButtonBar(
+        route: '/add-therapy',
       ),
+      title: AppLocalizations.of(context)!.myTherapy,
     );
   }
 }

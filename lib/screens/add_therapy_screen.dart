@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
+import 'package:picos/widgets/picos_screen_frame.dart';
 
 import '../models/therapy.dart';
 import '../state/medications_list_bloc.dart';
@@ -102,87 +103,78 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
 
     return BlocBuilder<MedicationsListBloc, MedicationsListState>(
       builder: (BuildContext context, MedicationsListState state) {
-        return Container(
-          color: Theme.of(context).appBarTheme.backgroundColor,
-          child: SafeArea(
-            child: Scaffold(
-              bottomNavigationBar: PicosAddButtonBar(
-                disabled: _saveDisabled,
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              appBar: AppBar(
-                centerTitle: true,
-                title: Text(_title!),
-                elevation: 0,
-              ),
-              body: PicosBody(
-                child: Column(
-                  children: <Widget>[
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    PicosFormLabel(
-                      label: AppLocalizations.of(context)!.date,
-                    ),
-                    PicosTextField(
-                      hint: _dateHint!,
-                      onTap: () async {
-                        DateTime? date = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime.now()
-                              .subtract(const Duration(days: 365 * 10)),
-                          lastDate: DateTime.now()
-                              .add(const Duration(days: 365 * 10)),
-                          builder: (BuildContext context, Widget? child) {
-                            return Theme(
-                              data: Theme.of(context).copyWith(
-                                dialogBackgroundColor: Theme.of(context)
-                                    .extension<GlobalTheme>()!
-                                    .bottomNavigationBar!,
-                                colorScheme: ColorScheme.light(
-                                  primary: Theme.of(context)
-                                      .extension<GlobalTheme>()!
-                                      .darkGreen1!,
-                                ),
-                              ),
-                              child: child!,
-                            );
-                          },
-                        );
-
-                        if (date != null) {
-                          _date = date;
-                        }
-
-                        setState(() {
-                          _dateHint = _buildDateHint(_date);
-                          _saveDisabled = !_checkValues();
-                        });
-                      },
-                      readOnly: true,
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    PicosFormLabel(
-                      label: AppLocalizations.of(context)!.therapy,
-                    ),
-                    PicosTextArea(
-                      maxLines: 10,
-                      onChanged: (String value) {
-                        _therapy = value;
-
-                        setState(() {
-                          _saveDisabled = !_checkValues();
-                        });
-                      },
-                    ),
-                  ],
+        return PicosScreenFrame(
+          title: _title,
+          bottomNavigationBar: PicosAddButtonBar(
+            disabled: _saveDisabled,
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          body: PicosBody(
+            child: Column(
+              children: <Widget>[
+                const SizedBox(
+                  height: 25,
                 ),
-              ),
+                PicosFormLabel(
+                  label: AppLocalizations.of(context)!.date,
+                ),
+                PicosTextField(
+                  hint: _dateHint!,
+                  onTap: () async {
+                    DateTime? date = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now()
+                          .subtract(const Duration(days: 365 * 10)),
+                      lastDate: DateTime.now()
+                          .add(const Duration(days: 365 * 10)),
+                      builder: (BuildContext context, Widget? child) {
+                        return Theme(
+                          data: Theme.of(context).copyWith(
+                            dialogBackgroundColor: Theme.of(context)
+                                .extension<GlobalTheme>()!
+                                .bottomNavigationBar!,
+                            colorScheme: ColorScheme.light(
+                              primary: Theme.of(context)
+                                  .extension<GlobalTheme>()!
+                                  .darkGreen1!,
+                            ),
+                          ),
+                          child: child!,
+                        );
+                      },
+                    );
+
+                    if (date != null) {
+                      _date = date;
+                    }
+
+                    setState(() {
+                      _dateHint = _buildDateHint(_date);
+                      _saveDisabled = !_checkValues();
+                    });
+                  },
+                  readOnly: true,
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                PicosFormLabel(
+                  label: AppLocalizations.of(context)!.therapy,
+                ),
+                PicosTextArea(
+                  maxLines: 10,
+                  onChanged: (String value) {
+                    _therapy = value;
+
+                    setState(() {
+                      _saveDisabled = !_checkValues();
+                    });
+                  },
+                ),
+              ],
             ),
           ),
         );
