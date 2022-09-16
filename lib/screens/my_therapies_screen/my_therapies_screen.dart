@@ -35,21 +35,9 @@ class MyTherapiesScreen extends StatelessWidget {
       color: theme.darkGreen1,
       child: SafeArea(
         child: Scaffold(
-          bottomNavigationBar: Container(
-            decoration: BoxDecoration(
-              color: theme.bottomNavigationBar,
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                  color: Theme.of(context).shadowColor,
-                  spreadRadius: 2,
-                  blurRadius: 2,
-                ),
-              ],
-            ),
-            child: const PicosAddMonoButtonBar(
+          bottomNavigationBar: const PicosAddMonoButtonBar(
               route: '/add-therapy',
             ),
-          ),
           appBar: AppBar(
             centerTitle: true,
             title: Text(AppLocalizations.of(context)!.myTherapy),
