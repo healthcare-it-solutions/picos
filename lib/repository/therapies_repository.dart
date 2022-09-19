@@ -34,12 +34,12 @@ class TherapiesRepository {
   }
 
   /// Saves or replaces a [therapy].
-  Future<void> saveMedication(Therapy therapy) {
+  Future<void> saveTherapy(Therapy therapy) {
     return _therapiesApi.saveTherapy(therapy);
   }
 
   /// Removes a given [therapy].
-  Future<void> removeMedication(Therapy therapy) {
+  Future<void> removeTherapy(Therapy therapy) {
     return _therapiesApi.removeTherapy(therapy);
   }
 }
