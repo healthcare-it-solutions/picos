@@ -24,7 +24,7 @@ import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:picos/widgets/picos_select.dart';
 
 import '../repository/medications_repository.dart';
-import '../state/medications_list_bloc.dart';
+import '../state/medications/medications_list_bloc.dart';
 import '../widgets/picos_body.dart';
 import '../widgets/picos_form_label.dart';
 import '../widgets/picos_text_field.dart';

@@ -17,7 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:picos/state/medications_list_bloc.dart';
+import '../../state/therapies/therapies_list_bloc.dart';
 import 'therapy_item.dart';
 
 /// A List with all therapies.
@@ -32,25 +32,25 @@ class TherapiesList extends StatefulWidget {
 class _TherapiesListState extends State<TherapiesList> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MedicationsListBloc, MedicationsListState>(
-      builder: (BuildContext context, MedicationsListState state) {
-        if (state.medicationsList.isEmpty &&
-            state.status == MedicationsListStatus.loading) {
+    return BlocBuilder<TherapiesListBloc,TherapiesListState>(
+      builder: (BuildContext context, TherapiesListState state) {
+        if (state.therapiesList.isEmpty &&
+            state.status == TherapiesListStatus.loading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
 
-        if (state.status == MedicationsListStatus.failure) {
+        if (state.status == TherapiesListStatus.failure) {
           return const Center(
             child: Text('Error'),
           );
         }
 
         return ListView.separated(
-          itemCount: state.medicationsList.length,
+          itemCount: state.therapiesList.length,
           itemBuilder: (BuildContext context, int index) {
-            return TherapyItem(state.medicationsList[index]);
+            return TherapyItem(state.therapiesList[index]);
           },
           separatorBuilder: (BuildContext context, int index) {
             return const Padding(

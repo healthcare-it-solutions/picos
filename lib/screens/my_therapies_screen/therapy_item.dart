@@ -16,94 +16,28 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/models/medication.dart';
-import 'package:picos/screens/my_medications_screen/medication_card_tile.dart';
-import 'package:picos/state/medications_list_bloc.dart';
-import 'package:picos/widgets/picos_list_card.dart';
 
-import '../../repository/medications_repository.dart';
+import '../../models/therapy.dart';
 
-/// The card displaying a medication plan.
+/// Displays a therapy item.
 class TherapyItem extends StatelessWidget {
-  /// Creates the card with the medication plan.
+  /// Creates TherapyItem.
   const TherapyItem(
-    this._medication, {
+    this._therapy, {
     Key? key,
   }) : super(key: key);
 
-  final Medication _medication;
-
-  _createCardColumn(
-    BuildContext context,
-    String topTime,
-    String bottomTime,
-    String topAmount,
-    String bottomAmount,
-  ) {
-    const double dividerThickness = 1.5;
-
-    EdgeInsetsGeometry padding = const EdgeInsets.only(right: 13);
-
-    if (topTime == AppLocalizations.of(context)!.noon) {
-      padding = const EdgeInsets.only(left: 13);
-    }
-
-    return Expanded(
-      child: Padding(
-        padding: padding,
-        child: Column(
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.only(right: 15),
-              child: MedicationCardTile(topTime, topAmount),
-            ),
-            const Divider(
-              thickness: dividerThickness,
-            ),
-            Container(
-              padding: const EdgeInsets.only(right: 15),
-              child: MedicationCardTile(bottomTime, bottomAmount),
-            ),
-            const Divider(
-              thickness: dividerThickness,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  final Therapy _therapy;
 
   @override
   Widget build(BuildContext context) {
-    return PicosListCard(
-      title: _medication.compound,
-      edit: () {
+    return ListTile(
+      title: Text(_therapy.date.toIso8601String()),
+      trailing: const Icon(Icons.arrow_forward_ios_rounded),
+      onTap: () {
         Navigator.of(context)
-            .pushNamed('/add-medication', arguments: _medication);
+            .pushNamed('/add-therapy', arguments: _therapy);
       },
-      delete: () {
-        context.read<MedicationsListBloc>().add(RemoveMedication(_medication));
-      },
-      child: Row(
-        children: <Expanded>[
-          _createCardColumn(
-            context,
-            AppLocalizations.of(context)!.inTheMorning,
-            AppLocalizations.of(context)!.inTheEvening,
-            MedicationsRepository.amountToString(_medication.morning),
-            MedicationsRepository.amountToString(_medication.evening),
-          ),
-          _createCardColumn(
-            context,
-            AppLocalizations.of(context)!.noon,
-            AppLocalizations.of(context)!.toTheNight,
-            MedicationsRepository.amountToString(_medication.noon),
-            MedicationsRepository.amountToString(_medication.night),
-          ),
-        ],
-      ),
     );
   }
 }

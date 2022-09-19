@@ -22,7 +22,7 @@ import 'package:picos/widgets/picos_add_button_bar.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 
 import '../models/therapy.dart';
-import '../state/medications_list_bloc.dart';
+import '../state/therapies/therapies_list_bloc.dart';
 import '../themes/global_theme.dart';
 import '../widgets/picos_body.dart';
 import '../widgets/picos_form_label.dart';
@@ -89,7 +89,7 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
 
     Object? therapyEdit = ModalRoute.of(context)!.settings.arguments;
 
-    //Initialize therapyEdit if the medication is to be edited.
+    //Initialize therapyEdit if the therapy is to be edited.
     if (_therapyEdit == null && therapyEdit != null) {
       _therapyEdit = therapyEdit as Therapy;
 
@@ -101,13 +101,16 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
       _title = AppLocalizations.of(context)!.editTherapy;
     }
 
-    return BlocBuilder<MedicationsListBloc, MedicationsListState>(
-      builder: (BuildContext context, MedicationsListState state) {
+    return BlocBuilder<TherapiesListBloc, TherapiesListState>(
+      builder: (BuildContext context, TherapiesListState state) {
         return PicosScreenFrame(
           title: _title,
           bottomNavigationBar: PicosAddButtonBar(
             disabled: _saveDisabled,
             onTap: () {
+              context.read<TherapiesListBloc>().add(
+                    SaveTherapy(Therapy(date: _date!, therapy: _therapy!)),
+                  );
               Navigator.of(context).pop();
             },
           ),
@@ -128,8 +131,8 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
                       initialDate: DateTime.now(),
                       firstDate: DateTime.now()
                           .subtract(const Duration(days: 365 * 10)),
-                      lastDate: DateTime.now()
-                          .add(const Duration(days: 365 * 10)),
+                      lastDate:
+                          DateTime.now().add(const Duration(days: 365 * 10)),
                       builder: (BuildContext context, Widget? child) {
                         return Theme(
                           data: Theme.of(context).copyWith(
