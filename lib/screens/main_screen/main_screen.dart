@@ -72,6 +72,9 @@ class MainScreen extends StatelessWidget {
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           theme: ThemeData(
+            colorScheme: Theme.of(context).colorScheme.copyWith(
+              secondary: theme.grey3,
+            ),
             textSelectionTheme: Theme.of(context).textSelectionTheme.copyWith(
                   selectionColor: theme.grey2,
                   selectionHandleColor: theme.grey1,
