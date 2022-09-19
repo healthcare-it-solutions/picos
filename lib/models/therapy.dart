@@ -37,6 +37,11 @@ class Therapy extends AbstractDatabaseObject {
   /// The therapy description.
   final String therapy;
 
+  /// Returns the defined [date] as a [String].
+  String get dateString {
+    return '${date.day}.${date.month}.${date.year}';
+  }
+
   @override
   get table {
     return databaseTable;

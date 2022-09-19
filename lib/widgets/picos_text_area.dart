@@ -30,6 +30,7 @@ class PicosTextArea extends StatelessWidget {
     this.onTap,
     this.readOnly = false,
     this.maxLines = 5,
+    this.initialValue,
   }) : super(key: key);
 
   /// Determines if the text field is disabled.
@@ -53,6 +54,9 @@ class PicosTextArea extends StatelessWidget {
   /// The maximum number of lines shown.
   final int maxLines;
 
+  /// Populates the field with an initial value.
+  final String? initialValue;
+
   @override
   Widget build(BuildContext context) {
     return PicosTextField(
@@ -69,6 +73,7 @@ class PicosTextArea extends StatelessWidget {
         left: 15,
         right: 15,
       ),
+      initialValue: initialValue,
     );
   }
 }

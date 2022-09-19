@@ -31,6 +31,7 @@ class PicosTextField extends StatelessWidget {
     this.height = 55,
     this.maxLines = 1,
     this.contentPadding,
+    this.initialValue,
   }) : super(key: key);
 
   /// Determines if the text field is disabled.
@@ -60,6 +61,9 @@ class PicosTextField extends StatelessWidget {
   /// The padding for the content.
   final EdgeInsetsGeometry? contentPadding;
 
+  /// Populates the field with an initial value.
+  final String? initialValue;
+
   @override
   Widget build(BuildContext context) {
     final BorderRadius borderRadius = BorderRadius.circular(7);
@@ -75,7 +79,7 @@ class PicosTextField extends StatelessWidget {
       padding: const EdgeInsets.all(4),
       width: double.infinity,
       height: height,
-      child: TextField(
+      child: TextFormField(
         cursorColor: Theme.of(context).focusColor,
         enabled: !disabled,
         decoration: InputDecoration(
@@ -100,6 +104,7 @@ class PicosTextField extends StatelessWidget {
         onTap: onTap ?? () {},
         readOnly: readOnly,
         maxLines: maxLines,
+        initialValue: initialValue,
       ),
     );
   }

@@ -26,6 +26,7 @@ import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
 import 'package:picos/screens/my_therapies_screen/my_therapies_screen.dart';
 import 'package:picos/screens/physicians_screen.dart';
 import 'package:picos/screens/study_nurse_screen/study_nurse_screen.dart';
+import 'package:picos/screens/view_therapy_screen.dart';
 
 ///This is a central place to manage all routes contained in the app.
 ///Remember to put the "/" when using the routes.
@@ -43,6 +44,7 @@ class Routes {
       '/studynursescreen': (BuildContext ctx) => const StudyNurseScreen(),
       '/my-therapies': (BuildContext ctx) => const MyTherapiesScreen(),
       '/add-therapy': (BuildContext ctx) => const AddTherapyScreen(),
+      '/view-therapy': (BuildContext ctx) => const ViewTherapyScreen(),
     };
   }
 

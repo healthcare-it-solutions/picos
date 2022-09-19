@@ -60,7 +60,7 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
       return false;
     }
 
-    if (_therapy == _therapyOld || _date == _dateOld) {
+    if (_therapy == _therapyOld && _date == _dateOld) {
       return false;
     }
 
@@ -98,6 +98,8 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
       _dateOld = _date;
       _therapyOld = _therapy;
 
+      _dateHint = _buildDateHint(_date);
+
       _title = AppLocalizations.of(context)!.editTherapy;
     }
 
@@ -108,10 +110,17 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
           bottomNavigationBar: PicosAddButtonBar(
             disabled: _saveDisabled,
             onTap: () {
-              context.read<TherapiesListBloc>().add(
-                    SaveTherapy(Therapy(date: _date!, therapy: _therapy!)),
-                  );
-              Navigator.of(context).pop();
+              Therapy therapy = _therapyEdit ?? Therapy(
+                therapy: _therapy!,
+                date: _date!,
+              );
+
+              if (_therapyEdit != null) {
+                therapy = therapy.copyWith(date: _date, therapy: _therapy);
+              }
+
+              context.read<TherapiesListBloc>().add(SaveTherapy(therapy));
+              Navigator.of(context).pop(therapy);
             },
           ),
           body: PicosBody(
@@ -169,6 +178,7 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
                 ),
                 PicosTextArea(
                   maxLines: 10,
+                  initialValue: _therapy,
                   onChanged: (String value) {
                     _therapy = value;
 
