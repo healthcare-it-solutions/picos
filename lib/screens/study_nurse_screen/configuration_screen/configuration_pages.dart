@@ -103,7 +103,6 @@ class _ConfigurationPages extends State<ConfigurationPages> {
                   formKeyConfiguration.currentState!.save();
                   bool backendCreatePatient = await Backend.createPatient();
                   if (backendCreatePatient) {
-                    await Future<bool>.delayed(const Duration(seconds: 1));
                     if (!mounted) return;
                     Navigator.of(context)
                         .pushNamed('/configuration-finish-screen');
