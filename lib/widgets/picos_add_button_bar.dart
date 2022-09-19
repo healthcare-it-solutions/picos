@@ -24,16 +24,24 @@ import '../themes/global_theme.dart';
 class PicosAddButtonBar extends StatelessWidget {
   /// Creates an App-Button-Bar.
   const PicosAddButtonBar({
-    required this.onTap,
+    this.onTap,
     this.disabled = false,
+    this.leftButton,
+    this.rightButton,
     Key? key,
   }) : super(key: key);
 
   /// Function to execute when tapped.
-  final Function() onTap;
+  final Function()? onTap;
 
   /// Whether the button to save is disabled or not.
   final bool disabled;
+
+  /// For custom button replacement of the left button.
+  final PicosInkWellButton? leftButton;
+
+  /// For custom button replacement of the right button.
+  final PicosInkWellButton? rightButton;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +61,7 @@ class PicosAddButtonBar extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Expanded(
-            child: PicosInkWellButton(
+            child: leftButton ?? PicosInkWellButton(
               padding: const EdgeInsets.only(
                 left: 30,
                 right: 13,
@@ -69,7 +77,7 @@ class PicosAddButtonBar extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: PicosInkWellButton(
+            child: rightButton ?? PicosInkWellButton(
               padding: const EdgeInsets.only(
                 right: 30,
                 left: 13,
@@ -77,7 +85,7 @@ class PicosAddButtonBar extends StatelessWidget {
                 bottom: 10,
               ),
               text: AppLocalizations.of(context)!.save,
-              onTap: onTap,
+              onTap: onTap ?? () {},
               disabled: disabled,
             ),
           ),
