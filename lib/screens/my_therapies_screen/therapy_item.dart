@@ -38,9 +38,14 @@ class TherapyItem extends StatelessWidget {
       title: Text(
         '${_therapy.date.day}.${_therapy.date.month}.${_therapy.date.year}',
       ),
-      trailing: Icon(
-        Icons.arrow_forward_ios_rounded,
-        color: theme.green2,
+      trailing: Padding(
+        padding: const EdgeInsets.only(
+          right: 10,
+        ),
+        child: Icon(
+          Icons.arrow_forward_ios_rounded,
+          color: theme.green2,
+        ),
       ),
       onTap: () {
         Navigator.of(context).pushNamed('/add-therapy', arguments: _therapy);
