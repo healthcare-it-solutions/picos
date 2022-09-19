@@ -25,7 +25,7 @@ import '../models/therapy.dart';
 import '../state/therapies/therapies_list_bloc.dart';
 import '../themes/global_theme.dart';
 import '../widgets/picos_body.dart';
-import '../widgets/picos_form_label.dart';
+import '../widgets/picos_label.dart';
 import '../widgets/picos_text_area.dart';
 import '../widgets/picos_text_field.dart';
 
@@ -120,7 +120,7 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
                 const SizedBox(
                   height: 25,
                 ),
-                PicosFormLabel(
+                PicosLabel(
                   label: AppLocalizations.of(context)!.date,
                 ),
                 PicosTextField(
@@ -164,7 +164,7 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                PicosFormLabel(
+                PicosLabel(
                   label: AppLocalizations.of(context)!.therapy,
                 ),
                 PicosTextArea(

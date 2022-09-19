@@ -26,7 +26,7 @@ import 'package:picos/widgets/picos_select.dart';
 import '../repository/medications_repository.dart';
 import '../state/medications/medications_list_bloc.dart';
 import '../widgets/picos_body.dart';
-import '../widgets/picos_form_label.dart';
+import '../widgets/picos_label.dart';
 import '../widgets/picos_text_field.dart';
 
 /// A screen for adding new medication schedules.
@@ -237,7 +237,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                 const SizedBox(
                   height: 25,
                 ),
-                PicosFormLabel(
+                PicosLabel(
                   label: AppLocalizations.of(context)!.compound,
                 ),
                 PicosTextField(
@@ -260,7 +260,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                PicosFormLabel(
+                PicosLabel(
                   label: AppLocalizations.of(context)!.intake,
                 ),
                 Row(
