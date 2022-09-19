@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/therapy.dart';
+import '../../themes/global_theme.dart';
 
 /// Displays a therapy item.
 class TherapyItem extends StatelessWidget {
@@ -31,12 +32,18 @@ class TherapyItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
     return ListTile(
-      title: Text(_therapy.date.toIso8601String()),
-      trailing: const Icon(Icons.arrow_forward_ios_rounded),
+      title: Text(
+        '${_therapy.date.day}.${_therapy.date.month}.${_therapy.date.year}',
+      ),
+      trailing: Icon(
+        Icons.arrow_forward_ios_rounded,
+        color: theme.green2,
+      ),
       onTap: () {
-        Navigator.of(context)
-            .pushNamed('/add-therapy', arguments: _therapy);
+        Navigator.of(context).pushNamed('/add-therapy', arguments: _therapy);
       },
     );
   }
