@@ -120,24 +120,10 @@ class Backend {
     ParseResponse resPatientLogin;
     ParseResponse resProfileValues;
 
-    ParseUser currentUser = await ParseUser.currentUser();
-    String sessionToken = currentUser.sessionToken!;
-
-    ParseUser patient = ParseUser.createUser(
-      'PatientTest',
-      'TestPassword123',
-      PersonalData.email,
-    );
-
-    await patient.signUp().then(
-          (ParseResponse value) => currentUser.login(),
-        );
-
-    await patient.login();
-
-    await patient.logout();
-
-    patient
+    ParseObject patient = ParseObject('_User')
+      ..set('username', 'Test4')
+      ..set('password', 'TestPassword123')
+      ..set('email', PersonalData.email)
       ..set('Form', PersonalData.gender.toString())
       ..set('Firstname', PersonalData.firstName)
       ..set('Lastname', PersonalData.familyName)
@@ -145,28 +131,71 @@ class Backend {
       ..set('Address', PersonalData.address)
       ..set('Role', 'Patient');
 
+    ParseACL aclValue = patient.getACL();
+    aclValue.setReadAccess(
+      userId: 'role:Doctor',
+      allowed: true,
+    );
+    patient.setACL(aclValue);
+
     resPatientLogin = await patient.save();
 
-    ParseCoreData().setSessionId(patient['sessionToken']!);
+    if (resPatientLogin.success) {
+      ParseObject profileValues = ParseObject('PICOS_Q_profile')
+        ..set('Weight_BMI', Parameters.weightBMIEnabled)
+        ..set('HeartRate', Parameters.heartFrequencyEnabled)
+        ..set('BloodPressure', Parameters.bloodPressureEnabled)
+        ..set('BloodSugar', Parameters.bloodSugarLevelsEnabled)
+        ..set('WalkingDistance', Parameters.walkDistanceEnabled)
+        ..set('SleepDuration', Parameters.sleepDurationEnabled)
+        ..set('SISQS', Parameters.sleepQualityEnabled)
+        ..set('Pain', Parameters.painEnabled)
+        ..set('PHQ4', Parameters.phq4Enabled)
+        ..set('Medication', Parameters.medicationEnabled)
+        ..set('Therapies', Parameters.therapyEnabled)
+        ..set('Stays', Parameters.doctorsVisitEnabled)
+        ..set(
+          'Patient',
+          <String, String> {
+            'objectId': patient.objectId!,
+            '__type': 'Pointer',
+            'className': '_User'
+          },
+        )
+        ..set(
+          'Doctor',
+          <String, String> {
+            'objectId': user.objectId!,
+            '__type': 'Pointer',
+            'className': '_User'
+          },
+        );
 
-    ParseObject profileValues = ParseObject('PICOS_Q_profile')
-      ..set('Weight_BMI', Parameters.weightBMIEnabled)
-      ..set('HeartRate', Parameters.heartFrequencyEnabled)
-      ..set('BloodPressure', Parameters.bloodPressureEnabled)
-      ..set('BloodSugar', Parameters.bloodSugarLevelsEnabled)
-      ..set('WalkingDistamce', Parameters.walkDistanceEnabled)
-      ..set('SleepDuration', Parameters.sleepDurationEnabled)
-      ..set('SISQS', Parameters.sleepQualityEnabled)
-      ..set('Pain', Parameters.painEnabled)
-      ..set('PHQ4', Parameters.phq4Enabled)
-      ..set('Medication', Parameters.medicationEnabled)
-      ..set('Therapies', Parameters.therapyEnabled)
-      ..set('Stays', Parameters.doctorsVisitEnabled)
-      ..set('Patient', patient);
+      ParseACL aclValue = ParseACL();
 
-    resProfileValues = await profileValues.save();
+      aclValue.setReadAccess(
+        userId: patient.objectId!,
+        allowed: true,
+      );
 
-    return resPatientLogin.success && resProfileValues.success;
+      aclValue.setReadAccess(
+        userId: 'role:Doctor',
+        allowed: true,
+      );
+
+      aclValue.setWriteAccess(
+        userId: 'role:Doctor',
+        allowed: true,
+      );
+
+      profileValues.setACL(aclValue);
+
+      resProfileValues = await profileValues.save();
+
+      return resProfileValues.success;
+    } else {
+      return false;
+    }
   }
 }
 
