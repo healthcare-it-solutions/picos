@@ -121,7 +121,7 @@ class Backend {
     ParseResponse resProfileValues;
 
     ParseObject patient = ParseObject('_User')
-      ..set('username', 'Test5')
+      ..set('username', PersonalData.email)
       ..set('password', 'TestPassword123')
       ..set('email', PersonalData.email)
       ..set('Form', PersonalData.gender.toString())
