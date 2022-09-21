@@ -121,7 +121,7 @@ class Backend {
     ParseResponse resProfileValues;
 
     ParseObject patient = ParseObject('_User')
-      ..set('username', 'Test4')
+      ..set('username', 'Test5')
       ..set('password', 'TestPassword123')
       ..set('email', PersonalData.email)
       ..set('Form', PersonalData.gender.toString())
@@ -131,12 +131,12 @@ class Backend {
       ..set('Address', PersonalData.address)
       ..set('Role', 'Patient');
 
-    ParseACL aclValue = patient.getACL();
+    BackendACL aclValue = BackendACL();
     aclValue.setReadAccess(
       userId: 'role:Doctor',
       allowed: true,
     );
-    patient.setACL(aclValue);
+    patient.setACL(aclValue.acl);
 
     resPatientLogin = await patient.save();
 
@@ -171,7 +171,7 @@ class Backend {
           },
         );
 
-      ParseACL aclValue = ParseACL();
+      BackendACL aclValue = BackendACL();
 
       aclValue.setReadAccess(
         userId: patient.objectId!,
@@ -188,7 +188,7 @@ class Backend {
         allowed: true,
       );
 
-      profileValues.setACL(aclValue);
+      profileValues.setACL(aclValue.acl);
 
       resProfileValues = await profileValues.save();
 
