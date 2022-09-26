@@ -20,7 +20,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:picos/util/backend_data.dart';
 
-/// shows page for configuration of vital values.
+/// Shows page for configuration of vital values.
 class ConfigurationVitalValues extends StatefulWidget {
   /// Constructor of page for configuration of vital values.
   const ConfigurationVitalValues({Key? key}) : super(key: key);

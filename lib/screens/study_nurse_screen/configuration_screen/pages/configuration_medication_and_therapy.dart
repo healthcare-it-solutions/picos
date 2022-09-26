@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/util/backend_data.dart';
 
-/// shows page for configuration of "Medication & Therapy"-information.
+/// Shows page for configuration of "Medication & Therapy"-information.
 class ConfigurationMedicationAndTherapy extends StatefulWidget {
   /// Constructor of page for configuration of
   /// "Medication & Therapy"-information.

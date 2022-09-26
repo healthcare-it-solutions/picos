@@ -18,7 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-/// shows summary page for configuration.
+/// Shows summary page for configuration.
 class ConfigurationSummary extends StatefulWidget {
   /// Constructor of summary page for configuration.
   const ConfigurationSummary({Key? key}) : super(key: key);

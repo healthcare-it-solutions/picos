@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/util/backend_data.dart';
 
-/// shows page for configuration of "Body & Mind"-information.
+/// Shows page for configuration of "Body & Mind"-information.
 class ConfigurationBodyAndMind extends StatefulWidget {
   /// Constructor of page for configuration of "Body & Mind"-information.
   const ConfigurationBodyAndMind({Key? key}) : super(key: key);

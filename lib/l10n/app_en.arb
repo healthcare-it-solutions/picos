@@ -393,8 +393,8 @@
         "description": "Start configuration"
     },
 
-    "letsstart": "Let's start",
-    "@letsstart": {
+    "letsStart": "Let's start",
+    "@letsStart": {
         "description": "Let's start"
     },
 
@@ -443,8 +443,8 @@
         "description": "Patient ID-12345 takes part in the section "
     },
 
-    "infoText2": "with the following information",
-    "@infoText1": {
+    "infoText2": " with the following information:",
+    "@infoText2": {
         "description": " with the following information:"
     },
 

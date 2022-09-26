@@ -79,7 +79,7 @@
     "months": "Monate",
     "configuration": "Konfiguration",
     "startConfiguration": "Konfiguration starten",
-    "letsstart": "Los geht's",
+    "letsStart": "Los geht's",
     "back": "Zurück",
     "configurationFinished": "Fertig! - PICOS ist nun bereit!",
     "endConfiguration": "Konfiguration abschließen",
@@ -96,9 +96,9 @@
     "walkDistance": "Gehstrecke",
     "sleepDuration": "Schlafdauer",
     "sleepQuality": "Schlafqualität",
-    "vitalValues": "Vitalvalues",
+    "vitalValues": "Vitalparameter",
     "weightBMI": "Gewicht & BMI",
-    "heartFrequency": "Heart frequency",
+    "heartFrequency": "Pulswert",
     "bloodPressure": "Blutdruck",
     "bloodSugarLevels": "Blutzuckerwert"
 }

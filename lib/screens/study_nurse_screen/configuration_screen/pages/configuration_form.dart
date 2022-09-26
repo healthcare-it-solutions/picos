@@ -21,7 +21,7 @@ import 'package:queen_validators/queen_validators.dart';
 
 import 'package:picos/util/backend_data.dart';
 
-/// shows form for patient registration.
+/// Shows form for patient registration.
 class ConfigurationForm extends StatefulWidget {
   /// Constructor of form for patient registration.
   const ConfigurationForm({Key? key}) : super(key: key);

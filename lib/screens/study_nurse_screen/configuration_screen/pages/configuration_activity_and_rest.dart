@@ -20,7 +20,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:picos/util/backend_data.dart';
 
-/// shows page for configuration of "Activity & Rest"-information.
+/// Shows page for configuration of "Activity & Rest"-information.
 class ConfigurationActivityAndRest extends StatefulWidget {
   /// Constructor of page for configuration of "Activity & Rest"-information.
   const ConfigurationActivityAndRest({Key? key}) : super(key: key);
