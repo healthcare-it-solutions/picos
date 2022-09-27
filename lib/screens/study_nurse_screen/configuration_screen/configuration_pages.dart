@@ -30,7 +30,7 @@ import 'package:picos/widgets/picos_ink_well_button.dart';
 
 import 'package:picos/themes/global_theme.dart';
 
-/// FormKey for the underlying PageView-Elements. 
+/// FormKey for the underlying PageView-Elements.
 final GlobalKey<FormState> formKeyConfiguration = GlobalKey<FormState>();
 
 /// Stateful Widget for the PageView of configuration.
@@ -69,7 +69,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
       body: Form(
         key: formKeyConfiguration,
         child: PageView(
-          scrollDirection: Axis.vertical,
+          physics: const NeverScrollableScrollPhysics(),
           controller: controller,
           onPageChanged: (int num) {
             setState(() {
