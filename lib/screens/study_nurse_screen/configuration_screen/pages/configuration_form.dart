@@ -76,7 +76,7 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  value: PersonalData.gender,
+                  value: Gender.female,
                   groupValue: PersonalData.gender,
                   onChanged: (Gender? value) {
                     setState(

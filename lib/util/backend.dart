@@ -115,7 +115,7 @@ class Backend {
     await parseObject.delete(id: object.objectId);
   }
 
-  /// method to create a patient entry in the database.
+  /// Method to create a patient entry in the database.
   static Future<bool> createPatient() async {
     ParseResponse resPatientLogin;
     ParseResponse resProfileValues;

@@ -67,9 +67,9 @@ class ConfigurationScreen extends StatelessWidget {
               ),
             ),
             PicosInkWellButton(
-              text: AppLocalizations.of(context)!.letsstart,
+              text: AppLocalizations.of(context)!.letsStart,
               onTap: () {
-                Navigator.pushNamed(context, '/configuration-pages');
+                Navigator.pushReplacementNamed(context, '/configuration-pages');
               },
             ),
           ],

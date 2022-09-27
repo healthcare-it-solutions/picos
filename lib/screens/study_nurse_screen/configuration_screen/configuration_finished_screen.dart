@@ -69,7 +69,7 @@ class ConfigurationFinishedScreen extends StatelessWidget {
             PicosInkWellButton(
               text: AppLocalizations.of(context)!.endConfiguration,
               onTap: () {
-                Navigator.pushNamed(context, '/configuration-screen');
+                Navigator.of(context).pop();
               },
             ),
           ],
