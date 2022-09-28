@@ -102,28 +102,20 @@ class _ConfigurationPages extends State<ConfigurationPages> {
                 if (_currentPage == _list.length - 1) {
                   formKeyConfiguration.currentState!.save();
                   bool backendCreatePatient = await Backend.createPatient();
-                  if (backendCreatePatient) {
-                    if (!mounted) return;
-                    Navigator.of(context)
-                        .pushNamed('/configuration-finish-screen');
-                  } else {
+                  if (!backendCreatePatient) {
                     log('Fehler beim Anlegen des Patienten!');
+                    return;
                   }
-                } else {
-                  if (_currentPage == 0) {
-                    if (formKeyConfiguration.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            AppLocalizations.of(context)!.submitData,
-                          ),
-                        ),
-                      );
-                      controller.jumpToPage(_currentPage + 1);
-                    }
-                  } else {
-                    controller.jumpToPage(_currentPage + 1);
+                  if (!mounted) {
+                    return;
                   }
+                  Navigator.of(context)
+                      .pushReplacementNamed('/configuration-finish-screen');
+                }
+                if ((_currentPage == 0 &&
+                        formKeyConfiguration.currentState!.validate()) ||
+                    _currentPage > 0) {
+                  controller.jumpToPage(_currentPage + 1);
                 }
               },
             ),
