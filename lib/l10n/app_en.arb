@@ -443,9 +443,9 @@
         "description": "Patient ID-12345 takes part in the section "
     },
 
-    "infoText2": " with the following information:",
+    "infoText2": "with the following information:",
     "@infoText2": {
-        "description": " with the following information:"
+        "description": "with the following information:"
     },
 
     "bodyAndMind": "Body & Mind",
