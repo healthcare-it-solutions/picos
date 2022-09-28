@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/util/backend_data.dart';
+import 'package:picos/widgets/picos_body.dart';
 
 /// Shows page for configuration of "Medication & Therapy"-information.
 class ConfigurationMedicationAndTherapy extends StatefulWidget {
@@ -34,78 +35,80 @@ class _ConfigurationMedicationAndTherapyState
     extends State<ConfigurationMedicationAndTherapy> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: Form(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Text(
-                '''${AppLocalizations.of(context)!.infoText1} '''
-                '''"${AppLocalizations.of(context)!.medicationAndTherapy}" '''
-                '''${AppLocalizations.of(context)!.infoText2}''',
-                style: const TextStyle(
-                  fontSize: 18,
+    return PicosBody(
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Form(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  '''${AppLocalizations.of(context)!.infoText1} '''
+                  '''"${AppLocalizations.of(context)!.medicationAndTherapy}" '''
+                  '''${AppLocalizations.of(context)!.infoText2}''',
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
                 ),
               ),
-            ),
-            SwitchListTile(
-              value: Parameters.medicationEnabled,
-              onChanged: (bool value) {
-                setState(() {
-                  Parameters.medicationEnabled = value;
-                });
-              },
-              secondary: const Icon(Icons.medication),
-              title: Text(
-                AppLocalizations.of(context)!.medication,
-                style: const TextStyle(
-                  fontSize: 16,
+              SwitchListTile(
+                value: Parameters.medicationEnabled,
+                onChanged: (bool value) {
+                  setState(() {
+                    Parameters.medicationEnabled = value;
+                  });
+                },
+                secondary: const Icon(Icons.medication),
+                title: Text(
+                  AppLocalizations.of(context)!.medication,
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                shape: const Border(
+                  bottom: BorderSide(color: Colors.grey),
                 ),
               ),
-              shape: const Border(
-                bottom: BorderSide(color: Colors.grey),
-              ),
-            ),
-            SwitchListTile(
-              value: Parameters.therapyEnabled,
-              onChanged: (bool value) {
-                setState(() {
-                  Parameters.therapyEnabled = value;
-                });
-              },
-              secondary: const Icon(Icons.healing_outlined),
-              title: Text(
-                AppLocalizations.of(context)!.therapy,
-                style: const TextStyle(
-                  fontSize: 16,
+              SwitchListTile(
+                value: Parameters.therapyEnabled,
+                onChanged: (bool value) {
+                  setState(() {
+                    Parameters.therapyEnabled = value;
+                  });
+                },
+                secondary: const Icon(Icons.healing_outlined),
+                title: Text(
+                  AppLocalizations.of(context)!.therapy,
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                shape: const Border(
+                  bottom: BorderSide(color: Colors.grey),
                 ),
               ),
-              shape: const Border(
-                bottom: BorderSide(color: Colors.grey),
-              ),
-            ),
-            SwitchListTile(
-              value: Parameters.doctorsVisitEnabled,
-              onChanged: (bool value) {
-                setState(() {
-                  Parameters.doctorsVisitEnabled = value;
-                });
-              },
-              secondary: const Icon(Icons.local_hospital_outlined),
-              title: Text(
-                AppLocalizations.of(context)!.doctorsVisit,
-                style: const TextStyle(
-                  fontSize: 16,
+              SwitchListTile(
+                value: Parameters.doctorsVisitEnabled,
+                onChanged: (bool value) {
+                  setState(() {
+                    Parameters.doctorsVisitEnabled = value;
+                  });
+                },
+                secondary: const Icon(Icons.local_hospital_outlined),
+                title: Text(
+                  AppLocalizations.of(context)!.doctorsVisit,
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                shape: const Border(
+                  bottom: BorderSide(color: Colors.grey),
                 ),
               ),
-              shape: const Border(
-                bottom: BorderSide(color: Colors.grey),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

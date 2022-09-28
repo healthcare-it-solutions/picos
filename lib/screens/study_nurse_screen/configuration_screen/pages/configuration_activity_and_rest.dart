@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:picos/util/backend_data.dart';
+import 'package:picos/widgets/picos_body.dart';
 
 /// Shows page for configuration of "Activity & Rest"-information.
 class ConfigurationActivityAndRest extends StatefulWidget {
@@ -34,78 +35,80 @@ class _ConfigurationActivityAndRestState
     extends State<ConfigurationActivityAndRest> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: Form(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Text(
-                '''${AppLocalizations.of(context)!.infoText1} '''
-                '''"${AppLocalizations.of(context)!.activityAndRest}" '''
-                '''${AppLocalizations.of(context)!.infoText2}''',
-                style: const TextStyle(
-                  fontSize: 18,
+    return PicosBody(
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Form(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  '''${AppLocalizations.of(context)!.infoText1} '''
+                  '''"${AppLocalizations.of(context)!.activityAndRest}" '''
+                  '''${AppLocalizations.of(context)!.infoText2}''',
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
                 ),
               ),
-            ),
-            SwitchListTile(
-              value: Parameters.walkDistanceEnabled,
-              onChanged: (bool value) {
-                setState(() {
-                  Parameters.walkDistanceEnabled = value;
-                });
-              },
-              secondary: const Icon(Icons.directions_walk_outlined),
-              title: Text(
-                AppLocalizations.of(context)!.walkDistance,
-                style: const TextStyle(
-                  fontSize: 16,
+              SwitchListTile(
+                value: Parameters.walkDistanceEnabled,
+                onChanged: (bool value) {
+                  setState(() {
+                    Parameters.walkDistanceEnabled = value;
+                  });
+                },
+                secondary: const Icon(Icons.directions_walk_outlined),
+                title: Text(
+                  AppLocalizations.of(context)!.walkDistance,
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                shape: const Border(
+                  bottom: BorderSide(color: Colors.grey),
                 ),
               ),
-              shape: const Border(
-                bottom: BorderSide(color: Colors.grey),
-              ),
-            ),
-            SwitchListTile(
-              value: Parameters.sleepDurationEnabled,
-              onChanged: (bool value) {
-                setState(() {
-                  Parameters.sleepDurationEnabled = value;
-                });
-              },
-              secondary: const Icon(Icons.access_alarm_outlined),
-              title: Text(
-                AppLocalizations.of(context)!.sleepDuration,
-                style: const TextStyle(
-                  fontSize: 16,
+              SwitchListTile(
+                value: Parameters.sleepDurationEnabled,
+                onChanged: (bool value) {
+                  setState(() {
+                    Parameters.sleepDurationEnabled = value;
+                  });
+                },
+                secondary: const Icon(Icons.access_alarm_outlined),
+                title: Text(
+                  AppLocalizations.of(context)!.sleepDuration,
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                shape: const Border(
+                  bottom: BorderSide(color: Colors.grey),
                 ),
               ),
-              shape: const Border(
-                bottom: BorderSide(color: Colors.grey),
-              ),
-            ),
-            SwitchListTile(
-              value: Parameters.sleepQualityEnabled,
-              onChanged: (bool value) {
-                setState(() {
-                  Parameters.sleepQualityEnabled = value;
-                });
-              },
-              secondary: const Icon(Icons.bed_outlined),
-              title: Text(
-                AppLocalizations.of(context)!.sleepQuality,
-                style: const TextStyle(
-                  fontSize: 16,
+              SwitchListTile(
+                value: Parameters.sleepQualityEnabled,
+                onChanged: (bool value) {
+                  setState(() {
+                    Parameters.sleepQualityEnabled = value;
+                  });
+                },
+                secondary: const Icon(Icons.bed_outlined),
+                title: Text(
+                  AppLocalizations.of(context)!.sleepQuality,
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                shape: const Border(
+                  bottom: BorderSide(color: Colors.grey),
                 ),
               ),
-              shape: const Border(
-                bottom: BorderSide(color: Colors.grey),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

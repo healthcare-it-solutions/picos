@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:picos/util/backend_data.dart';
+import 'package:picos/widgets/picos_body.dart';
 
 /// Shows page for configuration of vital values.
 class ConfigurationVitalValues extends StatefulWidget {
@@ -33,96 +34,98 @@ class ConfigurationVitalValues extends StatefulWidget {
 class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: Form(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Text(
-                '''${AppLocalizations.of(context)!.infoText1} '''
-                '''"${AppLocalizations.of(context)!.vitalValues}" '''
-                '''${AppLocalizations.of(context)!.infoText2}''',
-                style: const TextStyle(
-                  fontSize: 18,
+    return PicosBody(
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Form(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  '''${AppLocalizations.of(context)!.infoText1} '''
+                  '''"${AppLocalizations.of(context)!.vitalValues}" '''
+                  '''${AppLocalizations.of(context)!.infoText2}''',
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
                 ),
               ),
-            ),
-            SwitchListTile(
-              value: Parameters.weightBMIEnabled,
-              onChanged: (bool value) {
-                setState(() {
-                  Parameters.weightBMIEnabled = value;
-                });
-              },
-              secondary: const Icon(Icons.monitor_weight_outlined),
-              title: Text(
-                AppLocalizations.of(context)!.weightBMI,
-                style: const TextStyle(
-                  fontSize: 16,
+              SwitchListTile(
+                value: Parameters.weightBMIEnabled,
+                onChanged: (bool value) {
+                  setState(() {
+                    Parameters.weightBMIEnabled = value;
+                  });
+                },
+                secondary: const Icon(Icons.monitor_weight_outlined),
+                title: Text(
+                  AppLocalizations.of(context)!.weightBMI,
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                shape: const Border(
+                  bottom: BorderSide(color: Colors.grey),
                 ),
               ),
-              shape: const Border(
-                bottom: BorderSide(color: Colors.grey),
-              ),
-            ),
-            SwitchListTile(
-              value: Parameters.heartFrequencyEnabled,
-              onChanged: (bool value) {
-                setState(() {
-                  Parameters.heartFrequencyEnabled = value;
-                });
-              },
-              secondary: const Icon(Icons.monitor_heart_outlined),
-              title: Text(
-                AppLocalizations.of(context)!.heartFrequency,
-                style: const TextStyle(
-                  fontSize: 16,
+              SwitchListTile(
+                value: Parameters.heartFrequencyEnabled,
+                onChanged: (bool value) {
+                  setState(() {
+                    Parameters.heartFrequencyEnabled = value;
+                  });
+                },
+                secondary: const Icon(Icons.monitor_heart_outlined),
+                title: Text(
+                  AppLocalizations.of(context)!.heartFrequency,
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                shape: const Border(
+                  bottom: BorderSide(color: Colors.grey),
                 ),
               ),
-              shape: const Border(
-                bottom: BorderSide(color: Colors.grey),
-              ),
-            ),
-            SwitchListTile(
-              value: Parameters.bloodPressureEnabled,
-              onChanged: (bool value) {
-                setState(() {
-                  Parameters.bloodPressureEnabled = value;
-                });
-              },
-              secondary: const Icon(Icons.bloodtype_outlined),
-              title: Text(
-                AppLocalizations.of(context)!.bloodPressure,
-                style: const TextStyle(
-                  fontSize: 16,
+              SwitchListTile(
+                value: Parameters.bloodPressureEnabled,
+                onChanged: (bool value) {
+                  setState(() {
+                    Parameters.bloodPressureEnabled = value;
+                  });
+                },
+                secondary: const Icon(Icons.bloodtype_outlined),
+                title: Text(
+                  AppLocalizations.of(context)!.bloodPressure,
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                shape: const Border(
+                  bottom: BorderSide(color: Colors.grey),
                 ),
               ),
-              shape: const Border(
-                bottom: BorderSide(color: Colors.grey),
-              ),
-            ),
-            SwitchListTile(
-              value: Parameters.bloodSugarLevelsEnabled,
-              onChanged: (bool value) {
-                setState(() {
-                  Parameters.bloodSugarLevelsEnabled = value;
-                });
-              },
-              secondary: const Icon(Icons.device_thermostat_outlined),
-              title: Text(
-                AppLocalizations.of(context)!.bloodSugarLevels,
-                style: const TextStyle(
-                  fontSize: 16,
+              SwitchListTile(
+                value: Parameters.bloodSugarLevelsEnabled,
+                onChanged: (bool value) {
+                  setState(() {
+                    Parameters.bloodSugarLevelsEnabled = value;
+                  });
+                },
+                secondary: const Icon(Icons.device_thermostat_outlined),
+                title: Text(
+                  AppLocalizations.of(context)!.bloodSugarLevels,
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                shape: const Border(
+                  bottom: BorderSide(color: Colors.grey),
                 ),
               ),
-              shape: const Border(
-                bottom: BorderSide(color: Colors.grey),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
