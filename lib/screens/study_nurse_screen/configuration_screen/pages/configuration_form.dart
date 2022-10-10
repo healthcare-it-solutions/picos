@@ -17,21 +17,27 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/models/patient.dart';
 import 'package:picos/widgets/picos_body.dart';
 import 'package:queen_validators/queen_validators.dart';
-
-import 'package:picos/util/backend_data.dart';
 
 /// Shows form for patient registration.
 class ConfigurationForm extends StatefulWidget {
   /// Constructor of form for patient registration.
-  const ConfigurationForm({Key? key}) : super(key: key);
+  const ConfigurationForm({required this.callbackForm, Key? key})
+      : super(key: key);
+
+  /// Callback function for form.
+  final Function(String, String) callbackForm;
 
   @override
   State<ConfigurationForm> createState() => _ConfigurationFormState();
 }
 
 class _ConfigurationFormState extends State<ConfigurationForm> {
+  /// Local variable for form of address.
+  FormOfAddress entryFormOfAddress = FormOfAddress.female;
+
   @override
   Widget build(BuildContext context) {
     return PicosBody(
@@ -51,41 +57,67 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
                   ),
                 ),
                 Expanded(
-                  child: RadioListTile<Gender>(
+                  child: RadioListTile<FormOfAddress>(
                     title: Text(
                       AppLocalizations.of(context)!.mr,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    value: Gender.male,
-                    groupValue: PersonalData.gender,
-                    onChanged: (Gender? value) {
-                      setState(
-                        () {
-                          PersonalData.gender = value!;
-                        },
-                      );
+                    value: FormOfAddress.male,
+                    groupValue: entryFormOfAddress,
+                    onChanged: (FormOfAddress? value) {
+                      setState(() {
+                        widget.callbackForm(
+                          'entryFormOfAddress',
+                          FormOfAddress.male.toString(),
+                        );
+                        entryFormOfAddress = value!;
+                      });
                     },
                     selected: false,
                   ),
                 ),
                 Expanded(
-                  child: RadioListTile<Gender>(
+                  child: RadioListTile<FormOfAddress>(
                     title: Text(
                       AppLocalizations.of(context)!.mrs,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    value: Gender.female,
-                    groupValue: PersonalData.gender,
-                    onChanged: (Gender? value) {
-                      setState(
-                        () {
-                          PersonalData.gender = value!;
-                        },
-                      );
+                    value: FormOfAddress.female,
+                    groupValue: entryFormOfAddress,
+                    onChanged: (FormOfAddress? value) {
+                      setState(() {
+                        widget.callbackForm(
+                          'entryFormOfAddress',
+                          FormOfAddress.female.toString(),
+                        );
+                        entryFormOfAddress = value!;
+                      });
+                    },
+                    selected: false,
+                  ),
+                ),
+                Expanded(
+                  child: RadioListTile<FormOfAddress>(
+                    title: Text(
+                      AppLocalizations.of(context)!.diverse,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    value: FormOfAddress.diverse,
+                    groupValue: entryFormOfAddress,
+                    onChanged: (FormOfAddress? value) {
+                      setState(() {
+                        widget.callbackForm(
+                          'entryFormOfAddress',
+                          FormOfAddress.diverse.toString(),
+                        );
+                        entryFormOfAddress = value!;
+                      });
                     },
                     selected: false,
                   ),
@@ -104,11 +136,7 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
                 ],
               ),
               onChanged: (String? newValue) {
-                setState(
-                  () {
-                    PersonalData.firstName = newValue!;
-                  },
-                );
+                widget.callbackForm('entryFirstName', newValue!);
               },
             ),
             TextFormField(
@@ -123,11 +151,7 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
                 ],
               ),
               onChanged: (String? newValue) {
-                setState(
-                  () {
-                    PersonalData.familyName = newValue!;
-                  },
-                );
+                widget.callbackForm('entryFamilyName', newValue!);
               },
             ),
             TextFormField(
@@ -143,11 +167,7 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
                 ],
               ),
               onChanged: (String? newValue) {
-                setState(
-                  () {
-                    PersonalData.email = newValue!;
-                  },
-                );
+                widget.callbackForm('entryEmail', newValue!);
               },
             ),
             TextFormField(
@@ -162,11 +182,7 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
                 ],
               ),
               onChanged: (String? newValue) {
-                setState(
-                  () {
-                    PersonalData.number = newValue!;
-                  },
-                );
+                widget.callbackForm('entryNumber', newValue!);
               },
             ),
             TextFormField(
@@ -183,11 +199,7 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
                 ],
               ),
               onChanged: (String? newValue) {
-                setState(
-                  () {
-                    PersonalData.address = newValue!;
-                  },
-                );
+                widget.callbackForm('entryAddress', newValue!);
               },
             ),
           ],
