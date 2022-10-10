@@ -41,6 +41,7 @@ dependencies:
   fl_chart: ^0.55.1
   parse_server_sdk: ^3.1.2
   queen_validators: ^1.0.0
+  random_password_generator: ^0.2.1
 
 dev_dependencies:
   flutter_lints: ^2.0.1
