@@ -188,6 +188,11 @@
         "description": "Mrs."
     },
 
+    "diverse": "Diverse",
+    "@diverse": {
+        "description": "Diverse"
+    },
+
     "chooseFamilyMember": "Choose your family member",
     "@chooseFamilyMember": {
         "description": "Choose your family member"
