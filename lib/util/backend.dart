@@ -19,7 +19,6 @@ import 'dart:convert';
 
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:picos/secrets.dart';
-import 'package:picos/util/backend_data.dart';
 
 import '../models/abstract_database_object.dart';
 
@@ -113,89 +112,6 @@ class Backend {
   ) async {
     ParseObject parseObject = ParseObject(object.table);
     await parseObject.delete(id: object.objectId);
-  }
-
-  /// Method to create a patient entry in the database.
-  static Future<bool> createPatient() async {
-    ParseResponse resPatientLogin;
-    ParseResponse resProfileValues;
-
-    ParseObject patient = ParseObject('_User')
-      ..set('username', PersonalData.email)
-      ..set('password', 'TestPassword123')
-      ..set('email', PersonalData.email)
-      ..set('Form', PersonalData.gender.toString())
-      ..set('Firstname', PersonalData.firstName)
-      ..set('Lastname', PersonalData.familyName)
-      ..set('PhoneNo', PersonalData.number)
-      ..set('Address', PersonalData.address)
-      ..set('Role', 'Patient');
-
-    BackendACL aclValue = BackendACL();
-    aclValue.setReadAccess(
-      userId: 'role:Doctor',
-      allowed: true,
-    );
-    patient.setACL(aclValue.acl);
-
-    resPatientLogin = await patient.save();
-
-    if (resPatientLogin.success) {
-      ParseObject profileValues = ParseObject('PICOS_Q_profile')
-        ..set('Weight_BMI', Parameters.weightBMIEnabled)
-        ..set('HeartRate', Parameters.heartFrequencyEnabled)
-        ..set('BloodPressure', Parameters.bloodPressureEnabled)
-        ..set('BloodSugar', Parameters.bloodSugarLevelsEnabled)
-        ..set('WalkingDistance', Parameters.walkDistanceEnabled)
-        ..set('SleepDuration', Parameters.sleepDurationEnabled)
-        ..set('SISQS', Parameters.sleepQualityEnabled)
-        ..set('Pain', Parameters.painEnabled)
-        ..set('PHQ4', Parameters.phq4Enabled)
-        ..set('Medication', Parameters.medicationEnabled)
-        ..set('Therapies', Parameters.therapyEnabled)
-        ..set('Stays', Parameters.doctorsVisitEnabled)
-        ..set(
-          'Patient',
-          <String, String> {
-            'objectId': patient.objectId!,
-            '__type': 'Pointer',
-            'className': '_User'
-          },
-        )
-        ..set(
-          'Doctor',
-          <String, String> {
-            'objectId': user.objectId!,
-            '__type': 'Pointer',
-            'className': '_User'
-          },
-        );
-
-      BackendACL aclValue = BackendACL();
-
-      aclValue.setReadAccess(
-        userId: patient.objectId!,
-        allowed: true,
-      );
-
-      aclValue.setReadAccess(
-        userId: 'role:Doctor',
-        allowed: true,
-      );
-
-      aclValue.setWriteAccess(
-        userId: 'role:Doctor',
-        allowed: true,
-      );
-
-      profileValues.setACL(aclValue.acl);
-
-      resProfileValues = await profileValues.save();
-
-      return resProfileValues.success;
-    } else {
-      return false;
-    }
   }
 }
 
