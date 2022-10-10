@@ -18,13 +18,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'package:picos/util/backend_data.dart';
 import 'package:picos/widgets/picos_body.dart';
 
 /// Shows page for configuration of vital values.
 class ConfigurationVitalValues extends StatefulWidget {
   /// Constructor of page for configuration of vital values.
-  const ConfigurationVitalValues({Key? key}) : super(key: key);
+  const ConfigurationVitalValues({required this.callbackVitalValues, Key? key})
+      : super(key: key);
+
+  /// Callback function for vital values.
+  final void Function(String, bool) callbackVitalValues;
 
   @override
   State<ConfigurationVitalValues> createState() =>
@@ -32,6 +35,18 @@ class ConfigurationVitalValues extends StatefulWidget {
 }
 
 class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
+  /// Local variable for weight and BMI.
+  bool entryWeightBMIEnabled = false;
+
+  /// Local variable for heart frequency.
+  bool entryHeartFrequencyEnabled = false;
+
+  /// Local variable for blood pressure.
+  bool entryBloodPressureEnabled = false;
+
+  /// Local variable for blood sugar levels.
+  bool entryBloodSugarLevelsEnabled = false;
+
   @override
   Widget build(BuildContext context) {
     return PicosBody(
@@ -53,10 +68,14 @@ class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
                 ),
               ),
               SwitchListTile(
-                value: Parameters.weightBMIEnabled,
+                value: entryWeightBMIEnabled,
                 onChanged: (bool value) {
                   setState(() {
-                    Parameters.weightBMIEnabled = value;
+                    widget.callbackVitalValues(
+                      'entryWeightBMIEnabled',
+                      value,
+                    );
+                    entryWeightBMIEnabled = value;
                   });
                 },
                 secondary: const Icon(Icons.monitor_weight_outlined),
@@ -71,10 +90,14 @@ class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
                 ),
               ),
               SwitchListTile(
-                value: Parameters.heartFrequencyEnabled,
+                value: entryHeartFrequencyEnabled,
                 onChanged: (bool value) {
                   setState(() {
-                    Parameters.heartFrequencyEnabled = value;
+                    widget.callbackVitalValues(
+                      'entryHeartFrequencyEnabled',
+                      value,
+                    );
+                    entryHeartFrequencyEnabled = value;
                   });
                 },
                 secondary: const Icon(Icons.monitor_heart_outlined),
@@ -89,10 +112,14 @@ class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
                 ),
               ),
               SwitchListTile(
-                value: Parameters.bloodPressureEnabled,
+                value: entryBloodPressureEnabled,
                 onChanged: (bool value) {
                   setState(() {
-                    Parameters.bloodPressureEnabled = value;
+                    widget.callbackVitalValues(
+                      'entryBloodPressureEnabled',
+                      value,
+                    );
+                    entryBloodPressureEnabled = value;
                   });
                 },
                 secondary: const Icon(Icons.bloodtype_outlined),
@@ -107,10 +134,14 @@ class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
                 ),
               ),
               SwitchListTile(
-                value: Parameters.bloodSugarLevelsEnabled,
+                value: entryBloodSugarLevelsEnabled,
                 onChanged: (bool value) {
                   setState(() {
-                    Parameters.bloodSugarLevelsEnabled = value;
+                    widget.callbackVitalValues(
+                      'entryBloodSugarLevelsEnabled',
+                      value,
+                    );
+                    entryBloodSugarLevelsEnabled = value;
                   });
                 },
                 secondary: const Icon(Icons.device_thermostat_outlined),

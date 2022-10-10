@@ -17,14 +17,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import 'package:picos/util/backend_data.dart';
 import 'package:picos/widgets/picos_body.dart';
 
 /// Shows page for configuration of "Activity & Rest"-information.
 class ConfigurationActivityAndRest extends StatefulWidget {
   /// Constructor of page for configuration of "Activity & Rest"-information.
-  const ConfigurationActivityAndRest({Key? key}) : super(key: key);
+  const ConfigurationActivityAndRest({
+    required this.callbackActivityAndRest,
+    Key? key,
+  }) : super(key: key);
+
+  /// Callback function for activity and rest.
+  final void Function(String, bool) callbackActivityAndRest;
 
   @override
   State<ConfigurationActivityAndRest> createState() =>
@@ -33,6 +37,15 @@ class ConfigurationActivityAndRest extends StatefulWidget {
 
 class _ConfigurationActivityAndRestState
     extends State<ConfigurationActivityAndRest> {
+  /// Local variable for walk distance.
+  bool entryWalkDistanceEnabled = false;
+
+  /// Local variable for sleep duration.
+  bool entrySleepDurationEnabled = false;
+
+  /// Local variable for sleep quality.
+  bool entrySleepQualityEnabled = false;
+
   @override
   Widget build(BuildContext context) {
     return PicosBody(
@@ -54,10 +67,14 @@ class _ConfigurationActivityAndRestState
                 ),
               ),
               SwitchListTile(
-                value: Parameters.walkDistanceEnabled,
+                value: entryWalkDistanceEnabled,
                 onChanged: (bool value) {
                   setState(() {
-                    Parameters.walkDistanceEnabled = value;
+                    widget.callbackActivityAndRest(
+                      'entryWalkDistanceEnabled',
+                      value,
+                    );
+                    entryWalkDistanceEnabled = value;
                   });
                 },
                 secondary: const Icon(Icons.directions_walk_outlined),
@@ -72,10 +89,14 @@ class _ConfigurationActivityAndRestState
                 ),
               ),
               SwitchListTile(
-                value: Parameters.sleepDurationEnabled,
+                value: entrySleepDurationEnabled,
                 onChanged: (bool value) {
                   setState(() {
-                    Parameters.sleepDurationEnabled = value;
+                    widget.callbackActivityAndRest(
+                      'entrySleepDurationEnabled',
+                      value,
+                    );
+                    entrySleepDurationEnabled = value;
                   });
                 },
                 secondary: const Icon(Icons.access_alarm_outlined),
@@ -90,10 +111,14 @@ class _ConfigurationActivityAndRestState
                 ),
               ),
               SwitchListTile(
-                value: Parameters.sleepQualityEnabled,
+                value: entrySleepQualityEnabled,
                 onChanged: (bool value) {
                   setState(() {
-                    Parameters.sleepQualityEnabled = value;
+                    widget.callbackActivityAndRest(
+                      'entrySleepQualityEnabled',
+                      value,
+                    );
+                    entrySleepQualityEnabled = value;
                   });
                 },
                 secondary: const Icon(Icons.bed_outlined),

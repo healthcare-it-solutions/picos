@@ -17,13 +17,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/util/backend_data.dart';
 import 'package:picos/widgets/picos_body.dart';
 
 /// Shows page for configuration of "Body & Mind"-information.
 class ConfigurationBodyAndMind extends StatefulWidget {
   /// Constructor of page for configuration of "Body & Mind"-information.
-  const ConfigurationBodyAndMind({Key? key}) : super(key: key);
+  const ConfigurationBodyAndMind({required this.callbackBodyAndMind, Key? key})
+      : super(key: key);
+
+  /// Callback function for body and mind.
+  final void Function(String, bool) callbackBodyAndMind;
 
   @override
   State<ConfigurationBodyAndMind> createState() =>
@@ -31,6 +34,12 @@ class ConfigurationBodyAndMind extends StatefulWidget {
 }
 
 class _ConfigurationBodyAndMindState extends State<ConfigurationBodyAndMind> {
+  /// Local variable for pain.
+  bool entryPainEnabled = false;
+
+  /// Local variable for blood sugar levels.
+  bool entryPhq4Enabled = false;
+
   @override
   Widget build(BuildContext context) {
     return PicosBody(
@@ -52,10 +61,11 @@ class _ConfigurationBodyAndMindState extends State<ConfigurationBodyAndMind> {
                 ),
               ),
               SwitchListTile(
-                value: Parameters.painEnabled,
+                value: entryPainEnabled,
                 onChanged: (bool value) {
                   setState(() {
-                    Parameters.painEnabled = value;
+                    widget.callbackBodyAndMind('entryPainEnabled', value,);
+                    entryPainEnabled = value;
                   });
                 },
                 secondary: const Icon(Icons.mood_bad_outlined),
@@ -70,10 +80,11 @@ class _ConfigurationBodyAndMindState extends State<ConfigurationBodyAndMind> {
                 ),
               ),
               SwitchListTile(
-                value: Parameters.phq4Enabled,
+                value: entryPhq4Enabled,
                 onChanged: (bool value) {
                   setState(() {
-                    Parameters.phq4Enabled = value;
+                    widget.callbackBodyAndMind('entryPhq4Enabled', value,);
+                    entryPhq4Enabled = value;
                   });
                 },
                 secondary: const Icon(Icons.psychology_outlined),
