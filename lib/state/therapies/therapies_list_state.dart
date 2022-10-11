@@ -17,7 +17,6 @@
 
 part of 'therapies_list_bloc.dart';
 
-
 /// Possible states for the list can contain.
 enum TherapiesListStatus {
   /// The initial state on creation.
