@@ -20,7 +20,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/models/medication.dart';
 import 'package:picos/screens/my_medications_screen/medication_card_tile.dart';
-import 'package:picos/states/medications_list_bloc.dart';
+import 'package:picos/state/medications_list_bloc.dart';
 import 'package:picos/widgets/picos_list_card.dart';
 
 import '../../repository/medications_repository.dart';

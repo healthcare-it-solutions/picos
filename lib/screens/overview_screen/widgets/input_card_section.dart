@@ -78,7 +78,7 @@ class InputCardSection extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.green,
+                    backgroundColor: Colors.green,
                   ),
                   child: Text(
                     AppLocalizations.of(context)!.startEntry,

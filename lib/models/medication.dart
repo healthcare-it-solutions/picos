@@ -15,10 +15,10 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import 'package:equatable/equatable.dart';
+import 'package:picos/models/abstract_database_object.dart';
 
 /// Class with medication information.
-class Medication extends Equatable {
+class Medication extends AbstractDatabaseObject {
   /// Creates a medication object.
   const Medication({
     required this.compound,
@@ -26,7 +26,13 @@ class Medication extends Equatable {
     required this.noon,
     required this.evening,
     required this.night,
-  });
+    String? objectId,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt);
+
+  /// The database table the objects are stored in.
+  static const String databaseTable = 'PICOS_medication';
 
   /// The amount to take in the morning.
   final double morning;
@@ -46,13 +52,22 @@ class Medication extends Equatable {
   /// All possible amount values.
   static const List<String> selection = <String>['0', '1/2', '1', '2', '3'];
 
+  @override
+  get table {
+    return databaseTable;
+  }
+
   /// Returns a copy of this medication with the given values updated.
+  @override
   Medication copyWith({
     String? compound,
     double? morning,
     double? noon,
     double? evening,
     double? night,
+    String? objectId,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) {
     return Medication(
       compound: compound ?? this.compound,
@@ -60,6 +75,9 @@ class Medication extends Equatable {
       noon: noon ?? this.noon,
       evening: evening ?? this.evening,
       night: night ?? this.night,
+      objectId: objectId ?? this.objectId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 
@@ -71,4 +89,13 @@ class Medication extends Equatable {
         evening,
         night,
       ];
+
+  @override
+  Map<String, dynamic> get databaseMapping => <String, dynamic>{
+        'MedicalProduct': compound,
+        'Morning': morning,
+        'Noon': noon,
+        'Evening': evening,
+        'AtNight': night,
+      };
 }

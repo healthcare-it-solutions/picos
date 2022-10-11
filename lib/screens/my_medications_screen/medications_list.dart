@@ -17,7 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:picos/states/medications_list_bloc.dart';
+import 'package:picos/state/medications_list_bloc.dart';
 import 'medication_card.dart';
 
 /// A List with all medications.
@@ -38,6 +38,12 @@ class _MedicationsListState extends State<MedicationsList> {
             state.status == MedicationsListStatus.loading) {
           return const Center(
             child: CircularProgressIndicator(),
+          );
+        }
+
+        if (state.status == MedicationsListStatus.failure) {
+          return const Center(
+            child: Text('Error'),
           );
         }
 
