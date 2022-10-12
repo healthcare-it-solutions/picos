@@ -43,33 +43,33 @@ class ConfigurationPages extends StatefulWidget {
 }
 
 class _ConfigurationPages extends State<ConfigurationPages> {
-  PageController controller = PageController();
+  final PageController _controller = PageController();
 
-  static Map<String, bool> vitalValuesEntries = <String, bool>{
+  static final Map<String, bool> _vitalValuesEntries = <String, bool>{
     'entryBloodPressureEnabled': false,
     'entryBloodSugarLevelsEnabled': false,
     'entryHeartFrequencyEnabled': false,
     'entryWeightBMIEnabled': false,
   };
 
-  static Map<String, bool> medicationAndTherapyEntries = <String, bool>{
+  static final Map<String, bool> _medicationAndTherapyEntries = <String, bool>{
     'entryDoctorsVisitEnabled': false,
     'entryMedicationEnabled': false,
     'entryTherapyEnabled': false,
   };
 
-  static Map<String, bool> bodyAndMindEntries = <String, bool>{
+  static final Map<String, bool> _bodyAndMindEntries = <String, bool>{
     'entryPainEnabled': false,
     'entryPhq4Enabled': false,
   };
 
-  static Map<String, bool> activityAndRestEntries = <String, bool>{
+  static final Map<String, bool> _activityAndRestEntries = <String, bool>{
     'entrySleepDurationEnabled': false,
     'entrySleepQualityEnabled': false,
     'entryWalkDistanceEnabled': false,
   };
 
-  static Map<String, String> formEntries = <String, String>{
+  static final Map<String, String> formEntries = <String, String>{
     'entryFirstName': '',
     'entryFamilyName': '',
     'entryEmail': '',
@@ -77,41 +77,45 @@ class _ConfigurationPages extends State<ConfigurationPages> {
     'entryAddress': '',
     'entryFormOfAddress': '',
   };
-
-  ConfigurationForm configurationForm = ConfigurationForm(
+ 
+  final ConfigurationForm _configurationForm = ConfigurationForm(
     callbackForm: (String key, String value) {
       formEntries[key] = value;
     },
   );
 
-  ConfigurationActivityAndRest configurationActivityAndRest =
+  final ConfigurationActivityAndRest _configurationActivityAndRest =
       ConfigurationActivityAndRest(
     callbackActivityAndRest: (String key, bool value) {
-      activityAndRestEntries[key] = value;
+      _activityAndRestEntries[key] = value;
     },
   );
 
-  ConfigurationBodyAndMind configurationBodyAndMind = ConfigurationBodyAndMind(
+  final ConfigurationBodyAndMind _configurationBodyAndMind =
+      ConfigurationBodyAndMind(
     callbackBodyAndMind: (String key, bool value) {
-      bodyAndMindEntries[key] = value;
+      _bodyAndMindEntries[key] = value;
     },
   );
 
-  ConfigurationMedicationAndTherapy configurationMedicationAndTherapy =
+  final ConfigurationMedicationAndTherapy _configurationMedicationAndTherapy =
       ConfigurationMedicationAndTherapy(
     callbackMedicationAndTherapy: (String key, bool value) {
-      medicationAndTherapyEntries[key] = value;
+      _medicationAndTherapyEntries[key] = value;
     },
   );
 
-  ConfigurationSummary configurationSummary = const ConfigurationSummary();
-  ConfigurationVitalValues configurationVitalValues = ConfigurationVitalValues(
+  final ConfigurationSummary _configurationSummary =
+      const ConfigurationSummary();
+
+  final ConfigurationVitalValues _configurationVitalValues =
+      ConfigurationVitalValues(
     callbackVitalValues: (String key, bool value) {
-      vitalValuesEntries[key] = value;
+      _vitalValuesEntries[key] = value;
     },
   );
 
-  List<Widget> list = <Widget>[];
+  List<Widget> _list = <Widget>[];
 
   int _currentPage = 0;
 
@@ -119,14 +123,14 @@ class _ConfigurationPages extends State<ConfigurationPages> {
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
 
-    if (list.isEmpty) {
-      list = <Widget>[
-        configurationForm,
-        configurationVitalValues,
-        configurationActivityAndRest,
-        configurationBodyAndMind,
-        configurationMedicationAndTherapy,
-        configurationSummary,
+    if (_list.isEmpty) {
+      _list = <Widget>[
+        _configurationForm,
+        _configurationVitalValues,
+        _configurationActivityAndRest,
+        _configurationBodyAndMind,
+        _configurationMedicationAndTherapy,
+        _configurationSummary,
       ];
     }
 
@@ -140,13 +144,13 @@ class _ConfigurationPages extends State<ConfigurationPages> {
         key: formKeyConfiguration,
         child: PageView(
           physics: const NeverScrollableScrollPhysics(),
-          controller: controller,
+          controller: _controller,
           onPageChanged: (int num) {
             setState(() {
               _currentPage = num;
             });
           },
-          children: list,
+          children: _list,
         ),
       ),
       bottomNavigationBar: Row(
@@ -158,7 +162,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
                 if (_currentPage == 0) {
                   Navigator.of(context).pop();
                 } else {
-                  controller.jumpToPage(_currentPage - 1);
+                  _controller.jumpToPage(_currentPage - 1);
                 }
               },
               buttonColor1: theme.grey3,
@@ -169,7 +173,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
             child: PicosInkWellButton(
               text: AppLocalizations.of(context)!.proceed,
               onTap: () async {
-                if (_currentPage == list.length - 1) {
+                if (_currentPage == _list.length - 1) {
                   formKeyConfiguration.currentState!.save();
                   Patient patient = Patient(
                     firstName: formEntries['entryFirstName']!,
@@ -193,27 +197,27 @@ class _ConfigurationPages extends State<ConfigurationPages> {
                   );
                   PatientProfile patientProfile = PatientProfile(
                     bloodPressureEnabled:
-                        vitalValuesEntries['entryBloodPressureEnabled']!,
+                        _vitalValuesEntries['entryBloodPressureEnabled']!,
                     bloodSugarLevelsEnabled:
-                        vitalValuesEntries['entryBloodSugarLevelsEnabled']!,
+                        _vitalValuesEntries['entryBloodSugarLevelsEnabled']!,
                     heartFrequencyEnabled:
-                        vitalValuesEntries['entryHeartFrequencyEnabled']!,
+                        _vitalValuesEntries['entryHeartFrequencyEnabled']!,
                     weightBMIEnabled:
-                        vitalValuesEntries['entryWeightBMIEnabled']!,
-                    doctorsVisitEnabled: medicationAndTherapyEntries[
+                        _vitalValuesEntries['entryWeightBMIEnabled']!,
+                    doctorsVisitEnabled: _medicationAndTherapyEntries[
                         'entryDoctorsVisitEnabled']!,
                     medicationEnabled:
-                        medicationAndTherapyEntries['entryMedicationEnabled']!,
+                        _medicationAndTherapyEntries['entryMedicationEnabled']!,
                     therapyEnabled:
-                        medicationAndTherapyEntries['entryTherapyEnabled']!,
-                    walkDistanceEnabled: activityAndRestEntries[
-                        'entryWalkDistanceEnabled']!,
+                        _medicationAndTherapyEntries['entryTherapyEnabled']!,
+                    walkDistanceEnabled:
+                        _activityAndRestEntries['entryWalkDistanceEnabled']!,
                     sleepDurationEnabled:
-                        activityAndRestEntries['entrySleepDurationEnabled']!,
+                        _activityAndRestEntries['entrySleepDurationEnabled']!,
                     sleepQualityEnabled:
-                        activityAndRestEntries['entrySleepQualityEnabled']!,
-                    painEnabled: bodyAndMindEntries['entryPainEnabled']!,
-                    phq4Enabled: bodyAndMindEntries['entryPhq4Enabled']!,
+                        _activityAndRestEntries['entrySleepQualityEnabled']!,
+                    painEnabled: _bodyAndMindEntries['entryPainEnabled']!,
+                    phq4Enabled: _bodyAndMindEntries['entryPhq4Enabled']!,
                     patientObjectId: patient.objectId!,
                   );
                   BackendACL patientProfileACL = BackendACL();
@@ -245,7 +249,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
                 if ((_currentPage == 0 &&
                         formKeyConfiguration.currentState!.validate()) ||
                     _currentPage > 0) {
-                  controller.jumpToPage(_currentPage + 1);
+                  _controller.jumpToPage(_currentPage + 1);
                 }
               },
             ),

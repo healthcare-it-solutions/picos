@@ -35,10 +35,10 @@ class ConfigurationBodyAndMind extends StatefulWidget {
 
 class _ConfigurationBodyAndMindState extends State<ConfigurationBodyAndMind> {
   /// Local variable for pain.
-  bool entryPainEnabled = false;
+  bool _entryPainEnabled = false;
 
   /// Local variable for blood sugar levels.
-  bool entryPhq4Enabled = false;
+  bool _entryPhq4Enabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -61,11 +61,11 @@ class _ConfigurationBodyAndMindState extends State<ConfigurationBodyAndMind> {
                 ),
               ),
               SwitchListTile(
-                value: entryPainEnabled,
+                value: _entryPainEnabled,
                 onChanged: (bool value) {
                   setState(() {
                     widget.callbackBodyAndMind('entryPainEnabled', value,);
-                    entryPainEnabled = value;
+                    _entryPainEnabled = value;
                   });
                 },
                 secondary: const Icon(Icons.mood_bad_outlined),
@@ -80,11 +80,11 @@ class _ConfigurationBodyAndMindState extends State<ConfigurationBodyAndMind> {
                 ),
               ),
               SwitchListTile(
-                value: entryPhq4Enabled,
+                value: _entryPhq4Enabled,
                 onChanged: (bool value) {
                   setState(() {
                     widget.callbackBodyAndMind('entryPhq4Enabled', value,);
-                    entryPhq4Enabled = value;
+                    _entryPhq4Enabled = value;
                   });
                 },
                 secondary: const Icon(Icons.psychology_outlined),

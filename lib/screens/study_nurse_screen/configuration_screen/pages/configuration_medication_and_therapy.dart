@@ -39,13 +39,13 @@ class ConfigurationMedicationAndTherapy extends StatefulWidget {
 class _ConfigurationMedicationAndTherapyState
     extends State<ConfigurationMedicationAndTherapy> {
   /// Local variable for medication.
-  bool entryMedicationEnabled = false;
+  bool _entryMedicationEnabled = false;
 
   /// Local variable for therapy.
-  bool entryTherapyEnabled = false;
+  bool _entryTherapyEnabled = false;
 
   /// Local variable for doctor visits.
-  bool entryDoctorsVisitEnabled = false;
+  bool _entryDoctorsVisitEnabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -68,14 +68,14 @@ class _ConfigurationMedicationAndTherapyState
                 ),
               ),
               SwitchListTile(
-                value: entryMedicationEnabled,
+                value: _entryMedicationEnabled,
                 onChanged: (bool value) {
                   setState(() {
                     widget.callbackMedicationAndTherapy(
                       'entryMedicationEnabled',
                       value,
                     );
-                    entryMedicationEnabled = value;
+                    _entryMedicationEnabled = value;
                   });
                 },
                 secondary: const Icon(Icons.medication),
@@ -90,14 +90,14 @@ class _ConfigurationMedicationAndTherapyState
                 ),
               ),
               SwitchListTile(
-                value: entryTherapyEnabled,
+                value: _entryTherapyEnabled,
                 onChanged: (bool value) {
                   setState(() {
                     widget.callbackMedicationAndTherapy(
                       'entryTherapyEnabled',
                       value,
                     );
-                    entryTherapyEnabled = value;
+                    _entryTherapyEnabled = value;
                   });
                 },
                 secondary: const Icon(Icons.healing_outlined),
@@ -112,14 +112,14 @@ class _ConfigurationMedicationAndTherapyState
                 ),
               ),
               SwitchListTile(
-                value: entryDoctorsVisitEnabled,
+                value: _entryDoctorsVisitEnabled,
                 onChanged: (bool value) {
                   setState(() {
                     widget.callbackMedicationAndTherapy(
                       'entryDoctorsVisitEnabled',
                       value,
                     );
-                    entryDoctorsVisitEnabled = value;
+                    _entryDoctorsVisitEnabled = value;
                   });
                 },
                 secondary: const Icon(Icons.local_hospital_outlined),

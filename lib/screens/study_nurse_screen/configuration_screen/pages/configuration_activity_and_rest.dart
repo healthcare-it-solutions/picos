@@ -38,13 +38,13 @@ class ConfigurationActivityAndRest extends StatefulWidget {
 class _ConfigurationActivityAndRestState
     extends State<ConfigurationActivityAndRest> {
   /// Local variable for walk distance.
-  bool entryWalkDistanceEnabled = false;
+  bool _entryWalkDistanceEnabled = false;
 
   /// Local variable for sleep duration.
-  bool entrySleepDurationEnabled = false;
+  bool _entrySleepDurationEnabled = false;
 
   /// Local variable for sleep quality.
-  bool entrySleepQualityEnabled = false;
+  bool _entrySleepQualityEnabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -67,14 +67,14 @@ class _ConfigurationActivityAndRestState
                 ),
               ),
               SwitchListTile(
-                value: entryWalkDistanceEnabled,
+                value: _entryWalkDistanceEnabled,
                 onChanged: (bool value) {
                   setState(() {
                     widget.callbackActivityAndRest(
                       'entryWalkDistanceEnabled',
                       value,
                     );
-                    entryWalkDistanceEnabled = value;
+                    _entryWalkDistanceEnabled = value;
                   });
                 },
                 secondary: const Icon(Icons.directions_walk_outlined),
@@ -89,14 +89,14 @@ class _ConfigurationActivityAndRestState
                 ),
               ),
               SwitchListTile(
-                value: entrySleepDurationEnabled,
+                value: _entrySleepDurationEnabled,
                 onChanged: (bool value) {
                   setState(() {
                     widget.callbackActivityAndRest(
                       'entrySleepDurationEnabled',
                       value,
                     );
-                    entrySleepDurationEnabled = value;
+                    _entrySleepDurationEnabled = value;
                   });
                 },
                 secondary: const Icon(Icons.access_alarm_outlined),
@@ -111,14 +111,14 @@ class _ConfigurationActivityAndRestState
                 ),
               ),
               SwitchListTile(
-                value: entrySleepQualityEnabled,
+                value: _entrySleepQualityEnabled,
                 onChanged: (bool value) {
                   setState(() {
                     widget.callbackActivityAndRest(
                       'entrySleepQualityEnabled',
                       value,
                     );
-                    entrySleepQualityEnabled = value;
+                    _entrySleepQualityEnabled = value;
                   });
                 },
                 secondary: const Icon(Icons.bed_outlined),

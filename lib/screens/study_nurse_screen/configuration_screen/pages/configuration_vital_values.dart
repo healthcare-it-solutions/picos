@@ -36,16 +36,16 @@ class ConfigurationVitalValues extends StatefulWidget {
 
 class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
   /// Local variable for weight and BMI.
-  bool entryWeightBMIEnabled = false;
+  bool _entryWeightBMIEnabled = false;
 
   /// Local variable for heart frequency.
-  bool entryHeartFrequencyEnabled = false;
+  bool _entryHeartFrequencyEnabled = false;
 
   /// Local variable for blood pressure.
-  bool entryBloodPressureEnabled = false;
+  bool _entryBloodPressureEnabled = false;
 
   /// Local variable for blood sugar levels.
-  bool entryBloodSugarLevelsEnabled = false;
+  bool _entryBloodSugarLevelsEnabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -68,14 +68,14 @@ class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
                 ),
               ),
               SwitchListTile(
-                value: entryWeightBMIEnabled,
+                value: _entryWeightBMIEnabled,
                 onChanged: (bool value) {
                   setState(() {
                     widget.callbackVitalValues(
                       'entryWeightBMIEnabled',
                       value,
                     );
-                    entryWeightBMIEnabled = value;
+                    _entryWeightBMIEnabled = value;
                   });
                 },
                 secondary: const Icon(Icons.monitor_weight_outlined),
@@ -90,14 +90,14 @@ class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
                 ),
               ),
               SwitchListTile(
-                value: entryHeartFrequencyEnabled,
+                value: _entryHeartFrequencyEnabled,
                 onChanged: (bool value) {
                   setState(() {
                     widget.callbackVitalValues(
                       'entryHeartFrequencyEnabled',
                       value,
                     );
-                    entryHeartFrequencyEnabled = value;
+                    _entryHeartFrequencyEnabled = value;
                   });
                 },
                 secondary: const Icon(Icons.monitor_heart_outlined),
@@ -112,14 +112,14 @@ class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
                 ),
               ),
               SwitchListTile(
-                value: entryBloodPressureEnabled,
+                value: _entryBloodPressureEnabled,
                 onChanged: (bool value) {
                   setState(() {
                     widget.callbackVitalValues(
                       'entryBloodPressureEnabled',
                       value,
                     );
-                    entryBloodPressureEnabled = value;
+                    _entryBloodPressureEnabled = value;
                   });
                 },
                 secondary: const Icon(Icons.bloodtype_outlined),
@@ -134,14 +134,14 @@ class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
                 ),
               ),
               SwitchListTile(
-                value: entryBloodSugarLevelsEnabled,
+                value: _entryBloodSugarLevelsEnabled,
                 onChanged: (bool value) {
                   setState(() {
                     widget.callbackVitalValues(
                       'entryBloodSugarLevelsEnabled',
                       value,
                     );
-                    entryBloodSugarLevelsEnabled = value;
+                    _entryBloodSugarLevelsEnabled = value;
                   });
                 },
                 secondary: const Icon(Icons.device_thermostat_outlined),
