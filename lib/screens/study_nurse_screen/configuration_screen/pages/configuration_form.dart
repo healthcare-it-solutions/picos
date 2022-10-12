@@ -36,7 +36,7 @@ class ConfigurationForm extends StatefulWidget {
 
 class _ConfigurationFormState extends State<ConfigurationForm> {
   /// Local variable for form of address.
-  FormOfAddress entryFormOfAddress = FormOfAddress.female;
+  FormOfAddress _entryFormOfAddress = FormOfAddress.female;
 
   @override
   Widget build(BuildContext context) {
@@ -65,14 +65,14 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
                       ),
                     ),
                     value: FormOfAddress.male,
-                    groupValue: entryFormOfAddress,
+                    groupValue: _entryFormOfAddress,
                     onChanged: (FormOfAddress? value) {
                       setState(() {
                         widget.callbackForm(
                           'entryFormOfAddress',
                           FormOfAddress.male.toString(),
                         );
-                        entryFormOfAddress = value!;
+                        _entryFormOfAddress = value!;
                       });
                     },
                     selected: false,
@@ -87,36 +87,14 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
                       ),
                     ),
                     value: FormOfAddress.female,
-                    groupValue: entryFormOfAddress,
+                    groupValue: _entryFormOfAddress,
                     onChanged: (FormOfAddress? value) {
                       setState(() {
                         widget.callbackForm(
                           'entryFormOfAddress',
                           FormOfAddress.female.toString(),
                         );
-                        entryFormOfAddress = value!;
-                      });
-                    },
-                    selected: false,
-                  ),
-                ),
-                Expanded(
-                  child: RadioListTile<FormOfAddress>(
-                    title: Text(
-                      AppLocalizations.of(context)!.diverse,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    value: FormOfAddress.diverse,
-                    groupValue: entryFormOfAddress,
-                    onChanged: (FormOfAddress? value) {
-                      setState(() {
-                        widget.callbackForm(
-                          'entryFormOfAddress',
-                          FormOfAddress.diverse.toString(),
-                        );
-                        entryFormOfAddress = value!;
+                        _entryFormOfAddress = value!;
                       });
                     },
                     selected: false,
