@@ -18,26 +18,24 @@
 import 'package:picos/models/abstract_database_object.dart';
 import 'package:random_password_generator/random_password_generator.dart';
 
-/// enumeration for gender-variable.
+/// Enumeration for FormOfAddress-variable.
 enum FormOfAddress {
-  /// element for denoting 'male'.
+  /// Element for denoting 'male'.
   male,
-  /// element for denoting 'female'.
+  /// Element for denoting 'female'.
   female,
-  /// element for denoting 'diverse'.
-  diverse
 }
 
 /// Class with patient information.
 class Patient extends AbstractDatabaseObject {
   /// Creates a patient object.
   const Patient({
-    this.firstName = '',
-    this.familyName = '',
-    this.email = '',
-    this.number = '',
-    this.address = '',
-    this.formOfAddress = '',
+    required this.firstName,
+    required this.familyName,
+    required this.email,
+    required this.number,
+    required this.address,
+    required this.formOfAddress,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -45,6 +43,9 @@ class Patient extends AbstractDatabaseObject {
 
   /// The database table the objects are stored in.
   static const String databaseTable = '_User';
+
+  /// Stores the role that is being created.
+  static const String role = 'Patient';
 
   /// Stores the first name of the patient;
   final String firstName;
@@ -106,7 +107,7 @@ class Patient extends AbstractDatabaseObject {
   ];
 
   /// Method that returns a random password.
-  String createPassword() {
+  static String _createPassword() {
     final RandomPasswordGenerator password = RandomPasswordGenerator();
 
     return password.randomPassword(
@@ -121,13 +122,13 @@ class Patient extends AbstractDatabaseObject {
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
     'username': email,
-    'password': createPassword(),
+    'password': _createPassword(),
     'email': email,
     'Form': formOfAddress,
     'Firstname': firstName,
     'Lastname': familyName,
     'PhoneNo': number,
     'Address': address,
-    'Role': 'Patient',
+    'Role': role,
   };
 }
