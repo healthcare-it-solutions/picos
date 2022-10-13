@@ -77,45 +77,8 @@ class _ConfigurationPages extends State<ConfigurationPages> {
     'entryAddress': '',
     'entryFormOfAddress': '',
   };
- 
-  final ConfigurationForm _configurationForm = ConfigurationForm(
-    callbackForm: (String key, String value) {
-      formEntries[key] = value;
-    },
-  );
 
-  final ConfigurationActivityAndRest _configurationActivityAndRest =
-      ConfigurationActivityAndRest(
-    callbackActivityAndRest: (String key, bool value) {
-      _activityAndRestEntries[key] = value;
-    },
-  );
-
-  final ConfigurationBodyAndMind _configurationBodyAndMind =
-      ConfigurationBodyAndMind(
-    callbackBodyAndMind: (String key, bool value) {
-      _bodyAndMindEntries[key] = value;
-    },
-  );
-
-  final ConfigurationMedicationAndTherapy _configurationMedicationAndTherapy =
-      ConfigurationMedicationAndTherapy(
-    callbackMedicationAndTherapy: (String key, bool value) {
-      _medicationAndTherapyEntries[key] = value;
-    },
-  );
-
-  final ConfigurationSummary _configurationSummary =
-      const ConfigurationSummary();
-
-  final ConfigurationVitalValues _configurationVitalValues =
-      ConfigurationVitalValues(
-    callbackVitalValues: (String key, bool value) {
-      _vitalValuesEntries[key] = value;
-    },
-  );
-
-  List<Widget> _list = <Widget>[];
+  final List<Widget> _list = <Widget>[];
 
   int _currentPage = 0;
 
@@ -124,14 +87,50 @@ class _ConfigurationPages extends State<ConfigurationPages> {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
 
     if (_list.isEmpty) {
-      _list = <Widget>[
-        _configurationForm,
-        _configurationVitalValues,
-        _configurationActivityAndRest,
-        _configurationBodyAndMind,
-        _configurationMedicationAndTherapy,
-        _configurationSummary,
-      ];
+      final ConfigurationForm configurationForm = ConfigurationForm(
+        callbackForm: (String key, String value) {
+          formEntries[key] = value;
+        },
+      );
+
+      final ConfigurationActivityAndRest configurationActivityAndRest =
+          ConfigurationActivityAndRest(
+        callbackActivityAndRest: (String key, bool value) {
+          _activityAndRestEntries[key] = value;
+        },
+      );
+
+      final ConfigurationBodyAndMind configurationBodyAndMind =
+          ConfigurationBodyAndMind(
+        callbackBodyAndMind: (String key, bool value) {
+          _bodyAndMindEntries[key] = value;
+        },
+      );
+
+      final ConfigurationMedicationAndTherapy
+          configurationMedicationAndTherapy = ConfigurationMedicationAndTherapy(
+        callbackMedicationAndTherapy: (String key, bool value) {
+          _medicationAndTherapyEntries[key] = value;
+        },
+      );
+
+      const ConfigurationSummary configurationSummary = ConfigurationSummary();
+
+      final ConfigurationVitalValues configurationVitalValues =
+          ConfigurationVitalValues(
+        callbackVitalValues: (String key, bool value) {
+          _vitalValuesEntries[key] = value;
+        },
+      );
+
+      _list.addAll(<Widget>[
+        configurationForm,
+        configurationVitalValues,
+        configurationActivityAndRest,
+        configurationBodyAndMind,
+        configurationMedicationAndTherapy,
+        configurationSummary,
+      ]);
     }
 
     return Scaffold(
