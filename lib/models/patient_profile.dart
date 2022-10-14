@@ -17,8 +17,6 @@
 
 import 'package:picos/models/abstract_database_object.dart';
 
-import '../util/backend.dart';
-
 /// Class with patient profile information.
 class PatientProfile extends AbstractDatabaseObject {
   /// Creates a patient profile object.
@@ -36,6 +34,7 @@ class PatientProfile extends AbstractDatabaseObject {
     required this.therapyEnabled,
     required this.doctorsVisitEnabled,
     required this.patientObjectId,
+    required this.doctorObjectId,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -83,6 +82,9 @@ class PatientProfile extends AbstractDatabaseObject {
   /// Contains patient's object id.
   final String patientObjectId;
 
+  /// Contains doctor's object id.
+  final String doctorObjectId;
+
   @override
   get table {
     return databaseTable;
@@ -104,6 +106,7 @@ class PatientProfile extends AbstractDatabaseObject {
     bool? therapyEnabled,
     bool? doctorsVisitEnabled,
     String? patientObjectId,
+    String? doctorObjectId,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -124,6 +127,7 @@ class PatientProfile extends AbstractDatabaseObject {
       therapyEnabled: therapyEnabled ?? this.therapyEnabled,
       doctorsVisitEnabled: doctorsVisitEnabled ?? this.doctorsVisitEnabled,
       patientObjectId: patientObjectId ?? this.patientObjectId,
+      doctorObjectId: doctorObjectId ?? this.doctorObjectId,
       objectId: objectId ?? this.objectId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -166,7 +170,7 @@ class PatientProfile extends AbstractDatabaseObject {
       'className': '_User'
     },
     'Doctor': <String, String>{
-      'objectId': Backend.user.objectId!,
+      'objectId': doctorObjectId,
       '__type': 'Pointer',
       'className': '_User'
     },

@@ -218,6 +218,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
                     painEnabled: _bodyAndMindEntries['entryPainEnabled']!,
                     phq4Enabled: _bodyAndMindEntries['entryPhq4Enabled']!,
                     patientObjectId: patient.objectId!,
+                    doctorObjectId: Backend.user.objectId!,
                   );
                   BackendACL patientProfileACL = BackendACL();
                   patientProfileACL.setReadAccess(
