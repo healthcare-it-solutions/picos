@@ -45,31 +45,31 @@ class ConfigurationPages extends StatefulWidget {
 class _ConfigurationPages extends State<ConfigurationPages> {
   final PageController _controller = PageController();
 
-  static final Map<String, bool> _vitalValuesEntries = <String, bool>{
+  final Map<String, bool> _vitalValuesEntries = <String, bool>{
     'entryBloodPressureEnabled': false,
     'entryBloodSugarLevelsEnabled': false,
     'entryHeartFrequencyEnabled': false,
     'entryWeightBMIEnabled': false,
   };
 
-  static final Map<String, bool> _medicationAndTherapyEntries = <String, bool>{
+  final Map<String, bool> _medicationAndTherapyEntries = <String, bool>{
     'entryDoctorsVisitEnabled': false,
     'entryMedicationEnabled': false,
     'entryTherapyEnabled': false,
   };
 
-  static final Map<String, bool> _bodyAndMindEntries = <String, bool>{
+  final Map<String, bool> _bodyAndMindEntries = <String, bool>{
     'entryPainEnabled': false,
     'entryPhq4Enabled': false,
   };
 
-  static final Map<String, bool> _activityAndRestEntries = <String, bool>{
+  final Map<String, bool> _activityAndRestEntries = <String, bool>{
     'entrySleepDurationEnabled': false,
     'entrySleepQualityEnabled': false,
     'entryWalkDistanceEnabled': false,
   };
 
-  static final Map<String, String> formEntries = <String, String>{
+  final Map<String, String> _formEntries = <String, String>{
     'entryFirstName': '',
     'entryFamilyName': '',
     'entryEmail': '',
@@ -89,7 +89,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
     if (_list.isEmpty) {
       final ConfigurationForm configurationForm = ConfigurationForm(
         callbackForm: (String key, String value) {
-          formEntries[key] = value;
+          _formEntries[key] = value;
         },
       );
 
@@ -175,12 +175,12 @@ class _ConfigurationPages extends State<ConfigurationPages> {
                 if (_currentPage == _list.length - 1) {
                   formKeyConfiguration.currentState!.save();
                   Patient patient = Patient(
-                    firstName: formEntries['entryFirstName']!,
-                    familyName: formEntries['entryFamilyName']!,
-                    email: formEntries['entryEmail']!,
-                    number: formEntries['entryNumber']!,
-                    address: formEntries['entryAddress']!,
-                    formOfAddress: formEntries['entryFormOfAddress']!,
+                    firstName: _formEntries['entryFirstName']!,
+                    familyName: _formEntries['entryFamilyName']!,
+                    email: _formEntries['entryEmail']!,
+                    number: _formEntries['entryNumber']!,
+                    address: _formEntries['entryAddress']!,
+                    formOfAddress: _formEntries['entryFormOfAddress']!,
                   );
                   BackendACL patientACL = BackendACL();
                   patientACL.setReadAccess(
