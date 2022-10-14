@@ -39,6 +39,14 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
   FormOfAddress _entryFormOfAddress = FormOfAddress.female;
 
   @override
+  void initState() {
+    setState(() {
+      widget.callbackForm('entryFormOfAddress', _entryFormOfAddress.toString());
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return PicosBody(
       child: Padding(
