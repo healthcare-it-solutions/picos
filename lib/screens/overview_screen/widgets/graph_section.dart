@@ -55,7 +55,7 @@ class _GraphState extends State<GraphSection> {
                   return;
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
+                  primary: Colors.green,
                 ),
                 child: Text(
                   '7 ${AppLocalizations.of(context)!.days}',
@@ -66,7 +66,7 @@ class _GraphState extends State<GraphSection> {
                   return;
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
+                  primary: Colors.green,
                 ),
                 child: Text(
                   '1 ${AppLocalizations.of(context)!.month}',
@@ -77,7 +77,7 @@ class _GraphState extends State<GraphSection> {
                   return;
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
+                  primary: Colors.green,
                 ),
                 child: Text(
                   '3 ${AppLocalizations.of(context)!.months}',
