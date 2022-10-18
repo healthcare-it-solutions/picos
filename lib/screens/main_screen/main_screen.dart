@@ -24,7 +24,7 @@ import 'package:picos/screens/login_screen.dart';
 import 'package:picos/state/medications_list_bloc.dart';
 import 'package:picos/themes/global_theme.dart';
 
-import '../../api/local_storage_medications_api.dart';
+import '../../api/backend_medications_api.dart';
 
 import '../../routes.dart';
 
@@ -38,7 +38,7 @@ class MainScreen extends StatelessWidget {
     const GlobalTheme theme = GlobalTheme();
 
     final MedicationsRepository medicationsRepository =
-        MedicationsRepository(medicationsApi: LocalStorageMedicationsApi());
+        MedicationsRepository(medicationsApi: BackendMedicationsApi());
 
     return MultiRepositoryProvider(
       providers: <RepositoryProvider<MedicationsRepository>>[

@@ -41,6 +41,12 @@ class _MedicationsListState extends State<MedicationsList> {
           );
         }
 
+        if (state.status == MedicationsListStatus.failure) {
+          return const Center(
+            child: Text('Error'),
+          );
+        }
+
         return ListView.builder(
           itemCount: state.medicationsList.length,
           itemBuilder: (BuildContext context, int index) {
