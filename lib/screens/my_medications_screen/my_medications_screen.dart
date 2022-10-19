@@ -49,7 +49,8 @@ class MyMedicationsScreen extends StatelessWidget {
             child: PicosInkWellButton(
               text: AppLocalizations.of(context)!.addMedication,
               onTap: () {
-                Navigator.of(context).pushNamed('/add-medication');
+                Navigator.of(context)
+                    .pushNamed('add-medication-screen/add-medication');
               },
             ),
           ),

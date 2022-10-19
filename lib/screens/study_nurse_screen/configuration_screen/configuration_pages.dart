@@ -243,8 +243,9 @@ class _ConfigurationPages extends State<ConfigurationPages> {
                   if (!mounted) {
                     return;
                   }
-                  Navigator.of(context)
-                      .pushReplacementNamed('/configuration-finish-screen');
+                  Navigator.of(context).pushReplacementNamed(
+                    'study-nurse-screen/configuration-finish-screen',
+                  );
                 }
                 if ((_currentPage == 0 &&
                         formKeyConfiguration.currentState!.validate()) ||
