@@ -15,8 +15,9 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import 'dart:math';
+
 import 'package:picos/models/abstract_database_object.dart';
-import 'package:random_password_generator/random_password_generator.dart';
 
 /// Enumeration for FormOfAddress-variable.
 enum FormOfAddress {
@@ -108,14 +109,16 @@ class Patient extends AbstractDatabaseObject {
 
   /// Method that returns a random password.
   static String _createPassword() {
-    final RandomPasswordGenerator password = RandomPasswordGenerator();
+    // A non-negative number for determining the length of the password.
+    const int length = 12;
 
-    return password.randomPassword(
-      letters: true,
-      uppercase: false,
-      numbers: true,
-      specialChar: false,
-      passwordLength: 6,
+    Random randomString = Random();
+
+    return String.fromCharCodes(
+      List<int>.generate(
+        length.abs(),
+        (int index) => randomString.nextInt(33) + 89,
+      ),
     );
   }
 
