@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_add_mono_button_bar.dart';
 
-import '../widgets/picos_list_card.dart';
+import '/../widgets/picos_list_card.dart';
 
 /// builds 'Column' as a parent widget for the given cards
 class MyCard extends StatelessWidget {
@@ -122,7 +122,7 @@ class FamilyMembersScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: const PicosAddMonoButtonBar(
-        route: '/add-family-member',
+        route: 'family-member-list-screen/add-family-member',
       ),
     );
   }
