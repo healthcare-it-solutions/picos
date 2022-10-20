@@ -39,7 +39,7 @@ class BackendTherapiesApi extends TherapiesApi {
       for (dynamic element in response) {
         _therapiesList.add(
           Therapy(
-            date: element['date'],
+            date: DateTime.parse(element['date']['iso']),
             therapy: element['therapieText'],
             objectId: element['objectId'],
             createdAt: DateTime.parse(element['createdAt']),
