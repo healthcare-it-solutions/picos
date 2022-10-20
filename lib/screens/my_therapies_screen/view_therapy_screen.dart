@@ -24,8 +24,9 @@ class ViewTherapyScreen extends StatelessWidget {
           bottomNavigationBar: PicosEditItemButtonBar(
             onTapLeft: () async {
               Therapy? newTherapy = await Navigator.of(context).pushNamed(
-                  '/my-therapy-screen/add-therapy',
-                  arguments: therapy) as Therapy;
+                '/my-therapy-screen/add-therapy',
+                arguments: therapy,
+              ) as Therapy;
 
               therapy = newTherapy;
             },
