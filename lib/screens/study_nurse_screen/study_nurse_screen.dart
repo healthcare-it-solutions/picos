@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_screen.dart';
 
 ///StudyNurseScreen
 class StudyNurseScreen extends StatelessWidget {
@@ -7,6 +8,6 @@ class StudyNurseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text('This is the stuff a study nurse should see');
+    return const ConfigurationScreen();
   }
 }

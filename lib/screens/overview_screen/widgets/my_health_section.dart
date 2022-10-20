@@ -19,8 +19,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
-import 'package:picos/screens/physicians_screen.dart';
-import 'package:picos/screens/family_members_screen.dart';
+import 'package:picos/screens/physician_list_screen/physicians_screen.dart';
+import 'package:picos/screens/family_member_list_screen/family_members_screen.dart';
 
 /// Widget which displays health-related information
 class MyHealthSection extends StatelessWidget {

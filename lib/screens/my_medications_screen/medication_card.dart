@@ -80,8 +80,10 @@ class MedicationCard extends StatelessWidget {
     return PicosListCard(
       title: _medication.compound,
       edit: () {
-        Navigator.of(context)
-            .pushNamed('/add-medication', arguments: _medication);
+        Navigator.of(context).pushNamed(
+          'add-medication-screen/add-medication',
+          arguments: _medication,
+        );
       },
       delete: () {
         context.read<MedicationsListBloc>().add(RemoveMedication(_medication));

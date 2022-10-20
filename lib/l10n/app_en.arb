@@ -188,6 +188,11 @@
         "description": "Mrs."
     },
 
+    "diverse": "Diverse",
+    "@diverse": {
+        "description": "Diverse"
+    },
+
     "chooseFamilyMember": "Choose your family member",
     "@chooseFamilyMember": {
         "description": "Choose your family member"
@@ -383,9 +388,124 @@
         "description": "months"
     },
 
+    "configuration": "Configuration",
+    "@configuration": {
+        "description": "Configuration"
+    },
+
+    "startConfiguration": "Start configuration",
+    "@startConfiguration": {
+        "description": "Start configuration"
+    },
+
+    "letsStart": "Let's start",
+    "@letsStart": {
+        "description": "Let's start"
+    },
+
+    "back": "Back",
+    "@back": {
+        "description": "Back"
+    },
+
+    "configurationFinished": "That's it! - PICOS is now ready!",
+    "@configurationFinished": {
+        "description": "That's it! - PICOS is now ready!"
+    },
+
+    "endConfiguration": "End configuration",
+    "@endConfiguration": {
+        "description": "End configuration"
+    },
+
+    "finishText": "Discharge: Entries of the initial values..",
+    "@finishText": {
+        "description": "Discharge: Entries of the initial values.."
+    },
+
+    "medication": "Medication",
+    "@medication": {
+        "description": "Medication"
+    },
+
     "therapy": "Therapy",
     "@therapy": {
         "description": "Therapy"
+    },
+
+    "doctorsVisit": "Doctor's visit",
+    "@doctorsVisit": {
+        "description": "Doctor's visit"
+    },
+
+    "medicationAndTherapy": "Medication & Therapy",
+    "@medicationAndTherapy": {
+        "description": "Medication & Therapy"
+    },
+
+    "infoText1": "Patient ID-12345 takes part in the section",
+    "@infoText1": {
+        "description": "Patient ID-12345 takes part in the section "
+    },
+
+    "infoText2": "with the following information:",
+    "@infoText2": {
+        "description": "with the following information:"
+    },
+
+    "bodyAndMind": "Body & Mind",
+    "@bodyAndMind": {
+        "description": "Body & Mind"
+    },
+
+    "pain": "Pain",
+    "@pain": {
+        "description": "Pain"
+    },
+
+    "activityAndRest": "Activity & Rest",
+    "@activityAndRest": {
+        "description": "Activity & Rest"
+    },
+
+    "walkDistance": "Walk distance",
+    "@walkDistance": {
+        "description": "Walk distance"
+    },
+
+    "sleepDuration": "Sleep duration",
+    "@sleepDuration": {
+        "description": "Sleep duration"
+    },
+
+    "sleepQuality": "Sleep quality",
+    "@sleepQuality": {
+        "description": "Sleep quality"
+    },
+
+    "vitalValues": "Vital values",
+    "@vitalValues": {
+        "description": "Vital values"
+    },
+
+    "weightBMI": "Weight & BMI",
+    "@weightBMI": {
+        "description": "Weight & BMI"
+    },
+
+    "heartFrequency": "Heart frequency",
+    "@heartFrequency": {
+        "description": "Heart frequency"
+    },
+
+    "bloodPressure": "Blood pressure",
+    "@bloodPressure": {
+        "description": "Blood pressure"
+    },
+
+    "bloodSugarLevels": "Blood sugar levels",
+    "@bloodSugarLevels": {
+        "description": "Blood sugar levels"
     },
 
     "myTherapy": "My Therapy",

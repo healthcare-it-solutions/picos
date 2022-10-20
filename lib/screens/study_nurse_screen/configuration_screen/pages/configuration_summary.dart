@@ -17,23 +17,24 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/screens/my_medications_screen/medications_list.dart';
-import 'package:picos/widgets/picos_screen_frame.dart';
+import 'package:picos/widgets/picos_body.dart';
 
-import '../../widgets/picos_add_mono_button_bar.dart';
-
-/// Shows a list with all personal medication plans.
-class MyMedicationsScreen extends StatelessWidget {
-  /// Creates MyMedicationsScreen
-  const MyMedicationsScreen({Key? key}) : super(key: key);
+/// Shows summary page for configuration.
+class ConfigurationSummary extends StatefulWidget {
+  /// Constructor of summary page for configuration.
+  const ConfigurationSummary({Key? key}) : super(key: key);
 
   @override
+  State<ConfigurationSummary> createState() => _ConfigurationSummaryState();
+}
+
+class _ConfigurationSummaryState extends State<ConfigurationSummary> {
+  @override
   Widget build(BuildContext context) {
-    return PicosScreenFrame(
-      title: AppLocalizations.of(context)!.myMedications,
-      body: const MedicationsList(),
-      bottomNavigationBar: const PicosAddMonoButtonBar(
-        route: 'add-medication-screen/add-medication',
+    return PicosBody(
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Text(AppLocalizations.of(context)!.finishText),
       ),
     );
   }

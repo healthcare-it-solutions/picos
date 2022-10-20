@@ -24,6 +24,7 @@ import 'package:queen_validators/queen_validators.dart';
 enum Gender {
   /// element for denoting the title of men
   male,
+
   /// element for denoting the title of women
   female,
 }
