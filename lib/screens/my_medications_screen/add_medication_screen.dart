@@ -23,11 +23,11 @@ import 'package:picos/widgets/picos_add_button_bar.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:picos/widgets/picos_select.dart';
 
-import '../repository/medications_repository.dart';
-import '../state/medications/medications_list_bloc.dart';
-import '../widgets/picos_body.dart';
-import '../widgets/picos_label.dart';
-import '../widgets/picos_text_field.dart';
+import '../../repository/medications_repository.dart';
+import '../../state/medications/medications_list_bloc.dart';
+import '../../widgets/picos_body.dart';
+import '../../widgets/picos_label.dart';
+import '../../widgets/picos_text_field.dart';
 
 /// A screen for adding new medication schedules.
 class AddMedicationScreen extends StatefulWidget {

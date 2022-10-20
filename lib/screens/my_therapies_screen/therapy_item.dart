@@ -46,7 +46,8 @@ class TherapyItem extends StatelessWidget {
         ),
       ),
       onTap: () {
-        Navigator.of(context).pushNamed('/view-therapy', arguments: _therapy);
+        Navigator.of(context)
+            .pushNamed('/my-therapy-screen/view-therapy', arguments: _therapy);
       },
     );
   }

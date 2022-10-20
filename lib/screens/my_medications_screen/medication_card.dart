@@ -81,7 +81,7 @@ class MedicationCard extends StatelessWidget {
       title: _medication.compound,
       edit: () {
         Navigator.of(context).pushNamed(
-          'add-medication-screen/add-medication',
+          '/my-medication-screen/add-medication',
           arguments: _medication,
         );
       },

@@ -71,7 +71,7 @@ class ConfigurationScreen extends StatelessWidget {
               onTap: () {
                 Navigator.pushReplacementNamed(
                   context,
-                  'study-nurse-screen/configuration-pages',
+                  '/study-nurse-screen/configuration-pages',
                 );
               },
             ),

@@ -31,7 +31,7 @@ class MyTherapiesScreen extends StatelessWidget {
     return PicosScreenFrame(
       body: const TherapiesList(),
       bottomNavigationBar: const PicosAddMonoButtonBar(
-        route: '/add-therapy',
+        route: '/my-therapy-screen/add-therapy',
       ),
       title: AppLocalizations.of(context)!.myTherapy,
     );

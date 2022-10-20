@@ -7,7 +7,7 @@ import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../models/therapy.dart';
+import '../../models/therapy.dart';
 
 /// Shows a single therapy item.
 class ViewTherapyScreen extends StatelessWidget {
@@ -23,8 +23,9 @@ class ViewTherapyScreen extends StatelessWidget {
         return PicosScreenFrame(
           bottomNavigationBar: PicosEditItemButtonBar(
             onTapLeft: () async {
-              Therapy? newTherapy = await Navigator.of(context)
-                  .pushNamed('/add-therapy', arguments: therapy) as Therapy;
+              Therapy? newTherapy = await Navigator.of(context).pushNamed(
+                  '/my-therapy-screen/add-therapy',
+                  arguments: therapy) as Therapy;
 
               therapy = newTherapy;
             },

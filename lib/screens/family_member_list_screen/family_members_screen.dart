@@ -122,7 +122,7 @@ class FamilyMembersScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: const PicosAddMonoButtonBar(
-        route: 'family-member-list-screen/add-family-member',
+        route: '/family-member-list-screen/add-family-member',
       ),
     );
   }

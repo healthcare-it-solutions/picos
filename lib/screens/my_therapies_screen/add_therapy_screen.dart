@@ -21,13 +21,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 
-import '../models/therapy.dart';
-import '../state/therapies/therapies_list_bloc.dart';
-import '../themes/global_theme.dart';
-import '../widgets/picos_body.dart';
-import '../widgets/picos_label.dart';
-import '../widgets/picos_text_area.dart';
-import '../widgets/picos_text_field.dart';
+import '../../models/therapy.dart';
+import '../../state/therapies/therapies_list_bloc.dart';
+import '../../themes/global_theme.dart';
+import '../../widgets/picos_body.dart';
+import '../../widgets/picos_label.dart';
+import '../../widgets/picos_text_area.dart';
+import '../../widgets/picos_text_field.dart';
 
 /// A screen for adding new therapies.
 class AddTherapyScreen extends StatefulWidget {

@@ -46,27 +46,28 @@ class PicosMenu extends StatelessWidget {
           title: Text(AppLocalizations.of(context)!.medicationScheme),
           trailing: const Icon(Icons.keyboard_arrow_right),
           onTap: () => Navigator.of(context)
-              .pushNamed('my-medications-screen/my-medications'),
+              .pushNamed('/my-medications-screen/my-medications'),
         ),
         ListTile(
           leading: const Icon(Icons.add_circle_outline),
           title: Text(AppLocalizations.of(context)!.therapy),
           trailing: const Icon(Icons.keyboard_arrow_right),
-          onTap: () => Navigator.of(context).pushNamed('/my-therapies'),
+          onTap: () =>
+              Navigator.of(context).pushNamed('/my-therapy-screen/my-therapy'),
         ),
         ListTile(
           leading: const Icon(Icons.groups),
           title: Text(AppLocalizations.of(context)!.physicians),
           trailing: const Icon(Icons.keyboard_arrow_right),
           onTap: () => Navigator.of(context)
-              .pushNamed('physician-list-screen/physicians'),
+              .pushNamed('/physician-list-screen/physicians'),
         ),
         ListTile(
           leading: const Icon(Icons.people),
           title: Text(AppLocalizations.of(context)!.familyMembers),
           trailing: const Icon(Icons.keyboard_arrow_right),
           onTap: () => Navigator.of(context)
-              .pushNamed('family-member-list-screen/family-members'),
+              .pushNamed('/family-member-list-screen/family-members'),
         ),
         ListTile(
           leading: const Icon(Icons.description),

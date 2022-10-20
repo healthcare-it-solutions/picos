@@ -33,7 +33,7 @@ class MyMedicationsScreen extends StatelessWidget {
       title: AppLocalizations.of(context)!.myMedications,
       body: const MedicationsList(),
       bottomNavigationBar: const PicosAddMonoButtonBar(
-        route: 'add-medication-screen/add-medication',
+        route: '/my-medication-screen/add-medication',
       ),
     );
   }
