@@ -64,7 +64,7 @@ class Backend {
     // TODO: maybe refactor for type safety
     String res = await user.get('Role');
 
-    return routes[res] ?? 'main-screen/mainscreen';
+    return routes[res] ?? '/main-screen/mainscreen';
   }
 
   /// Retrieves all possible objects from a [table].
