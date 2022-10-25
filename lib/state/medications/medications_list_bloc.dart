@@ -21,7 +21,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:picos/repository/medications_repository.dart';
 
-import '../models/medication.dart';
+import '../../models/medication.dart';
 
 part 'medications_list_event.dart';
 

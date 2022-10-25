@@ -126,7 +126,7 @@ class PhysiciansScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: const PicosAddMonoButtonBar(
-        route: 'physician-list-screen/add-physician',
+        route: '/physician-list-screen/add-physician',
       ),
     );
   }

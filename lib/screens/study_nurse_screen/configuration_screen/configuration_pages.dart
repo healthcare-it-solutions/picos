@@ -244,7 +244,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
                     return;
                   }
                   Navigator.of(context).pushReplacementNamed(
-                    'study-nurse-screen/configuration-finish-screen',
+                    '/study-nurse-screen/configuration-finish-screen',
                   );
                 }
                 if ((_currentPage == 0 &&

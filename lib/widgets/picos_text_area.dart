@@ -16,11 +16,12 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:picos/widgets/picos_text_field.dart';
 
-/// A pre configured text field widget.
-class PicosTextField extends StatelessWidget {
+/// A pre configured text field widget for a text area.
+class PicosTextArea extends StatelessWidget {
   /// Creates a text field.
-  const PicosTextField({
+  const PicosTextArea({
     this.onChanged,
     Key? key,
     this.disabled = false,
@@ -28,9 +29,7 @@ class PicosTextField extends StatelessWidget {
     this.autofocus = false,
     this.onTap,
     this.readOnly = false,
-    this.height = 55,
-    this.maxLines = 1,
-    this.contentPadding,
+    this.maxLines = 5,
     this.initialValue,
   }) : super(key: key);
 
@@ -52,60 +51,29 @@ class PicosTextField extends StatelessWidget {
   /// Whether the text can be changed.
   final bool readOnly;
 
-  /// The text field height.
-  final double height;
-
   /// The maximum number of lines shown.
   final int maxLines;
-
-  /// The padding for the content.
-  final EdgeInsetsGeometry? contentPadding;
 
   /// Populates the field with an initial value.
   final String? initialValue;
 
   @override
   Widget build(BuildContext context) {
-    final BorderRadius borderRadius = BorderRadius.circular(7);
-
-    OutlineInputBorder border = OutlineInputBorder(
-      borderRadius: borderRadius,
-      borderSide: BorderSide(
-        color: Colors.grey.shade400,
+    return PicosTextField(
+      maxLines: maxLines,
+      height: maxLines * 24 + 31,
+      readOnly: readOnly,
+      onTap: onTap,
+      hint: hint,
+      autofocus: autofocus,
+      disabled: disabled,
+      onChanged: onChanged,
+      contentPadding: const EdgeInsets.only(
+        bottom: 15,
+        left: 15,
+        right: 15,
       ),
-    );
-
-    return Container(
-      padding: const EdgeInsets.all(4),
-      width: double.infinity,
-      height: height,
-      child: TextFormField(
-        cursorColor: Theme.of(context).focusColor,
-        enabled: !disabled,
-        decoration: InputDecoration(
-          enabledBorder: border,
-          border: border,
-          focusedBorder: OutlineInputBorder(
-            borderRadius: borderRadius,
-            borderSide: BorderSide(
-              color: Theme.of(context).focusColor,
-              width: 2.5,
-            ),
-          ),
-          hintText: hint,
-          contentPadding: contentPadding ?? EdgeInsets.only(
-            bottom: height / 2,
-            left: 15,
-            right: 15,
-          ),
-        ),
-        autofocus: autofocus,
-        onChanged: onChanged ?? (_) {},
-        onTap: onTap ?? () {},
-        readOnly: readOnly,
-        maxLines: maxLines,
-        initialValue: initialValue,
-      ),
+      initialValue: initialValue,
     );
   }
 }

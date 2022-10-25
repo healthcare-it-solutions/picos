@@ -19,13 +19,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/models/medication.dart';
-import 'package:picos/screens/add_medication_screen/add_medication_screen_label.dart';
-import 'package:picos/widgets/picos_ink_well_button.dart';
+import 'package:picos/widgets/picos_add_button_bar.dart';
+import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:picos/widgets/picos_select.dart';
 
 import '../../repository/medications_repository.dart';
-import '../../state/medications_list_bloc.dart';
+import '../../state/medications/medications_list_bloc.dart';
 import '../../widgets/picos_body.dart';
+import '../../widgets/picos_label.dart';
 import '../../widgets/picos_text_field.dart';
 
 /// A screen for adding new medication schedules.
@@ -182,164 +183,144 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
       top: 5,
     );
 
-    String addText = AppLocalizations.of(context)!.enterCompound;
-
-    if (!_addDisabled) {
-      addText = AppLocalizations.of(context)!.add;
-    }
-
-    if (!_addDisabled && medicationEdit != null) {
-      addText = AppLocalizations.of(context)!.save;
-    }
-
     return BlocBuilder<MedicationsListBloc, MedicationsListState>(
       builder: (BuildContext context, MedicationsListState state) {
-        return Container(
-          color: Theme.of(context).appBarTheme.backgroundColor,
-          child: SafeArea(
-            child: Scaffold(
-              bottomNavigationBar: PicosInkWellButton(
-                disabled: _addDisabled,
-                text: addText,
-                onTap: () {
-                  Medication medication = _medicationEdit ??
-                      Medication(
-                        compound: _compound!,
-                        morning: _morning,
-                        noon: _noon,
-                        evening: _evening,
-                        night: _night,
-                      );
-
-                  if (_medicationEdit != null) {
-                    medication = medication.copyWith(
-                      morning: _morning,
-                      noon: _noon,
-                      evening: _evening,
-                      night: _night,
-                    );
-                  }
-
-                  context
-                      .read<MedicationsListBloc>()
-                      .add(SaveMedication(medication));
-                  Navigator.of(context).pop();
-                },
-              ),
-              appBar: AppBar(
-                centerTitle: true,
-                title: Text(_title!),
-                elevation: 0,
-              ),
-              body: PicosBody(
-                child: Column(
-                  children: <Widget>[
-                    Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(7),
-                      ),
-                      color: Theme.of(context).dialogBackgroundColor,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            const Padding(
-                              padding: EdgeInsets.only(
-                                right: 15,
+        return PicosScreenFrame(
+          body: PicosBody(
+            child: Column(
+              children: <Widget>[
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                  color: Theme.of(context).dialogBackgroundColor,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        const Padding(
+                          padding: EdgeInsets.only(
+                            right: 15,
+                          ),
+                          child: Icon(Icons.info, color: infoTextFontColor),
+                        ),
+                        Flexible(
+                          child: RichText(
+                            text: TextSpan(
+                              text: AppLocalizations.of(context)!
+                                  .addMedicationInfoPart1,
+                              style: const TextStyle(
+                                color: infoTextFontColor,
+                                fontSize: 20,
                               ),
-                              child: Icon(Icons.info, color: infoTextFontColor),
-                            ),
-                            Flexible(
-                              child: RichText(
-                                text: TextSpan(
+                              children: <TextSpan>[
+                                TextSpan(
                                   text: AppLocalizations.of(context)!
-                                      .addMedicationInfoPart1,
+                                      .addMedicationInfoPart2,
                                   style: const TextStyle(
-                                    color: infoTextFontColor,
-                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text: AppLocalizations.of(context)!
-                                          .addMedicationInfoPart2,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: AppLocalizations.of(context)!
-                                          .addMedicationInfoPart3,
-                                    ),
-                                  ],
                                 ),
-                              ),
+                                TextSpan(
+                                  text: AppLocalizations.of(context)!
+                                      .addMedicationInfoPart3,
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    AddMedicationScreenLabel(
-                      label: AppLocalizations.of(context)!.compound,
-                    ),
-                    PicosTextField(
-                      onChanged: (String value) {
-                        _compound = value;
-
-                        setState(() {
-                          if (value.isNotEmpty) {
-                            _addDisabled = false;
-                            return;
-                          }
-
-                          _addDisabled = true;
-                        });
-                      },
-                      disabled: _disabledCompoundSelect,
-                      autofocus: _compoundAutoFocus,
-                      hint: _compoundHint!,
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    AddMedicationScreenLabel(
-                      label: AppLocalizations.of(context)!.intake,
-                    ),
-                    Row(
-                      children: <Expanded>[
-                        _createAmountSelect(
-                          selectPaddingRight,
-                          _morningHint,
-                          'morning',
-                        ),
-                        _createAmountSelect(
-                          selectPaddingLeft,
-                          _noonHint,
-                          'noon',
+                          ),
                         ),
                       ],
                     ),
-                    Row(
-                      children: <Expanded>[
-                        _createAmountSelect(
-                          selectPaddingRight,
-                          _eveningHint,
-                          'evening',
-                        ),
-                        _createAmountSelect(
-                          selectPaddingLeft,
-                          _nightHint,
-                          'night',
-                        ),
-                      ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                PicosLabel(
+                  label: AppLocalizations.of(context)!.compound,
+                ),
+                PicosTextField(
+                  onChanged: (String value) {
+                    _compound = value;
+
+                    setState(() {
+                      if (value.isNotEmpty) {
+                        _addDisabled = false;
+                        return;
+                      }
+
+                      _addDisabled = true;
+                    });
+                  },
+                  disabled: _disabledCompoundSelect,
+                  autofocus: _compoundAutoFocus,
+                  hint: _compoundHint!,
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                PicosLabel(
+                  label: AppLocalizations.of(context)!.intake,
+                ),
+                Row(
+                  children: <Expanded>[
+                    _createAmountSelect(
+                      selectPaddingRight,
+                      _morningHint,
+                      'morning',
+                    ),
+                    _createAmountSelect(
+                      selectPaddingLeft,
+                      _noonHint,
+                      'noon',
                     ),
                   ],
                 ),
-              ),
+                Row(
+                  children: <Expanded>[
+                    _createAmountSelect(
+                      selectPaddingRight,
+                      _eveningHint,
+                      'evening',
+                    ),
+                    _createAmountSelect(
+                      selectPaddingLeft,
+                      _nightHint,
+                      'night',
+                    ),
+                  ],
+                ),
+              ],
             ),
+          ),
+          title: _title,
+          bottomNavigationBar: PicosAddButtonBar(
+            disabled: _addDisabled,
+            onTap: () {
+              Medication medication = _medicationEdit ??
+                  Medication(
+                    compound: _compound!,
+                    morning: _morning,
+                    noon: _noon,
+                    evening: _evening,
+                    night: _night,
+                  );
+
+              if (_medicationEdit != null) {
+                medication = medication.copyWith(
+                  morning: _morning,
+                  noon: _noon,
+                  evening: _evening,
+                  night: _night,
+                );
+              }
+
+              context
+                  .read<MedicationsListBloc>()
+                  .add(SaveMedication(medication));
+              Navigator.of(context).pop();
+            },
           ),
         );
       },

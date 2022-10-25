@@ -16,24 +16,41 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/screens/my_medications_screen/medications_list.dart';
-import 'package:picos/widgets/picos_screen_frame.dart';
 
-import '../../widgets/picos_add_mono_button_bar.dart';
+import '../themes/global_theme.dart';
 
-/// Shows a list with all personal medication plans.
-class MyMedicationsScreen extends StatelessWidget {
-  /// Creates MyMedicationsScreen
-  const MyMedicationsScreen({Key? key}) : super(key: key);
+/// Creates a standardized frame useful for most picos screens.
+class PicosScreenFrame extends StatelessWidget {
+  /// Creates PicosScreenFrame.
+  const PicosScreenFrame({
+    Key? key,
+    this.bottomNavigationBar,
+    this.title,
+    this.body,
+  }) : super(key: key);
+
+  /// A Navigation bar displayed at the bottom.
+  final Widget? bottomNavigationBar;
+  /// The title of the screen.
+  final String? title;
+  /// The content inside the frame to display.
+  final Widget? body;
 
   @override
   Widget build(BuildContext context) {
-    return PicosScreenFrame(
-      title: AppLocalizations.of(context)!.myMedications,
-      body: const MedicationsList(),
-      bottomNavigationBar: const PicosAddMonoButtonBar(
-        route: '/my-medication-screen/add-medication',
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
+    return Container(
+      color: theme.darkGreen1,
+      child: SafeArea(
+        child: Scaffold(
+          bottomNavigationBar: bottomNavigationBar,
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text(title ?? ''),
+          ),
+          body: body,
+        ),
       ),
     );
   }

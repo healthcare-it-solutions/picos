@@ -467,7 +467,7 @@
     "@activityAndRest": {
         "description": "Activity & Rest"
     },
-    
+
     "walkDistance": "Walk distance",
     "@walkDistance": {
         "description": "Walk distance"
@@ -506,5 +506,40 @@
     "bloodSugarLevels": "Blood sugar levels",
     "@bloodSugarLevels": {
         "description": "Blood sugar levels"
+    },
+
+    "myTherapy": "My Therapy",
+    "@myTherapy": {
+        "description": "My Therapy"
+    },
+
+    "addTherapy": "Add therapy",
+    "@addTherapy": {
+        "description": "Add therapy"
+    },
+
+    "date": "Date",
+    "@date": {
+        "description": "Date"
+    },
+
+    "day": "Day",
+    "@day": {
+        "description": "Day"
+    },
+
+    "year": "Year",
+    "@year": {
+        "description": "Year"
+    },
+
+    "selectDate": "Select date",
+    "@selectDate": {
+        "description": "Select date"
+    },
+
+    "editTherapy": "Edit therapy",
+    "@editTherapy": {
+        "description": "Edit therapy"
     }
 }

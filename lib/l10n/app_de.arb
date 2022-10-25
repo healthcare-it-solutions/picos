@@ -101,5 +101,12 @@
     "weightBMI": "Gewicht & BMI",
     "heartFrequency": "Pulswert",
     "bloodPressure": "Blutdruck",
-    "bloodSugarLevels": "Blutzuckerwert"
+    "bloodSugarLevels": "Blutzuckerwert",
+    "myTherapy": "Meine Therapie",
+    "addTherapy": "Therapie hinzufügen",
+    "date": "Datum",
+    "day": "Tag",
+    "year": "Jahr",
+    "selectDate": "Datum auswählen",
+    "editTherapy": "Therapie bearbeiten"
 }

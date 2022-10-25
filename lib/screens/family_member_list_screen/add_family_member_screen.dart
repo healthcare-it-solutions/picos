@@ -220,7 +220,17 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
         ),
       ),
       bottomNavigationBar: PicosAddButtonBar(
-        formKey: _formKey,
+        onTap: () {
+          if (_formKey.currentState!.validate()) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  AppLocalizations.of(context)!.submitData,
+                ),
+              ),
+            );
+          }
+        },
       ),
     );
   }

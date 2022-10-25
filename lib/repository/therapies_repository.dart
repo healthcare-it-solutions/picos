@@ -15,26 +15,31 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import 'package:flutter/material.dart';
+import 'package:picos/api/therapies_api.dart';
 
-/// Creates a simple label.
-class AddMedicationScreenLabel extends StatelessWidget {
-  /// Creates the label.
-  const AddMedicationScreenLabel({required this.label, Key? key})
-      : super(key: key);
+import '../models/therapy.dart';
 
-  /// The label to be shown.
-  final String label;
+/// A repository that handles therapy related requests.
+class TherapiesRepository {
+  /// TherapiesRepository constructor.
+  const TherapiesRepository({
+    required TherapiesApi therapiesApi,
+  }) : _therapiesApi = therapiesApi;
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(5),
-      width: double.infinity,
-      child: Text(
-        label,
-        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-      ),
-    );
+  final TherapiesApi _therapiesApi;
+
+  /// Provides a [Stream] of all therapies.
+  Future<Stream<List<Therapy>>> getTherapies() {
+    return _therapiesApi.getTherapies();
+  }
+
+  /// Saves or replaces a [therapy].
+  Future<void> saveTherapy(Therapy therapy) {
+    return _therapiesApi.saveTherapy(therapy);
+  }
+
+  /// Removes a given [therapy].
+  Future<void> removeTherapy(Therapy therapy) {
+    return _therapiesApi.removeTherapy(therapy);
   }
 }

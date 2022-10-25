@@ -16,15 +16,39 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_screen.dart';
 
-///StudyNurseScreen
-class StudyNurseScreen extends StatelessWidget {
-  ///StudyNurseScreen Constructor
-  const StudyNurseScreen({Key? key}) : super(key: key);
+import '../../models/therapy.dart';
+import '../../themes/global_theme.dart';
+
+/// Displays a therapy item.
+class TherapyItem extends StatelessWidget {
+  /// Creates TherapyItem.
+  const TherapyItem(
+    this._therapy, {
+    Key? key,
+  }) : super(key: key);
+
+  final Therapy _therapy;
 
   @override
   Widget build(BuildContext context) {
-    return const ConfigurationScreen();
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
+    return ListTile(
+      title: Text(_therapy.dateString),
+      trailing: Padding(
+        padding: const EdgeInsets.only(
+          right: 10,
+        ),
+        child: Icon(
+          Icons.arrow_forward_ios_rounded,
+          color: theme.green2,
+        ),
+      ),
+      onTap: () {
+        Navigator.of(context)
+            .pushNamed('/my-therapy-screen/view-therapy', arguments: _therapy);
+      },
+    );
   }
 }
