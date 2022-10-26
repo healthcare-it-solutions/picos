@@ -413,6 +413,11 @@
         "description": "That's it! - PICOS is now ready!"
     },
 
+    "questionnaireFinished": "That's it! - thank you for your participation!",
+    "@questionnaireFinished": {
+        "description": "That's it! - thank you for your participation!"
+    },
+
     "endConfiguration": "End configuration",
     "@endConfiguration": {
         "description": "End configuration"
@@ -503,9 +508,9 @@
         "description": "Blood pressure"
     },
 
-    "bloodSugarLevels": "Blood sugar levels",
-    "@bloodSugarLevels": {
-        "description": "Blood sugar levels"
+    "bloodSugar": "Blood sugar",
+    "@bloodSugar": {
+        "description": "Blood sugar"
     },
 
     "myTherapy": "My Therapy",
@@ -541,5 +546,25 @@
     "editTherapy": "Edit therapy",
     "@editTherapy": {
         "description": "Edit therapy"
+    },
+
+    "bodyWeight": "Body weight",
+    "@bodyWeight": {
+        "description": "Body weight"
+    },
+
+    "possibleWalkDistance": "Possible walking distance within 2 minutes",
+    "@possibleWalkDistance": {
+        "description": "Possible walking distance within 2 minutes"
+    },
+
+    "hrs": "Hrs.",
+    "@hrs": {
+        "description": "Hrs."
+    },
+
+    "autoCalc": "(auto. calculation)",
+    "@autoCalc": {
+        "description": "(auto. calculation)"
     }
 }
