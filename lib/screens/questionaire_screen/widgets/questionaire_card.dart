@@ -17,13 +17,19 @@
 
 import 'package:flutter/material.dart';
 
+import '../../../widgets/picos_label.dart';
+
 /// Card item for displaying some input for use inside the QuestionaireScreen.
 class QuestionaireCard extends StatelessWidget {
   /// Creates a QuestionaireCard.
   const QuestionaireCard({
     required this.child,
+    this.label = '',
     Key? key,
   }) : super(key: key);
+
+  /// The label of the questionaire card.
+  final String label;
 
   /// The title of the input field.
   final Widget child;
@@ -37,7 +43,14 @@ class QuestionaireCard extends StatelessWidget {
         elevation: 5,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-          child: child,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              PicosLabel(label: label),
+              const SizedBox(height: 15),
+              child,
+            ],
+          ),
         ),
       ),
     );
