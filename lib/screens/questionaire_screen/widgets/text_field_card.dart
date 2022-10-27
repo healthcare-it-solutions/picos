@@ -18,7 +18,6 @@
 import 'package:flutter/material.dart';
 import 'package:picos/screens/questionaire_screen/widgets/questionaire_card.dart';
 
-import '../../../widgets/picos_label.dart';
 import '../../../widgets/picos_text_field.dart';
 
 /// A card with a TextField inside it.
@@ -39,16 +38,10 @@ class TextFieldCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return QuestionaireCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          PicosLabel(label: label),
-          const SizedBox(height: 15),
-          PicosTextField(
-            hint: hint,
-            keyboardType: TextInputType.number,
-          ),
-        ],
+      label: label,
+      child: PicosTextField(
+        hint: hint,
+        keyboardType: TextInputType.number,
       ),
     );
   }
