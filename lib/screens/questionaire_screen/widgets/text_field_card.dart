@@ -26,6 +26,7 @@ class TextFieldCard extends StatelessWidget {
   const TextFieldCard({
     this.label = '',
     this.hint = '',
+    this.onChanged,
     Key? key,
   }) : super(key: key);
 
@@ -35,11 +36,15 @@ class TextFieldCard extends StatelessWidget {
   /// The hint shown in the text field.
   final String hint;
 
+  /// The function that is executed when the user writes something.
+  final dynamic Function(String value)? onChanged;
+
   @override
   Widget build(BuildContext context) {
     return QuestionaireCard(
       label: label,
       child: PicosTextField(
+        onChanged: onChanged,
         hint: hint,
         keyboardType: TextInputType.number,
       ),
