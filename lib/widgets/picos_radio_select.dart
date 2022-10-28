@@ -22,7 +22,7 @@ class PicosRadioSelect extends StatefulWidget {
   /// Creates PicosRadioSelect.
   const PicosRadioSelect({
     required this.selection,
-    required this.callBackFunction,
+    required this.callBack,
     Key? key,
   }) : super(key: key);
 
@@ -31,7 +31,7 @@ class PicosRadioSelect extends StatefulWidget {
   final Map<String, dynamic> selection;
 
   /// The function that is executed when an item gets selected.
-  final Function(dynamic value) callBackFunction;
+  final Function(dynamic value) callBack;
 
   @override
   State<PicosRadioSelect> createState() => _PicosRadioSelectState();
@@ -49,7 +49,7 @@ class _PicosRadioSelectState extends State<PicosRadioSelect> {
           groupValue: _selectValue,
           onChanged: (dynamic newValue) {
             setState(() {
-              widget.callBackFunction(newValue);
+              widget.callBack(newValue);
               _selectValue = newValue;
             });
           },
