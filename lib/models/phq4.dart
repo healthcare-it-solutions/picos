@@ -22,10 +22,10 @@ class PHQ4 extends AbstractDatabaseObject {
   /// Creates a PHQ4 object.
   const PHQ4({
     required this.date,
-    required this.a,
-    required this.b,
-    required this.c,
-    required this.d,
+    this.a,
+    this.b,
+    this.c,
+    this.d,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -35,16 +35,16 @@ class PHQ4 extends AbstractDatabaseObject {
   static const String databaseTable = 'PICOS_PHQ4';
 
   /// Answer to question a.
-  final int a;
+  final int? a;
 
   /// Answer to question b.
-  final int b;
+  final int? b;
 
   /// Answer to question c.
-  final int c;
+  final int? c;
 
   /// Answer to question d.
-  final int d;
+  final int? d;
 
   /// The assessment date.
   final DateTime date;
@@ -79,10 +79,6 @@ class PHQ4 extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-    a,
-    b,
-    c,
-    d,
     date,
   ];
 

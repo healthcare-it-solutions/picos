@@ -22,12 +22,12 @@ class Daily extends AbstractDatabaseObject {
   /// Creates a Daily object.
   const Daily({
     required this.date,
-    required this.heartRate,
-    required this.bloodSugar,
-    required this.bloodSystolic,
-    required this.bloodDiastolic,
-    required this.sleepDuration,
-    required this.pain,
+    this.heartFrequency,
+    this.bloodSugar,
+    this.bloodSystolic,
+    this.bloodDiastolic,
+    this.sleepDuration,
+    this.pain,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -36,23 +36,23 @@ class Daily extends AbstractDatabaseObject {
   /// The database table the objects are stored in.
   static const String databaseTable = 'PICOS_daily';
 
-  /// The patients heart rate.
-  final int heartRate;
+  /// The patients heart frequency.
+  final int? heartFrequency;
 
   /// The patients blood sugar value.
-  final int bloodSugar;
+  final int? bloodSugar;
 
   /// The patients blood pressure systolic value.
-  final int bloodSystolic;
+  final int? bloodSystolic;
 
   /// The patients blood pressure diastolic value.
-  final int bloodDiastolic;
+  final int? bloodDiastolic;
 
   /// The patients sleep duration.
-  final int sleepDuration;
+  final int? sleepDuration;
 
   /// The patients pain assessment.
-  final int pain;
+  final int? pain;
 
   /// The assessment date.
   final DateTime date;
@@ -65,7 +65,7 @@ class Daily extends AbstractDatabaseObject {
   @override
   Daily copyWith({
     DateTime? date,
-    int? heartRate,
+    int? heartFrequency,
     int? bloodSugar,
     int? bloodSystolic,
     int? bloodDiastolic,
@@ -77,7 +77,7 @@ class Daily extends AbstractDatabaseObject {
   }) {
     return Daily(
       date: date ?? this.date,
-      heartRate: heartRate ?? this.heartRate,
+      heartFrequency: heartFrequency ?? this.heartFrequency,
       bloodSugar: bloodSugar ?? this.bloodSugar,
       bloodSystolic: bloodSystolic ?? this.bloodSystolic,
       bloodDiastolic: bloodDiastolic ?? this.bloodDiastolic,
@@ -91,18 +91,12 @@ class Daily extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-        heartRate,
-        bloodSugar,
-        bloodSystolic,
-        bloodDiastolic,
-        sleepDuration,
-        pain,
         date,
       ];
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
-        'HeartRate': heartRate,
+        'HeartRate': heartFrequency,
         'BloodSugar': bloodSugar,
         'BloodPSystolic': bloodSystolic,
         'BloodPDiastolic': bloodDiastolic,

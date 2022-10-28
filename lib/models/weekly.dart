@@ -22,10 +22,10 @@ class Weekly extends AbstractDatabaseObject {
   /// Creates a Daily object.
   const Weekly({
     required this.date,
-    required this.bodyWeight,
-    required this.bmi,
-    required this.sleepQuality,
-    required this.walkingDistance,
+    this.bodyWeight,
+    this.bmi,
+    this.sleepQuality,
+    this.walkingDistance,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -35,16 +35,16 @@ class Weekly extends AbstractDatabaseObject {
   static const String databaseTable = 'PICOS_weekly';
 
   /// The patients body weight.
-  final int bodyWeight;
+  final int? bodyWeight;
 
   /// The patients BMI.
-  final int bmi;
+  final int? bmi;
 
   /// The patients sleep quality assessment.
-  final int sleepQuality;
+  final int? sleepQuality;
 
   /// The patients walking distance.
-  final int walkingDistance;
+  final int? walkingDistance;
 
   /// The assessment date.
   final DateTime date;
@@ -79,10 +79,6 @@ class Weekly extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-    bodyWeight,
-    bmi,
-    sleepQuality,
-    walkingDistance,
     date,
   ];
 
