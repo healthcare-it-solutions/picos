@@ -57,7 +57,7 @@ class RadioSelectCard extends StatelessWidget {
     children.add(
       PicosRadioSelect(
         selection: options,
-        callBackFunction: callBackFunction,
+        callBack: callBackFunction,
       ),
     );
 
