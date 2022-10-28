@@ -18,6 +18,8 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
+import 'package:picos/models/phq4.dart';
+import 'package:picos/models/weekly.dart';
 import 'package:picos/screens/questionaire_screen/widgets/cover.dart';
 import 'package:picos/screens/questionaire_screen/widgets/questionaire_card.dart';
 import 'package:picos/screens/questionaire_screen/widgets/radio_select_card.dart';
@@ -26,6 +28,9 @@ import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:picos/widgets/picos_text_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../models/daily.dart';
+import '../../util/backend.dart';
 
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
@@ -74,10 +79,27 @@ class QuestionaireScreen extends StatelessWidget {
   static Map<String, dynamic>? _bodyAndMindValues;
   static Map<String, dynamic>? _medicationAndTherapyValues;
 
-  static List<PicosBody>? _pageViews;
-
   @override
   Widget build(BuildContext context) {
+    List<PicosBody> pageViews;
+
+    // Value store for the user
+    int? selectedBodyWeight;
+    int? selectedBMI;
+    int? selectedHeartFrequency;
+    int? selectedSyst;
+    int? selectedDias;
+    int? selectedBloodSugar;
+    int? selectedWalkDistance;
+    int? selectedSleepDuration;
+    int? selectedSleepQuality;
+    int? selectedPain;
+    int? selectedQuestionA;
+    int? selectedQuestionB;
+    int? selectedQuestionC;
+    int? selectedQuestionD;
+
+    // Class init.
     if (_myEntries == null) {
       _myEntries = AppLocalizations.of(context)!.myEntries;
       _vitalValues = AppLocalizations.of(context)!.vitalValues;
@@ -127,145 +149,223 @@ class QuestionaireScreen extends StatelessWidget {
         AppLocalizations.of(context)!.yes: true,
         AppLocalizations.of(context)!.no: false,
       };
+    }
 
-      _pageViews = <PicosBody>[
-        PicosBody(child: Cover(title: _vitalValues!)),
-        PicosBody(
-          child: Column(
-            children: <TextFieldCard>[
-              TextFieldCard(
-                label: _bodyWeight!,
-                hint: 'kg',
+    pageViews = <PicosBody>[
+      PicosBody(child: Cover(title: _vitalValues!)),
+      PicosBody(
+        child: Column(
+          children: <TextFieldCard>[
+            TextFieldCard(
+              label: _bodyWeight!,
+              hint: 'kg',
+              onChanged: (String value) {
+                selectedBodyWeight = int.tryParse(value);
+              },
+            ),
+            TextFieldCard(
+              label: 'BMI',
+              hint: 'kg/m² ${_autoCalc!}',
+              onChanged: (String value) {
+                selectedBMI = int.tryParse(value);
+              },
+            ),
+          ],
+        ),
+      ),
+      PicosBody(
+        child: TextFieldCard(
+          label: _heartFrequency!,
+          hint: 'bpm',
+          onChanged: (String value) {
+            selectedHeartFrequency = int.tryParse(value);
+          },
+        ),
+      ),
+      PicosBody(
+        child: QuestionaireCard(
+          label: _bloodPressure!,
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: PicosTextField(
+                  hint: 'Syst',
+                  maxLength: 3,
+                  keyboardType: TextInputType.number,
+                  onChanged: (String value) {
+                    selectedSyst = int.tryParse(value);
+                  },
+                ),
               ),
-              TextFieldCard(
-                label: 'BMI',
-                hint: 'kg/m² ${_autoCalc!}',
+              const Padding(
+                padding: EdgeInsets.only(bottom: 20, left: 10, right: 10),
+                child: Text('/', style: TextStyle(fontSize: 20)),
+              ),
+              Expanded(
+                child: PicosTextField(
+                  hint: 'Dias',
+                  maxLength: 3,
+                  keyboardType: TextInputType.number,
+                  onChanged: (String value) {
+                    selectedDias = int.tryParse(value);
+                  },
+                ),
               ),
             ],
           ),
         ),
-        PicosBody(
-          child: TextFieldCard(
-            label: _heartFrequency!,
-            hint: 'bpm',
-          ),
+      ),
+      PicosBody(
+        child: TextFieldCard(
+          label: _bloodSugar!,
+          hint: 'mg/dL',
+          onChanged: (String value) {
+            selectedBloodSugar = int.tryParse(value);
+          },
         ),
-        PicosBody(
-          child: QuestionaireCard(
-            label: _bloodPressure!,
-            child: Row(
-              children: const <Widget>[
-                Expanded(
-                  child: PicosTextField(
-                    hint: 'Syst',
-                    maxLength: 3,
-                    keyboardType: TextInputType.number,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 20, left: 10, right: 10),
-                  child: Text('/', style: TextStyle(fontSize: 20)),
-                ),
-                Expanded(
-                  child: PicosTextField(
-                    hint: 'Dias',
-                    maxLength: 3,
-                    keyboardType: TextInputType.number,
-                  ),
-                ),
-              ],
-            ),
-          ),
+      ),
+      PicosBody(child: Cover(title: _activityAndRest!)),
+      PicosBody(
+        child: TextFieldCard(
+          label: _possibleWalkDistance!,
+          hint: 'Meter',
+          onChanged: (String value) {
+            selectedWalkDistance = int.tryParse(value);
+          },
         ),
-        PicosBody(
-          child: TextFieldCard(
-            label: _bloodSugar!,
-            hint: 'mg/dL',
-          ),
+      ),
+      PicosBody(
+        child: TextFieldCard(
+          label: _sleepDuration!,
+          hint: _hrs!,
+          onChanged: (String value) {
+            selectedSleepDuration = int.tryParse(value);
+          },
         ),
-        PicosBody(child: Cover(title: _activityAndRest!)),
-        PicosBody(
-          child: TextFieldCard(
-            label: _possibleWalkDistance!,
-            hint: 'Meter',
-          ),
+      ),
+      PicosBody(
+        child: RadioSelectCard(
+          callBack: (dynamic value) {
+            selectedSleepQuality = value as int;
+          },
+          label: _sleepQuality7Days!,
+          options: _sleepQualityValues,
         ),
-        PicosBody(
-          child: TextFieldCard(
-            label: _sleepDuration!,
-            hint: _hrs!,
-          ),
+      ),
+      PicosBody(child: Cover(title: _bodyAndMind!)),
+      PicosBody(
+        child: RadioSelectCard(
+          callBack: (dynamic value) {
+            selectedPain = value as int;
+          },
+          label: _pain!,
+          options: _painValues!,
         ),
-        PicosBody(
-          child: RadioSelectCard(
-            callBackFunction: (dynamic value) {},
-            label: _sleepQuality7Days!,
-            options: _sleepQualityValues,
-          ),
+      ),
+      PicosBody(
+        child: RadioSelectCard(
+          callBack: (dynamic value) {
+            selectedQuestionA = value as int;
+          },
+          label: _howOftenAffected!,
+          description: _lowInterest!,
+          options: _bodyAndMindValues!,
         ),
-        PicosBody(child: Cover(title: _bodyAndMind!)),
-        PicosBody(
-          child: RadioSelectCard(
-            callBackFunction: (dynamic value) {},
-            label: _pain!,
-            options: _painValues!,
-          ),
+      ),
+      PicosBody(
+        child: RadioSelectCard(
+          callBack: (dynamic value) {
+            selectedQuestionB = value as int;
+          },
+          label: _howOftenAffected!,
+          description: _dejection!,
+          options: _bodyAndMindValues!,
         ),
-        PicosBody(
-          child: RadioSelectCard(
-            callBackFunction: (dynamic value) {},
-            label: _howOftenAffected!,
-            description: _lowInterest!,
-            options: _bodyAndMindValues!,
-          ),
+      ),
+      PicosBody(
+        child: RadioSelectCard(
+          callBack: (dynamic value) {
+            selectedQuestionC = value as int;
+          },
+          label: _howOftenAffected!,
+          description: _nervousness!,
+          options: _bodyAndMindValues!,
         ),
-        PicosBody(
-          child: RadioSelectCard(
-            callBackFunction: (dynamic value) {},
-            label: _howOftenAffected!,
-            description: _dejection!,
-            options: _bodyAndMindValues!,
-          ),
+      ),
+      PicosBody(
+        child: RadioSelectCard(
+          callBack: (dynamic value) {
+            selectedQuestionD = value as int;
+          },
+          label: _howOftenAffected!,
+          description: _controlWorries!,
+          options: _bodyAndMindValues!,
         ),
-        PicosBody(
-          child: RadioSelectCard(
-            callBackFunction: (dynamic value) {},
-            label: _howOftenAffected!,
-            description: _nervousness!,
-            options: _bodyAndMindValues!,
-          ),
+      ),
+      PicosBody(child: Cover(title: _medicationAndTherapy!)),
+      PicosBody(
+        child: RadioSelectCard(
+          callBack: (dynamic value) {},
+          label: _changedMedication!,
+          options: _medicationAndTherapyValues!,
         ),
-        PicosBody(
-          child: RadioSelectCard(
-            callBackFunction: (dynamic value) {},
-            label: _howOftenAffected!,
-            description: _controlWorries!,
-            options: _bodyAndMindValues!,
-          ),
+      ),
+      PicosBody(
+        child: RadioSelectCard(
+          callBack: (dynamic value) {},
+          label: _changedTherapy!,
+          options: _medicationAndTherapyValues!,
         ),
-        PicosBody(child: Cover(title: _medicationAndTherapy!)),
-        PicosBody(
-          child: RadioSelectCard(
-            callBackFunction: (dynamic value) {},
-            label: _changedMedication!,
-            options: _medicationAndTherapyValues!,
-          ),
+      ),
+      PicosBody(
+        child: GestureDetector(
+          child: Cover(title: _ready!),
+          onTap: () {
+            Navigator.of(context).pop();
+          },
         ),
-        PicosBody(
-          child: RadioSelectCard(
-            callBackFunction: (dynamic value) {},
-            label: _changedTherapy!,
-            options: _medicationAndTherapyValues!,
-          ),
-        ),
-        PicosBody(child: Cover(title: _ready!)),
-      ];
-    }
+      ),
+    ];
 
     return PicosScreenFrame(
       title: _myEntries,
       body: PageView(
-        children: _pageViews!,
+        children: pageViews,
+        onPageChanged: (int value) async {
+          if (value == pageViews.length - 1) {
+            DateTime date = DateTime.now();
+
+            Daily daily = Daily(
+              date: date,
+              bloodDiastolic: selectedDias,
+              bloodSugar: selectedBloodSugar,
+              bloodSystolic: selectedSyst,
+              pain: selectedPain,
+              sleepDuration: selectedSleepDuration,
+              heartFrequency: selectedHeartFrequency,
+            );
+
+            Weekly weekly = Weekly(
+              date: date,
+              bodyWeight: selectedBodyWeight,
+              bmi: selectedBMI,
+              sleepQuality: selectedSleepQuality,
+              walkingDistance: selectedWalkDistance,
+            );
+
+            PHQ4 phq4 = PHQ4(
+              date: date,
+              a: selectedQuestionA,
+              b: selectedQuestionB,
+              c: selectedQuestionC,
+              d: selectedQuestionD,
+            );
+
+            await Backend.saveObject(daily);
+            await Backend.saveObject(weekly);
+            await Backend.saveObject(phq4);
+          }
+        },
       ),
     );
   }
