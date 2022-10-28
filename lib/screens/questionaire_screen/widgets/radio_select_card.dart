@@ -26,7 +26,7 @@ class RadioSelectCard extends StatelessWidget {
   /// Creates a RadioSelectCard.
   const RadioSelectCard({
     required this.options,
-    required this.callBackFunction,
+    required this.callBack,
     Key? key,
     this.label = '',
     this.description = '',
@@ -43,7 +43,7 @@ class RadioSelectCard extends StatelessWidget {
   final Map<String, dynamic> options;
 
   /// The function that is executed when an item gets selected.
-  final Function(dynamic value) callBackFunction;
+  final Function(dynamic value) callBack;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class RadioSelectCard extends StatelessWidget {
     children.add(
       PicosRadioSelect(
         selection: options,
-        callBack: callBackFunction,
+        callBack: callBack,
       ),
     );
 
