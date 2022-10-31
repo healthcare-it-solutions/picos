@@ -20,7 +20,7 @@ import 'package:flutter/material.dart';
 import '../../../widgets/picos_label.dart';
 
 /// Card item for displaying some input for use inside the QuestionaireScreen.
-class QuestionaireCard extends StatelessWidget {
+class QuestionaireCard extends StatefulWidget {
   /// Creates a QuestionaireCard.
   const QuestionaireCard({
     required this.child,
@@ -35,7 +35,14 @@ class QuestionaireCard extends StatelessWidget {
   final Widget child;
 
   @override
+  State<QuestionaireCard> createState() => _QuestionaireCardState();
+}
+
+class _QuestionaireCardState extends State<QuestionaireCard>
+    with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Card(
@@ -46,13 +53,16 @@ class QuestionaireCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              PicosLabel(label: label),
+              PicosLabel(label: widget.label),
               const SizedBox(height: 15),
-              child,
+              widget.child,
             ],
           ),
         ),
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
