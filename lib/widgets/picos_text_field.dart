@@ -32,6 +32,8 @@ class PicosTextField extends StatelessWidget {
     this.maxLines = 1,
     this.contentPadding,
     this.initialValue,
+    this.keyboardType,
+    this.maxLength,
   }) : super(key: key);
 
   /// Determines if the text field is disabled.
@@ -64,12 +66,27 @@ class PicosTextField extends StatelessWidget {
   /// Populates the field with an initial value.
   final String? initialValue;
 
+  /// The type of keyboard to use for editing the text.
+  final TextInputType? keyboardType;
+
+  /// The maximum number of characters (Unicode scalar values) to allow in the
+  /// text field.
+  final int? maxLength;
+
+  static final BorderRadius _borderRadius = BorderRadius.circular(7);
+
+  double _calcHeight() {
+    if (maxLength != null) {
+      return height + 20;
+    }
+
+    return height;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final BorderRadius borderRadius = BorderRadius.circular(7);
-
     OutlineInputBorder border = OutlineInputBorder(
-      borderRadius: borderRadius,
+      borderRadius: _borderRadius,
       borderSide: BorderSide(
         color: Colors.grey.shade400,
       ),
@@ -78,7 +95,7 @@ class PicosTextField extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(4),
       width: double.infinity,
-      height: height,
+      height: _calcHeight(),
       child: TextFormField(
         cursorColor: Theme.of(context).focusColor,
         enabled: !disabled,
@@ -86,7 +103,7 @@ class PicosTextField extends StatelessWidget {
           enabledBorder: border,
           border: border,
           focusedBorder: OutlineInputBorder(
-            borderRadius: borderRadius,
+            borderRadius: _borderRadius,
             borderSide: BorderSide(
               color: Theme.of(context).focusColor,
               width: 2.5,
@@ -105,6 +122,8 @@ class PicosTextField extends StatelessWidget {
         readOnly: readOnly,
         maxLines: maxLines,
         initialValue: initialValue,
+        keyboardType: keyboardType ?? TextInputType.text,
+        maxLength: maxLength,
       ),
     );
   }

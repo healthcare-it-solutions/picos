@@ -146,7 +146,7 @@ class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
                 },
                 secondary: const Icon(Icons.device_thermostat_outlined),
                 title: Text(
-                  AppLocalizations.of(context)!.bloodSugarLevels,
+                  AppLocalizations.of(context)!.bloodSugar,
                   style: const TextStyle(
                     fontSize: 16,
                   ),
