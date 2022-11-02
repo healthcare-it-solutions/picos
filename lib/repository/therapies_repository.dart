@@ -15,16 +15,31 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import 'package:flutter/material.dart';
-import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_screen.dart';
+import 'package:picos/api/therapies_api.dart';
 
-///StudyNurseScreen
-class StudyNurseScreen extends StatelessWidget {
-  ///StudyNurseScreen Constructor
-  const StudyNurseScreen({Key? key}) : super(key: key);
+import '../models/therapy.dart';
 
-  @override
-  Widget build(BuildContext context) {
-    return const ConfigurationScreen();
+/// A repository that handles therapy related requests.
+class TherapiesRepository {
+  /// TherapiesRepository constructor.
+  const TherapiesRepository({
+    required TherapiesApi therapiesApi,
+  }) : _therapiesApi = therapiesApi;
+
+  final TherapiesApi _therapiesApi;
+
+  /// Provides a [Stream] of all therapies.
+  Future<Stream<List<Therapy>>> getTherapies() {
+    return _therapiesApi.getTherapies();
+  }
+
+  /// Saves or replaces a [therapy].
+  Future<void> saveTherapy(Therapy therapy) {
+    return _therapiesApi.saveTherapy(therapy);
+  }
+
+  /// Removes a given [therapy].
+  Future<void> removeTherapy(Therapy therapy) {
+    return _therapiesApi.removeTherapy(therapy);
   }
 }

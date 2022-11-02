@@ -57,14 +57,14 @@ class Backend {
   static Future<String> getRole() async {
     // these are thr routes we are going to forward the user to
     Map<String, String> routes = <String, String>{
-      'Patient': '/mainscreen',
-      'Doctor': '/studynursescreen'
+      'Patient': '/main-screen/mainscreen',
+      'Doctor': '/study-nurse-screen/studynursescreen'
     };
 
     // TODO: maybe refactor for type safety
     String res = await user.get('Role');
 
-    return routes[res] ?? '/mainscreen';
+    return routes[res] ?? '/main-screen/mainscreen';
   }
 
   /// Retrieves all possible objects from a [table].

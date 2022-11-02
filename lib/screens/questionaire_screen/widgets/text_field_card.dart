@@ -16,15 +16,38 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_screen.dart';
+import 'package:picos/screens/questionaire_screen/widgets/questionaire_card.dart';
 
-///StudyNurseScreen
-class StudyNurseScreen extends StatelessWidget {
-  ///StudyNurseScreen Constructor
-  const StudyNurseScreen({Key? key}) : super(key: key);
+import '../../../widgets/picos_text_field.dart';
+
+/// A card with a TextField inside it.
+class TextFieldCard extends StatelessWidget {
+  /// Creates TextFieldCard.
+  const TextFieldCard({
+    this.label = '',
+    this.hint = '',
+    this.onChanged,
+    Key? key,
+  }) : super(key: key);
+
+  /// The title of the input field.
+  final String label;
+
+  /// The hint shown in the text field.
+  final String hint;
+
+  /// The function that is executed when the user writes something.
+  final dynamic Function(String value)? onChanged;
 
   @override
   Widget build(BuildContext context) {
-    return const ConfigurationScreen();
+    return QuestionaireCard(
+      label: label,
+      child: PicosTextField(
+        onChanged: onChanged,
+        hint: hint,
+        keyboardType: TextInputType.number,
+      ),
+    );
   }
 }

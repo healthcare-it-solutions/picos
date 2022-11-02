@@ -15,16 +15,19 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import 'package:flutter/material.dart';
-import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_screen.dart';
+import '../models/therapy.dart';
 
-///StudyNurseScreen
-class StudyNurseScreen extends StatelessWidget {
-  ///StudyNurseScreen Constructor
-  const StudyNurseScreen({Key? key}) : super(key: key);
+/// The interface for an API that provides access to a list of therapies.
+abstract class TherapiesApi {
+  /// Medications API constructor.
+  const TherapiesApi();
 
-  @override
-  Widget build(BuildContext context) {
-    return const ConfigurationScreen();
-  }
+  /// Provides a [Stream] of all medications.
+  Future<Stream<List<Therapy>>> getTherapies();
+
+  /// Saves or replaces a [therapy].
+  Future<void> saveTherapy(Therapy therapy);
+
+  /// Removes the given [therapy].
+  Future<void> removeTherapy(Therapy therapy);
 }

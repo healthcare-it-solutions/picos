@@ -32,7 +32,7 @@ class PicosSelect extends StatefulWidget {
   final List<String> selection;
 
   /// The function that is executed when an item gets selected.
-  final Function(String) callBackFunction;
+  final Function(String value) callBackFunction;
 
   /// The hint shown in the select.
   final String? hint;
@@ -47,7 +47,7 @@ class PicosSelect extends StatefulWidget {
 class _PicosSelectState extends State<PicosSelect> {
   String? _dropdownValue;
 
-  List<DropdownMenuItem<String>> _createCompoundList() {
+  List<DropdownMenuItem<String>> _createItemList() {
     return widget.selection
         .map<DropdownMenuItem<String>>(
           (String e) => DropdownMenuItem<String>(
@@ -100,7 +100,7 @@ class _PicosSelectState extends State<PicosSelect> {
                     _dropdownValue = value;
                   });
                 },
-                items: _createCompoundList(),
+                items: _createItemList(),
               ),
             ),
           ),

@@ -15,8 +15,6 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-// ignore_for_file: file_names
-
 import 'dart:async';
 
 import 'package:picos/api/medications_api.dart';

@@ -17,24 +17,31 @@
 
 import 'package:flutter/material.dart';
 
-/// Creates a simple label.
-class AddMedicationScreenLabel extends StatelessWidget {
-  /// Creates the label.
-  const AddMedicationScreenLabel({required this.label, Key? key})
-      : super(key: key);
+/// A cover for the different sections of the questionaire.
+class Cover extends StatelessWidget {
+  /// Constructs the cover page.
+  const Cover({this.title = '', Key? key}) : super(key: key);
 
-  /// The label to be shown.
-  final String label;
+  /// The title cover.
+  final String title;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(5),
-      width: double.infinity,
-      child: Text(
-        label,
-        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-      ),
+    return Column(
+      children: <Widget>[
+        SizedBox(
+          height: MediaQuery.of(context).size.height / 3,
+        ),
+        Center(
+          child: Text(
+            title,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 40,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

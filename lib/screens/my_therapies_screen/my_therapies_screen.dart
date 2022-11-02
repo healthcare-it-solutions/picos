@@ -16,15 +16,24 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/screens/my_therapies_screen/therapies_list.dart';
+import 'package:picos/widgets/picos_add_mono_button_bar.dart';
+import 'package:picos/widgets/picos_screen_frame.dart';
 
-///StudyNurseScreen
-class StudyNurseScreen extends StatelessWidget {
-  ///StudyNurseScreen Constructor
-  const StudyNurseScreen({Key? key}) : super(key: key);
+/// Shows a list with all personal therapies.
+class MyTherapiesScreen extends StatelessWidget {
+  /// Creates MyTherapiesScreen
+  const MyTherapiesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const ConfigurationScreen();
+    return PicosScreenFrame(
+      body: const TherapiesList(),
+      bottomNavigationBar: const PicosAddMonoButtonBar(
+        route: '/my-therapy-screen/add-therapy',
+      ),
+      title: AppLocalizations.of(context)!.myTherapy,
+    );
   }
 }

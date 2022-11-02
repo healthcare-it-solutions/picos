@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_add_mono_button_bar.dart';
 
-import '../widgets/picos_list_card.dart';
+import '/../widgets/picos_list_card.dart';
 
 /// builds 'Column' as a parent widget for the given cards
 class MyCard extends StatelessWidget {
@@ -32,19 +32,19 @@ class MyCard extends StatelessWidget {
     /// the main components of the UI of this screen
     List<CustomCard> cards;
 
-    /// A fixed list of Strings denoting the type of physicians
-    List<String> physicianType = <String>[
-      AppLocalizations.of(context)!.familyDoctor,
-      AppLocalizations.of(context)!.cardiologist,
-      AppLocalizations.of(context)!.nephrologist,
-      AppLocalizations.of(context)!.neurologist,
+    /// A fixed list of Strings denoting the type of family members
+    List<String> familyMemberType = <String>[
+      AppLocalizations.of(context)!.father,
+      AppLocalizations.of(context)!.mother,
+      AppLocalizations.of(context)!.brother,
+      AppLocalizations.of(context)!.sister,
     ];
 
     /// generates a list of CustomCard-Widgets
     cards = List<CustomCard>.generate(
-      4,
+      familyMemberType.length,
       (int index) => CustomCard(
-        physicianType: physicianType.elementAt(index),
+        memberType: familyMemberType.elementAt(index),
       ),
     );
 
@@ -55,41 +55,37 @@ class MyCard extends StatelessWidget {
 }
 
 /// This class serves for customizing the card properties showing information
-/// about the corresponding physicians
+/// about the corresponding family member
 class CustomCard extends StatelessWidget {
   /// CustomCard constructor
   const CustomCard({
-    required this.physicianType,
+    required this.memberType,
     Key? key,
   }) : super(key: key);
 
-  /// initialized physicianType-variable which is used to
-  /// show the physician type
-  final String physicianType;
+  /// initialized memberType-variable which is used to
+  /// show the family member type
+  final String memberType;
 
   @override
   Widget build(BuildContext context) {
     return PicosListCard(
-      title: physicianType,
+      title: memberType,
       child: SizedBox(
         width: double.infinity,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              '${AppLocalizations.of(context)!.practice} xyz',
+              '${AppLocalizations.of(context)!.mr} Max Mustermann',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
-            ),
-            Text(
-              '${AppLocalizations.of(context)!.mr}/${AppLocalizations.of(context)!.mrs} Dr. Vorname Nachname',
             ),
             const Text('Musterstraße 1'),
             const Text('00000 Musterstadt'),
             const Text('Tel. +49 000 12 34 56'),
             const Text('name@webmail.de'),
-            const Text('www.praxis-name.de')
           ],
         ),
       ),
@@ -97,16 +93,16 @@ class CustomCard extends StatelessWidget {
   }
 }
 
-/// This is the screen in which a user will see a list of his physicians
-class PhysiciansScreen extends StatelessWidget {
-  /// Physicians constructor
-  const PhysiciansScreen({Key? key}) : super(key: key);
+/// This is the screen in which a user will see a list of his family members
+class FamilyMembersScreen extends StatelessWidget {
+  /// FamilyMembers constructor
+  const FamilyMembersScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.myPhysicians),
+        title: Text(AppLocalizations.of(context)!.familyMembers),
         backgroundColor: const Color.fromRGBO(
           25,
           102,
@@ -126,7 +122,7 @@ class PhysiciansScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: const PicosAddMonoButtonBar(
-        route: '/add-physician',
+        route: '/family-member-list-screen/add-family-member',
       ),
     );
   }

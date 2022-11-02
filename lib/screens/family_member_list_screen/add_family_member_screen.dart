@@ -24,6 +24,7 @@ import 'package:queen_validators/queen_validators.dart';
 enum Gender {
   /// element for denoting the title of men
   male,
+
   /// element for denoting the title of women
   female,
 }
@@ -219,7 +220,17 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
         ),
       ),
       bottomNavigationBar: PicosAddButtonBar(
-        formKey: _formKey,
+        onTap: () {
+          if (_formKey.currentState!.validate()) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  AppLocalizations.of(context)!.submitData,
+                ),
+              ),
+            );
+          }
+        },
       ),
     );
   }

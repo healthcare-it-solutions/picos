@@ -19,9 +19,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:picos/api/backend_therapies_api.dart';
 import 'package:picos/repository/medications_repository.dart';
+import 'package:picos/repository/therapies_repository.dart';
 import 'package:picos/screens/login_screen.dart';
-import 'package:picos/state/medications_list_bloc.dart';
+import 'package:picos/state/medications/medications_list_bloc.dart';
+import 'package:picos/state/therapies/therapies_list_bloc.dart';
 import 'package:picos/themes/global_theme.dart';
 
 import '../../api/backend_medications_api.dart';
@@ -39,11 +42,16 @@ class MainScreen extends StatelessWidget {
 
     final MedicationsRepository medicationsRepository =
         MedicationsRepository(medicationsApi: BackendMedicationsApi());
+    final TherapiesRepository therapiesRepository =
+        TherapiesRepository(therapiesApi: BackendTherapiesApi());
 
     return MultiRepositoryProvider(
-      providers: <RepositoryProvider<MedicationsRepository>>[
+      providers: <RepositoryProvider<dynamic>>[
         RepositoryProvider<MedicationsRepository>.value(
           value: medicationsRepository,
+        ),
+        RepositoryProvider<TherapiesRepository>.value(
+          value: therapiesRepository,
         )
       ],
       child: MultiBlocProvider(
@@ -53,12 +61,24 @@ class MainScreen extends StatelessWidget {
               medicationsRepository: context.read<MedicationsRepository>(),
             )..add(const MedicationsListSubscriptionRequested()),
           ),
+          BlocProvider<TherapiesListBloc>(
+            create: (BuildContext context) => TherapiesListBloc(
+              therapiesRepository: context.read<TherapiesRepository>(),
+            )..add(const TherapiesListSubscriptionRequested()),
+          ),
         ],
         child: MaterialApp(
           title: 'PICOS',
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           theme: ThemeData(
+            colorScheme: Theme.of(context).colorScheme.copyWith(
+              secondary: theme.grey3,
+            ),
+            textSelectionTheme: Theme.of(context).textSelectionTheme.copyWith(
+                  selectionColor: theme.grey2,
+                  selectionHandleColor: theme.grey1,
+                ),
             appBarTheme: AppBarTheme(
               backgroundColor: theme.darkGreen1,
             ),

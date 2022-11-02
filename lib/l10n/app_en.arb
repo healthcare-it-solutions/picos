@@ -188,6 +188,11 @@
         "description": "Mrs."
     },
 
+    "diverse": "Diverse",
+    "@diverse": {
+        "description": "Diverse"
+    },
+
     "chooseFamilyMember": "Choose your family member",
     "@chooseFamilyMember": {
         "description": "Choose your family member"
@@ -381,5 +386,296 @@
     "months": "months",
     "@months": {
         "description": "months"
+    },
+
+    "configuration": "Configuration",
+    "@configuration": {
+        "description": "Configuration"
+    },
+
+    "startConfiguration": "Start configuration",
+    "@startConfiguration": {
+        "description": "Start configuration"
+    },
+
+    "letsStart": "Let's start",
+    "@letsStart": {
+        "description": "Let's start"
+    },
+
+    "back": "Back",
+    "@back": {
+        "description": "Back"
+    },
+
+    "configurationFinished": "That's it! - PICOS is now ready!",
+    "@configurationFinished": {
+        "description": "That's it! - PICOS is now ready!"
+    },
+
+    "questionnaireFinished": "That's it! - thank you for your participation!",
+    "@questionnaireFinished": {
+        "description": "That's it! - thank you for your participation!"
+    },
+
+    "endConfiguration": "End configuration",
+    "@endConfiguration": {
+        "description": "End configuration"
+    },
+
+    "finishText": "Discharge: Entries of the initial values..",
+    "@finishText": {
+        "description": "Discharge: Entries of the initial values.."
+    },
+
+    "medication": "Medication",
+    "@medication": {
+        "description": "Medication"
+    },
+
+    "therapy": "Therapy",
+    "@therapy": {
+        "description": "Therapy"
+    },
+
+    "doctorsVisit": "Doctor's visit",
+    "@doctorsVisit": {
+        "description": "Doctor's visit"
+    },
+
+    "medicationAndTherapy": "Medication & Therapy",
+    "@medicationAndTherapy": {
+        "description": "Medication & Therapy"
+    },
+
+    "infoText1": "Patient ID-12345 takes part in the section",
+    "@infoText1": {
+        "description": "Patient ID-12345 takes part in the section "
+    },
+
+    "infoText2": "with the following information:",
+    "@infoText2": {
+        "description": "with the following information:"
+    },
+
+    "bodyAndMind": "Body & Mind",
+    "@bodyAndMind": {
+        "description": "Body & Mind"
+    },
+
+    "pain": "Pain",
+    "@pain": {
+        "description": "Pain"
+    },
+
+    "activityAndRest": "Activity & Rest",
+    "@activityAndRest": {
+        "description": "Activity & Rest"
+    },
+
+    "walkDistance": "Walk distance",
+    "@walkDistance": {
+        "description": "Walk distance"
+    },
+
+    "sleepDuration": "Sleep duration",
+    "@sleepDuration": {
+        "description": "Sleep duration"
+    },
+
+    "sleepQuality": "Sleep quality",
+    "@sleepQuality": {
+        "description": "Sleep quality"
+    },
+
+    "vitalValues": "Vital values",
+    "@vitalValues": {
+        "description": "Vital values"
+    },
+
+    "weightBMI": "Weight & BMI",
+    "@weightBMI": {
+        "description": "Weight & BMI"
+    },
+
+    "heartFrequency": "Heart frequency",
+    "@heartFrequency": {
+        "description": "Heart frequency"
+    },
+
+    "bloodPressure": "Blood pressure",
+    "@bloodPressure": {
+        "description": "Blood pressure"
+    },
+
+    "bloodSugar": "Blood sugar",
+    "@bloodSugar": {
+        "description": "Blood sugar"
+    },
+
+    "myTherapy": "My Therapy",
+    "@myTherapy": {
+        "description": "My Therapy"
+    },
+
+    "addTherapy": "Add therapy",
+    "@addTherapy": {
+        "description": "Add therapy"
+    },
+
+    "date": "Date",
+    "@date": {
+        "description": "Date"
+    },
+
+    "day": "Day",
+    "@day": {
+        "description": "Day"
+    },
+
+    "year": "Year",
+    "@year": {
+        "description": "Year"
+    },
+
+    "selectDate": "Select date",
+    "@selectDate": {
+        "description": "Select date"
+    },
+
+    "editTherapy": "Edit therapy",
+    "@editTherapy": {
+        "description": "Edit therapy"
+    },
+
+    "bodyWeight": "Body weight",
+    "@bodyWeight": {
+        "description": "Body weight"
+    },
+
+    "possibleWalkDistance": "Possible walking distance within 2 minutes",
+    "@possibleWalkDistance": {
+        "description": "Possible walking distance within 2 minutes"
+    },
+
+    "hrs": "Hrs.",
+    "@hrs": {
+        "description": "Hrs."
+    },
+
+    "autoCalc": "(auto. calculation)",
+    "@autoCalc": {
+        "description": "(auto. calculation)"
+    },
+
+    "sleepQuality7Days": "Sleep quality during the last 7 days",
+    "@sleepQuality7Days": {
+        "description": "Sleep quality during the last 7 days"
+    },
+
+    "howOftenAffected": "During the past 2 weeks, how often did you feel affected by the following complaints?",
+    "@howOftenAffected": {
+        "description": "During the past 2 weeks, how often did you feel affected by the following complaints?"
+    },
+
+    "lowInterest": "a) little interest or pleasure in your activities",
+    "@lowInterest": {
+        "description": "a) little interest or pleasure in your activities"
+    },
+
+    "dejection": "b) dejection, melancholy or hopelessness",
+    "@dejection": {
+        "description": "b) dejection, melancholy or hopelessness"
+    },
+
+    "nervousness": "c) nervousness, anxiety or strain",
+    "@nervousness": {
+        "description": "c) nervousness, anxiety or strain"
+    },
+
+    "controlWorries": "d) Not being able to stop or control worries",
+    "@controlWorries": {
+        "description": "d) Not being able to stop or control worries"
+    },
+
+    "changedMedication": "Has anything changed with your medication?",
+    "@changedMedication": {
+        "description": "Has anything changed with your medication?"
+    },
+
+    "changedTherapy": "Has anything changed in your therapy?",
+    "@changedTherapy": {
+        "description": "Has anything changed in your therapy?"
+    },
+
+    "painless": "Painless",
+    "@painless": {
+        "description": "Painless"
+    },
+    "veryMild": "Very mild",
+    "@veryMild": {
+        "description": "Very mild"
+    },
+    "unpleasant": "Unpleasant",
+    "@unpleasant": {
+        "description": "Unpleasant"
+    },
+    "tolerable": "Tolerable",
+    "@tolerable": {
+        "description": "Tolerable"
+    },
+    "disturbing": "Disturbing",
+    "@disturbing": {
+        "description": "Disturbing"
+    },
+    "veryDisturbing": "Very disturbing",
+    "@veryDisturbing": {
+        "description": "Very disturbing"
+    },
+    "severe": "Severe",
+    "@severe": {
+        "description": "Severe"
+    },
+    "verySevere": "Very severe",
+    "@verySevere": {
+        "description": "Very severe"
+    },
+    "veryTerrible": "Very terrible",
+    "@veryTerrible": {
+        "description": "Very terrible"
+    },
+    "agonizingUnbearable": "Agonizing unbearable",
+    "@agonizingUnbearable": {
+        "description": "Agonizing unbearable"
+    },
+    "strongestImaginable": "Strongest imaginable",
+    "@strongestImaginable": {
+        "description": "Strongest imaginable"
+    },
+
+    "notAtAll": "Not at all",
+    "@notAtAll": {
+        "description": "Not at all"
+    },
+    "onIndividualDays": "On individual days",
+    "@onIndividualDays": {
+        "description": "On individual days"
+    },
+    "onMoreThanHalfDays": "On more than half of the days",
+    "@onMoreThanHalfDays": {
+        "description": "On more than half of the days"
+    },
+    "almostEveryDays": "Almost every day",
+    "@almostEveryDays": {
+        "description": "Almost every day"
+    },
+
+    "yes": "Yes",
+    "@yes": {
+        "description": "Yes"
+    },
+    "no": "No",
+    "@no": {
+        "description": "No"
     }
 }
