@@ -408,6 +408,11 @@
         "description": "Back"
     },
 
+    "next": "Next",
+    "@next": {
+        "description": "Next"
+    },
+
     "configurationFinished": "That's it! - PICOS is now ready!",
     "@configurationFinished": {
         "description": "That's it! - PICOS is now ready!"

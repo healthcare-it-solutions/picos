@@ -24,13 +24,16 @@ import 'package:picos/screens/questionaire_screen/widgets/cover.dart';
 import 'package:picos/screens/questionaire_screen/widgets/questionaire_card.dart';
 import 'package:picos/screens/questionaire_screen/widgets/radio_select_card.dart';
 import 'package:picos/screens/questionaire_screen/widgets/text_field_card.dart';
+import 'package:picos/widgets/picos_add_button_bar.dart';
 import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:picos/widgets/picos_text_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../models/daily.dart';
+import '../../themes/global_theme.dart';
 import '../../util/backend.dart';
+import '../../widgets/picos_ink_well_button.dart';
 
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
@@ -62,6 +65,8 @@ class QuestionaireScreen extends StatelessWidget {
   static String? _controlWorries;
   static String? _changedMedication;
   static String? _changedTherapy;
+  static String? _back;
+  static String? _next;
   static const Map<String, dynamic> _sleepQualityValues = <String, dynamic>{
     '10': 10,
     '9': 9,
@@ -82,6 +87,11 @@ class QuestionaireScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> pageViews;
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+    final PageController controller = PageController();
+
+    const Duration controllerDuration = Duration(milliseconds: 300);
+    const Curve controllerCurve = Curves.ease;
 
     // Value store for the user
     int? selectedBodyWeight;
@@ -126,6 +136,8 @@ class QuestionaireScreen extends StatelessWidget {
       _controlWorries = AppLocalizations.of(context)!.controlWorries;
       _changedTherapy = AppLocalizations.of(context)!.changedTherapy;
       _changedMedication = AppLocalizations.of(context)!.changedMedication;
+      _back = AppLocalizations.of(context)!.back;
+      _next = AppLocalizations.of(context)!.next;
       _painValues = <String, dynamic>{
         '0 ${AppLocalizations.of(context)!.painless}': 0,
         '1 ${AppLocalizations.of(context)!.veryMild}': 1,
@@ -318,18 +330,59 @@ class QuestionaireScreen extends StatelessWidget {
         ),
       ),
       PicosBody(
-        child: GestureDetector(
-          child: Cover(title: _ready!),
-          onTap: () {
-            Navigator.of(context).pop();
-          },
-        ),
+        child: Cover(title: _ready!),
       ),
     ];
 
     return PicosScreenFrame(
+      bottomNavigationBar: PicosAddButtonBar(
+        leftButton: PicosInkWellButton(
+          padding: const EdgeInsets.only(
+            left: 30,
+            right: 13,
+            top: 15,
+            bottom: 10,
+          ),
+          text: _back!,
+          onTap: () {
+            if (controller.page == pageViews.length - 1 ||
+                controller.page == 0) {
+              Navigator.of(context).pop();
+              return;
+            }
+
+            controller.previousPage(
+              duration: controllerDuration,
+              curve: controllerCurve,
+            );
+          },
+          buttonColor1: theme.grey3,
+          buttonColor2: theme.grey1,
+        ),
+        rightButton: PicosInkWellButton(
+          padding: const EdgeInsets.only(
+            right: 30,
+            left: 13,
+            top: 15,
+            bottom: 10,
+          ),
+          text: _next!,
+          onTap: () {
+            if (controller.page == pageViews.length - 1) {
+              Navigator.of(context).pop();
+              return;
+            }
+
+            controller.nextPage(
+              duration: controllerDuration,
+              curve: controllerCurve,
+            );
+          },
+        ),
+      ),
       title: _myEntries,
       body: PageView(
+        controller: controller,
         children: pageViews,
         onPageChanged: (int value) async {
           if (value == pageViews.length - 1) {
