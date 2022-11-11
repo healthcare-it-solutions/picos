@@ -88,123 +88,146 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   static Map<String, dynamic>? _painValues;
   static Map<String, dynamic>? _bodyAndMindValues;
   static Map<String, dynamic>? _medicationAndTherapyValues;
+  static Map<String, PicosBody>? _pages;
+  static GlobalTheme? _theme;
 
-  @override
-  Widget build(BuildContext context) {
-    List<PicosBody> pageViews = <PicosBody>[];
-    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-    final PageController controller = PageController();
+  /// Maps the pageViews to according titles.
+  static Map<String, String>? _titleMap;
 
-    const Duration controllerDuration = Duration(milliseconds: 300);
-    const Curve controllerCurve = Curves.ease;
+  static const Duration _controllerDuration = Duration(milliseconds: 300);
+  static const Curve _controllerCurve = Curves.ease;
 
-    // Value store for the user
-    int? selectedBodyWeight;
-    int? selectedBMI;
-    int? selectedHeartFrequency;
-    int? selectedSyst;
-    int? selectedDias;
-    int? selectedBloodSugar;
-    int? selectedWalkDistance;
-    int? selectedSleepDuration;
-    int? selectedSleepQuality;
-    int? selectedPain;
-    int? selectedQuestionA;
-    int? selectedQuestionB;
-    int? selectedQuestionC;
-    int? selectedQuestionD;
+  // Value store for the user
+  int? _selectedBodyWeight;
+  int? _selectedBMI;
+  int? _selectedHeartFrequency;
+  int? _selectedSyst;
+  int? _selectedDias;
+  int? _selectedBloodSugar;
+  int? _selectedWalkDistance;
+  int? _selectedSleepDuration;
+  int? _selectedSleepQuality;
+  int? _selectedPain;
+  int? _selectedQuestionA;
+  int? _selectedQuestionB;
+  int? _selectedQuestionC;
+  int? _selectedQuestionD;
 
-    // Class init.
-    if (_myEntries == null) {
-      _myEntries = AppLocalizations.of(context)!.myEntries;
-      _vitalValues = AppLocalizations.of(context)!.vitalValues;
-      _activityAndRest = AppLocalizations.of(context)!.activityAndRest;
-      _bodyAndMind = AppLocalizations.of(context)!.bodyAndMind;
-      _medicationAndTherapy =
-          AppLocalizations.of(context)!.medicationAndTherapy;
-      _bodyWeight = AppLocalizations.of(context)!.bodyWeight;
-      _autoCalc = AppLocalizations.of(context)!.autoCalc;
-      _heartFrequency = AppLocalizations.of(context)!.heartFrequency;
-      _bloodPressure = AppLocalizations.of(context)!.bloodPressure;
-      _bloodSugar = AppLocalizations.of(context)!.bloodSugar;
-      _possibleWalkDistance =
-          AppLocalizations.of(context)!.possibleWalkDistance;
-      _sleepDuration = AppLocalizations.of(context)!.sleepDuration;
-      _hrs = AppLocalizations.of(context)!.hrs;
-      _ready = AppLocalizations.of(context)!.questionnaireFinished;
-      _sleepQuality7Days = AppLocalizations.of(context)!.sleepQuality7Days;
-      _pain = AppLocalizations.of(context)!.pain;
-      _howOftenAffected = AppLocalizations.of(context)!.howOftenAffected;
-      _lowInterest = AppLocalizations.of(context)!.lowInterest;
-      _dejection = AppLocalizations.of(context)!.dejection;
-      _nervousness = AppLocalizations.of(context)!.nervousness;
-      _controlWorries = AppLocalizations.of(context)!.controlWorries;
-      _changedTherapy = AppLocalizations.of(context)!.changedTherapy;
-      _changedMedication = AppLocalizations.of(context)!.changedMedication;
-      _back = AppLocalizations.of(context)!.back;
-      _next = AppLocalizations.of(context)!.next;
-      _painValues = <String, dynamic>{
-        '0 ${AppLocalizations.of(context)!.painless}': 0,
-        '1 ${AppLocalizations.of(context)!.veryMild}': 1,
-        '2 ${AppLocalizations.of(context)!.unpleasant}': 2,
-        '3 ${AppLocalizations.of(context)!.tolerable}': 3,
-        '4 ${AppLocalizations.of(context)!.disturbing}': 4,
-        '5 ${AppLocalizations.of(context)!.veryDisturbing}': 5,
-        '6 ${AppLocalizations.of(context)!.severe}': 6,
-        '7 ${AppLocalizations.of(context)!.verySevere}': 7,
-        '8 ${AppLocalizations.of(context)!.veryTerrible}': 8,
-        '9 ${AppLocalizations.of(context)!.agonizingUnbearable}': 9,
-        '10 ${AppLocalizations.of(context)!.strongestImaginable}': 10,
-      };
-      _bodyAndMindValues = <String, dynamic>{
-        AppLocalizations.of(context)!.notAtAll: 0,
-        AppLocalizations.of(context)!.onIndividualDays: 1,
-        AppLocalizations.of(context)!.onMoreThanHalfDays: 2,
-        AppLocalizations.of(context)!.almostEveryDays: 3,
-      };
-      _medicationAndTherapyValues = <String, dynamic>{
-        AppLocalizations.of(context)!.yes: true,
-        AppLocalizations.of(context)!.no: false,
-      };
-    }
+  // State
+  final List<String> _titles = <String>[];
+  String? _title;
 
-    // Add all required pages to the list.
-    pageViews.add(PicosBody(child: Cover(title: _vitalValues!)));
-    pageViews.add(
-      PicosBody(
+  final PageController _controller = PageController();
+  final List<PicosBody> _pageViews = <PicosBody>[];
+
+  void _initStrings(BuildContext context) {
+    _myEntries = AppLocalizations.of(context)!.myEntries;
+    _vitalValues = AppLocalizations.of(context)!.vitalValues;
+    _activityAndRest = AppLocalizations.of(context)!.activityAndRest;
+    _bodyAndMind = AppLocalizations.of(context)!.bodyAndMind;
+    _medicationAndTherapy = AppLocalizations.of(context)!.medicationAndTherapy;
+    _bodyWeight = AppLocalizations.of(context)!.bodyWeight;
+    _autoCalc = AppLocalizations.of(context)!.autoCalc;
+    _heartFrequency = AppLocalizations.of(context)!.heartFrequency;
+    _bloodPressure = AppLocalizations.of(context)!.bloodPressure;
+    _bloodSugar = AppLocalizations.of(context)!.bloodSugar;
+    _possibleWalkDistance = AppLocalizations.of(context)!.possibleWalkDistance;
+    _sleepDuration = AppLocalizations.of(context)!.sleepDuration;
+    _hrs = AppLocalizations.of(context)!.hrs;
+    _ready = AppLocalizations.of(context)!.questionnaireFinished;
+    _sleepQuality7Days = AppLocalizations.of(context)!.sleepQuality7Days;
+    _pain = AppLocalizations.of(context)!.pain;
+    _howOftenAffected = AppLocalizations.of(context)!.howOftenAffected;
+    _lowInterest = AppLocalizations.of(context)!.lowInterest;
+    _dejection = AppLocalizations.of(context)!.dejection;
+    _nervousness = AppLocalizations.of(context)!.nervousness;
+    _controlWorries = AppLocalizations.of(context)!.controlWorries;
+    _changedTherapy = AppLocalizations.of(context)!.changedTherapy;
+    _changedMedication = AppLocalizations.of(context)!.changedMedication;
+    _back = AppLocalizations.of(context)!.back;
+    _next = AppLocalizations.of(context)!.next;
+    _painValues = <String, dynamic>{
+      '0 ${AppLocalizations.of(context)!.painless}': 0,
+      '1 ${AppLocalizations.of(context)!.veryMild}': 1,
+      '2 ${AppLocalizations.of(context)!.unpleasant}': 2,
+      '3 ${AppLocalizations.of(context)!.tolerable}': 3,
+      '4 ${AppLocalizations.of(context)!.disturbing}': 4,
+      '5 ${AppLocalizations.of(context)!.veryDisturbing}': 5,
+      '6 ${AppLocalizations.of(context)!.severe}': 6,
+      '7 ${AppLocalizations.of(context)!.verySevere}': 7,
+      '8 ${AppLocalizations.of(context)!.veryTerrible}': 8,
+      '9 ${AppLocalizations.of(context)!.agonizingUnbearable}': 9,
+      '10 ${AppLocalizations.of(context)!.strongestImaginable}': 10,
+    };
+    _bodyAndMindValues = <String, dynamic>{
+      AppLocalizations.of(context)!.notAtAll: 0,
+      AppLocalizations.of(context)!.onIndividualDays: 1,
+      AppLocalizations.of(context)!.onMoreThanHalfDays: 2,
+      AppLocalizations.of(context)!.almostEveryDays: 3,
+    };
+    _medicationAndTherapyValues = <String, dynamic>{
+      AppLocalizations.of(context)!.yes: true,
+      AppLocalizations.of(context)!.no: false,
+    };
+  }
+
+  void _initTitles(BuildContext context) {
+    _titleMap = <String, String>{
+      'vitalCover': _myEntries!,
+      'weightPage': _vitalValues!,
+      'hearthPage': _vitalValues!,
+      'bloodPressurePage': _vitalValues!,
+      'bloodSugarPage': _vitalValues!,
+      'activityCover': _myEntries!,
+      'walkPage': _activityAndRest!,
+      'sleepDurationPage': _activityAndRest!,
+      'sleepQualityPage': _activityAndRest!,
+      'bodyCover': _myEntries!,
+      'painPage': _bodyAndMind!,
+      'interestPage': _bodyAndMind!,
+      'dejectionPage': _bodyAndMind!,
+      'nervousnessPage': _bodyAndMind!,
+      'worriesPage': _bodyAndMind!,
+      'medicationCover': _myEntries!,
+      'medicationPage': _medicationAndTherapy!,
+      'therapyPage': _medicationAndTherapy!,
+      'readyCover': _myEntries!,
+    };
+  }
+
+  void _initPages(BuildContext context) {
+    _pages = <String, PicosBody>{
+      'vitalCover': PicosBody(child: Cover(title: _vitalValues!)),
+      'weightPage': PicosBody(
         child: Column(
           children: <TextFieldCard>[
             TextFieldCard(
               label: _bodyWeight!,
               hint: 'kg',
               onChanged: (String value) {
-                selectedBodyWeight = int.tryParse(value);
+                _selectedBodyWeight = int.tryParse(value);
               },
             ),
             TextFieldCard(
               label: 'BMI',
               hint: 'kg/m² ${_autoCalc!}',
               onChanged: (String value) {
-                selectedBMI = int.tryParse(value);
+                _selectedBMI = int.tryParse(value);
               },
             ),
           ],
         ),
       ),
-    );
-    pageViews.add(
-      PicosBody(
+      'hearthPage': PicosBody(
         child: TextFieldCard(
           label: _heartFrequency!,
           hint: 'bpm',
           onChanged: (String value) {
-            selectedHeartFrequency = int.tryParse(value);
+            _selectedHeartFrequency = int.tryParse(value);
           },
         ),
       ),
-    );
-    pageViews.add(
-      PicosBody(
+      'bloodPressurePage': PicosBody(
         child: QuestionaireCard(
           label: _bloodPressure!,
           child: Row(
@@ -215,7 +238,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
                   maxLength: 3,
                   keyboardType: TextInputType.number,
                   onChanged: (String value) {
-                    selectedSyst = int.tryParse(value);
+                    _selectedSyst = int.tryParse(value);
                   },
                 ),
               ),
@@ -229,7 +252,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
                   maxLength: 3,
                   keyboardType: TextInputType.number,
                   onChanged: (String value) {
-                    selectedDias = int.tryParse(value);
+                    _selectedDias = int.tryParse(value);
                   },
                 ),
               ),
@@ -237,136 +260,169 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
           ),
         ),
       ),
-    );
-    pageViews.add(
-      PicosBody(
+      'bloodSugarPage': PicosBody(
         child: TextFieldCard(
           label: _bloodSugar!,
           hint: 'mg/dL',
           onChanged: (String value) {
-            selectedBloodSugar = int.tryParse(value);
+            _selectedBloodSugar = int.tryParse(value);
           },
         ),
       ),
-    );
-    pageViews.add(PicosBody(child: Cover(title: _activityAndRest!)));
-    pageViews.add(
-      PicosBody(
+      'activityCover': PicosBody(child: Cover(title: _activityAndRest!)),
+      'walkPage': PicosBody(
         child: TextFieldCard(
           label: _possibleWalkDistance!,
           hint: 'Meter',
           onChanged: (String value) {
-            selectedWalkDistance = int.tryParse(value);
+            _selectedWalkDistance = int.tryParse(value);
           },
         ),
       ),
-    );
-    pageViews.add(
-      PicosBody(
+      'sleepDurationPage': PicosBody(
         child: TextFieldCard(
           label: _sleepDuration!,
           hint: _hrs!,
           onChanged: (String value) {
-            selectedSleepDuration = int.tryParse(value);
+            _selectedSleepDuration = int.tryParse(value);
           },
         ),
       ),
-    );
-    pageViews.add(
-      PicosBody(
+      'sleepQualityPage': PicosBody(
         child: RadioSelectCard(
           callBack: (dynamic value) {
-            selectedSleepQuality = value as int;
+            _selectedSleepQuality = value as int;
           },
           label: _sleepQuality7Days!,
           options: _sleepQualityValues,
         ),
       ),
-    );
-    pageViews.add(PicosBody(child: Cover(title: _bodyAndMind!)));
-    pageViews.add(
-      PicosBody(
+      'bodyCover': PicosBody(child: Cover(title: _bodyAndMind!)),
+      'painPage': PicosBody(
         child: RadioSelectCard(
           callBack: (dynamic value) {
-            selectedPain = value as int;
+            _selectedPain = value as int;
           },
           label: _pain!,
           options: _painValues!,
         ),
       ),
-    );
-    pageViews.add(
-      PicosBody(
+      'interestPage': PicosBody(
         child: RadioSelectCard(
           callBack: (dynamic value) {
-            selectedQuestionA = value as int;
+            _selectedQuestionA = value as int;
           },
           label: _howOftenAffected!,
           description: _lowInterest!,
           options: _bodyAndMindValues!,
         ),
       ),
-    );
-    pageViews.add(
-      PicosBody(
+      'dejectionPage': PicosBody(
         child: RadioSelectCard(
           callBack: (dynamic value) {
-            selectedQuestionB = value as int;
+            _selectedQuestionB = value as int;
           },
           label: _howOftenAffected!,
           description: _dejection!,
           options: _bodyAndMindValues!,
         ),
       ),
-    );
-    pageViews.add(
-      PicosBody(
+      'nervousnessPage': PicosBody(
         child: RadioSelectCard(
           callBack: (dynamic value) {
-            selectedQuestionC = value as int;
+            _selectedQuestionC = value as int;
           },
           label: _howOftenAffected!,
           description: _nervousness!,
           options: _bodyAndMindValues!,
         ),
       ),
-    );
-    pageViews.add(
-      PicosBody(
+      'worriesPage': PicosBody(
         child: RadioSelectCard(
           callBack: (dynamic value) {
-            selectedQuestionD = value as int;
+            _selectedQuestionD = value as int;
           },
           label: _howOftenAffected!,
           description: _controlWorries!,
           options: _bodyAndMindValues!,
         ),
       ),
-    );
-    pageViews.add(PicosBody(child: Cover(title: _medicationAndTherapy!)));
-    pageViews.add(
-      PicosBody(
+      'medicationCover': PicosBody(child: Cover(title: _medicationAndTherapy!)),
+      'medicationPage': PicosBody(
         child: RadioSelectCard(
           callBack: (dynamic value) {},
           label: _changedMedication!,
           options: _medicationAndTherapyValues!,
         ),
       ),
-    );
-    pageViews.add(
-      PicosBody(
+      'therapyPage': PicosBody(
         child: RadioSelectCard(
           callBack: (dynamic value) {},
           label: _changedTherapy!,
           options: _medicationAndTherapyValues!,
         ),
       ),
-    );
-    pageViews.add(
-      PicosBody(
+      'readyCover': PicosBody(
         child: Cover(title: _ready!),
       ),
-    );
+    };
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Class init.
+    if (_myEntries == null) {
+      _initStrings(context);
+      _initPages(context);
+      _initTitles(context);
+    }
+
+    // Instance init.
+    if (_pageViews.isEmpty) {
+      _title = _myEntries!;
+
+      // Add all required pages to the list.
+      _pageViews.add(_pages!['vitalCover']!);
+      _titles.add(_titleMap!['vitalCover']!);
+      _pageViews.add(_pages!['weightPage']!);
+      _titles.add(_titleMap!['weightPage']!);
+      _pageViews.add(_pages!['hearthPage']!);
+      _titles.add(_titleMap!['hearthPage']!);
+      _pageViews.add(_pages!['bloodPressurePage']!);
+      _titles.add(_titleMap!['bloodPressurePage']!);
+      _pageViews.add(_pages!['bloodSugarPage']!);
+      _titles.add(_titleMap!['bloodSugarPage']!);
+      _pageViews.add(_pages!['activityCover']!);
+      _titles.add(_titleMap!['activityCover']!);
+      _pageViews.add(_pages!['walkPage']!);
+      _titles.add(_titleMap!['walkPage']!);
+      _pageViews.add(_pages!['sleepDurationPage']!);
+      _titles.add(_titleMap!['sleepDurationPage']!);
+      _pageViews.add(_pages!['sleepQualityPage']!);
+      _titles.add(_titleMap!['sleepQualityPage']!);
+      _pageViews.add(_pages!['bodyCover']!);
+      _titles.add(_titleMap!['bodyCover']!);
+      _pageViews.add(_pages!['painPage']!);
+      _titles.add(_titleMap!['painPage']!);
+      _pageViews.add(_pages!['interestPage']!);
+      _titles.add(_titleMap!['interestPage']!);
+      _pageViews.add(_pages!['dejectionPage']!);
+      _titles.add(_titleMap!['dejectionPage']!);
+      _pageViews.add(_pages!['nervousnessPage']!);
+      _titles.add(_titleMap!['nervousnessPage']!);
+      _pageViews.add(_pages!['worriesPage']!);
+      _titles.add(_titleMap!['worriesPage']!);
+      _pageViews.add(_pages!['medicationCover']!);
+      _titles.add(_titleMap!['medicationCover']!);
+      _pageViews.add(_pages!['medicationPage']!);
+      _titles.add(_titleMap!['medicationPage']!);
+      _pageViews.add(_pages!['therapyPage']!);
+      _titles.add(_titleMap!['therapyPage']!);
+      _pageViews.add(_pages!['readyCover']!);
+      _titles.add(_titleMap!['readyCover']!);
+
+      _theme = Theme.of(context).extension<GlobalTheme>()!;
+    }
 
     return PicosScreenFrame(
       bottomNavigationBar: PicosAddButtonBar(
@@ -379,19 +435,19 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
           ),
           text: _back!,
           onTap: () {
-            if (controller.page == pageViews.length - 1 ||
-                controller.page == 0) {
+            if (_controller.page == _pageViews.length - 1 ||
+                _controller.page == 0) {
               Navigator.of(context).pop();
               return;
             }
 
-            controller.previousPage(
-              duration: controllerDuration,
-              curve: controllerCurve,
+            _controller.previousPage(
+              duration: _controllerDuration,
+              curve: _controllerCurve,
             );
           },
-          buttonColor1: theme.grey3,
-          buttonColor2: theme.grey1,
+          buttonColor1: _theme!.grey3,
+          buttonColor2: _theme!.grey1,
         ),
         rightButton: PicosInkWellButton(
           padding: const EdgeInsets.only(
@@ -402,50 +458,56 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
           ),
           text: _next!,
           onTap: () {
-            if (controller.page == pageViews.length - 1) {
+            if (_controller.page == _pageViews.length - 1) {
               Navigator.of(context).pop();
               return;
             }
 
-            controller.nextPage(
-              duration: controllerDuration,
-              curve: controllerCurve,
+            _controller.nextPage(
+              duration: _controllerDuration,
+              curve: _controllerCurve,
             );
           },
         ),
       ),
-      title: _myEntries,
+      title: _title,
       body: PageView(
-        controller: controller,
-        children: pageViews,
+        controller: _controller,
+        children: _pageViews,
         onPageChanged: (int value) async {
-          if (value == pageViews.length - 1) {
+          if (_title != _titles[value]) {
+            setState(() {
+              _title = _titles[value];
+            });
+          }
+
+          if (value == _pageViews.length - 1) {
             DateTime date = DateTime.now();
 
             Daily daily = Daily(
               date: date,
-              bloodDiastolic: selectedDias,
-              bloodSugar: selectedBloodSugar,
-              bloodSystolic: selectedSyst,
-              pain: selectedPain,
-              sleepDuration: selectedSleepDuration,
-              heartFrequency: selectedHeartFrequency,
+              bloodDiastolic: _selectedDias,
+              bloodSugar: _selectedBloodSugar,
+              bloodSystolic: _selectedSyst,
+              pain: _selectedPain,
+              sleepDuration: _selectedSleepDuration,
+              heartFrequency: _selectedHeartFrequency,
             );
 
             Weekly weekly = Weekly(
               date: date,
-              bodyWeight: selectedBodyWeight,
-              bmi: selectedBMI,
-              sleepQuality: selectedSleepQuality,
-              walkingDistance: selectedWalkDistance,
+              bodyWeight: _selectedBodyWeight,
+              bmi: _selectedBMI,
+              sleepQuality: _selectedSleepQuality,
+              walkingDistance: _selectedWalkDistance,
             );
 
             PHQ4 phq4 = PHQ4(
               date: date,
-              a: selectedQuestionA,
-              b: selectedQuestionB,
-              c: selectedQuestionC,
-              d: selectedQuestionD,
+              a: _selectedQuestionA,
+              b: _selectedQuestionB,
+              c: _selectedQuestionC,
+              d: _selectedQuestionD,
             );
 
             await Backend.saveObject(daily);
