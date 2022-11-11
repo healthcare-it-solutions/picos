@@ -37,10 +37,15 @@ import '../../widgets/picos_ink_well_button.dart';
 
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
-class QuestionaireScreen extends StatelessWidget {
+class QuestionaireScreen extends StatefulWidget {
   /// QuestionaireScreen constructor
   const QuestionaireScreen({Key? key}) : super(key: key);
 
+  @override
+  State<QuestionaireScreen> createState() => _QuestionaireScreenState();
+}
+
+class _QuestionaireScreenState extends State<QuestionaireScreen> {
   //Static Strings
   static String? _myEntries;
   static String? _vitalValues;
@@ -86,7 +91,7 @@ class QuestionaireScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> pageViews;
+    List<PicosBody> pageViews = <PicosBody>[];
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
     final PageController controller = PageController();
 
@@ -163,8 +168,9 @@ class QuestionaireScreen extends StatelessWidget {
       };
     }
 
-    pageViews = <Widget>[
-      PicosBody(child: Cover(title: _vitalValues!)),
+    // Add all required pages to the list.
+    pageViews.add(PicosBody(child: Cover(title: _vitalValues!)));
+    pageViews.add(
       PicosBody(
         child: Column(
           children: <TextFieldCard>[
@@ -185,6 +191,8 @@ class QuestionaireScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+    pageViews.add(
       PicosBody(
         child: TextFieldCard(
           label: _heartFrequency!,
@@ -194,6 +202,8 @@ class QuestionaireScreen extends StatelessWidget {
           },
         ),
       ),
+    );
+    pageViews.add(
       PicosBody(
         child: QuestionaireCard(
           label: _bloodPressure!,
@@ -227,6 +237,8 @@ class QuestionaireScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+    pageViews.add(
       PicosBody(
         child: TextFieldCard(
           label: _bloodSugar!,
@@ -236,7 +248,9 @@ class QuestionaireScreen extends StatelessWidget {
           },
         ),
       ),
-      PicosBody(child: Cover(title: _activityAndRest!)),
+    );
+    pageViews.add(PicosBody(child: Cover(title: _activityAndRest!)));
+    pageViews.add(
       PicosBody(
         child: TextFieldCard(
           label: _possibleWalkDistance!,
@@ -246,6 +260,8 @@ class QuestionaireScreen extends StatelessWidget {
           },
         ),
       ),
+    );
+    pageViews.add(
       PicosBody(
         child: TextFieldCard(
           label: _sleepDuration!,
@@ -255,6 +271,8 @@ class QuestionaireScreen extends StatelessWidget {
           },
         ),
       ),
+    );
+    pageViews.add(
       PicosBody(
         child: RadioSelectCard(
           callBack: (dynamic value) {
@@ -264,7 +282,9 @@ class QuestionaireScreen extends StatelessWidget {
           options: _sleepQualityValues,
         ),
       ),
-      PicosBody(child: Cover(title: _bodyAndMind!)),
+    );
+    pageViews.add(PicosBody(child: Cover(title: _bodyAndMind!)));
+    pageViews.add(
       PicosBody(
         child: RadioSelectCard(
           callBack: (dynamic value) {
@@ -274,6 +294,8 @@ class QuestionaireScreen extends StatelessWidget {
           options: _painValues!,
         ),
       ),
+    );
+    pageViews.add(
       PicosBody(
         child: RadioSelectCard(
           callBack: (dynamic value) {
@@ -284,6 +306,8 @@ class QuestionaireScreen extends StatelessWidget {
           options: _bodyAndMindValues!,
         ),
       ),
+    );
+    pageViews.add(
       PicosBody(
         child: RadioSelectCard(
           callBack: (dynamic value) {
@@ -294,6 +318,8 @@ class QuestionaireScreen extends StatelessWidget {
           options: _bodyAndMindValues!,
         ),
       ),
+    );
+    pageViews.add(
       PicosBody(
         child: RadioSelectCard(
           callBack: (dynamic value) {
@@ -304,6 +330,8 @@ class QuestionaireScreen extends StatelessWidget {
           options: _bodyAndMindValues!,
         ),
       ),
+    );
+    pageViews.add(
       PicosBody(
         child: RadioSelectCard(
           callBack: (dynamic value) {
@@ -314,7 +342,9 @@ class QuestionaireScreen extends StatelessWidget {
           options: _bodyAndMindValues!,
         ),
       ),
-      PicosBody(child: Cover(title: _medicationAndTherapy!)),
+    );
+    pageViews.add(PicosBody(child: Cover(title: _medicationAndTherapy!)));
+    pageViews.add(
       PicosBody(
         child: RadioSelectCard(
           callBack: (dynamic value) {},
@@ -322,6 +352,8 @@ class QuestionaireScreen extends StatelessWidget {
           options: _medicationAndTherapyValues!,
         ),
       ),
+    );
+    pageViews.add(
       PicosBody(
         child: RadioSelectCard(
           callBack: (dynamic value) {},
@@ -329,10 +361,12 @@ class QuestionaireScreen extends StatelessWidget {
           options: _medicationAndTherapyValues!,
         ),
       ),
+    );
+    pageViews.add(
       PicosBody(
         child: Cover(title: _ready!),
       ),
-    ];
+    );
 
     return PicosScreenFrame(
       bottomNavigationBar: PicosAddButtonBar(
