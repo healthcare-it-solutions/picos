@@ -28,6 +28,7 @@ class PicosAddButtonBar extends StatelessWidget {
     this.disabled = false,
     this.leftButton,
     this.rightButton,
+    this.shadows = true,
     Key? key,
   }) : super(key: key);
 
@@ -43,12 +44,15 @@ class PicosAddButtonBar extends StatelessWidget {
   /// For custom button replacement of the right button.
   final PicosInkWellButton? rightButton;
 
+  /// Determines if the elevation shadows should be casted or not.
+  final bool shadows;
+
   @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
 
     return Container(
-      decoration: BoxDecoration(
+      decoration: shadows == true ? BoxDecoration(
         color: theme.bottomNavigationBar,
         boxShadow: <BoxShadow>[
           BoxShadow(
@@ -57,7 +61,7 @@ class PicosAddButtonBar extends StatelessWidget {
             blurRadius: 2,
           ),
         ],
-      ),
+      ) : null,
       child: Row(
         children: <Widget>[
           Expanded(

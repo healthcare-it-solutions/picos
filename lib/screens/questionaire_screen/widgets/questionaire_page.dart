@@ -35,6 +35,7 @@ class QuestionairePage extends StatelessWidget {
       children: <Widget>[
         child,
         PicosAddButtonBar(
+          shadows: false,
           leftButton: PicosInkWellButton(
             padding: const EdgeInsets.only(
               left: 30,
