@@ -22,18 +22,16 @@ import 'package:picos/models/phq4.dart';
 import 'package:picos/models/weekly.dart';
 import 'package:picos/screens/questionaire_screen/widgets/cover.dart';
 import 'package:picos/screens/questionaire_screen/widgets/questionaire_card.dart';
+import 'package:picos/screens/questionaire_screen/widgets/questionaire_page.dart';
 import 'package:picos/screens/questionaire_screen/widgets/radio_select_card.dart';
 import 'package:picos/screens/questionaire_screen/widgets/text_field_card.dart';
-import 'package:picos/widgets/picos_add_button_bar.dart';
 import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:picos/widgets/picos_text_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../models/daily.dart';
-import '../../themes/global_theme.dart';
 import '../../util/backend.dart';
-import '../../widgets/picos_ink_well_button.dart';
 
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
@@ -70,8 +68,8 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   static String? _controlWorries;
   static String? _changedMedication;
   static String? _changedTherapy;
-  static String? _back;
-  static String? _next;
+
+  // Selectable values.
   static const Map<String, dynamic> _sleepQualityValues = <String, dynamic>{
     '10': 10,
     '9': 9,
@@ -88,12 +86,12 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   static Map<String, dynamic>? _painValues;
   static Map<String, dynamic>? _bodyAndMindValues;
   static Map<String, dynamic>? _medicationAndTherapyValues;
-  static Map<String, PicosBody>? _pages;
-  static GlobalTheme? _theme;
 
+  /// Holds the pages to generate the PageView from.
+  static Map<String, Widget>? _pages;
+  static final PageController _controller = PageController();
   /// Maps the pageViews to according titles.
   static Map<String, String>? _titleMap;
-
   static const Duration _controllerDuration = Duration(milliseconds: 300);
   static const Curve _controllerCurve = Curves.ease;
 
@@ -116,9 +114,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   // State
   final List<String> _titles = <String>[];
   String? _title;
-
-  final PageController _controller = PageController();
-  final List<PicosBody> _pageViews = <PicosBody>[];
+  final List<Widget> _pageViews = <Widget>[];
 
   void _initStrings(BuildContext context) {
     _myEntries = AppLocalizations.of(context)!.myEntries;
@@ -144,8 +140,6 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     _controlWorries = AppLocalizations.of(context)!.controlWorries;
     _changedTherapy = AppLocalizations.of(context)!.changedTherapy;
     _changedMedication = AppLocalizations.of(context)!.changedMedication;
-    _back = AppLocalizations.of(context)!.back;
-    _next = AppLocalizations.of(context)!.next;
     _painValues = <String, dynamic>{
       '0 ${AppLocalizations.of(context)!.painless}': 0,
       '1 ${AppLocalizations.of(context)!.veryMild}': 1,
@@ -195,171 +189,241 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     };
   }
 
+  void _previousPage() {
+    _controller.previousPage(
+      duration: _controllerDuration,
+      curve: _controllerCurve,
+    );
+  }
+
+  void _nextPage() {
+    _controller.nextPage(
+      duration: _controllerDuration,
+      curve: _controllerCurve,
+    );
+  }
+
   void _initPages(BuildContext context) {
-    _pages = <String, PicosBody>{
+    _pages = <String, Widget>{
       'vitalCover': PicosBody(child: Cover(title: _vitalValues!)),
-      'weightPage': PicosBody(
-        child: Column(
-          children: <TextFieldCard>[
-            TextFieldCard(
-              label: _bodyWeight!,
-              hint: 'kg',
-              onChanged: (String value) {
-                _selectedBodyWeight = int.tryParse(value);
-              },
-            ),
-            TextFieldCard(
-              label: 'BMI',
-              hint: 'kg/m² ${_autoCalc!}',
-              onChanged: (String value) {
-                _selectedBMI = int.tryParse(value);
-              },
-            ),
-          ],
-        ),
-      ),
-      'hearthPage': PicosBody(
-        child: TextFieldCard(
-          label: _heartFrequency!,
-          hint: 'bpm',
-          onChanged: (String value) {
-            _selectedHeartFrequency = int.tryParse(value);
-          },
-        ),
-      ),
-      'bloodPressurePage': PicosBody(
-        child: QuestionaireCard(
-          label: _bloodPressure!,
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: PicosTextField(
-                  hint: 'Syst',
-                  maxLength: 3,
-                  keyboardType: TextInputType.number,
-                  onChanged: (String value) {
-                    _selectedSyst = int.tryParse(value);
-                  },
-                ),
+      'weightPage': QuestionairePage(
+        backFunction: _previousPage,
+        nextFunction: _nextPage,
+        child: PicosBody(
+          child: Column(
+            children: <TextFieldCard>[
+              TextFieldCard(
+                label: _bodyWeight!,
+                hint: 'kg',
+                onChanged: (String value) {
+                  _selectedBodyWeight = int.tryParse(value);
+                },
               ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 20, left: 10, right: 10),
-                child: Text('/', style: TextStyle(fontSize: 20)),
-              ),
-              Expanded(
-                child: PicosTextField(
-                  hint: 'Dias',
-                  maxLength: 3,
-                  keyboardType: TextInputType.number,
-                  onChanged: (String value) {
-                    _selectedDias = int.tryParse(value);
-                  },
-                ),
+              TextFieldCard(
+                label: 'BMI',
+                hint: 'kg/m² ${_autoCalc!}',
+                onChanged: (String value) {
+                  _selectedBMI = int.tryParse(value);
+                },
               ),
             ],
           ),
         ),
       ),
-      'bloodSugarPage': PicosBody(
-        child: TextFieldCard(
-          label: _bloodSugar!,
-          hint: 'mg/dL',
-          onChanged: (String value) {
-            _selectedBloodSugar = int.tryParse(value);
-          },
+      'hearthPage': QuestionairePage(
+        backFunction: _previousPage,
+        nextFunction: _nextPage,
+        child: PicosBody(
+          child: TextFieldCard(
+            label: _heartFrequency!,
+            hint: 'bpm',
+            onChanged: (String value) {
+              _selectedHeartFrequency = int.tryParse(value);
+            },
+          ),
+        ),
+      ),
+      'bloodPressurePage': QuestionairePage(
+        backFunction: _previousPage,
+        nextFunction: _nextPage,
+        child: PicosBody(
+          child: QuestionaireCard(
+            label: _bloodPressure!,
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: PicosTextField(
+                    hint: 'Syst',
+                    maxLength: 3,
+                    keyboardType: TextInputType.number,
+                    onChanged: (String value) {
+                      _selectedSyst = int.tryParse(value);
+                    },
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 20, left: 10, right: 10),
+                  child: Text('/', style: TextStyle(fontSize: 20)),
+                ),
+                Expanded(
+                  child: PicosTextField(
+                    hint: 'Dias',
+                    maxLength: 3,
+                    keyboardType: TextInputType.number,
+                    onChanged: (String value) {
+                      _selectedDias = int.tryParse(value);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      'bloodSugarPage': QuestionairePage(
+        backFunction: _previousPage,
+        nextFunction: _nextPage,
+        child: PicosBody(
+          child: TextFieldCard(
+            label: _bloodSugar!,
+            hint: 'mg/dL',
+            onChanged: (String value) {
+              _selectedBloodSugar = int.tryParse(value);
+            },
+          ),
         ),
       ),
       'activityCover': PicosBody(child: Cover(title: _activityAndRest!)),
-      'walkPage': PicosBody(
-        child: TextFieldCard(
-          label: _possibleWalkDistance!,
-          hint: 'Meter',
-          onChanged: (String value) {
-            _selectedWalkDistance = int.tryParse(value);
-          },
+      'walkPage': QuestionairePage(
+        backFunction: _previousPage,
+        nextFunction: _nextPage,
+        child: PicosBody(
+          child: TextFieldCard(
+            label: _possibleWalkDistance!,
+            hint: 'Meter',
+            onChanged: (String value) {
+              _selectedWalkDistance = int.tryParse(value);
+            },
+          ),
         ),
       ),
-      'sleepDurationPage': PicosBody(
-        child: TextFieldCard(
-          label: _sleepDuration!,
-          hint: _hrs!,
-          onChanged: (String value) {
-            _selectedSleepDuration = int.tryParse(value);
-          },
+      'sleepDurationPage': QuestionairePage(
+        backFunction: _previousPage,
+        nextFunction: _nextPage,
+        child: PicosBody(
+          child: TextFieldCard(
+            label: _sleepDuration!,
+            hint: _hrs!,
+            onChanged: (String value) {
+              _selectedSleepDuration = int.tryParse(value);
+            },
+          ),
         ),
       ),
-      'sleepQualityPage': PicosBody(
-        child: RadioSelectCard(
-          callBack: (dynamic value) {
-            _selectedSleepQuality = value as int;
-          },
-          label: _sleepQuality7Days!,
-          options: _sleepQualityValues,
+      'sleepQualityPage': QuestionairePage(
+        backFunction: _previousPage,
+        nextFunction: _nextPage,
+        child: PicosBody(
+          child: RadioSelectCard(
+            callBack: (dynamic value) {
+              _selectedSleepQuality = value as int;
+            },
+            label: _sleepQuality7Days!,
+            options: _sleepQualityValues,
+          ),
         ),
       ),
       'bodyCover': PicosBody(child: Cover(title: _bodyAndMind!)),
-      'painPage': PicosBody(
-        child: RadioSelectCard(
-          callBack: (dynamic value) {
-            _selectedPain = value as int;
-          },
-          label: _pain!,
-          options: _painValues!,
+      'painPage': QuestionairePage(
+        backFunction: _previousPage,
+        nextFunction: _nextPage,
+        child: PicosBody(
+          child: RadioSelectCard(
+            callBack: (dynamic value) {
+              _selectedPain = value as int;
+            },
+            label: _pain!,
+            options: _painValues!,
+          ),
         ),
       ),
-      'interestPage': PicosBody(
-        child: RadioSelectCard(
-          callBack: (dynamic value) {
-            _selectedQuestionA = value as int;
-          },
-          label: _howOftenAffected!,
-          description: _lowInterest!,
-          options: _bodyAndMindValues!,
+      'interestPage': QuestionairePage(
+        backFunction: _previousPage,
+        nextFunction: _nextPage,
+        child: PicosBody(
+          child: RadioSelectCard(
+            callBack: (dynamic value) {
+              _selectedQuestionA = value as int;
+            },
+            label: _howOftenAffected!,
+            description: _lowInterest!,
+            options: _bodyAndMindValues!,
+          ),
         ),
       ),
-      'dejectionPage': PicosBody(
-        child: RadioSelectCard(
-          callBack: (dynamic value) {
-            _selectedQuestionB = value as int;
-          },
-          label: _howOftenAffected!,
-          description: _dejection!,
-          options: _bodyAndMindValues!,
+      'dejectionPage': QuestionairePage(
+        backFunction: _previousPage,
+        nextFunction: _nextPage,
+        child: PicosBody(
+          child: RadioSelectCard(
+            callBack: (dynamic value) {
+              _selectedQuestionB = value as int;
+            },
+            label: _howOftenAffected!,
+            description: _dejection!,
+            options: _bodyAndMindValues!,
+          ),
         ),
       ),
-      'nervousnessPage': PicosBody(
-        child: RadioSelectCard(
-          callBack: (dynamic value) {
-            _selectedQuestionC = value as int;
-          },
-          label: _howOftenAffected!,
-          description: _nervousness!,
-          options: _bodyAndMindValues!,
+      'nervousnessPage': QuestionairePage(
+        backFunction: _previousPage,
+        nextFunction: _nextPage,
+        child: PicosBody(
+          child: RadioSelectCard(
+            callBack: (dynamic value) {
+              _selectedQuestionC = value as int;
+            },
+            label: _howOftenAffected!,
+            description: _nervousness!,
+            options: _bodyAndMindValues!,
+          ),
         ),
       ),
-      'worriesPage': PicosBody(
-        child: RadioSelectCard(
-          callBack: (dynamic value) {
-            _selectedQuestionD = value as int;
-          },
-          label: _howOftenAffected!,
-          description: _controlWorries!,
-          options: _bodyAndMindValues!,
+      'worriesPage': QuestionairePage(
+        backFunction: _previousPage,
+        nextFunction: _nextPage,
+        child: PicosBody(
+          child: RadioSelectCard(
+            callBack: (dynamic value) {
+              _selectedQuestionD = value as int;
+            },
+            label: _howOftenAffected!,
+            description: _controlWorries!,
+            options: _bodyAndMindValues!,
+          ),
         ),
       ),
       'medicationCover': PicosBody(child: Cover(title: _medicationAndTherapy!)),
-      'medicationPage': PicosBody(
-        child: RadioSelectCard(
-          callBack: (dynamic value) {},
-          label: _changedMedication!,
-          options: _medicationAndTherapyValues!,
+      'medicationPage': QuestionairePage(
+        backFunction: _previousPage,
+        nextFunction: _nextPage,
+        child: PicosBody(
+          child: RadioSelectCard(
+            callBack: (dynamic value) {},
+            label: _changedMedication!,
+            options: _medicationAndTherapyValues!,
+          ),
         ),
       ),
-      'therapyPage': PicosBody(
-        child: RadioSelectCard(
-          callBack: (dynamic value) {},
-          label: _changedTherapy!,
-          options: _medicationAndTherapyValues!,
+      'therapyPage': QuestionairePage(
+        backFunction: _previousPage,
+        nextFunction: _nextPage,
+        child: PicosBody(
+          child: RadioSelectCard(
+            callBack: (dynamic value) {},
+            label: _changedTherapy!,
+            options: _medicationAndTherapyValues!,
+          ),
         ),
       ),
       'readyCover': PicosBody(
@@ -420,56 +484,9 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       _titles.add(_titleMap!['therapyPage']!);
       _pageViews.add(_pages!['readyCover']!);
       _titles.add(_titleMap!['readyCover']!);
-
-      _theme = Theme.of(context).extension<GlobalTheme>()!;
     }
 
     return PicosScreenFrame(
-      bottomNavigationBar: PicosAddButtonBar(
-        leftButton: PicosInkWellButton(
-          padding: const EdgeInsets.only(
-            left: 30,
-            right: 13,
-            top: 15,
-            bottom: 10,
-          ),
-          text: _back!,
-          onTap: () {
-            if (_controller.page == _pageViews.length - 1 ||
-                _controller.page == 0) {
-              Navigator.of(context).pop();
-              return;
-            }
-
-            _controller.previousPage(
-              duration: _controllerDuration,
-              curve: _controllerCurve,
-            );
-          },
-          buttonColor1: _theme!.grey3,
-          buttonColor2: _theme!.grey1,
-        ),
-        rightButton: PicosInkWellButton(
-          padding: const EdgeInsets.only(
-            right: 30,
-            left: 13,
-            top: 15,
-            bottom: 10,
-          ),
-          text: _next!,
-          onTap: () {
-            if (_controller.page == _pageViews.length - 1) {
-              Navigator.of(context).pop();
-              return;
-            }
-
-            _controller.nextPage(
-              duration: _controllerDuration,
-              curve: _controllerCurve,
-            );
-          },
-        ),
-      ),
       title: _title,
       body: PageView(
         controller: _controller,
