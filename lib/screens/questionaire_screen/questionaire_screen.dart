@@ -209,221 +209,193 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       'weightPage': QuestionairePage(
         backFunction: _previousPage,
         nextFunction: _nextPage,
-        child: PicosBody(
-          child: Column(
-            children: <TextFieldCard>[
-              TextFieldCard(
-                label: _bodyWeight!,
-                hint: 'kg',
-                onChanged: (String value) {
-                  _selectedBodyWeight = int.tryParse(value);
-                },
-              ),
-              TextFieldCard(
-                label: 'BMI',
-                hint: 'kg/m² ${_autoCalc!}',
-                onChanged: (String value) {
-                  _selectedBMI = int.tryParse(value);
-                },
-              ),
-            ],
-          ),
+        child: Column(
+          children: <TextFieldCard>[
+            TextFieldCard(
+              label: _bodyWeight!,
+              hint: 'kg',
+              onChanged: (String value) {
+                _selectedBodyWeight = int.tryParse(value);
+              },
+            ),
+            TextFieldCard(
+              label: 'BMI',
+              hint: 'kg/m² ${_autoCalc!}',
+              onChanged: (String value) {
+                _selectedBMI = int.tryParse(value);
+              },
+            ),
+          ],
         ),
       ),
       'hearthPage': QuestionairePage(
         backFunction: _previousPage,
         nextFunction: _nextPage,
-        child: PicosBody(
-          child: TextFieldCard(
-            label: _heartFrequency!,
-            hint: 'bpm',
-            onChanged: (String value) {
-              _selectedHeartFrequency = int.tryParse(value);
-            },
-          ),
+        child: TextFieldCard(
+          label: _heartFrequency!,
+          hint: 'bpm',
+          onChanged: (String value) {
+            _selectedHeartFrequency = int.tryParse(value);
+          },
         ),
       ),
       'bloodPressurePage': QuestionairePage(
         backFunction: _previousPage,
         nextFunction: _nextPage,
-        child: PicosBody(
-          child: QuestionaireCard(
-            label: _bloodPressure!,
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: PicosTextField(
-                    hint: 'Syst',
-                    maxLength: 3,
-                    keyboardType: TextInputType.number,
-                    onChanged: (String value) {
-                      _selectedSyst = int.tryParse(value);
-                    },
-                  ),
+        child: QuestionaireCard(
+          label: _bloodPressure!,
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: PicosTextField(
+                  hint: 'Syst',
+                  maxLength: 3,
+                  keyboardType: TextInputType.number,
+                  onChanged: (String value) {
+                    _selectedSyst = int.tryParse(value);
+                  },
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 20, left: 10, right: 10),
-                  child: Text('/', style: TextStyle(fontSize: 20)),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 20, left: 10, right: 10),
+                child: Text('/', style: TextStyle(fontSize: 20)),
+              ),
+              Expanded(
+                child: PicosTextField(
+                  hint: 'Dias',
+                  maxLength: 3,
+                  keyboardType: TextInputType.number,
+                  onChanged: (String value) {
+                    _selectedDias = int.tryParse(value);
+                  },
                 ),
-                Expanded(
-                  child: PicosTextField(
-                    hint: 'Dias',
-                    maxLength: 3,
-                    keyboardType: TextInputType.number,
-                    onChanged: (String value) {
-                      _selectedDias = int.tryParse(value);
-                    },
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
       'bloodSugarPage': QuestionairePage(
         backFunction: _previousPage,
         nextFunction: _nextPage,
-        child: PicosBody(
-          child: TextFieldCard(
-            label: _bloodSugar!,
-            hint: 'mg/dL',
-            onChanged: (String value) {
-              _selectedBloodSugar = int.tryParse(value);
-            },
-          ),
+        child: TextFieldCard(
+          label: _bloodSugar!,
+          hint: 'mg/dL',
+          onChanged: (String value) {
+            _selectedBloodSugar = int.tryParse(value);
+          },
         ),
       ),
       'activityCover': PicosBody(child: Cover(title: _activityAndRest!)),
       'walkPage': QuestionairePage(
         backFunction: _previousPage,
         nextFunction: _nextPage,
-        child: PicosBody(
-          child: TextFieldCard(
-            label: _possibleWalkDistance!,
-            hint: 'Meter',
-            onChanged: (String value) {
-              _selectedWalkDistance = int.tryParse(value);
-            },
-          ),
+        child: TextFieldCard(
+          label: _possibleWalkDistance!,
+          hint: 'Meter',
+          onChanged: (String value) {
+            _selectedWalkDistance = int.tryParse(value);
+          },
         ),
       ),
       'sleepDurationPage': QuestionairePage(
         backFunction: _previousPage,
         nextFunction: _nextPage,
-        child: PicosBody(
-          child: TextFieldCard(
-            label: _sleepDuration!,
-            hint: _hrs!,
-            onChanged: (String value) {
-              _selectedSleepDuration = int.tryParse(value);
-            },
-          ),
+        child: TextFieldCard(
+          label: _sleepDuration!,
+          hint: _hrs!,
+          onChanged: (String value) {
+            _selectedSleepDuration = int.tryParse(value);
+          },
         ),
       ),
       'sleepQualityPage': QuestionairePage(
         backFunction: _previousPage,
         nextFunction: _nextPage,
-        child: PicosBody(
-          child: RadioSelectCard(
-            callBack: (dynamic value) {
-              _selectedSleepQuality = value as int;
-            },
-            label: _sleepQuality7Days!,
-            options: _sleepQualityValues,
-          ),
+        child: RadioSelectCard(
+          callBack: (dynamic value) {
+            _selectedSleepQuality = value as int;
+          },
+          label: _sleepQuality7Days!,
+          options: _sleepQualityValues,
         ),
       ),
       'bodyCover': PicosBody(child: Cover(title: _bodyAndMind!)),
       'painPage': QuestionairePage(
         backFunction: _previousPage,
         nextFunction: _nextPage,
-        child: PicosBody(
-          child: RadioSelectCard(
-            callBack: (dynamic value) {
-              _selectedPain = value as int;
-            },
-            label: _pain!,
-            options: _painValues!,
-          ),
+        child: RadioSelectCard(
+          callBack: (dynamic value) {
+            _selectedPain = value as int;
+          },
+          label: _pain!,
+          options: _painValues!,
         ),
       ),
       'interestPage': QuestionairePage(
         backFunction: _previousPage,
         nextFunction: _nextPage,
-        child: PicosBody(
-          child: RadioSelectCard(
-            callBack: (dynamic value) {
-              _selectedQuestionA = value as int;
-            },
-            label: _howOftenAffected!,
-            description: _lowInterest!,
-            options: _bodyAndMindValues!,
-          ),
+        child: RadioSelectCard(
+          callBack: (dynamic value) {
+            _selectedQuestionA = value as int;
+          },
+          label: _howOftenAffected!,
+          description: _lowInterest!,
+          options: _bodyAndMindValues!,
         ),
       ),
       'dejectionPage': QuestionairePage(
         backFunction: _previousPage,
         nextFunction: _nextPage,
-        child: PicosBody(
-          child: RadioSelectCard(
-            callBack: (dynamic value) {
-              _selectedQuestionB = value as int;
-            },
-            label: _howOftenAffected!,
-            description: _dejection!,
-            options: _bodyAndMindValues!,
-          ),
+        child: RadioSelectCard(
+          callBack: (dynamic value) {
+            _selectedQuestionB = value as int;
+          },
+          label: _howOftenAffected!,
+          description: _dejection!,
+          options: _bodyAndMindValues!,
         ),
       ),
       'nervousnessPage': QuestionairePage(
         backFunction: _previousPage,
         nextFunction: _nextPage,
-        child: PicosBody(
-          child: RadioSelectCard(
-            callBack: (dynamic value) {
-              _selectedQuestionC = value as int;
-            },
-            label: _howOftenAffected!,
-            description: _nervousness!,
-            options: _bodyAndMindValues!,
-          ),
+        child: RadioSelectCard(
+          callBack: (dynamic value) {
+            _selectedQuestionC = value as int;
+          },
+          label: _howOftenAffected!,
+          description: _nervousness!,
+          options: _bodyAndMindValues!,
         ),
       ),
       'worriesPage': QuestionairePage(
         backFunction: _previousPage,
         nextFunction: _nextPage,
-        child: PicosBody(
-          child: RadioSelectCard(
-            callBack: (dynamic value) {
-              _selectedQuestionD = value as int;
-            },
-            label: _howOftenAffected!,
-            description: _controlWorries!,
-            options: _bodyAndMindValues!,
-          ),
+        child: RadioSelectCard(
+          callBack: (dynamic value) {
+            _selectedQuestionD = value as int;
+          },
+          label: _howOftenAffected!,
+          description: _controlWorries!,
+          options: _bodyAndMindValues!,
         ),
       ),
       'medicationCover': PicosBody(child: Cover(title: _medicationAndTherapy!)),
       'medicationPage': QuestionairePage(
         backFunction: _previousPage,
         nextFunction: _nextPage,
-        child: PicosBody(
-          child: RadioSelectCard(
-            callBack: (dynamic value) {},
-            label: _changedMedication!,
-            options: _medicationAndTherapyValues!,
-          ),
+        child: RadioSelectCard(
+          callBack: (dynamic value) {},
+          label: _changedMedication!,
+          options: _medicationAndTherapyValues!,
         ),
       ),
       'therapyPage': QuestionairePage(
         backFunction: _previousPage,
         nextFunction: _nextPage,
-        child: PicosBody(
-          child: RadioSelectCard(
-            callBack: (dynamic value) {},
-            label: _changedTherapy!,
-            options: _medicationAndTherapyValues!,
-          ),
+        child: RadioSelectCard(
+          callBack: (dynamic value) {},
+          label: _changedTherapy!,
+          options: _medicationAndTherapyValues!,
         ),
       ),
       'readyCover': PicosBody(
