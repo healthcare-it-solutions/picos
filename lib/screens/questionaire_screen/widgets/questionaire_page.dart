@@ -19,8 +19,10 @@ class QuestionairePage extends StatelessWidget {
 
   /// The body of the page.
   final Widget child;
+
   /// Function for getting a page back.
   final void Function()? backFunction;
+
   /// Function for getting the next page.
   final void Function()? nextFunction;
 
@@ -30,38 +32,39 @@ class QuestionairePage extends StatelessWidget {
     final String next = AppLocalizations.of(context)!.next;
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
 
-    return PicosBody(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          child,
-          PicosAddButtonBar(
-            shadows: false,
-            leftButton: PicosInkWellButton(
-              padding: const EdgeInsets.only(
-                left: 30,
-                right: 13,
-                top: 15,
-                bottom: 10,
-              ),
-              text: back,
-              onTap: backFunction ?? () {},
-              buttonColor1: theme.grey3,
-              buttonColor2: theme.grey1,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Expanded(
+          child: PicosBody(
+            child: child,
+          ),
+        ),
+        PicosAddButtonBar(
+          leftButton: PicosInkWellButton(
+            padding: const EdgeInsets.only(
+              left: 30,
+              right: 13,
+              top: 15,
+              bottom: 10,
             ),
-            rightButton: PicosInkWellButton(
-              padding: const EdgeInsets.only(
-                right: 30,
-                left: 13,
-                top: 15,
-                bottom: 10,
-              ),
-              text: next,
-              onTap: nextFunction ?? () {},
+            text: back,
+            onTap: backFunction ?? () {},
+            buttonColor1: theme.grey3,
+            buttonColor2: theme.grey1,
+          ),
+          rightButton: PicosInkWellButton(
+            padding: const EdgeInsets.only(
+              right: 30,
+              left: 13,
+              top: 15,
+              bottom: 10,
             ),
-          )
-        ],
-      ),
+            text: next,
+            onTap: nextFunction ?? () {},
+          ),
+        )
+      ],
     );
   }
 }

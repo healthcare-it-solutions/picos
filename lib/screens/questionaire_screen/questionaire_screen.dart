@@ -90,6 +90,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   /// Holds the pages to generate the PageView from.
   static Map<String, Widget>? _pages;
   static final PageController _controller = PageController();
+
   /// Maps the pageViews to according titles.
   static Map<String, String>? _titleMap;
   static const Duration _controllerDuration = Duration(milliseconds: 300);
@@ -205,7 +206,11 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
 
   void _initPages(BuildContext context) {
     _pages = <String, Widget>{
-      'vitalCover': PicosBody(child: Cover(title: _vitalValues!)),
+      'vitalCover': Cover(
+        title: _vitalValues!,
+        backFunction: _previousPage,
+        nextFunction: _nextPage,
+      ),
       'weightPage': QuestionairePage(
         backFunction: _previousPage,
         nextFunction: _nextPage,
@@ -285,7 +290,11 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
           },
         ),
       ),
-      'activityCover': PicosBody(child: Cover(title: _activityAndRest!)),
+      'activityCover': Cover(
+        title: _activityAndRest!,
+        backFunction: _previousPage,
+        nextFunction: _nextPage,
+      ),
       'walkPage': QuestionairePage(
         backFunction: _previousPage,
         nextFunction: _nextPage,
@@ -319,7 +328,11 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
           options: _sleepQualityValues,
         ),
       ),
-      'bodyCover': PicosBody(child: Cover(title: _bodyAndMind!)),
+      'bodyCover': Cover(
+        title: _bodyAndMind!,
+        backFunction: _previousPage,
+        nextFunction: _nextPage,
+      ),
       'painPage': QuestionairePage(
         backFunction: _previousPage,
         nextFunction: _nextPage,
@@ -379,7 +392,11 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
           options: _bodyAndMindValues!,
         ),
       ),
-      'medicationCover': PicosBody(child: Cover(title: _medicationAndTherapy!)),
+      'medicationCover': Cover(
+        title: _medicationAndTherapy!,
+        backFunction: _previousPage,
+        nextFunction: _nextPage,
+      ),
       'medicationPage': QuestionairePage(
         backFunction: _previousPage,
         nextFunction: _nextPage,
@@ -399,7 +416,11 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
         ),
       ),
       'readyCover': PicosBody(
-        child: Cover(title: _ready!),
+        child: Cover(
+          title: _ready!,
+          backFunction: _previousPage,
+          nextFunction: _nextPage,
+        ),
       ),
     };
   }
