@@ -25,7 +25,6 @@ import 'package:picos/screens/questionaire_screen/widgets/questionaire_card.dart
 import 'package:picos/screens/questionaire_screen/widgets/questionaire_page.dart';
 import 'package:picos/screens/questionaire_screen/widgets/radio_select_card.dart';
 import 'package:picos/screens/questionaire_screen/widgets/text_field_card.dart';
-import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:picos/widgets/picos_text_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -191,6 +190,11 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   }
 
   void _previousPage() {
+    if (_controller.page == 0 || _controller.page == _pageViews.length - 1) {
+      Navigator.of(context).pop();
+      return;
+    }
+
     _controller.previousPage(
       duration: _controllerDuration,
       curve: _controllerCurve,
@@ -198,6 +202,11 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   }
 
   void _nextPage() {
+    if (_controller.page == _pageViews.length - 1) {
+      Navigator.of(context).pop();
+      return;
+    }
+
     _controller.nextPage(
       duration: _controllerDuration,
       curve: _controllerCurve,
@@ -415,12 +424,10 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
           options: _medicationAndTherapyValues!,
         ),
       ),
-      'readyCover': PicosBody(
-        child: Cover(
-          title: _ready!,
-          backFunction: _previousPage,
-          nextFunction: _nextPage,
-        ),
+      'readyCover': Cover(
+        title: _ready!,
+        backFunction: _previousPage,
+        nextFunction: _nextPage,
       ),
     };
   }
@@ -430,12 +437,13 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     // Class init.
     if (_myEntries == null) {
       _initStrings(context);
-      _initPages(context);
       _initTitles(context);
     }
 
     // Instance init.
     if (_pageViews.isEmpty) {
+      _initPages(context);
+
       _title = _myEntries!;
 
       // Add all required pages to the list.
