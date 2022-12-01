@@ -1,0 +1,681 @@
+{
+    "overview": "Overview",
+    "@overview": {
+      "description": "Overview"
+    },
+
+    "inbox": "Inbox",
+    "@inbox": {
+        "description": "Inbox"
+    },
+    
+    "calendar": "Calendar",
+    "@calendar": {
+        "description": "Calendar"
+    },
+
+    "myPicos": "MyPICOS",
+    "@MyPICOS": {
+        "description": "MyPICOS"
+    },
+
+    "myMedications": "My medications",
+    "@myMedications": {
+        "description": "My medications"
+    },
+
+    "inTheMorning": "Morning",
+    "@inTheMorning": {
+        "description": "Morning"
+    },
+    "inTheEvening": "Evening",
+    "@inTheEvening": {
+        "description": "Evening"
+    },
+    "noon": "Noon",
+    "@noon": {
+        "description": "Noon"
+    },
+    "toTheNight": "To the night",
+    "@toTheNight": {
+        "description": "To the night"
+    },
+
+    "addMedication": "Add medication",
+    "@addMedication": {
+        "description": "Add medication"
+    },
+    "editMedication": "Edit medication",
+    "@editMedication": {
+        "description": "Edit medication"
+    },
+
+    "addMedicationInfoPart1": "Please enter ",
+    "@addMedicationInfoPart1": {
+        "description": "Patient advice for adding medication schedules. (Part 1)"
+    },
+    "addMedicationInfoPart2": "accurate and current medication schedules",
+    "@addMedicationInfoPart2": {
+        "description": "Patient advice for adding medication schedules. (Part 2)"
+    },
+    "addMedicationInfoPart3": ". These can be be of great use to the treating facilities and be incorporated into your treatment.",
+    "@addMedicationInfoPart3": {
+        "description": "Patient advice for adding medication schedules. (Part 3)"
+    },
+
+    "enterCompound": "Enter compound",
+    "@enterCompound": {
+        "description": "Enter compound"
+    },
+
+    "compound": "Compound",
+    "@compound": {
+        "description": "Compound"
+    },
+
+    "intake": "Intake",
+    "@intake": {
+        "description": "Intake"
+    },
+
+    "add": "Add",
+    "@add": {
+        "description": "Add"
+    },
+
+    "save": "Save",
+    "@save": {
+        "description": "Save"
+    },
+
+    "myHealth": "My health",
+    "@myHealth": {
+        "description": "My health"
+    },
+
+    "medicalData": "Medical data",
+    "@medicalData": {
+        "description": "Medical data"
+    },
+
+    "medicationScheme": "Medication scheme",
+    "@medicationScheme": {
+        "description": "Medication scheme"
+    },
+
+    "physicians": "Physicians",
+    "@physicians": {
+        "description": "Physicians"
+    },
+
+    "familyMembers": "Family members",
+    "@familyMembers": {
+        "description": "Family members"
+    },
+
+    "documents": "Documents",
+    "@documents": {
+        "description": "Documents"
+    },
+
+    "more": "More",
+    "@more": {
+        "description": "More"
+    },
+
+    "notifications": "Notifications",
+    "@notifications": {
+        "description": "Notifications"
+    },
+
+    "profile": "Profile",
+    "@profile": {
+        "description": "Profile"
+    },
+
+    "privacyNotice": "Privacy notice",
+    "@privacyNotice": {
+        "description": "Privacy notice"
+    },
+
+    "legals": "Legals",
+    "@legals": {
+        "description": "Legals"
+    },
+
+    "logout": "Logout",
+    "@logout": {
+        "description": "Logout"
+    },
+
+    "father": "Father",
+    "@father": {
+        "description": "Father"
+    },
+
+    "mother": "Mother",
+    "@mother": {
+        "Mother": "Mother"
+    },
+
+    "brother": "Brother",
+    "@brother": {
+        "description": "Brother"
+    },
+
+    "sister": "Sister",
+    "@sister": {
+        "description": "Sister"
+    },
+
+    "edit": "Edit",
+    "@edit": {
+        "description": "Edit"
+    },
+
+    "delete": "Delete",
+    "@delete": {
+        "description": "Delete"
+    },
+
+    "mr": "Mr.",
+    "@mr": {
+        "description": "Mr."
+    },
+
+    "mrs": "Mrs.",
+    "@mrs": {
+        "description": "Mrs."
+    },
+
+    "diverse": "Diverse",
+    "@diverse": {
+        "description": "Diverse"
+    },
+
+    "chooseFamilyMember": "Choose your family member",
+    "@chooseFamilyMember": {
+        "description": "Choose your family member"
+    },
+
+    "title": "Title",
+    "@title": {
+        "description": "Title"
+    },
+
+    "firstName": "First name",
+    "@firstName": {
+        "description": "First name"
+    },
+
+    "familyName": "Family name",
+    "@familyName": {
+        "description": "Family name"
+    },
+
+    "email": "E-Mail",
+    "@email": {
+        "description": "E-Mail"
+    },
+
+    "phoneNumber": "Telephone number",
+    "@phoneNumber": {
+        "description": "Telephone number"
+    },
+
+    "address": "Address",
+    "@address": {
+        "description": "Address"
+    },
+
+    "abort": "Abort",
+    "@abort": {
+        "description": "Abort"
+    },
+
+    "proceed": "Continue",
+    "@proceed": {
+        "description": "Continue"
+    },
+
+    "myEntries": "My entries",
+    "@myEntries": {
+        "description": "My entries"
+    },
+
+    "startEntry": "Start entry",
+    "@startEntry": {
+        "description": "Start entry"
+    },
+
+    "submitData": "The data is transmitted.",
+    "@submitData": {
+        "description": "The data is transmitted."
+    },
+
+    "husband": "Husband",
+    "@husband": {
+        "description": "Husband"
+    },
+
+    "wife": "Wife",
+    "@wife": {
+        "description": "Wife"
+    },
+
+    "entryEmail": "Please enter the e-mail-address!",
+    "@entryEmail": {
+        "description": "Please enter the e-mail-address!"
+    },
+
+    "entryValidEmail": "Please enter a valid e-mail-address!",
+    "@entryValidEmail": {
+        "description": "Please enter a valid e-mail-address!"
+    },
+
+    "entryFirstName": "Please enter the first name!",
+    "@entryFirstName": {
+        "description": "Please enter the first name!"
+    },
+
+    "entryFamilyName": "Please enter the family name!",
+    "@entryFamilyName": {
+        "description": "Please enter the family name!"
+    },
+
+    "entryAddress": "Please enter the address!",
+    "@entryAddress": {
+        "description": "Please enter the address!"
+    },
+
+    "entryPhoneNumber": "Please enter the phone number!",
+    "@entryPhoneNumber": {
+        "description": "Please enter the phone number!"
+    },
+
+    "myPhysicians": "My physicians",
+    "@myPhysicians": {
+        "description": "My physicians"
+    },
+
+    "practice": "Practice",
+    "@practice": {
+        "description": "Practice"
+    },
+
+    "practiceName": "Name of practice",
+    "@practiceName": {
+        "description": "Name of practice"
+    },
+
+    "website": "Website",
+    "@website": {
+        "description": "Website"
+    },
+
+    "familyDoctor": "Family doctor",
+    "@familyDoctor": {
+        "description": "Family doctor"
+    },
+
+    "cardiologist": "Cardiologist",
+    "@cardiologist": {
+        "description": "Cardiologist"
+    },
+
+    "nephrologist": "Nephrologist",
+    "@nephrologist": {
+        "description": "Nephrologist"
+    },
+
+    "neurologist": "Neurologist",
+    "@neurologist": {
+        "description": "Neurologist"
+    },
+
+    "addFamilyMember": "Add family member",
+    "@addFamilyMember": {
+        "description": "Add family member"
+    },
+
+    "addPhysician": "Add physician",
+    "@addPhysician": {
+        "description": "Add physician"
+    },
+
+    "chooseField": "Choose your medical field",
+    "@chooseField": {
+        "description": "Choose your medical field"
+    },
+
+    "entryWebsite": "Please enter the website!",
+    "@entryWebsite": {
+        "description": "Please enter the website!"
+    },
+
+    "entryValidWebsite": "Please enter a valid website!",
+    "@entryValidWebsite": {
+        "description": "Please enter a valid website!"
+    },
+
+    "entryPracticeName": "Please enter the practice name!",
+    "@entryPracticeName": {
+        "description": "Please enter the practice name!"
+    },
+
+    "myMedicalData": "My medical data",
+    "@myMedicalData": {
+        "description": "My medical data"
+    },
+
+    "achievedValues": "Today's achieved values",
+    "@achievedValues": {
+        "description": "Today's achieved values"
+    },
+
+    "days": "days",
+    "@days": {
+        "description": "days"
+    },
+
+    "month": "month",
+    "@month": {
+        "description": "month"
+    },
+
+    "months": "months",
+    "@months": {
+        "description": "months"
+    },
+
+    "configuration": "Configuration",
+    "@configuration": {
+        "description": "Configuration"
+    },
+
+    "startConfiguration": "Start configuration",
+    "@startConfiguration": {
+        "description": "Start configuration"
+    },
+
+    "letsStart": "Let's start",
+    "@letsStart": {
+        "description": "Let's start"
+    },
+
+    "back": "Back",
+    "@back": {
+        "description": "Back"
+    },
+
+    "configurationFinished": "That's it! - PICOS is now ready!",
+    "@configurationFinished": {
+        "description": "That's it! - PICOS is now ready!"
+    },
+
+    "questionnaireFinished": "That's it! - thank you for your participation!",
+    "@questionnaireFinished": {
+        "description": "That's it! - thank you for your participation!"
+    },
+
+    "endConfiguration": "End configuration",
+    "@endConfiguration": {
+        "description": "End configuration"
+    },
+
+    "finishText": "Discharge: Entries of the initial values..",
+    "@finishText": {
+        "description": "Discharge: Entries of the initial values.."
+    },
+
+    "medication": "Medication",
+    "@medication": {
+        "description": "Medication"
+    },
+
+    "therapy": "Therapy",
+    "@therapy": {
+        "description": "Therapy"
+    },
+
+    "doctorsVisit": "Doctor's visit",
+    "@doctorsVisit": {
+        "description": "Doctor's visit"
+    },
+
+    "medicationAndTherapy": "Medication & Therapy",
+    "@medicationAndTherapy": {
+        "description": "Medication & Therapy"
+    },
+
+    "infoText1": "Patient ID-12345 takes part in the section",
+    "@infoText1": {
+        "description": "Patient ID-12345 takes part in the section "
+    },
+
+    "infoText2": "with the following information:",
+    "@infoText2": {
+        "description": "with the following information:"
+    },
+
+    "bodyAndMind": "Body & Mind",
+    "@bodyAndMind": {
+        "description": "Body & Mind"
+    },
+
+    "pain": "Pain",
+    "@pain": {
+        "description": "Pain"
+    },
+
+    "activityAndRest": "Activity & Rest",
+    "@activityAndRest": {
+        "description": "Activity & Rest"
+    },
+
+    "walkDistance": "Walk distance",
+    "@walkDistance": {
+        "description": "Walk distance"
+    },
+
+    "sleepDuration": "Sleep duration",
+    "@sleepDuration": {
+        "description": "Sleep duration"
+    },
+
+    "sleepQuality": "Sleep quality",
+    "@sleepQuality": {
+        "description": "Sleep quality"
+    },
+
+    "vitalValues": "Vital values",
+    "@vitalValues": {
+        "description": "Vital values"
+    },
+
+    "weightBMI": "Weight & BMI",
+    "@weightBMI": {
+        "description": "Weight & BMI"
+    },
+
+    "heartFrequency": "Heart frequency",
+    "@heartFrequency": {
+        "description": "Heart frequency"
+    },
+
+    "bloodPressure": "Blood pressure",
+    "@bloodPressure": {
+        "description": "Blood pressure"
+    },
+
+    "bloodSugar": "Blood sugar",
+    "@bloodSugar": {
+        "description": "Blood sugar"
+    },
+
+    "myTherapy": "My Therapy",
+    "@myTherapy": {
+        "description": "My Therapy"
+    },
+
+    "addTherapy": "Add therapy",
+    "@addTherapy": {
+        "description": "Add therapy"
+    },
+
+    "date": "Date",
+    "@date": {
+        "description": "Date"
+    },
+
+    "day": "Day",
+    "@day": {
+        "description": "Day"
+    },
+
+    "year": "Year",
+    "@year": {
+        "description": "Year"
+    },
+
+    "selectDate": "Select date",
+    "@selectDate": {
+        "description": "Select date"
+    },
+
+    "editTherapy": "Edit therapy",
+    "@editTherapy": {
+        "description": "Edit therapy"
+    },
+
+    "bodyWeight": "Body weight",
+    "@bodyWeight": {
+        "description": "Body weight"
+    },
+
+    "possibleWalkDistance": "Possible walking distance within 2 minutes",
+    "@possibleWalkDistance": {
+        "description": "Possible walking distance within 2 minutes"
+    },
+
+    "hrs": "Hrs.",
+    "@hrs": {
+        "description": "Hrs."
+    },
+
+    "autoCalc": "(auto. calculation)",
+    "@autoCalc": {
+        "description": "(auto. calculation)"
+    },
+
+    "sleepQuality7Days": "Sleep quality during the last 7 days",
+    "@sleepQuality7Days": {
+        "description": "Sleep quality during the last 7 days"
+    },
+
+    "howOftenAffected": "During the past 2 weeks, how often did you feel affected by the following complaints?",
+    "@howOftenAffected": {
+        "description": "During the past 2 weeks, how often did you feel affected by the following complaints?"
+    },
+
+    "lowInterest": "a) little interest or pleasure in your activities",
+    "@lowInterest": {
+        "description": "a) little interest or pleasure in your activities"
+    },
+
+    "dejection": "b) dejection, melancholy or hopelessness",
+    "@dejection": {
+        "description": "b) dejection, melancholy or hopelessness"
+    },
+
+    "nervousness": "c) nervousness, anxiety or strain",
+    "@nervousness": {
+        "description": "c) nervousness, anxiety or strain"
+    },
+
+    "controlWorries": "d) Not being able to stop or control worries",
+    "@controlWorries": {
+        "description": "d) Not being able to stop or control worries"
+    },
+
+    "changedMedication": "Has anything changed with your medication?",
+    "@changedMedication": {
+        "description": "Has anything changed with your medication?"
+    },
+
+    "changedTherapy": "Has anything changed in your therapy?",
+    "@changedTherapy": {
+        "description": "Has anything changed in your therapy?"
+    },
+
+    "painless": "Painless",
+    "@painless": {
+        "description": "Painless"
+    },
+    "veryMild": "Very mild",
+    "@veryMild": {
+        "description": "Very mild"
+    },
+    "unpleasant": "Unpleasant",
+    "@unpleasant": {
+        "description": "Unpleasant"
+    },
+    "tolerable": "Tolerable",
+    "@tolerable": {
+        "description": "Tolerable"
+    },
+    "disturbing": "Disturbing",
+    "@disturbing": {
+        "description": "Disturbing"
+    },
+    "veryDisturbing": "Very disturbing",
+    "@veryDisturbing": {
+        "description": "Very disturbing"
+    },
+    "severe": "Severe",
+    "@severe": {
+        "description": "Severe"
+    },
+    "verySevere": "Very severe",
+    "@verySevere": {
+        "description": "Very severe"
+    },
+    "veryTerrible": "Very terrible",
+    "@veryTerrible": {
+        "description": "Very terrible"
+    },
+    "agonizingUnbearable": "Agonizing unbearable",
+    "@agonizingUnbearable": {
+        "description": "Agonizing unbearable"
+    },
+    "strongestImaginable": "Strongest imaginable",
+    "@strongestImaginable": {
+        "description": "Strongest imaginable"
+    },
+
+    "notAtAll": "Not at all",
+    "@notAtAll": {
+        "description": "Not at all"
+    },
+    "onIndividualDays": "On individual days",
+    "@onIndividualDays": {
+        "description": "On individual days"
+    },
+    "onMoreThanHalfDays": "On more than half of the days",
+    "@onMoreThanHalfDays": {
+        "description": "On more than half of the days"
+    },
+    "almostEveryDays": "Almost every day",
+    "@almostEveryDays": {
+        "description": "Almost every day"
+    },
+
+    "yes": "Yes",
+    "@yes": {
+        "description": "Yes"
+    },
+    "no": "No",
+    "@no": {
+        "description": "No"
+    }
+}
