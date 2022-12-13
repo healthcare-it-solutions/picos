@@ -17,6 +17,7 @@
 
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:picos/secrets.dart';
 
@@ -28,9 +29,19 @@ import '../models/abstract_database_object.dart';
 class Backend {
   /// initializes the parse server
   Backend() {
+    String url = '';
+
+    if (kReleaseMode) {
+      url = serverUrlProd;
+    }
+
+    if (kDebugMode) {
+      url = serverUrl;
+    }
+
     Parse().initialize(
       appId,
-      serverUrl,
+      url,
       clientKey: clientKey,
       appName: appName,
       debug: true,
