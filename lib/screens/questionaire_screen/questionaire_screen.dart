@@ -491,7 +491,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       title: _title,
       body: PageView(
         controller: _controller,
-        children: _pageViews,
+        physics: const NeverScrollableScrollPhysics(),
         onPageChanged: (int value) async {
           if (_title != _titles[value]) {
             setState(() {
@@ -533,6 +533,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
             await Backend.saveObject(phq4);
           }
         },
+        children: _pageViews,
       ),
     );
   }
