@@ -190,6 +190,8 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   }
 
   void _previousPage() {
+    FocusManager.instance.primaryFocus?.unfocus();
+
     if (_controller.page == 0 || _controller.page == _pageViews.length - 1) {
       Navigator.of(context).pop();
       return;
@@ -202,6 +204,8 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   }
 
   void _nextPage() {
+    FocusManager.instance.primaryFocus?.unfocus();
+
     if (_controller.page == _pageViews.length - 1) {
       Navigator.of(context).pop();
       return;
