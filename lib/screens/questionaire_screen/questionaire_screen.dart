@@ -26,11 +26,11 @@ import 'package:picos/screens/questionaire_screen/widgets/radio_select_card.dart
 import 'package:picos/screens/questionaire_screen/widgets/text_field_card.dart';
 import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
-import 'package:picos/widgets/picos_text_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../models/daily.dart';
 import '../../util/backend.dart';
+import '../../widgets/picos_select.dart';
 
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
@@ -78,6 +78,23 @@ class QuestionaireScreen extends StatelessWidget {
   static Map<String, dynamic>? _painValues;
   static Map<String, dynamic>? _bodyAndMindValues;
   static Map<String, dynamic>? _medicationAndTherapyValues;
+  static List<String>? _bloodPressureSelection;
+
+  static List<String> _createBloodPressureSelection() {
+    int min = 40;
+    int max = 250;
+    int interval = 10;
+    List<String> bloodPressureSelection = <String>[];
+
+    int i = min;
+    do {
+      bloodPressureSelection.add(i.toString());
+
+      i = i + interval;
+    } while (i <= max);
+
+    return bloodPressureSelection;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +118,8 @@ class QuestionaireScreen extends StatelessWidget {
 
     // Class init.
     if (_myEntries == null) {
+      _bloodPressureSelection = _createBloodPressureSelection();
+
       _myEntries = AppLocalizations.of(context)!.myEntries;
       _vitalValues = AppLocalizations.of(context)!.vitalValues;
       _activityAndRest = AppLocalizations.of(context)!.activityAndRest;
@@ -188,27 +207,25 @@ class QuestionaireScreen extends StatelessWidget {
           child: Row(
             children: <Widget>[
               Expanded(
-                child: PicosTextField(
-                  hint: 'Syst',
-                  maxLength: 3,
-                  keyboardType: TextInputType.number,
-                  onChanged: (String value) {
+                child: PicosSelect(
+                  selection: _bloodPressureSelection!,
+                  callBackFunction: (String value) {
                     selectedSyst = int.tryParse(value);
                   },
+                  hint: 'Syst',
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.only(bottom: 20, left: 10, right: 10),
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Text('/', style: TextStyle(fontSize: 20)),
               ),
               Expanded(
-                child: PicosTextField(
-                  hint: 'Dias',
-                  maxLength: 3,
-                  keyboardType: TextInputType.number,
-                  onChanged: (String value) {
+                child: PicosSelect(
+                  selection: _bloodPressureSelection!,
+                  callBackFunction: (String value) {
                     selectedDias = int.tryParse(value);
                   },
+                  hint: 'Dias',
                 ),
               ),
             ],
