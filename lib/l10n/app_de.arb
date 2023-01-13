@@ -82,6 +82,7 @@
     "startConfiguration": "Konfiguration starten",
     "letsStart": "Los geht's",
     "back": "Zurück",
+    "next": "Weiter",
     "configurationFinished": "Fertig! - PICOS ist nun bereit!",
     "questionnaireFinished": "Fertig - vielen Dank für Ihre Teilnahme!",
     "endConfiguration": "Konfiguration abschließen",

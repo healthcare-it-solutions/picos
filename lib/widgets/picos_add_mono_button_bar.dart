@@ -41,8 +41,16 @@ class PicosAddMonoButtonBar extends StatelessWidget {
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Theme.of(context).shadowColor,
-            spreadRadius: 2,
-            blurRadius: 2,
+            blurRadius: 5,
+            offset: const Offset(0, -4),
+          ),
+          BoxShadow(
+            color: theme.bottomNavigationBar!,
+            offset: const Offset(-10, 0),
+          ),
+          BoxShadow(
+            color: theme.bottomNavigationBar!,
+            offset: const Offset(10, 0),
           ),
         ],
       ),
