@@ -24,12 +24,14 @@ import 'package:picos/screens/questionaire_screen/widgets/cover.dart';
 import 'package:picos/screens/questionaire_screen/widgets/questionaire_card.dart';
 import 'package:picos/screens/questionaire_screen/widgets/questionaire_page.dart';
 import 'package:picos/screens/questionaire_screen/widgets/radio_select_card.dart';
+import 'package:picos/screens/questionaire_screen/widgets/sleep_quality_card.dart';
 import 'package:picos/screens/questionaire_screen/widgets/text_field_card.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../models/daily.dart';
 import '../../util/backend.dart';
+import '../../widgets/picos_label.dart';
 import '../../widgets/picos_select.dart';
 
 /// This is the screen a user should see when prompted to provide some
@@ -67,21 +69,6 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   static String? _controlWorries;
   static String? _changedMedication;
   static String? _changedTherapy;
-
-  // Selectable values.
-  static const Map<String, dynamic> _sleepQualityValues = <String, dynamic>{
-    '10': 10,
-    '9': 9,
-    '8': 8,
-    '7': 7,
-    '6': 6,
-    '5': 5,
-    '4': 4,
-    '3': 3,
-    '2': 2,
-    '1': 1,
-    '0': 0,
-  };
   static Map<String, dynamic>? _painValues;
   static Map<String, dynamic>? _bodyAndMindValues;
   static Map<String, dynamic>? _medicationAndTherapyValues;
@@ -278,7 +265,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
         backFunction: _previousPage,
         nextFunction: _nextPage,
         child: QuestionaireCard(
-          label: _bloodPressure!,
+          label: PicosLabel(label: _bloodPressure!),
           child: Row(
             children: <Widget>[
               Expanded(
@@ -348,12 +335,11 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       'sleepQualityPage': QuestionairePage(
         backFunction: _previousPage,
         nextFunction: _nextPage,
-        child: RadioSelectCard(
+        child: SleepQualityCard(
           callBack: (dynamic value) {
-            _selectedSleepQuality = value as int;
+            _selectedSleepQuality = value;
           },
           label: _sleepQuality7Days!,
-          options: _sleepQualityValues,
         ),
       ),
       'bodyCover': Cover(
