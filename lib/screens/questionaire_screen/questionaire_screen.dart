@@ -23,6 +23,7 @@ import 'package:picos/models/weekly.dart';
 import 'package:picos/screens/questionaire_screen/widgets/cover.dart';
 import 'package:picos/screens/questionaire_screen/widgets/questionaire_card.dart';
 import 'package:picos/screens/questionaire_screen/widgets/radio_select_card.dart';
+import 'package:picos/screens/questionaire_screen/widgets/sleep_quality_card.dart';
 import 'package:picos/screens/questionaire_screen/widgets/text_field_card.dart';
 import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
@@ -31,6 +32,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../models/daily.dart';
 import '../../util/backend.dart';
+import '../../widgets/picos_label.dart';
 
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
@@ -62,19 +64,6 @@ class QuestionaireScreen extends StatelessWidget {
   static String? _controlWorries;
   static String? _changedMedication;
   static String? _changedTherapy;
-  static const Map<String, dynamic> _sleepQualityValues = <String, dynamic>{
-    '10': 10,
-    '9': 9,
-    '8': 8,
-    '7': 7,
-    '6': 6,
-    '5': 5,
-    '4': 4,
-    '3': 3,
-    '2': 2,
-    '1': 1,
-    '0': 0,
-  };
   static Map<String, dynamic>? _painValues;
   static Map<String, dynamic>? _bodyAndMindValues;
   static Map<String, dynamic>? _medicationAndTherapyValues;
@@ -151,7 +140,7 @@ class QuestionaireScreen extends StatelessWidget {
       };
     }
 
-    pageViews = <Widget>[
+    pageViews = <PicosBody>[
       PicosBody(child: Cover(title: _vitalValues!)),
       PicosBody(
         child: Column(
@@ -184,7 +173,7 @@ class QuestionaireScreen extends StatelessWidget {
       ),
       PicosBody(
         child: QuestionaireCard(
-          label: _bloodPressure!,
+          label: PicosLabel(label: _bloodPressure!),
           child: Row(
             children: <Widget>[
               Expanded(
@@ -244,12 +233,11 @@ class QuestionaireScreen extends StatelessWidget {
         ),
       ),
       PicosBody(
-        child: RadioSelectCard(
+        child: SleepQualityCard(
           callBack: (dynamic value) {
-            selectedSleepQuality = value as int;
+            selectedSleepQuality = value;
           },
           label: _sleepQuality7Days!,
-          options: _sleepQualityValues,
         ),
       ),
       PicosBody(child: Cover(title: _bodyAndMind!)),
