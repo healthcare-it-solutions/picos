@@ -181,59 +181,6 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       AppLocalizations.of(context)!.no: false,
     };
   }
-    // Class init.
-    if (_myEntries == null) {
-      _bloodPressureSelection = _createBloodPressureSelection();
-
-      _myEntries = AppLocalizations.of(context)!.myEntries;
-      _vitalValues = AppLocalizations.of(context)!.vitalValues;
-      _activityAndRest = AppLocalizations.of(context)!.activityAndRest;
-      _bodyAndMind = AppLocalizations.of(context)!.bodyAndMind;
-      _medicationAndTherapy =
-          AppLocalizations.of(context)!.medicationAndTherapy;
-      _bodyWeight = AppLocalizations.of(context)!.bodyWeight;
-      _autoCalc = AppLocalizations.of(context)!.autoCalc;
-      _heartFrequency = AppLocalizations.of(context)!.heartFrequency;
-      _bloodPressure = AppLocalizations.of(context)!.bloodPressure;
-      _bloodSugar = AppLocalizations.of(context)!.bloodSugar;
-      _possibleWalkDistance =
-          AppLocalizations.of(context)!.possibleWalkDistance;
-      _sleepDuration = AppLocalizations.of(context)!.sleepDuration;
-      _hrs = AppLocalizations.of(context)!.hrs;
-      _ready = AppLocalizations.of(context)!.questionnaireFinished;
-      _sleepQuality7Days = AppLocalizations.of(context)!.sleepQuality7Days;
-      _pain = AppLocalizations.of(context)!.pain;
-      _howOftenAffected = AppLocalizations.of(context)!.howOftenAffected;
-      _lowInterest = AppLocalizations.of(context)!.lowInterest;
-      _dejection = AppLocalizations.of(context)!.dejection;
-      _nervousness = AppLocalizations.of(context)!.nervousness;
-      _controlWorries = AppLocalizations.of(context)!.controlWorries;
-      _changedTherapy = AppLocalizations.of(context)!.changedTherapy;
-      _changedMedication = AppLocalizations.of(context)!.changedMedication;
-      _painValues = <String, dynamic>{
-        '0 ${AppLocalizations.of(context)!.painless}': 0,
-        '1 ${AppLocalizations.of(context)!.veryMild}': 1,
-        '2 ${AppLocalizations.of(context)!.unpleasant}': 2,
-        '3 ${AppLocalizations.of(context)!.tolerable}': 3,
-        '4 ${AppLocalizations.of(context)!.disturbing}': 4,
-        '5 ${AppLocalizations.of(context)!.veryDisturbing}': 5,
-        '6 ${AppLocalizations.of(context)!.severe}': 6,
-        '7 ${AppLocalizations.of(context)!.verySevere}': 7,
-        '8 ${AppLocalizations.of(context)!.veryTerrible}': 8,
-        '9 ${AppLocalizations.of(context)!.agonizingUnbearable}': 9,
-        '10 ${AppLocalizations.of(context)!.strongestImaginable}': 10,
-      };
-      _bodyAndMindValues = <String, dynamic>{
-        AppLocalizations.of(context)!.notAtAll: 0,
-        AppLocalizations.of(context)!.onIndividualDays: 1,
-        AppLocalizations.of(context)!.onMoreThanHalfDays: 2,
-        AppLocalizations.of(context)!.almostEveryDays: 3,
-      };
-      _medicationAndTherapyValues = <String, dynamic>{
-        AppLocalizations.of(context)!.yes: true,
-        AppLocalizations.of(context)!.no: false,
-      };
-    }
 
   void _initTitles(BuildContext context) {
     _titleMap = <String, String>{
@@ -338,14 +285,9 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
                 child: PicosSelect(
                   selection: _bloodPressureSelection!,
                   callBackFunction: (String value) {
-                    selectedSyst = int.tryParse(value);
-                  },
-                  hint: 'Syst',
-                  maxLength: 3,
-                  keyboardType: TextInputType.number,
-                  onChanged: (String value) {
                     _selectedSyst = int.tryParse(value);
                   },
+                  hint: 'Syst',
                 ),
               ),
               const Padding(
@@ -356,14 +298,9 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
                 child: PicosSelect(
                   selection: _bloodPressureSelection!,
                   callBackFunction: (String value) {
-                    selectedDias = int.tryParse(value);
-                  },
-                  hint: 'Dias',
-                  maxLength: 3,
-                  keyboardType: TextInputType.number,
-                  onChanged: (String value) {
                     _selectedDias = int.tryParse(value);
                   },
+                  hint: 'Dias',
                 ),
               ),
             ],
@@ -518,6 +455,8 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   Widget build(BuildContext context) {
     // Class init.
     if (_myEntries == null) {
+      _bloodPressureSelection = _createBloodPressureSelection();
+
       _initStrings(context);
       _initTitles(context);
     }
