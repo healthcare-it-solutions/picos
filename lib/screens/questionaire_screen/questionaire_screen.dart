@@ -238,7 +238,6 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     _pages = <String, Widget>{
       'vitalCover': Cover(
         title: _vitalValues!,
-        backFunction: _previousPage,
         nextFunction: _nextPage,
       ),
       'weightPage': QuestionairePage(
