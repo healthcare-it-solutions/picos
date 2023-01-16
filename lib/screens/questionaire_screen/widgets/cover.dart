@@ -80,7 +80,7 @@ class Cover extends StatelessWidget {
           ),
           PicosInkWellButton(
             text: start,
-            onTap: () => nextFunction ?? () {},
+            onTap: nextFunction ?? () {},
           )
           /*PicosAddButtonBar(
             shadows: false,
