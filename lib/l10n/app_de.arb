@@ -139,5 +139,10 @@
     "onMoreThanHalfDays": "An mehr als die Hälfte der Tage",
     "almostEveryDays": "Beinahe jeden Tag",
     "yes": "Ja",
-    "no": "Nein"
+    "no": "Nein",
+    "excellent": "Exzellent",
+    "good": "Gut",
+    "medium": "Mittel",
+    "bad": "Schlecht",
+    "terrible": "Schrecklich"
 }
