@@ -17,6 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:picos/screens/questionaire_screen/widgets/questionaire_card.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../widgets/picos_label.dart';
 
@@ -44,6 +45,13 @@ class SleepQualityCard extends StatefulWidget {
 }
 
 class _SleepQualityCardState extends State<SleepQualityCard> {
+  //Static Strings
+  static String? _excellent;
+  static String? _good;
+  static String? _medium;
+  static String? _bad;
+  static String? _terrible;
+
   static final Map<String, int> _options = <String, int>{
     '10': 10,
     '9': 9,
@@ -61,18 +69,26 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
   int groupValue = 10;
   static const double tileHeight = 55;
 
+  void _initStrings(BuildContext context) {
+    _excellent = AppLocalizations.of(context)!.excellent;
+    _good = AppLocalizations.of(context)!.good;
+    _medium = AppLocalizations.of(context)!.medium;
+    _bad = AppLocalizations.of(context)!.bad;
+    _terrible = AppLocalizations.of(context)!.terrible;
+  }
+
   String _generateTileTitle(String row) {
     switch (row) {
       case '10':
-        return 'Exzellent';
+        return _excellent!;
       case '8':
-        return 'Gut';
+        return _good!;
       case '5':
-        return 'Mittel';
+        return _medium!;
       case '2':
-        return 'Schlecht';
+        return _bad!;
       case '0':
-        return 'Schrecklich';
+        return _terrible!;
     }
 
     return '';
@@ -161,6 +177,10 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
 
   @override
   Widget build(BuildContext context) {
+    if (_good == null) {
+      _initStrings(context);
+    }
+
     List<Widget> children = <Widget>[];
 
     double cardContentPadding = 15;
