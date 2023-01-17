@@ -151,7 +151,7 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
           thickness: 1,
           height: 0,
           color: Color.fromRGBO(145, 151, 156, 1),
-          endIndent: 254,
+          endIndent: 234,
         ),
       );
     }
@@ -186,11 +186,14 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: SizedBox(
-                      width: 30,
-                      child: Text(
-                        key.length < 2 ? '  $key' : key,
-                        style: const TextStyle(
-                          fontSize: 20,
+                      width: 50,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Text(
+                          key.length < 2 ? '  $key' : key,
+                          style: const TextStyle(
+                            fontSize: 20,
+                          ),
                         ),
                       ),
                     ),
@@ -201,15 +204,22 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
                       child: _generateTitleWidget(key),
                     ),
                   ),
-                  Radio<int>(
-                    value: value,
-                    groupValue: groupValue,
-                    onChanged: (int? newValue) {
-                      setState(() {
-                        widget.callBack(newValue!);
-                        groupValue = newValue;
-                      });
-                    },
+                  Row(
+                    children: <Widget>[
+                      Radio<int>(
+                        value: value,
+                        groupValue: groupValue,
+                        onChanged: (int? newValue) {
+                          setState(() {
+                            widget.callBack(newValue!);
+                            groupValue = newValue;
+                          });
+                        },
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      )
+                    ],
                   ),
                 ],
               ),
@@ -236,7 +246,7 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
           Positioned(
             width: 50,
             height: tileHeight * 11,
-            left: 65,
+            left: 85,
             child: Ink(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
