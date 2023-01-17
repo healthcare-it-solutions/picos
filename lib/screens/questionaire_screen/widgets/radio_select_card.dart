@@ -62,7 +62,7 @@ class RadioSelectCard extends StatelessWidget {
     );
 
     return QuestionaireCard(
-      label: label,
+      label: PicosLabel(label: label),
       child: Column(
         children: children,
       ),

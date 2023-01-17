@@ -682,5 +682,25 @@
     "no": "No",
     "@no": {
         "description": "No"
+    },
+    "excellent": "Excellent",
+    "@excellent": {
+        "description": "Excellent"
+    },
+    "good": "Good",
+    "@Good": {
+        "description": "Good"
+    },
+    "medium": "Medium",
+    "@medium": {
+        "description": "Medium"
+    },
+    "bad": "Bad",
+    "@bad": {
+        "description": "Bad"
+    },
+    "terrible": "Terrible",
+    "@terrible": {
+        "description": "Terrible"
     }
 }

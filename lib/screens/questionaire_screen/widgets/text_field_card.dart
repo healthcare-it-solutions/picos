@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:picos/screens/questionaire_screen/widgets/questionaire_card.dart';
 
+import '../../../widgets/picos_label.dart';
 import '../../../widgets/picos_text_field.dart';
 
 /// A card with a TextField inside it.
@@ -42,7 +43,7 @@ class TextFieldCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return QuestionaireCard(
-      label: label,
+      label: PicosLabel(label: label),
       child: PicosTextField(
         onChanged: onChanged,
         hint: hint,
