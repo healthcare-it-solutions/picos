@@ -28,6 +28,7 @@ class Cover extends StatelessWidget {
   /// Constructs the cover page.
   const Cover({
     this.title = '',
+    this.image = '',
     Key? key,
     this.backFunction,
     this.nextFunction,
@@ -35,6 +36,9 @@ class Cover extends StatelessWidget {
 
   /// The title cover.
   final String title;
+
+  /// Contains the annotation for the image.
+  final String image;
 
   /// Function for getting a page back.
   final void Function()? backFunction;
@@ -57,9 +61,9 @@ class Cover extends StatelessWidget {
           SizedBox(
             height: height / 5,
           ),
-          const Center(
+          Center(
             child: Image(
-              image: AssetImage('assets/Vitalwerte_neg.png'),
+              image: AssetImage(image),
             ),
           ),
           Center(
