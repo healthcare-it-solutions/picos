@@ -121,6 +121,44 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
     );
   }
 
+  List<Widget> _generateDivider() {
+    List<Widget> divider = <Widget>[];
+
+    for (int i = 0; i < _options.length; i++) {
+      divider.add(
+        const SizedBox(
+          height: tileHeight,
+        ),
+      );
+
+      if (i == _options.length - 1) {
+        continue;
+      }
+
+      if (i == 0 || i == 3 || i == 6 || i == 9) {
+        divider.add(
+          const Divider(
+            thickness: 3,
+            height: 0,
+            color: Color.fromRGBO(145, 151, 156, 1),
+          ),
+        );
+        continue;
+      }
+
+      divider.add(
+        const Divider(
+          thickness: 1,
+          height: 0,
+          color: Color.fromRGBO(145, 151, 156, 1),
+          endIndent: 254,
+        ),
+      );
+    }
+
+    return divider;
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Widget> children = <Widget>[];
@@ -211,6 +249,12 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
                   ],
                 ),
               ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Column(
+              children: _generateDivider(),
             ),
           ),
         ],
