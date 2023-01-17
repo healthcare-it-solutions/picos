@@ -24,15 +24,21 @@ class PicosScreenFrame extends StatelessWidget {
   /// Creates PicosScreenFrame.
   const PicosScreenFrame({
     Key? key,
+    this.appBarElevation = 4,
     this.bottomNavigationBar,
     this.title,
     this.body,
   }) : super(key: key);
 
+  /// The setting for the App Bar Elevation (Shadow).
+  final double appBarElevation; 
+
   /// A Navigation bar displayed at the bottom.
   final Widget? bottomNavigationBar;
+
   /// The title of the screen.
   final String? title;
+
   /// The content inside the frame to display.
   final Widget? body;
 
@@ -48,6 +54,7 @@ class PicosScreenFrame extends StatelessWidget {
           appBar: AppBar(
             centerTitle: true,
             title: Text(title ?? ''),
+            elevation: appBarElevation,
           ),
           body: body,
         ),
