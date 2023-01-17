@@ -139,6 +139,7 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
 
   List<Widget> _generateDivider() {
     List<Widget> divider = <Widget>[];
+    const Color dividerColor = Color.fromRGBO(145, 151, 156, 1);
 
     for (int i = 0; i < _options.length; i++) {
       divider.add(
@@ -156,18 +157,22 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
           const Divider(
             thickness: 3,
             height: 0,
-            color: Color.fromRGBO(145, 151, 156, 1),
+            color: dividerColor,
           ),
         );
         continue;
       }
 
       divider.add(
-        const Divider(
-          thickness: 1,
-          height: 0,
-          color: Color.fromRGBO(145, 151, 156, 1),
-          endIndent: 234,
+        LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            return Divider(
+              thickness: 1,
+              height: 0,
+              color: dividerColor,
+              endIndent: constraints.maxWidth - 120,
+            );
+          },
         ),
       );
     }
