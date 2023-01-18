@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/widgets/picos_body.dart';
 
 import '../../../themes/global_theme.dart';
 import '../../../widgets/picos_add_button_bar.dart';
@@ -52,69 +53,74 @@ class Cover extends StatelessWidget {
     final String next = AppLocalizations.of(context)!.next;
     final String start = AppLocalizations.of(context)!.letsStart;
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-    final double height = MediaQuery.of(context).size.height;
+    final double height = MediaQuery.of(context).size.height -
+        kToolbarHeight -
+        MediaQuery.of(context).viewPadding.top;
 
     return Container(
-      color: theme.darkGreen1!,
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            height: height / 5,
-          ),
-          Center(
-            child: Image(
-              image: AssetImage(image),
+      height: height,
+      color: theme.darkGreen1,
+      child: PicosBody(
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: height / 5,
             ),
-          ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 60),
-              child: Text(
-                title,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+            Center(
+              child: Image(
+                image: AssetImage(image),
+              ),
+            ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 60),
+                child: Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
-          ),
-          SizedBox(
-            height: height / 3.5,
-          ),
-          if (backFunction == null)
-            PicosInkWellButton(
-              text: start,
-              onTap: nextFunction ?? () {},
-            )
-          else
-            PicosAddButtonBar(
-              shadows: false,
-              leftButton: PicosInkWellButton(
-                padding: const EdgeInsets.only(
-                  left: 30,
-                  right: 13,
-                  top: 15,
-                  bottom: 10,
-                ),
-                text: back,
-                onTap: backFunction ?? () {},
-                buttonColor1: theme.grey3,
-                buttonColor2: theme.grey1,
-              ),
-              rightButton: PicosInkWellButton(
-                padding: const EdgeInsets.only(
-                  right: 30,
-                  left: 13,
-                  top: 15,
-                  bottom: 10,
-                ),
-                text: next,
+            SizedBox(
+              height: height / 3.5,
+            ),
+            if (backFunction == null)
+              PicosInkWellButton(
+                text: start,
                 onTap: nextFunction ?? () {},
-              ),
-            )
-        ],
+              )
+            else
+              PicosAddButtonBar(
+                shadows: false,
+                leftButton: PicosInkWellButton(
+                  padding: const EdgeInsets.only(
+                    left: 30,
+                    right: 13,
+                    top: 15,
+                    bottom: 10,
+                  ),
+                  text: back,
+                  onTap: backFunction ?? () {},
+                  buttonColor1: theme.grey3,
+                  buttonColor2: theme.grey1,
+                ),
+                rightButton: PicosInkWellButton(
+                  padding: const EdgeInsets.only(
+                    right: 30,
+                    left: 13,
+                    top: 15,
+                    bottom: 10,
+                  ),
+                  text: next,
+                  onTap: nextFunction ?? () {},
+                ),
+              )
+          ],
+        ),
       ),
     );
   }
