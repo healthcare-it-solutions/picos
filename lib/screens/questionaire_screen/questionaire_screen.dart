@@ -20,6 +20,7 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:picos/models/phq4.dart';
 import 'package:picos/models/weekly.dart';
+import 'package:picos/screens/questionaire_screen/pages/weight.dart';
 import 'package:picos/screens/questionaire_screen/widgets/cover.dart';
 import 'package:picos/screens/questionaire_screen/widgets/questionaire_card.dart';
 import 'package:picos/screens/questionaire_screen/widgets/questionaire_page.dart';
@@ -52,8 +53,6 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   static String? _bodyAndMind;
   static String? _medicationAndTherapy;
   static String? _ready;
-  static String? _bodyWeight;
-  static String? _autoCalc;
   static String? _heartFrequency;
   static String? _bloodPressure;
   static String? _bloodSugar;
@@ -126,8 +125,6 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     _activityAndRest = AppLocalizations.of(context)!.activityAndRest;
     _bodyAndMind = AppLocalizations.of(context)!.bodyAndMind;
     _medicationAndTherapy = AppLocalizations.of(context)!.medicationAndTherapy;
-    _bodyWeight = AppLocalizations.of(context)!.bodyWeight;
-    _autoCalc = AppLocalizations.of(context)!.autoCalc;
     _heartFrequency = AppLocalizations.of(context)!.heartFrequency;
     _bloodPressure = AppLocalizations.of(context)!.bloodPressure;
     _bloodSugar = AppLocalizations.of(context)!.bloodSugar;
@@ -228,27 +225,15 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
         image: 'assets/Vitalwerte_neg.png',
         nextFunction: _nextPage,
       ),
-      'weightPage': QuestionairePage(
-        backFunction: _previousPage,
-        nextFunction: _nextPage,
-        child: Column(
-          children: <TextFieldCard>[
-            TextFieldCard(
-              label: _bodyWeight!,
-              hint: 'kg',
-              onChanged: (String value) {
-                _selectedBodyWeight = int.tryParse(value);
-              },
-            ),
-            TextFieldCard(
-              label: 'BMI',
-              hint: 'kg/m² ${_autoCalc!}',
-              onChanged: (String value) {
-                _selectedBMI = int.tryParse(value);
-              },
-            ),
-          ],
-        ),
+      'weightPage': Weight(
+        previousPage: _previousPage,
+        nextPage: _nextPage,
+        onChangedBodyWeight: (String value) {
+          _selectedBodyWeight = int.tryParse(value);
+        },
+        onChangedBmi: (String value) {
+          _selectedBMI = int.tryParse(value);
+        },
       ),
       'hearthPage': QuestionairePage(
         backFunction: _previousPage,
