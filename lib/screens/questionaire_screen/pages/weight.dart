@@ -28,10 +28,16 @@ class Weight extends StatelessWidget {
   /// Callback for bmi.
   final dynamic Function(String value) onChangedBmi;
 
+  static String? _bodyWeight;
+  static String? _autoCalc;
+
   @override
   Widget build(BuildContext context) {
-    String bodyWeight = AppLocalizations.of(context)!.bodyWeight;
-    String autoCalc = AppLocalizations.of(context)!.autoCalc;
+
+    if (_bodyWeight == null) {
+      _bodyWeight = AppLocalizations.of(context)!.bodyWeight;
+      _autoCalc = AppLocalizations.of(context)!.autoCalc;
+    }
 
     return QuestionairePage(
       backFunction: previousPage,
@@ -39,13 +45,13 @@ class Weight extends StatelessWidget {
       child: Column(
         children: <TextFieldCard>[
           TextFieldCard(
-            label: bodyWeight,
+            label: _bodyWeight!,
             hint: 'kg',
             onChanged: onChangedBodyWeight,
           ),
           TextFieldCard(
             label: 'BMI',
-            hint: 'kg/m² $autoCalc',
+            hint: 'kg/m² $_autoCalc',
             onChanged: onChangedBmi,
           ),
         ],
