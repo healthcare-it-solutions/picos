@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../widgets/picos_label.dart';
 import '../../../widgets/picos_select.dart';
 import '../widgets/questionaire_card.dart';
+import '../widgets/questionaire_page.dart';
 
 /// Questionnaire blood pressure page.
 class BloodPressure extends StatelessWidget {
@@ -55,29 +56,33 @@ class BloodPressure extends StatelessWidget {
       _bloodPressureSelection = _createBloodPressureSelection();
     }
 
-    return QuestionaireCard(
-      label: PicosLabel(label: _bloodPressure!),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: PicosSelect(
-              selection: _bloodPressureSelection!,
-              callBackFunction: onChangedSyst,
-              hint: 'Syst',
+    return QuestionairePage(
+      backFunction: previousPage,
+      nextFunction: nextPage,
+      child: QuestionaireCard(
+        label: PicosLabel(label: _bloodPressure!),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: PicosSelect(
+                selection: _bloodPressureSelection!,
+                callBackFunction: onChangedSyst,
+                hint: 'Syst',
+              ),
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Text('/', style: TextStyle(fontSize: 20)),
-          ),
-          Expanded(
-            child: PicosSelect(
-              selection: _bloodPressureSelection!,
-              callBackFunction: onChangedDias,
-              hint: 'Dias',
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Text('/', style: TextStyle(fontSize: 20)),
             ),
-          ),
-        ],
+            Expanded(
+              child: PicosSelect(
+                selection: _bloodPressureSelection!,
+                callBackFunction: onChangedDias,
+                hint: 'Dias',
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
