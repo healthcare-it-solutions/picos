@@ -236,7 +236,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
         _therapyChanged == true &&
         _therapyUpdated == false) {
       _therapyUpdated = true;
-      Navigator.of(context).pushNamed('/my-medications-screen/my-therapy');
+      Navigator.of(context).pushNamed('/my-therapy-screen/my-therapy');
     }
 
     _controller.nextPage(
