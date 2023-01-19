@@ -66,22 +66,18 @@ class Cover extends StatelessWidget {
             SizedBox(
               height: height / 5,
             ),
-            Center(
-              child: Image(
-                image: AssetImage(image),
-              ),
+            Image(
+              image: AssetImage(image),
             ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 60),
-                child: Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+            Padding(
+              padding: const EdgeInsets.only(top: 60),
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
               ),
             ),
