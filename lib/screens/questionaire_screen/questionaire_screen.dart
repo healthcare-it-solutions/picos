@@ -20,9 +20,9 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:picos/models/phq4.dart';
 import 'package:picos/models/weekly.dart';
+import 'package:picos/screens/questionaire_screen/pages/blood_pressure.dart';
 import 'package:picos/screens/questionaire_screen/pages/weight.dart';
 import 'package:picos/screens/questionaire_screen/widgets/cover.dart';
-import 'package:picos/screens/questionaire_screen/widgets/questionaire_card.dart';
 import 'package:picos/screens/questionaire_screen/widgets/questionaire_page.dart';
 import 'package:picos/screens/questionaire_screen/widgets/radio_select_card.dart';
 import 'package:picos/screens/questionaire_screen/widgets/sleep_quality_card.dart';
@@ -32,8 +32,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../models/daily.dart';
 import '../../util/backend.dart';
-import '../../widgets/picos_label.dart';
-import '../../widgets/picos_select.dart';
 
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
@@ -54,7 +52,6 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   static String? _medicationAndTherapy;
   static String? _ready;
   static String? _heartFrequency;
-  static String? _bloodPressure;
   static String? _bloodSugar;
   static String? _possibleWalkDistance;
   static String? _sleepDuration;
@@ -71,23 +68,6 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   static Map<String, dynamic>? _painValues;
   static Map<String, dynamic>? _bodyAndMindValues;
   static Map<String, dynamic>? _medicationAndTherapyValues;
-  static List<String>? _bloodPressureSelection;
-
-  static List<String> _createBloodPressureSelection() {
-    int min = 40;
-    int max = 250;
-    int interval = 10;
-    List<String> bloodPressureSelection = <String>[];
-
-    int i = min;
-    do {
-      bloodPressureSelection.add(i.toString());
-
-      i = i + interval;
-    } while (i <= max);
-
-    return bloodPressureSelection;
-  }
 
   /// Holds the pages to generate the PageView from.
   static Map<String, Widget>? _pages;
@@ -126,7 +106,6 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     _bodyAndMind = AppLocalizations.of(context)!.bodyAndMind;
     _medicationAndTherapy = AppLocalizations.of(context)!.medicationAndTherapy;
     _heartFrequency = AppLocalizations.of(context)!.heartFrequency;
-    _bloodPressure = AppLocalizations.of(context)!.bloodPressure;
     _bloodSugar = AppLocalizations.of(context)!.bloodSugar;
     _possibleWalkDistance = AppLocalizations.of(context)!.possibleWalkDistance;
     _sleepDuration = AppLocalizations.of(context)!.sleepDuration;
@@ -246,38 +225,15 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
           },
         ),
       ),
-      'bloodPressurePage': QuestionairePage(
-        backFunction: _previousPage,
-        nextFunction: _nextPage,
-        child: QuestionaireCard(
-          label: PicosLabel(label: _bloodPressure!),
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: PicosSelect(
-                  selection: _bloodPressureSelection!,
-                  callBackFunction: (String value) {
-                    _selectedSyst = int.tryParse(value);
-                  },
-                  hint: 'Syst',
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Text('/', style: TextStyle(fontSize: 20)),
-              ),
-              Expanded(
-                child: PicosSelect(
-                  selection: _bloodPressureSelection!,
-                  callBackFunction: (String value) {
-                    _selectedDias = int.tryParse(value);
-                  },
-                  hint: 'Dias',
-                ),
-              ),
-            ],
-          ),
-        ),
+      'bloodPressurePage': BloodPressure(
+        previousPage: _previousPage,
+        nextPage: _nextPage,
+        onChangedSyst: (String value) {
+          _selectedSyst = int.tryParse(value);
+        },
+        onChangedDias: (String value) {
+          _selectedDias = int.tryParse(value);
+        },
       ),
       'bloodSugarPage': QuestionairePage(
         backFunction: _previousPage,
@@ -430,8 +386,6 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   Widget build(BuildContext context) {
     // Class init.
     if (_myEntries == null) {
-      _bloodPressureSelection = _createBloodPressureSelection();
-
       _initStrings(context);
       _initTitles(context);
     }
