@@ -21,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:picos/models/phq4.dart';
 import 'package:picos/models/weekly.dart';
 import 'package:picos/screens/questionaire_screen/pages/blood_pressure.dart';
+import 'package:picos/screens/questionaire_screen/pages/body_and_mind.dart';
 import 'package:picos/screens/questionaire_screen/pages/weight.dart';
 import 'package:picos/screens/questionaire_screen/widgets/cover.dart';
 import 'package:picos/screens/questionaire_screen/widgets/questionaire_page.dart';
@@ -58,15 +59,13 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   static String? _hrs;
   static String? _sleepQuality7Days;
   static String? _pain;
-  static String? _howOftenAffected;
   static String? _lowInterest;
   static String? _dejection;
   static String? _nervousness;
-  static String? _controlWorries;
+  static String? _worries;
   static String? _changedMedication;
   static String? _changedTherapy;
   static Map<String, dynamic>? _painValues;
-  static Map<String, dynamic>? _bodyAndMindValues;
   static Map<String, dynamic>? _medicationAndTherapyValues;
 
   /// Holds the pages to generate the PageView from.
@@ -113,11 +112,10 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     _ready = AppLocalizations.of(context)!.questionnaireFinished;
     _sleepQuality7Days = AppLocalizations.of(context)!.sleepQuality7Days;
     _pain = AppLocalizations.of(context)!.pain;
-    _howOftenAffected = AppLocalizations.of(context)!.howOftenAffected;
     _lowInterest = AppLocalizations.of(context)!.lowInterest;
     _dejection = AppLocalizations.of(context)!.dejection;
     _nervousness = AppLocalizations.of(context)!.nervousness;
-    _controlWorries = AppLocalizations.of(context)!.controlWorries;
+    _worries = AppLocalizations.of(context)!.controlWorries;
     _changedTherapy = AppLocalizations.of(context)!.changedTherapy;
     _changedMedication = AppLocalizations.of(context)!.changedMedication;
     _painValues = <String, dynamic>{
@@ -132,12 +130,6 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       '8 ${AppLocalizations.of(context)!.veryTerrible}': 8,
       '9 ${AppLocalizations.of(context)!.agonizingUnbearable}': 9,
       '10 ${AppLocalizations.of(context)!.strongestImaginable}': 10,
-    };
-    _bodyAndMindValues = <String, dynamic>{
-      AppLocalizations.of(context)!.notAtAll: 0,
-      AppLocalizations.of(context)!.onIndividualDays: 1,
-      AppLocalizations.of(context)!.onMoreThanHalfDays: 2,
-      AppLocalizations.of(context)!.almostEveryDays: 3,
     };
     _medicationAndTherapyValues = <String, dynamic>{
       AppLocalizations.of(context)!.yes: true,
@@ -301,53 +293,29 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
           options: _painValues!,
         ),
       ),
-      'interestPage': QuestionairePage(
-        backFunction: _previousPage,
-        nextFunction: _nextPage,
-        child: RadioSelectCard(
-          callBack: (dynamic value) {
-            _selectedQuestionA = value as int;
-          },
-          label: _howOftenAffected!,
-          description: _lowInterest!,
-          options: _bodyAndMindValues!,
-        ),
+      'interestPage': BodyAndMind(
+        previousPage: _previousPage,
+        nextPage: _nextPage,
+        onChangedInterest: (dynamic value) {_selectedQuestionA = value as int;},
+        questionType: _lowInterest!,
       ),
-      'dejectionPage': QuestionairePage(
-        backFunction: _previousPage,
-        nextFunction: _nextPage,
-        child: RadioSelectCard(
-          callBack: (dynamic value) {
-            _selectedQuestionB = value as int;
-          },
-          label: _howOftenAffected!,
-          description: _dejection!,
-          options: _bodyAndMindValues!,
-        ),
+      'dejectionPage': BodyAndMind(
+        previousPage: _previousPage,
+        nextPage: _nextPage,
+        onChangedInterest: (dynamic value) {_selectedQuestionB = value as int;},
+        questionType: _dejection!,
       ),
-      'nervousnessPage': QuestionairePage(
-        backFunction: _previousPage,
-        nextFunction: _nextPage,
-        child: RadioSelectCard(
-          callBack: (dynamic value) {
-            _selectedQuestionC = value as int;
-          },
-          label: _howOftenAffected!,
-          description: _nervousness!,
-          options: _bodyAndMindValues!,
-        ),
+      'nervousnessPage': BodyAndMind(
+        previousPage: _previousPage,
+        nextPage: _nextPage,
+        onChangedInterest: (dynamic value) {_selectedQuestionC = value as int;},
+        questionType: _nervousness!,
       ),
-      'worriesPage': QuestionairePage(
-        backFunction: _previousPage,
-        nextFunction: _nextPage,
-        child: RadioSelectCard(
-          callBack: (dynamic value) {
-            _selectedQuestionD = value as int;
-          },
-          label: _howOftenAffected!,
-          description: _controlWorries!,
-          options: _bodyAndMindValues!,
-        ),
+      'worriesPage': BodyAndMind(
+        previousPage: _previousPage,
+        nextPage: _nextPage,
+        onChangedInterest: (dynamic value) {_selectedQuestionD = value as int;},
+        questionType: _worries!,
       ),
       'medicationCover': Cover(
         title: _medicationAndTherapy!,
