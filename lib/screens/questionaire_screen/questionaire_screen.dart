@@ -249,7 +249,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     _pages = <String, Widget>{
       'vitalCover': Cover(
         title: _vitalValues!,
-        backFunction: _previousPage,
+        image: 'assets/Vitalwerte_neg.png',
         nextFunction: _nextPage,
       ),
       'weightPage': QuestionairePage(
@@ -331,6 +331,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       ),
       'activityCover': Cover(
         title: _activityAndRest!,
+        image: 'assets/Aktivitaet+Ruhe_neg.png',
         backFunction: _previousPage,
         nextFunction: _nextPage,
       ),
@@ -368,6 +369,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       ),
       'bodyCover': Cover(
         title: _bodyAndMind!,
+        image: 'assets/Koerper+Psyche_neg.png',
         backFunction: _previousPage,
         nextFunction: _nextPage,
       ),
@@ -432,6 +434,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       ),
       'medicationCover': Cover(
         title: _medicationAndTherapy!,
+        image: 'assets/Medikation+Therapie_neg.png',
         backFunction: _previousPage,
         nextFunction: _nextPage,
       ),
@@ -461,6 +464,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       ),
       'readyCover': Cover(
         title: _ready!,
+        image: 'assets/Fertig_Smiley.png',
         backFunction: _previousPage,
         nextFunction: _nextPage,
       ),
@@ -525,6 +529,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     }
 
     return PicosScreenFrame(
+      appBarElevation: 0.0,
       title: _title,
       body: PageView(
         controller: _controller,
