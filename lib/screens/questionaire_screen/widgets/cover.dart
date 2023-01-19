@@ -84,12 +84,12 @@ class Cover extends StatelessWidget {
             SizedBox(
               height: height / 3.5,
             ),
-            if (backFunction == null)
+            if (backFunction == null && nextFunction != null)
               PicosInkWellButton(
                 text: start,
                 onTap: nextFunction ?? () {},
               )
-            else
+            else if (backFunction != null || nextFunction != null)
               PicosAddButtonBar(
                 shadows: false,
                 leftButton: PicosInkWellButton(
@@ -115,6 +115,35 @@ class Cover extends StatelessWidget {
                   onTap: nextFunction ?? () {},
                 ),
               )
+            else
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(5.0),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: RichText(
+                    text: const TextSpan(
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Tipps für einen gesunden Alltag\n',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(
+                          text:
+                              '''Ausreichend trinken: Trinken Sie mindestens 2 Liter Wasser pro Tag. Der menschliche Körper besteht zu zwei Dritteln aus Wasser. Der Stoff dient unter anderem als Transportmittel für Harn und Blut sowie als Lösungsmittel.''',
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
           ],
         ),
       ),
