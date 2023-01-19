@@ -435,8 +435,6 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       'readyCover': Cover(
         title: _ready!,
         image: 'assets/Fertig_Smiley.png',
-        backFunction: _previousPage,
-        nextFunction: _nextPage,
       ),
     };
   }
