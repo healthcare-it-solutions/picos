@@ -115,10 +115,15 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   int? _selectedQuestionC;
   int? _selectedQuestionD;
 
+  bool? _medicationChanged;
+  bool? _therapyChanged;
+
   // State
   final List<String> _titles = <String>[];
   String? _title;
   final List<Widget> _pageViews = <Widget>[];
+  bool _medicationUpdated = false;
+  bool _therapyUpdated = false;
 
   void _initStrings(BuildContext context) {
     _myEntries = AppLocalizations.of(context)!.myEntries;
@@ -169,6 +174,11 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     };
   }
 
+  final Map<String, int> _redirectingPages = <String, int>{
+    'medicationPage': 16,
+    'therapyPage': 17,
+  };
+
   void _initTitles(BuildContext context) {
     _titleMap = <String, String>{
       'vitalCover': _myEntries!,
@@ -213,6 +223,20 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     if (_controller.page == _pageViews.length - 1) {
       Navigator.of(context).pop();
       return;
+    }
+
+    if (_controller.page == _redirectingPages['medicationPage'] &&
+        _medicationChanged == true &&
+        _medicationUpdated == false) {
+      _medicationUpdated = true;
+      Navigator.of(context).pushNamed('/my-medications-screen/my-medications');
+    }
+
+    if (_controller.page == _redirectingPages['therapyPage'] &&
+        _therapyChanged == true &&
+        _therapyUpdated == false) {
+      _therapyUpdated = true;
+      Navigator.of(context).pushNamed('/my-therapy-screen/my-therapy');
     }
 
     _controller.nextPage(
@@ -418,7 +442,10 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
         backFunction: _previousPage,
         nextFunction: _nextPage,
         child: RadioSelectCard(
-          callBack: (dynamic value) {},
+          callBack: (dynamic value) {
+            _medicationChanged = value;
+            _medicationUpdated = false;
+          },
           label: _changedMedication!,
           options: _medicationAndTherapyValues!,
         ),
@@ -427,7 +454,10 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
         backFunction: _previousPage,
         nextFunction: _nextPage,
         child: RadioSelectCard(
-          callBack: (dynamic value) {},
+          callBack: (dynamic value) {
+            _therapyChanged = value;
+            _therapyUpdated = false;
+          },
           label: _changedTherapy!,
           options: _medicationAndTherapyValues!,
         ),
