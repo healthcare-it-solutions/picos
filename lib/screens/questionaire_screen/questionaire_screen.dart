@@ -183,7 +183,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     _titleMap = <String, String>{
       'vitalCover': _myEntries!,
       'weightPage': _vitalValues!,
-      'hearthPage': _vitalValues!,
+      'heartPage': _vitalValues!,
       'bloodPressurePage': _vitalValues!,
       'bloodSugarPage': _vitalValues!,
       'activityCover': _myEntries!,
@@ -274,7 +274,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
           ],
         ),
       ),
-      'hearthPage': QuestionairePage(
+      'heartPage': QuestionairePage(
         backFunction: _previousPage,
         nextFunction: _nextPage,
         child: TextFieldCard(
@@ -464,7 +464,17 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       ),
       'readyCover': Cover(
         title: _ready!,
-        image: 'assets/Fertig_Smiley.png',
+        image: 'assets/Fertig_Smiley_neg.png',
+        infoText: const <TextSpan>[
+          TextSpan(
+            text: 'Tipps für einen gesunden Alltag\n',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          TextSpan(
+            text:
+                '''Ausreichend trinken: Trinken Sie mindestens 2 Liter Wasser pro Tag. Der menschliche Körper besteht zu zwei Dritteln aus Wasser. Der Stoff dient unter anderem als Transportmittel für Harn und Blut sowie als Lösungsmittel.''',
+          ),
+        ],
       ),
     };
   }
@@ -490,8 +500,8 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       _titles.add(_titleMap!['vitalCover']!);
       _pageViews.add(_pages!['weightPage']!);
       _titles.add(_titleMap!['weightPage']!);
-      _pageViews.add(_pages!['hearthPage']!);
-      _titles.add(_titleMap!['hearthPage']!);
+      _pageViews.add(_pages!['heartPage']!);
+      _titles.add(_titleMap!['heartPage']!);
       _pageViews.add(_pages!['bloodPressurePage']!);
       _titles.add(_titleMap!['bloodPressurePage']!);
       _pageViews.add(_pages!['bloodSugarPage']!);
