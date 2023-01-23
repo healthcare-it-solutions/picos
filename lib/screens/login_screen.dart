@@ -17,6 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:picos/util/backend.dart';
+import 'package:picos/widgets/picos_ink_well_button.dart';
 
 // We don't reference provider directly but
 // to invoke context.read<T>()
@@ -42,24 +43,16 @@ class _LoginScreenState extends State<LoginScreen>
     vsync: this,
   );
 
-  late final Animation<Offset> _offsetAnimation = Tween<Offset>(
-    begin: const Offset(1.5, 0.0),
-    end: Offset.zero,
-  ).animate(
-    CurvedAnimation(
-      parent: _controller,
-      curve: Curves.decelerate,
-    ),
-  );
-
   late final TextEditingController _loginController;
   late final TextEditingController _passwordController;
 
   bool _loginfailure = false;
 
   Future<void> _submitHandler(
-      String login, String password, BuildContext con,) async {
-
+    String login,
+    String password,
+    BuildContext con,
+  ) async {
     Backend();
     bool res = await Backend.login(login, password);
     String route = await Backend.getRole();
@@ -95,60 +88,90 @@ class _LoginScreenState extends State<LoginScreen>
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Column(
-          children: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                _controller.forward();
-                // Navigator.of(context).pushNamed('/mainscreen');
-              },
-              child: const Text('log in'),
-            ),
-            SlideTransition(
-              position: _offsetAnimation,
-              child: FadeTransition(
-                opacity: _controller,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    SizedBox(
-                      width: 200,
-                      child: TextField(
-                        controller: _loginController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Login',
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children: <Widget>[
+                const Image(
+                  image: AssetImage('assets/PICOS_Logo_RGB.png'),
+                ),
+                RichText(
+                  text: const TextSpan(
+                    style: TextStyle(
+                      height: 2,
+                      color: Colors.black,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'Herzlich Willkommen bei PICOS,\n',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
+                      TextSpan(
+                        text:
+                            '''Vielen Dank, dass Sie sich für die Teilnahme an dem Projekt DISTANCE entschieden haben. Wir wünschen viel Freude bei der Nutzung der PICOS App!''',
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                SizedBox(
+                  width: 200,
+                  child: TextField(
+                    controller: _loginController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Login',
                     ),
-                    const SizedBox(height: 10),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                SizedBox(
+                  width: 200,
+                  child: TextField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Passwort',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 200,
+                  child: PicosInkWellButton(
+                    onTap: () => _submitHandler(
+                      _loginController.text,
+                      _passwordController.text,
+                      context,
+                    ),
+                    text: 'Einloggen',
+                  ),
+                ),
+                _loginfailure
+                    ? const Text('Falsches Passwort')
+                    : const Text(''),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const <Widget>[
+                    Image(
+                      image: AssetImage('assets/BMBF.png'),
+                    ),
                     SizedBox(
-                      width: 200,
-                      child: TextField(
-                        controller: _passwordController,
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Password',
-                        ),
-                      ),
+                      width: 30,
                     ),
-                    ElevatedButton(
-                      onPressed: () => _submitHandler(
-                        _loginController.text,
-                        _passwordController.text,
-                        context,
-                      ),
-                      child: const Text('Submit'),
-                    ),
-                    _loginfailure
-                        ? const Text('Wrong Password')
-                        : const Text('')
+                    Image(
+                      image: AssetImage('assets/Logo_MII.png'),
+                    )
                   ],
                 ),
-              ),
-            )
-          ],
+              ],
+            ),
+          ),
         ),
       ),
     );
