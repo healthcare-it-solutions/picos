@@ -30,6 +30,7 @@ class Cover extends StatelessWidget {
   const Cover({
     this.title = '',
     this.image = '',
+    this.infoText,
     Key? key,
     this.backFunction,
     this.nextFunction,
@@ -40,6 +41,9 @@ class Cover extends StatelessWidget {
 
   /// Contains the annotation for the image.
   final String image;
+
+  /// Contains the info text for the end screen.
+  final List<InlineSpan>? infoText;
 
   /// Function for getting a page back.
   final void Function()? backFunction;
@@ -56,6 +60,11 @@ class Cover extends StatelessWidget {
     final double height = MediaQuery.of(context).size.height -
         kToolbarHeight -
         MediaQuery.of(context).viewPadding.top;
+    final double sizedBoxHeight =
+        ((backFunction == null && nextFunction != null) ||
+                (backFunction != null || nextFunction != null))
+            ? (height / 3.5)
+            : (height / 8);
 
     return Container(
       height: height,
@@ -82,7 +91,7 @@ class Cover extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: height / 3.5,
+              height: sizedBoxHeight,
             ),
             if (backFunction == null && nextFunction != null)
               PicosInkWellButton(
@@ -120,28 +129,34 @@ class Cover extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.white),
                   borderRadius: const BorderRadius.all(
-                    Radius.circular(5.0),
+                    Radius.circular(10.0),
                   ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: RichText(
-                    text: const TextSpan(
-                      style: TextStyle(
-                        color: Colors.white,
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: RichText(
+                        text: TextSpan(
+                          style: const TextStyle(
+                            color: Colors.white,
+                            height: 2,
+                          ),
+                          children: infoText,
+                        ),
                       ),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: 'Tipps für einen gesunden Alltag\n',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        TextSpan(
-                          text:
-                              '''Ausreichend trinken: Trinken Sie mindestens 2 Liter Wasser pro Tag. Der menschliche Körper besteht zu zwei Dritteln aus Wasser. Der Stoff dient unter anderem als Transportmittel für Harn und Blut sowie als Lösungsmittel.''',
-                        ),
-                      ],
                     ),
-                  ),
+                    const Positioned(
+                      top: -20,
+                      right: 20,
+                      child: Image(
+                        image: AssetImage('assets/Tipp.png'),
+                        height: 50,
+                        width: 50,
+                      ),
+                    ),
+                  ],
                 ),
               ),
           ],
