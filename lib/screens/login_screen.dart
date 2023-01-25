@@ -17,7 +17,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:picos/util/backend.dart';
+import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
+import 'package:picos/widgets/picos_screen_frame.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // We don't reference provider directly but
 // to invoke context.read<T>()
@@ -85,10 +88,10 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
+    return PicosScreenFrame(
       body: Center(
-        child: SingleChildScrollView(
+        child: PicosBody(
+          padding: 0,
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Column(
@@ -97,21 +100,24 @@ class _LoginScreenState extends State<LoginScreen>
                   image: AssetImage('assets/PICOS_Logo_RGB.png'),
                 ),
                 RichText(
-                  text: const TextSpan(
-                    style: TextStyle(
+                  text: TextSpan(
+                    style: const TextStyle(
                       height: 2,
                       color: Colors.black,
                     ),
                     children: <TextSpan>[
                       TextSpan(
-                        text: 'Herzlich Willkommen bei PICOS,\n',
-                        style: TextStyle(
+                        text:
+                            '${AppLocalizations.of(context)!
+                            .welcomeToPICOS},\n',
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       TextSpan(
                         text:
-                            '''Vielen Dank, dass Sie sich für die Teilnahme an dem Projekt DISTANCE entschieden haben. Wir wünschen viel Freude bei der Nutzung der PICOS App!''',
+                            AppLocalizations.of(context)!
+                            .thankYouForParticipation,
                       ),
                     ],
                   ),
@@ -123,9 +129,9 @@ class _LoginScreenState extends State<LoginScreen>
                   width: 200,
                   child: TextField(
                     controller: _loginController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Login',
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: AppLocalizations.of(context)!.login,
                     ),
                   ),
                 ),
@@ -135,9 +141,9 @@ class _LoginScreenState extends State<LoginScreen>
                   child: TextField(
                     controller: _passwordController,
                     obscureText: true,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Passwort',
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: AppLocalizations.of(context)!.password,
                     ),
                   ),
                 ),
@@ -149,11 +155,11 @@ class _LoginScreenState extends State<LoginScreen>
                       _passwordController.text,
                       context,
                     ),
-                    text: 'Einloggen',
+                    text: AppLocalizations.of(context)!.login,
                   ),
                 ),
                 _loginfailure
-                    ? const Text('Falsches Passwort')
+                    ? Text(AppLocalizations.of(context)!.wrongPassword)
                     : const Text(''),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -161,12 +167,9 @@ class _LoginScreenState extends State<LoginScreen>
                     Image(
                       image: AssetImage('assets/BMBF.png'),
                     ),
-                    SizedBox(
-                      width: 30,
-                    ),
                     Image(
                       image: AssetImage('assets/Logo_MII.png'),
-                    )
+                    ),
                   ],
                 ),
               ],
