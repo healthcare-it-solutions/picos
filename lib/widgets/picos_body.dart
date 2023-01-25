@@ -20,7 +20,14 @@ import 'package:flutter/material.dart';
 /// A body with preconfigured padding for using on non scrollable screens.
 class PicosBody extends StatelessWidget {
   /// Creates the PicosBody.
-  const PicosBody({required this.child, Key? key}) : super(key: key);
+  const PicosBody({
+    required this.child,
+    this.padding = 10,
+    Key? key,
+  }) : super(key: key);
+
+  /// Padding value of the main widget.
+  final double padding;
 
   /// Creates a child Widget inside the PicosBody.
   final Widget child;
@@ -28,7 +35,7 @@ class PicosBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(10),
+      padding: EdgeInsets.all(padding),
       child: child,
     );
   }
