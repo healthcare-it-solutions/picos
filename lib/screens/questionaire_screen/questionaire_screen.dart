@@ -42,10 +42,20 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   static const Duration _controllerDuration = Duration(milliseconds: 300);
   static const Curve _controllerCurve = Curves.ease;
 
+  bool? _medicationChanged;
+  bool? _therapyChanged;
+
   // State
   final List<String> _titles = <String>[];
   String? _title;
   final List<Widget> _pageViews = <Widget>[];
+  bool _medicationUpdated = false;
+  bool _therapyUpdated = false;
+
+  final Map<String, int> _redirectingPages = <String, int>{
+    'medicationPage': 16,
+    'therapyPage': 17,
+  };
 
   void _previousPage() {
     FocusManager.instance.primaryFocus?.unfocus();
@@ -69,11 +79,50 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       return;
     }
 
+    if (_controller.page == _redirectingPages['medicationPage'] &&
+        _medicationChanged == true &&
+        _medicationUpdated == false) {
+      _medicationUpdated = true;
+      Navigator.of(context).pushNamed('/my-medications-screen/my-medications');
+    }
+
+    if (_controller.page == _redirectingPages['therapyPage'] &&
+        _therapyChanged == true &&
+        _therapyUpdated == false) {
+      _therapyUpdated = true;
+      Navigator.of(context).pushNamed('/my-therapy-screen/my-therapy');
+    }
+
     _controller.nextPage(
       duration: _controllerDuration,
       curve: _controllerCurve,
     );
   }
+
+  // 'medicationPage': QuestionairePage(
+  // backFunction: _previousPage,
+  // nextFunction: _nextPage,
+  // child: RadioSelectCard(
+  // callBack: (dynamic value) {
+  // _medicationChanged = value;
+  // _medicationUpdated = false;
+  // },
+  // label: _changedMedication!,
+  // options: _medicationAndTherapyValues!,
+  // ),
+  // ),
+  // 'therapyPage': QuestionairePage(
+  // backFunction: _previousPage,
+  // nextFunction: _nextPage,
+  // child: RadioSelectCard(
+  // callBack: (dynamic value) {
+  // _therapyChanged = value;
+  // _therapyUpdated = false;
+  // },
+  // label: _changedTherapy!,
+  // options: _medicationAndTherapyValues!,
+  // ),
+  // ),
 
   @override
   Widget build(BuildContext context) {

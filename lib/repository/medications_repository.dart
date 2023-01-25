@@ -46,7 +46,10 @@ class MedicationsRepository {
   static String amountToString(double value) {
     List<String> values = value.toString().split('.');
     String intValue = values[0];
-    String half = values[1];
+    String half = '0';
+    if (values.length > 1) {
+      half =  values[1];
+    }
 
     if (intValue == '0' && half != '0') {
       return '1/2';
