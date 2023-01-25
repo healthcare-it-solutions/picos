@@ -115,10 +115,15 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   int? _selectedQuestionC;
   int? _selectedQuestionD;
 
+  bool? _medicationChanged;
+  bool? _therapyChanged;
+
   // State
   final List<String> _titles = <String>[];
   String? _title;
   final List<Widget> _pageViews = <Widget>[];
+  bool _medicationUpdated = false;
+  bool _therapyUpdated = false;
 
   void _initStrings(BuildContext context) {
     _myEntries = AppLocalizations.of(context)!.myEntries;
@@ -169,6 +174,11 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     };
   }
 
+  final Map<String, int> _redirectingPages = <String, int>{
+    'medicationPage': 16,
+    'therapyPage': 17,
+  };
+
   void _initTitles(BuildContext context) {
     _titleMap = <String, String>{
       'vitalCover': _myEntries!,
@@ -215,6 +225,20 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       return;
     }
 
+    if (_controller.page == _redirectingPages['medicationPage'] &&
+        _medicationChanged == true &&
+        _medicationUpdated == false) {
+      _medicationUpdated = true;
+      Navigator.of(context).pushNamed('/my-medications-screen/my-medications');
+    }
+
+    if (_controller.page == _redirectingPages['therapyPage'] &&
+        _therapyChanged == true &&
+        _therapyUpdated == false) {
+      _therapyUpdated = true;
+      Navigator.of(context).pushNamed('/my-therapy-screen/my-therapy');
+    }
+
     _controller.nextPage(
       duration: _controllerDuration,
       curve: _controllerCurve,
@@ -225,7 +249,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     _pages = <String, Widget>{
       'vitalCover': Cover(
         title: _vitalValues!,
-        backFunction: _previousPage,
+        image: 'assets/Vitalwerte_neg.png',
         nextFunction: _nextPage,
       ),
       'weightPage': QuestionairePage(
@@ -307,6 +331,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       ),
       'activityCover': Cover(
         title: _activityAndRest!,
+        image: 'assets/Aktivitaet+Ruhe_neg.png',
         backFunction: _previousPage,
         nextFunction: _nextPage,
       ),
@@ -344,6 +369,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       ),
       'bodyCover': Cover(
         title: _bodyAndMind!,
+        image: 'assets/Koerper+Psyche_neg.png',
         backFunction: _previousPage,
         nextFunction: _nextPage,
       ),
@@ -408,6 +434,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       ),
       'medicationCover': Cover(
         title: _medicationAndTherapy!,
+        image: 'assets/Medikation+Therapie_neg.png',
         backFunction: _previousPage,
         nextFunction: _nextPage,
       ),
@@ -415,7 +442,10 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
         backFunction: _previousPage,
         nextFunction: _nextPage,
         child: RadioSelectCard(
-          callBack: (dynamic value) {},
+          callBack: (dynamic value) {
+            _medicationChanged = value;
+            _medicationUpdated = false;
+          },
           label: _changedMedication!,
           options: _medicationAndTherapyValues!,
         ),
@@ -424,13 +454,17 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
         backFunction: _previousPage,
         nextFunction: _nextPage,
         child: RadioSelectCard(
-          callBack: (dynamic value) {},
+          callBack: (dynamic value) {
+            _therapyChanged = value;
+            _therapyUpdated = false;
+          },
           label: _changedTherapy!,
           options: _medicationAndTherapyValues!,
         ),
       ),
       'readyCover': Cover(
         title: _ready!,
+        image: 'assets/Fertig_Smiley.png',
         backFunction: _previousPage,
         nextFunction: _nextPage,
       ),
@@ -495,6 +529,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     }
 
     return PicosScreenFrame(
+      appBarElevation: 0.0,
       title: _title,
       body: PageView(
         controller: _controller,
