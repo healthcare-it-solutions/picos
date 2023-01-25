@@ -144,5 +144,7 @@
     "good": "Gut",
     "medium": "Mittel",
     "bad": "Schlecht",
-    "terrible": "Schrecklich"
+    "terrible": "Schrecklich",
+    "tips": "Tipps für einen gesunden Alltag",
+    "drinkEnough": "Ausreichend trinken: Trinken Sie mindestens 2 Liter Wasser pro Tag. Der menschliche Körper besteht zu zwei Dritteln aus Wasser. Der Stoff dient unter anderem als Transportmittel für Harn und Blut sowie als Lösungsmittel."
 }
