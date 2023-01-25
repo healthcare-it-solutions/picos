@@ -66,7 +66,7 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
     '0': 0,
   };
 
-  int groupValue = 10;
+  int? groupValue;
   static const double tileHeight = 55;
 
   void _initStrings(BuildContext context) {
