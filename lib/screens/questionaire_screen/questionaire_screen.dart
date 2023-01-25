@@ -465,14 +465,13 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       'readyCover': Cover(
         title: _ready!,
         image: 'assets/Fertig_Smiley_neg.png',
-        infoText: const <TextSpan>[
+        infoText: <TextSpan>[
           TextSpan(
-            text: 'Tipps für einen gesunden Alltag\n',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            text: '${AppLocalizations.of(context)!.tips}\n',
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           TextSpan(
-            text:
-                '''Ausreichend trinken: Trinken Sie mindestens 2 Liter Wasser pro Tag. Der menschliche Körper besteht zu zwei Dritteln aus Wasser. Der Stoff dient unter anderem als Transportmittel für Harn und Blut sowie als Lösungsmittel.''',
+            text: AppLocalizations.of(context)!.drinkEnough,
           ),
         ],
       ),
