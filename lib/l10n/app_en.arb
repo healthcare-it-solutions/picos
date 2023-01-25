@@ -702,5 +702,25 @@
     "terrible": "Terrible",
     "@terrible": {
         "description": "Terrible"
+    },
+    "welcomeToPICOS": "Welcome to PICOS",
+    "@welcomeToPICOS": {
+        "description": "Welcome to PICOS"
+    },
+    "thankYouForParticipation": "Thank you for your participation in the DISTANCE project. We hope you enjoy using the PICOS App!",
+    "@thankYouForParticipation": {
+        "description": "Thank you for your participation in the DISTANCE project. We hope you enjoy using the PICOS App!"
+    },
+    "wrongPassword": "Wrong Password",
+    "@wrongPassword": {
+        "description": "Wrong Password"
+    },
+    "login": "Log in",
+    "@login": {
+        "description": "Log in"
+    },
+    "password": "Password",
+    "@password": {
+        "description": "Password"
     }
 }
