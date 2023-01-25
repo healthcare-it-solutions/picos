@@ -42,15 +42,10 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   static const Duration _controllerDuration = Duration(milliseconds: 300);
   static const Curve _controllerCurve = Curves.ease;
 
-  bool? _medicationChanged;
-  bool? _therapyChanged;
-
   // State
   final List<String> _titles = <String>[];
   String? _title;
   final List<Widget> _pageViews = <Widget>[];
-  bool _medicationUpdated = false;
-  bool _therapyUpdated = false;
 
   final Map<String, int> _redirectingPages = <String, int>{
     'medicationPage': 16,
@@ -80,16 +75,16 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     }
 
     if (_controller.page == _redirectingPages['medicationPage'] &&
-        _medicationChanged == true &&
-        _medicationUpdated == false) {
-      _medicationUpdated = true;
+        _pages!.medicationChanged == true &&
+        _pages!.medicationUpdated == false) {
+      _pages!.medicationUpdated = true;
       Navigator.of(context).pushNamed('/my-medications-screen/my-medications');
     }
 
     if (_controller.page == _redirectingPages['therapyPage'] &&
-        _therapyChanged == true &&
-        _therapyUpdated == false) {
-      _therapyUpdated = true;
+        _pages!.therapyChanged == true &&
+        _pages!.therapyUpdated == false) {
+      _pages!.therapyUpdated = true;
       Navigator.of(context).pushNamed('/my-therapy-screen/my-therapy');
     }
 
@@ -98,31 +93,6 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       curve: _controllerCurve,
     );
   }
-
-  // 'medicationPage': QuestionairePage(
-  // backFunction: _previousPage,
-  // nextFunction: _nextPage,
-  // child: RadioSelectCard(
-  // callBack: (dynamic value) {
-  // _medicationChanged = value;
-  // _medicationUpdated = false;
-  // },
-  // label: _changedMedication!,
-  // options: _medicationAndTherapyValues!,
-  // ),
-  // ),
-  // 'therapyPage': QuestionairePage(
-  // backFunction: _previousPage,
-  // nextFunction: _nextPage,
-  // child: RadioSelectCard(
-  // callBack: (dynamic value) {
-  // _therapyChanged = value;
-  // _therapyUpdated = false;
-  // },
-  // label: _changedTherapy!,
-  // options: _medicationAndTherapyValues!,
-  // ),
-  // ),
 
   @override
   Widget build(BuildContext context) {

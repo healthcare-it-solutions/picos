@@ -165,7 +165,10 @@ class QuestionairePageState {
         backFunction: previousPage,
         nextFunction: nextPage,
         child: RadioSelectCard(
-          callBack: (dynamic value) {},
+          callBack: (dynamic value) {
+            medicationChanged = value;
+            medicationUpdated = false;
+          },
           label: _changedMedication!,
           options: _medicationAndTherapyValues!,
         ),
@@ -174,7 +177,10 @@ class QuestionairePageState {
         backFunction: previousPage,
         nextFunction: nextPage,
         child: RadioSelectCard(
-          callBack: (dynamic value) {},
+          callBack: (dynamic value) {
+            therapyChanged = value;
+            therapyUpdated = false;
+          },
           label: _changedTherapy!,
           options: _medicationAndTherapyValues!,
         ),
@@ -236,6 +242,20 @@ class QuestionairePageState {
 
   /// Answer to question D.
   int? selectedQuestionD;
+
+  /// Tells if the medication got updated by the user.
+  bool medicationUpdated = false;
+
+  /// Tells if the therapy got updated by the user.
+  bool therapyUpdated = false;
+
+  /// Tells if the medication got changed and should be updated (synced)
+  /// by the user.
+  bool? medicationChanged;
+
+  /// Tells if the therapy got changed and should be updated (synced)
+  /// by the user.
+  bool? therapyChanged;
 
   //Static Strings
   static String? _myEntries;
