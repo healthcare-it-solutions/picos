@@ -60,7 +60,8 @@ class Cover extends StatelessWidget {
     final double height = MediaQuery.of(context).size.height -
         kToolbarHeight -
         MediaQuery.of(context).viewPadding.top;
-    double sizedBoxHeight = height / 8;
+    double sizedBoxHeight = height / 10;
+    double fontSize = 30;
 
     Widget bottomWidget = Container(
       decoration: BoxDecoration(
@@ -85,7 +86,7 @@ class Cover extends StatelessWidget {
             ),
           ),
           const Positioned(
-            top: -20,
+            top: -22,
             right: 20,
             child: Image(
               image: AssetImage('assets/Tipp.png'),
@@ -102,7 +103,8 @@ class Cover extends StatelessWidget {
         text: start,
         onTap: nextFunction!,
       );
-      sizedBoxHeight = height / 3.5;
+      sizedBoxHeight = height / 5;
+      fontSize = 40;
     } else if (backFunction != null || nextFunction != null) {
       bottomWidget = PicosAddButtonBar(
         shadows: false,
@@ -129,7 +131,8 @@ class Cover extends StatelessWidget {
           onTap: nextFunction!,
         ),
       );
-      sizedBoxHeight = height / 3.5;
+      sizedBoxHeight = height / 5;
+      fontSize = 40;
     }
 
     return Container(
@@ -139,7 +142,7 @@ class Cover extends StatelessWidget {
         child: Column(
           children: <Widget>[
             SizedBox(
-              height: height / 5,
+              height: height / 8,
             ),
             Image(
               image: AssetImage(image),
@@ -149,8 +152,8 @@ class Cover extends StatelessWidget {
               child: Text(
                 title,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 40,
+                style: TextStyle(
+                  fontSize: fontSize,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
