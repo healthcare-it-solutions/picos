@@ -62,6 +62,7 @@ class Cover extends StatelessWidget {
         MediaQuery.of(context).viewPadding.top;
     double sizedBoxHeight = height / 10;
     double fontSize = 30;
+    bool finishCover = backFunction == null && nextFunction == null;
 
     Widget bottomWidget = Container(
       decoration: BoxDecoration(
@@ -135,37 +136,73 @@ class Cover extends StatelessWidget {
       fontSize = 40;
     }
 
+    Widget picosBody = PicosBody(
+      child: Column(
+        children: <Widget>[
+          SizedBox(
+            height: height / 8,
+          ),
+          Image(
+            image: AssetImage(image),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 60),
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: sizedBoxHeight,
+          ),
+          bottomWidget,
+        ],
+      ),
+    );
+
+    if (finishCover) {
+      picosBody = GestureDetector(
+        onTap: () => Navigator.of(context).pop(),
+        child: PicosBody(
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: height / 8,
+              ),
+              Image(
+                image: AssetImage(image),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 60),
+                child: Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: fontSize,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: sizedBoxHeight,
+              ),
+              bottomWidget,
+            ],
+          ),
+        ),
+      );
+    }
+
     return Container(
       height: height,
       color: theme.darkGreen1,
-      child: PicosBody(
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: height / 8,
-            ),
-            Image(
-              image: AssetImage(image),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 60),
-              child: Text(
-                title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: fontSize,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: sizedBoxHeight,
-            ),
-            bottomWidget,
-          ],
-        ),
-      ),
+      child: picosBody,
     );
   }
 }
