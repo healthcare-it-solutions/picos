@@ -44,7 +44,7 @@ class PicosTextField extends StatelessWidget {
   /// The hint shown in the text field.
   final String hint;
 
-  /// Determines if content of textfield is shown or not (e.g. passwords).
+  /// Determines if content of text field is shown or not (e.g. passwords).
   final bool obscureText;
 
   /// Determines if the text field should focus itself.
