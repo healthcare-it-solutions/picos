@@ -21,6 +21,7 @@ import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/widgets/picos_text_field.dart';
 
 // We don't reference provider directly but
 // to invoke context.read<T>()
@@ -91,89 +92,83 @@ class _LoginScreenState extends State<LoginScreen>
     return PicosScreenFrame(
       body: Center(
         child: PicosBody(
-          padding: 0,
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              children: <Widget>[
-                const Image(
-                  image: AssetImage('assets/PICOS_Logo_RGB.png'),
-                ),
-                RichText(
-                  text: TextSpan(
-                    style: const TextStyle(
-                      height: 2,
-                      color: Colors.black,
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text:
-                            '${AppLocalizations.of(context)!
-                            .welcomeToPICOS},\n',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+          child: Column(
+            children: <Widget>[
+              const Image(
+                image: AssetImage('assets/PICOS_Logo_RGB.png'),
+              ),
+              RichText(
+                text: TextSpan(
+                  style: const TextStyle(
+                    height: 2,
+                    color: Colors.black,
+                  ),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text:
+                          '${AppLocalizations.of(context)!.welcomeToPICOS},\n',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
                       ),
-                      TextSpan(
-                        text:
-                            AppLocalizations.of(context)!
-                            .thankYouForParticipation,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                SizedBox(
-                  width: 200,
-                  child: TextField(
-                    controller: _loginController,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: AppLocalizations.of(context)!.login,
                     ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                SizedBox(
-                  width: 200,
-                  child: TextField(
-                    controller: _passwordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: AppLocalizations.of(context)!.password,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 200,
-                  child: PicosInkWellButton(
-                    onTap: () => _submitHandler(
-                      _loginController.text,
-                      _passwordController.text,
-                      context,
-                    ),
-                    text: AppLocalizations.of(context)!.login,
-                  ),
-                ),
-                _loginfailure
-                    ? Text(AppLocalizations.of(context)!.wrongPassword)
-                    : const Text(''),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const <Widget>[
-                    Image(
-                      image: AssetImage('assets/BMBF.png'),
-                    ),
-                    Image(
-                      image: AssetImage('assets/Logo_MII.png'),
+                    TextSpan(
+                      text: AppLocalizations.of(context)!
+                          .thankYouForParticipation,
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              SizedBox(
+                width: 200,
+                child: PicosTextField(
+                  controller: _loginController,
+                  hint: AppLocalizations.of(context)!.username,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                width: 200,
+                child: PicosTextField(
+                  controller: _passwordController,
+                  hint: AppLocalizations.of(context)!.password,
+                  obscureText: true,
+                ),
+              ),
+              SizedBox(
+                width: 200,
+                child: PicosInkWellButton(
+                  onTap: () => _submitHandler(
+                    _loginController.text,
+                    _passwordController.text,
+                    context,
+                  ),
+                  text: AppLocalizations.of(context)!.submit,
+                ),
+              ),
+              _loginfailure
+                  ? Text(AppLocalizations.of(context)!.wrongCredentials)
+                  : const Text(''),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const <Widget>[
+                  Expanded(
+                    child: Image(
+                      image: AssetImage('assets/BMBF.png'),
+                    ),
+                  ),
+                  Expanded(
+                    child: Image(
+                      image: AssetImage('assets/Logo_MII.png'),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
