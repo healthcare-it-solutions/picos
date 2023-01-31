@@ -25,6 +25,7 @@ class PicosTextField extends StatelessWidget {
     Key? key,
     this.disabled = false,
     this.hint = '',
+    this.obscureText = false,
     this.autofocus = false,
     this.onTap,
     this.readOnly = false,
@@ -34,6 +35,7 @@ class PicosTextField extends StatelessWidget {
     this.initialValue,
     this.keyboardType,
     this.maxLength,
+    this.controller,
   }) : super(key: key);
 
   /// Determines if the text field is disabled.
@@ -41,6 +43,9 @@ class PicosTextField extends StatelessWidget {
 
   /// The hint shown in the text field.
   final String hint;
+
+  /// Determines if content of text field is shown or not (e.g. passwords).
+  final bool obscureText;
 
   /// Determines if the text field should focus itself.
   final bool autofocus;
@@ -72,6 +77,9 @@ class PicosTextField extends StatelessWidget {
   /// The maximum number of characters (Unicode scalar values) to allow in the
   /// text field.
   final int? maxLength;
+
+  /// Contains controller for further submissions.
+  final TextEditingController? controller;
 
   static final BorderRadius _borderRadius = BorderRadius.circular(7);
 
@@ -116,6 +124,7 @@ class PicosTextField extends StatelessWidget {
             right: 15,
           ),
         ),
+        obscureText: obscureText,
         autofocus: autofocus,
         onChanged: onChanged ?? (_) {},
         onTap: onTap ?? () {},
@@ -124,6 +133,7 @@ class PicosTextField extends StatelessWidget {
         initialValue: initialValue,
         keyboardType: keyboardType ?? TextInputType.text,
         maxLength: maxLength,
+        controller: controller,
       ),
     );
   }
