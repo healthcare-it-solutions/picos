@@ -48,7 +48,7 @@ class BodyAndMind extends StatelessWidget {
       backFunction: previousPage,
       nextFunction: nextPage,
       child: RadioSelectCard(
-        callBack: onChangedInterest,
+        callback: onChangedInterest,
         label: _howOftenAffected!,
         description: questionType,
         options: _bodyAndMindValues!,
