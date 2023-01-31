@@ -122,13 +122,15 @@ class Cover extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
     );
 
     if (backFunction == null && nextFunction != null) {
+      sizedBoxHeight = height / 3;
+      fontSize = 40;
       picosBody = PicosBody(
         child: Column(
           children: <Widget>[
@@ -156,13 +158,17 @@ class Cover extends StatelessWidget {
             PicosInkWellButton(
               text: start,
               onTap: nextFunction!,
-            )
+            ),
           ],
         ),
       );
-      sizedBoxHeight = height / 5;
-      fontSize = 40;
     } else if (backFunction != null || nextFunction != null) {
+      if (title == AppLocalizations.of(context)!.medicationAndTherapy) {
+        sizedBoxHeight = height / 3.5;
+      } else {
+        sizedBoxHeight = height / 3;
+      }
+      fontSize = 40;
       picosBody = PicosBody(
         child: Column(
           children: <Widget>[
@@ -215,8 +221,6 @@ class Cover extends StatelessWidget {
           ],
         ),
       );
-      sizedBoxHeight = height / 5;
-      fontSize = 40;
     }
 
     return Container(
