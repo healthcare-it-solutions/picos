@@ -164,7 +164,7 @@ class Cover extends StatelessWidget {
       );
     } else if (backFunction != null || nextFunction != null) {
       if (title == AppLocalizations.of(context)!.medicationAndTherapy) {
-        sizedBoxHeight = height / 3.5;
+        sizedBoxHeight = height / 3.7;
       } else {
         sizedBoxHeight = height / 3;
       }
