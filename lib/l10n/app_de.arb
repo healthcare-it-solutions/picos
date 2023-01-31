@@ -150,5 +150,8 @@
     "wrongCredentials": "Falsche Zugangsdaten",
     "submit": "Senden",
     "username": "Benutzername",
-    "password": "Passwort"
+    "password": "Passwort",
+    "questionaireDoctorVisit1": "Waren Sie ",
+    "questionaireDoctorVisit2": " bei einem Arzt oder in einem Krankenhaus?",
+    "questionaireDoctorVisitUnscheduled": "ungeplant"
 }
