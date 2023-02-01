@@ -22,9 +22,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../widgets/picos_label.dart';
 
 /// An custom card specifically for sleep quality.
-class SleepQualityCard extends StatefulWidget {
+class PainScaleCard extends StatefulWidget {
   /// Creates a SleepQualityCard.
-  const SleepQualityCard({
+  const PainScaleCard({
     required this.callBack,
     Key? key,
     this.label = '',
@@ -41,10 +41,10 @@ class SleepQualityCard extends StatefulWidget {
   final Function(dynamic value) callBack;
 
   @override
-  State<SleepQualityCard> createState() => _SleepQualityCardState();
+  State<PainScaleCard> createState() => _PainScaleCardState();
 }
 
-class _SleepQualityCardState extends State<SleepQualityCard> {
+class _PainScaleCardState extends State<PainScaleCard> {
   //Static Strings
   static String? _painFree;
   static String? _veryMild;
