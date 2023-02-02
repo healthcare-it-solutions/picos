@@ -27,6 +27,8 @@ import 'package:picos/screens/questionaire_screen/widgets/sleep_quality_card.dar
 import 'package:picos/screens/questionaire_screen/widgets/text_field_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../widgets/picos_label.dart';
+
 /// Manages the state of the questionaire pages.
 class QuestionairePageState {
   /// Constructs QuestionairePageState.
@@ -137,7 +139,7 @@ class QuestionairePageState {
           callback: (dynamic value) {
             selectedPain = value as int;
           },
-          label: _pain!,
+          label: PicosLabel(label: _pain!),
           options: _painValues!,
         ),
       ),
@@ -187,7 +189,7 @@ class QuestionairePageState {
             medicationChanged = value;
             medicationUpdated = false;
           },
-          label: _changedMedication!,
+          label: PicosLabel(label: _changedMedication!),
           options: _medicationAndTherapyValues!,
         ),
       ),
@@ -199,7 +201,7 @@ class QuestionairePageState {
             therapyChanged = value;
             therapyUpdated = false;
           },
-          label: _changedTherapy!,
+          label: PicosLabel(label: _changedTherapy!),
           options: _medicationAndTherapyValues!,
         ),
       ),

@@ -21,6 +21,8 @@ import 'package:flutter/material.dart';
 import 'package:picos/screens/questionaire_screen/widgets/radio_select_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../widgets/picos_label.dart';
+
 class DoctorCard extends StatelessWidget {
   const DoctorCard({
     required this.callback,
@@ -63,7 +65,7 @@ class DoctorCard extends StatelessWidget {
 
     return RadioSelectCard(
       callback: callback,
-      label: _label!,
+      label: PicosLabel(label: _label!),
       options: radioOptions,
     );
   }
