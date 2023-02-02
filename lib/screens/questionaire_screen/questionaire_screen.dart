@@ -108,8 +108,8 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       _titles.add(_pages!.titleMap!['vitalCover']!);
       _pageViews.add(_pages!.pages!['weightPage']!);
       _titles.add(_pages!.titleMap!['weightPage']!);
-      _pageViews.add(_pages!.pages!['hearthPage']!);
-      _titles.add(_pages!.titleMap!['hearthPage']!);
+      _pageViews.add(_pages!.pages!['heartPage']!);
+      _titles.add(_pages!.titleMap!['heartPage']!);
       _pageViews.add(_pages!.pages!['bloodPressurePage']!);
       _titles.add(_pages!.titleMap!['bloodPressurePage']!);
       _pageViews.add(_pages!.pages!['bloodSugarPage']!);

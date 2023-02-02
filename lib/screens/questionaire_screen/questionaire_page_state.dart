@@ -54,7 +54,7 @@ class QuestionairePageState {
           selectedBMI = int.tryParse(value);
         },
       ),
-      'hearthPage': QuestionairePage(
+      'heartPage': QuestionairePage(
         backFunction: previousPage,
         nextFunction: nextPage,
         child: TextFieldCard(
@@ -216,9 +216,16 @@ class QuestionairePageState {
       ),
       'readyCover': Cover(
         title: _ready!,
-        image: 'assets/Fertig_Smiley.png',
-        backFunction: previousPage,
-        nextFunction: nextPage,
+        image: 'assets/Fertig_Smiley_neg.png',
+        infoText: <TextSpan>[
+          TextSpan(
+            text: '${AppLocalizations.of(context)!.tips}\n',
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          TextSpan(
+            text: AppLocalizations.of(context)!.drinkEnough,
+          ),
+        ],
       ),
     };
   }
@@ -359,7 +366,7 @@ class QuestionairePageState {
     titleMap = <String, String>{
       'vitalCover': _myEntries!,
       'weightPage': _vitalValues!,
-      'hearthPage': _vitalValues!,
+      'heartPage': _vitalValues!,
       'bloodPressurePage': _vitalValues!,
       'bloodSugarPage': _vitalValues!,
       'activityCover': _myEntries!,

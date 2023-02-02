@@ -703,6 +703,14 @@
     "@terrible": {
         "description": "Terrible"
     },
+    "tips": "Tips for a healthy everyday life",
+    "@tips": {
+        "description": "Tips for a healthy everyday life"
+    },
+    "drinkEnough": "Drink enough: Drink at least 2 liters of water per day. The human body consists of two-thirds water. The substance serves, among other things, as a means of transport for urine and blood and as a solvent.",
+    "@drinkEnough": {
+        "description": "Drink enough: Drink at least 2 liters of water per day. The human body consists of two-thirds water. The substance serves, among other things, as a means of transport for urine and blood and as a solvent."
+    },
     "welcomeToPICOS": "Welcome to PICOS",
     "@welcomeToPICOS": {
         "description": "Welcome to PICOS"

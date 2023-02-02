@@ -145,6 +145,8 @@
     "medium": "Mittel",
     "bad": "Schlecht",
     "terrible": "Schrecklich",
+    "tips": "Tipps für einen gesunden Alltag",
+    "drinkEnough": "Ausreichend trinken: Trinken Sie mindestens 2 Liter Wasser pro Tag. Der menschliche Körper besteht zu zwei Dritteln aus Wasser. Der Stoff dient unter anderem als Transportmittel für Harn und Blut sowie als Lösungsmittel.",
     "welcomeToPICOS": "Herzlich Willkommen bei PICOS",
     "thankYouForParticipation": "Vielen Dank, dass Sie sich für die Teilnahme an dem Projekt DISTANCE entschieden haben. Wir wünschen viel Freude bei der Nutzung der PICOS App!",
     "wrongCredentials": "Falsche Zugangsdaten",

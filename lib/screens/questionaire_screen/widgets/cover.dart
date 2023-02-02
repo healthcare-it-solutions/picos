@@ -30,6 +30,7 @@ class Cover extends StatelessWidget {
   const Cover({
     this.title = '',
     this.image = '',
+    this.infoText,
     Key? key,
     this.backFunction,
     this.nextFunction,
@@ -40,6 +41,9 @@ class Cover extends StatelessWidget {
 
   /// Contains the annotation for the image.
   final String image;
+
+  /// Contains the info text for the end screen.
+  final List<InlineSpan>? infoText;
 
   /// Function for getting a page back.
   final void Function()? backFunction;
@@ -56,15 +60,16 @@ class Cover extends StatelessWidget {
     final double height = MediaQuery.of(context).size.height -
         kToolbarHeight -
         MediaQuery.of(context).viewPadding.top;
+    double sizedBoxHeight = height / 10;
+    double fontSize = 30;
 
-    return Container(
-      height: height,
-      color: theme.darkGreen1,
+    Widget picosBody = GestureDetector(
+      onTap: () => Navigator.of(context).pop(),
       child: PicosBody(
         child: Column(
           children: <Widget>[
             SizedBox(
-              height: height / 5,
+              height: height / 8,
             ),
             Image(
               image: AssetImage(image),
@@ -74,50 +79,154 @@ class Cover extends StatelessWidget {
               child: Text(
                 title,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 40,
+                style: TextStyle(
+                  fontSize: fontSize,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
               ),
             ),
             SizedBox(
-              height: height / 3.5,
+              height: sizedBoxHeight,
             ),
-            if (backFunction == null)
-              PicosInkWellButton(
-                text: start,
-                onTap: nextFunction ?? () {},
-              )
-            else
-              PicosAddButtonBar(
-                shadows: false,
-                leftButton: PicosInkWellButton(
-                  padding: const EdgeInsets.only(
-                    left: 30,
-                    right: 13,
-                    top: 15,
-                    bottom: 10,
-                  ),
-                  text: back,
-                  onTap: backFunction ?? () {},
-                  buttonColor1: theme.grey3,
-                  buttonColor2: theme.grey1,
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.white),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(10.0),
                 ),
-                rightButton: PicosInkWellButton(
-                  padding: const EdgeInsets.only(
-                    right: 30,
-                    left: 13,
-                    top: 15,
-                    bottom: 10,
+              ),
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: RichText(
+                      text: TextSpan(
+                        style: const TextStyle(
+                          color: Colors.white,
+                          height: 2,
+                        ),
+                        children: infoText,
+                      ),
+                    ),
                   ),
-                  text: next,
-                  onTap: nextFunction ?? () {},
-                ),
-              )
+                  const Positioned(
+                    top: -22,
+                    right: 20,
+                    child: Image(
+                      image: AssetImage('assets/Tipp.png'),
+                      height: 50,
+                      width: 50,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
+    );
+
+    if (backFunction == null && nextFunction != null) {
+      sizedBoxHeight = height / 3;
+      fontSize = 40;
+      picosBody = PicosBody(
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: height / 8,
+            ),
+            Image(
+              image: AssetImage(image),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 60),
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: sizedBoxHeight,
+            ),
+            PicosInkWellButton(
+              text: start,
+              onTap: nextFunction!,
+            ),
+          ],
+        ),
+      );
+    } else if (backFunction != null || nextFunction != null) {
+      if (title == AppLocalizations.of(context)!.medicationAndTherapy) {
+        sizedBoxHeight = height / 3.7;
+      } else {
+        sizedBoxHeight = height / 3;
+      }
+      fontSize = 40;
+      picosBody = PicosBody(
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: height / 8,
+            ),
+            Image(
+              image: AssetImage(image),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 60),
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: sizedBoxHeight,
+            ),
+            PicosAddButtonBar(
+              shadows: false,
+              leftButton: PicosInkWellButton(
+                padding: const EdgeInsets.only(
+                  left: 30,
+                  right: 13,
+                  top: 15,
+                  bottom: 10,
+                ),
+                text: back,
+                onTap: backFunction!,
+                buttonColor1: theme.grey3,
+                buttonColor2: theme.grey1,
+              ),
+              rightButton: PicosInkWellButton(
+                padding: const EdgeInsets.only(
+                  right: 30,
+                  left: 13,
+                  top: 15,
+                  bottom: 10,
+                ),
+                text: next,
+                onTap: nextFunction!,
+              ),
+            )
+          ],
+        ),
+      );
+    }
+
+    return Container(
+      height: height,
+      color: theme.darkGreen1,
+      child: picosBody,
     );
   }
 }
