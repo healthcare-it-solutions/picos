@@ -263,7 +263,9 @@ class _PainScaleCardState extends State<PainScaleCard> {
             width: 50,
             height: tileHeight * 11,
             left: 85,
-            child: Image(image: AssetImage('assets/painIcons/0_No_Pain.png')),
+            child: Image(
+              image: AssetImage('assets/painIcons/0_No_Pain.png'),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
