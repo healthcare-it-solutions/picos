@@ -21,7 +21,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../widgets/picos_label.dart';
 
-/// An custom card specifically for sleep quality.
+/// An custom card specifically for pain.
 class PainScaleCard extends StatefulWidget {
   /// Creates a SleepQualityCard.
   const PainScaleCard({
