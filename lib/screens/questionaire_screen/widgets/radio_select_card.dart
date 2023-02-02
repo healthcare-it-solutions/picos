@@ -45,12 +45,17 @@ class RadioSelectCard extends StatelessWidget {
   /// The function that is executed when an item gets selected.
   final Function(dynamic value) callback;
 
+  static const double _horizontalPadding = 15;
+
   @override
   Widget build(BuildContext context) {
     List<Widget> children = <Widget>[];
 
     if (description.isNotEmpty) {
-      children.add(PicosLabel(label: description, fontSize: 15));
+      children.add(Padding(
+        padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
+        child: PicosLabel(label: description, fontSize: 15),
+      ));
       children.add(const SizedBox(height: 15));
     }
 
@@ -62,7 +67,14 @@ class RadioSelectCard extends StatelessWidget {
     );
 
     return QuestionaireCard(
-      label: PicosLabel(label: label),
+      padding: const EdgeInsets.symmetric(
+        vertical: 15,
+        horizontal: 0,
+      ),
+      label: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
+        child: PicosLabel(label: label),
+      ),
       child: Column(
         children: children,
       ),
