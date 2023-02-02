@@ -20,6 +20,7 @@ import 'package:picos/screens/questionaire_screen/pages/blood_pressure.dart';
 import 'package:picos/screens/questionaire_screen/pages/body_and_mind.dart';
 import 'package:picos/screens/questionaire_screen/pages/weight.dart';
 import 'package:picos/screens/questionaire_screen/widgets/cover.dart';
+import 'package:picos/screens/questionaire_screen/widgets/pain_scale_card.dart';
 import 'package:picos/screens/questionaire_screen/widgets/questionaire_page.dart';
 import 'package:picos/screens/questionaire_screen/widgets/radio_select_card.dart';
 import 'package:picos/screens/questionaire_screen/widgets/sleep_quality_card.dart';
@@ -132,12 +133,11 @@ class QuestionairePageState {
       'painPage': QuestionairePage(
         backFunction: previousPage,
         nextFunction: nextPage,
-        child: RadioSelectCard(
+        child: PainScaleCard(
           callBack: (dynamic value) {
-            selectedPain = value as int;
+            selectedPain = value;
           },
           label: _pain!,
-          options: _painValues!,
         ),
       ),
       'interestPage': BodyAndMind(

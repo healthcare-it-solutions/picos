@@ -46,17 +46,17 @@ class PainScaleCard extends StatefulWidget {
 
 class _PainScaleCardState extends State<PainScaleCard> {
   //Static Strings
-  static String? _painFree;
+  static String? _painless;
   static String? _veryMild;
-  static String? _discomforting;
+  static String? _unpleasant;
   static String? _tolerable;
-  static String? _distressing;
-  static String? _veryDistressing;
-  static String? _intense;
-  static String? _veryIntense;
-  static String? _utterlyHorrible;
-  static String? _excruciatingUnbearable;
-  static String? _strongestImaginablePain;
+  static String? _disturbing;
+  static String? _veryDisturbing;
+  static String? _severe;
+  static String? _verySevere;
+  static String? _veryTerrible;
+  static String? _agonizingUnbearable;
+  static String? _strongestImaginable;
 
   static final Map<String, int> _options = <String, int>{
     '0': 0,
@@ -76,37 +76,43 @@ class _PainScaleCardState extends State<PainScaleCard> {
   static const double tileHeight = 55;
 
   void _initStrings(BuildContext context) {
-    _painFree = AppLocalizations.of(context)!.excellent;
-    _veryMild = AppLocalizations.of(context)!.good;
-    _discomforting = AppLocalizations.of(context)!.medium;
-    _tolerable = AppLocalizations.of(context)!.bad;
-    _distressing = AppLocalizations.of(context)!.terrible;
+    _painless = AppLocalizations.of(context)!.painless;
+    _veryMild = AppLocalizations.of(context)!.veryMild;
+    _unpleasant = AppLocalizations.of(context)!.unpleasant;
+    _tolerable = AppLocalizations.of(context)!.tolerable;
+    _disturbing = AppLocalizations.of(context)!.disturbing;
+    _veryDisturbing = AppLocalizations.of(context)!.veryDisturbing;
+    _severe = AppLocalizations.of(context)!.severe;
+    _verySevere = AppLocalizations.of(context)!.verySevere;
+    _veryTerrible = AppLocalizations.of(context)!.veryTerrible;
+    _agonizingUnbearable = AppLocalizations.of(context)!.agonizingUnbearable;
+    _strongestImaginable = AppLocalizations.of(context)!.strongestImaginable;
   }
 
   String _generateTileTitle(String row) {
     switch (row) {
       case '0':
-        return _painFree!;
+        return _painless!;
       case '1':
         return _veryMild!;
       case '2':
-        return _discomforting!;
+        return _unpleasant!;
       case '3':
         return _tolerable!;
       case '4':
-        return _distressing!;
+        return _disturbing!;
       case '5':
-        return _veryDistressing!;
+        return _veryDisturbing!;
       case '6':
-        return _intense!;
+        return _severe!;
       case '7':
-        return _veryIntense!;
+        return _verySevere!;
       case '8':
-        return _utterlyHorrible!;
+        return _veryTerrible!;
       case '9':
-        return _excruciatingUnbearable!;
+        return _agonizingUnbearable!;
       case '10':
-        return _strongestImaginablePain!;
+        return _strongestImaginable!;
     }
 
     return '';
@@ -158,7 +164,7 @@ class _PainScaleCardState extends State<PainScaleCard> {
           color: dividerColor,
         ),
       );
-      
+
       continue;
     }
 
@@ -253,23 +259,11 @@ class _PainScaleCardState extends State<PainScaleCard> {
           Column(
             children: children,
           ),
-          Positioned(
+          const Positioned(
             width: 50,
             height: tileHeight * 11,
             left: 85,
-            child: Ink(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: <Color>[
-                    Colors.green,
-                    Colors.orange,
-                    Colors.red,
-                  ],
-                ),
-              ),
-            ),
+            child: Image(image: AssetImage('assets/painIcons/0_No_Pain.png')),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
