@@ -52,10 +52,12 @@ class RadioSelectCard extends StatelessWidget {
     List<Widget> children = <Widget>[];
 
     if (description.isNotEmpty) {
-      children.add(Padding(
-        padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
-        child: PicosLabel(label: description, fontSize: 15),
-      ));
+      children.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
+          child: PicosLabel(label: description, fontSize: 15),
+        ),
+      );
       children.add(const SizedBox(height: 15));
     }
 
