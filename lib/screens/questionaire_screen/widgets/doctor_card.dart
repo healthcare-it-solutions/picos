@@ -21,51 +21,72 @@ import 'package:flutter/material.dart';
 import 'package:picos/screens/questionaire_screen/widgets/radio_select_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../widgets/picos_label.dart';
-
+/// The questionaire card for the question if the user visited a doctor.
 class DoctorCard extends StatelessWidget {
+  /// Creates DoctorCard.
   const DoctorCard({
     required this.callback,
     required this.radioOptions,
     Key? key,
   }) : super(key: key);
 
+  /// The callback that is executed, when an item is selected.
   final Function(dynamic value) callback;
 
+  /// The selectable options.
   final Map<String, dynamic> radioOptions;
 
-  static String? _questionaireDoctorVisit1;
-  static String? _questionaireDoctorVisit2;
-  static String? _questionaireDoctorVisitUnscheduled;
-  static String? _label;
+  static Text? _label;
+
+  static const TextStyle _labelStyle =
+      TextStyle(fontWeight: FontWeight.bold, fontSize: 17);
 
   @override
   Widget build(BuildContext context) {
     // Class init.
-    if (_questionaireDoctorVisit1 == null) {
-      _questionaireDoctorVisit1 =
-          AppLocalizations.of(context)!.questionaireDoctorVisit1;
-      _questionaireDoctorVisit2 =
-          AppLocalizations.of(context)!.questionaireDoctorVisit2;
-      _questionaireDoctorVisitUnscheduled =
-          AppLocalizations.of(context)!.questionaireDoctorVisitUnscheduled;
-
+    if (_label == null) {
       switch (Platform.localeName) {
         case 'de_DE':
-          _label = _questionaireDoctorVisit1! +
-              _questionaireDoctorVisitUnscheduled! +
-              _questionaireDoctorVisit2!;
+          _label = Text.rich(
+            TextSpan(
+              style: _labelStyle,
+              text: AppLocalizations.of(context)!.questionaireDoctorVisit1,
+              children: <TextSpan>[
+                TextSpan(
+                  text: AppLocalizations.of(context)!
+                      .questionaireDoctorVisitUnscheduled,
+                  style: const TextStyle(decoration: TextDecoration.underline),
+                ),
+                TextSpan(
+                  text: AppLocalizations.of(context)!.questionaireDoctorVisit2,
+                ),
+              ],
+            ),
+          );
           break;
         default:
-          _label = _questionaireDoctorVisit1! +
-              _questionaireDoctorVisit2! +
-              _questionaireDoctorVisitUnscheduled!;
+          _label = Text.rich(
+            TextSpan(
+              style: _labelStyle,
+              text: AppLocalizations.of(context)!.questionaireDoctorVisit1,
+              children: <TextSpan>[
+                TextSpan(
+                  text: AppLocalizations.of(context)!.questionaireDoctorVisit2,
+                ),
+                TextSpan(
+                  text: AppLocalizations.of(context)!
+                      .questionaireDoctorVisitUnscheduled,
+                  style: const TextStyle(decoration: TextDecoration.underline),
+                ),
+              ],
+            ),
+          );
       }
     }
 
     return RadioSelectCard(
       callback: callback,
-      label: PicosLabel(label: _label!),
+      label: _label!,
       options: radioOptions,
     );
   }
