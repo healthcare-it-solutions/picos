@@ -41,11 +41,7 @@ class LoginScreen extends StatefulWidget {
 // TODO: display an animated toast
 
 class _LoginScreenState extends State<LoginScreen>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
-    duration: const Duration(seconds: 1),
-    vsync: this,
-  );
+  with SingleTickerProviderStateMixin {
 
   late final TextEditingController _loginController;
   late final TextEditingController _passwordController;
@@ -81,7 +77,6 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   void dispose() {
-    _controller.dispose();
     _loginController.dispose();
     _passwordController.dispose();
     super.dispose();
