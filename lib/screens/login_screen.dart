@@ -17,6 +17,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:picos/util/backend.dart';
+import 'package:picos/widgets/picos_body.dart';
+import 'package:picos/widgets/picos_ink_well_button.dart';
+import 'package:picos/widgets/picos_screen_frame.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/widgets/picos_text_field.dart';
 
 // We don't reference provider directly but
 // to invoke context.read<T>()
@@ -42,24 +47,16 @@ class _LoginScreenState extends State<LoginScreen>
     vsync: this,
   );
 
-  late final Animation<Offset> _offsetAnimation = Tween<Offset>(
-    begin: const Offset(1.5, 0.0),
-    end: Offset.zero,
-  ).animate(
-    CurvedAnimation(
-      parent: _controller,
-      curve: Curves.decelerate,
-    ),
-  );
-
   late final TextEditingController _loginController;
   late final TextEditingController _passwordController;
 
   bool _loginfailure = false;
 
   Future<void> _submitHandler(
-      String login, String password, BuildContext con,) async {
-
+    String login,
+    String password,
+    BuildContext con,
+  ) async {
     Backend();
     bool res = await Backend.login(login, password);
     String route = await Backend.getRole();
@@ -92,63 +89,87 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
+    return PicosScreenFrame(
       body: Center(
-        child: Column(
-          children: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                _controller.forward();
-                // Navigator.of(context).pushNamed('/mainscreen');
-              },
-              child: const Text('log in'),
-            ),
-            SlideTransition(
-              position: _offsetAnimation,
-              child: FadeTransition(
-                opacity: _controller,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    SizedBox(
-                      width: 200,
-                      child: TextField(
-                        controller: _loginController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Login',
-                        ),
+        child: PicosBody(
+          child: Column(
+            children: <Widget>[
+              const Image(
+                image: AssetImage('assets/PICOS_Logo_RGB.png'),
+              ),
+              RichText(
+                text: TextSpan(
+                  style: const TextStyle(
+                    height: 2,
+                    color: Colors.black,
+                  ),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text:
+                          '${AppLocalizations.of(context)!.welcomeToPICOS},\n',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    SizedBox(
-                      width: 200,
-                      child: TextField(
-                        controller: _passwordController,
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Password',
-                        ),
-                      ),
+                    TextSpan(
+                      text: AppLocalizations.of(context)!
+                          .thankYouForParticipation,
                     ),
-                    ElevatedButton(
-                      onPressed: () => _submitHandler(
-                        _loginController.text,
-                        _passwordController.text,
-                        context,
-                      ),
-                      child: const Text('Submit'),
-                    ),
-                    _loginfailure
-                        ? const Text('Wrong Password')
-                        : const Text('')
                   ],
                 ),
               ),
-            )
-          ],
+              const SizedBox(
+                height: 15,
+              ),
+              SizedBox(
+                width: 200,
+                child: PicosTextField(
+                  controller: _loginController,
+                  hint: AppLocalizations.of(context)!.username,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                width: 200,
+                child: PicosTextField(
+                  controller: _passwordController,
+                  hint: AppLocalizations.of(context)!.password,
+                  obscureText: true,
+                ),
+              ),
+              SizedBox(
+                width: 200,
+                child: PicosInkWellButton(
+                  onTap: () => _submitHandler(
+                    _loginController.text,
+                    _passwordController.text,
+                    context,
+                  ),
+                  text: AppLocalizations.of(context)!.submit,
+                ),
+              ),
+              _loginfailure
+                  ? Text(AppLocalizations.of(context)!.wrongCredentials)
+                  : const Text(''),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const <Widget>[
+                  Expanded(
+                    child: Image(
+                      image: AssetImage('assets/BMBF.png'),
+                    ),
+                  ),
+                  Expanded(
+                    child: Image(
+                      image: AssetImage('assets/Logo_MII.png'),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
