@@ -12,6 +12,7 @@ class Weight extends StatelessWidget {
     required this.previousPage,
     required this.nextPage,
     required this.onChangedBodyWeight,
+    required this.onChangedHeight,
     required this.onChangedBmi,
     Key? key,
   }) : super(key: key);
@@ -24,6 +25,9 @@ class Weight extends StatelessWidget {
 
   /// Callback for body weight.
   final dynamic Function(String value) onChangedBodyWeight;
+
+  // Callback for height.
+  final dynamic Function(String value) onChangedHeight;
 
   /// Callback for bmi.
   final dynamic Function(String value) onChangedBmi;
@@ -48,6 +52,11 @@ class Weight extends StatelessWidget {
             label: _bodyWeight!,
             hint: 'kg',
             onChanged: onChangedBodyWeight,
+          ),
+          TextFieldCard(
+            label: 'height',
+            hint: 'cm',
+            onChanged: onChangedHeight,
           ),
           TextFieldCard(
             label: 'BMI',

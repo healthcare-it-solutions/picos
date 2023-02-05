@@ -38,7 +38,7 @@ class Weekly extends AbstractDatabaseObject {
   final int? bodyWeight;
 
   /// The patients BMI.
-  final int? bmi;
+  final num? bmi;
 
   /// The patients sleep quality assessment.
   final int? sleepQuality;

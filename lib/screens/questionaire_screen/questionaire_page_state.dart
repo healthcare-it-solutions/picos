@@ -15,6 +15,8 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:picos/screens/questionaire_screen/pages/blood_pressure.dart';
 import 'package:picos/screens/questionaire_screen/pages/body_and_mind.dart';
@@ -48,10 +50,13 @@ class QuestionairePageState {
         nextPage: nextPage,
         onChangedBodyWeight: (String value) {
           selectedBodyWeight = int.tryParse(value);
+          _calculateAndSaveBmi();
         },
-        onChangedBmi: (String value) {
-          selectedBMI = int.tryParse(value);
+        onChangedHeight: (String value) {
+          selectedHeight = int.tryParse(value);
+          _calculateAndSaveBmi();
         },
+        onChangedBmi: (String value) {},
       ),
       'heartPage': QuestionairePage(
         backFunction: previousPage,
@@ -218,6 +223,14 @@ class QuestionairePageState {
     };
   }
 
+  _calculateAndSaveBmi() {
+    if (selectedHeight != null && selectedBodyWeight != null) {
+      selectedBMI = (selectedBodyWeight! / pow(selectedHeight!/100, 2));
+    } else {
+      selectedBMI = 0;
+    }
+  }
+
   /// The loaded pages.
   Map<String, Widget>? pages;
 
@@ -228,8 +241,11 @@ class QuestionairePageState {
   /// The selected body weight.
   int? selectedBodyWeight;
 
+  // the selected height.
+  int? selectedHeight;
+
   /// The given bmi.
-  int? selectedBMI;
+  num? selectedBMI;
 
   /// The selected heart frequency.
   int? selectedHeartFrequency;
