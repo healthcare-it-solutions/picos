@@ -152,6 +152,8 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
           _titles.add(_pageStorage!.titleMap!['medicationPage']!);
           _pages.add(_pageStorage!.pages!['therapyPage']!);
           _titles.add(_pageStorage!.titleMap!['therapyPage']!);
+          _pageViews.add(_pages!.pages!['doctorPage']!);
+          _titles.add(_pages!.titleMap!['doctorPage']!);
           _pages.add(_pageStorage!.pages!['readyCover']!);
           _titles.add(_pageStorage!.titleMap!['readyCover']!);
         }

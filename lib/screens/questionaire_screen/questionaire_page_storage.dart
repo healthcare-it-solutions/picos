@@ -20,6 +20,7 @@ import 'package:picos/screens/questionaire_screen/pages/blood_pressure.dart';
 import 'package:picos/screens/questionaire_screen/pages/body_and_mind.dart';
 import 'package:picos/screens/questionaire_screen/pages/weight.dart';
 import 'package:picos/screens/questionaire_screen/widgets/cover.dart';
+import 'package:picos/screens/questionaire_screen/widgets/doctor_card.dart';
 import 'package:picos/screens/questionaire_screen/widgets/questionaire_page.dart';
 import 'package:picos/screens/questionaire_screen/widgets/radio_select_card.dart';
 import 'package:picos/screens/questionaire_screen/widgets/sleep_quality_card.dart';
@@ -28,6 +29,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../models/patient_registration_data.dart';
 import '../../util/backend.dart';
+
+import '../../widgets/picos_label.dart';
 
 /// Manages the state of the questionaire pages.
 class QuestionairePageStorage {
@@ -105,6 +108,9 @@ class QuestionairePageStorage {
   /// Tells if the therapy got updated by the user.
   bool therapyUpdated = false;
 
+  /// Tells if the doctor visits got updated by the user.
+  bool doctorVisitedUpdated = false;
+
   /// Tells if the medication got changed and should be updated (synced)
   /// by the user.
   bool? medicationChanged;
@@ -112,6 +118,10 @@ class QuestionairePageStorage {
   /// Tells if the therapy got changed and should be updated (synced)
   /// by the user.
   bool? therapyChanged;
+
+  /// Tells if the user visited a doctor or a hospital and should be updated
+  /// (synced) by the user.
+  bool? doctorVisited;
 
   //Static Strings
   static String? _myEntries;
@@ -201,6 +211,7 @@ class QuestionairePageStorage {
       'medicationCover': _myEntries!,
       'medicationPage': _medicationAndTherapy!,
       'therapyPage': _medicationAndTherapy!,
+      'doctorPage': _medicationAndTherapy!,
       'readyCover': _myEntries!,
     };
   }
@@ -308,10 +319,10 @@ class QuestionairePageStorage {
         backFunction: previousPage,
         nextFunction: nextPage,
         child: RadioSelectCard(
-          callBack: (dynamic value) {
+          callback: (dynamic value) {
             selectedPain = value as int;
           },
-          label: _pain!,
+          label: PicosLabel(label: _pain!),
           options: _painValues!,
         ),
       ),
@@ -357,11 +368,11 @@ class QuestionairePageStorage {
         backFunction: previousPage,
         nextFunction: nextPage,
         child: RadioSelectCard(
-          callBack: (dynamic value) {
+          callback: (dynamic value) {
             medicationChanged = value;
             medicationUpdated = false;
           },
-          label: _changedMedication!,
+          label: PicosLabel(label: _changedMedication!),
           options: _medicationAndTherapyValues!,
         ),
       ),
@@ -369,12 +380,23 @@ class QuestionairePageStorage {
         backFunction: previousPage,
         nextFunction: nextPage,
         child: RadioSelectCard(
-          callBack: (dynamic value) {
+          callback: (dynamic value) {
             therapyChanged = value;
             therapyUpdated = false;
           },
-          label: _changedTherapy!,
+          label: PicosLabel(label: _changedTherapy!),
           options: _medicationAndTherapyValues!,
+        ),
+      ),
+      'doctorPage': QuestionairePage(
+        backFunction: previousPage,
+        nextFunction: nextPage,
+        child: DoctorCard(
+          callback: (dynamic value) {
+            doctorVisited = value;
+            doctorVisitedUpdated = false;
+          },
+          radioOptions: _medicationAndTherapyValues!,
         ),
       ),
       'readyCover': Cover(
