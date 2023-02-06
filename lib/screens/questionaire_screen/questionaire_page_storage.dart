@@ -15,8 +15,6 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:picos/screens/questionaire_screen/pages/blood_pressure.dart';
 import 'package:picos/screens/questionaire_screen/pages/body_and_mind.dart';
@@ -28,18 +26,194 @@ import 'package:picos/screens/questionaire_screen/widgets/sleep_quality_card.dar
 import 'package:picos/screens/questionaire_screen/widgets/text_field_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../models/patient_registration_data.dart';
+import '../../util/backend.dart';
+
 /// Manages the state of the questionaire pages.
-class QuestionairePageState {
+class QuestionairePageStorage {
+  QuestionairePageStorage._create(BuildContext context) {
+    _initStrings(context);
+    _initTitles();
+  }
+
   /// Constructs QuestionairePageState.
-  QuestionairePageState(
+  static Future<QuestionairePageStorage> create(
     void Function() previousPage,
     void Function() nextPage,
     BuildContext context,
-  ) {
-    _initStrings(context);
-    _initTitles();
+  ) async {
+    QuestionairePageStorage qps = QuestionairePageStorage._create(context);
+    await qps._initPages(previousPage, nextPage);
+    return qps;
+  }
 
-    pages = <String, Widget>{
+  /// The loaded pages.
+  Map<String, Widget?>? pages;
+
+  /// Maps the pageViews to according titles.
+  Map<String, String>? titleMap;
+
+  // Value store for the user
+  /// The selected body weight.
+  double? selectedBodyWeight;
+
+  /// The selected height.
+  int? selectedHeight;
+
+  /// The given bmi.
+  double? selectedBMI;
+
+  /// The selected heart frequency.
+  int? selectedHeartFrequency;
+
+  /// The selected syst value for blood pressure.
+  int? selectedSyst;
+
+  /// The selected dias value for blood pressure.
+  int? selectedDias;
+
+  /// The selected blood sugar value.
+  int? selectedBloodSugar;
+
+  /// The selected walk distance.
+  int? selectedWalkDistance;
+
+  /// The selected sleep duration.
+  int? selectedSleepDuration;
+
+  /// The selected sleep quality.
+  int? selectedSleepQuality;
+
+  /// The selected pain value.
+  int? selectedPain;
+
+  /// Answer to question A.
+  int? selectedQuestionA;
+
+  /// Answer to question B.
+  int? selectedQuestionB;
+
+  /// Answer to question C.
+  int? selectedQuestionC;
+
+  /// Answer to question D.
+  int? selectedQuestionD;
+
+  /// Tells if the medication got updated by the user.
+  bool medicationUpdated = false;
+
+  /// Tells if the therapy got updated by the user.
+  bool therapyUpdated = false;
+
+  /// Tells if the medication got changed and should be updated (synced)
+  /// by the user.
+  bool? medicationChanged;
+
+  /// Tells if the therapy got changed and should be updated (synced)
+  /// by the user.
+  bool? therapyChanged;
+
+  //Static Strings
+  static String? _myEntries;
+  static String? _vitalValues;
+  static String? _activityAndRest;
+  static String? _bodyAndMind;
+  static String? _medicationAndTherapy;
+  static String? _ready;
+  static String? _heartFrequency;
+  static String? _bloodSugar;
+  static String? _possibleWalkDistance;
+  static String? _sleepDuration;
+  static String? _hrs;
+  static String? _sleepQuality7Days;
+  static String? _pain;
+  static String? _lowInterest;
+  static String? _dejection;
+  static String? _nervousness;
+  static String? _worries;
+  static String? _changedMedication;
+  static String? _changedTherapy;
+  static Map<String, dynamic>? _painValues;
+  static Map<String, dynamic>? _medicationAndTherapyValues;
+  static String? _tips;
+  static String? _drinkEnough;
+
+  static int? _bodyHeight;
+
+  void _initStrings(BuildContext context) {
+    _heartFrequency = AppLocalizations.of(context)!.heartFrequency;
+    _bloodSugar = AppLocalizations.of(context)!.bloodSugar;
+    _possibleWalkDistance = AppLocalizations.of(context)!.possibleWalkDistance;
+    _sleepDuration = AppLocalizations.of(context)!.sleepDuration;
+    _hrs = AppLocalizations.of(context)!.hrs;
+    _ready = AppLocalizations.of(context)!.questionnaireFinished;
+    _sleepQuality7Days = AppLocalizations.of(context)!.sleepQuality7Days;
+    _pain = AppLocalizations.of(context)!.pain;
+    _lowInterest = AppLocalizations.of(context)!.lowInterest;
+    _dejection = AppLocalizations.of(context)!.dejection;
+    _nervousness = AppLocalizations.of(context)!.nervousness;
+    _worries = AppLocalizations.of(context)!.controlWorries;
+    _changedTherapy = AppLocalizations.of(context)!.changedTherapy;
+    _changedMedication = AppLocalizations.of(context)!.changedMedication;
+    _painValues = <String, dynamic>{
+      '0 ${AppLocalizations.of(context)!.painless}': 0,
+      '1 ${AppLocalizations.of(context)!.veryMild}': 1,
+      '2 ${AppLocalizations.of(context)!.unpleasant}': 2,
+      '3 ${AppLocalizations.of(context)!.tolerable}': 3,
+      '4 ${AppLocalizations.of(context)!.disturbing}': 4,
+      '5 ${AppLocalizations.of(context)!.veryDisturbing}': 5,
+      '6 ${AppLocalizations.of(context)!.severe}': 6,
+      '7 ${AppLocalizations.of(context)!.verySevere}': 7,
+      '8 ${AppLocalizations.of(context)!.veryTerrible}': 8,
+      '9 ${AppLocalizations.of(context)!.agonizingUnbearable}': 9,
+      '10 ${AppLocalizations.of(context)!.strongestImaginable}': 10,
+    };
+    _medicationAndTherapyValues = <String, dynamic>{
+      AppLocalizations.of(context)!.yes: true,
+      AppLocalizations.of(context)!.no: false,
+    };
+    _myEntries = AppLocalizations.of(context)!.myEntries;
+    _vitalValues = AppLocalizations.of(context)!.vitalValues;
+    _activityAndRest = AppLocalizations.of(context)!.activityAndRest;
+    _bodyAndMind = AppLocalizations.of(context)!.bodyAndMind;
+    _medicationAndTherapy = AppLocalizations.of(context)!.medicationAndTherapy;
+    _tips = AppLocalizations.of(context)!.tips;
+    _drinkEnough = AppLocalizations.of(context)!.drinkEnough;
+  }
+
+  void _initTitles() {
+    titleMap = <String, String>{
+      'vitalCover': _myEntries!,
+      'weightPage': _vitalValues!,
+      'heartPage': _vitalValues!,
+      'bloodPressurePage': _vitalValues!,
+      'bloodSugarPage': _vitalValues!,
+      'activityCover': _myEntries!,
+      'walkPage': _activityAndRest!,
+      'sleepDurationPage': _activityAndRest!,
+      'sleepQualityPage': _activityAndRest!,
+      'bodyCover': _myEntries!,
+      'painPage': _bodyAndMind!,
+      'interestPage': _bodyAndMind!,
+      'dejectionPage': _bodyAndMind!,
+      'nervousnessPage': _bodyAndMind!,
+      'worriesPage': _bodyAndMind!,
+      'medicationCover': _myEntries!,
+      'medicationPage': _medicationAndTherapy!,
+      'therapyPage': _medicationAndTherapy!,
+      'readyCover': _myEntries!,
+    };
+  }
+
+  Future<void> _initPages(
+    void Function() previousPage,
+    void Function() nextPage,
+  ) async {
+    _bodyHeight =
+        (await Backend.getAll(PatientRegistrationData.databaseTable))[0]
+            ['BodyHeight'];
+
+    pages = <String, Widget?>{
       'vitalCover': Cover(
         title: _vitalValues!,
         image: 'assets/Vitalwerte_neg.png',
@@ -48,15 +222,11 @@ class QuestionairePageState {
       'weightPage': Weight(
         previousPage: previousPage,
         nextPage: nextPage,
-        onChangedBodyWeight: (String value) {
-          selectedBodyWeight = int.tryParse(value);
-          _calculateAndSaveBmi();
+        onChangedBodyWeight: (double? weight, double? bmi) {
+          selectedBodyWeight = weight;
+          selectedBMI = bmi;
         },
-        onChangedHeight: (String value) {
-          selectedHeight = int.tryParse(value);
-          _calculateAndSaveBmi();
-        },
-        onChangedBmi: (String value) {},
+        bodyHeight: _bodyHeight!,
       ),
       'heartPage': QuestionairePage(
         backFunction: previousPage,
@@ -212,174 +382,14 @@ class QuestionairePageState {
         image: 'assets/Fertig_Smiley_neg.png',
         infoText: <TextSpan>[
           TextSpan(
-            text: '${AppLocalizations.of(context)!.tips}\n',
+            text: '$_tips\n',
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           TextSpan(
-            text: AppLocalizations.of(context)!.drinkEnough,
+            text: _drinkEnough,
           ),
         ],
       ),
-    };
-  }
-
-  _calculateAndSaveBmi() {
-    if (selectedHeight != null && selectedBodyWeight != null) {
-      selectedBMI = (selectedBodyWeight! / pow(selectedHeight!/100, 2));
-    } else {
-      selectedBMI = 0;
-    }
-  }
-
-  /// The loaded pages.
-  Map<String, Widget>? pages;
-
-  /// Maps the pageViews to according titles.
-  Map<String, String>? titleMap;
-
-  // Value store for the user
-  /// The selected body weight.
-  int? selectedBodyWeight;
-
-  // the selected height.
-  int? selectedHeight;
-
-  /// The given bmi.
-  num? selectedBMI;
-
-  /// The selected heart frequency.
-  int? selectedHeartFrequency;
-
-  /// The selected syst value for blood pressure.
-  int? selectedSyst;
-
-  /// The selected dias value for blood pressure.
-  int? selectedDias;
-
-  /// The selected blood sugar value.
-  int? selectedBloodSugar;
-
-  /// The selected walk distance.
-  int? selectedWalkDistance;
-
-  /// The selected sleep duration.
-  int? selectedSleepDuration;
-
-  /// The selected sleep quality.
-  int? selectedSleepQuality;
-
-  /// The selected pain value.
-  int? selectedPain;
-
-  /// Answer to question A.
-  int? selectedQuestionA;
-
-  /// Answer to question B.
-  int? selectedQuestionB;
-
-  /// Answer to question C.
-  int? selectedQuestionC;
-
-  /// Answer to question D.
-  int? selectedQuestionD;
-
-  /// Tells if the medication got updated by the user.
-  bool medicationUpdated = false;
-
-  /// Tells if the therapy got updated by the user.
-  bool therapyUpdated = false;
-
-  /// Tells if the medication got changed and should be updated (synced)
-  /// by the user.
-  bool? medicationChanged;
-
-  /// Tells if the therapy got changed and should be updated (synced)
-  /// by the user.
-  bool? therapyChanged;
-
-  //Static Strings
-  static String? _myEntries;
-  static String? _vitalValues;
-  static String? _activityAndRest;
-  static String? _bodyAndMind;
-  static String? _medicationAndTherapy;
-  static String? _ready;
-  static String? _heartFrequency;
-  static String? _bloodSugar;
-  static String? _possibleWalkDistance;
-  static String? _sleepDuration;
-  static String? _hrs;
-  static String? _sleepQuality7Days;
-  static String? _pain;
-  static String? _lowInterest;
-  static String? _dejection;
-  static String? _nervousness;
-  static String? _worries;
-  static String? _changedMedication;
-  static String? _changedTherapy;
-  static Map<String, dynamic>? _painValues;
-  static Map<String, dynamic>? _medicationAndTherapyValues;
-
-  void _initStrings(BuildContext context) {
-    _heartFrequency = AppLocalizations.of(context)!.heartFrequency;
-    _bloodSugar = AppLocalizations.of(context)!.bloodSugar;
-    _possibleWalkDistance = AppLocalizations.of(context)!.possibleWalkDistance;
-    _sleepDuration = AppLocalizations.of(context)!.sleepDuration;
-    _hrs = AppLocalizations.of(context)!.hrs;
-    _ready = AppLocalizations.of(context)!.questionnaireFinished;
-    _sleepQuality7Days = AppLocalizations.of(context)!.sleepQuality7Days;
-    _pain = AppLocalizations.of(context)!.pain;
-    _lowInterest = AppLocalizations.of(context)!.lowInterest;
-    _dejection = AppLocalizations.of(context)!.dejection;
-    _nervousness = AppLocalizations.of(context)!.nervousness;
-    _worries = AppLocalizations.of(context)!.controlWorries;
-    _changedTherapy = AppLocalizations.of(context)!.changedTherapy;
-    _changedMedication = AppLocalizations.of(context)!.changedMedication;
-    _painValues = <String, dynamic>{
-      '0 ${AppLocalizations.of(context)!.painless}': 0,
-      '1 ${AppLocalizations.of(context)!.veryMild}': 1,
-      '2 ${AppLocalizations.of(context)!.unpleasant}': 2,
-      '3 ${AppLocalizations.of(context)!.tolerable}': 3,
-      '4 ${AppLocalizations.of(context)!.disturbing}': 4,
-      '5 ${AppLocalizations.of(context)!.veryDisturbing}': 5,
-      '6 ${AppLocalizations.of(context)!.severe}': 6,
-      '7 ${AppLocalizations.of(context)!.verySevere}': 7,
-      '8 ${AppLocalizations.of(context)!.veryTerrible}': 8,
-      '9 ${AppLocalizations.of(context)!.agonizingUnbearable}': 9,
-      '10 ${AppLocalizations.of(context)!.strongestImaginable}': 10,
-    };
-    _medicationAndTherapyValues = <String, dynamic>{
-      AppLocalizations.of(context)!.yes: true,
-      AppLocalizations.of(context)!.no: false,
-    };
-    _myEntries = AppLocalizations.of(context)!.myEntries;
-    _vitalValues = AppLocalizations.of(context)!.vitalValues;
-    _activityAndRest = AppLocalizations.of(context)!.activityAndRest;
-    _bodyAndMind = AppLocalizations.of(context)!.bodyAndMind;
-    _medicationAndTherapy = AppLocalizations.of(context)!.medicationAndTherapy;
-  }
-
-  void _initTitles() {
-    titleMap = <String, String>{
-      'vitalCover': _myEntries!,
-      'weightPage': _vitalValues!,
-      'heartPage': _vitalValues!,
-      'bloodPressurePage': _vitalValues!,
-      'bloodSugarPage': _vitalValues!,
-      'activityCover': _myEntries!,
-      'walkPage': _activityAndRest!,
-      'sleepDurationPage': _activityAndRest!,
-      'sleepQualityPage': _activityAndRest!,
-      'bodyCover': _myEntries!,
-      'painPage': _bodyAndMind!,
-      'interestPage': _bodyAndMind!,
-      'dejectionPage': _bodyAndMind!,
-      'nervousnessPage': _bodyAndMind!,
-      'worriesPage': _bodyAndMind!,
-      'medicationCover': _myEntries!,
-      'medicationPage': _medicationAndTherapy!,
-      'therapyPage': _medicationAndTherapy!,
-      'readyCover': _myEntries!,
     };
   }
 }
