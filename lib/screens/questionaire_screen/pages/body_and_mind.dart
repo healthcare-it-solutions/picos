@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../widgets/picos_label.dart';
 import '../widgets/questionaire_page.dart';
 import '../widgets/radio_select_card.dart';
 
@@ -48,8 +49,8 @@ class BodyAndMind extends StatelessWidget {
       backFunction: previousPage,
       nextFunction: nextPage,
       child: RadioSelectCard(
-        callBack: onChangedInterest,
-        label: _howOftenAffected!,
+        callback: onChangedInterest,
+        label: PicosLabel(label: _howOftenAffected!),
         description: questionType,
         options: _bodyAndMindValues!,
       ),
