@@ -80,6 +80,9 @@ class _WeightState extends State<Weight> {
             onChanged: (String weightString) {
               if (weightString == '') {
                 widget.onChangedBodyWeight(null, null);
+                setState(() {
+                  _bmi = 0;
+                });
                 return;
               }
 
