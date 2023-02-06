@@ -35,10 +35,10 @@ class Weekly extends AbstractDatabaseObject {
   static const String databaseTable = 'PICOS_weekly';
 
   /// The patients body weight.
-  final int? bodyWeight;
+  final double? bodyWeight;
 
   /// The patients BMI.
-  final num? bmi;
+  final double? bmi;
 
   /// The patients sleep quality assessment.
   final int? sleepQuality;
@@ -57,8 +57,8 @@ class Weekly extends AbstractDatabaseObject {
   @override
   Weekly copyWith({
     DateTime? date,
-    int? bodyWeight,
-    int? bmi,
+    double? bodyWeight,
+    double? bmi,
     int? sleepQuality,
     int? walkingDistance,
     String? objectId,
