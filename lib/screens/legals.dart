@@ -33,53 +33,66 @@ class LegalsPage extends StatelessWidget {
       body: PicosBody(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const <Widget>[
-            Text(
-              '''Das Projekt DISTANCE ist einer der vom Bundesministerium für Bildung und Forschung (BMBF) geförderten Digitalen FortschrittsHubs Gesundheit im Rahmen der Medizin-Informatikinitiative.''',
-            ),
-            Text('\n'),
-            Text('Angaben gem. § 5 TMG:\n'),
-            Text(
+          children: <Widget>[
+            Text('${AppLocalizations.of(context)!.projectDISTANCE}\n'),
+            Text('${AppLocalizations.of(context)!.information5tmg}\n'),
+            const Text(
               'Healthcare IT Solutions GmbH\n',
               style: TextStyle(fontSize: 20),
             ),
             Text(
-              'Sitz:\n',
-              style: TextStyle(
+              '${AppLocalizations.of(context)!.headOffice}:\n',
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text('Pauwelsstraße 30'),
-            Text('52074 Aachen\n'),
+            const Text('Pauwelsstraße 30'),
+            const Text('52074 Aachen\n'),
             Text(
-              'Postanschrift:\n',
-              style: TextStyle(
+              '${AppLocalizations.of(context)!.postalAddress}:\n',
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text('Karl-Friedrich-Straße 74'),
-            Text('52072 Aachen\n'),
-            Text('Tel.: +49 241 99753311'),
-            Text('E-Mail: info@hit-solutions.de'),
-            Text('Website: www.hit-solutions.de\n'),
+            const Text('Karl-Friedrich-Straße 74'),
+            const Text('52072 Aachen\n'),
+            const Text('Tel.: +49 241 99753311'),
+            const Text('E-Mail: info@hit-solutions.de'),
+            const Text('Website: www.hit-solutions.de\n'),
             Text(
-              '''Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:''',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text('DE14NRW00000098851\n'),
-            Text(
-              'Bildnachweise:',
-              style: TextStyle(
+              '${AppLocalizations.of(context)!.salesTaxID}:\n',
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text('Meine Eingaben: © Megan Rexazin | pixabay.com'),
-            Text('Meine Therapie: © Mohamed Hassan | pixabay.com'),
-            Text('Arzt-/Krankenhausbesuche: © Aryo Hadi | istockphoto.com'),
-            Text('Meine BehandlerInnen: © lu94007 | pixabay.com'),
-            Text('Meine Angehörigen: © harishs | pixabay.com'),
-            Text('Meine Dokumente: © Megan Rexazin | pixabay.com'),
-            Text('Kontaktaufnahme: © Megan Rexazin | pixabay.com'),
+            const Text('DE14NRW00000098851\n'),
+            Text(
+              '${AppLocalizations.of(context)!.photoCredits}:\n',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              '''${AppLocalizations.of(context)!.myEntries}: © Megan Rexazin | pixabay.com''',
+            ),
+            Text(
+              '''${AppLocalizations.of(context)!.myTherapy}: © Mohamed Hassan | pixabay.com''',
+            ),
+            Text(
+              '''${AppLocalizations.of(context)!.doctorsVisit}: © Aryo Hadi | istockphoto.com''',
+            ),
+            Text(
+              '''${AppLocalizations.of(context)!.myPhysicians}: © lu94007 | pixabay.com''',
+            ),
+            Text(
+              '''${AppLocalizations.of(context)!.myFamilyMembers}: © harishs | pixabay.com''',
+            ),
+            Text(
+              '''${AppLocalizations.of(context)!.myDocuments}: © Megan Rexazin | pixabay.com''',
+            ),
+            Text(
+              '''${AppLocalizations.of(context)!.contact}: © Megan Rexazin | pixabay.com''',
+            ),
           ],
         ),
       ),
