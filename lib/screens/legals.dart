@@ -29,7 +29,6 @@ class LegalsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PicosScreenFrame(
       title: AppLocalizations.of(context)!.legals,
-      appBarElevation: 4,
       body: PicosBody(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
