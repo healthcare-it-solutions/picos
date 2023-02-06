@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen>
     // This belongs here, because of context usage in async
     if (!mounted) return;
     if (res) {
-      Navigator.of(con).pushNamed(route);
+      Navigator.of(con).pushReplacementNamed(route);
     } else {
       setState(() {
         _loginfailure = true;
