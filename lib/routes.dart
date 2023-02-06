@@ -69,7 +69,7 @@ class Routes {
           const ViewTherapyScreen(),
       '/my-therapy-screen/my-therapy': (BuildContext ctx) =>
           const MyTherapiesScreen(),
-      'legals': (BuildContext ctx) => const LegalsPage(),
+      '/legals-screen': (BuildContext ctx) => const LegalsScreen(),
     };
   }
 

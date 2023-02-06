@@ -21,9 +21,9 @@ import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 
 /// Shows the Legal Page of the Picos App.
-class LegalsPage extends StatelessWidget {
+class LegalsScreen extends StatelessWidget {
   /// PicosMenu constructor
-  const LegalsPage({Key? key}) : super(key: key);
+  const LegalsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
