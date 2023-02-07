@@ -31,7 +31,7 @@ class Weight extends StatefulWidget {
     required this.previousPage,
     required this.nextPage,
     required this.onChangedBodyWeight,
-    this.bodyHeight = 0,
+    this.bodyHeight,
     Key? key,
   }) : super(key: key);
 
@@ -45,7 +45,7 @@ class Weight extends StatefulWidget {
   final dynamic Function(double? weight, double? bmi) onChangedBodyWeight;
 
   /// The body height.
-  final int bodyHeight;
+  final int? bodyHeight;
 
   @override
   State<Weight> createState() => _WeightState();
@@ -54,20 +54,37 @@ class Weight extends StatefulWidget {
 class _WeightState extends State<Weight> {
   static String? _bodyWeight;
   static String? _autoCalc;
+  static String? _unknownHeight;
 
   double _bmi = 0;
+  String _hint = '';
 
   double _calculateBmi(int height, double bodyWeight) {
     return (bodyWeight / pow(height / 100, 2));
   }
 
+  void _createHint() {
+    if (widget.bodyHeight == null && _hint.isNotEmpty) {
+      return;
+    }
+
+    if (widget.bodyHeight == null) {
+      _hint = _unknownHeight!;
+      return;
+    }
+
+    _hint = _bmi == 0 ? 'kg/m² $_autoCalc' : _bmi.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
-
     if (_bodyWeight == null) {
       _bodyWeight = AppLocalizations.of(context)!.bodyWeight;
       _autoCalc = AppLocalizations.of(context)!.autoCalc;
+      _unknownHeight =  AppLocalizations.of(context)!.unknownHeight;
     }
+
+    _createHint();
 
     return QuestionairePage(
       backFunction: widget.previousPage,
@@ -78,7 +95,7 @@ class _WeightState extends State<Weight> {
             label: _bodyWeight!,
             hint: 'kg',
             onChanged: (String weightString) {
-              if (weightString == '') {
+              if (weightString.isEmpty) {
                 widget.onChangedBodyWeight(null, null);
                 setState(() {
                   _bmi = 0;
@@ -88,8 +105,13 @@ class _WeightState extends State<Weight> {
 
               double weight = double.parse(weightString);
 
+              if (widget.bodyHeight == null) {
+                widget.onChangedBodyWeight(weight, null);
+                return;
+              }
+
               setState(() {
-                _bmi = _calculateBmi(widget.bodyHeight, weight);
+                _bmi = _calculateBmi(widget.bodyHeight!, weight);
               });
 
               widget.onChangedBodyWeight(weight, _bmi);
@@ -97,7 +119,7 @@ class _WeightState extends State<Weight> {
           ),
           TextFieldCard(
             label: 'BMI',
-            hint: _bmi == 0 ? 'kg/m² $_autoCalc' : _bmi.toString(),
+            hint: _hint,
             disabled: true,
           ),
         ],
