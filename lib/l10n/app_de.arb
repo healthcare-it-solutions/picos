@@ -164,5 +164,6 @@
     "photoCredits": "Bildnachweise",
     "contact": "Kontaktaufnahme",
     "myFamilyMembers": "Meine Angehörigen",
-    "myDocuments": "Meine Dokumente"
+    "myDocuments": "Meine Dokumente",
+    "unknownHeight": "Größe unbekannt"
 }

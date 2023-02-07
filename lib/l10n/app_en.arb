@@ -782,5 +782,9 @@
     "myDocuments": "My Documents",
     "@myDocuments": {
         "description": "My Documents"
+    },
+    "unknownHeight": "Unknown height",
+    "@unknownHeight": {
+        "description": "Unknown height"
     }
 }
