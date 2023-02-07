@@ -237,7 +237,7 @@ class QuestionairePageStorage {
           selectedBodyWeight = weight;
           selectedBMI = bmi;
         },
-        bodyHeight: _bodyHeight!,
+        bodyHeight: _bodyHeight,
       ),
       'heartPage': QuestionairePage(
         backFunction: previousPage,

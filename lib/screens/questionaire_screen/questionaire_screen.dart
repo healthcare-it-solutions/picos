@@ -107,7 +107,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     return FutureBuilder<bool>(
       future: _classInit(context),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        if (!snapshot.hasData) {
+        if (!snapshot.hasData && !snapshot.hasError) {
           return const CircularProgressIndicator();
         }
 
