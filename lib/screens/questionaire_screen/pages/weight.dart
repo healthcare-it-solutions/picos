@@ -1,3 +1,22 @@
+/*   This file is part of Picos, a health tracking mobile app
+*    Copyright (C) 2022 Healthcare IT Solutions GmbH
+*
+*    This program is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    This program is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -6,13 +25,13 @@ import '../widgets/questionaire_page.dart';
 import '../widgets/text_field_card.dart';
 
 /// Questionnaire Weight page.
-class Weight extends StatelessWidget {
+class Weight extends StatefulWidget {
   /// Weight constructor.
   const Weight({
     required this.previousPage,
     required this.nextPage,
     required this.onChangedBodyWeight,
-    required this.onChangedBmi,
+    this.bodyHeight = 0,
     Key? key,
   }) : super(key: key);
 
@@ -23,13 +42,24 @@ class Weight extends StatelessWidget {
   final void Function() nextPage;
 
   /// Callback for body weight.
-  final dynamic Function(String value) onChangedBodyWeight;
+  final dynamic Function(double? weight, double? bmi) onChangedBodyWeight;
 
-  /// Callback for bmi.
-  final dynamic Function(String value) onChangedBmi;
+  /// The body height.
+  final int bodyHeight;
 
+  @override
+  State<Weight> createState() => _WeightState();
+}
+
+class _WeightState extends State<Weight> {
   static String? _bodyWeight;
   static String? _autoCalc;
+
+  double _bmi = 0;
+
+  double _calculateBmi(int height, double bodyWeight) {
+    return (bodyWeight / pow(height / 100, 2));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,19 +70,35 @@ class Weight extends StatelessWidget {
     }
 
     return QuestionairePage(
-      backFunction: previousPage,
-      nextFunction: nextPage,
+      backFunction: widget.previousPage,
+      nextFunction: widget.nextPage,
       child: Column(
         children: <TextFieldCard>[
           TextFieldCard(
             label: _bodyWeight!,
             hint: 'kg',
-            onChanged: onChangedBodyWeight,
+            onChanged: (String weightString) {
+              if (weightString == '') {
+                widget.onChangedBodyWeight(null, null);
+                setState(() {
+                  _bmi = 0;
+                });
+                return;
+              }
+
+              double weight = double.parse(weightString);
+
+              setState(() {
+                _bmi = _calculateBmi(widget.bodyHeight, weight);
+              });
+
+              widget.onChangedBodyWeight(weight, _bmi);
+            },
           ),
           TextFieldCard(
             label: 'BMI',
-            hint: 'kg/m² $_autoCalc',
-            onChanged: onChangedBmi,
+            hint: _bmi == 0 ? 'kg/m² $_autoCalc' : _bmi.toString(),
+            disabled: true,
           ),
         ],
       ),
