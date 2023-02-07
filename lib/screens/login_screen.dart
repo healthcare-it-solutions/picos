@@ -41,7 +41,7 @@ class LoginScreen extends StatefulWidget {
 // TODO: display an animated toast
 
 class _LoginScreenState extends State<LoginScreen>
-  with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
 
   late final TextEditingController _loginController;
   late final TextEditingController _passwordController;
