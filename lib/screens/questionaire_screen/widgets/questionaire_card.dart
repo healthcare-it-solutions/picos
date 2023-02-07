@@ -24,15 +24,19 @@ class QuestionaireCard extends StatefulWidget {
   /// Creates a QuestionaireCard.
   const QuestionaireCard({
     required this.child,
-    this.label = '',
+    this.label,
+    this.padding,
     Key? key,
   }) : super(key: key);
 
   /// The label of the questionaire card.
-  final String label;
+  final Widget? label;
 
   /// The title of the input field.
   final Widget child;
+
+  /// Possible custom padding.
+  final EdgeInsetsGeometry? padding;
 
   @override
   State<QuestionaireCard> createState() => _QuestionaireCardState();
@@ -49,11 +53,12 @@ class _QuestionaireCardState extends State<QuestionaireCard>
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 5,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+          padding: widget.padding ??
+              const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              PicosLabel(label: widget.label),
+              widget.label ?? const PicosLabel(label: ''),
               const SizedBox(height: 15),
               widget.child,
             ],

@@ -17,60 +17,40 @@
 
 import 'package:picos/models/abstract_database_object.dart';
 
-/// Class with weekly questionaire information.
-class Weekly extends AbstractDatabaseObject {
-  /// Creates a Daily object.
-  const Weekly({
-    required this.date,
-    this.bodyWeight,
-    this.bmi,
-    this.sleepQuality,
-    this.walkingDistance,
+/// Class with patient information collected on registration.
+///
+/// The attributes within this model may be not complete.
+class PatientRegistrationData extends AbstractDatabaseObject {
+  /// Creates a patient registration data object.
+  const PatientRegistrationData({
+    required this.bodyHeight,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt);
 
   /// The database table the objects are stored in.
-  static const String databaseTable = 'PICOS_weekly';
+  static const String databaseTable = 'patientData';
 
-  /// The patients body weight.
-  final double? bodyWeight;
-
-  /// The patients BMI.
-  final double? bmi;
-
-  /// The patients sleep quality assessment.
-  final int? sleepQuality;
-
-  /// The patients walking distance.
-  final int? walkingDistance;
-
-  /// The assessment date.
-  final DateTime date;
+  /// The patients body height.
+  final int bodyHeight;
 
   @override
   get table {
     return databaseTable;
   }
 
+  /// Returns a copy of this patient registration data object
+  /// with the given values updated.
   @override
-  Weekly copyWith({
-    DateTime? date,
-    double? bodyWeight,
-    double? bmi,
-    int? sleepQuality,
-    int? walkingDistance,
+  PatientRegistrationData copyWith({
+    int? bodyHeight,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
-    return Weekly(
-      date: date ?? this.date,
-      bodyWeight: bodyWeight ?? this.bodyWeight,
-      bmi: bmi ?? this.bmi,
-      sleepQuality: sleepQuality ?? this.sleepQuality,
-      walkingDistance: walkingDistance ?? this.walkingDistance,
+    return PatientRegistrationData(
+      bodyHeight: bodyHeight ?? this.bodyHeight,
       objectId: objectId ?? this.objectId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -79,15 +59,11 @@ class Weekly extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-    date,
+    bodyHeight,
   ];
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
-    'BodyWeight': bodyWeight,
-    'BMI': bmi,
-    'SISQS': sleepQuality,
-    'WalkingDistance': walkingDistance,
-    'datetime': date,
+    'BodyHeight': bodyHeight,
   };
 }

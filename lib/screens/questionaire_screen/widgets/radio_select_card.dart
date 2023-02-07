@@ -26,14 +26,14 @@ class RadioSelectCard extends StatelessWidget {
   /// Creates a RadioSelectCard.
   const RadioSelectCard({
     required this.options,
-    required this.callBack,
+    required this.callback,
     Key? key,
-    this.label = '',
+    this.label = const PicosLabel(label: ''),
     this.description = '',
   }) : super(key: key);
 
   /// The label for the card.
-  final String label;
+  final Widget label;
 
   /// An optional description for the selection.
   final String description;
@@ -43,26 +43,40 @@ class RadioSelectCard extends StatelessWidget {
   final Map<String, dynamic> options;
 
   /// The function that is executed when an item gets selected.
-  final Function(dynamic value) callBack;
+  final Function(dynamic value) callback;
+
+  static const double _horizontalPadding = 15;
 
   @override
   Widget build(BuildContext context) {
     List<Widget> children = <Widget>[];
 
     if (description.isNotEmpty) {
-      children.add(PicosLabel(label: description, fontSize: 15));
+      children.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
+          child: PicosLabel(label: description, fontSize: 15),
+        ),
+      );
       children.add(const SizedBox(height: 15));
     }
 
     children.add(
       PicosRadioSelect(
         selection: options,
-        callBack: callBack,
+        callBack: callback,
       ),
     );
 
     return QuestionaireCard(
-      label: label,
+      padding: const EdgeInsets.symmetric(
+        vertical: 15,
+        horizontal: 0,
+      ),
+      label: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
+        child: label,
+      ),
       child: Column(
         children: children,
       ),

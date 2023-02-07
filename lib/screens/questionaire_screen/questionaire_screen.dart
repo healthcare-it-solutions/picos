@@ -20,353 +20,195 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:picos/models/phq4.dart';
 import 'package:picos/models/weekly.dart';
-import 'package:picos/screens/questionaire_screen/widgets/cover.dart';
-import 'package:picos/screens/questionaire_screen/widgets/questionaire_card.dart';
-import 'package:picos/screens/questionaire_screen/widgets/radio_select_card.dart';
-import 'package:picos/screens/questionaire_screen/widgets/text_field_card.dart';
-import 'package:picos/widgets/picos_body.dart';
+import 'package:picos/screens/questionaire_screen/questionaire_page_storage.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
-import 'package:picos/widgets/picos_text_field.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../models/daily.dart';
 import '../../util/backend.dart';
 
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
-class QuestionaireScreen extends StatelessWidget {
+class QuestionaireScreen extends StatefulWidget {
   /// QuestionaireScreen constructor
   const QuestionaireScreen({Key? key}) : super(key: key);
 
-  //Static Strings
-  static String? _myEntries;
-  static String? _vitalValues;
-  static String? _activityAndRest;
-  static String? _bodyAndMind;
-  static String? _medicationAndTherapy;
-  static String? _ready;
-  static String? _bodyWeight;
-  static String? _autoCalc;
-  static String? _heartFrequency;
-  static String? _bloodPressure;
-  static String? _bloodSugar;
-  static String? _possibleWalkDistance;
-  static String? _sleepDuration;
-  static String? _hrs;
-  static String? _sleepQuality7Days;
-  static String? _pain;
-  static String? _howOftenAffected;
-  static String? _lowInterest;
-  static String? _dejection;
-  static String? _nervousness;
-  static String? _controlWorries;
-  static String? _changedMedication;
-  static String? _changedTherapy;
-  static const Map<String, dynamic> _sleepQualityValues = <String, dynamic>{
-    '10': 10,
-    '9': 9,
-    '8': 8,
-    '7': 7,
-    '6': 6,
-    '5': 5,
-    '4': 4,
-    '3': 3,
-    '2': 2,
-    '1': 1,
-    '0': 0,
+  @override
+  State<QuestionaireScreen> createState() => _QuestionaireScreenState();
+}
+
+class _QuestionaireScreenState extends State<QuestionaireScreen> {
+  QuestionairePageStorage? _pageStorage;
+  static final PageController _controller = PageController();
+  static const Duration _controllerDuration = Duration(milliseconds: 300);
+  static const Curve _controllerCurve = Curves.ease;
+
+  // State
+  final List<String> _titles = <String>[];
+  String? _title;
+  final List<Widget> _pages = <Widget>[];
+
+  final Map<String, int> _redirectingPages = <String, int>{
+    'medicationPage': 16,
+    'therapyPage': 17,
   };
-  static Map<String, dynamic>? _painValues;
-  static Map<String, dynamic>? _bodyAndMindValues;
-  static Map<String, dynamic>? _medicationAndTherapyValues;
+
+  void _previousPage() {
+    FocusManager.instance.primaryFocus?.unfocus();
+
+    if (_controller.page == 0 || _controller.page == _pages.length - 1) {
+      Navigator.of(context).pop();
+      return;
+    }
+
+    _controller.previousPage(
+      duration: _controllerDuration,
+      curve: _controllerCurve,
+    );
+  }
+
+  void _nextPage() {
+    FocusManager.instance.primaryFocus?.unfocus();
+
+    if (_controller.page == _pages.length - 1) {
+      Navigator.of(context).pop();
+      return;
+    }
+
+    if (_controller.page == _redirectingPages['medicationPage'] &&
+        _pageStorage!.medicationChanged == true &&
+        _pageStorage!.medicationUpdated == false) {
+      _pageStorage!.medicationUpdated = true;
+      Navigator.of(context).pushNamed('/my-medications-screen/my-medications');
+    }
+
+    if (_controller.page == _redirectingPages['therapyPage'] &&
+        _pageStorage!.therapyChanged == true &&
+        _pageStorage!.therapyUpdated == false) {
+      _pageStorage!.therapyUpdated = true;
+      Navigator.of(context).pushNamed('/my-therapy-screen/my-therapy');
+    }
+
+    _controller.nextPage(
+      duration: _controllerDuration,
+      curve: _controllerCurve,
+    );
+  }
+
+  // Class init.
+  Future<bool> _classInit(BuildContext context) async {
+    _pageStorage ??=
+        await QuestionairePageStorage.create(_previousPage, _nextPage, context);
+
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> pageViews;
+    return FutureBuilder<bool>(
+      future: _classInit(context),
+      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+        if (!snapshot.hasData && !snapshot.hasError) {
+          return const CircularProgressIndicator();
+        }
 
-    // Value store for the user
-    int? selectedBodyWeight;
-    int? selectedBMI;
-    int? selectedHeartFrequency;
-    int? selectedSyst;
-    int? selectedDias;
-    int? selectedBloodSugar;
-    int? selectedWalkDistance;
-    int? selectedSleepDuration;
-    int? selectedSleepQuality;
-    int? selectedPain;
-    int? selectedQuestionA;
-    int? selectedQuestionB;
-    int? selectedQuestionC;
-    int? selectedQuestionD;
+        // Instance init.
+        if (_pages.isEmpty) {
+          _title = _pageStorage!.titleMap!['vitalCover'];
 
-    // Class init.
-    if (_myEntries == null) {
-      _myEntries = AppLocalizations.of(context)!.myEntries;
-      _vitalValues = AppLocalizations.of(context)!.vitalValues;
-      _activityAndRest = AppLocalizations.of(context)!.activityAndRest;
-      _bodyAndMind = AppLocalizations.of(context)!.bodyAndMind;
-      _medicationAndTherapy =
-          AppLocalizations.of(context)!.medicationAndTherapy;
-      _bodyWeight = AppLocalizations.of(context)!.bodyWeight;
-      _autoCalc = AppLocalizations.of(context)!.autoCalc;
-      _heartFrequency = AppLocalizations.of(context)!.heartFrequency;
-      _bloodPressure = AppLocalizations.of(context)!.bloodPressure;
-      _bloodSugar = AppLocalizations.of(context)!.bloodSugar;
-      _possibleWalkDistance =
-          AppLocalizations.of(context)!.possibleWalkDistance;
-      _sleepDuration = AppLocalizations.of(context)!.sleepDuration;
-      _hrs = AppLocalizations.of(context)!.hrs;
-      _ready = AppLocalizations.of(context)!.questionnaireFinished;
-      _sleepQuality7Days = AppLocalizations.of(context)!.sleepQuality7Days;
-      _pain = AppLocalizations.of(context)!.pain;
-      _howOftenAffected = AppLocalizations.of(context)!.howOftenAffected;
-      _lowInterest = AppLocalizations.of(context)!.lowInterest;
-      _dejection = AppLocalizations.of(context)!.dejection;
-      _nervousness = AppLocalizations.of(context)!.nervousness;
-      _controlWorries = AppLocalizations.of(context)!.controlWorries;
-      _changedTherapy = AppLocalizations.of(context)!.changedTherapy;
-      _changedMedication = AppLocalizations.of(context)!.changedMedication;
-      _painValues = <String, dynamic>{
-        '0 ${AppLocalizations.of(context)!.painless}': 0,
-        '1 ${AppLocalizations.of(context)!.veryMild}': 1,
-        '2 ${AppLocalizations.of(context)!.unpleasant}': 2,
-        '3 ${AppLocalizations.of(context)!.tolerable}': 3,
-        '4 ${AppLocalizations.of(context)!.disturbing}': 4,
-        '5 ${AppLocalizations.of(context)!.veryDisturbing}': 5,
-        '6 ${AppLocalizations.of(context)!.severe}': 6,
-        '7 ${AppLocalizations.of(context)!.verySevere}': 7,
-        '8 ${AppLocalizations.of(context)!.veryTerrible}': 8,
-        '9 ${AppLocalizations.of(context)!.agonizingUnbearable}': 9,
-        '10 ${AppLocalizations.of(context)!.strongestImaginable}': 10,
-      };
-      _bodyAndMindValues = <String, dynamic>{
-        AppLocalizations.of(context)!.notAtAll: 0,
-        AppLocalizations.of(context)!.onIndividualDays: 1,
-        AppLocalizations.of(context)!.onMoreThanHalfDays: 2,
-        AppLocalizations.of(context)!.almostEveryDays: 3,
-      };
-      _medicationAndTherapyValues = <String, dynamic>{
-        AppLocalizations.of(context)!.yes: true,
-        AppLocalizations.of(context)!.no: false,
-      };
-    }
+          // Add all required pages to the list.
+          _pages.add(_pageStorage!.pages!['vitalCover']!);
+          _titles.add(_pageStorage!.titleMap!['vitalCover']!);
+          _pages.add(_pageStorage!.pages!['weightPage']!);
+          _titles.add(_pageStorage!.titleMap!['weightPage']!);
+          _pages.add(_pageStorage!.pages!['heartPage']!);
+          _titles.add(_pageStorage!.titleMap!['heartPage']!);
+          _pages.add(_pageStorage!.pages!['bloodPressurePage']!);
+          _titles.add(_pageStorage!.titleMap!['bloodPressurePage']!);
+          _pages.add(_pageStorage!.pages!['bloodSugarPage']!);
+          _titles.add(_pageStorage!.titleMap!['bloodSugarPage']!);
+          _pages.add(_pageStorage!.pages!['activityCover']!);
+          _titles.add(_pageStorage!.titleMap!['activityCover']!);
+          _pages.add(_pageStorage!.pages!['walkPage']!);
+          _titles.add(_pageStorage!.titleMap!['walkPage']!);
+          _pages.add(_pageStorage!.pages!['sleepDurationPage']!);
+          _titles.add(_pageStorage!.titleMap!['sleepDurationPage']!);
+          _pages.add(_pageStorage!.pages!['sleepQualityPage']!);
+          _titles.add(_pageStorage!.titleMap!['sleepQualityPage']!);
+          _pages.add(_pageStorage!.pages!['bodyCover']!);
+          _titles.add(_pageStorage!.titleMap!['bodyCover']!);
+          _pages.add(_pageStorage!.pages!['painPage']!);
+          _titles.add(_pageStorage!.titleMap!['painPage']!);
+          _pages.add(_pageStorage!.pages!['interestPage']!);
+          _titles.add(_pageStorage!.titleMap!['interestPage']!);
+          _pages.add(_pageStorage!.pages!['dejectionPage']!);
+          _titles.add(_pageStorage!.titleMap!['dejectionPage']!);
+          _pages.add(_pageStorage!.pages!['nervousnessPage']!);
+          _titles.add(_pageStorage!.titleMap!['nervousnessPage']!);
+          _pages.add(_pageStorage!.pages!['worriesPage']!);
+          _titles.add(_pageStorage!.titleMap!['worriesPage']!);
+          _pages.add(_pageStorage!.pages!['medicationCover']!);
+          _titles.add(_pageStorage!.titleMap!['medicationCover']!);
+          _pages.add(_pageStorage!.pages!['medicationPage']!);
+          _titles.add(_pageStorage!.titleMap!['medicationPage']!);
+          _pages.add(_pageStorage!.pages!['therapyPage']!);
+          _titles.add(_pageStorage!.titleMap!['therapyPage']!);
+          _pages.add(_pageStorage!.pages!['doctorPage']!);
+          _titles.add(_pageStorage!.titleMap!['doctorPage']!);
+          _pages.add(_pageStorage!.pages!['readyCover']!);
+          _titles.add(_pageStorage!.titleMap!['readyCover']!);
+        }
 
-    pageViews = <Widget>[
-      PicosBody(child: Cover(title: _vitalValues!)),
-      PicosBody(
-        child: Column(
-          children: <TextFieldCard>[
-            TextFieldCard(
-              label: _bodyWeight!,
-              hint: 'kg',
-              onChanged: (String value) {
-                selectedBodyWeight = int.tryParse(value);
-              },
-            ),
-            TextFieldCard(
-              label: 'BMI',
-              hint: 'kg/m² ${_autoCalc!}',
-              onChanged: (String value) {
-                selectedBMI = int.tryParse(value);
-              },
-            ),
-          ],
-        ),
-      ),
-      PicosBody(
-        child: TextFieldCard(
-          label: _heartFrequency!,
-          hint: 'bpm',
-          onChanged: (String value) {
-            selectedHeartFrequency = int.tryParse(value);
-          },
-        ),
-      ),
-      PicosBody(
-        child: QuestionaireCard(
-          label: _bloodPressure!,
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: PicosTextField(
-                  hint: 'Syst',
-                  maxLength: 3,
-                  keyboardType: TextInputType.number,
-                  onChanged: (String value) {
-                    selectedSyst = int.tryParse(value);
-                  },
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 20, left: 10, right: 10),
-                child: Text('/', style: TextStyle(fontSize: 20)),
-              ),
-              Expanded(
-                child: PicosTextField(
-                  hint: 'Dias',
-                  maxLength: 3,
-                  keyboardType: TextInputType.number,
-                  onChanged: (String value) {
-                    selectedDias = int.tryParse(value);
-                  },
-                ),
-              ),
-            ],
+        return PicosScreenFrame(
+          appBarElevation: 0.0,
+          title: _title,
+          body: PageView(
+            controller: _controller,
+            physics: const NeverScrollableScrollPhysics(),
+            onPageChanged: (int value) async {
+              if (_title != _titles[value]) {
+                setState(() {
+                  _title = _titles[value];
+                });
+              }
+
+              if (value == _pages.length - 1) {
+                DateTime date = DateTime.now();
+
+                Daily daily = Daily(
+                  date: date,
+                  bloodDiastolic: _pageStorage!.selectedDias,
+                  bloodSugar: _pageStorage!.selectedBloodSugar,
+                  bloodSystolic: _pageStorage!.selectedSyst,
+                  pain: _pageStorage!.selectedPain,
+                  sleepDuration: _pageStorage!.selectedSleepDuration,
+                  heartFrequency: _pageStorage!.selectedHeartFrequency,
+                );
+
+                Weekly weekly = Weekly(
+                  date: date,
+                  bodyWeight: _pageStorage!.selectedBodyWeight,
+                  bmi: _pageStorage!.selectedBMI,
+                  sleepQuality: _pageStorage!.selectedSleepQuality,
+                  walkingDistance: _pageStorage!.selectedWalkDistance,
+                );
+
+                PHQ4 phq4 = PHQ4(
+                  date: date,
+                  a: _pageStorage!.selectedQuestionA,
+                  b: _pageStorage!.selectedQuestionB,
+                  c: _pageStorage!.selectedQuestionC,
+                  d: _pageStorage!.selectedQuestionD,
+                );
+
+                await Backend.saveObject(daily);
+                await Backend.saveObject(weekly);
+                await Backend.saveObject(phq4);
+              }
+            },
+            children: _pages,
           ),
-        ),
-      ),
-      PicosBody(
-        child: TextFieldCard(
-          label: _bloodSugar!,
-          hint: 'mg/dL',
-          onChanged: (String value) {
-            selectedBloodSugar = int.tryParse(value);
-          },
-        ),
-      ),
-      PicosBody(child: Cover(title: _activityAndRest!)),
-      PicosBody(
-        child: TextFieldCard(
-          label: _possibleWalkDistance!,
-          hint: 'Meter',
-          onChanged: (String value) {
-            selectedWalkDistance = int.tryParse(value);
-          },
-        ),
-      ),
-      PicosBody(
-        child: TextFieldCard(
-          label: _sleepDuration!,
-          hint: _hrs!,
-          onChanged: (String value) {
-            selectedSleepDuration = int.tryParse(value);
-          },
-        ),
-      ),
-      PicosBody(
-        child: RadioSelectCard(
-          callBack: (dynamic value) {
-            selectedSleepQuality = value as int;
-          },
-          label: _sleepQuality7Days!,
-          options: _sleepQualityValues,
-        ),
-      ),
-      PicosBody(child: Cover(title: _bodyAndMind!)),
-      PicosBody(
-        child: RadioSelectCard(
-          callBack: (dynamic value) {
-            selectedPain = value as int;
-          },
-          label: _pain!,
-          options: _painValues!,
-        ),
-      ),
-      PicosBody(
-        child: RadioSelectCard(
-          callBack: (dynamic value) {
-            selectedQuestionA = value as int;
-          },
-          label: _howOftenAffected!,
-          description: _lowInterest!,
-          options: _bodyAndMindValues!,
-        ),
-      ),
-      PicosBody(
-        child: RadioSelectCard(
-          callBack: (dynamic value) {
-            selectedQuestionB = value as int;
-          },
-          label: _howOftenAffected!,
-          description: _dejection!,
-          options: _bodyAndMindValues!,
-        ),
-      ),
-      PicosBody(
-        child: RadioSelectCard(
-          callBack: (dynamic value) {
-            selectedQuestionC = value as int;
-          },
-          label: _howOftenAffected!,
-          description: _nervousness!,
-          options: _bodyAndMindValues!,
-        ),
-      ),
-      PicosBody(
-        child: RadioSelectCard(
-          callBack: (dynamic value) {
-            selectedQuestionD = value as int;
-          },
-          label: _howOftenAffected!,
-          description: _controlWorries!,
-          options: _bodyAndMindValues!,
-        ),
-      ),
-      PicosBody(child: Cover(title: _medicationAndTherapy!)),
-      PicosBody(
-        child: RadioSelectCard(
-          callBack: (dynamic value) {},
-          label: _changedMedication!,
-          options: _medicationAndTherapyValues!,
-        ),
-      ),
-      PicosBody(
-        child: RadioSelectCard(
-          callBack: (dynamic value) {},
-          label: _changedTherapy!,
-          options: _medicationAndTherapyValues!,
-        ),
-      ),
-      PicosBody(
-        child: GestureDetector(
-          child: Cover(title: _ready!),
-          onTap: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
-    ];
-
-    return PicosScreenFrame(
-      title: _myEntries,
-      body: PageView(
-        children: pageViews,
-        onPageChanged: (int value) async {
-          if (value == pageViews.length - 1) {
-            DateTime date = DateTime.now();
-
-            Daily daily = Daily(
-              date: date,
-              bloodDiastolic: selectedDias,
-              bloodSugar: selectedBloodSugar,
-              bloodSystolic: selectedSyst,
-              pain: selectedPain,
-              sleepDuration: selectedSleepDuration,
-              heartFrequency: selectedHeartFrequency,
-            );
-
-            Weekly weekly = Weekly(
-              date: date,
-              bodyWeight: selectedBodyWeight,
-              bmi: selectedBMI,
-              sleepQuality: selectedSleepQuality,
-              walkingDistance: selectedWalkDistance,
-            );
-
-            PHQ4 phq4 = PHQ4(
-              date: date,
-              a: selectedQuestionA,
-              b: selectedQuestionB,
-              c: selectedQuestionC,
-              d: selectedQuestionD,
-            );
-
-            await Backend.saveObject(daily);
-            await Backend.saveObject(weekly);
-            await Backend.saveObject(phq4);
-          }
-        },
-      ),
+        );
+      },
     );
   }
 }
