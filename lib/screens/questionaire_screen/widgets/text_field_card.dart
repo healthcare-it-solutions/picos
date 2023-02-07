@@ -28,6 +28,7 @@ class TextFieldCard extends StatelessWidget {
     this.label = '',
     this.hint = '',
     this.onChanged,
+    this.disabled = false,
     Key? key,
   }) : super(key: key);
 
@@ -40,6 +41,9 @@ class TextFieldCard extends StatelessWidget {
   /// The function that is executed when the user writes something.
   final dynamic Function(String value)? onChanged;
 
+  /// Determines if the text field is disabled.
+  final bool disabled;
+
   @override
   Widget build(BuildContext context) {
     return QuestionaireCard(
@@ -48,6 +52,7 @@ class TextFieldCard extends StatelessWidget {
         onChanged: onChanged,
         hint: hint,
         keyboardType: TextInputType.number,
+        disabled: disabled,
       ),
     );
   }

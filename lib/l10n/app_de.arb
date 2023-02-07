@@ -89,7 +89,7 @@
     "finishText": "Discharge: Eingaben der Startwerte..",
     "medication": "Medikation",
     "therapy": "Therapie",
-    "doctorsVisit": "Arzt- & Krankenbesuche",
+    "doctorsVisit": "Arzt- & Krankenhausbesuche",
     "medicationAndTherapy": "Medikation & Therapie",
     "infoText1": "Patient ID-12345 nimmt unter dem Abschnitt",
     "infoText2": " an folgenden Angaben teil:",
@@ -152,5 +152,17 @@
     "wrongCredentials": "Falsche Zugangsdaten",
     "submit": "Senden",
     "username": "Benutzername",
-    "password": "Passwort"
+    "password": "Passwort",
+    "questionaireDoctorVisit1": "Waren Sie ",
+    "questionaireDoctorVisit2": " bei einem Arzt oder in einem Krankenhaus?",
+    "questionaireDoctorVisitUnscheduled": "ungeplant",
+    "information5tmg": "Angaben gem. § 5 TMG",
+    "projectDISTANCE": "Das Projekt DISTANCE ist einer der vom Bundesministerium für Bildung und Forschung (BMBF) geförderten \"Digitalen FortschrittsHubs: Gesundheit im Rahmen der Medizin-Informatikinitiative\".",
+    "headOffice": "Sitz",
+    "postalAddress": "Postanschrift",
+    "salesTaxID": "Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz",
+    "photoCredits": "Bildnachweise",
+    "contact": "Kontaktaufnahme",
+    "myFamilyMembers": "Meine Angehörigen",
+    "myDocuments": "Meine Dokumente"
 }

@@ -42,10 +42,6 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
-    duration: const Duration(seconds: 1),
-    vsync: this,
-  );
 
   late final TextEditingController _loginController;
   late final TextEditingController _passwordController;
@@ -64,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen>
     // This belongs here, because of context usage in async
     if (!mounted) return;
     if (res) {
-      Navigator.of(con).pushNamed(route);
+      Navigator.of(con).pushReplacementNamed(route);
     } else {
       setState(() {
         _loginfailure = true;
@@ -81,7 +77,6 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   void dispose() {
-    _controller.dispose();
     _loginController.dispose();
     _passwordController.dispose();
     super.dispose();
