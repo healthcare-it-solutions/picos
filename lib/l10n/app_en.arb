@@ -734,5 +734,17 @@
     "password": "Password",
     "@password": {
         "description": "Password"
+    },
+    "questionaireDoctorVisit1": "Have you ",
+    "@questionaireDoctorVisit1": {
+        "description": "Have you "
+    },
+    "questionaireDoctorVisit2": "been to a doctor or hospital ",
+    "@questionaireDoctorVisit2": {
+        "description": "been to a doctor or hospital "
+    },
+    "questionaireDoctorVisitUnscheduled": "unscheduled?",
+    "@questionaireDoctorVisitUnscheduled": {
+        "description": "unscheduled?"
     }
 }
