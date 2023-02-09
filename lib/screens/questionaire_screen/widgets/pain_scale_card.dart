@@ -58,18 +58,37 @@ class _PainScaleCardState extends State<PainScaleCard> {
   static String? _agonizingUnbearable;
   static String? _strongestImaginable;
 
-  static final Map<String, int> _options = <String, int>{
-    '0': 0,
-    '1': 1,
-    '2': 2,
-    '3': 3,
-    '4': 4,
-    '5': 5,
-    '6': 6,
-    '7': 7,
-    '8': 8,
-    '9': 9,
-    '10': 10
+  static final Map<String, String> _fields = <String, String>{
+    '0a': '',
+    '0': '0',
+    '0b': '',
+    '1': '1',
+    '2': '2',
+    '3': '3',
+    '3a': '',
+    '4': '4',
+    '5': '5',
+    '6': '6',
+    '6a': '',
+    '7': '7',
+    '8': '8',
+    '9': '9',
+    '10': '10',
+    '10a': ''
+  };
+
+  Map<int, String> sourceEmojis = <int, String>{
+    0: 'assets/painIcons/0_No_Pain.png',
+    1: 'assets/painIcons/1_VeryyMild.png',
+    2: 'assets/painIcons/2_Discomforting.png',
+    3: 'assets/painIcons/3_Tolerable.png',
+    4: 'assets/painIcons/4_Distressing.png',
+    5: 'assets/painIcons/5_VeryDistressing.png',
+    6: 'assets/painIcons/6_Intense.png',
+    7: 'assets/painIcons/7_VeryIntense.png',
+    8: 'assets/painIcons/8_UtterlyHorrible.png',
+    9: 'assets/painIcons/9_ExcruciatingUnbearable.png',
+    10: 'assets/painIcons/UnimaginableUnspeakable.png'
   };
 
   int? groupValue;
@@ -127,13 +146,11 @@ class _PainScaleCardState extends State<PainScaleCard> {
             width: 50,
           ),
           Expanded(
-            child: Center(
-              child: Text(
-                _generateTileTitle(row),
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                ),
+            child: Text(
+              _generateTileTitle(row),
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 20,
               ),
             ),
           ),
@@ -142,30 +159,76 @@ class _PainScaleCardState extends State<PainScaleCard> {
     );
   }
 
+  Widget _createSubtitleBox(Color color, String title) {
+    return SizedBox(
+      height: 25,
+      width: 350,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: color,
+        ),
+        child: Text(
+          title,
+          textAlign: TextAlign.right,
+          style: const TextStyle(
+            color: Color.fromRGBO(126, 144, 160, 1),
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
   List<Widget> _generateDivider() {
     List<Widget> divider = <Widget>[];
     const Color dividerColor = Color.fromRGBO(145, 151, 156, 1);
 
-    for (int i = 0; i < _options.length; i++) {
-      divider.add(
-        const SizedBox(
-          height: tileHeight,
-        ),
-      );
+    for (int i = 0; i < _fields.length; i++) {
+      if (i == 0 || i == 2 || i == 5 || i == 10) {
+        divider.add(
+          const SizedBox(
+            height: 25,
+          ),
+        );
+      } else if (i == 15) {
+        divider.add(
+          const SizedBox(
+            height: 0,
+          ),
+        );
+      } else {
+        divider.add(
+          const SizedBox(
+            height: tileHeight,
+          ),
+        );
+      }
 
-      if (i == _options.length - 1) {
+      if (i == 0 ||
+          i == 1 ||
+          i == 2 ||
+          i == 5 ||
+          i == 6 ||
+          i == 9 ||
+          i == 10 ||
+          i == 15) {
         continue;
       }
 
-      divider.add(
-        const Divider(
-          thickness: 3,
-          height: 0,
-          color: dividerColor,
-        ),
-      );
-
-      continue;
+      if (i != 14) {
+        divider.add(
+          LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              return const Divider(
+                thickness: 1,
+                height: 0,
+                color: dividerColor,
+              );
+            },
+          ),
+        );
+      }
     }
 
     return divider;
@@ -186,62 +249,103 @@ class _PainScaleCardState extends State<PainScaleCard> {
       children.add(const SizedBox(height: 15));
     }
 
-    _options.forEach(
-      (String key, int value) {
-        children.add(
-          InkWell(
-            onTap: () {
-              setState(() {
-                groupValue = value;
-              });
-            },
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: cardContentPadding),
-              child: Row(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: SizedBox(
-                      width: 50,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: Text(
-                          key.length < 2 ? '  $key' : key,
-                          style: const TextStyle(
-                            fontSize: 20,
+    _fields.forEach(
+      (String key, String value) {
+        if (key != '0a' &&
+            key != '0b' &&
+            key != '3a' &&
+            key != '6a' &&
+            key != '10a') {
+          children.add(
+            InkWell(
+              onTap: () {
+                setState(() {
+                  groupValue = int.parse(value);
+                });
+              },
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: cardContentPadding),
+                child: Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: SizedBox(
+                        width: 50,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Text(
+                            key.length < 2 ? '  $key' : key,
+                            style: const TextStyle(
+                              fontSize: 20,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: _generateTitleWidget(key),
-                    ),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Radio<int>(
-                        value: value,
-                        groupValue: groupValue,
-                        onChanged: (int? newValue) {
-                          setState(() {
-                            widget.callBack(newValue!);
-                            groupValue = newValue;
-                          });
-                        },
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: _generateTitleWidget(key),
                       ),
-                      const SizedBox(
-                        width: 8,
-                      )
-                    ],
-                  ),
-                ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Radio<int>(
+                          value: int.parse(value),
+                          groupValue: groupValue,
+                          onChanged: (int? newValue) {
+                            setState(() {
+                              widget.callBack(newValue!);
+                              groupValue = newValue;
+                            });
+                          },
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
+          );
+        } else {
+          switch (key) {
+            case '0a':
+              children.add(
+                _createSubtitleBox(
+                  const Color.fromRGBO(202, 224, 242, 1),
+                  'Kein Schmerz',
+                ),
+              );
+              break;
+            case '0b':
+              children.add(
+                _createSubtitleBox(
+                  const Color.fromRGBO(180, 223, 209, 1),
+                  'Geringe Schmerzen',
+                ),
+              );
+              break;
+            case '3a':
+              children.add(
+                _createSubtitleBox(
+                  const Color.fromRGBO(199, 223, 143, 1),
+                  'Moderate Schmerzen',
+                ),
+              );
+              break;
+            case '6a':
+              children.add(
+                _createSubtitleBox(
+                  const Color.fromRGBO(252, 216, 153, 1),
+                  'Starke Schmerzen',
+                ),
+              );
+              break;
+          }
+        }
       },
     );
 
@@ -260,11 +364,21 @@ class _PainScaleCardState extends State<PainScaleCard> {
             children: children,
           ),
           const Positioned(
-            width: 50,
-            height: tileHeight * 11,
-            left: 85,
+            width: 40,
+            height: 40,
+            top: 33,
+            left: 75,
             child: Image(
               image: AssetImage('assets/painIcons/0_No_Pain.png'),
+            ),
+          ),
+          const Positioned(
+            width: 40,
+            height: 40,
+            top: 111,
+            left: 75,
+            child: Image(
+              image: AssetImage('assets/painIcons/1_VeryMild.png'),
             ),
           ),
           Padding(
