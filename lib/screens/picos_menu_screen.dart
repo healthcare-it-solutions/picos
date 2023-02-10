@@ -103,6 +103,7 @@ class PicosMenu extends StatelessWidget {
           leading: const Icon(Icons.gavel),
           title: Text(AppLocalizations.of(context)!.legals),
           trailing: const Icon(Icons.keyboard_arrow_right),
+          onTap: () => Navigator.of(context).pushNamed('/legals-screen'),
         ),
         ListTile(
           leading: const Icon(Icons.logout),

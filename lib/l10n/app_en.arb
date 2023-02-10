@@ -238,9 +238,9 @@
         "description": "Continue"
     },
 
-    "myEntries": "My entries",
+    "myEntries": "My Entries",
     "@myEntries": {
-        "description": "My entries"
+        "description": "My Entries"
     },
 
     "startEntry": "Start entry",
@@ -746,5 +746,45 @@
     "questionaireDoctorVisitUnscheduled": "unscheduled?",
     "@questionaireDoctorVisitUnscheduled": {
         "description": "unscheduled?"
+    },
+    "information5tmg": "Information according to § 5 TMG",
+    "@information5tmg": {
+        "description": "Information according to § 5 TMG"
+    },
+    "projectDISTANCE": "The DISTANCE project is one of the \"Digital Hubs: Advances in Research and Health Care\"-projects funded by the Federal Ministry of Education and Research (BMBF).",
+    "@projectDISTANCE": {
+        "description": "The DISTANCE project is one of the \"Digital Hubs: Advances in Research and Health Care\"-projects funded by the Federal Ministry of Education and Research (BMBF)."
+    },
+    "headOffice": "Head Office",
+    "@headOffice": {
+        "description": "Head Office"
+    },
+    "postalAddress": "Postal Address",
+    "@postalAddress": {
+        "description": "Postal Address"
+    },
+    "salesTaxID": "Sales tax identification number according to § 27a sales tax law",
+    "@salesTaxID": {
+        "description": "Sales tax identification number according to § 27a sales tax law"
+    },
+    "photoCredits": "Photo Credits",
+    "@photoCredits": {
+        "description": "Photo Credits"
+    },
+    "contact": "Contact",
+    "@contact": {
+        "description": "Contact"
+    },
+    "myFamilyMembers": "My Family Members",
+    "@myFamilyMembers": {
+        "description": "My Family Members"
+    },
+    "myDocuments": "My Documents",
+    "@myDocuments": {
+        "description": "My Documents"
+    },
+    "unknownHeight": "Unknown height",
+    "@unknownHeight": {
+        "description": "Unknown height"
     }
 }
