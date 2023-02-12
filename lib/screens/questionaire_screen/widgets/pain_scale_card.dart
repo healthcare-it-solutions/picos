@@ -77,9 +77,9 @@ class _PainScaleCardState extends State<PainScaleCard> {
     '10a': ''
   };
 
-  Map<int, String> sourceEmojis = <int, String>{
+  final Map<int, String> _sourceEmojis = <int, String>{
     0: 'assets/painIcons/0_No_Pain.png',
-    1: 'assets/painIcons/1_VeryyMild.png',
+    1: 'assets/painIcons/1_VeryMild.png',
     2: 'assets/painIcons/2_Discomforting.png',
     3: 'assets/painIcons/3_Tolerable.png',
     4: 'assets/painIcons/4_Distressing.png',
@@ -88,7 +88,7 @@ class _PainScaleCardState extends State<PainScaleCard> {
     7: 'assets/painIcons/7_VeryIntense.png',
     8: 'assets/painIcons/8_UtterlyHorrible.png',
     9: 'assets/painIcons/9_ExcruciatingUnbearable.png',
-    10: 'assets/painIcons/UnimaginableUnspeakable.png'
+    10: 'assets/painIcons/10_UnimaginableUnspeakable.png'
   };
 
   int? groupValue;
@@ -97,14 +97,14 @@ class _PainScaleCardState extends State<PainScaleCard> {
   void _initStrings(BuildContext context) {
     _painless = AppLocalizations.of(context)!.painless;
     _veryMild = AppLocalizations.of(context)!.veryMild;
-    _unpleasant = AppLocalizations.of(context)!.unpleasant;
+    _unpleasant = AppLocalizations.of(context)!.discomforting;
     _tolerable = AppLocalizations.of(context)!.tolerable;
-    _disturbing = AppLocalizations.of(context)!.disturbing;
-    _veryDisturbing = AppLocalizations.of(context)!.veryDisturbing;
-    _severe = AppLocalizations.of(context)!.severe;
-    _verySevere = AppLocalizations.of(context)!.verySevere;
-    _veryTerrible = AppLocalizations.of(context)!.veryTerrible;
-    _agonizingUnbearable = AppLocalizations.of(context)!.agonizingUnbearable;
+    _disturbing = AppLocalizations.of(context)!.distressing;
+    _veryDisturbing = AppLocalizations.of(context)!.veryDistressing;
+    _severe = AppLocalizations.of(context)!.intense;
+    _verySevere = AppLocalizations.of(context)!.veryIntense;
+    _veryTerrible = AppLocalizations.of(context)!.utterlyHorrible;
+    _agonizingUnbearable = AppLocalizations.of(context)!.excruciatingUnbearable;
     _strongestImaginable = AppLocalizations.of(context)!.strongestImaginable;
   }
 
@@ -150,7 +150,7 @@ class _PainScaleCardState extends State<PainScaleCard> {
               _generateTileTitle(row),
               style: const TextStyle(
                 color: Colors.black,
-                fontSize: 20,
+                fontSize: 16,
               ),
             ),
           ),
@@ -160,20 +160,30 @@ class _PainScaleCardState extends State<PainScaleCard> {
   }
 
   Widget _createSubtitleBox(Color color, String title) {
-    return SizedBox(
-      height: 25,
-      width: 350,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: color,
-        ),
-        child: Text(
-          title,
-          textAlign: TextAlign.right,
-          style: const TextStyle(
-            color: Color.fromRGBO(126, 144, 160, 1),
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10,
+      ),
+      child: SizedBox(
+        height: 25,
+        width: double.infinity,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: color,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(
+              right: 10,
+            ),
+            child: Text(
+              title,
+              textAlign: TextAlign.right,
+              style: const TextStyle(
+                color: Color.fromRGBO(126, 144, 160, 1),
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
       ),
@@ -268,15 +278,17 @@ class _PainScaleCardState extends State<PainScaleCard> {
                 child: Row(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      padding: const EdgeInsets.only(
+                        right: 10,
+                      ),
                       child: SizedBox(
                         width: 50,
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 20),
+                          padding: const EdgeInsets.only(left: 10),
                           child: Text(
                             key.length < 2 ? '  $key' : key,
                             style: const TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                             ),
                           ),
                         ),
@@ -316,7 +328,7 @@ class _PainScaleCardState extends State<PainScaleCard> {
               children.add(
                 _createSubtitleBox(
                   const Color.fromRGBO(202, 224, 242, 1),
-                  'Kein Schmerz',
+                  AppLocalizations.of(context)!.noPain,
                 ),
               );
               break;
@@ -324,7 +336,7 @@ class _PainScaleCardState extends State<PainScaleCard> {
               children.add(
                 _createSubtitleBox(
                   const Color.fromRGBO(180, 223, 209, 1),
-                  'Geringe Schmerzen',
+                  AppLocalizations.of(context)!.minorPain,
                 ),
               );
               break;
@@ -332,7 +344,7 @@ class _PainScaleCardState extends State<PainScaleCard> {
               children.add(
                 _createSubtitleBox(
                   const Color.fromRGBO(199, 223, 143, 1),
-                  'Moderate Schmerzen',
+                  AppLocalizations.of(context)!.moderatePain,
                 ),
               );
               break;
@@ -340,7 +352,7 @@ class _PainScaleCardState extends State<PainScaleCard> {
               children.add(
                 _createSubtitleBox(
                   const Color.fromRGBO(252, 216, 153, 1),
-                  'Starke Schmerzen',
+                  AppLocalizations.of(context)!.strongPain,
                 ),
               );
               break;
@@ -363,22 +375,103 @@ class _PainScaleCardState extends State<PainScaleCard> {
           Column(
             children: children,
           ),
-          const Positioned(
+          Positioned(
             width: 40,
             height: 40,
             top: 33,
             left: 75,
             child: Image(
-              image: AssetImage('assets/painIcons/0_No_Pain.png'),
+              image: AssetImage(_sourceEmojis[0]!),
             ),
           ),
-          const Positioned(
+          Positioned(
             width: 40,
             height: 40,
             top: 111,
             left: 75,
             child: Image(
-              image: AssetImage('assets/painIcons/1_VeryMild.png'),
+              image: AssetImage(_sourceEmojis[1]!),
+            ),
+          ),
+          Positioned(
+            width: 40,
+            height: 40,
+            top: 166,
+            left: 75,
+            child: Image(
+              image: AssetImage(_sourceEmojis[2]!),
+            ),
+          ),
+          Positioned(
+            width: 40,
+            height: 40,
+            top: 221,
+            left: 75,
+            child: Image(
+              image: AssetImage(_sourceEmojis[3]!),
+            ),
+          ),
+          Positioned(
+            width: 40,
+            height: 40,
+            top: 301,
+            left: 75,
+            child: Image(
+              image: AssetImage(_sourceEmojis[4]!),
+            ),
+          ),
+          Positioned(
+            width: 40,
+            height: 40,
+            top: 356,
+            left: 75,
+            child: Image(
+              image: AssetImage(_sourceEmojis[5]!),
+            ),
+          ),
+          Positioned(
+            width: 40,
+            height: 40,
+            top: 411,
+            left: 75,
+            child: Image(
+              image: AssetImage(_sourceEmojis[6]!),
+            ),
+          ),
+          Positioned(
+            width: 40,
+            height: 40,
+            top: 491,
+            left: 75,
+            child: Image(
+              image: AssetImage(_sourceEmojis[7]!),
+            ),
+          ),
+          Positioned(
+            width: 40,
+            height: 40,
+            top: 546,
+            left: 75,
+            child: Image(
+              image: AssetImage(_sourceEmojis[8]!),
+            ),
+          ),
+          Positioned(
+            width: 40,
+            height: 40,
+            top: 601,
+            left: 75,
+            child: Image(
+              image: AssetImage(_sourceEmojis[9]!),
+            ),
+          ),
+          Positioned(
+            width: 40,
+            height: 40,
+            top: 656,
+            left: 75,
+            child: Image(
+              image: AssetImage(_sourceEmojis[10]!),
             ),
           ),
           Padding(
