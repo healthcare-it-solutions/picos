@@ -90,7 +90,7 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
     return '';
   }
 
-  Widget _generateTitleWidget(String row) {
+  Ink _generateTitleWidget(String row) {
     Color backgroundColor = const Color.fromRGBO(216, 238, 215, 1);
 
     if (row == '9' || row == '8' || row == '7') {
