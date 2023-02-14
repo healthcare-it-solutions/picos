@@ -23,7 +23,7 @@ import '../../../widgets/picos_label.dart';
 
 /// An custom card specifically for pain.
 class PainScaleCard extends StatefulWidget {
-  /// Creates a SleepQualityCard.
+  /// Creates a PainScaleCard.
   const PainScaleCard({
     required this.callBack,
     Key? key,
