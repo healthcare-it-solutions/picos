@@ -53,24 +53,27 @@ class _PainScaleCardState extends State<PainScaleCard> {
   static String? _veryTerrible;
   static String? _agonizingUnbearable;
   static String? _strongestImaginable;
+  static String? _noPain;
+  static String? _minorPain;
+  static String? _moderatePain;
+  static String? _strongPain;
 
-  static final Map<String, String> _fields = <String, String>{
-    '0a': '',
-    '0': '0',
-    '0b': '',
-    '1': '1',
-    '2': '2',
-    '3': '3',
-    '3a': '',
-    '4': '4',
-    '5': '5',
-    '6': '6',
-    '6a': '',
-    '7': '7',
-    '8': '8',
-    '9': '9',
-    '10': '10',
-    '10a': ''
+  static final Map<String, int?> _fields = <String, int?>{
+    '0a': null,
+    '0': 0,
+    '0b': null,
+    '1': 1,
+    '2': 2,
+    '3': 3,
+    '3a': null,
+    '4': 4,
+    '5': 5,
+    '6': 6,
+    '6a': null,
+    '7': 7,
+    '8': 8,
+    '9': 9,
+    '10': 10
   };
 
   final Map<int, String> _sourceEmojis = <int, String>{
@@ -88,7 +91,7 @@ class _PainScaleCardState extends State<PainScaleCard> {
   };
 
   int? groupValue;
-  static const double tileHeight = 55;
+  static const double _cardContentPadding = 15;
 
   void _initStrings(BuildContext context) {
     _painless = AppLocalizations.of(context)!.painless;
@@ -102,63 +105,45 @@ class _PainScaleCardState extends State<PainScaleCard> {
     _veryTerrible = AppLocalizations.of(context)!.utterlyHorrible;
     _agonizingUnbearable = AppLocalizations.of(context)!.excruciatingUnbearable;
     _strongestImaginable = AppLocalizations.of(context)!.strongestImaginable;
+    _noPain = AppLocalizations.of(context)!.noPain;
+    _minorPain = AppLocalizations.of(context)!.minorPain;
+    _moderatePain = AppLocalizations.of(context)!.moderatePain;
+    _strongPain = AppLocalizations.of(context)!.strongPain;
   }
 
-  String _generateTileTitle(String row) {
+  String _generateTileTitle(int? row) {
     switch (row) {
-      case '0':
+      case 0:
         return _painless!;
-      case '1':
+      case 1:
         return _veryMild!;
-      case '2':
+      case 2:
         return _unpleasant!;
-      case '3':
+      case 3:
         return _tolerable!;
-      case '4':
+      case 4:
         return _disturbing!;
-      case '5':
+      case 5:
         return _veryDisturbing!;
-      case '6':
+      case 6:
         return _severe!;
-      case '7':
+      case 7:
         return _verySevere!;
-      case '8':
+      case 8:
         return _veryTerrible!;
-      case '9':
+      case 9:
         return _agonizingUnbearable!;
-      case '10':
+      case 10:
         return _strongestImaginable!;
     }
 
     return '';
   }
 
-  Widget _generateTitleWidget(String row) {
-    return Ink(
-      height: tileHeight,
-      child: Row(
-        children: <Widget>[
-          const SizedBox(
-            width: 50,
-          ),
-          Expanded(
-            child: Text(
-              _generateTileTitle(row),
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _createSubtitleBox(Color color, String title) {
+  Widget _createHeaderBox(Color color, String title) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 10,
+        horizontal: _cardContentPadding,
       ),
       child: SizedBox(
         height: 25,
@@ -168,9 +153,7 @@ class _PainScaleCardState extends State<PainScaleCard> {
             color: color,
           ),
           child: Padding(
-            padding: const EdgeInsets.only(
-              right: 10,
-            ),
+            padding: const EdgeInsets.only(right: 10, top: 2.5),
             child: Text(
               title,
               textAlign: TextAlign.right,
@@ -186,58 +169,87 @@ class _PainScaleCardState extends State<PainScaleCard> {
     );
   }
 
-  List<Widget> _generateDivider() {
-    List<Widget> divider = <Widget>[];
-    const Color dividerColor = Color.fromRGBO(145, 151, 156, 1);
+  Widget _createSelectRow(String key, int value) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          groupValue = value;
+        });
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: _cardContentPadding,
+          vertical: 3,
+        ),
+        child: Row(
+          children: <Widget>[
+            SizedBox(
+              width: 45,
+              child: Text(
+                key.length < 2 ? '  $key' : key,
+                style: const TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+            ),
+            Image(
+              width: 40,
+              height: 40,
+              image: AssetImage(_sourceEmojis[value]!),
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            Expanded(
+              child: Text(
+                _generateTileTitle(value),
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            Radio<int>(
+              value: value,
+              groupValue: groupValue,
+              onChanged: (int? newValue) {
+                setState(() {
+                  widget.callBack(newValue!);
+                  groupValue = newValue;
+                });
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
-    for (int i = 0; i < _fields.length; i++) {
-      if (i == 0 || i == 2 || i == 5 || i == 10) {
-        divider.add(
-          const SizedBox(
-            height: 25,
-          ),
+  Widget _generateRow(String key, int? value) {
+    switch (key) {
+      case '0a':
+        return _createHeaderBox(
+          const Color.fromRGBO(203, 223, 244, 1),
+          _noPain!,
         );
-      } else if (i == 15) {
-        divider.add(
-          const SizedBox(
-            height: 0,
-          ),
+      case '0b':
+        return _createHeaderBox(
+          const Color.fromRGBO(181, 223, 209, 1),
+          _minorPain!,
         );
-      } else {
-        divider.add(
-          const SizedBox(
-            height: tileHeight,
-          ),
+      case '3a':
+        return _createHeaderBox(
+          const Color.fromRGBO(201, 224, 143, 1),
+          _moderatePain!,
         );
-      }
-
-      if (i == 0 ||
-          i == 1 ||
-          i == 2 ||
-          i == 5 ||
-          i == 6 ||
-          i == 9 ||
-          i == 10 ||
-          i == 15) {
-        continue;
-      }
-
-      if (i != 14) {
-        divider.add(
-          LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              return const Divider(
-                thickness: 1,
-                height: 0,
-                color: dividerColor,
-              );
-            },
-          ),
+      case '6a':
+        return _createHeaderBox(
+          const Color.fromRGBO(252, 217, 153, 1),
+          _strongPain!,
         );
-      }
     }
 
-    return divider;
+    return _createSelectRow(key, value!);
   }
 
   @override
@@ -248,106 +260,26 @@ class _PainScaleCardState extends State<PainScaleCard> {
 
     List<Widget> children = <Widget>[];
 
-    double cardContentPadding = 15;
-
     _fields.forEach(
-      (String key, String value) {
-        if (key != '0a' &&
-            key != '0b' &&
-            key != '3a' &&
-            key != '6a' &&
-            key != '10a') {
+      (String key, int? value) {
+        children.add(_generateRow(key, value));
+
+        if (value != null &&
+            value != 0 &&
+            value != 3 &&
+            value != 6 &&
+            value != 10) {
           children.add(
-            InkWell(
-              onTap: () {
-                setState(() {
-                  groupValue = int.parse(value);
-                });
-              },
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: cardContentPadding),
-                child: Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        right: 10,
-                      ),
-                      child: SizedBox(
-                        width: 50,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: Text(
-                            key.length < 2 ? '  $key' : key,
-                            style: const TextStyle(
-                              fontSize: 18,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: _generateTitleWidget(key),
-                      ),
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Radio<int>(
-                          value: int.parse(value),
-                          groupValue: groupValue,
-                          onChanged: (int? newValue) {
-                            setState(() {
-                              widget.callBack(newValue!);
-                              groupValue = newValue;
-                            });
-                          },
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        )
-                      ],
-                    ),
-                  ],
-                ),
+            const Padding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: _cardContentPadding),
+              child: Divider(
+                thickness: 1,
+                height: 0,
+                color: Color.fromRGBO(145, 151, 156, 1),
               ),
             ),
           );
-        } else {
-          switch (key) {
-            case '0a':
-              children.add(
-                _createSubtitleBox(
-                  const Color.fromRGBO(202, 224, 242, 1),
-                  AppLocalizations.of(context)!.noPain,
-                ),
-              );
-              break;
-            case '0b':
-              children.add(
-                _createSubtitleBox(
-                  const Color.fromRGBO(180, 223, 209, 1),
-                  AppLocalizations.of(context)!.minorPain,
-                ),
-              );
-              break;
-            case '3a':
-              children.add(
-                _createSubtitleBox(
-                  const Color.fromRGBO(199, 223, 143, 1),
-                  AppLocalizations.of(context)!.moderatePain,
-                ),
-              );
-              break;
-            case '6a':
-              children.add(
-                _createSubtitleBox(
-                  const Color.fromRGBO(252, 216, 153, 1),
-                  AppLocalizations.of(context)!.strongPain,
-                ),
-              );
-              break;
-          }
         }
       },
     );
@@ -358,120 +290,11 @@ class _PainScaleCardState extends State<PainScaleCard> {
         horizontal: 0,
       ),
       label: Padding(
-        padding: EdgeInsets.symmetric(horizontal: cardContentPadding),
+        padding: const EdgeInsets.symmetric(horizontal: _cardContentPadding),
         child: PicosLabel(label: widget.label),
       ),
-      child: Stack(
-        children: <Widget>[
-          Column(
-            children: children,
-          ),
-          Positioned(
-            width: 40,
-            height: 40,
-            top: 33,
-            left: 75,
-            child: Image(
-              image: AssetImage(_sourceEmojis[0]!),
-            ),
-          ),
-          Positioned(
-            width: 40,
-            height: 40,
-            top: 111,
-            left: 75,
-            child: Image(
-              image: AssetImage(_sourceEmojis[1]!),
-            ),
-          ),
-          Positioned(
-            width: 40,
-            height: 40,
-            top: 166,
-            left: 75,
-            child: Image(
-              image: AssetImage(_sourceEmojis[2]!),
-            ),
-          ),
-          Positioned(
-            width: 40,
-            height: 40,
-            top: 221,
-            left: 75,
-            child: Image(
-              image: AssetImage(_sourceEmojis[3]!),
-            ),
-          ),
-          Positioned(
-            width: 40,
-            height: 40,
-            top: 301,
-            left: 75,
-            child: Image(
-              image: AssetImage(_sourceEmojis[4]!),
-            ),
-          ),
-          Positioned(
-            width: 40,
-            height: 40,
-            top: 356,
-            left: 75,
-            child: Image(
-              image: AssetImage(_sourceEmojis[5]!),
-            ),
-          ),
-          Positioned(
-            width: 40,
-            height: 40,
-            top: 411,
-            left: 75,
-            child: Image(
-              image: AssetImage(_sourceEmojis[6]!),
-            ),
-          ),
-          Positioned(
-            width: 40,
-            height: 40,
-            top: 491,
-            left: 75,
-            child: Image(
-              image: AssetImage(_sourceEmojis[7]!),
-            ),
-          ),
-          Positioned(
-            width: 40,
-            height: 40,
-            top: 546,
-            left: 75,
-            child: Image(
-              image: AssetImage(_sourceEmojis[8]!),
-            ),
-          ),
-          Positioned(
-            width: 40,
-            height: 40,
-            top: 601,
-            left: 75,
-            child: Image(
-              image: AssetImage(_sourceEmojis[9]!),
-            ),
-          ),
-          Positioned(
-            width: 40,
-            height: 40,
-            top: 656,
-            left: 75,
-            child: Image(
-              image: AssetImage(_sourceEmojis[10]!),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Column(
-              children: _generateDivider(),
-            ),
-          ),
-        ],
+      child: Column(
+        children: children,
       ),
     );
   }
