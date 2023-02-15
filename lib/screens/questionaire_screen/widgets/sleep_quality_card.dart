@@ -28,14 +28,10 @@ class SleepQualityCard extends StatefulWidget {
     required this.callBack,
     Key? key,
     this.label = '',
-    this.description = '',
   }) : super(key: key);
 
   /// The label for the card.
   final String label;
-
-  /// An optional description for the selection.
-  final String description;
 
   /// The function that is executed when an item gets selected.
   final Function(dynamic value) callBack;
@@ -94,7 +90,7 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
     return '';
   }
 
-  Widget _generateTitleWidget(String row) {
+  Ink _generateTitleWidget(String row) {
     Color backgroundColor = const Color.fromRGBO(216, 238, 215, 1);
 
     if (row == '9' || row == '8' || row == '7') {
@@ -189,11 +185,6 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
     List<Widget> children = <Widget>[];
 
     double cardContentPadding = 15;
-
-    if (widget.description.isNotEmpty) {
-      children.add(PicosLabel(label: widget.description, fontSize: 15));
-      children.add(const SizedBox(height: 15));
-    }
 
     _options.forEach(
       (String key, int value) {

@@ -621,37 +621,37 @@
     "@veryMild": {
         "description": "Very mild"
     },
-    "unpleasant": "Unpleasant",
-    "@unpleasant": {
-        "description": "Unpleasant"
+    "discomforting": "Discomforting",
+    "@discomforting": {
+        "description": "Discomforting"
     },
     "tolerable": "Tolerable",
     "@tolerable": {
         "description": "Tolerable"
     },
-    "disturbing": "Disturbing",
-    "@disturbing": {
-        "description": "Disturbing"
+    "distressing": "Distressing",
+    "@distressing": {
+        "description": "Distressing"
     },
-    "veryDisturbing": "Very disturbing",
-    "@veryDisturbing": {
-        "description": "Very disturbing"
+    "veryDistressing": "Very distressing",
+    "@veryDistressing": {
+        "description": "Very distressing"
     },
-    "severe": "Severe",
-    "@severe": {
-        "description": "Severe"
+    "intense": "Intense",
+    "@intense": {
+        "description": "Intense"
     },
-    "verySevere": "Very severe",
-    "@verySevere": {
-        "description": "Very severe"
+    "veryIntense": "Very intense",
+    "@veryIntense": {
+        "description": "Very intense"
     },
-    "veryTerrible": "Very terrible",
-    "@veryTerrible": {
-        "description": "Very terrible"
+    "utterlyHorrible": "Utterly Horrible",
+    "@utterlyHorrible": {
+        "description": "Utterly Horrible"
     },
-    "agonizingUnbearable": "Agonizing unbearable",
-    "@agonizingUnbearable": {
-        "description": "Agonizing unbearable"
+    "excruciatingUnbearable": "Excruciating Unbearable",
+    "@excruciatingUnbearable": {
+        "description": "Excruciating Unbearable"
     },
     "strongestImaginable": "Strongest imaginable",
     "@strongestImaginable": {
@@ -786,5 +786,21 @@
     "unknownHeight": "Unknown height",
     "@unknownHeight": {
         "description": "Unknown height"
+    },
+    "noPain": "No Pain",
+    "@noPain": {
+        "description": "No Pain"
+    },
+    "minorPain": "Minor Pain",
+    "@minorPain": {
+        "description": "Minor Pain"
+    },
+    "moderatePain": "Moderate Pain",
+    "@moderatePain": {
+        "description": "Moderate Pain"
+    },
+    "strongPain": "Strong Pain",
+    "@strongPain": {
+        "description": "Strong Pain"
     }
 }

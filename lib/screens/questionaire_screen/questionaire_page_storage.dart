@@ -21,6 +21,7 @@ import 'package:picos/screens/questionaire_screen/pages/body_and_mind.dart';
 import 'package:picos/screens/questionaire_screen/pages/weight.dart';
 import 'package:picos/screens/questionaire_screen/widgets/cover.dart';
 import 'package:picos/screens/questionaire_screen/widgets/doctor_card.dart';
+import 'package:picos/screens/questionaire_screen/widgets/pain_scale_card.dart';
 import 'package:picos/screens/questionaire_screen/widgets/questionaire_page.dart';
 import 'package:picos/screens/questionaire_screen/widgets/radio_select_card.dart';
 import 'package:picos/screens/questionaire_screen/widgets/sleep_quality_card.dart';
@@ -143,7 +144,6 @@ class QuestionairePageStorage {
   static String? _worries;
   static String? _changedMedication;
   static String? _changedTherapy;
-  static Map<String, dynamic>? _painValues;
   static Map<String, dynamic>? _medicationAndTherapyValues;
   static String? _tips;
   static String? _drinkEnough;
@@ -165,19 +165,6 @@ class QuestionairePageStorage {
     _worries = AppLocalizations.of(context)!.controlWorries;
     _changedTherapy = AppLocalizations.of(context)!.changedTherapy;
     _changedMedication = AppLocalizations.of(context)!.changedMedication;
-    _painValues = <String, dynamic>{
-      '0 ${AppLocalizations.of(context)!.painless}': 0,
-      '1 ${AppLocalizations.of(context)!.veryMild}': 1,
-      '2 ${AppLocalizations.of(context)!.unpleasant}': 2,
-      '3 ${AppLocalizations.of(context)!.tolerable}': 3,
-      '4 ${AppLocalizations.of(context)!.disturbing}': 4,
-      '5 ${AppLocalizations.of(context)!.veryDisturbing}': 5,
-      '6 ${AppLocalizations.of(context)!.severe}': 6,
-      '7 ${AppLocalizations.of(context)!.verySevere}': 7,
-      '8 ${AppLocalizations.of(context)!.veryTerrible}': 8,
-      '9 ${AppLocalizations.of(context)!.agonizingUnbearable}': 9,
-      '10 ${AppLocalizations.of(context)!.strongestImaginable}': 10,
-    };
     _medicationAndTherapyValues = <String, dynamic>{
       AppLocalizations.of(context)!.yes: true,
       AppLocalizations.of(context)!.no: false,
@@ -318,12 +305,11 @@ class QuestionairePageStorage {
       'painPage': QuestionairePage(
         backFunction: previousPage,
         nextFunction: nextPage,
-        child: RadioSelectCard(
-          callback: (dynamic value) {
+        child: PainScaleCard(
+          label: _pain!,
+          callBack: (dynamic value) {
             selectedPain = value as int;
           },
-          label: PicosLabel(label: _pain!),
-          options: _painValues!,
         ),
       ),
       'interestPage': BodyAndMind(
