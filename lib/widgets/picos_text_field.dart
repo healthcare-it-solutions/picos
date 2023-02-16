@@ -28,6 +28,7 @@ class PicosTextField extends StatelessWidget {
     this.obscureText = false,
     this.autofocus = false,
     this.onTap,
+    this.validator,
     this.readOnly = false,
     this.height = 55,
     this.maxLines = 1,
@@ -55,6 +56,9 @@ class PicosTextField extends StatelessWidget {
 
   /// The function that is executed when the user taps the field.
   final Function()? onTap;
+
+  /// The function that is responsible for validation.
+  final String? Function(String?)? validator;
 
   /// Whether the text can be changed.
   final bool readOnly;
@@ -128,6 +132,7 @@ class PicosTextField extends StatelessWidget {
         autofocus: autofocus,
         onChanged: onChanged ?? (_) {},
         onTap: onTap ?? () {},
+        validator: validator,
         readOnly: readOnly,
         maxLines: maxLines,
         initialValue: initialValue,
