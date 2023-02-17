@@ -16,10 +16,8 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/screens/overview_screen/widgets/graph_section.dart';
 import 'package:picos/screens/overview_screen/widgets/my_health_section.dart';
 import 'widgets/input_card_section.dart';
-import 'widgets/progress_section.dart';
 
 /// Main widget using all subwidgets to build up the "overview"-screen
 class OverviewScreen extends StatelessWidget {
