@@ -35,13 +35,6 @@ class OverviewScreen extends StatelessWidget {
           child: const InputCardSection(),
         ),
         Container(
-          constraints: const BoxConstraints(minWidth: double.infinity),
-          alignment: Alignment.center,
-          color: const Color.fromARGB(255, 9, 70, 85),
-          child: const ProgressSection(),
-        ),
-        const GraphSection(),
-        Container(
           color: Colors.blue,
           child: const MyHealthSection(),
         ),
