@@ -19,6 +19,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
+import 'package:picos/screens/my_therapies_screen/my_therapies_screen.dart';
 import 'package:picos/screens/physician_list_screen/physicians_screen.dart';
 import 'package:picos/screens/family_member_list_screen/family_members_screen.dart';
 
@@ -75,7 +76,7 @@ class MyHealthSection extends StatelessWidget {
                       children: <Widget>[
                         Flexible(
                           flex: 3,
-                          child: Image.asset('./assets/Medikationsplan.png'),
+                          child: Image.asset('assets/Medikationsplan.png'),
                         ),
                         Flexible(
                           flex: 2,
@@ -145,7 +146,7 @@ class MyHealthSection extends StatelessWidget {
                       children: <Widget>[
                         Flexible(
                           flex: 3,
-                          child: Image.asset('./assets/Angehoerige.png'),
+                          child: Image.asset('assets/Angehoerige.png'),
                         ),
                         Flexible(
                           flex: 2,
@@ -172,13 +173,74 @@ class MyHealthSection extends StatelessWidget {
                     children: <Widget>[
                       Flexible(
                         flex: 3,
-                        child: Image.asset('./assets/Dokumente.png'),
+                        child: Image.asset('assets/Dokumente.png'),
                       ),
                       Flexible(
                         flex: 2,
                         child: Center(
                           child: Text(
                             AppLocalizations.of(context)!.documents,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  color: Colors.green,
+                  width: 180,
+                  height: 180,
+                  child: GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute<Widget>(
+                        builder: (BuildContext context) =>
+                            const MyTherapiesScreen(),
+                      ),
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        Flexible(
+                          flex: 3,
+                          child: Image.asset('assets/Physiotherapie.png'),
+                        ),
+                        Flexible(
+                          flex: 2,
+                          child: Center(
+                            child: Text(
+                              AppLocalizations.of(context)!.myTherapy,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  color: Colors.green,
+                  width: 180,
+                  height: 180,
+                  child: Column(
+                    children: <Widget>[
+                      Flexible(
+                        flex: 3,
+                        child: Image.asset('assets/Feedbackgespraech.png'),
+                      ),
+                      Flexible(
+                        flex: 2,
+                        child: Center(
+                          child: Text(
+                            AppLocalizations.of(context)!.doctorsVisit,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               color: Colors.white,
