@@ -41,7 +41,7 @@ class ViewTherapyScreen extends StatelessWidget {
               children: <Widget>[
                 PicosLabel(
                   label: '${therapy.dateString} '
-                      '${AppLocalizations.of(context)!.therapy}',
+                      '${therapy.name}',
                 ),
                 const SizedBox(
                   height: 25,
