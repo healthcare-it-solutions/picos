@@ -32,6 +32,7 @@ class PicosTextField extends StatelessWidget {
     this.height = 55,
     this.maxLines = 1,
     this.contentPadding,
+    this.suffixIcon,
     this.initialValue,
     this.keyboardType,
     this.maxLength,
@@ -67,6 +68,9 @@ class PicosTextField extends StatelessWidget {
 
   /// The padding for the content.
   final EdgeInsetsGeometry? contentPadding;
+
+  /// The suffix icon within the text field. 
+  final IconButton? suffixIcon;
 
   /// Populates the field with an initial value.
   final String? initialValue;
@@ -123,6 +127,7 @@ class PicosTextField extends StatelessWidget {
             left: 15,
             right: 15,
           ),
+          suffixIcon: suffixIcon,
         ),
         obscureText: obscureText,
         autofocus: autofocus,
