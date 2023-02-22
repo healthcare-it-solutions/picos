@@ -52,150 +52,141 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
   @override
   Widget build(BuildContext context) {
     return PicosBody(
-      child: Padding(
-        padding: const EdgeInsets.all(0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              AppLocalizations.of(context)!.title,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          PicosLabel(label: AppLocalizations.of(context)!.title),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Flexible(
+                child: RadioListTile<FormOfAddress>(
+                  title: Text(
+                    AppLocalizations.of(context)!.mrs,
+                  ),
+                  value: FormOfAddress.female,
+                  groupValue: _entryFormOfAddress,
+                  onChanged: (FormOfAddress? value) {
+                    setState(() {
+                      widget.callbackForm(
+                        'entryFormOfAddress',
+                        FormOfAddress.female.toString(),
+                      );
+                      _entryFormOfAddress = value!;
+                    });
+                  },
+                  contentPadding: EdgeInsets.zero,
+                  selected: false,
+                ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Flexible(
-                  child: RadioListTile<FormOfAddress>(
-                    title: Text(
-                      AppLocalizations.of(context)!.mrs,
-                    ),
-                    value: FormOfAddress.female,
-                    groupValue: _entryFormOfAddress,
-                    onChanged: (FormOfAddress? value) {
-                      setState(() {
-                        widget.callbackForm(
-                          'entryFormOfAddress',
-                          FormOfAddress.female.toString(),
-                        );
-                        _entryFormOfAddress = value!;
-                      });
-                    },
-                    contentPadding: EdgeInsets.zero,
-                    selected: false,
+              Flexible(
+                child: RadioListTile<FormOfAddress>(
+                  title: Text(
+                    AppLocalizations.of(context)!.mr,
                   ),
+                  value: FormOfAddress.male,
+                  groupValue: _entryFormOfAddress,
+                  onChanged: (FormOfAddress? value) {
+                    setState(() {
+                      widget.callbackForm(
+                        'entryFormOfAddress',
+                        FormOfAddress.male.toString(),
+                      );
+                      _entryFormOfAddress = value!;
+                    });
+                  },
+                  contentPadding: EdgeInsets.zero,
+                  selected: false,
                 ),
-                Flexible(
-                  child: RadioListTile<FormOfAddress>(
-                    title: Text(
-                      AppLocalizations.of(context)!.mr,
-                    ),
-                    value: FormOfAddress.male,
-                    groupValue: _entryFormOfAddress,
-                    onChanged: (FormOfAddress? value) {
-                      setState(() {
-                        widget.callbackForm(
-                          'entryFormOfAddress',
-                          FormOfAddress.male.toString(),
-                        );
-                        _entryFormOfAddress = value!;
-                      });
-                    },
-                    contentPadding: EdgeInsets.zero,
-                    selected: false,
+              ),
+              Flexible(
+                child: RadioListTile<FormOfAddress>(
+                  title: Text(
+                    AppLocalizations.of(context)!.diverse,
                   ),
+                  value: FormOfAddress.diverse,
+                  groupValue: _entryFormOfAddress,
+                  onChanged: (FormOfAddress? value) {
+                    setState(() {
+                      widget.callbackForm(
+                        'entryFormOfAddress',
+                        FormOfAddress.diverse.toString(),
+                      );
+                      _entryFormOfAddress = value!;
+                    });
+                  },
+                  contentPadding: EdgeInsets.zero,
+                  selected: false,
                 ),
-                Flexible(
-                  child: RadioListTile<FormOfAddress>(
-                    title: Text(
-                      AppLocalizations.of(context)!.diverse,
-                    ),
-                    value: FormOfAddress.diverse,
-                    groupValue: _entryFormOfAddress,
-                    onChanged: (FormOfAddress? value) {
-                      setState(() {
-                        widget.callbackForm(
-                          'entryFormOfAddress',
-                          FormOfAddress.diverse.toString(),
-                        );
-                        _entryFormOfAddress = value!;
-                      });
-                    },
-                    contentPadding: EdgeInsets.zero,
-                    selected: false,
-                  ),
-                ),
+              ),
+            ],
+          ),
+          PicosLabel(label: AppLocalizations.of(context)!.firstName),
+          PicosTextField(
+            hint: AppLocalizations.of(context)!.firstName,
+            keyboardType: TextInputType.name,
+            onChanged: (String? newValue) {
+              widget.callbackForm('entryFirstName', newValue!);
+            },
+            validator: qValidator(
+              <TextValidationRule>[
+                IsRequired(AppLocalizations.of(context)!.entryFirstName),
               ],
             ),
-            PicosLabel(label: AppLocalizations.of(context)!.firstName),
-            PicosTextField(
-              hint: AppLocalizations.of(context)!.firstName,
-              keyboardType: TextInputType.name,
-              onChanged: (String? newValue) {
-                widget.callbackForm('entryFirstName', newValue!);
-              },
-              validator: qValidator(
-                <TextValidationRule>[
-                  IsRequired(AppLocalizations.of(context)!.entryFirstName),
-                ],
-              ),
+          ),
+          PicosLabel(label: AppLocalizations.of(context)!.familyName),
+          PicosTextField(
+            hint: AppLocalizations.of(context)!.familyName,
+            keyboardType: TextInputType.name,
+            onChanged: (String? newValue) {
+              widget.callbackForm('entryFamilyName', newValue!);
+            },
+            validator: qValidator(
+              <TextValidationRule>[
+                IsRequired(AppLocalizations.of(context)!.entryFamilyName),
+              ],
             ),
-            PicosLabel(label: AppLocalizations.of(context)!.familyName),
-            PicosTextField(
-              hint: AppLocalizations.of(context)!.familyName,
-              keyboardType: TextInputType.name,
-              onChanged: (String? newValue) {
-                widget.callbackForm('entryFamilyName', newValue!);
-              },
-              validator: qValidator(
-                <TextValidationRule>[
-                  IsRequired(AppLocalizations.of(context)!.entryFamilyName),
-                ],
-              ),
+          ),
+          PicosLabel(label: AppLocalizations.of(context)!.email),
+          PicosTextField(
+            hint: AppLocalizations.of(context)!.email,
+            keyboardType: TextInputType.emailAddress,
+            onChanged: (String? newValue) {
+              widget.callbackForm('entryEmail', newValue!);
+            },
+            validator: qValidator(
+              <TextValidationRule>[
+                IsRequired(AppLocalizations.of(context)!.entryEmail),
+                IsEmail(AppLocalizations.of(context)!.entryValidEmail),
+              ],
             ),
-            PicosLabel(label: AppLocalizations.of(context)!.email),
-            PicosTextField(
-              hint: AppLocalizations.of(context)!.email,
-              keyboardType: TextInputType.emailAddress,
-              onChanged: (String? newValue) {
-                widget.callbackForm('entryEmail', newValue!);
-              },
-              validator: qValidator(
-                <TextValidationRule>[
-                  IsRequired(AppLocalizations.of(context)!.entryEmail),
-                  IsEmail(AppLocalizations.of(context)!.entryValidEmail),
-                ],
-              ),
+          ),
+          PicosLabel(label: AppLocalizations.of(context)!.phoneNumber),
+          PicosTextField(
+            hint: AppLocalizations.of(context)!.phoneNumber,
+            keyboardType: TextInputType.phone,
+            onChanged: (String? newValue) {
+              widget.callbackForm('entryNumber', newValue!);
+            },
+            validator: qValidator(
+              <TextValidationRule>[
+                IsRequired(AppLocalizations.of(context)!.entryPhoneNumber),
+              ],
             ),
-            PicosLabel(label: AppLocalizations.of(context)!.phoneNumber),
-            PicosTextField(
-              hint: AppLocalizations.of(context)!.phoneNumber,
-              keyboardType: TextInputType.phone,
-              onChanged: (String? newValue) {
-                widget.callbackForm('entryNumber', newValue!);
-              },
-              validator: qValidator(
-                <TextValidationRule>[
-                  IsRequired(AppLocalizations.of(context)!.entryPhoneNumber),
-                ],
-              ),
+          ),
+          PicosLabel(label: AppLocalizations.of(context)!.address),
+          PicosTextArea(
+            hint: AppLocalizations.of(context)!.address,
+            onChanged: (String? newValue) {
+              widget.callbackForm('entryAddress', newValue!);
+            },
+            validator: qValidator(
+              <TextValidationRule>[
+                IsRequired(AppLocalizations.of(context)!.entryAddress),
+              ],
             ),
-            PicosLabel(label: AppLocalizations.of(context)!.address),
-            PicosTextArea(
-              hint: AppLocalizations.of(context)!.address,
-              onChanged: (String? newValue) {
-                widget.callbackForm('entryAddress', newValue!);
-              },
-              validator: qValidator(
-                <TextValidationRule>[
-                  IsRequired(AppLocalizations.of(context)!.entryAddress),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
