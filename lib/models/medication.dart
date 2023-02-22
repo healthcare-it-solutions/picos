@@ -50,7 +50,15 @@ class Medication extends AbstractDatabaseObject {
   final String compound;
 
   /// All possible amount values.
-  static const List<String> selection = <String>['0', '1/2', '1', '2', '3'];
+  static const List<String> selection = <String>[
+    '0',
+    '1/2',
+    '1',
+    '1 1/2',
+    '2',
+    '2 1/2',
+    '3',
+  ];
 
   @override
   get table {
