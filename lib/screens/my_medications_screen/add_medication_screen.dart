@@ -256,6 +256,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                   disabled: _disabledCompoundSelect,
                   autofocus: _compoundAutoFocus,
                   hint: _compoundHint!,
+                  initialValue: _compoundHint,
                 ),
                 const SizedBox(
                   height: 30,
