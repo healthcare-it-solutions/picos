@@ -31,12 +31,18 @@ class MedicationCardTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        Text(_time),
-        const Spacer(),
         SizedBox(
-          width: 25,
+          width: 80,
+          child: Text(_time),
+        ),
+        const Spacer(),
+        Expanded(
           child: Center(
-            child: Text(_amount),
+            child: Text(
+              _amount,
+              softWrap: false,
+              overflow: TextOverflow.visible,
+            ),
           ),
         ),
       ],
