@@ -81,7 +81,7 @@ class InputCardSection extends StatelessWidget {
                     backgroundColor: Colors.green,
                   ),
                   child: Text(
-                    AppLocalizations.of(context)!.startEntry,
+                    AppLocalizations.of(context)!.howFeel,
                   ),
                 ),
               )
