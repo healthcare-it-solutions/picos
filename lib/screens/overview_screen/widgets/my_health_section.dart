@@ -20,15 +20,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
 import 'package:picos/screens/my_therapies_screen/my_therapies_screen.dart';
-import 'package:picos/screens/physician_list_screen/physicians_screen.dart';
-import 'package:picos/screens/family_member_list_screen/family_members_screen.dart';
 
 /// Widget which displays health-related information
 class MyHealthSection extends StatelessWidget {
   /// MyHealthSection constructor
   const MyHealthSection({Key? key}) : super(key: key);
-
-  // final double h = MediaQuery.of(context).size.height;
 
   @override
   Widget build(BuildContext context) {
@@ -104,102 +100,6 @@ class MyHealthSection extends StatelessWidget {
                       context,
                       MaterialPageRoute<Widget>(
                         builder: (BuildContext context) =>
-                            const PhysiciansScreen(),
-                      ),
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Flexible(
-                          flex: 3,
-                          child: Image.asset('assets/BehandlerInnen.png'),
-                        ),
-                        Flexible(
-                          flex: 2,
-                          child: Center(
-                            child: Text(
-                              AppLocalizations.of(context)!.myPhysicians,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  color: Colors.green,
-                  width: 180,
-                  height: 180,
-                  child: GestureDetector(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute<Widget>(
-                        builder: (BuildContext context) =>
-                            const FamilyMembersScreen(),
-                      ),
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Flexible(
-                          flex: 3,
-                          child: Image.asset('assets/Angehoerige.png'),
-                        ),
-                        Flexible(
-                          flex: 2,
-                          child: Center(
-                            child: Text(
-                              AppLocalizations.of(context)!.familyMembers,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  color: Colors.green,
-                  width: 180,
-                  height: 180,
-                  child: Column(
-                    children: <Widget>[
-                      Flexible(
-                        flex: 3,
-                        child: Image.asset('assets/Dokumente.png'),
-                      ),
-                      Flexible(
-                        flex: 2,
-                        child: Center(
-                          child: Text(
-                            AppLocalizations.of(context)!.documents,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  color: Colors.green,
-                  width: 180,
-                  height: 180,
-                  child: GestureDetector(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute<Widget>(
-                        builder: (BuildContext context) =>
                             const MyTherapiesScreen(),
                       ),
                     ),
@@ -224,32 +124,6 @@ class MyHealthSection extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ),
-                ),
-                Container(
-                  color: Colors.green,
-                  width: 180,
-                  height: 180,
-                  child: Column(
-                    children: <Widget>[
-                      Flexible(
-                        flex: 3,
-                        child: Image.asset('assets/Feedbackgespraech.png'),
-                      ),
-                      Flexible(
-                        flex: 2,
-                        child: Center(
-                          child: Text(
-                            AppLocalizations.of(context)!.doctorsVisit,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
                 ),
               ],
