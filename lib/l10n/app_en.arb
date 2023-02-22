@@ -807,7 +807,7 @@
     "@therapyName": {
         "description": "Therapy Name"
     },
-    "enterName": "Please enter your name",
+    "enterName": "Please enter the name",
     "@enterName": {
         "description": "Please enter the name"
     }
