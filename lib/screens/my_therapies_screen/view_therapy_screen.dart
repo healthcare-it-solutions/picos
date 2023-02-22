@@ -26,7 +26,9 @@ class ViewTherapyScreen extends StatelessWidget {
               Therapy? newTherapy = await Navigator.of(context).pushNamed(
                 '/my-therapy-screen/add-therapy',
                 arguments: therapy,
-              ) as Therapy;
+              ) as Therapy?;
+
+              if (newTherapy == null) return;
 
               therapy = newTherapy;
             },
