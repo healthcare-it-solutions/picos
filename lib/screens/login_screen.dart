@@ -42,11 +42,12 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
-
   late final TextEditingController _loginController;
   late final TextEditingController _passwordController;
 
   bool _loginfailure = false;
+
+  bool _passwordVisible = false;
 
   Future<void> _submitHandler(
     String login,
@@ -73,6 +74,7 @@ class _LoginScreenState extends State<LoginScreen>
     super.initState();
     _loginController = TextEditingController(text: '');
     _passwordController = TextEditingController(text: '');
+    _passwordVisible = false;
   }
 
   @override
@@ -131,7 +133,18 @@ class _LoginScreenState extends State<LoginScreen>
                 child: PicosTextField(
                   controller: _passwordController,
                   hint: AppLocalizations.of(context)!.password,
-                  obscureText: true,
+                  obscureText: !_passwordVisible,
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _passwordVisible
+                          ? Icons.visibility_rounded
+                          : Icons.visibility_off_rounded,
+                    ),
+                    color: Colors.grey,
+                    onPressed: () => setState(() {
+                      _passwordVisible = !_passwordVisible;
+                    }),
+                  ),
                 ),
               ),
               SizedBox(
