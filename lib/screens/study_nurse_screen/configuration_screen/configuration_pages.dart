@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/models/patient.dart';
 import 'package:picos/models/patient_profile.dart';
+import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_additional_entries.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_form.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_vital_values.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_activity_and_rest.dart';
@@ -78,6 +79,17 @@ class _ConfigurationPages extends State<ConfigurationPages> {
     'entryFormOfAddress': '',
   };
 
+  final Map<String, String> _additionalEntries = <String, String>{
+    'entryCaseNumber': '',
+    'entryPatientID': '',
+    'entryWeight': '',
+    'entryHeight': '',
+    'entryBloodPressure': '',
+    'entryBloodSugar': '',
+    'entryDischargeDate': '',
+    'entryInstituteKey': '',
+  };
+
   final List<Widget> _list = <Widget>[];
 
   int _currentPage = 0;
@@ -123,6 +135,13 @@ class _ConfigurationPages extends State<ConfigurationPages> {
         },
       );
 
+      final ConfigurationAdditionalEntries configurationAdditionalEntries =
+          ConfigurationAdditionalEntries(
+        callbackAdditionalEntries: (String key, String value) {
+          _additionalEntries[key] = value;
+        },
+      );
+
       _list.addAll(<Widget>[
         configurationForm,
         configurationVitalValues,
@@ -130,6 +149,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
         configurationBodyAndMind,
         configurationMedicationAndTherapy,
         configurationSummary,
+        configurationAdditionalEntries,
       ]);
     }
 
