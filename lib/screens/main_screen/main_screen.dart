@@ -19,17 +19,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:picos/api/backend_medications_api.dart';
 import 'package:picos/api/backend_therapies_api.dart';
-import 'package:picos/repository/medications_repository.dart';
+import 'package:picos/repository/objects_repository.dart';
 import 'package:picos/repository/therapies_repository.dart';
 import 'package:picos/screens/login_screen.dart';
-import 'package:picos/state/medications/medications_list_bloc.dart';
 import 'package:picos/state/therapies/therapies_list_bloc.dart';
 import 'package:picos/themes/global_theme.dart';
 
-import '../../api/backend_medications_api.dart';
-
 import '../../routes.dart';
+import '../../state/medications/medications_list_bloc.dart';
 
 /// This is the screen which contains all relevant information
 class MainScreen extends StatelessWidget {
@@ -40,14 +39,14 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     const GlobalTheme theme = GlobalTheme();
 
-    final MedicationsRepository medicationsRepository =
-        MedicationsRepository(medicationsApi: BackendMedicationsApi());
+    final ObjectsRepository medicationsRepository =
+    ObjectsRepository(objectApi: BackendMedicationsApi());
     final TherapiesRepository therapiesRepository =
         TherapiesRepository(therapiesApi: BackendTherapiesApi());
 
     return MultiRepositoryProvider(
       providers: <RepositoryProvider<dynamic>>[
-        RepositoryProvider<MedicationsRepository>.value(
+        RepositoryProvider<ObjectsRepository>.value(
           value: medicationsRepository,
         ),
         RepositoryProvider<TherapiesRepository>.value(
@@ -58,7 +57,7 @@ class MainScreen extends StatelessWidget {
         providers: <BlocProvider<dynamic>>[
           BlocProvider<MedicationsListBloc>(
             create: (BuildContext context) => MedicationsListBloc(
-              medicationsRepository: context.read<MedicationsRepository>(),
+              medicationsRepository: context.read<ObjectsRepository>(),
             )..add(const MedicationsListSubscriptionRequested()),
           ),
           BlocProvider<TherapiesListBloc>(

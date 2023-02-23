@@ -23,7 +23,6 @@ import 'package:picos/widgets/picos_add_button_bar.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:picos/widgets/picos_select.dart';
 
-import '../../repository/medications_repository.dart';
 import '../../state/medications/medications_list_bloc.dart';
 import '../../widgets/picos_body.dart';
 import '../../widgets/picos_label.dart';
@@ -93,16 +92,16 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
             //Since mirrors are disabled or prohibited in Flutter.
             switch (medicationTime) {
               case 'morning':
-                _morning = MedicationsRepository.amountToDouble(value);
+                _morning = Medication.amountToDouble(value);
                 break;
               case 'noon':
-                _noon = MedicationsRepository.amountToDouble(value);
+                _noon = Medication.amountToDouble(value);
                 break;
               case 'evening':
-                _evening = MedicationsRepository.amountToDouble(value);
+                _evening = Medication.amountToDouble(value);
                 break;
               case 'night':
-                _night = MedicationsRepository.amountToDouble(value);
+                _night = Medication.amountToDouble(value);
                 break;
             }
 
@@ -162,10 +161,10 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
       _title = AppLocalizations.of(context)!.editMedication;
       _compoundHint = _compound;
 
-      _morningHint += ' ${MedicationsRepository.amountToString(_morning)}';
-      _noonHint += ' ${MedicationsRepository.amountToString(_noon)}';
-      _eveningHint += ' ${MedicationsRepository.amountToString(_evening)}';
-      _nightHint += ' ${MedicationsRepository.amountToString(_night)}';
+      _morningHint += ' ${Medication.amountToString(_morning)}';
+      _noonHint += ' ${Medication.amountToString(_noon)}';
+      _eveningHint += ' ${Medication.amountToString(_evening)}';
+      _nightHint += ' ${Medication.amountToString(_night)}';
 
       _disabledCompoundSelect = false;
       _compoundAutoFocus = false;

@@ -19,9 +19,10 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:picos/repository/medications_repository.dart';
+import 'package:picos/models/abstract_database_object.dart';
 
 import '../../models/medication.dart';
+import '../../repository/objects_repository.dart';
 
 part 'medications_list_event.dart';
 
@@ -31,7 +32,7 @@ part 'medications_list_state.dart';
 class MedicationsListBloc
     extends Bloc<MedicationsListEvent, MedicationsListState> {
   /// Creates the MedicationsListBloc.
-  MedicationsListBloc({required MedicationsRepository medicationsRepository})
+  MedicationsListBloc({required ObjectsRepository medicationsRepository})
       : _medicationsRepository = medicationsRepository,
         super(const MedicationsListState()) {
     on<MedicationsListSubscriptionRequested>(_onSubscriptionRequested);
@@ -39,7 +40,7 @@ class MedicationsListBloc
     on<RemoveMedication>(_onRemoveMedication);
   }
 
-  final MedicationsRepository _medicationsRepository;
+  final ObjectsRepository _medicationsRepository;
 
   Future<void> _onSubscriptionRequested(
     MedicationsListSubscriptionRequested event,
@@ -47,9 +48,9 @@ class MedicationsListBloc
   ) async {
     emit(state.copyWith(status: MedicationsListStatus.loading));
 
-    await emit.forEach<List<Medication>>(
-      await _medicationsRepository.getMedications(),
-      onData: (List<Medication> medications) {
+    await emit.forEach<List<AbstractDatabaseObject>>(
+      await _medicationsRepository.getObjects(),
+      onData: (List<AbstractDatabaseObject> medications) {
         return state.copyWith(
           status: MedicationsListStatus.success,
           medicationsList: medications,
@@ -69,7 +70,7 @@ class MedicationsListBloc
   ) async {
     emit(state.copyWith(status: MedicationsListStatus.loading));
     await _medicationsRepository
-        .saveMedication(
+        .saveObject(
           event.medication,
         )
         .onError(
@@ -94,7 +95,7 @@ class MedicationsListBloc
   ) async {
     emit(state.copyWith(status: MedicationsListStatus.loading));
     await _medicationsRepository
-        .removeMedication(
+        .removeObject(
           event.medication,
         )
         .onError(

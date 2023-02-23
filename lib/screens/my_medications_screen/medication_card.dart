@@ -20,10 +20,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/models/medication.dart';
 import 'package:picos/screens/my_medications_screen/medication_card_tile.dart';
-import 'package:picos/state/medications/medications_list_bloc.dart';
 import 'package:picos/widgets/picos_list_card.dart';
 
-import '../../repository/medications_repository.dart';
+import '../../state/medications/medications_list_bloc.dart';
 
 /// The card displaying a medication plan.
 class MedicationCard extends StatelessWidget {
@@ -94,15 +93,15 @@ class MedicationCard extends StatelessWidget {
             context,
             AppLocalizations.of(context)!.inTheMorning,
             AppLocalizations.of(context)!.inTheEvening,
-            MedicationsRepository.amountToString(_medication.morning),
-            MedicationsRepository.amountToString(_medication.evening),
+            Medication.amountToString(_medication.morning),
+            Medication.amountToString(_medication.evening),
           ),
           _createCardColumn(
             context,
             AppLocalizations.of(context)!.noon,
             AppLocalizations.of(context)!.toTheNight,
-            MedicationsRepository.amountToString(_medication.noon),
-            MedicationsRepository.amountToString(_medication.night),
+            Medication.amountToString(_medication.noon),
+            Medication.amountToString(_medication.night),
           ),
         ],
       ),

@@ -15,19 +15,19 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import '../models/medication.dart';
+import 'package:picos/models/abstract_database_object.dart';
 
-/// The interface for an API that provides access to a list of medications.
-abstract class MedicationsApi {
+/// The interface for an API that provides access to a list of therapies.
+abstract class DatabaseObjectApi {
   /// Medications API constructor.
-  const MedicationsApi();
+  const DatabaseObjectApi();
 
   /// Provides a [Stream] of all medications.
-  Future<Stream<List<Medication>>> getMedications();
+  Future<Stream<List<AbstractDatabaseObject>>> getObjects();
 
-  /// Saves or replaces a [medication].
-  Future<void> saveMedication(Medication medication);
+  /// Saves or replaces a [therapy].
+  Future<void> saveObject(AbstractDatabaseObject object);
 
-  /// Removes the given [medication].
-  Future<void> removeMedication(Medication medication);
+  /// Removes the given [therapy].
+  Future<void> removeObject(AbstractDatabaseObject object);
 }

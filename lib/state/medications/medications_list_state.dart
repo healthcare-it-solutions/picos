@@ -44,11 +44,11 @@ class MedicationsListState extends Equatable {
   final MedicationsListStatus status;
 
   /// The current [medicationsList] containing all medications.
-  final List<Medication> medicationsList;
+  final List<AbstractDatabaseObject> medicationsList;
 
   /// Creates a copy with updated values.
   MedicationsListState copyWith({
-    List<Medication>? medicationsList,
+    List<AbstractDatabaseObject>? medicationsList,
     MedicationsListStatus? status,
     bool? hasReachedMax,
   }) {
