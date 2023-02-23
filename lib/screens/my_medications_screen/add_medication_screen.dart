@@ -167,7 +167,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
       _eveningHint += ' ${MedicationsRepository.amountToString(_evening)}';
       _nightHint += ' ${MedicationsRepository.amountToString(_night)}';
 
-      _disabledCompoundSelect = true;
+      _disabledCompoundSelect = false;
       _compoundAutoFocus = false;
     }
 
@@ -256,6 +256,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                   disabled: _disabledCompoundSelect,
                   autofocus: _compoundAutoFocus,
                   hint: _compoundHint!,
+                  initialValue: _compoundHint,
                 ),
                 const SizedBox(
                   height: 30,
@@ -309,6 +310,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
 
               if (_medicationEdit != null) {
                 medication = medication.copyWith(
+                  compound: _compound!,
                   morning: _morning,
                   noon: _noon,
                   evening: _evening,

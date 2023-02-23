@@ -50,8 +50,6 @@ class _BottomBarState extends State<BottomBar> {
   // TODO: refactor and remove this List
   final List<String> _appBarTitles = <String>[
     'Overview',
-    'Inbox',
-    'Calender',
     'MyPicos'
   ];
 
@@ -59,8 +57,6 @@ class _BottomBarState extends State<BottomBar> {
   String appBarTitle(BuildContext context, int index) {
     final List<String> appBarTitles = <String>[
       'Overview',
-      'Inbox',
-      'Calender',
       'MyPicos'
     ];
 
@@ -91,14 +87,6 @@ class _BottomBarState extends State<BottomBar> {
         // TODO: implement a function that returns a title instead
         child: <Widget>[
           const OverviewScreen(),
-          const Icon(
-            Icons.mail,
-            size: 150,
-          ),
-          const Icon(
-            Icons.calendar_month,
-            size: 150,
-          ),
           const PicosMenu()
         ].elementAt(selectedIndex),
       ),
@@ -111,20 +99,6 @@ class _BottomBarState extends State<BottomBar> {
               color: Colors.black,
             ),
             label: Text(AppLocalizations.of(context)!.overview).data,
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(
-              Icons.mail_outline,
-              color: Colors.black,
-            ),
-            label: Text(AppLocalizations.of(context)!.inbox).data,
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(
-              Icons.calendar_month_outlined,
-              color: Colors.black,
-            ),
-            label: Text(AppLocalizations.of(context)!.calendar).data,
           ),
           BottomNavigationBarItem(
             icon: const Icon(

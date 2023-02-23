@@ -49,7 +49,7 @@
     "abort": "Abbrechen",
     "proceed": "Fortfahren",
     "myEntries": "Meine Eingaben",
-    "startEntry": "Eintrag starten",
+    "howFeel": "Wie geht's mir heute?",
     "submitData": "Die Daten werden übermittelt.",
     "husband": "Ehemann",
     "wife": "Ehefrau",
@@ -183,5 +183,7 @@
     "enterBloodPressure": "Bitte geben Sie den Blutdruck ein!",
     "enterBloodSugar": "Bitte geben Sie den Zuckerwert ein!",
     "enterDischargeDate": "Bitte geben Sie das Datum der Entlassung ein!",
-    "enterInstituteKey": "Bitte geben Sie den Institutionsschlüssel ein!"
+    "enterInstituteKey": "Bitte geben Sie den Institutionsschlüssel ein!",
+    "therapyName": "Therapiename",
+    "enterName": "Bitte tragen Sie den Namen ein"
 }

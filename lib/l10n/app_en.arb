@@ -243,9 +243,9 @@
         "description": "My Entries"
     },
 
-    "startEntry": "Start entry",
-    "@startEntry": {
-        "description": "Start entry"
+    "howFeel": "How do I feel today?",
+    "@howFeel": {
+        "description": "How do I feel today?"
     },
 
     "submitData": "The data is transmitted.",
@@ -858,5 +858,13 @@
     "enterInstituteKey": "Please enter the institute key!",
     "@enterInstituteKey": {
         "description": "Please enter the institute key!"
+    },
+    "therapyName": "Therapy Name",
+    "@therapyName": {
+        "description": "Therapy Name"
+    },
+    "enterName": "Please enter the name",
+    "@enterName": {
+        "description": "Please enter the name"
     }
 }
