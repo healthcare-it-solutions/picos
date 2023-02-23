@@ -21,6 +21,7 @@ import 'package:picos/models/abstract_database_object.dart';
 class Therapy extends AbstractDatabaseObject {
   /// Creates a medication object.
   const Therapy({
+    required this.name,
     required this.date,
     required this.therapy,
     String? objectId,
@@ -30,6 +31,9 @@ class Therapy extends AbstractDatabaseObject {
 
   /// The database table the objects are stored in.
   static const String databaseTable = 'PICOS_therapies';
+
+  /// The name of the therapy.
+  final String name;
 
   /// The date for the therapy.
   final DateTime date;
@@ -49,6 +53,7 @@ class Therapy extends AbstractDatabaseObject {
 
   @override
   Therapy copyWith({
+    String? name,
     DateTime? date,
     String? therapy,
     String? objectId,
@@ -56,6 +61,7 @@ class Therapy extends AbstractDatabaseObject {
     DateTime? updatedAt,
   }) {
     return Therapy(
+      name: name ?? this.name,
       date: date ?? this.date,
       therapy: therapy ?? this.therapy,
       objectId: objectId ?? this.objectId,
@@ -66,12 +72,14 @@ class Therapy extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
+        name,
         date,
         therapy,
       ];
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
+        'name': name,
         'date': date,
         'therapieText': therapy,
       };

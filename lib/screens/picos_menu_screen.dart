@@ -37,11 +37,6 @@ class PicosMenu extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         ListTile(
-          leading: const Icon(Icons.insights),
-          title: Text(AppLocalizations.of(context)!.medicalData),
-          trailing: const Icon(Icons.keyboard_arrow_right),
-        ),
-        ListTile(
           leading: const Icon(Icons.medication),
           title: Text(AppLocalizations.of(context)!.medicationScheme),
           trailing: const Icon(Icons.keyboard_arrow_right),
@@ -55,25 +50,6 @@ class PicosMenu extends StatelessWidget {
           onTap: () =>
               Navigator.of(context).pushNamed('/my-therapy-screen/my-therapy'),
         ),
-        ListTile(
-          leading: const Icon(Icons.groups),
-          title: Text(AppLocalizations.of(context)!.physicians),
-          trailing: const Icon(Icons.keyboard_arrow_right),
-          onTap: () => Navigator.of(context)
-              .pushNamed('/physician-list-screen/physicians'),
-        ),
-        ListTile(
-          leading: const Icon(Icons.people),
-          title: Text(AppLocalizations.of(context)!.familyMembers),
-          trailing: const Icon(Icons.keyboard_arrow_right),
-          onTap: () => Navigator.of(context)
-              .pushNamed('/family-member-list-screen/family-members'),
-        ),
-        ListTile(
-          leading: const Icon(Icons.description),
-          title: Text(AppLocalizations.of(context)!.documents),
-          trailing: const Icon(Icons.keyboard_arrow_right),
-        ),
         const SizedBox(
           height: 20,
         ),
@@ -85,30 +61,10 @@ class PicosMenu extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         ListTile(
-          leading: const Icon(Icons.notifications),
-          title: Text(AppLocalizations.of(context)!.notifications),
-          trailing: const Icon(Icons.keyboard_arrow_right),
-        ),
-        ListTile(
-          leading: const Icon(Icons.settings),
-          title: Text(AppLocalizations.of(context)!.profile),
-          trailing: const Icon(Icons.keyboard_arrow_right),
-        ),
-        ListTile(
-          leading: const Icon(Icons.lock),
-          title: Text(AppLocalizations.of(context)!.privacyNotice),
-          trailing: const Icon(Icons.keyboard_arrow_right),
-        ),
-        ListTile(
           leading: const Icon(Icons.gavel),
           title: Text(AppLocalizations.of(context)!.legals),
           trailing: const Icon(Icons.keyboard_arrow_right),
           onTap: () => Navigator.of(context).pushNamed('/legals-screen'),
-        ),
-        ListTile(
-          leading: const Icon(Icons.logout),
-          title: Text(AppLocalizations.of(context)!.logout),
-          trailing: const Icon(Icons.keyboard_arrow_right),
         ),
       ],
     );

@@ -49,7 +49,7 @@
     "abort": "Abbrechen",
     "proceed": "Fortfahren",
     "myEntries": "Meine Eingaben",
-    "startEntry": "Eintrag starten",
+    "howFeel": "Wie geht's mir heute?",
     "submitData": "Die Daten werden übermittelt.",
     "husband": "Ehemann",
     "wife": "Ehefrau",
@@ -169,5 +169,7 @@
     "noPain": "Kein Schmerz",
     "minorPain": "Geringe Schmerzen",
     "moderatePain": "Moderate Schmerzen",
-    "strongPain": "Starke Schmerzen"
+    "strongPain": "Starke Schmerzen",
+    "therapyName": "Therapiename",
+    "enterName": "Bitte tragen Sie den Namen ein"
 }

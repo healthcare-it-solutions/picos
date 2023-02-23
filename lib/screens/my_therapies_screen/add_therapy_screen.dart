@@ -39,28 +39,34 @@ class AddTherapyScreen extends StatefulWidget {
 }
 
 class _AddTherapyScreenState extends State<AddTherapyScreen> {
+  /// The name of the therapy.
+  String? _name;
+
   /// The therapy to be taken.
   DateTime? _date;
 
   /// The therapy description.
   String? _therapy;
 
+  String? _nameOld;
   DateTime? _dateOld;
   String? _therapyOld;
 
   Therapy? _therapyEdit;
   String? _title;
+  String? _nameHint;
   String? _dateHint;
   bool _saveDisabled = true;
   String _dateHintSuffix = '';
+  String _emptyNameHint = '';
   String _emptyDateHint = '';
 
   bool _checkValues() {
-    if (_therapy == null || _date == null) {
+    if (_therapy == null || _date == null || _name == null) {
       return false;
     }
 
-    if (_therapy == _therapyOld && _date == _dateOld) {
+    if (_therapy == _therapyOld && _date == _dateOld && _name == _nameOld) {
       return false;
     }
 
@@ -75,12 +81,20 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
     return '${date.day}.${date.month}.${date.year} $_dateHintSuffix';
   }
 
+  String _buildNameHint(String? name) {
+    if (name == null) return _emptyNameHint;
+
+    return name;
+  }
+
   @override
   Widget build(BuildContext context) {
     // Init variables.
     if (_title == null) {
+      _emptyNameHint = AppLocalizations.of(context)!.enterName;
       _emptyDateHint = AppLocalizations.of(context)!.selectDate;
       _title = AppLocalizations.of(context)!.addTherapy;
+      _nameHint = _buildNameHint(_name);
       _dateHint = _buildDateHint(_date);
       _dateHintSuffix = '///// ${AppLocalizations.of(context)!.day}.'
           '${AppLocalizations.of(context)!.month}.'
@@ -93,12 +107,15 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
     if (_therapyEdit == null && therapyEdit != null) {
       _therapyEdit = therapyEdit as Therapy;
 
+      _name = therapyEdit.name;
       _date = _therapyEdit!.date;
       _therapy = _therapyEdit!.therapy;
+      _nameOld = _name;
       _dateOld = _date;
       _therapyOld = _therapy;
 
       _dateHint = _buildDateHint(_date);
+      _nameHint = _buildNameHint(_name);
 
       _title = AppLocalizations.of(context)!.editTherapy;
     }
@@ -110,13 +127,19 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
           bottomNavigationBar: PicosAddButtonBar(
             disabled: _saveDisabled,
             onTap: () {
-              Therapy therapy = _therapyEdit ?? Therapy(
-                therapy: _therapy!,
-                date: _date!,
-              );
+              Therapy therapy = _therapyEdit ??
+                  Therapy(
+                    name: _name!,
+                    therapy: _therapy!,
+                    date: _date!,
+                  );
 
               if (_therapyEdit != null) {
-                therapy = therapy.copyWith(date: _date, therapy: _therapy);
+                therapy = therapy.copyWith(
+                  name: _name,
+                  date: _date,
+                  therapy: _therapy,
+                );
               }
 
               context.read<TherapiesListBloc>().add(SaveTherapy(therapy));
@@ -128,6 +151,22 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
               children: <Widget>[
                 const SizedBox(
                   height: 25,
+                ),
+                PicosLabel(label: AppLocalizations.of(context)!.therapyName),
+                PicosTextField(
+                  initialValue: _name,
+                  hint: _nameHint!,
+                  onChanged: (String value) {
+                    _name = value;
+
+                    setState(() {
+                      _nameHint = _buildNameHint(_name);
+                      _saveDisabled = !_checkValues();
+                    });
+                  },
+                ),
+                const SizedBox(
+                  height: 30,
                 ),
                 PicosLabel(
                   label: AppLocalizations.of(context)!.date,
