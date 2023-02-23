@@ -802,5 +802,61 @@
     "strongPain": "Strong Pain",
     "@strongPain": {
         "description": "Strong Pain"
+    },
+    "caseNumber": "Case Number",
+    "@caseNumber": {
+        "description": "Case Number"
+    },
+    "patientID": "Patient ID",
+    "@patientID": {
+        "description": "Patient ID"
+    },
+    "weight": "Weight",
+    "@weight": {
+        "description": "Weight"
+    },
+    "height": "Height",
+    "@height": {
+        "desciption": "Height"
+    },
+    "dischargeDate": "Date of Discharge",
+    "@dischargeDate": {
+        "description": "dichargeDate"
+    },
+    "instituteKey": "Institute Key",
+    "@instituteKey": {
+        "description": "Institute Key"
+    },
+    "enterCaseNumber": "Please enter the case number!",
+    "@enterCaseNumber": {
+        "description": "Please enter the case number!"
+    },
+    "enterPatientID": "Please enter the patient ID!",
+    "@enterPatientID": {
+        "desciption": "Please enter the patient ID!"
+    },
+    "enterWeight": "Please enter the weight!",
+    "@enterWeight": {
+        "description": "Please enter the weight!"
+    },
+    "enterHeight": "Please enter the height!",
+    "@enterHeight": {
+        "description": "Please enter the height!"
+    },
+    "enterBloodPressure": "Please enter the blood pressure value!",
+    "@enterBloodPressure": {
+        "description": "Please enter the blood pressure value!"
+    },
+    "enterBloodSugar": "Please enter the blood sugar value!",
+    "@enterBloodSugar": {
+        "description": "Please enter the blood sugar value!"
+    },
+    "enterDischargeDate": "Please enter the date of discharge!",
+    "@enterDischargeDate": {
+        "description": "Please enter the date of discharge!"
+    },
+    "enterInstituteKey": "Please enter the institute key!",
+    "@enterInstituteKey": {
+        "description": "Please enter the institute key!"
     }
 }

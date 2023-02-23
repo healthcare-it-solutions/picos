@@ -169,5 +169,19 @@
     "noPain": "Kein Schmerz",
     "minorPain": "Geringe Schmerzen",
     "moderatePain": "Moderate Schmerzen",
-    "strongPain": "Starke Schmerzen"
+    "strongPain": "Starke Schmerzen",
+    "caseNumber": "Fallnummer",
+    "patientID": "PatientenID",
+    "weight": "Gewicht",
+    "height": "Größe",
+    "dischargeDate": "Datum der Entlassung",
+    "instituteKey": "Institutionsschlüssel",
+    "enterCaseNumber": "Bitte geben Sie die Fallnummer ein!",
+    "enterPatientID": "Bitte geben Sie die PatientenID ein!",
+    "enterWeight": "Bitte geben Sie das Gewicht ein!",
+    "enterHeight": "Bitte geben Sie die Größe ein!",
+    "enterBloodPressure": "Bitte geben Sie den Blutdruck ein!",
+    "enterBloodSugar": "Bitte geben Sie den Zuckerwert ein!",
+    "enterDischargeDate": "Bitte geben Sie das Datum der Entlassung ein!",
+    "enterInstituteKey": "Bitte geben Sie den Institutionsschlüssel ein!"
 }
