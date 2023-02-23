@@ -169,5 +169,7 @@
     "noPain": "Kein Schmerz",
     "minorPain": "Geringe Schmerzen",
     "moderatePain": "Moderate Schmerzen",
-    "strongPain": "Starke Schmerzen"
+    "strongPain": "Starke Schmerzen",
+    "therapyName": "Therapiename",
+    "enterName": "Bitte tragen Sie den Namen ein"
 }

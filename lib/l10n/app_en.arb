@@ -802,5 +802,13 @@
     "strongPain": "Strong Pain",
     "@strongPain": {
         "description": "Strong Pain"
+    },
+    "therapyName": "Therapy Name",
+    "@therapyName": {
+        "description": "Therapy Name"
+    },
+    "enterName": "Please enter the name",
+    "@enterName": {
+        "description": "Please enter the name"
     }
 }

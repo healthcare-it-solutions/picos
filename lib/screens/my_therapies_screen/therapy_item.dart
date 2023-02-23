@@ -35,7 +35,7 @@ class TherapyItem extends StatelessWidget {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
 
     return ListTile(
-      title: Text(_therapy.dateString),
+      title: Text('${_therapy.dateString} - ${_therapy.name}'),
       trailing: Padding(
         padding: const EdgeInsets.only(
           right: 10,
