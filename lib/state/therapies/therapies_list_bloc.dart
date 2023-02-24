@@ -18,46 +18,44 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:picos/models/abstract_database_object.dart';
 
-import '../../api/backend_therapies_api.dart';
-import '../../models/therapy.dart';
+import '../../api/database_object_api.dart';
 import '../objects_list_event.dart';
-
-part 'therapies_list_state.dart';
+import '../objects_list_state.dart';
 
 /// BloC for gluing ObjectsListEvent and TherapiesListState together.
-class TherapiesListBloc
-    extends Bloc<ObjectsListEvent, TherapiesListState> {
+class TherapiesListBloc extends Bloc<ObjectsListEvent, ObjectsListState> {
   /// Creates the TherapiesListBloc.
-  TherapiesListBloc({required BackendTherapiesApi therapiesRepository})
-      : _therapiesRepository = therapiesRepository,
-        super(const TherapiesListState()) {
+  TherapiesListBloc({
+    required DatabaseObjectApi objectApi,
+    required ObjectsListState objectsListState,
+  })  : _objectApi = objectApi,
+        super(objectsListState) {
     on<ObjectsListSubscriptionRequested>(_onSubscriptionRequested);
     on<SaveObject>(_onSaveObject);
     on<RemoveObject>(_onRemoveObject);
   }
 
-  final BackendTherapiesApi _therapiesRepository;
+  final DatabaseObjectApi _objectApi;
 
   Future<void> _onSubscriptionRequested(
-      ObjectsListSubscriptionRequested event,
-    Emitter<TherapiesListState> emit,
+    ObjectsListSubscriptionRequested event,
+    Emitter<ObjectsListState> emit,
   ) async {
-    emit(state.copyWith(status: TherapiesListStatus.loading));
+    emit(state.copyWith(status: ObjectsListStatus.loading));
 
     await emit.forEach<List<AbstractDatabaseObject>>(
-      await _therapiesRepository.getObjects(),
+      await _objectApi.getObjects(),
       onData: (List<AbstractDatabaseObject> therapies) {
         return state.copyWith(
-          status: TherapiesListStatus.success,
-          therapiesList: therapies,
+          status: ObjectsListStatus.success,
+          objectsList: therapies,
         );
       },
       onError: (_, __) {
         return state.copyWith(
-          status: TherapiesListStatus.failure,
+          status: ObjectsListStatus.failure,
         );
       },
     );
@@ -65,24 +63,24 @@ class TherapiesListBloc
 
   Future<void> _onSaveObject(
     SaveObject event,
-    Emitter<TherapiesListState> emit,
+    Emitter<ObjectsListState> emit,
   ) async {
-    emit(state.copyWith(status: TherapiesListStatus.loading));
-    await _therapiesRepository
+    emit(state.copyWith(status: ObjectsListStatus.loading));
+    await _objectApi
         .saveObject(
           event.object,
         )
         .onError(
           (_, __) => emit(
             state.copyWith(
-              status: TherapiesListStatus.failure,
+              status: ObjectsListStatus.failure,
             ),
           ),
         )
         .whenComplete(
           () => emit(
             state.copyWith(
-              status: TherapiesListStatus.success,
+              status: ObjectsListStatus.success,
             ),
           ),
         );
@@ -90,24 +88,24 @@ class TherapiesListBloc
 
   Future<void> _onRemoveObject(
     RemoveObject event,
-    Emitter<TherapiesListState> emit,
+    Emitter<ObjectsListState> emit,
   ) async {
-    emit(state.copyWith(status: TherapiesListStatus.loading));
-    await _therapiesRepository
+    emit(state.copyWith(status: ObjectsListStatus.loading));
+    await _objectApi
         .removeObject(
           event.object,
         )
         .onError(
           (_, __) => emit(
             state.copyWith(
-              status: TherapiesListStatus.failure,
+              status: ObjectsListStatus.failure,
             ),
           ),
         )
         .whenComplete(
           () => emit(
             state.copyWith(
-              status: TherapiesListStatus.success,
+              status: ObjectsListStatus.success,
             ),
           ),
         );

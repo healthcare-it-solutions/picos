@@ -18,41 +18,39 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
+import 'package:picos/api/database_object_api.dart';
 import 'package:picos/models/abstract_database_object.dart';
 
-import '../../api/backend_medications_api.dart';
-import '../../models/medication.dart';
 import '../objects_list_event.dart';
-
-part 'medications_list_state.dart';
+import '../objects_list_state.dart';
 
 /// BloC for gluing ObjectsListEvents and MedicationsListState together.
-class MedicationsListBloc
-    extends Bloc<ObjectsListEvent, MedicationsListState> {
+class MedicationsListBloc extends Bloc<ObjectsListEvent, ObjectsListState> {
   /// Creates the MedicationsListBloc.
-  MedicationsListBloc({required BackendMedicationsApi medicationsRepository})
-      : _medicationsRepository = medicationsRepository,
-        super(const MedicationsListState()) {
+  MedicationsListBloc({
+    required DatabaseObjectApi objectApi,
+    required ObjectsListState objectsListState,
+  })  : _objectApi = objectApi,
+        super(objectsListState) {
     on<ObjectsListSubscriptionRequested>(_onSubscriptionRequested);
     on<SaveObject>(_onSaveObject);
     on<RemoveObject>(_onRemoveObject);
   }
 
-  final BackendMedicationsApi _medicationsRepository;
+  final DatabaseObjectApi _objectApi;
 
   Future<void> _onSubscriptionRequested(
     ObjectsListSubscriptionRequested event,
-    Emitter<MedicationsListState> emit,
+    Emitter<ObjectsListState> emit,
   ) async {
     emit(state.copyWith(status: ObjectsListStatus.loading));
 
     await emit.forEach<List<AbstractDatabaseObject>>(
-      await _medicationsRepository.getObjects(),
+      await _objectApi.getObjects(),
       onData: (List<AbstractDatabaseObject> medications) {
         return state.copyWith(
           status: ObjectsListStatus.success,
-          medicationsList: medications,
+          objectsList: medications,
         );
       },
       onError: (_, __) {
@@ -65,10 +63,10 @@ class MedicationsListBloc
 
   Future<void> _onSaveObject(
     SaveObject event,
-    Emitter<MedicationsListState> emit,
+    Emitter<ObjectsListState> emit,
   ) async {
     emit(state.copyWith(status: ObjectsListStatus.loading));
-    await _medicationsRepository
+    await _objectApi
         .saveObject(
           event.object,
         )
@@ -90,10 +88,10 @@ class MedicationsListBloc
 
   Future<void> _onRemoveObject(
     RemoveObject event,
-    Emitter<MedicationsListState> emit,
+    Emitter<ObjectsListState> emit,
   ) async {
     emit(state.copyWith(status: ObjectsListStatus.loading));
-    await _medicationsRepository
+    await _objectApi
         .removeObject(
           event.object,
         )

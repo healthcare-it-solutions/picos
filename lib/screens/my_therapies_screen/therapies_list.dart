@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../models/therapy.dart';
+import '../../state/objects_list_state.dart';
 import '../../state/therapies/therapies_list_bloc.dart';
 import 'therapy_item.dart';
 
@@ -33,25 +34,25 @@ class TherapiesList extends StatefulWidget {
 class _TherapiesListState extends State<TherapiesList> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TherapiesListBloc,TherapiesListState>(
-      builder: (BuildContext context, TherapiesListState state) {
-        if (state.therapiesList.isEmpty &&
-            state.status == TherapiesListStatus.loading) {
+    return BlocBuilder<TherapiesListBloc,ObjectsListState>(
+      builder: (BuildContext context, ObjectsListState state) {
+        if (state.objectsList.isEmpty &&
+            state.status == ObjectsListStatus.loading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
 
-        if (state.status == TherapiesListStatus.failure) {
+        if (state.status == ObjectsListStatus.failure) {
           return const Center(
             child: Text('Error'),
           );
         }
 
         return ListView.separated(
-          itemCount: state.therapiesList.length,
+          itemCount: state.objectsList.length,
           itemBuilder: (BuildContext context, int index) {
-            return TherapyItem(state.therapiesList[index] as Therapy);
+            return TherapyItem(state.objectsList[index] as Therapy);
           },
           separatorBuilder: (BuildContext context, int index) {
             return const Padding(

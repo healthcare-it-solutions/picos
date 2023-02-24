@@ -28,6 +28,7 @@ import 'package:picos/themes/global_theme.dart';
 import '../../routes.dart';
 import '../../state/medications/medications_list_bloc.dart';
 import '../../state/objects_list_event.dart';
+import '../../state/objects_list_state.dart';
 
 /// This is the screen which contains all relevant information
 class MainScreen extends StatelessWidget {
@@ -51,12 +52,14 @@ class MainScreen extends StatelessWidget {
         providers: <BlocProvider<dynamic>>[
           BlocProvider<MedicationsListBloc>(
             create: (BuildContext context) => MedicationsListBloc(
-              medicationsRepository: context.read<BackendMedicationsApi>(),
+              objectsListState: const ObjectsListState(),
+              objectApi: context.read<BackendMedicationsApi>(),
             )..add(const ObjectsListSubscriptionRequested()),
           ),
           BlocProvider<TherapiesListBloc>(
             create: (BuildContext context) => TherapiesListBloc(
-              therapiesRepository: context.read<BackendTherapiesApi>(),
+              objectsListState: const ObjectsListState(),
+              objectApi: context.read<BackendTherapiesApi>(),
             )..add(const ObjectsListSubscriptionRequested()),
           ),
         ],

@@ -15,10 +15,12 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-part of 'therapies_list_bloc.dart';
+import 'package:equatable/equatable.dart';
+
+import '../models/abstract_database_object.dart';
 
 /// Possible states for the list can contain.
-enum TherapiesListStatus {
+enum ObjectsListStatus {
   /// The initial state on creation.
   initial,
 
@@ -32,32 +34,32 @@ enum TherapiesListStatus {
   failure
 }
 
-/// Handles the TherapiesListState.
-class TherapiesListState extends Equatable {
-  /// TherapiesListState constructor.
-  const TherapiesListState({
-    this.therapiesList = const <Therapy>[],
-    this.status = TherapiesListStatus.initial,
+/// Handles the MedicationsListState.
+class ObjectsListState extends Equatable {
+  /// MedicationsListState constructor.
+  const ObjectsListState({
+    this.objectsList = const <AbstractDatabaseObject>[],
+    this.status = ObjectsListStatus.initial,
   });
 
-  /// The current [TherapiesListStatus].
-  final TherapiesListStatus status;
+  /// The current [ObjectsListStatus].
+  final ObjectsListStatus status;
 
-  /// The current [therapiesList] containing all therapies.
-  final List<AbstractDatabaseObject> therapiesList;
+  /// The current [objectsList] containing all medications.
+  final List<AbstractDatabaseObject> objectsList;
 
   /// Creates a copy with updated values.
-  TherapiesListState copyWith({
-    List<AbstractDatabaseObject>? therapiesList,
-    TherapiesListStatus? status,
+  ObjectsListState copyWith({
+    List<AbstractDatabaseObject>? objectsList,
+    ObjectsListStatus? status,
     bool? hasReachedMax,
   }) {
-    return TherapiesListState(
+    return ObjectsListState(
       status: status ?? this.status,
-      therapiesList: therapiesList ?? this.therapiesList,
+      objectsList: objectsList ?? this.objectsList,
     );
   }
 
   @override
-  List<Object> get props => <Object>[status, therapiesList];
+  List<Object> get props => <Object>[status, objectsList];
 }

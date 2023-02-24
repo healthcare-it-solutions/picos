@@ -23,6 +23,7 @@ import 'package:picos/widgets/picos_screen_frame.dart';
 
 import '../../models/therapy.dart';
 import '../../state/objects_list_event.dart';
+import '../../state/objects_list_state.dart';
 import '../../state/therapies/therapies_list_bloc.dart';
 import '../../themes/global_theme.dart';
 import '../../widgets/picos_body.dart';
@@ -121,8 +122,8 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
       _title = AppLocalizations.of(context)!.editTherapy;
     }
 
-    return BlocBuilder<TherapiesListBloc, TherapiesListState>(
-      builder: (BuildContext context, TherapiesListState state) {
+    return BlocBuilder<TherapiesListBloc, ObjectsListState>(
+      builder: (BuildContext context, ObjectsListState state) {
         return PicosScreenFrame(
           title: _title,
           bottomNavigationBar: PicosAddButtonBar(

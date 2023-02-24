@@ -9,6 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../models/therapy.dart';
 import '../../state/objects_list_event.dart';
+import '../../state/objects_list_state.dart';
 
 /// Shows a single therapy item.
 class ViewTherapyScreen extends StatelessWidget {
@@ -19,8 +20,8 @@ class ViewTherapyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Therapy therapy = ModalRoute.of(context)!.settings.arguments as Therapy;
 
-    return BlocBuilder<TherapiesListBloc, TherapiesListState>(
-      builder: (BuildContext context, TherapiesListState state) {
+    return BlocBuilder<TherapiesListBloc, ObjectsListState>(
+      builder: (BuildContext context, ObjectsListState state) {
         return PicosScreenFrame(
           bottomNavigationBar: PicosEditItemButtonBar(
             onTapLeft: () async {

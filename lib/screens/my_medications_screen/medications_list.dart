@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../models/medication.dart';
 import '../../state/medications/medications_list_bloc.dart';
+import '../../state/objects_list_state.dart';
 import 'medication_card.dart';
 
 /// A List with all medications.
@@ -33,9 +34,9 @@ class MedicationsList extends StatefulWidget {
 class _MedicationsListState extends State<MedicationsList> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MedicationsListBloc, MedicationsListState>(
-      builder: (BuildContext context, MedicationsListState state) {
-        if (state.medicationsList.isEmpty &&
+    return BlocBuilder<MedicationsListBloc, ObjectsListState>(
+      builder: (BuildContext context, ObjectsListState state) {
+        if (state.objectsList.isEmpty &&
             state.status == ObjectsListStatus.loading) {
           return const Center(
             child: CircularProgressIndicator(),
@@ -49,9 +50,9 @@ class _MedicationsListState extends State<MedicationsList> {
         }
 
         return ListView.builder(
-          itemCount: state.medicationsList.length,
+          itemCount: state.objectsList.length,
           itemBuilder: (BuildContext context, int index) {
-            return MedicationCard(state.medicationsList[index] as Medication);
+            return MedicationCard(state.objectsList[index] as Medication);
           },
         );
       },

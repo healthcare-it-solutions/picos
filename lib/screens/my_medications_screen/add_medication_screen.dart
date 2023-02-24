@@ -25,6 +25,7 @@ import 'package:picos/widgets/picos_select.dart';
 
 import '../../state/medications/medications_list_bloc.dart';
 import '../../state/objects_list_event.dart';
+import '../../state/objects_list_state.dart';
 import '../../widgets/picos_body.dart';
 import '../../widgets/picos_label.dart';
 import '../../widgets/picos_text_field.dart';
@@ -183,8 +184,8 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
       top: 5,
     );
 
-    return BlocBuilder<MedicationsListBloc, MedicationsListState>(
-      builder: (BuildContext context, MedicationsListState state) {
+    return BlocBuilder<MedicationsListBloc, ObjectsListState>(
+      builder: (BuildContext context, ObjectsListState state) {
         return PicosScreenFrame(
           body: PicosBody(
             child: Column(
