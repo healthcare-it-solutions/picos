@@ -23,92 +23,91 @@ import 'package:picos/models/abstract_database_object.dart';
 
 import '../../api/backend_medications_api.dart';
 import '../../models/medication.dart';
-
-part 'medications_list_event.dart';
+import '../objects_list_event.dart';
 
 part 'medications_list_state.dart';
 
-/// BloC for gluing MedicationsListEvents and MedicationsListState together.
+/// BloC for gluing ObjectsListEvents and MedicationsListState together.
 class MedicationsListBloc
-    extends Bloc<MedicationsListEvent, MedicationsListState> {
+    extends Bloc<ObjectsListEvent, MedicationsListState> {
   /// Creates the MedicationsListBloc.
   MedicationsListBloc({required BackendMedicationsApi medicationsRepository})
       : _medicationsRepository = medicationsRepository,
         super(const MedicationsListState()) {
-    on<MedicationsListSubscriptionRequested>(_onSubscriptionRequested);
-    on<SaveMedication>(_onSaveMedication);
-    on<RemoveMedication>(_onRemoveMedication);
+    on<ObjectsListSubscriptionRequested>(_onSubscriptionRequested);
+    on<SaveObject>(_onSaveObject);
+    on<RemoveObject>(_onRemoveObject);
   }
 
   final BackendMedicationsApi _medicationsRepository;
 
   Future<void> _onSubscriptionRequested(
-    MedicationsListSubscriptionRequested event,
+    ObjectsListSubscriptionRequested event,
     Emitter<MedicationsListState> emit,
   ) async {
-    emit(state.copyWith(status: MedicationsListStatus.loading));
+    emit(state.copyWith(status: ObjectsListStatus.loading));
 
     await emit.forEach<List<AbstractDatabaseObject>>(
       await _medicationsRepository.getObjects(),
       onData: (List<AbstractDatabaseObject> medications) {
         return state.copyWith(
-          status: MedicationsListStatus.success,
+          status: ObjectsListStatus.success,
           medicationsList: medications,
         );
       },
       onError: (_, __) {
         return state.copyWith(
-          status: MedicationsListStatus.failure,
+          status: ObjectsListStatus.failure,
         );
       },
     );
   }
 
-  Future<void> _onSaveMedication(
-    SaveMedication event,
+  Future<void> _onSaveObject(
+    SaveObject event,
     Emitter<MedicationsListState> emit,
   ) async {
-    emit(state.copyWith(status: MedicationsListStatus.loading));
+    emit(state.copyWith(status: ObjectsListStatus.loading));
     await _medicationsRepository
         .saveObject(
-          event.medication,
+          event.object,
         )
         .onError(
           (_, __) => emit(
             state.copyWith(
-              status: MedicationsListStatus.failure,
+              status: ObjectsListStatus.failure,
             ),
           ),
         )
         .whenComplete(
           () => emit(
             state.copyWith(
-              status: MedicationsListStatus.success,
+              status: ObjectsListStatus.success,
             ),
           ),
         );
   }
 
-  Future<void> _onRemoveMedication(
-    RemoveMedication event,
+  Future<void> _onRemoveObject(
+    RemoveObject event,
     Emitter<MedicationsListState> emit,
   ) async {
-    emit(state.copyWith(status: MedicationsListStatus.loading));
+    emit(state.copyWith(status: ObjectsListStatus.loading));
     await _medicationsRepository
         .removeObject(
-          event.medication,
+          event.object,
         )
         .onError(
           (_, __) => emit(
             state.copyWith(
-              status: MedicationsListStatus.failure,
+              status: ObjectsListStatus.failure,
             ),
           ),
         )
         .whenComplete(
           () => emit(
             state.copyWith(
-              status: MedicationsListStatus.success,
+              status: ObjectsListStatus.success,
             ),
           ),
         );

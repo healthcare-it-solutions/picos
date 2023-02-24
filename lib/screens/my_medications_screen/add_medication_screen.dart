@@ -24,6 +24,7 @@ import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:picos/widgets/picos_select.dart';
 
 import '../../state/medications/medications_list_bloc.dart';
+import '../../state/objects_list_event.dart';
 import '../../widgets/picos_body.dart';
 import '../../widgets/picos_label.dart';
 import '../../widgets/picos_text_field.dart';
@@ -319,7 +320,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
 
               context
                   .read<MedicationsListBloc>()
-                  .add(SaveMedication(medication));
+                  .add(SaveObject(medication));
               Navigator.of(context).pop();
             },
           ),

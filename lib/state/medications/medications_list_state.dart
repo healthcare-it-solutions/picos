@@ -18,7 +18,7 @@
 part of 'medications_list_bloc.dart';
 
 /// Possible states for the list can contain.
-enum MedicationsListStatus {
+enum ObjectsListStatus {
   /// The initial state on creation.
   initial,
 
@@ -37,11 +37,11 @@ class MedicationsListState extends Equatable {
   /// MedicationsListState constructor.
   const MedicationsListState({
     this.medicationsList = const <Medication>[],
-    this.status = MedicationsListStatus.initial,
+    this.status = ObjectsListStatus.initial,
   });
 
-  /// The current [MedicationsListStatus].
-  final MedicationsListStatus status;
+  /// The current [ObjectsListStatus].
+  final ObjectsListStatus status;
 
   /// The current [medicationsList] containing all medications.
   final List<AbstractDatabaseObject> medicationsList;
@@ -49,7 +49,7 @@ class MedicationsListState extends Equatable {
   /// Creates a copy with updated values.
   MedicationsListState copyWith({
     List<AbstractDatabaseObject>? medicationsList,
-    MedicationsListStatus? status,
+    ObjectsListStatus? status,
     bool? hasReachedMax,
   }) {
     return MedicationsListState(

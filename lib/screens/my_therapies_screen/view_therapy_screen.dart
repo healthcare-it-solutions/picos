@@ -8,6 +8,7 @@ import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../models/therapy.dart';
+import '../../state/objects_list_event.dart';
 
 /// Shows a single therapy item.
 class ViewTherapyScreen extends StatelessWidget {
@@ -33,7 +34,7 @@ class ViewTherapyScreen extends StatelessWidget {
               therapy = newTherapy;
             },
             onTapRight: () {
-              context.read<TherapiesListBloc>().add(RemoveTherapy(therapy));
+              context.read<TherapiesListBloc>().add(RemoveObject(therapy));
               Navigator.of(context).pop();
             },
           ),

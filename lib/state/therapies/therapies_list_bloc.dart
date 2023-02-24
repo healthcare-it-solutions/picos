@@ -23,27 +23,26 @@ import 'package:picos/models/abstract_database_object.dart';
 
 import '../../api/backend_therapies_api.dart';
 import '../../models/therapy.dart';
-
-part 'therapies_list_event.dart';
+import '../objects_list_event.dart';
 
 part 'therapies_list_state.dart';
 
-/// BloC for gluing TherapiesListEvent and TherapiesListState together.
+/// BloC for gluing ObjectsListEvent and TherapiesListState together.
 class TherapiesListBloc
-    extends Bloc<TherapiesListEvent, TherapiesListState> {
+    extends Bloc<ObjectsListEvent, TherapiesListState> {
   /// Creates the TherapiesListBloc.
   TherapiesListBloc({required BackendTherapiesApi therapiesRepository})
       : _therapiesRepository = therapiesRepository,
         super(const TherapiesListState()) {
-    on<TherapiesListSubscriptionRequested>(_onSubscriptionRequested);
-    on<SaveTherapy>(_onSaveTherapy);
-    on<RemoveTherapy>(_onRemoveTherapy);
+    on<ObjectsListSubscriptionRequested>(_onSubscriptionRequested);
+    on<SaveObject>(_onSaveObject);
+    on<RemoveObject>(_onRemoveObject);
   }
 
   final BackendTherapiesApi _therapiesRepository;
 
   Future<void> _onSubscriptionRequested(
-      TherapiesListSubscriptionRequested event,
+      ObjectsListSubscriptionRequested event,
     Emitter<TherapiesListState> emit,
   ) async {
     emit(state.copyWith(status: TherapiesListStatus.loading));
@@ -64,14 +63,14 @@ class TherapiesListBloc
     );
   }
 
-  Future<void> _onSaveTherapy(
-    SaveTherapy event,
+  Future<void> _onSaveObject(
+    SaveObject event,
     Emitter<TherapiesListState> emit,
   ) async {
     emit(state.copyWith(status: TherapiesListStatus.loading));
     await _therapiesRepository
         .saveObject(
-          event.therapy,
+          event.object,
         )
         .onError(
           (_, __) => emit(
@@ -89,14 +88,14 @@ class TherapiesListBloc
         );
   }
 
-  Future<void> _onRemoveTherapy(
-    RemoveTherapy event,
+  Future<void> _onRemoveObject(
+    RemoveObject event,
     Emitter<TherapiesListState> emit,
   ) async {
     emit(state.copyWith(status: TherapiesListStatus.loading));
     await _therapiesRepository
         .removeObject(
-          event.therapy,
+          event.object,
         )
         .onError(
           (_, __) => emit(

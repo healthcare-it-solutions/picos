@@ -36,13 +36,13 @@ class _MedicationsListState extends State<MedicationsList> {
     return BlocBuilder<MedicationsListBloc, MedicationsListState>(
       builder: (BuildContext context, MedicationsListState state) {
         if (state.medicationsList.isEmpty &&
-            state.status == MedicationsListStatus.loading) {
+            state.status == ObjectsListStatus.loading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
 
-        if (state.status == MedicationsListStatus.failure) {
+        if (state.status == ObjectsListStatus.failure) {
           return const Center(
             child: Text('Error'),
           );

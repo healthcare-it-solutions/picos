@@ -22,6 +22,7 @@ import 'package:picos/widgets/picos_add_button_bar.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 
 import '../../models/therapy.dart';
+import '../../state/objects_list_event.dart';
 import '../../state/therapies/therapies_list_bloc.dart';
 import '../../themes/global_theme.dart';
 import '../../widgets/picos_body.dart';
@@ -142,7 +143,7 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
                 );
               }
 
-              context.read<TherapiesListBloc>().add(SaveTherapy(therapy));
+              context.read<TherapiesListBloc>().add(SaveObject(therapy));
               Navigator.of(context).pop(therapy);
             },
           ),
