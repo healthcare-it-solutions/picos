@@ -37,21 +37,13 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     const GlobalTheme theme = GlobalTheme();
 
-    final BackendMedicationsApi medicationsRepository =
-    BackendMedicationsApi();
-
-    //final ObjectsRepository medicationsRepository =
-    //    ObjectsRepository(objectApi: BackendMedicationsApi());
-    final BackendTherapiesApi therapiesRepository =
-    BackendTherapiesApi();
-
     return MultiRepositoryProvider(
       providers: <RepositoryProvider<dynamic>>[
-        RepositoryProvider<BackendMedicationsApi>.value(
-          value: medicationsRepository,
+        RepositoryProvider<BackendMedicationsApi>(
+          create: (BuildContext context) => BackendMedicationsApi(),
         ),
-        RepositoryProvider<BackendTherapiesApi>.value(
-          value: therapiesRepository,
+        RepositoryProvider<BackendTherapiesApi>(
+          create: (BuildContext context) => BackendTherapiesApi(),
         )
       ],
       child: MultiBlocProvider(
