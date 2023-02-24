@@ -22,8 +22,8 @@ import 'package:picos/models/medication.dart';
 import 'package:picos/screens/my_medications_screen/medication_card_tile.dart';
 import 'package:picos/widgets/picos_list_card.dart';
 
-import '../../state/medications/medications_list_bloc.dart';
-import '../../state/objects_list_event.dart';
+import '../../api/backend_medications_api.dart';
+import '../../state/objects_list_bloc.dart';
 
 /// The card displaying a medication plan.
 class MedicationCard extends StatelessWidget {
@@ -86,7 +86,9 @@ class MedicationCard extends StatelessWidget {
         );
       },
       delete: () {
-        context.read<MedicationsListBloc>().add(RemoveObject(_medication));
+        context
+            .read<ObjectsListBloc<BackendMedicationsApi>>()
+            .add(RemoveObject(_medication));
       },
       child: Row(
         children: <Expanded>[

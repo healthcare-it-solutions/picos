@@ -15,8 +15,7 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import 'package:equatable/equatable.dart';
-import 'package:picos/models/abstract_database_object.dart';
+part of 'objects_list_bloc.dart';
 
 /// Defines Events for ObjectsList.
 abstract class ObjectsListEvent extends Equatable {

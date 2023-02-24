@@ -15,9 +15,7 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import 'package:equatable/equatable.dart';
-
-import '../models/abstract_database_object.dart';
+part of 'objects_list_bloc.dart';
 
 /// Possible states for the list can contain.
 enum ObjectsListStatus {

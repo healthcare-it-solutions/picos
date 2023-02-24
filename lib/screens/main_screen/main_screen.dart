@@ -21,14 +21,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/api/backend_medications_api.dart';
 import 'package:picos/api/backend_therapies_api.dart';
+import 'package:picos/api/database_object_api.dart';
 import 'package:picos/screens/login_screen.dart';
-import 'package:picos/state/therapies/therapies_list_bloc.dart';
 import 'package:picos/themes/global_theme.dart';
 
 import '../../routes.dart';
-import '../../state/medications/medications_list_bloc.dart';
-import '../../state/objects_list_event.dart';
-import '../../state/objects_list_state.dart';
+import '../../state/objects_list_bloc.dart';
 
 /// This is the screen which contains all relevant information
 class MainScreen extends StatelessWidget {
@@ -39,56 +37,46 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     const GlobalTheme theme = GlobalTheme();
 
-    return MultiRepositoryProvider(
-      providers: <RepositoryProvider<dynamic>>[
-        RepositoryProvider<BackendMedicationsApi>(
-          create: (BuildContext context) => BackendMedicationsApi(),
+    return MultiBlocProvider(
+      providers: <BlocProvider<ObjectsListBloc<DatabaseObjectApi>>>[
+        BlocProvider<ObjectsListBloc<BackendMedicationsApi>>(
+          create: (BuildContext context) =>
+              ObjectsListBloc<BackendMedicationsApi>(
+            BackendMedicationsApi(),
+          )..add(const ObjectsListSubscriptionRequested()),
         ),
-        RepositoryProvider<BackendTherapiesApi>(
-          create: (BuildContext context) => BackendTherapiesApi(),
-        )
+        BlocProvider<ObjectsListBloc<BackendTherapiesApi>>(
+          create: (BuildContext context) =>
+              ObjectsListBloc<BackendTherapiesApi>(
+            BackendTherapiesApi(),
+          )..add(const ObjectsListSubscriptionRequested()),
+        ),
       ],
-      child: MultiBlocProvider(
-        providers: <BlocProvider<dynamic>>[
-          BlocProvider<MedicationsListBloc>(
-            create: (BuildContext context) => MedicationsListBloc(
-              objectsListState: const ObjectsListState(),
-              objectApi: context.read<BackendMedicationsApi>(),
-            )..add(const ObjectsListSubscriptionRequested()),
+      child: MaterialApp(
+        title: 'PICOS',
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        theme: ThemeData(
+          colorScheme: Theme.of(context).colorScheme.copyWith(
+                secondary: theme.grey3,
+              ),
+          textSelectionTheme: Theme.of(context).textSelectionTheme.copyWith(
+                selectionColor: theme.grey2,
+                selectionHandleColor: theme.grey1,
+              ),
+          appBarTheme: AppBarTheme(
+            backgroundColor: theme.darkGreen1,
           ),
-          BlocProvider<TherapiesListBloc>(
-            create: (BuildContext context) => TherapiesListBloc(
-              objectsListState: const ObjectsListState(),
-              objectApi: context.read<BackendTherapiesApi>(),
-            )..add(const ObjectsListSubscriptionRequested()),
-          ),
-        ],
-        child: MaterialApp(
-          title: 'PICOS',
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          theme: ThemeData(
-            colorScheme: Theme.of(context).colorScheme.copyWith(
-                  secondary: theme.grey3,
-                ),
-            textSelectionTheme: Theme.of(context).textSelectionTheme.copyWith(
-                  selectionColor: theme.grey2,
-                  selectionHandleColor: theme.grey1,
-                ),
-            appBarTheme: AppBarTheme(
-              backgroundColor: theme.darkGreen1,
-            ),
-            dialogBackgroundColor: theme.darkGreen2,
-            focusColor: theme.darkGreen3,
-            shadowColor: theme.grey2,
-          ).copyWith(
-            extensions: <ThemeExtension<dynamic>>{
-              theme,
-            },
-          ),
-          home: const LoginScreen(),
-          routes: Routes(context).getRoutes(),
+          dialogBackgroundColor: theme.darkGreen2,
+          focusColor: theme.darkGreen3,
+          shadowColor: theme.grey2,
+        ).copyWith(
+          extensions: <ThemeExtension<dynamic>>{
+            theme,
+          },
         ),
+        home: const LoginScreen(),
+        routes: Routes(context).getRoutes(),
       ),
     );
   }

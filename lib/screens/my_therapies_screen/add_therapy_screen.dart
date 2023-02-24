@@ -18,13 +18,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/api/backend_therapies_api.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 
 import '../../models/therapy.dart';
-import '../../state/objects_list_event.dart';
-import '../../state/objects_list_state.dart';
-import '../../state/therapies/therapies_list_bloc.dart';
+import '../../state/objects_list_bloc.dart';
 import '../../themes/global_theme.dart';
 import '../../widgets/picos_body.dart';
 import '../../widgets/picos_label.dart';
@@ -122,7 +121,7 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
       _title = AppLocalizations.of(context)!.editTherapy;
     }
 
-    return BlocBuilder<TherapiesListBloc, ObjectsListState>(
+    return BlocBuilder<ObjectsListBloc<BackendTherapiesApi>, ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
         return PicosScreenFrame(
           title: _title,
@@ -144,7 +143,9 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
                 );
               }
 
-              context.read<TherapiesListBloc>().add(SaveObject(therapy));
+              context
+                  .read<ObjectsListBloc<BackendTherapiesApi>>()
+                  .add(SaveObject(therapy));
               Navigator.of(context).pop(therapy);
             },
           ),

@@ -18,14 +18,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/api/backend_medications_api.dart';
 import 'package:picos/models/medication.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:picos/widgets/picos_select.dart';
 
-import '../../state/medications/medications_list_bloc.dart';
-import '../../state/objects_list_event.dart';
-import '../../state/objects_list_state.dart';
+import '../../state/objects_list_bloc.dart';
 import '../../widgets/picos_body.dart';
 import '../../widgets/picos_label.dart';
 import '../../widgets/picos_text_field.dart';
@@ -184,7 +183,8 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
       top: 5,
     );
 
-    return BlocBuilder<MedicationsListBloc, ObjectsListState>(
+    return BlocBuilder<ObjectsListBloc<BackendMedicationsApi>,
+        ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
         return PicosScreenFrame(
           body: PicosBody(
@@ -320,7 +320,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
               }
 
               context
-                  .read<MedicationsListBloc>()
+                  .read<ObjectsListBloc<BackendMedicationsApi>>()
                   .add(SaveObject(medication));
               Navigator.of(context).pop();
             },

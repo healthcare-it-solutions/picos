@@ -17,9 +17,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../api/backend_therapies_api.dart';
 import '../../models/therapy.dart';
-import '../../state/objects_list_state.dart';
-import '../../state/therapies/therapies_list_bloc.dart';
+import '../../state/objects_list_bloc.dart';
 import 'therapy_item.dart';
 
 /// A List with all therapies.
@@ -34,7 +34,7 @@ class TherapiesList extends StatefulWidget {
 class _TherapiesListState extends State<TherapiesList> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TherapiesListBloc,ObjectsListState>(
+    return BlocBuilder<ObjectsListBloc<BackendTherapiesApi>, ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
         if (state.objectsList.isEmpty &&
             state.status == ObjectsListStatus.loading) {
