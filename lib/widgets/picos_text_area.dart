@@ -28,6 +28,7 @@ class PicosTextArea extends StatelessWidget {
     this.hint = '',
     this.autofocus = false,
     this.onTap,
+    this.validator,
     this.readOnly = false,
     this.maxLines = 5,
     this.initialValue,
@@ -48,6 +49,9 @@ class PicosTextArea extends StatelessWidget {
   /// The function that is executed when the user taps the field.
   final Function()? onTap;
 
+  /// The function that is responsible for validation.
+  final String? Function(String?)? validator;
+
   /// Whether the text can be changed.
   final bool readOnly;
 
@@ -64,6 +68,7 @@ class PicosTextArea extends StatelessWidget {
       height: maxLines * 24 + 31,
       readOnly: readOnly,
       onTap: onTap,
+      validator: validator,
       hint: hint,
       autofocus: autofocus,
       disabled: disabled,

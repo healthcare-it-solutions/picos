@@ -25,6 +25,8 @@ enum FormOfAddress {
   male,
   /// Element for denoting 'female'.
   female,
+  /// Element for denoting 'diverse'.
+  diverse,
 }
 
 /// Class with patient information.
