@@ -34,9 +34,9 @@ enum ObjectsListStatus {
   failure
 }
 
-/// Handles the MedicationsListState.
+/// Handles the ObjectsListState.
 class ObjectsListState extends Equatable {
-  /// MedicationsListState constructor.
+  /// ObjectsListState constructor.
   const ObjectsListState({
     this.objectsList = const <AbstractDatabaseObject>[],
     this.status = ObjectsListStatus.initial,
@@ -45,7 +45,7 @@ class ObjectsListState extends Equatable {
   /// The current [ObjectsListStatus].
   final ObjectsListStatus status;
 
-  /// The current [objectsList] containing all medications.
+  /// The current [objectsList] containing all objects.
   final List<AbstractDatabaseObject> objectsList;
 
   /// Creates a copy with updated values.
