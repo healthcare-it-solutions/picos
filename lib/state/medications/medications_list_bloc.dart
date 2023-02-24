@@ -21,8 +21,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:picos/models/abstract_database_object.dart';
 
+import '../../api/backend_medications_api.dart';
 import '../../models/medication.dart';
-import '../../repository/objects_repository.dart';
 
 part 'medications_list_event.dart';
 
@@ -32,7 +32,7 @@ part 'medications_list_state.dart';
 class MedicationsListBloc
     extends Bloc<MedicationsListEvent, MedicationsListState> {
   /// Creates the MedicationsListBloc.
-  MedicationsListBloc({required ObjectsRepository medicationsRepository})
+  MedicationsListBloc({required BackendMedicationsApi medicationsRepository})
       : _medicationsRepository = medicationsRepository,
         super(const MedicationsListState()) {
     on<MedicationsListSubscriptionRequested>(_onSubscriptionRequested);
@@ -40,7 +40,7 @@ class MedicationsListBloc
     on<RemoveMedication>(_onRemoveMedication);
   }
 
-  final ObjectsRepository _medicationsRepository;
+  final BackendMedicationsApi _medicationsRepository;
 
   Future<void> _onSubscriptionRequested(
     MedicationsListSubscriptionRequested event,

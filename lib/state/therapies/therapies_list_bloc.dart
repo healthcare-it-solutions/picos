@@ -19,8 +19,9 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:picos/repository/therapies_repository.dart';
+import 'package:picos/models/abstract_database_object.dart';
 
+import '../../api/backend_therapies_api.dart';
 import '../../models/therapy.dart';
 
 part 'therapies_list_event.dart';
@@ -31,7 +32,7 @@ part 'therapies_list_state.dart';
 class TherapiesListBloc
     extends Bloc<TherapiesListEvent, TherapiesListState> {
   /// Creates the TherapiesListBloc.
-  TherapiesListBloc({required TherapiesRepository therapiesRepository})
+  TherapiesListBloc({required BackendTherapiesApi therapiesRepository})
       : _therapiesRepository = therapiesRepository,
         super(const TherapiesListState()) {
     on<TherapiesListSubscriptionRequested>(_onSubscriptionRequested);
@@ -39,7 +40,7 @@ class TherapiesListBloc
     on<RemoveTherapy>(_onRemoveTherapy);
   }
 
-  final TherapiesRepository _therapiesRepository;
+  final BackendTherapiesApi _therapiesRepository;
 
   Future<void> _onSubscriptionRequested(
       TherapiesListSubscriptionRequested event,
@@ -47,9 +48,9 @@ class TherapiesListBloc
   ) async {
     emit(state.copyWith(status: TherapiesListStatus.loading));
 
-    await emit.forEach<List<Therapy>>(
-      await _therapiesRepository.getTherapies(),
-      onData: (List<Therapy> therapies) {
+    await emit.forEach<List<AbstractDatabaseObject>>(
+      await _therapiesRepository.getObjects(),
+      onData: (List<AbstractDatabaseObject> therapies) {
         return state.copyWith(
           status: TherapiesListStatus.success,
           therapiesList: therapies,
@@ -69,7 +70,7 @@ class TherapiesListBloc
   ) async {
     emit(state.copyWith(status: TherapiesListStatus.loading));
     await _therapiesRepository
-        .saveTherapy(
+        .saveObject(
           event.therapy,
         )
         .onError(
@@ -94,7 +95,7 @@ class TherapiesListBloc
   ) async {
     emit(state.copyWith(status: TherapiesListStatus.loading));
     await _therapiesRepository
-        .removeTherapy(
+        .removeObject(
           event.therapy,
         )
         .onError(

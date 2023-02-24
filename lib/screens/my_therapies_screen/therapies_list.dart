@@ -17,6 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../models/therapy.dart';
 import '../../state/therapies/therapies_list_bloc.dart';
 import 'therapy_item.dart';
 
@@ -50,7 +51,7 @@ class _TherapiesListState extends State<TherapiesList> {
         return ListView.separated(
           itemCount: state.therapiesList.length,
           itemBuilder: (BuildContext context, int index) {
-            return TherapyItem(state.therapiesList[index]);
+            return TherapyItem(state.therapiesList[index] as Therapy);
           },
           separatorBuilder: (BuildContext context, int index) {
             return const Padding(

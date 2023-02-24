@@ -21,8 +21,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/api/backend_medications_api.dart';
 import 'package:picos/api/backend_therapies_api.dart';
-import 'package:picos/repository/objects_repository.dart';
-import 'package:picos/repository/therapies_repository.dart';
 import 'package:picos/screens/login_screen.dart';
 import 'package:picos/state/therapies/therapies_list_bloc.dart';
 import 'package:picos/themes/global_theme.dart';
@@ -39,17 +37,20 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     const GlobalTheme theme = GlobalTheme();
 
-    final ObjectsRepository medicationsRepository =
-    ObjectsRepository(objectApi: BackendMedicationsApi());
-    final TherapiesRepository therapiesRepository =
-        TherapiesRepository(therapiesApi: BackendTherapiesApi());
+    final BackendMedicationsApi medicationsRepository =
+    BackendMedicationsApi();
+
+    //final ObjectsRepository medicationsRepository =
+    //    ObjectsRepository(objectApi: BackendMedicationsApi());
+    final BackendTherapiesApi therapiesRepository =
+    BackendTherapiesApi();
 
     return MultiRepositoryProvider(
       providers: <RepositoryProvider<dynamic>>[
-        RepositoryProvider<ObjectsRepository>.value(
+        RepositoryProvider<BackendMedicationsApi>.value(
           value: medicationsRepository,
         ),
-        RepositoryProvider<TherapiesRepository>.value(
+        RepositoryProvider<BackendTherapiesApi>.value(
           value: therapiesRepository,
         )
       ],
@@ -57,12 +58,12 @@ class MainScreen extends StatelessWidget {
         providers: <BlocProvider<dynamic>>[
           BlocProvider<MedicationsListBloc>(
             create: (BuildContext context) => MedicationsListBloc(
-              medicationsRepository: context.read<ObjectsRepository>(),
+              medicationsRepository: context.read<BackendMedicationsApi>(),
             )..add(const MedicationsListSubscriptionRequested()),
           ),
           BlocProvider<TherapiesListBloc>(
             create: (BuildContext context) => TherapiesListBloc(
-              therapiesRepository: context.read<TherapiesRepository>(),
+              therapiesRepository: context.read<BackendTherapiesApi>(),
             )..add(const TherapiesListSubscriptionRequested()),
           ),
         ],
@@ -72,8 +73,8 @@ class MainScreen extends StatelessWidget {
           supportedLocales: AppLocalizations.supportedLocales,
           theme: ThemeData(
             colorScheme: Theme.of(context).colorScheme.copyWith(
-              secondary: theme.grey3,
-            ),
+                  secondary: theme.grey3,
+                ),
             textSelectionTheme: Theme.of(context).textSelectionTheme.copyWith(
                   selectionColor: theme.grey2,
                   selectionHandleColor: theme.grey1,
