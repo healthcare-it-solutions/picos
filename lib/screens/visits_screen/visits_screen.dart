@@ -18,10 +18,10 @@
 import 'package:flutter/material.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 
-/// Displays a form for filling in hospital and doctors stays.
-class StaysScreen extends StatelessWidget {
+/// Displays a form for filling in hospital and doctors visits.
+class VisitsScreen extends StatelessWidget {
   /// Creates StaysScreen
-  const StaysScreen({Key? key}) : super(key: key);
+  const VisitsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
