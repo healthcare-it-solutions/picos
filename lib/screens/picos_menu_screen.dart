@@ -18,6 +18,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../widgets/picos_svg_icon.dart';
+
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
 class PicosMenu extends StatelessWidget {
@@ -49,6 +51,16 @@ class PicosMenu extends StatelessWidget {
           trailing: const Icon(Icons.keyboard_arrow_right),
           onTap: () =>
               Navigator.of(context).pushNamed('/my-therapy-screen/my-therapy'),
+        ),
+        ListTile(
+          leading: const PicosSvgIcon(
+            assetName: 'assets/Krankenhaus.svg',
+            height: 30,
+            width: 30,
+          ),
+          title: Text(AppLocalizations.of(context)!.visits),
+          trailing: const Icon(Icons.keyboard_arrow_right),
+          onTap: () => Navigator.of(context).pushNamed('/visits-screen/visits'),
         ),
         const SizedBox(
           height: 20,
