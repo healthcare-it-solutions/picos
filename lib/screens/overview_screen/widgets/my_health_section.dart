@@ -20,6 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
 import 'package:picos/screens/my_therapies_screen/my_therapies_screen.dart';
+import 'package:picos/screens/visits_screen/visits_screen.dart';
 
 /// Widget which displays health-related information
 class MyHealthSection extends StatelessWidget {
@@ -114,6 +115,42 @@ class MyHealthSection extends StatelessWidget {
                           child: Center(
                             child: Text(
                               AppLocalizations.of(context)!.myTherapy,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  color: Colors.green,
+                  width: 180,
+                  height: 180,
+                  child: GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute<Widget>(
+                        builder: (BuildContext context) =>
+                        const VisitsScreen(),
+                      ),
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        Flexible(
+                          flex: 3,
+                          child: Image.asset('assets/Rehospitalisierung_1225743855_┬®iStock.png'),
+                        ),
+                        Flexible(
+                          flex: 2,
+                          child: Center(
+                            child: Text(
+                              AppLocalizations.of(context)!.visits,
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                 color: Colors.white,
