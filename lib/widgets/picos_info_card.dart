@@ -18,22 +18,45 @@
 import 'package:flutter/material.dart';
 import 'package:picos/widgets/picos_display_card.dart';
 
-/// Displays an info card.
+/// Displays an info card. [infoText] overrides [simpleInfoText].
 class PicosInfoCard extends StatelessWidget {
   /// PicosInfoCard constructor.
   const PicosInfoCard({
-    required this.infoText,
+    this.infoText,
     Key? key,
+    this.simpleInfoText,
   }) : super(key: key);
 
+  /// Use this if you just want to display an simple info.
+  final String? simpleInfoText;
+
   /// The text to be displayed.
-  final Widget infoText;
+  final Widget? infoText;
 
   /// The color to be grabbed for the font.
   static const Color infoTextFontColor = Colors.white;
 
+  /// The size to be grabbed for the font.
+  static const double infoTextFontSize = 20;
+
   @override
   Widget build(BuildContext context) {
+    Widget info = const Text('');
+
+    if (simpleInfoText != null) {
+      info = Text(
+        simpleInfoText!,
+        style: const TextStyle(
+          color: infoTextFontColor,
+          fontSize: infoTextFontSize,
+        ),
+      );
+    }
+
+    if (infoText != null) {
+      info = Flexible(child: infoText!);
+    }
+
     return PicosDisplayCard(
       backgroundColor: Theme.of(context).dialogBackgroundColor,
       child: Row(
@@ -45,7 +68,7 @@ class PicosInfoCard extends StatelessWidget {
             ),
             child: Icon(Icons.info, color: infoTextFontColor),
           ),
-          infoText,
+          info,
         ],
       ),
     );

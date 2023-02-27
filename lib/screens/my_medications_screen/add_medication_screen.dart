@@ -191,29 +191,27 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
             child: Column(
               children: <Widget>[
                 PicosInfoCard(
-                  infoText: Flexible(
-                    child: RichText(
-                      text: TextSpan(
-                        text: AppLocalizations.of(context)!
-                            .addMedicationInfoPart1,
-                        style: const TextStyle(
-                          color: PicosInfoCard.infoTextFontColor,
-                          fontSize: 20,
-                        ),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: AppLocalizations.of(context)!
-                                .addMedicationInfoPart2,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          TextSpan(
-                            text: AppLocalizations.of(context)!
-                                .addMedicationInfoPart3,
-                          ),
-                        ],
+                  infoText: RichText(
+                    text: TextSpan(
+                      text: AppLocalizations.of(context)!
+                          .addMedicationInfoPart1,
+                      style: const TextStyle(
+                        color: PicosInfoCard.infoTextFontColor,
+                        fontSize: PicosInfoCard.infoTextFontSize,
                       ),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: AppLocalizations.of(context)!
+                              .addMedicationInfoPart2,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextSpan(
+                          text: AppLocalizations.of(context)!
+                              .addMedicationInfoPart3,
+                        ),
+                      ],
                     ),
                   ),
                 ),
