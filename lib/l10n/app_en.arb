@@ -814,5 +814,17 @@
     "visits": "Doctor/hospital visits",
     "@visits": {
         "description": "Doctor/hospital visits"
+    },
+    "visitInfoPart1": "This information is only required if you have made an ",
+    "@visitInfoPart1": {
+        "description": "Patient advice for unplanned hospital and doctors visits. (Part 1)"
+    },
+    "visitInfoPart2": "unplanned",
+    "@visitInfoPart2": {
+        "description": "Patient advice for unplanned hospital and doctors visits. (Part 2)"
+    },
+    "visitInfoPart3": " visit to a doctor's office or hospital.",
+    "@visitInfoPart3": {
+        "description": "Patient advice for unplanned hospital and doctors visits. (Part 3)"
     }
 }

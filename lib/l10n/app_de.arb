@@ -172,5 +172,8 @@
     "strongPain": "Starke Schmerzen",
     "therapyName": "Therapiename",
     "enterName": "Bitte tragen Sie den Namen ein",
-    "visits": "Arzt-/Krankenhausbesuche"
+    "visits": "Arzt-/Krankenhausbesuche",
+    "visitInfoPart1": "Diese Angaben sind nur erforderlich, wenn Sie ",
+    "visitInfoPart2": "ungeplant",
+    "visitInfoPart3": " eine Arztpraxis oder ein Krankenhaus aufgesucht haben."
 }
