@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/models/patient.dart';
+import 'package:picos/models/patient_data.dart';
 import 'package:picos/models/patient_profile.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_additional_entries.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_form.dart';
@@ -82,12 +83,8 @@ class _ConfigurationPages extends State<ConfigurationPages> {
   final Map<String, String> _additionalEntries = <String, String>{
     'entryCaseNumber': '',
     'entryPatientID': '',
-    'entryWeight': '',
-    'entryHeight': '',
-    'entryBloodPressure': '',
-    'entryBloodSugar': '',
-    'entryDischargeDate': '',
     'entryInstituteKey': '',
+    'entryHeight': '',
   };
 
   final List<Widget> _list = <Widget>[];
@@ -192,7 +189,8 @@ class _ConfigurationPages extends State<ConfigurationPages> {
             child: PicosInkWellButton(
               text: AppLocalizations.of(context)!.proceed,
               onTap: () async {
-                if (_currentPage == _list.length - 1) {
+                if (_currentPage == _list.length - 1 &&
+                    formKeyConfiguration.currentState!.validate()) {
                   formKeyConfiguration.currentState!.save();
                   Patient patient = Patient(
                     firstName: _formEntries['entryFirstName']!,
@@ -258,6 +256,35 @@ class _ConfigurationPages extends State<ConfigurationPages> {
                     objectId: responsePatientProfile['objectId'],
                     createdAt: DateTime.parse(
                       responsePatientProfile['createdAt'],
+                    ),
+                  );
+                  PatientData patientData = PatientData(
+                    bodyHeight:
+                        double.parse(_additionalEntries['entryHeight']!),
+                    patientID: _additionalEntries['entryPatientID']!,
+                    caseNumber: _additionalEntries['entryCaseNumber']!,
+                    instKey: _additionalEntries['entryInstituteKey']!,
+                    patientObjectId: patient.objectId!,
+                    doctorObjectId: Backend.user.objectId!,
+                  );
+                  BackendACL patientDataACL = BackendACL();
+                  patientDataACL.setReadAccess(
+                    userId: patient.objectId!,
+                  );
+                  patientDataACL.setReadAccess(
+                    userId: 'role:Doctor',
+                  );
+                  patientDataACL.setWriteAccess(
+                    userId: 'role:Doctor',
+                  );
+                  dynamic responsePatientData = await Backend.saveObject(
+                    patientData,
+                    acl: patientDataACL,
+                  );
+                  patientData = patientData.copyWith(
+                    objectId: responsePatientData['objectId'],
+                    createdAt: DateTime.parse(
+                      responsePatientData['createdAt'],
                     ),
                   );
                   if (!mounted) {

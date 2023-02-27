@@ -16,7 +16,6 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/themes/global_theme.dart';
 import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_text_field.dart';
@@ -41,8 +40,6 @@ class ConfigurationAdditionalEntries extends StatefulWidget {
 
 class _ConfigurationAdditionalEntriesState
     extends State<ConfigurationAdditionalEntries> {
-  TextEditingController datePickerController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return PicosBody(
@@ -73,15 +70,15 @@ class _ConfigurationAdditionalEntriesState
               ],
             ),
           ),
-          PicosLabel(label: AppLocalizations.of(context)!.weight),
+          PicosLabel(label: AppLocalizations.of(context)!.instituteKey),
           PicosTextField(
-            hint: AppLocalizations.of(context)!.weight,
+            hint: AppLocalizations.of(context)!.instituteKey,
             onChanged: (String? newValue) {
-              widget.callbackAdditionalEntries('entryWeight', newValue!);
+              widget.callbackAdditionalEntries('entryInstituteKey', newValue!);
             },
             validator: qValidator(
               <TextValidationRule>[
-                IsRequired(AppLocalizations.of(context)!.enterWeight),
+                IsRequired(AppLocalizations.of(context)!.enterInstituteKey),
               ],
             ),
           ),
@@ -94,88 +91,6 @@ class _ConfigurationAdditionalEntriesState
             validator: qValidator(
               <TextValidationRule>[
                 IsRequired(AppLocalizations.of(context)!.enterHeight),
-              ],
-            ),
-          ),
-          PicosLabel(label: AppLocalizations.of(context)!.bloodPressure),
-          PicosTextField(
-            hint: AppLocalizations.of(context)!.bloodPressure,
-            onChanged: (String? newValue) {
-              widget.callbackAdditionalEntries('entryBloodPressure', newValue!);
-            },
-            validator: qValidator(
-              <TextValidationRule>[
-                IsRequired(AppLocalizations.of(context)!.enterBloodPressure),
-              ],
-            ),
-          ),
-          PicosLabel(label: AppLocalizations.of(context)!.bloodSugar),
-          PicosTextField(
-            hint: AppLocalizations.of(context)!.bloodSugar,
-            onChanged: (String? newValue) {
-              widget.callbackAdditionalEntries('entryBloodSugar', newValue!);
-            },
-            validator: qValidator(
-              <TextValidationRule>[
-                IsRequired(AppLocalizations.of(context)!.enterBloodSugar),
-              ],
-            ),
-          ),
-          PicosLabel(label: AppLocalizations.of(context)!.dischargeDate),
-          PicosTextField(
-            hint: AppLocalizations.of(context)!.dischargeDate,
-            controller: datePickerController,
-            onTap: () async {
-              FocusScope.of(context).requestFocus(FocusNode());
-              DateTime? date = await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate:
-                    DateTime.now().subtract(const Duration(days: 365 * 10)),
-                lastDate: DateTime.now().add(const Duration(days: 365 * 10)),
-                builder: (BuildContext context, Widget? child) {
-                  return Theme(
-                    data: Theme.of(context).copyWith(
-                      dialogBackgroundColor: Theme.of(context)
-                          .extension<GlobalTheme>()!
-                          .bottomNavigationBar!,
-                      colorScheme: ColorScheme.light(
-                        primary: Theme.of(context)
-                            .extension<GlobalTheme>()!
-                            .darkGreen1!,
-                      ),
-                    ),
-                    child: child!,
-                  );
-                },
-              );
-
-              if (date != null) {
-                datePickerController.text = date.day.toString() +
-                    date.month.toString() +
-                    date.year.toString();
-                widget.callbackAdditionalEntries(
-                  'entryDischargeDate',
-                  date.toString(),
-                );
-              }
-            },
-            readOnly: true,
-            validator: qValidator(
-              <TextValidationRule>[
-                IsRequired(AppLocalizations.of(context)!.enterDischargeDate),
-              ],
-            ),
-          ),
-          PicosLabel(label: AppLocalizations.of(context)!.instituteKey),
-          PicosTextField(
-            hint: AppLocalizations.of(context)!.instituteKey,
-            onChanged: (String? newValue) {
-              widget.callbackAdditionalEntries('entryInstituteKey', newValue!);
-            },
-            validator: qValidator(
-              <TextValidationRule>[
-                IsRequired(AppLocalizations.of(context)!.enterInstituteKey),
               ],
             ),
           ),
