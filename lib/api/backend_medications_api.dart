@@ -45,12 +45,7 @@ class BackendMedicationsApi extends BackendObjectsApi {
         );
       }
 
-      return objectController.stream.asBroadcastStream(
-        onListen:
-            (StreamSubscription<List<AbstractDatabaseObject>> subscription) {
-          dispatch();
-        },
-      );
+      return getObjectsStream();
     } catch (e) {
       return Stream<List<Medication>>.error(e);
     }
