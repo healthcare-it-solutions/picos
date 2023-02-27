@@ -24,8 +24,10 @@ abstract class PageViewNavigation {
   final PageController _controller = PageController();
   static const Duration _controllerDuration = Duration(milliseconds: 300);
   static const Curve _controllerCurve = Curves.ease;
-  late final BuildContext? _buildContext;
-  final List<PicosPageViewItem> _pages = <PicosPageViewItem>[];
+  BuildContext? _buildContext;
+
+  /// Provides access to the [_pages] list.
+  List<PicosPageViewItem> pages = <PicosPageViewItem>[];
 
   /// Provides access to the [PageController].
   PageController get controller {
@@ -33,12 +35,7 @@ abstract class PageViewNavigation {
   }
 
   set buildContext(BuildContext context) {
-    _buildContext = context;
-  }
-
-  /// Provides access to the [_pages] list.
-  List<PicosPageViewItem> get pages {
-    return _pages;
+    _buildContext ??= context;
   }
 
   /// Goes to the previous page.
@@ -68,7 +65,7 @@ abstract class PageViewNavigation {
 
     FocusManager.instance.primaryFocus?.unfocus();
 
-    if (controller.page == _pages.length - 1) {
+    if (controller.page == pages.length - 1) {
       Navigator.of(_buildContext!).pop();
       return;
     }
