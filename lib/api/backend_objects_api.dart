@@ -23,11 +23,11 @@ import 'database_object_api.dart';
 
 /// API for storing objects at the backend.
 abstract class BackendObjectsApi extends DatabaseObjectApi {
-  /// Contains all objects that are controlled by [objectController].
+  /// Contains all objects that are controlled by [_objectController].
   List<AbstractDatabaseObject> objectList = <AbstractDatabaseObject>[];
 
   /// Controls the database objects.
-  final StreamController<List<AbstractDatabaseObject>> objectController =
+  final StreamController<List<AbstractDatabaseObject>> _objectController =
       StreamController<List<AbstractDatabaseObject>>();
 
   @override
@@ -76,9 +76,19 @@ abstract class BackendObjectsApi extends DatabaseObjectApi {
     }
   }
 
+  /// Returns the [objectList] as a stream for the application to use.
+  Stream<List<AbstractDatabaseObject>> getObjectsStream() {
+    return _objectController.stream.asBroadcastStream(
+      onListen:
+          (StreamSubscription<List<AbstractDatabaseObject>> subscription) {
+        dispatch();
+      },
+    );
+  }
+
   /// Updates the objects.
   void dispatch() {
-    objectController.sink.add(objectList);
+    _objectController.sink.add(objectList);
   }
 
   int _getIndex(AbstractDatabaseObject object) {
