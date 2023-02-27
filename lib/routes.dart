@@ -71,7 +71,7 @@ class Routes {
       '/my-therapy-screen/my-therapy': (BuildContext ctx) =>
           const MyTherapiesScreen(),
       '/legals-screen': (BuildContext ctx) => const LegalsScreen(),
-      '/visits-screen/visits': (BuildContext ctx) => const VisitsScreen(),
+      '/visits-screen/visits': (BuildContext ctx) => VisitsScreen(),
     };
   }
 
