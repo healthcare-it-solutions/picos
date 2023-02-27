@@ -7,7 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../themes/global_theme.dart';
 
 /// Creates a standardized page item.
-class PicosPageViewItem extends StatelessWidget {
+class PicosPageViewItem extends StatefulWidget {
   /// PicosPageViewItem constructor.
   const PicosPageViewItem({
     required this.child,
@@ -33,6 +33,12 @@ class PicosPageViewItem extends StatelessWidget {
   /// Title of the right button.
   final String? rightButtonTitle;
 
+  @override
+  State<PicosPageViewItem> createState() => _PicosPageViewItemState();
+}
+
+class _PicosPageViewItemState extends State<PicosPageViewItem>
+    with AutomaticKeepAliveClientMixin {
   // Strings
   static String? _back;
   static String? _next;
@@ -40,6 +46,8 @@ class PicosPageViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     if (_theme == null) {
       _back = AppLocalizations.of(context)!.back;
       _next = AppLocalizations.of(context)!.next;
@@ -51,7 +59,7 @@ class PicosPageViewItem extends StatelessWidget {
       children: <Widget>[
         Expanded(
           child: PicosBody(
-            child: child,
+            child: widget.child,
           ),
         ),
         PicosAddButtonBar(
@@ -62,8 +70,8 @@ class PicosPageViewItem extends StatelessWidget {
               top: 15,
               bottom: 10,
             ),
-            text: leftButtonTitle ?? _back!,
-            onTap: leftFunction ?? () {},
+            text: widget.leftButtonTitle ?? _back!,
+            onTap: widget.leftFunction ?? () {},
             buttonColor1: _theme!.grey3,
             buttonColor2: _theme!.grey1,
           ),
@@ -74,11 +82,14 @@ class PicosPageViewItem extends StatelessWidget {
               top: 15,
               bottom: 10,
             ),
-            text: rightButtonTitle ?? _next!,
-            onTap: rightFunction ?? () {},
+            text: widget.rightButtonTitle ?? _next!,
+            onTap: widget.rightFunction ?? () {},
           ),
         )
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
