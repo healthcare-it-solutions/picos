@@ -810,5 +810,9 @@
     "enterName": "Please enter the name",
     "@enterName": {
         "description": "Please enter the name"
+    },
+    "visits": "Doctor/hospital visits",
+    "@visits": {
+        "description": "Doctor/hospital visits"
     }
 }
