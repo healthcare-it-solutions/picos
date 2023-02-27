@@ -39,14 +39,22 @@ class PicosMenu extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         ListTile(
-          leading: const Icon(Icons.medication),
+          leading: const PicosSvgIcon(
+            assetName: 'assets/Medikation.svg',
+            height: 30,
+            width: 30,
+          ),
           title: Text(AppLocalizations.of(context)!.medicationScheme),
           trailing: const Icon(Icons.keyboard_arrow_right),
           onTap: () => Navigator.of(context)
               .pushNamed('/my-medications-screen/my-medications'),
         ),
         ListTile(
-          leading: const Icon(Icons.add_circle_outline),
+          leading: const PicosSvgIcon(
+            assetName: 'assets/Therapie.svg',
+            height: 30,
+            width: 30,
+          ),
           title: Text(AppLocalizations.of(context)!.therapy),
           trailing: const Icon(Icons.keyboard_arrow_right),
           onTap: () =>
