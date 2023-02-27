@@ -32,7 +32,7 @@ class QuestionaireCard extends StatefulWidget {
   /// The label of the questionaire card.
   final Widget? label;
 
-  /// The title of the input field.
+  /// The card content.
   final Widget child;
 
   /// Possible custom padding.
