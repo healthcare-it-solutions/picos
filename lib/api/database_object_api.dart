@@ -17,17 +17,17 @@
 
 import 'package:picos/models/abstract_database_object.dart';
 
-/// The interface for an API that provides access to a list of therapies.
+/// The interface for an API that provides access to a list of objects.
 abstract class DatabaseObjectApi {
-  /// Medications API constructor.
+  /// DatabaseObjectApi constructor.
   const DatabaseObjectApi();
 
-  /// Provides a [Stream] of all medications.
+  /// Provides a [Stream] of all [AbstractDatabaseObject].
   Future<Stream<List<AbstractDatabaseObject>>> getObjects();
 
-  /// Saves or replaces a [therapy].
+  /// Saves or replaces a [AbstractDatabaseObject].
   Future<void> saveObject(AbstractDatabaseObject object);
 
-  /// Removes the given [therapy].
+  /// Removes the given [AbstractDatabaseObject].
   Future<void> removeObject(AbstractDatabaseObject object);
 }
