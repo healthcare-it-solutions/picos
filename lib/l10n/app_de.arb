@@ -175,5 +175,8 @@
     "visits": "Arzt-/Krankenhausbesuche",
     "visitInfoPart1": "Diese Angaben sind nur erforderlich, wenn Sie ",
     "visitInfoPart2": "ungeplant",
-    "visitInfoPart3": " eine Arztpraxis oder ein Krankenhaus aufgesucht haben."
+    "visitInfoPart3": " eine Arztpraxis oder ein Krankenhaus aufgesucht haben.",
+    "iWasUnscheduled": "Ich war ungeplant",
+    "toSeeAResidentPhysician": "bei einem/r niedergelassenen Arzt/Ärztin",
+    "inAHospital": "in einem Krankenhaus"
 }

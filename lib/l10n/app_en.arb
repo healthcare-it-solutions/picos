@@ -826,5 +826,17 @@
     "visitInfoPart3": " visit to a doctor's office or hospital.",
     "@visitInfoPart3": {
         "description": "Patient advice for unplanned hospital and doctors visits. (Part 3)"
+    },
+    "iWasUnscheduled": "I was unscheduled",
+    "@iWasUnscheduled": {
+        "description": "I was unscheduled"
+    },
+    "toSeeAResidentPhysician": "to see a resident physician",
+    "@toSeeAResidentPhysician": {
+        "description": "to see a resident physician"
+    },
+    "inAHospital": "in a hospital",
+    "@inAHospital": {
+        "description": "in a hospital"
     }
 }
