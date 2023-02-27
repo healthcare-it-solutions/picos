@@ -19,7 +19,6 @@ import 'dart:async';
 
 import 'package:picos/api/backend_objects_api.dart';
 import 'package:picos/models/abstract_database_object.dart';
-import 'package:picos/models/medication.dart';
 import 'package:picos/models/stay.dart';
 
 import '../util/backend.dart';
@@ -29,7 +28,7 @@ class BackendStaysApi extends BackendObjectsApi {
   @override
   Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
     try {
-      List<dynamic> response = await Backend.getAll(Medication.databaseTable);
+      List<dynamic> response = await Backend.getAll(Stay.databaseTable);
 
       for (dynamic element in response) {
         objectList.add(
