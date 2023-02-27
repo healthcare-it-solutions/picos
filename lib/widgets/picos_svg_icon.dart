@@ -30,8 +30,6 @@ class PicosSvgIcon extends StatelessWidget {
     this.width,
   }) : super(key: key);
 
-  static const GlobalTheme _theme = GlobalTheme();
-
   /// Path to the asset.
   final String assetName;
 
@@ -45,11 +43,13 @@ class PicosSvgIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
     return SvgPicture.asset(
       assetName,
       height: height,
       width: width,
-      colorFilter: ColorFilter.mode(_theme.darkGreen1!, BlendMode.srcIn),
+      colorFilter: ColorFilter.mode(theme.darkGreen1!, BlendMode.srcIn),
     );
   }
 }
