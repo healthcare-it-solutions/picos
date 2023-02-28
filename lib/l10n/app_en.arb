@@ -831,9 +831,9 @@
     "@iWasUnscheduled": {
         "description": "I was unscheduled"
     },
-    "toSeeAResidentPhysician": "to see a resident physician",
+    "toSeeAResidentPhysician": "to see a general practitioner",
     "@toSeeAResidentPhysician": {
-        "description": "to see a resident physician"
+        "description": "to see a general practitioner"
     },
     "inAHospital": "in a hospital",
     "@inAHospital": {
@@ -847,9 +847,9 @@
     "@whenWereYouInHospital": {
         "description": "When were you in the hospital?"
     },
-    "dayOfRecording": "Day of recording",
+    "dayOfRecording": "Date of admission",
     "@dayOfRecording": {
-        "description": "Day of recording"
+        "description": "Date of admission"
     },
     "dayOfDischarge": "Day of discharge",
     "@dayOfDischarge": {
