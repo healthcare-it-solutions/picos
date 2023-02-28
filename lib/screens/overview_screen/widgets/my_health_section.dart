@@ -137,7 +137,7 @@ class MyHealthSection extends StatelessWidget {
                       context,
                       MaterialPageRoute<Widget>(
                         builder: (BuildContext context) =>
-                        VisitsScreen(),
+                        const VisitsScreen(),
                       ),
                     ),
                     child: Column(
