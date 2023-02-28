@@ -23,6 +23,7 @@ import 'package:picos/widgets/picos_page_view_item.dart';
 import 'package:picos/widgets/picos_radio_select.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/widgets/picos_text_area.dart';
 
 import '../../themes/global_theme.dart';
 import '../../util/page_view_navigation.dart';
@@ -53,6 +54,9 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
   static String? _whenWereYouInHospital;
   static String? _dayOfRecording;
   static String? _dayOfDischarge;
+  static String? _save;
+  static String? _reasonForVisitToTheDoctor;
+  static String? _reasonForHospitalization;
 
   static GlobalTheme? _theme;
 
@@ -63,29 +67,28 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
   String? _unplanned;
   DateTime? _record;
   DateTime? _discharge;
+  String? _reason;
 
   //state
   final List<bool> _disabledNextPages = <bool>[true, true, true];
   bool _nextDisabled = true;
   String _recordHint = '';
   String _dischargeHint = '';
+  String _rightButtonTitle = '';
 
-  void _checkHospitalDates() {
+  bool _checkHospitalDates() {
     if (_record == null || _discharge == null) {
-      return;
+      return false;
     }
-
     if (_record!.isAfter(_discharge!)) {
-      _disabledNextPages[1] = true;
-      return;
+      return false;
     }
-
-    _disabledNextPages[1] = false;
+    return true;
   }
 
   _setSecondPageDisabled() {
     if (_unplanned == 'Hospital') {
-      _checkHospitalDates();
+      _disabledNextPages[1] = !_checkHospitalDates();
     }
 
     if (_unplanned == 'Physician') {
@@ -158,19 +161,63 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
   }
 
   void _nextPageCallback() {
-    if (_unplanned == 'Hospital' && _discharge == null) {
-      _disabledNextPages[1] = true;
+    if (_unplanned == 'Hospital') {
+      _disabledNextPages[1] = !_checkHospitalDates();
     }
 
+    if (_unplanned == 'Physician' && _record != null) {
+      _disabledNextPages[1] = false;
+    }
+
+    int currentPage = page.toInt() + 1;
+
     setState(() {
-      _nextDisabled = _disabledNextPages[page.toInt() + 1];
+      _nextDisabled = _disabledNextPages[currentPage];
+
+      if (currentPage == pages.length - 1) {
+        _rightButtonTitle = _save!;
+      }
     });
   }
 
   void _previousPageCallback() {
     setState(() {
       _nextDisabled = _disabledNextPages[page.toInt() - 1];
+
+      if (_rightButtonTitle != _next) {
+        _rightButtonTitle = _next!;
+      }
     });
+  }
+
+  PicosPageViewItem _buildReasonPage() {
+    String label = '';
+
+    if (_unplanned == 'Hospital') {
+      label = _reasonForHospitalization!;
+    }
+
+    if (_unplanned == 'Physician') {
+      label = _reasonForVisitToTheDoctor!;
+    }
+
+    return PicosPageViewItem(
+      child: PicosDisplayCard(
+        label: PicosLabel(label),
+        child: PicosTextArea(
+          initialValue: _reason,
+          maxLines: 20,
+          onChanged: (String value) {
+            _reason = value;
+            _disabledNextPages[2] = _reason!.isEmpty;
+
+            setState(() {
+              _nextDisabled = _disabledNextPages[2];
+            });
+          },
+        ),
+      ),
+    );
   }
 
   @override
@@ -191,6 +238,11 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
           AppLocalizations.of(context)!.whenWereYouInHospital;
       _dayOfRecording = AppLocalizations.of(context)!.dayOfRecording;
       _dayOfDischarge = AppLocalizations.of(context)!.dayOfDischarge;
+      _save = AppLocalizations.of(context)!.save;
+      _reasonForHospitalization =
+          AppLocalizations.of(context)!.reasonForHospitalization;
+      _reasonForVisitToTheDoctor =
+          AppLocalizations.of(context)!.reasonForVisitToTheDoctor;
 
       _theme = Theme.of(context).extension<GlobalTheme>()!;
 
@@ -201,6 +253,8 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
     }
 
     if (pages.isEmpty) {
+      _rightButtonTitle = _next!;
+
       pages = <PicosPageViewItem>[
         PicosPageViewItem(
           child: Column(
@@ -248,9 +302,11 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
                     _unplanned = value;
                     if (pages.length == 1) {
                       pages.add(_buildRecordingPage());
+                      pages.add(_buildReasonPage());
                       return;
                     }
                     pages[1] = _buildRecordingPage();
+                    pages[2] = _buildReasonPage();
                   },
                 ),
               ),
@@ -293,7 +349,7 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
             top: 15,
             bottom: 10,
           ),
-          text: _next!,
+          text: _rightButtonTitle,
           onTap: nextPage,
         ),
       ),
