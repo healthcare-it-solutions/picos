@@ -27,6 +27,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../themes/global_theme.dart';
 import '../../util/page_view_navigation.dart';
 import '../../widgets/picos_add_button_bar.dart';
+import '../../widgets/picos_date_picker.dart';
 import '../../widgets/picos_ink_well_button.dart';
 
 /// Displays a form for filling in hospital and doctors visits.
@@ -48,25 +49,128 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
   static String? _visitInfo2;
   static String? _visitInfo3;
   static String? _iWasUnscheduled;
+  static String? _whenDidYouSeeThePhysician;
+  static String? _whenWereYouInHospital;
+  static String? _dayOfRecording;
+  static String? _dayOfDischarge;
 
   static GlobalTheme? _theme;
 
+  static const double _hospitalFontSize = 15;
+  static const FontWeight _hospitalFontWeight = FontWeight.normal;
+
   //input
   String? _unplanned;
+  DateTime? _record;
+  DateTime? _discharge;
 
   //state
+  final List<bool> _disabledNextPages = <bool>[true, true, true];
   bool _nextDisabled = true;
+  String _recordHint = '';
+  String _dischargeHint = '';
+
+  void _checkHospitalDates() {
+    if (_record == null || _discharge == null) {
+      return;
+    }
+
+    if (_record!.isAfter(_discharge!)) {
+      _disabledNextPages[1] = true;
+      return;
+    }
+
+    _disabledNextPages[1] = false;
+  }
+
+  _setSecondPageDisabled() {
+    if (_unplanned == 'Hospital') {
+      _checkHospitalDates();
+    }
+
+    if (_unplanned == 'Physician') {
+      _disabledNextPages[1] = false;
+    }
+
+    setState(() {
+      _nextDisabled = _disabledNextPages[1];
+    });
+  }
 
   PicosPageViewItem _buildRecordingPage() {
+    if (_record != null) {
+      _recordHint = PicosDatePicker.formatDate(_record!);
+    }
+
+    if (_discharge != null) {
+      _dischargeHint = PicosDatePicker.formatDate(_discharge!);
+    }
+
     if (_unplanned == 'Hospital') {
-      return const PicosPageViewItem(
-        child: Text('Krankenhaus'),
+      return PicosPageViewItem(
+        child: PicosDisplayCard(
+          label: PicosLabel(_whenWereYouInHospital!),
+          child: Column(
+            children: <Widget>[
+              PicosLabel(
+                _dayOfRecording!,
+                fontSize: _hospitalFontSize,
+                fontWeight: _hospitalFontWeight,
+              ),
+              PicosDatePicker(
+                dateHint: _recordHint,
+                callBackFunction: (DateTime value) {
+                  _record = value;
+                  _setSecondPageDisabled();
+                },
+              ),
+              const SizedBox(height: 10),
+              PicosLabel(
+                _dayOfDischarge!,
+                fontSize: _hospitalFontSize,
+                fontWeight: _hospitalFontWeight,
+              ),
+              PicosDatePicker(
+                dateHint: _dischargeHint,
+                callBackFunction: (DateTime value) {
+                  _discharge = value;
+                  _setSecondPageDisabled();
+                },
+              ),
+            ],
+          ),
+        ),
       );
     }
 
-    return const PicosPageViewItem(
-      child: Text('Arzt'),
+    return PicosPageViewItem(
+      child: PicosDisplayCard(
+        label: PicosLabel(_whenDidYouSeeThePhysician!),
+        child: PicosDatePicker(
+          dateHint: _recordHint,
+          callBackFunction: (DateTime value) {
+            _record = value;
+            _setSecondPageDisabled();
+          },
+        ),
+      ),
     );
+  }
+
+  void _nextPageCallback() {
+    if (_unplanned == 'Hospital' && _discharge == null) {
+      _disabledNextPages[1] = true;
+    }
+
+    setState(() {
+      _nextDisabled = _disabledNextPages[page.toInt() + 1];
+    });
+  }
+
+  void _previousPageCallback() {
+    setState(() {
+      _nextDisabled = _disabledNextPages[page.toInt() - 1];
+    });
   }
 
   @override
@@ -81,6 +185,13 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
       _visitInfo2 = AppLocalizations.of(context)!.visitInfoPart2;
       _visitInfo3 = AppLocalizations.of(context)!.visitInfoPart3;
       _iWasUnscheduled = AppLocalizations.of(context)!.iWasUnscheduled;
+      _whenDidYouSeeThePhysician =
+          AppLocalizations.of(context)!.whenDidYouSeeThePhysician;
+      _whenWereYouInHospital =
+          AppLocalizations.of(context)!.whenWereYouInHospital;
+      _dayOfRecording = AppLocalizations.of(context)!.dayOfRecording;
+      _dayOfDischarge = AppLocalizations.of(context)!.dayOfDischarge;
+
       _theme = Theme.of(context).extension<GlobalTheme>()!;
 
       _unscheduledSelection = <String, String>{
@@ -123,15 +234,15 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
                 ),
                 label: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: PicosLabel(
-                    label: _iWasUnscheduled!,
-                  ),
+                  child: PicosLabel(_iWasUnscheduled!),
                 ),
                 child: PicosRadioSelect(
                   selection: _unscheduledSelection!,
                   callBack: (dynamic value) {
+                    _disabledNextPages[0] = false;
+
                     setState(() {
-                      _nextDisabled = false;
+                      _nextDisabled = _disabledNextPages[0];
                     });
 
                     _unplanned = value;
@@ -147,6 +258,9 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
           ),
         ),
       ];
+
+      nextPageCallback = _nextPageCallback;
+      previousPageCallback = _previousPageCallback;
     }
 
     return PicosScreenFrame(
