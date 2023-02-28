@@ -26,6 +26,12 @@ abstract class PageViewNavigation {
   static const Curve _controllerCurve = Curves.ease;
   BuildContext? _buildContext;
 
+  /// Callback that executes on [nextPage].
+  void Function()? nextPageCallback;
+
+  /// Callback that executes on [previousPage].
+  void Function()? previousPageCallback;
+
   /// Provides access to the [_pages] list.
   List<PicosPageViewItem> pages = <PicosPageViewItem>[];
 
@@ -38,7 +44,16 @@ abstract class PageViewNavigation {
     _buildContext ??= context;
   }
 
-  /// Goes to the previous page.
+  /// Returns the current page of the controller.
+  double get page {
+    try {
+      return _controller.page!;
+    } catch (e) {
+      return 0;
+    }
+  }
+
+  /// Goes to the previous page. Executes [previousPageCallback] if set.
   void previousPage() {
     if (_buildContext == null) {
       return;
@@ -46,7 +61,7 @@ abstract class PageViewNavigation {
 
     FocusManager.instance.primaryFocus?.unfocus();
 
-    if (controller.page == 0) {
+    if (_controller.page == 0) {
       Navigator.of(_buildContext!).pop();
       return;
     }
@@ -55,9 +70,13 @@ abstract class PageViewNavigation {
       duration: _controllerDuration,
       curve: _controllerCurve,
     );
+
+    if (previousPageCallback != null) {
+      previousPageCallback!();
+    }
   }
 
-  /// Goes to the next page.
+  /// Goes to the next page. Executes [nextPageCallback] if set.
   void nextPage() {
     if (_buildContext == null) {
       return;
@@ -65,14 +84,18 @@ abstract class PageViewNavigation {
 
     FocusManager.instance.primaryFocus?.unfocus();
 
-    if (controller.page == pages.length - 1) {
-      Navigator.of(_buildContext!).pop();
-      return;
-    }
+   if (_controller.page == pages.length - 1) {
+     Navigator.of(_buildContext!).pop();
+     return;
+   }
 
     controller.nextPage(
       duration: _controllerDuration,
       curve: _controllerCurve,
     );
+
+    if (nextPageCallback != null) {
+      nextPageCallback!();
+    }
   }
 }
