@@ -40,6 +40,11 @@ class PicosDatePicker extends StatefulWidget {
   /// The suffix to be shown behind the date.
   final String dateHintSuffix;
 
+  /// A method to get a formatted String for a [date].
+  static String formatDate(DateTime date) {
+    return '${date.day}.${date.month}.${date.year}';
+  }
+
   @override
   State<PicosDatePicker> createState() => _PicosDatePickerState();
 }
@@ -60,16 +65,13 @@ class _PicosDatePickerState extends State<PicosDatePicker> {
       return _hint!;
     }
 
-    // ignore: lines_longer_than_80_chars
-    return '${_date!.day}.${_date!.month}.${_date!.year}${widget.dateHintSuffix}';
+    return '${PicosDatePicker.formatDate(_date!)}${widget.dateHintSuffix}';
   }
 
   @override
   Widget build(BuildContext context) {
-    if (globalTheme == null) {
-      globalTheme = Theme.of(context).extension<GlobalTheme>();
-      _hint = widget.dateHint;
-    }
+    globalTheme ??= Theme.of(context).extension<GlobalTheme>();
+    _hint ??= widget.dateHint;
 
     return PicosTextField(
       hint: _buildHint(),
