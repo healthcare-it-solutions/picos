@@ -35,6 +35,14 @@ import '../../widgets/picos_add_button_bar.dart';
 import '../../widgets/picos_date_picker.dart';
 import '../../widgets/picos_ink_well_button.dart';
 
+/// All options available for unscheduled visits.
+enum VisitOptions {
+  /// Unscheduled visit in a hospital.
+  hospital,
+  /// Unscheduled visit for a physician.
+  physician,
+}
+
 /// Displays a form for filling in hospital and doctors visits.
 class VisitsScreen extends StatefulWidget {
   /// Creates StaysScreen
@@ -45,7 +53,7 @@ class VisitsScreen extends StatefulWidget {
 }
 
 class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
-  static Map<String, String>? _unscheduledSelection;
+  static Map<String, VisitOptions>? _unscheduledSelection;
 
   static String? _back;
   static String? _next;
@@ -68,7 +76,7 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
   static const FontWeight _hospitalFontWeight = FontWeight.normal;
 
   //input
-  String? _unplanned;
+  VisitOptions? _unplanned;
   DateTime? _record;
   DateTime? _discharge;
   String? _reason;
@@ -91,11 +99,11 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
   }
 
   _setSecondPageDisabled() {
-    if (_unplanned == 'Hospital') {
+    if (_unplanned == VisitOptions.hospital) {
       _disabledNextPages[1] = !_checkHospitalDates();
     }
 
-    if (_unplanned == 'Physician') {
+    if (_unplanned == VisitOptions.physician) {
       _disabledNextPages[1] = false;
     }
 
@@ -113,7 +121,7 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
       _dischargeHint = PicosDatePicker.formatDate(_discharge!);
     }
 
-    if (_unplanned == 'Hospital') {
+    if (_unplanned == VisitOptions.hospital) {
       return PicosPageViewItem(
         child: PicosDisplayCard(
           label: PicosLabel(_whenWereYouInHospital!),
@@ -173,7 +181,7 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
               Stay(
                 reason: _reason!,
                 record: _record!,
-                where: _unplanned!,
+                where: _unplanned!.name,
                 discharge: _discharge,
               ),
             ),
@@ -181,11 +189,11 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
       return;
     }
 
-    if (_unplanned == 'Hospital') {
+    if (_unplanned == VisitOptions.hospital) {
       _disabledNextPages[1] = !_checkHospitalDates();
     }
 
-    if (_unplanned == 'Physician' && _record != null) {
+    if (_unplanned == VisitOptions.physician && _record != null) {
       _disabledNextPages[1] = false;
     }
 
@@ -211,11 +219,11 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
   PicosPageViewItem _buildReasonPage() {
     String label = '';
 
-    if (_unplanned == 'Hospital') {
+    if (_unplanned == VisitOptions.hospital) {
       label = _reasonForHospitalization!;
     }
 
-    if (_unplanned == 'Physician') {
+    if (_unplanned == VisitOptions.physician) {
       label = _reasonForVisitToTheDoctor!;
     }
 
@@ -264,9 +272,10 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
 
       _theme = Theme.of(context).extension<GlobalTheme>()!;
 
-      _unscheduledSelection = <String, String>{
-        AppLocalizations.of(context)!.toSeeAResidentPhysician: 'Physician',
-        AppLocalizations.of(context)!.inAHospital: 'Hospital'
+      _unscheduledSelection = <String, VisitOptions>{
+        AppLocalizations.of(context)!.toSeeAResidentPhysician:
+            VisitOptions.physician,
+        AppLocalizations.of(context)!.inAHospital: VisitOptions.hospital,
       };
     }
 
