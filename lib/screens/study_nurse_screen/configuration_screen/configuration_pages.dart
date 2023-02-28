@@ -26,7 +26,6 @@ import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/conf
 import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_activity_and_rest.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_body_and_mind.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_medication_and_therapy.dart';
-import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_summary.dart';
 import 'package:picos/util/backend.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
 
@@ -123,8 +122,6 @@ class _ConfigurationPages extends State<ConfigurationPages> {
         },
       );
 
-      const ConfigurationSummary configurationSummary = ConfigurationSummary();
-
       final ConfigurationVitalValues configurationVitalValues =
           ConfigurationVitalValues(
         callbackVitalValues: (String key, bool value) {
@@ -145,7 +142,6 @@ class _ConfigurationPages extends State<ConfigurationPages> {
         configurationActivityAndRest,
         configurationBodyAndMind,
         configurationMedicationAndTherapy,
-        configurationSummary,
         configurationAdditionalEntries,
       ]);
     }
