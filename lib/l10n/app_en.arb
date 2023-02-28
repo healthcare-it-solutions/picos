@@ -854,5 +854,13 @@
     "dayOfDischarge": "Day of discharge",
     "@dayOfDischarge": {
         "description": "Day of discharge"
+    },
+    "reasonForHospitalization": "Reason for hospitalization",
+    "@reasonForHospitalization": {
+        "description": "Reason for hospitalization"
+    },
+    "reasonForVisitToTheDoctor": "Reason for visit to the doctor",
+    "@reasonForVisitToTheDoctor": {
+        "description": "Reason for visit to the doctor"
     }
 }

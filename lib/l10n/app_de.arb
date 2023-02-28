@@ -182,5 +182,7 @@
     "whenDidYouSeeThePhysician": "Wann waren Sie bei dem/r Arzt/Ärztin?",
     "whenWereYouInHospital": "Wann waren Sie im Krankenhaus?",
     "dayOfRecording": "Tag der Aufnahme",
-    "dayOfDischarge": "Tad der Entlassung"
+    "dayOfDischarge": "Tad der Entlassung",
+    "reasonForHospitalization": "Grund des Krankenhausbesuches",
+    "reasonForVisitToTheDoctor": "Grund des Arztbesuches"
 }
