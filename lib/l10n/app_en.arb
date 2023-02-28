@@ -838,5 +838,21 @@
     "inAHospital": "in a hospital",
     "@inAHospital": {
         "description": "in a hospital"
+    },
+    "whenDidYouSeeThePhysician": "When did you see the physician?",
+    "@whenDidYouSeeThePhysician": {
+        "description": "When did you see the physician?"
+    },
+    "whenWereYouInHospital": "When were you in the hospital?",
+    "@whenWereYouInHospital": {
+        "description": "When were you in the hospital?"
+    },
+    "dayOfRecording": "Day of recording",
+    "@dayOfRecording": {
+        "description": "Day of recording"
+    },
+    "dayOfDischarge": "Day of discharge",
+    "@dayOfDischarge": {
+        "description": "Day of discharge"
     }
 }

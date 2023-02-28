@@ -178,5 +178,9 @@
     "visitInfoPart3": " eine Arztpraxis oder ein Krankenhaus aufgesucht haben.",
     "iWasUnscheduled": "Ich war ungeplant",
     "toSeeAResidentPhysician": "bei einem/r niedergelassenen Arzt/Ärztin",
-    "inAHospital": "in einem Krankenhaus"
+    "inAHospital": "in einem Krankenhaus",
+    "whenDidYouSeeThePhysician": "Wann waren Sie bei dem/r Arzt/Ärztin?",
+    "whenWereYouInHospital": "Wann waren Sie im Krankenhaus?",
+    "dayOfRecording": "Tag der Aufnahme",
+    "dayOfDischarge": "Tad der Entlassung"
 }
