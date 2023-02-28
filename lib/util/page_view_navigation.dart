@@ -61,6 +61,10 @@ abstract class PageViewNavigation {
 
     FocusManager.instance.primaryFocus?.unfocus();
 
+    if (previousPageCallback != null) {
+      previousPageCallback!();
+    }
+
     if (_controller.page == 0) {
       Navigator.of(_buildContext!).pop();
       return;
@@ -70,10 +74,6 @@ abstract class PageViewNavigation {
       duration: _controllerDuration,
       curve: _controllerCurve,
     );
-
-    if (previousPageCallback != null) {
-      previousPageCallback!();
-    }
   }
 
   /// Goes to the next page. Executes [nextPageCallback] if set.
@@ -84,18 +84,18 @@ abstract class PageViewNavigation {
 
     FocusManager.instance.primaryFocus?.unfocus();
 
-   if (_controller.page == pages.length - 1) {
-     Navigator.of(_buildContext!).pop();
-     return;
-   }
+    if (nextPageCallback != null) {
+      nextPageCallback!();
+    }
+
+    if (_controller.page == pages.length - 1) {
+      Navigator.of(_buildContext!).pop();
+      return;
+    }
 
     controller.nextPage(
       duration: _controllerDuration,
       curve: _controllerCurve,
     );
-
-    if (nextPageCallback != null) {
-      nextPageCallback!();
-    }
   }
 }

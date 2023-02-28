@@ -16,6 +16,9 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:picos/api/backend_stays_api.dart';
+import 'package:picos/state/objects_list_bloc.dart';
 import 'package:picos/widgets/picos_display_card.dart';
 import 'package:picos/widgets/picos_info_card.dart';
 import 'package:picos/widgets/picos_label.dart';
@@ -25,6 +28,7 @@ import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_text_area.dart';
 
+import '../../models/stay.dart';
 import '../../themes/global_theme.dart';
 import '../../util/page_view_navigation.dart';
 import '../../widgets/picos_add_button_bar.dart';
@@ -161,6 +165,22 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
   }
 
   void _nextPageCallback() {
+    int currentPage = page.toInt() + 1;
+
+    if (currentPage == pages.length) {
+      context.read<ObjectsListBloc<BackendStaysApi>>().add(
+            SaveObject(
+              Stay(
+                reason: _reason!,
+                record: _record!,
+                where: _unplanned!,
+                discharge: _discharge,
+              ),
+            ),
+          );
+      return;
+    }
+
     if (_unplanned == 'Hospital') {
       _disabledNextPages[1] = !_checkHospitalDates();
     }
@@ -168,8 +188,6 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
     if (_unplanned == 'Physician' && _record != null) {
       _disabledNextPages[1] = false;
     }
-
-    int currentPage = page.toInt() + 1;
 
     setState(() {
       _nextDisabled = _disabledNextPages[currentPage];
@@ -319,40 +337,44 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
       previousPageCallback = _previousPageCallback;
     }
 
-    return PicosScreenFrame(
-      title: _title!,
-      body: PageView.builder(
-        controller: controller,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (BuildContext context, int index) {
-          return pages[index];
-        },
-      ),
-      bottomNavigationBar: PicosAddButtonBar(
-        leftButton: PicosInkWellButton(
-          padding: const EdgeInsets.only(
-            left: 30,
-            right: 13,
-            top: 15,
-            bottom: 10,
+    return BlocBuilder<ObjectsListBloc<BackendStaysApi>, ObjectsListState>(
+      builder: (BuildContext context, ObjectsListState state) {
+        return PicosScreenFrame(
+          title: _title!,
+          body: PageView.builder(
+            controller: controller,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (BuildContext context, int index) {
+              return pages[index];
+            },
           ),
-          text: _back!,
-          onTap: previousPage,
-          buttonColor1: _theme!.grey3,
-          buttonColor2: _theme!.grey1,
-        ),
-        rightButton: PicosInkWellButton(
-          disabled: _nextDisabled,
-          padding: const EdgeInsets.only(
-            right: 30,
-            left: 13,
-            top: 15,
-            bottom: 10,
+          bottomNavigationBar: PicosAddButtonBar(
+            leftButton: PicosInkWellButton(
+              padding: const EdgeInsets.only(
+                left: 30,
+                right: 13,
+                top: 15,
+                bottom: 10,
+              ),
+              text: _back!,
+              onTap: previousPage,
+              buttonColor1: _theme!.grey3,
+              buttonColor2: _theme!.grey1,
+            ),
+            rightButton: PicosInkWellButton(
+              disabled: _nextDisabled,
+              padding: const EdgeInsets.only(
+                right: 30,
+                left: 13,
+                top: 15,
+                bottom: 10,
+              ),
+              text: _rightButtonTitle,
+              onTap: nextPage,
+            ),
           ),
-          text: _rightButtonTitle,
-          onTap: nextPage,
-        ),
-      ),
+        );
+      },
     );
   }
 }
