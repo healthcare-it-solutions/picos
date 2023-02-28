@@ -47,7 +47,7 @@ class TextFieldCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return QuestionaireCard(
-      label: PicosLabel(label: label),
+      label: PicosLabel(label),
       child: PicosTextField(
         onChanged: onChanged,
         hint: hint,

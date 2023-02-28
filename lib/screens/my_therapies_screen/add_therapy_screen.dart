@@ -155,7 +155,7 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
                 const SizedBox(
                   height: 25,
                 ),
-                PicosLabel(label: AppLocalizations.of(context)!.therapyName),
+                PicosLabel(AppLocalizations.of(context)!.therapyName),
                 PicosTextField(
                   initialValue: _name,
                   hint: _nameHint!,
@@ -171,9 +171,7 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                PicosLabel(
-                  label: AppLocalizations.of(context)!.date,
-                ),
+                PicosLabel(AppLocalizations.of(context)!.date),
                 PicosTextField(
                   hint: _dateHint!,
                   onTap: () async {
@@ -215,9 +213,7 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                PicosLabel(
-                  label: AppLocalizations.of(context)!.therapy,
-                ),
+                PicosLabel(AppLocalizations.of(context)!.therapy),
                 PicosTextArea(
                   maxLines: 10,
                   initialValue: _therapy,

@@ -218,9 +218,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                 const SizedBox(
                   height: 25,
                 ),
-                PicosLabel(
-                  label: AppLocalizations.of(context)!.compound,
-                ),
+                PicosLabel(AppLocalizations.of(context)!.compound),
                 PicosTextField(
                   onChanged: (String value) {
                     _compound = value;
@@ -242,9 +240,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                PicosLabel(
-                  label: AppLocalizations.of(context)!.intake,
-                ),
+                PicosLabel(AppLocalizations.of(context)!.intake),
                 Row(
                   children: <Expanded>[
                     _createAmountSelect(

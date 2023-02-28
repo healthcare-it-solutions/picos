@@ -358,7 +358,7 @@ class QuestionairePageStorage {
             medicationChanged = value;
             medicationUpdated = false;
           },
-          label: PicosLabel(label: _changedMedication!),
+          label: PicosLabel(_changedMedication!),
           options: _medicationAndTherapyValues!,
         ),
       ),
@@ -370,7 +370,7 @@ class QuestionairePageStorage {
             therapyChanged = value;
             therapyUpdated = false;
           },
-          label: PicosLabel(label: _changedTherapy!),
+          label: PicosLabel(_changedTherapy!),
           options: _medicationAndTherapyValues!,
         ),
       ),

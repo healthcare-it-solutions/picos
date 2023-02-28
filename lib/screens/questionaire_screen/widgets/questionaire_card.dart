@@ -58,7 +58,7 @@ class _QuestionaireCardState extends State<QuestionaireCard>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              widget.label ?? const PicosLabel(label: ''),
+              widget.label ?? const PicosLabel(''),
               const SizedBox(height: 15),
               widget.child,
             ],

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 /// Creates a simple label.
 class PicosLabel extends StatelessWidget {
   /// Creates the label.
-  const PicosLabel({required this.label, this.fontSize = 17, Key? key})
+  const PicosLabel(this.label, {this.fontSize = 17, Key? key})
       : super(key: key);
 
   /// The label to be shown.
