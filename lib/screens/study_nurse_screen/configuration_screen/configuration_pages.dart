@@ -90,6 +90,105 @@ class _ConfigurationPages extends State<ConfigurationPages> {
 
   int _currentPage = 0;
 
+  late Patient patient;
+
+  Future<void> _savePatient() async {
+    patient = Patient(
+      firstName: _formEntries['entryFirstName']!,
+      familyName: _formEntries['entryFamilyName']!,
+      email: _formEntries['entryEmail']!,
+      number: _formEntries['entryNumber']!,
+      address: _formEntries['entryAddress']!,
+      formOfAddress: _formEntries['entryFormOfAddress']!,
+    );
+    BackendACL patientACL = BackendACL();
+    patientACL.setReadAccess(
+      userId: 'role:Doctor',
+    );
+    dynamic responsePatient = await Backend.saveObject(
+      patient,
+      acl: patientACL,
+    );
+    patient = patient.copyWith(
+      objectId: responsePatient['objectId'],
+      createdAt: DateTime.parse(responsePatient['createdAt']),
+    );
+  }
+
+  Future<void> _savePatientProfile() async {
+    PatientProfile patientProfile = PatientProfile(
+      bloodPressureEnabled: _vitalValuesEntries['entryBloodPressureEnabled']!,
+      bloodSugarLevelsEnabled:
+          _vitalValuesEntries['entryBloodSugarLevelsEnabled']!,
+      heartFrequencyEnabled: _vitalValuesEntries['entryHeartFrequencyEnabled']!,
+      weightBMIEnabled: _vitalValuesEntries['entryWeightBMIEnabled']!,
+      doctorsVisitEnabled:
+          _medicationAndTherapyEntries['entryDoctorsVisitEnabled']!,
+      medicationEnabled:
+          _medicationAndTherapyEntries['entryMedicationEnabled']!,
+      therapyEnabled: _medicationAndTherapyEntries['entryTherapyEnabled']!,
+      walkDistanceEnabled: _activityAndRestEntries['entryWalkDistanceEnabled']!,
+      sleepDurationEnabled:
+          _activityAndRestEntries['entrySleepDurationEnabled']!,
+      sleepQualityEnabled: _activityAndRestEntries['entrySleepQualityEnabled']!,
+      painEnabled: _bodyAndMindEntries['entryPainEnabled']!,
+      phq4Enabled: _bodyAndMindEntries['entryPhq4Enabled']!,
+      patientObjectId: patient.objectId!,
+      doctorObjectId: Backend.user.objectId!,
+    );
+    BackendACL patientProfileACL = BackendACL();
+    patientProfileACL.setReadAccess(
+      userId: patient.objectId!,
+    );
+    patientProfileACL.setReadAccess(
+      userId: 'role:Doctor',
+    );
+    patientProfileACL.setWriteAccess(
+      userId: 'role:Doctor',
+    );
+    dynamic responsePatientProfile = await Backend.saveObject(
+      patientProfile,
+      acl: patientProfileACL,
+    );
+    patientProfile = patientProfile.copyWith(
+      objectId: responsePatientProfile['objectId'],
+      createdAt: DateTime.parse(
+        responsePatientProfile['createdAt'],
+      ),
+    );
+  }
+
+  Future<void> _savePatientData() async {
+    PatientData patientData = PatientData(
+      bodyHeight: double.parse(_additionalEntries['entryHeight']!),
+      patientID: _additionalEntries['entryPatientID']!,
+      caseNumber: _additionalEntries['entryCaseNumber']!,
+      instKey: _additionalEntries['entryInstituteKey']!,
+      patientObjectId: patient.objectId!,
+      doctorObjectId: Backend.user.objectId!,
+    );
+    BackendACL patientDataACL = BackendACL();
+    patientDataACL.setReadAccess(
+      userId: patient.objectId!,
+    );
+    patientDataACL.setReadAccess(
+      userId: 'role:Doctor',
+    );
+    patientDataACL.setWriteAccess(
+      userId: 'role:Doctor',
+    );
+    dynamic responsePatientData = await Backend.saveObject(
+      patientData,
+      acl: patientDataACL,
+    );
+    patientData = patientData.copyWith(
+      objectId: responsePatientData['objectId'],
+      createdAt: DateTime.parse(
+        responsePatientData['createdAt'],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
@@ -185,107 +284,16 @@ class _ConfigurationPages extends State<ConfigurationPages> {
             child: PicosInkWellButton(
               text: AppLocalizations.of(context)!.proceed,
               onTap: () async {
+                if (!mounted) {
+                  return;
+                }
                 if (_currentPage == _list.length - 1 &&
                     formKeyConfiguration.currentState!.validate()) {
                   formKeyConfiguration.currentState!.save();
-                  Patient patient = Patient(
-                    firstName: _formEntries['entryFirstName']!,
-                    familyName: _formEntries['entryFamilyName']!,
-                    email: _formEntries['entryEmail']!,
-                    number: _formEntries['entryNumber']!,
-                    address: _formEntries['entryAddress']!,
-                    formOfAddress: _formEntries['entryFormOfAddress']!,
-                  );
-                  BackendACL patientACL = BackendACL();
-                  patientACL.setReadAccess(
-                    userId: 'role:Doctor',
-                  );
-                  dynamic responsePatient = await Backend.saveObject(
-                    patient,
-                    acl: patientACL,
-                  );
-                  patient = patient.copyWith(
-                    objectId: responsePatient['objectId'],
-                    createdAt: DateTime.parse(responsePatient['createdAt']),
-                  );
-                  PatientProfile patientProfile = PatientProfile(
-                    bloodPressureEnabled:
-                        _vitalValuesEntries['entryBloodPressureEnabled']!,
-                    bloodSugarLevelsEnabled:
-                        _vitalValuesEntries['entryBloodSugarLevelsEnabled']!,
-                    heartFrequencyEnabled:
-                        _vitalValuesEntries['entryHeartFrequencyEnabled']!,
-                    weightBMIEnabled:
-                        _vitalValuesEntries['entryWeightBMIEnabled']!,
-                    doctorsVisitEnabled: _medicationAndTherapyEntries[
-                        'entryDoctorsVisitEnabled']!,
-                    medicationEnabled:
-                        _medicationAndTherapyEntries['entryMedicationEnabled']!,
-                    therapyEnabled:
-                        _medicationAndTherapyEntries['entryTherapyEnabled']!,
-                    walkDistanceEnabled:
-                        _activityAndRestEntries['entryWalkDistanceEnabled']!,
-                    sleepDurationEnabled:
-                        _activityAndRestEntries['entrySleepDurationEnabled']!,
-                    sleepQualityEnabled:
-                        _activityAndRestEntries['entrySleepQualityEnabled']!,
-                    painEnabled: _bodyAndMindEntries['entryPainEnabled']!,
-                    phq4Enabled: _bodyAndMindEntries['entryPhq4Enabled']!,
-                    patientObjectId: patient.objectId!,
-                    doctorObjectId: Backend.user.objectId!,
-                  );
-                  BackendACL patientProfileACL = BackendACL();
-                  patientProfileACL.setReadAccess(
-                    userId: patient.objectId!,
-                  );
-                  patientProfileACL.setReadAccess(
-                    userId: 'role:Doctor',
-                  );
-                  patientProfileACL.setWriteAccess(
-                    userId: 'role:Doctor',
-                  );
-                  dynamic responsePatientProfile = await Backend.saveObject(
-                    patientProfile,
-                    acl: patientProfileACL,
-                  );
-                  patientProfile = patientProfile.copyWith(
-                    objectId: responsePatientProfile['objectId'],
-                    createdAt: DateTime.parse(
-                      responsePatientProfile['createdAt'],
-                    ),
-                  );
-                  PatientData patientData = PatientData(
-                    bodyHeight:
-                        double.parse(_additionalEntries['entryHeight']!),
-                    patientID: _additionalEntries['entryPatientID']!,
-                    caseNumber: _additionalEntries['entryCaseNumber']!,
-                    instKey: _additionalEntries['entryInstituteKey']!,
-                    patientObjectId: patient.objectId!,
-                    doctorObjectId: Backend.user.objectId!,
-                  );
-                  BackendACL patientDataACL = BackendACL();
-                  patientDataACL.setReadAccess(
-                    userId: patient.objectId!,
-                  );
-                  patientDataACL.setReadAccess(
-                    userId: 'role:Doctor',
-                  );
-                  patientDataACL.setWriteAccess(
-                    userId: 'role:Doctor',
-                  );
-                  dynamic responsePatientData = await Backend.saveObject(
-                    patientData,
-                    acl: patientDataACL,
-                  );
-                  patientData = patientData.copyWith(
-                    objectId: responsePatientData['objectId'],
-                    createdAt: DateTime.parse(
-                      responsePatientData['createdAt'],
-                    ),
-                  );
-                  if (!mounted) {
-                    return;
-                  }
+                  await _savePatient();
+                  await _savePatientProfile();
+                  await _savePatientData();
+                  if (!mounted) return;
                   Navigator.of(context).pushReplacementNamed(
                     '/study-nurse-screen/configuration-finish-screen',
                   );
