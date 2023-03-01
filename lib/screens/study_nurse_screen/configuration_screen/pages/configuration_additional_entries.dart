@@ -84,7 +84,7 @@ class _ConfigurationAdditionalEntriesState
           ),
           PicosLabel(label: AppLocalizations.of(context)!.height),
           PicosTextField(
-            hint: AppLocalizations.of(context)!.height,
+            hint: '${AppLocalizations.of(context)!.height} (cm)',
             onChanged: (String? newValue) {
               widget.callbackAdditionalEntries('entryHeight', newValue!);
             },
