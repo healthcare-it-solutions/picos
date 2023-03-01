@@ -88,6 +88,7 @@ class _ConfigurationAdditionalEntriesState
             onChanged: (String? newValue) {
               widget.callbackAdditionalEntries('entryHeight', newValue!);
             },
+            keyboardType: TextInputType.number,
             validator: qValidator(
               <TextValidationRule>[
                 IsRequired(AppLocalizations.of(context)!.enterHeight),
