@@ -31,6 +31,27 @@ import 'package:picos/widgets/picos_ink_well_button.dart';
 
 import 'package:picos/themes/global_theme.dart';
 
+/// Enumeration for role.
+enum Role {
+  /// Denotation for doctor's role.
+  doctor,
+  /// Denotation for patient's role.
+  patient,
+}
+
+/// Extension for Role-enumeration.
+extension RoleExtension on Role {
+  /// Name of the Role.
+  String get roleTitle {
+    switch (this) {
+      case Role.doctor:
+        return 'role:Doctor';
+      case Role.patient:
+        return 'role:Patient';
+    }
+  }
+}
+
 /// FormKey for the underlying PageView-Elements.
 final GlobalKey<FormState> formKeyConfiguration = GlobalKey<FormState>();
 
@@ -103,7 +124,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
     );
     BackendACL patientACL = BackendACL();
     patientACL.setReadAccess(
-      userId: 'role:Doctor',
+      userId: Role.doctor.roleTitle,
     );
     dynamic responsePatient = await Backend.saveObject(
       patient,
@@ -141,10 +162,10 @@ class _ConfigurationPages extends State<ConfigurationPages> {
       userId: patient.objectId!,
     );
     patientProfileACL.setReadAccess(
-      userId: 'role:Doctor',
+      userId: Role.doctor.roleTitle,
     );
     patientProfileACL.setWriteAccess(
-      userId: 'role:Doctor',
+      userId: Role.doctor.roleTitle,
     );
     dynamic responsePatientProfile = await Backend.saveObject(
       patientProfile,
@@ -172,10 +193,10 @@ class _ConfigurationPages extends State<ConfigurationPages> {
       userId: patient.objectId!,
     );
     patientDataACL.setReadAccess(
-      userId: 'role:Doctor',
+      userId: Role.doctor.roleTitle,
     );
     patientDataACL.setWriteAccess(
-      userId: 'role:Doctor',
+      userId: Role.doctor.roleTitle,
     );
     dynamic responsePatientData = await Backend.saveObject(
       patientData,
