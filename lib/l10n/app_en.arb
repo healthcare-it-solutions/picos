@@ -833,7 +833,7 @@
     },
     "enterPatientID": "Please enter the patient ID!",
     "@enterPatientID": {
-        "desciption": "Please enter the patient ID!"
+        "description": "Please enter the patient ID!"
     },
     "enterWeight": "Please enter the weight!",
     "@enterWeight": {
