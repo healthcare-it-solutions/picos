@@ -817,7 +817,7 @@
     },
     "height": "Height",
     "@height": {
-        "desciption": "Height"
+        "description": "Height"
     },
     "dischargeDate": "Date of Discharge",
     "@dischargeDate": {
