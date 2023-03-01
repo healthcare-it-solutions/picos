@@ -39,6 +39,7 @@ import '../../widgets/picos_ink_well_button.dart';
 enum VisitOptions {
   /// Unscheduled visit in a hospital.
   hospital,
+
   /// Unscheduled visit for a physician.
   physician,
 }
@@ -176,6 +177,10 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
     int currentPage = page.toInt() + 1;
 
     if (currentPage == pages.length) {
+      if (_unplanned == VisitOptions.physician && _discharge != null) {
+        _discharge = null;
+      }
+
       context.read<ObjectsListBloc<BackendStaysApi>>().add(
             SaveObject(
               Stay(
