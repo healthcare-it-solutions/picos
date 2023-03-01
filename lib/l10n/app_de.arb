@@ -177,7 +177,7 @@
     "dischargeDate": "Datum der Entlassung",
     "instituteKey": "Institutionsschlüssel",
     "enterCaseNumber": "Bitte geben Sie die Fallnummer ein!",
-    "enterPatientID": "Bitte geben Sie die PatientenID ein!",
+    "enterPatientID": "Bitte geben Sie die Patienten-ID ein!",
     "enterWeight": "Bitte geben Sie das Gewicht ein!",
     "enterHeight": "Bitte geben Sie die Größe ein!",
     "enterBloodPressure": "Bitte geben Sie den Blutdruck ein!",
