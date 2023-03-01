@@ -821,7 +821,7 @@
     },
     "dischargeDate": "Date of Discharge",
     "@dischargeDate": {
-        "description": "dichargeDate"
+        "description": "Date of Discharge"
     },
     "instituteKey": "Institute Key",
     "@instituteKey": {
