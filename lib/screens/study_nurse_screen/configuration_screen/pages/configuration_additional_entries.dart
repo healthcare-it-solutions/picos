@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_label.dart';
+import 'package:picos/widgets/picos_select.dart';
 import 'package:picos/widgets/picos_text_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:queen_validators/queen_validators.dart';
@@ -71,16 +72,24 @@ class _ConfigurationAdditionalEntriesState
             ),
           ),
           PicosLabel(label: AppLocalizations.of(context)!.instituteKey),
-          PicosTextField(
-            hint: AppLocalizations.of(context)!.instituteKey,
-            onChanged: (String? newValue) {
-              widget.callbackAdditionalEntries('entryInstituteKey', newValue!);
+          PicosSelect(
+            selection: const <String>[
+              '100',
+              '101',
+              '102',
+              '103',
+              '104',
+              '105',
+              '201',
+              '300',
+              '400',
+              '501',
+              '502'
+            ],
+            callBackFunction: (String? value) {
+              widget.callbackAdditionalEntries('entryInstituteKey', value!);
             },
-            validator: qValidator(
-              <TextValidationRule>[
-                IsRequired(AppLocalizations.of(context)!.enterInstituteKey),
-              ],
-            ),
+            hint: AppLocalizations.of(context)!.instituteKey,
           ),
           PicosLabel(label: AppLocalizations.of(context)!.height),
           PicosTextField(
