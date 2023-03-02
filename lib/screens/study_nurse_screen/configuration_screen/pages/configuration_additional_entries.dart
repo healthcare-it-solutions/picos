@@ -21,7 +21,6 @@ import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_select.dart';
 import 'package:picos/widgets/picos_text_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:queen_validators/queen_validators.dart';
 
 /// Class for additional entries of the configuration pages.
 class ConfigurationAdditionalEntries extends StatefulWidget {
@@ -53,11 +52,12 @@ class _ConfigurationAdditionalEntriesState
             onChanged: (String? newValue) {
               widget.callbackAdditionalEntries('entryCaseNumber', newValue!);
             },
-            validator: qValidator(
-              <TextValidationRule>[
-                IsRequired(AppLocalizations.of(context)!.enterCaseNumber),
-              ],
-            ),
+            validator: (String? value) {
+              if (value == null || value.isEmpty) {
+                return AppLocalizations.of(context)!.enterCaseNumber;
+              }
+              return null;
+            },
           ),
           PicosLabel(label: AppLocalizations.of(context)!.patientID),
           PicosTextField(
@@ -65,31 +65,41 @@ class _ConfigurationAdditionalEntriesState
             onChanged: (String? newValue) {
               widget.callbackAdditionalEntries('entryPatientID', newValue!);
             },
-            validator: qValidator(
-              <TextValidationRule>[
-                IsRequired(AppLocalizations.of(context)!.enterPatientID),
-              ],
-            ),
+            validator: (String? value) {
+              if (value == null || value.isEmpty) {
+                return AppLocalizations.of(context)!.enterPatientID;
+              }
+              return null;
+            },
           ),
           PicosLabel(label: AppLocalizations.of(context)!.instituteKey),
-          PicosSelect(
-            selection: const <String>[
-              '100',
-              '101',
-              '102',
-              '103',
-              '104',
-              '105',
-              '201',
-              '300',
-              '400',
-              '501',
-              '502'
-            ],
-            callBackFunction: (String? value) {
-              widget.callbackAdditionalEntries('entryInstituteKey', value!);
-            },
-            hint: AppLocalizations.of(context)!.instituteKey,
+          SizedBox(
+            width: double.infinity,
+            child: PicosSelect(
+              selection: const <String>[
+                '100',
+                '101',
+                '102',
+                '103',
+                '104',
+                '105',
+                '201',
+                '300',
+                '400',
+                '501',
+                '502'
+              ],
+              callBackFunction: (String? value) {
+                widget.callbackAdditionalEntries('entryInstituteKey', value!);
+              },
+              hint: AppLocalizations.of(context)!.instituteKey,
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return '''     ${AppLocalizations.of(context)!.enterInstituteKey}''';
+                }
+                return null;
+              },
+            ),
           ),
           PicosLabel(label: AppLocalizations.of(context)!.height),
           PicosTextField(
@@ -98,11 +108,12 @@ class _ConfigurationAdditionalEntriesState
               widget.callbackAdditionalEntries('entryHeight', newValue!);
             },
             keyboardType: TextInputType.number,
-            validator: qValidator(
-              <TextValidationRule>[
-                IsRequired(AppLocalizations.of(context)!.enterHeight),
-              ],
-            ),
+            validator: (String? value) {
+              if (value == null || value.isEmpty) {
+                return AppLocalizations.of(context)!.enterHeight;
+              }
+              return null;
+            },
           ),
         ],
       ),

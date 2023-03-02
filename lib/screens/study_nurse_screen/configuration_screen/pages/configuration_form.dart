@@ -22,7 +22,6 @@ import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_text_area.dart';
 import 'package:picos/widgets/picos_text_field.dart';
-import 'package:queen_validators/queen_validators.dart';
 
 /// Shows form for patient registration.
 class ConfigurationForm extends StatefulWidget {
@@ -128,11 +127,12 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
             onChanged: (String? newValue) {
               widget.callbackForm('entryFirstName', newValue!);
             },
-            validator: qValidator(
-              <TextValidationRule>[
-                IsRequired(AppLocalizations.of(context)!.entryFirstName),
-              ],
-            ),
+            validator: (String? value) {
+              if (value == null || value.isEmpty) {
+                return AppLocalizations.of(context)!.entryFirstName;
+              }
+              return null;
+            },
           ),
           PicosLabel(label: AppLocalizations.of(context)!.familyName),
           PicosTextField(
@@ -141,11 +141,12 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
             onChanged: (String? newValue) {
               widget.callbackForm('entryFamilyName', newValue!);
             },
-            validator: qValidator(
-              <TextValidationRule>[
-                IsRequired(AppLocalizations.of(context)!.entryFamilyName),
-              ],
-            ),
+            validator: (String? value) {
+              if (value == null || value.isEmpty) {
+                return AppLocalizations.of(context)!.entryFamilyName;
+              }
+              return null;
+            },
           ),
           PicosLabel(label: AppLocalizations.of(context)!.email),
           PicosTextField(
@@ -154,12 +155,12 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
             onChanged: (String? newValue) {
               widget.callbackForm('entryEmail', newValue!);
             },
-            validator: qValidator(
-              <TextValidationRule>[
-                IsRequired(AppLocalizations.of(context)!.entryEmail),
-                IsEmail(AppLocalizations.of(context)!.entryValidEmail),
-              ],
-            ),
+            validator: (String? value) {
+              if (value == null || value.isEmpty) {
+                return AppLocalizations.of(context)!.entryEmail;
+              }
+              return null;
+            },
           ),
           PicosLabel(label: AppLocalizations.of(context)!.phoneNumber),
           PicosTextField(
@@ -168,11 +169,12 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
             onChanged: (String? newValue) {
               widget.callbackForm('entryNumber', newValue!);
             },
-            validator: qValidator(
-              <TextValidationRule>[
-                IsRequired(AppLocalizations.of(context)!.entryPhoneNumber),
-              ],
-            ),
+            validator: (String? value) {
+              if (value == null || value.isEmpty) {
+                return AppLocalizations.of(context)!.entryPhoneNumber;
+              }
+              return null;
+            },
           ),
           PicosLabel(label: AppLocalizations.of(context)!.address),
           PicosTextArea(
@@ -180,11 +182,12 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
             onChanged: (String? newValue) {
               widget.callbackForm('entryAddress', newValue!);
             },
-            validator: qValidator(
-              <TextValidationRule>[
-                IsRequired(AppLocalizations.of(context)!.entryAddress),
-              ],
-            ),
+            validator: (String? value) {
+              if (value == null || value.isEmpty) {
+                return AppLocalizations.of(context)!.entryAddress;
+              }
+              return null;
+            },
           ),
         ],
       ),
