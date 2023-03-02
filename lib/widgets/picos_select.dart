@@ -26,6 +26,7 @@ class PicosSelect extends StatefulWidget {
     Key? key,
     this.hint,
     this.disabled = false,
+    this.validator,
   }) : super(key: key);
 
   /// The array of items selectable in the dropdown.
@@ -40,6 +41,9 @@ class PicosSelect extends StatefulWidget {
   /// Determines if the select box is disabled.
   final bool disabled;
 
+  /// The function that is executed when the validator is triggered.
+  final String? Function(String?)? validator;
+
   @override
   State<PicosSelect> createState() => _PicosSelectState();
 }
@@ -52,7 +56,12 @@ class _PicosSelectState extends State<PicosSelect> {
         .map<DropdownMenuItem<String>>(
           (String e) => DropdownMenuItem<String>(
             value: e,
-            child: Text(e),
+            child: Row(children: [
+              const SizedBox(
+                width: 15,
+              ),
+              Text(e)
+            ]),
           ),
         )
         .toList();
@@ -60,17 +69,31 @@ class _PicosSelectState extends State<PicosSelect> {
 
   @override
   Widget build(BuildContext context) {
+    Color borderColor = Colors.grey.shade400;
     final BorderRadius borderRadius = BorderRadius.circular(7);
 
-    Color borderColor = Colors.grey.shade400;
+    OutlineInputBorder outlineInputBorder = OutlineInputBorder(
+      borderSide: BorderSide(
+        color: borderColor,
+      ),
+      borderRadius: borderRadius,
+    );
 
-    Border border = Border.all(color: borderColor);
+    OutlineInputBorder errorInputBorder = OutlineInputBorder(
+      borderSide: const BorderSide(
+        color: Colors.red,
+      ),
+      borderRadius: borderRadius,
+    );
 
     if (widget.disabled) {
       borderColor = Theme.of(context).disabledColor;
-      border = Border.all(
-        color: borderColor,
-        width: 0.35,
+      outlineInputBorder = OutlineInputBorder(
+        borderSide: BorderSide(
+          width: 0.35,
+          color: borderColor,
+        ),
+        borderRadius: borderRadius,
       );
     }
 
@@ -78,31 +101,32 @@ class _PicosSelectState extends State<PicosSelect> {
       padding: const EdgeInsets.all(4),
       child: AbsorbPointer(
         absorbing: widget.disabled,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            borderRadius: borderRadius,
-            border: border,
-          ),
-          child: DropdownButtonHideUnderline(
-            child: ButtonTheme(
-              alignedDropdown: true,
-              child: DropdownButton<String>(
-                borderRadius: borderRadius,
-                value: _dropdownValue,
-                iconSize: 30,
-                icon: const Icon(Icons.keyboard_arrow_down),
-                hint: Text(widget.hint ?? ''),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    final String value = newValue ?? '';
-
-                    widget.callBackFunction(value);
-                    _dropdownValue = value;
-                  });
-                },
-                items: _createItemList(),
+        child: ButtonTheme(
+          alignedDropdown: true,
+          child: DropdownButtonFormField<String>(
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.only(
+                right: 10,
               ),
+              enabledBorder: outlineInputBorder,
+              focusedBorder: outlineInputBorder,
+              errorBorder: errorInputBorder,
+              focusedErrorBorder: errorInputBorder,
             ),
+            borderRadius: borderRadius,
+            value: _dropdownValue,
+            icon: const Icon(Icons.keyboard_arrow_down),
+            hint: Text(widget.hint ?? ''),
+            onChanged: (String? newValue) {
+              setState(() {
+                final String value = newValue ?? '';
+
+                widget.callBackFunction(value);
+                _dropdownValue = value;
+              });
+            },
+            items: _createItemList(),
+            validator: widget.validator,
           ),
         ),
       ),
