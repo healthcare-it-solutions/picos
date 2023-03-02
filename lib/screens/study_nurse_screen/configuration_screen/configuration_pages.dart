@@ -318,10 +318,11 @@ class _ConfigurationPages extends State<ConfigurationPages> {
                   Navigator.of(context).pushReplacementNamed(
                     '/study-nurse-screen/configuration-finish-screen',
                   );
+                  return;
                 }
                 if ((_currentPage == 0 &&
                         formKeyConfiguration.currentState!.validate()) ||
-                    _currentPage > 0) {
+                    _currentPage > 0 && _currentPage != _list.length - 1) {
                   _controller.jumpToPage(_currentPage + 1);
                 }
               },
