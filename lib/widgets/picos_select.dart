@@ -56,12 +56,7 @@ class _PicosSelectState extends State<PicosSelect> {
         .map<DropdownMenuItem<String>>(
           (String e) => DropdownMenuItem<String>(
             value: e,
-            child: Row(children: [
-              const SizedBox(
-                width: 15,
-              ),
-              Text(e)
-            ]),
+            child: Text(e),
           ),
         )
         .toList();
