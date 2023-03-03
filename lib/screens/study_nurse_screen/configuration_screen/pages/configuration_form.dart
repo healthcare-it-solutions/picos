@@ -158,8 +158,13 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
             validator: (String? value) {
               if (value == null || value.isEmpty) {
                 return AppLocalizations.of(context)!.entryEmail;
+              } else if (!RegExp(
+                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+              ).hasMatch(value)) {
+                return AppLocalizations.of(context)!.entryValidEmail;
+              } else {
+                return null;
               }
-              return null;
             },
           ),
           PicosLabel(label: AppLocalizations.of(context)!.phoneNumber),
