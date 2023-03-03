@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:picos/screens/overview_screen/widgets/contact_section.dart';
 import 'package:picos/screens/overview_screen/widgets/my_health_section.dart';
 import 'widgets/input_card_section.dart';
 
@@ -36,6 +37,7 @@ class OverviewScreen extends StatelessWidget {
           color: Colors.blue,
           child: const MyHealthSection(),
         ),
+        const ContactSection()
       ],
     );
   }
