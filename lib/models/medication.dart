@@ -50,7 +50,15 @@ class Medication extends AbstractDatabaseObject {
   final String compound;
 
   /// All possible amount values.
-  static const List<String> selection = <String>['0', '1/2', '1', '2', '3'];
+  static const List<String> selection = <String>[
+    '0',
+    '1/2',
+    '1',
+    '1 1/2',
+    '2',
+    '2 1/2',
+    '3',
+  ];
 
   @override
   get table {
@@ -98,4 +106,37 @@ class Medication extends AbstractDatabaseObject {
         'Evening': evening,
         'AtNight': night,
       };
+
+  /// Converts a Medication amount Double to String.
+  static String amountToString(double value) {
+    List<String> values = value.toString().split('.');
+    String intValue = values[0];
+    String half = '0';
+    if (values.length > 1) {
+      half =  values[1];
+    }
+
+    if (intValue == '0' && half != '0') {
+      return '1/2';
+    }
+
+    if (intValue != '0' && half != '0') {
+      return '$intValue 1/2';
+    }
+
+    return intValue;
+  }
+
+  /// Converts a Medication amount String to Double.
+  static double amountToDouble(String value) {
+    if (value.length == 3 && value.substring(value.length - 3) == '1/2') {
+      return 0.5;
+    }
+
+    if (value.length >= 4 && value.substring(value.length - 4) == ' 1/2') {
+      return double.parse(value.split(' ')[0]) + 0.5;
+    }
+
+    return double.parse(value);
+  }
 }

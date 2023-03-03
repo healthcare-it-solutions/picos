@@ -16,10 +16,9 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/screens/overview_screen/widgets/graph_section.dart';
+import 'package:picos/screens/overview_screen/widgets/contact_section.dart';
 import 'package:picos/screens/overview_screen/widgets/my_health_section.dart';
 import 'widgets/input_card_section.dart';
-import 'widgets/progress_section.dart';
 
 /// Main widget using all subwidgets to build up the "overview"-screen
 class OverviewScreen extends StatelessWidget {
@@ -35,16 +34,10 @@ class OverviewScreen extends StatelessWidget {
           child: const InputCardSection(),
         ),
         Container(
-          constraints: const BoxConstraints(minWidth: double.infinity),
-          alignment: Alignment.center,
-          color: const Color.fromARGB(255, 9, 70, 85),
-          child: const ProgressSection(),
-        ),
-        const GraphSection(),
-        Container(
           color: Colors.blue,
           child: const MyHealthSection(),
         ),
+        const ContactSection()
       ],
     );
   }

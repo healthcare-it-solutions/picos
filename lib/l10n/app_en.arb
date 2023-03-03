@@ -243,9 +243,9 @@
         "description": "My Entries"
     },
 
-    "startEntry": "Start entry",
-    "@startEntry": {
-        "description": "Start entry"
+    "howFeel": "How do I feel today?",
+    "@howFeel": {
+        "description": "How do I feel today?"
     },
 
     "submitData": "The data is transmitted.",
@@ -621,37 +621,37 @@
     "@veryMild": {
         "description": "Very mild"
     },
-    "unpleasant": "Unpleasant",
-    "@unpleasant": {
-        "description": "Unpleasant"
+    "discomforting": "Discomforting",
+    "@discomforting": {
+        "description": "Discomforting"
     },
     "tolerable": "Tolerable",
     "@tolerable": {
         "description": "Tolerable"
     },
-    "disturbing": "Disturbing",
-    "@disturbing": {
-        "description": "Disturbing"
+    "distressing": "Distressing",
+    "@distressing": {
+        "description": "Distressing"
     },
-    "veryDisturbing": "Very disturbing",
-    "@veryDisturbing": {
-        "description": "Very disturbing"
+    "veryDistressing": "Very distressing",
+    "@veryDistressing": {
+        "description": "Very distressing"
     },
-    "severe": "Severe",
-    "@severe": {
-        "description": "Severe"
+    "intense": "Intense",
+    "@intense": {
+        "description": "Intense"
     },
-    "verySevere": "Very severe",
-    "@verySevere": {
-        "description": "Very severe"
+    "veryIntense": "Very intense",
+    "@veryIntense": {
+        "description": "Very intense"
     },
-    "veryTerrible": "Very terrible",
-    "@veryTerrible": {
-        "description": "Very terrible"
+    "utterlyHorrible": "Utterly Horrible",
+    "@utterlyHorrible": {
+        "description": "Utterly Horrible"
     },
-    "agonizingUnbearable": "Agonizing unbearable",
-    "@agonizingUnbearable": {
-        "description": "Agonizing unbearable"
+    "excruciatingUnbearable": "Excruciating Unbearable",
+    "@excruciatingUnbearable": {
+        "description": "Excruciating Unbearable"
     },
     "strongestImaginable": "Strongest imaginable",
     "@strongestImaginable": {
@@ -786,5 +786,141 @@
     "unknownHeight": "Unknown height",
     "@unknownHeight": {
         "description": "Unknown height"
+    },
+    "noPain": "No Pain",
+    "@noPain": {
+        "description": "No Pain"
+    },
+    "minorPain": "Minor Pain",
+    "@minorPain": {
+        "description": "Minor Pain"
+    },
+    "moderatePain": "Moderate Pain",
+    "@moderatePain": {
+        "description": "Moderate Pain"
+    },
+    "strongPain": "Strong Pain",
+    "@strongPain": {
+        "description": "Strong Pain"
+    },
+    "caseNumber": "Case Number",
+    "@caseNumber": {
+        "description": "Case Number"
+    },
+    "patientID": "Patient ID",
+    "@patientID": {
+        "description": "Patient ID"
+    },
+    "weight": "Weight",
+    "@weight": {
+        "description": "Weight"
+    },
+    "height": "Height",
+    "@height": {
+        "description": "Height"
+    },
+    "dischargeDate": "Date of Discharge",
+    "@dischargeDate": {
+        "description": "Date of Discharge"
+    },
+    "instituteKey": "Institute Key",
+    "@instituteKey": {
+        "description": "Institute Key"
+    },
+    "enterCaseNumber": "Please enter the case number!",
+    "@enterCaseNumber": {
+        "description": "Please enter the case number!"
+    },
+    "enterPatientID": "Please enter the patient ID!",
+    "@enterPatientID": {
+        "description": "Please enter the patient ID!"
+    },
+    "enterWeight": "Please enter the weight!",
+    "@enterWeight": {
+        "description": "Please enter the weight!"
+    },
+    "enterHeight": "Please enter the height!",
+    "@enterHeight": {
+        "description": "Please enter the height!"
+    },
+    "enterBloodPressure": "Please enter the blood pressure value!",
+    "@enterBloodPressure": {
+        "description": "Please enter the blood pressure value!"
+    },
+    "enterBloodSugar": "Please enter the blood sugar value!",
+    "@enterBloodSugar": {
+        "description": "Please enter the blood sugar value!"
+    },
+    "enterDischargeDate": "Please enter the date of discharge!",
+    "@enterDischargeDate": {
+        "description": "Please enter the date of discharge!"
+    },
+    "enterInstituteKey": "Please enter the institute key!",
+    "@enterInstituteKey": {
+        "description": "Please enter the institute key!"
+    },
+    "therapyName": "Therapy Name",
+    "@therapyName": {
+        "description": "Therapy Name"
+    },
+    "enterName": "Please enter the name",
+    "@enterName": {
+        "description": "Please enter the name"
+    },
+    "visits": "Doctor/hospital visits",
+    "@visits": {
+        "description": "Doctor/hospital visits"
+    },
+    "visitInfoPart1": "This information is only required if you have made an ",
+    "@visitInfoPart1": {
+        "description": "Patient advice for unplanned hospital and doctors visits. (Part 1)"
+    },
+    "visitInfoPart2": "unplanned",
+    "@visitInfoPart2": {
+        "description": "Patient advice for unplanned hospital and doctors visits. (Part 2)"
+    },
+    "visitInfoPart3": " visit to a doctor's office or hospital.",
+    "@visitInfoPart3": {
+        "description": "Patient advice for unplanned hospital and doctors visits. (Part 3)"
+    },
+    "iWasUnscheduled": "I was unscheduled",
+    "@iWasUnscheduled": {
+        "description": "I was unscheduled"
+    },
+    "toSeeAResidentPhysician": "to see a general practitioner",
+    "@toSeeAResidentPhysician": {
+        "description": "to see a general practitioner"
+    },
+    "inAHospital": "in a hospital",
+    "@inAHospital": {
+        "description": "in a hospital"
+    },
+    "whenDidYouSeeThePhysician": "When did you see the physician?",
+    "@whenDidYouSeeThePhysician": {
+        "description": "When did you see the physician?"
+    },
+    "whenWereYouInHospital": "When were you in the hospital?",
+    "@whenWereYouInHospital": {
+        "description": "When were you in the hospital?"
+    },
+    "dayOfRecording": "Date of admission",
+    "@dayOfRecording": {
+        "description": "Date of admission"
+    },
+    "dayOfDischarge": "Day of discharge",
+    "@dayOfDischarge": {
+        "description": "Day of discharge"
+    },
+    "reasonForHospitalization": "Reason for hospitalization",
+    "@reasonForHospitalization": {
+        "description": "Reason for hospitalization"
+    },
+    "reasonForVisitToTheDoctor": "Reason for visit to the doctor",
+    "@reasonForVisitToTheDoctor": {
+        "description": "Reason for visit to the doctor"
+    },
+    "needHelp": "Do you need help or have a question about using the PICOS app?",
+    "@needHelp": {
+        "description": "Do you need help or have a question about using the PICOS app?"
     }
 }

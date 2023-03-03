@@ -26,12 +26,13 @@ class InputCardSection extends StatelessWidget {
   /// InputCardSection constructor
   const InputCardSection({Key? key}) : super(key: key);
 
+  static const Color _standardTitleColor = Colors.blue;
+
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
-      //heightFactor: 1,
       child: Card(
-        margin: const EdgeInsets.all(8),
+        margin: const EdgeInsets.all(15),
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
@@ -41,12 +42,17 @@ class InputCardSection extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     AppLocalizations.of(context)!.myEntries,
+                    style: const TextStyle(
+                      fontSize: 22,
+                      color: _standardTitleColor,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
               const Divider(
                 height: 1,
-                color: Colors.black,
+                color: _standardTitleColor,
                 thickness: 1,
               ),
               const SizedBox(
@@ -81,7 +87,7 @@ class InputCardSection extends StatelessWidget {
                     backgroundColor: Colors.green,
                   ),
                   child: Text(
-                    AppLocalizations.of(context)!.startEntry,
+                    AppLocalizations.of(context)!.howFeel,
                   ),
                 ),
               )

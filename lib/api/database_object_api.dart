@@ -15,31 +15,19 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import 'package:picos/api/therapies_api.dart';
+import 'package:picos/models/abstract_database_object.dart';
 
-import '../models/therapy.dart';
+/// The interface for an API that provides access to a list of objects.
+abstract class DatabaseObjectApi {
+  /// DatabaseObjectApi constructor.
+  const DatabaseObjectApi();
 
-/// A repository that handles therapy related requests.
-class TherapiesRepository {
-  /// TherapiesRepository constructor.
-  const TherapiesRepository({
-    required TherapiesApi therapiesApi,
-  }) : _therapiesApi = therapiesApi;
+  /// Provides a [Stream] of all [AbstractDatabaseObject].
+  Future<Stream<List<AbstractDatabaseObject>>> getObjects();
 
-  final TherapiesApi _therapiesApi;
+  /// Saves or replaces a [AbstractDatabaseObject].
+  Future<void> saveObject(AbstractDatabaseObject object);
 
-  /// Provides a [Stream] of all therapies.
-  Future<Stream<List<Therapy>>> getTherapies() {
-    return _therapiesApi.getTherapies();
-  }
-
-  /// Saves or replaces a [therapy].
-  Future<void> saveTherapy(Therapy therapy) {
-    return _therapiesApi.saveTherapy(therapy);
-  }
-
-  /// Removes a given [therapy].
-  Future<void> removeTherapy(Therapy therapy) {
-    return _therapiesApi.removeTherapy(therapy);
-  }
+  /// Removes the given [AbstractDatabaseObject].
+  Future<void> removeObject(AbstractDatabaseObject object);
 }

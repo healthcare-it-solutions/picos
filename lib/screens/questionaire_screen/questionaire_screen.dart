@@ -50,6 +50,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   final Map<String, int> _redirectingPages = <String, int>{
     'medicationPage': 16,
     'therapyPage': 17,
+    'doctorPage': 18,
   };
 
   void _previousPage() {
@@ -86,6 +87,13 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
         _pageStorage!.therapyUpdated == false) {
       _pageStorage!.therapyUpdated = true;
       Navigator.of(context).pushNamed('/my-therapy-screen/my-therapy');
+    }
+
+    if (_controller.page == _redirectingPages['doctorPage'] &&
+        _pageStorage!.doctorVisited == true &&
+        _pageStorage!.doctorVisitedUpdated == false) {
+      _pageStorage!.doctorVisitedUpdated = true;
+      Navigator.of(context).pushNamed('/visits-screen/visits');
     }
 
     _controller.nextPage(

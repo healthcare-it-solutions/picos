@@ -15,19 +15,36 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import '../models/medication.dart';
+import 'package:flutter/material.dart';
+import 'package:picos/widgets/picos_body.dart';
 
-/// The interface for an API that provides access to a list of medications.
-abstract class MedicationsApi {
-  /// Medications API constructor.
-  const MedicationsApi();
+/// Creates a standardized page item.
+class PicosPageViewItem extends StatefulWidget {
+  /// PicosPageViewItem constructor.
+  const PicosPageViewItem({
+    required this.child,
+    Key? key,
+  }) : super(key: key);
 
-  /// Provides a [Stream] of all medications.
-  Future<Stream<List<Medication>>> getMedications();
+  /// The body of the page.
+  final Widget child;
 
-  /// Saves or replaces a [medication].
-  Future<void> saveMedication(Medication medication);
+  @override
+  State<PicosPageViewItem> createState() => _PicosPageViewItemState();
+}
 
-  /// Removes the given [medication].
-  Future<void> removeMedication(Medication medication);
+class _PicosPageViewItemState extends State<PicosPageViewItem>
+    with AutomaticKeepAliveClientMixin {
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+
+    return PicosBody(
+      child: widget.child,
+    );
+  }
+
+  @override
+  bool get wantKeepAlive => true;
 }

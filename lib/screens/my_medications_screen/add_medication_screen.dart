@@ -18,14 +18,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/api/backend_medications_api.dart';
 import 'package:picos/models/medication.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:picos/widgets/picos_select.dart';
 
-import '../../repository/medications_repository.dart';
-import '../../state/medications/medications_list_bloc.dart';
+import '../../state/objects_list_bloc.dart';
 import '../../widgets/picos_body.dart';
+import '../../widgets/picos_info_card.dart';
 import '../../widgets/picos_label.dart';
 import '../../widgets/picos_text_field.dart';
 
@@ -93,16 +94,16 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
             //Since mirrors are disabled or prohibited in Flutter.
             switch (medicationTime) {
               case 'morning':
-                _morning = MedicationsRepository.amountToDouble(value);
+                _morning = Medication.amountToDouble(value);
                 break;
               case 'noon':
-                _noon = MedicationsRepository.amountToDouble(value);
+                _noon = Medication.amountToDouble(value);
                 break;
               case 'evening':
-                _evening = MedicationsRepository.amountToDouble(value);
+                _evening = Medication.amountToDouble(value);
                 break;
               case 'night':
-                _night = MedicationsRepository.amountToDouble(value);
+                _night = Medication.amountToDouble(value);
                 break;
             }
 
@@ -162,16 +163,15 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
       _title = AppLocalizations.of(context)!.editMedication;
       _compoundHint = _compound;
 
-      _morningHint += ' ${MedicationsRepository.amountToString(_morning)}';
-      _noonHint += ' ${MedicationsRepository.amountToString(_noon)}';
-      _eveningHint += ' ${MedicationsRepository.amountToString(_evening)}';
-      _nightHint += ' ${MedicationsRepository.amountToString(_night)}';
+      _morningHint += ' ${Medication.amountToString(_morning)}';
+      _noonHint += ' ${Medication.amountToString(_noon)}';
+      _eveningHint += ' ${Medication.amountToString(_evening)}';
+      _nightHint += ' ${Medication.amountToString(_night)}';
 
-      _disabledCompoundSelect = true;
+      _disabledCompoundSelect = false;
       _compoundAutoFocus = false;
     }
 
-    const Color infoTextFontColor = Colors.white;
     const EdgeInsets selectPaddingRight = EdgeInsets.only(
       bottom: 5,
       right: 5,
@@ -183,52 +183,33 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
       top: 5,
     );
 
-    return BlocBuilder<MedicationsListBloc, MedicationsListState>(
-      builder: (BuildContext context, MedicationsListState state) {
+    return BlocBuilder<ObjectsListBloc<BackendMedicationsApi>,
+        ObjectsListState>(
+      builder: (BuildContext context, ObjectsListState state) {
         return PicosScreenFrame(
           body: PicosBody(
             child: Column(
               children: <Widget>[
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(7),
-                  ),
-                  color: Theme.of(context).dialogBackgroundColor,
-                  child: Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const Padding(
-                          padding: EdgeInsets.only(
-                            right: 15,
+                PicosInfoCard(
+                  infoText: RichText(
+                    text: TextSpan(
+                      text: AppLocalizations.of(context)!
+                          .addMedicationInfoPart1,
+                      style: const TextStyle(
+                        color: PicosInfoCard.infoTextFontColor,
+                        fontSize: PicosInfoCard.infoTextFontSize,
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: AppLocalizations.of(context)!
+                              .addMedicationInfoPart2,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
                           ),
-                          child: Icon(Icons.info, color: infoTextFontColor),
                         ),
-                        Flexible(
-                          child: RichText(
-                            text: TextSpan(
-                              text: AppLocalizations.of(context)!
-                                  .addMedicationInfoPart1,
-                              style: const TextStyle(
-                                color: infoTextFontColor,
-                                fontSize: 20,
-                              ),
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: AppLocalizations.of(context)!
-                                      .addMedicationInfoPart2,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: AppLocalizations.of(context)!
-                                      .addMedicationInfoPart3,
-                                ),
-                              ],
-                            ),
-                          ),
+                        TextSpan(
+                          text: AppLocalizations.of(context)!
+                              .addMedicationInfoPart3,
                         ),
                       ],
                     ),
@@ -237,9 +218,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                 const SizedBox(
                   height: 25,
                 ),
-                PicosLabel(
-                  label: AppLocalizations.of(context)!.compound,
-                ),
+                PicosLabel(AppLocalizations.of(context)!.compound),
                 PicosTextField(
                   onChanged: (String value) {
                     _compound = value;
@@ -256,13 +235,12 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                   disabled: _disabledCompoundSelect,
                   autofocus: _compoundAutoFocus,
                   hint: _compoundHint!,
+                  initialValue: _compound,
                 ),
                 const SizedBox(
                   height: 30,
                 ),
-                PicosLabel(
-                  label: AppLocalizations.of(context)!.intake,
-                ),
+                PicosLabel(AppLocalizations.of(context)!.intake),
                 Row(
                   children: <Expanded>[
                     _createAmountSelect(
@@ -309,6 +287,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
 
               if (_medicationEdit != null) {
                 medication = medication.copyWith(
+                  compound: _compound!,
                   morning: _morning,
                   noon: _noon,
                   evening: _evening,
@@ -317,8 +296,8 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
               }
 
               context
-                  .read<MedicationsListBloc>()
-                  .add(SaveMedication(medication));
+                  .read<ObjectsListBloc<BackendMedicationsApi>>()
+                  .add(SaveObject(medication));
               Navigator.of(context).pop();
             },
           ),

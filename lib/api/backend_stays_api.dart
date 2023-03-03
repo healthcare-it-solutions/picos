@@ -17,24 +17,26 @@
 
 import 'dart:async';
 
-import '../models/abstract_database_object.dart';
-import '../models/therapy.dart';
-import '../util/backend.dart';
-import 'backend_objects_api.dart';
+import 'package:picos/api/backend_objects_api.dart';
+import 'package:picos/models/abstract_database_object.dart';
+import 'package:picos/models/stay.dart';
 
-/// API for storing therapies at the backend.
-class BackendTherapiesApi extends BackendObjectsApi {
+import '../util/backend.dart';
+
+/// API for storing stays at the backend.
+class BackendStaysApi extends BackendObjectsApi {
   @override
   Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
     try {
-      List<dynamic> response = await Backend.getAll(Therapy.databaseTable);
+      List<dynamic> response = await Backend.getAll(Stay.databaseTable);
 
       for (dynamic element in response) {
         objectList.add(
-          Therapy(
-            name: element['name'],
-            date: DateTime.parse(element['date']['iso']),
-            therapy: element['therapieText'],
+          Stay(
+            reason: element['reason'],
+            where: element['where'],
+            record: DateTime.parse(element['dateRecord']['iso']),
+            discharge: DateTime.parse(element['dateDischarge']['iso']),
             objectId: element['objectId'],
             createdAt: DateTime.parse(element['createdAt']),
             updatedAt: DateTime.parse(element['updatedAt']),
@@ -44,7 +46,7 @@ class BackendTherapiesApi extends BackendObjectsApi {
 
       return getObjectsStream();
     } catch (e) {
-      return Stream<List<Therapy>>.error(e);
+      return Stream<List<Stay>>.error(e);
     }
   }
 }

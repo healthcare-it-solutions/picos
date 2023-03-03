@@ -28,7 +28,7 @@ class RadioSelectCard extends StatelessWidget {
     required this.options,
     required this.callback,
     Key? key,
-    this.label = const PicosLabel(label: ''),
+    this.label = const PicosLabel(''),
     this.description = '',
   }) : super(key: key);
 
@@ -55,7 +55,7 @@ class RadioSelectCard extends StatelessWidget {
       children.add(
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
-          child: PicosLabel(label: description, fontSize: 15),
+          child: PicosLabel(description, fontSize: 15),
         ),
       );
       children.add(const SizedBox(height: 15));

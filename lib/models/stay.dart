@@ -17,34 +17,33 @@
 
 import 'package:picos/models/abstract_database_object.dart';
 
-/// Class with therapy information.
-class Therapy extends AbstractDatabaseObject {
+/// Class with hospital visit information.
+class Stay extends AbstractDatabaseObject {
   /// Creates a medication object.
-  const Therapy({
-    required this.name,
-    required this.date,
-    required this.therapy,
+  const Stay({
+    required this.where,
+    required this.record,
+    required this.reason,
+    this.discharge,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt);
 
   /// The database table the objects are stored in.
-  static const String databaseTable = 'PICOS_therapies';
+  static const String databaseTable = 'PICOS_stays';
 
-  /// The name of the therapy.
-  final String name;
+  /// If the patient visited a doctor or a hospital.
+  final String where;
 
-  /// The date for the therapy.
-  final DateTime date;
+  /// The recorded date of the stay.
+  final DateTime record;
 
-  /// The therapy description.
-  final String therapy;
+  /// The discharge date of the patient (if applicable).
+  final DateTime? discharge;
 
-  /// Returns the defined [date] as a [String].
-  String get dateString {
-    return '${date.day}.${date.month}.${date.year}';
-  }
+  /// The reason for the stay.
+  final String reason;
 
   @override
   get table {
@@ -52,18 +51,20 @@ class Therapy extends AbstractDatabaseObject {
   }
 
   @override
-  Therapy copyWith({
-    String? name,
-    DateTime? date,
-    String? therapy,
+  Stay copyWith({
+    String? where,
+    DateTime? record,
+    DateTime? discharge,
+    String? reason,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
-    return Therapy(
-      name: name ?? this.name,
-      date: date ?? this.date,
-      therapy: therapy ?? this.therapy,
+    return Stay(
+      where: where ?? this.where,
+      record: record ?? this.record,
+      discharge: discharge ?? this.discharge,
+      reason: reason ?? this.reason,
       objectId: objectId ?? this.objectId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -72,15 +73,16 @@ class Therapy extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-        name,
-        date,
-        therapy,
+        where,
+        record,
+        reason,
       ];
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
-        'name': name,
-        'date': date,
-        'therapieText': therapy,
+        'where': where,
+        'dateRecord': record,
+        'dateDischarge': discharge,
+        'reason': reason,
       };
 }
