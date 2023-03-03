@@ -49,6 +49,8 @@ class _LoginScreenState extends State<LoginScreen>
 
   bool _passwordVisible = false;
 
+  static const double _sponsorLogoPadding = 30;
+
   Future<void> _submitHandler(
     String login,
     String password,
@@ -161,20 +163,24 @@ class _LoginScreenState extends State<LoginScreen>
               _loginfailure
                   ? Text(AppLocalizations.of(context)!.wrongCredentials)
                   : const Text(''),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const <Widget>[
-                  Expanded(
-                    child: Image(
-                      image: AssetImage('assets/BMBF.png'),
+              Padding(
+                padding: const EdgeInsets.all(_sponsorLogoPadding),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const <Widget>[
+                    Expanded(
+                      child: Image(
+                        image: AssetImage('assets/BMBF.png'),
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: Image(
-                      image: AssetImage('assets/Logo_MII.png'),
+                    SizedBox(width: _sponsorLogoPadding),
+                    Expanded(
+                      child: Image(
+                        image: AssetImage('assets/Logo_MII.png'),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),
