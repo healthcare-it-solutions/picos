@@ -17,25 +17,20 @@
 
 import 'dart:async';
 
-import 'package:picos/api/therapies_api.dart';
-
+import '../models/abstract_database_object.dart';
 import '../models/therapy.dart';
 import '../util/backend.dart';
+import 'backend_objects_api.dart';
 
 /// API for storing therapies at the backend.
-class BackendTherapiesApi extends TherapiesApi {
-  List<Therapy> _therapiesList = <Therapy>[];
-
-  final StreamController<List<Therapy>> _therapiesController =
-      StreamController<List<Therapy>>();
-
+class BackendTherapiesApi extends BackendObjectsApi {
   @override
-  Future<Stream<List<Therapy>>> getTherapies() async {
+  Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
     try {
       List<dynamic> response = await Backend.getAll(Therapy.databaseTable);
 
       for (dynamic element in response) {
-        _therapiesList.add(
+        objectList.add(
           Therapy(
             name: element['name'],
             date: DateTime.parse(element['date']['iso']),
@@ -47,69 +42,9 @@ class BackendTherapiesApi extends TherapiesApi {
         );
       }
 
-      return _therapiesController.stream.asBroadcastStream(
-        onListen: (StreamSubscription<List<Therapy>> subscription) {
-          _dispatch();
-        },
-      );
+      return getObjectsStream();
     } catch (e) {
       return Stream<List<Therapy>>.error(e);
     }
-  }
-
-  @override
-  Future<void> saveTherapy(Therapy therapy) async {
-    try {
-      dynamic response = await Backend.saveObject(therapy);
-
-      therapy = therapy.copyWith(
-        objectId: response['objectId'],
-        createdAt: DateTime.tryParse(response['createdAt'] ?? '') ??
-            therapy.createdAt,
-        updatedAt: DateTime.tryParse(response['updatedAt'] ?? '') ??
-            therapy.updatedAt,
-      );
-
-      int therapyIndex = _getIndex(therapy);
-
-      if (therapyIndex >= 0) {
-        _therapiesList[therapyIndex] = therapy;
-        _therapiesList = <Therapy>[..._therapiesList];
-      }
-
-      if (therapyIndex < 0) {
-        _therapiesList = <Therapy>[..._therapiesList, therapy];
-      }
-
-      _dispatch();
-    } catch (e) {
-      return;
-    }
-  }
-
-  @override
-  Future<void> removeTherapy(Therapy therapy) async {
-    try {
-      await Backend.removeObject(therapy);
-
-      int therapyIndex = _getIndex(therapy);
-
-      _therapiesList.removeAt(therapyIndex);
-      _therapiesList = <Therapy>[..._therapiesList];
-
-      _dispatch();
-    } catch (e) {
-      return;
-    }
-  }
-
-  void _dispatch() {
-    _therapiesController.sink.add(_therapiesList);
-  }
-
-  int _getIndex(Therapy therapy) {
-    return _therapiesList.indexWhere(
-      (Therapy element) => element.objectId == therapy.objectId,
-    );
   }
 }
