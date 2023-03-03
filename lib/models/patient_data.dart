@@ -115,7 +115,7 @@ class PatientData extends AbstractDatabaseObject {
   /// denotes the length of the stay in hospital.
   final int? khLengthStay;
 
-  /// denotes the wdaKH value.
+  /// denotes the WdaKH value.
   final double? wdaKH;
 
   /// denotes the weznDisease value,
