@@ -88,7 +88,7 @@ class PatientData extends AbstractDatabaseObject {
   /// denotes the LBgt70 value.
   final bool? lgbt70;
 
-  /// denotes the list of icd10 codes.
+  /// denotes the list of ICD 10 codes.
   final List<String>? icd10Codes;
 
   /// denotes the start time in hospital.
