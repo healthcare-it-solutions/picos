@@ -85,10 +85,10 @@ class PatientData extends AbstractDatabaseObject {
   /// denotes the mortality rate within hospital.
   final double? khMortality;
 
-  /// denotes the lgbt70 value.
+  /// denotes the LBgt70 value.
   final bool? lgbt70;
 
-  /// denotes the list of icd10 codes.
+  /// denotes the list of ICD 10 codes.
   final List<String>? icd10Codes;
 
   /// denotes the start time in hospital.
@@ -115,10 +115,10 @@ class PatientData extends AbstractDatabaseObject {
   /// denotes the length of the stay in hospital.
   final int? khLengthStay;
 
-  /// denotes the wdaKH value.
+  /// denotes the WdaKH value.
   final double? wdaKH;
 
-  /// denotes the weznDisease value,
+  /// denotes the WEZnDisease value.
   final double? weznDisease;
 
   /// denotes the institute key.

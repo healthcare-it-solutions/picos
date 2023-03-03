@@ -73,33 +73,30 @@ class _ConfigurationAdditionalEntriesState
             },
           ),
           PicosLabel(label: AppLocalizations.of(context)!.instituteKey),
-          SizedBox(
-            width: double.infinity,
-            child: PicosSelect(
-              selection: const <String>[
-                '100',
-                '101',
-                '102',
-                '103',
-                '104',
-                '105',
-                '201',
-                '300',
-                '400',
-                '501',
-                '502'
-              ],
-              callBackFunction: (String? value) {
-                widget.callbackAdditionalEntries('entryInstituteKey', value!);
-              },
-              hint: AppLocalizations.of(context)!.instituteKey,
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return '''     ${AppLocalizations.of(context)!.enterInstituteKey}''';
-                }
-                return null;
-              },
-            ),
+          PicosSelect(
+            selection: const <String>[
+              '100',
+              '101',
+              '102',
+              '103',
+              '104',
+              '105',
+              '201',
+              '300',
+              '400',
+              '501',
+              '502'
+            ],
+            callBackFunction: (String? value) {
+              widget.callbackAdditionalEntries('entryInstituteKey', value!);
+            },
+            hint: AppLocalizations.of(context)!.instituteKey,
+            validator: (String? value) {
+              if (value == null || value.isEmpty) {
+                return '''     ${AppLocalizations.of(context)!.enterInstituteKey}''';
+              }
+              return null;
+            },
           ),
           PicosLabel(label: AppLocalizations.of(context)!.height),
           PicosTextField(
