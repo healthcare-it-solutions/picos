@@ -46,7 +46,7 @@ class _ConfigurationAdditionalEntriesState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          PicosLabel(label: AppLocalizations.of(context)!.caseNumber),
+          PicosLabel(AppLocalizations.of(context)!.caseNumber),
           PicosTextField(
             hint: AppLocalizations.of(context)!.caseNumber,
             onChanged: (String? newValue) {
@@ -59,7 +59,7 @@ class _ConfigurationAdditionalEntriesState
               return null;
             },
           ),
-          PicosLabel(label: AppLocalizations.of(context)!.patientID),
+          PicosLabel(AppLocalizations.of(context)!.patientID),
           PicosTextField(
             hint: AppLocalizations.of(context)!.patientID,
             onChanged: (String? newValue) {
@@ -72,7 +72,7 @@ class _ConfigurationAdditionalEntriesState
               return null;
             },
           ),
-          PicosLabel(label: AppLocalizations.of(context)!.instituteKey),
+          PicosLabel(AppLocalizations.of(context)!.instituteKey),
           PicosSelect(
             selection: const <String>[
               '100',
@@ -98,7 +98,7 @@ class _ConfigurationAdditionalEntriesState
               return null;
             },
           ),
-          PicosLabel(label: AppLocalizations.of(context)!.height),
+          PicosLabel(AppLocalizations.of(context)!.height),
           PicosTextField(
             hint: '${AppLocalizations.of(context)!.height} (cm)',
             onChanged: (String? newValue) {
