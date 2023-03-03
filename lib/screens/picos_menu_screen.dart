@@ -86,6 +86,16 @@ class PicosMenu extends StatelessWidget {
           trailing: const Icon(Icons.keyboard_arrow_right),
           onTap: () => Navigator.of(context).pushNamed('/legals-screen'),
         ),
+        ListTile(
+          leading: const PicosSvgIcon(
+            assetName: 'assets/Datenschutz.svg',
+            height: 30,
+            width: 30,
+          ),
+          title: Text(AppLocalizations.of(context)!.privacyNotice),
+          trailing: const Icon(Icons.keyboard_arrow_right),
+          onTap: () => Navigator.of(context).pushNamed('/privacy-notice-screen'),
+        ),
       ],
     );
   }

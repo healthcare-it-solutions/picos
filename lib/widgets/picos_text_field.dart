@@ -73,7 +73,7 @@ class PicosTextField extends StatelessWidget {
   /// The padding for the content.
   final EdgeInsetsGeometry? contentPadding;
 
-  /// The suffix icon within the text field. 
+  /// The suffix icon within the text field.
   final IconButton? suffixIcon;
 
   /// Populates the field with an initial value.
@@ -94,6 +94,10 @@ class PicosTextField extends StatelessWidget {
   double _calcHeight() {
     if (maxLength != null) {
       return height + 20;
+    }
+
+    if (validator != null) {
+      return height + 25;
     }
 
     return height;
@@ -126,11 +130,12 @@ class PicosTextField extends StatelessWidget {
             ),
           ),
           hintText: hint,
-          contentPadding: contentPadding ?? EdgeInsets.only(
-            bottom: height / 2,
-            left: 15,
-            right: 15,
-          ),
+          contentPadding: contentPadding ??
+              EdgeInsets.only(
+                bottom: height / 2,
+                left: 15,
+                right: 15,
+              ),
           suffixIcon: suffixIcon,
         ),
         obscureText: obscureText,
