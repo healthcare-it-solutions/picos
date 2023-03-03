@@ -862,5 +862,9 @@
     "reasonForVisitToTheDoctor": "Reason for visit to the doctor",
     "@reasonForVisitToTheDoctor": {
         "description": "Reason for visit to the doctor"
+    },
+    "needHelp": "Do you need help or have a question about using the PICOS app?",
+    "@needHelp": {
+        "description": "Do you need help or have a question about using the PICOS app?"
     }
 }
