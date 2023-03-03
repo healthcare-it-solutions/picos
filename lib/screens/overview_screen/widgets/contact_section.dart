@@ -30,41 +30,53 @@ class ContactSection extends StatelessWidget {
     return Section(
       titleColor: Colors.blue,
       title: AppLocalizations.of(context)!.contact,
-      child: ButtonBar(
-        alignment: MainAxisAlignment.spaceAround,
+      child: Stack(
         children: <Widget>[
-          ElevatedButton(
-            onPressed: () {
-              return;
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-            ),
-            child: Text(
-              '7 ${AppLocalizations.of(context)!.days}',
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Expanded>[
+              const Expanded(
+                flex: 35,
+                child: SizedBox(),
+              ),
+              Expanded(
+                flex: 65,
+                child: Image.asset('assets/Feedbackgespraech.png'),
+              ),
+            ],
           ),
-          ElevatedButton(
-            onPressed: () {
-              return;
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-            ),
-            child: Text(
-              '1 ${AppLocalizations.of(context)!.month}',
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              return;
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-            ),
-            child: Text(
-              '3 ${AppLocalizations.of(context)!.months}',
-            ),
+          Column(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Expanded>[
+                  Expanded(
+                    flex: 55,
+                    child: Text(AppLocalizations.of(context)!.needHelp),
+                  ),
+                  const Expanded(
+                    flex: 45,
+                    child: SizedBox(),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 45,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const <Expanded>[
+                  Expanded(
+                    flex: 55,
+                    child: Text('E-Mail:\npicos@hit-solutions.de'),
+                  ),
+                  Expanded(
+                    flex: 45,
+                    child: SizedBox(),
+                  ),
+                ],
+              ),
+            ],
           ),
         ],
       ),
