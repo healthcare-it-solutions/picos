@@ -26,6 +26,7 @@ import 'package:picos/widgets/picos_select.dart';
 
 import '../../state/objects_list_bloc.dart';
 import '../../widgets/picos_body.dart';
+import '../../widgets/picos_info_card.dart';
 import '../../widgets/picos_label.dart';
 import '../../widgets/picos_text_field.dart';
 
@@ -171,7 +172,6 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
       _compoundAutoFocus = false;
     }
 
-    const Color infoTextFontColor = Colors.white;
     const EdgeInsets selectPaddingRight = EdgeInsets.only(
       bottom: 5,
       right: 5,
@@ -190,46 +190,26 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
           body: PicosBody(
             child: Column(
               children: <Widget>[
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(7),
-                  ),
-                  color: Theme.of(context).dialogBackgroundColor,
-                  child: Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const Padding(
-                          padding: EdgeInsets.only(
-                            right: 15,
+                PicosInfoCard(
+                  infoText: RichText(
+                    text: TextSpan(
+                      text: AppLocalizations.of(context)!
+                          .addMedicationInfoPart1,
+                      style: const TextStyle(
+                        color: PicosInfoCard.infoTextFontColor,
+                        fontSize: PicosInfoCard.infoTextFontSize,
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: AppLocalizations.of(context)!
+                              .addMedicationInfoPart2,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
                           ),
-                          child: Icon(Icons.info, color: infoTextFontColor),
                         ),
-                        Flexible(
-                          child: RichText(
-                            text: TextSpan(
-                              text: AppLocalizations.of(context)!
-                                  .addMedicationInfoPart1,
-                              style: const TextStyle(
-                                color: infoTextFontColor,
-                                fontSize: 20,
-                              ),
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: AppLocalizations.of(context)!
-                                      .addMedicationInfoPart2,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: AppLocalizations.of(context)!
-                                      .addMedicationInfoPart3,
-                                ),
-                              ],
-                            ),
-                          ),
+                        TextSpan(
+                          text: AppLocalizations.of(context)!
+                              .addMedicationInfoPart3,
                         ),
                       ],
                     ),
@@ -238,9 +218,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                 const SizedBox(
                   height: 25,
                 ),
-                PicosLabel(
-                  label: AppLocalizations.of(context)!.compound,
-                ),
+                PicosLabel(AppLocalizations.of(context)!.compound),
                 PicosTextField(
                   onChanged: (String value) {
                     _compound = value;
@@ -262,9 +240,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                PicosLabel(
-                  label: AppLocalizations.of(context)!.intake,
-                ),
+                PicosLabel(AppLocalizations.of(context)!.intake),
                 Row(
                   children: <Expanded>[
                     _createAmountSelect(

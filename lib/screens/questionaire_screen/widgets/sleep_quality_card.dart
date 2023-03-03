@@ -252,7 +252,7 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
       ),
       label: Padding(
         padding: EdgeInsets.symmetric(horizontal: cardContentPadding),
-        child: PicosLabel(label: widget.label),
+        child: PicosLabel(widget.label),
       ),
       child: Stack(
         children: <Widget>[

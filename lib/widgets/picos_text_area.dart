@@ -44,7 +44,7 @@ class PicosTextArea extends StatelessWidget {
   final bool autofocus;
 
   /// The function that is executed when the user writes something.
-  final Function(String)? onChanged;
+  final Function(String value)? onChanged;
 
   /// The function that is executed when the user taps the field.
   final Function()? onTap;

@@ -810,5 +810,57 @@
     "enterName": "Please enter the name",
     "@enterName": {
         "description": "Please enter the name"
+    },
+    "visits": "Doctor/hospital visits",
+    "@visits": {
+        "description": "Doctor/hospital visits"
+    },
+    "visitInfoPart1": "This information is only required if you have made an ",
+    "@visitInfoPart1": {
+        "description": "Patient advice for unplanned hospital and doctors visits. (Part 1)"
+    },
+    "visitInfoPart2": "unplanned",
+    "@visitInfoPart2": {
+        "description": "Patient advice for unplanned hospital and doctors visits. (Part 2)"
+    },
+    "visitInfoPart3": " visit to a doctor's office or hospital.",
+    "@visitInfoPart3": {
+        "description": "Patient advice for unplanned hospital and doctors visits. (Part 3)"
+    },
+    "iWasUnscheduled": "I was unscheduled",
+    "@iWasUnscheduled": {
+        "description": "I was unscheduled"
+    },
+    "toSeeAResidentPhysician": "to see a general practitioner",
+    "@toSeeAResidentPhysician": {
+        "description": "to see a general practitioner"
+    },
+    "inAHospital": "in a hospital",
+    "@inAHospital": {
+        "description": "in a hospital"
+    },
+    "whenDidYouSeeThePhysician": "When did you see the physician?",
+    "@whenDidYouSeeThePhysician": {
+        "description": "When did you see the physician?"
+    },
+    "whenWereYouInHospital": "When were you in the hospital?",
+    "@whenWereYouInHospital": {
+        "description": "When were you in the hospital?"
+    },
+    "dayOfRecording": "Date of admission",
+    "@dayOfRecording": {
+        "description": "Date of admission"
+    },
+    "dayOfDischarge": "Day of discharge",
+    "@dayOfDischarge": {
+        "description": "Day of discharge"
+    },
+    "reasonForHospitalization": "Reason for hospitalization",
+    "@reasonForHospitalization": {
+        "description": "Reason for hospitalization"
+    },
+    "reasonForVisitToTheDoctor": "Reason for visit to the doctor",
+    "@reasonForVisitToTheDoctor": {
+        "description": "Reason for visit to the doctor"
     }
 }
