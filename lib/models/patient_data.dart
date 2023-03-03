@@ -85,7 +85,7 @@ class PatientData extends AbstractDatabaseObject {
   /// denotes the mortality rate within hospital.
   final double? khMortality;
 
-  /// denotes the lgbt70 value.
+  /// denotes the LBgt70 value.
   final bool? lgbt70;
 
   /// denotes the list of icd10 codes.
