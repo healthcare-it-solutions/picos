@@ -16,44 +16,40 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/screens/questionaire_screen/widgets/questionaire_card.dart';
+import 'package:flutter_svg/svg.dart';
 
-import '../../../widgets/picos_label.dart';
-import '../../../widgets/picos_text_field.dart';
+import '../themes/global_theme.dart';
 
-/// A card with a TextField inside it.
-class TextFieldCard extends StatelessWidget {
-  /// Creates TextFieldCard.
-  const TextFieldCard({
-    this.label = '',
-    this.hint = '',
-    this.onChanged,
-    this.disabled = false,
+/// Instantiates a widget that renders an SVG picture from an AssetBundle.
+class PicosSvgIcon extends StatelessWidget {
+  /// PicosSvgIcon constructor.
+  const PicosSvgIcon({
+    required this.assetName,
     Key? key,
+    this.height,
+    this.width,
   }) : super(key: key);
 
-  /// The title of the input field.
-  final String label;
+  /// Path to the asset.
+  final String assetName;
 
-  /// The hint shown in the text field.
-  final String hint;
+  /// If specified, the height to use for the SVG. If unspecified, the SVG will
+  /// take the height of its parent.
+  final double? height;
 
-  /// The function that is executed when the user writes something.
-  final dynamic Function(String value)? onChanged;
-
-  /// Determines if the text field is disabled.
-  final bool disabled;
+  /// If specified, the height to use for the SVG. If unspecified, the SVG will
+  /// take the width of its parent.
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
-    return QuestionaireCard(
-      label: PicosLabel(label),
-      child: PicosTextField(
-        onChanged: onChanged,
-        hint: hint,
-        keyboardType: TextInputType.number,
-        disabled: disabled,
-      ),
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
+    return SvgPicture.asset(
+      assetName,
+      height: height,
+      width: width,
+      colorFilter: ColorFilter.mode(theme.darkGreen1!, BlendMode.srcIn),
     );
   }
 }

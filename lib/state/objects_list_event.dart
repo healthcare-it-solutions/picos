@@ -15,43 +15,43 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-part of 'therapies_list_bloc.dart';
+part of 'objects_list_bloc.dart';
 
-/// Defines Events for TherapiesList.
-abstract class TherapiesListEvent extends Equatable {
+/// Defines Events for ObjectsList.
+abstract class ObjectsListEvent extends Equatable {
   /// Event constructor.
-  const TherapiesListEvent();
+  const ObjectsListEvent();
 
   @override
   List<Object> get props => <Object>[];
 }
 
-/// Subscribes to TherapiesListUpdates.
-class TherapiesListSubscriptionRequested extends TherapiesListEvent {
-  /// TherapiesListSubscriptionRequested constructor.
-  const TherapiesListSubscriptionRequested();
+/// Subscribes to ObjectsListUpdates.
+class ObjectsListSubscriptionRequested extends ObjectsListEvent {
+  /// ObjectsListSubscriptionRequested constructor.
+  const ObjectsListSubscriptionRequested();
 }
 
-/// Adds or replaces a therapy.
-class SaveTherapy extends TherapiesListEvent {
-  /// SaveTherapy constructor.
-  const SaveTherapy(this.therapy);
+/// Adds or replaces an object.
+class SaveObject extends ObjectsListEvent {
+  /// SaveObject constructor.
+  const SaveObject(this.object);
 
-  /// The [therapy] to be saved.
-  final Therapy therapy;
+  /// The [object] to be saved.
+  final AbstractDatabaseObject object;
 
   @override
-  List<Object> get props => <Object>[therapy];
+  List<Object> get props => <Object>[object];
 }
 
-/// Removes a therapy.
-class RemoveTherapy extends TherapiesListEvent {
-  /// RemoveTherapy constructor.
-  const RemoveTherapy(this.therapy);
+/// Removes an object.
+class RemoveObject extends ObjectsListEvent {
+  /// RemoveObject constructor.
+  const RemoveObject(this.object);
 
-  /// The [therapy] to be removed.
-  final Therapy therapy;
+  /// The [object] to be removed.
+  final AbstractDatabaseObject object;
 
   @override
-  List<Object> get props => <Object>[therapy];
+  List<Object> get props => <Object>[object];
 }

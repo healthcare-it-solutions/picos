@@ -54,7 +54,7 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          PicosLabel(label: AppLocalizations.of(context)!.title),
+          PicosLabel(AppLocalizations.of(context)!.title),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -120,7 +120,7 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
               ),
             ],
           ),
-          PicosLabel(label: AppLocalizations.of(context)!.firstName),
+          PicosLabel(AppLocalizations.of(context)!.firstName),
           PicosTextField(
             hint: AppLocalizations.of(context)!.firstName,
             keyboardType: TextInputType.name,
@@ -134,7 +134,7 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
               return null;
             },
           ),
-          PicosLabel(label: AppLocalizations.of(context)!.familyName),
+          PicosLabel(AppLocalizations.of(context)!.familyName),
           PicosTextField(
             hint: AppLocalizations.of(context)!.familyName,
             keyboardType: TextInputType.name,
@@ -148,7 +148,7 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
               return null;
             },
           ),
-          PicosLabel(label: AppLocalizations.of(context)!.email),
+          PicosLabel(AppLocalizations.of(context)!.email),
           PicosTextField(
             hint: AppLocalizations.of(context)!.email,
             keyboardType: TextInputType.emailAddress,
@@ -167,7 +167,7 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
               }
             },
           ),
-          PicosLabel(label: AppLocalizations.of(context)!.phoneNumber),
+          PicosLabel(AppLocalizations.of(context)!.phoneNumber),
           PicosTextField(
             hint: AppLocalizations.of(context)!.phoneNumber,
             keyboardType: TextInputType.phone,
@@ -181,7 +181,7 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
               return null;
             },
           ),
-          PicosLabel(label: AppLocalizations.of(context)!.address),
+          PicosLabel(AppLocalizations.of(context)!.address),
           PicosTextArea(
             hint: AppLocalizations.of(context)!.address,
             onChanged: (String? newValue) {

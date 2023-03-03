@@ -17,25 +17,21 @@
 
 import 'dart:async';
 
-import 'package:picos/api/medications_api.dart';
+import 'package:picos/api/backend_objects_api.dart';
+import 'package:picos/models/abstract_database_object.dart';
 import 'package:picos/models/medication.dart';
 
 import '../util/backend.dart';
 
 /// API for storing medications at the backend.
-class BackendMedicationsApi extends MedicationsApi {
-  List<Medication> _medicationsList = <Medication>[];
-
-  final StreamController<List<Medication>> _medicationsController =
-      StreamController<List<Medication>>();
-
+class BackendMedicationsApi extends BackendObjectsApi {
   @override
-  Future<Stream<List<Medication>>> getMedications() async {
+  Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
     try {
       List<dynamic> response = await Backend.getAll(Medication.databaseTable);
 
       for (dynamic element in response) {
-        _medicationsList.add(
+        objectList.add(
           Medication(
             compound: element['MedicalProduct'],
             morning: element['Morning'].toDouble(),
@@ -49,69 +45,9 @@ class BackendMedicationsApi extends MedicationsApi {
         );
       }
 
-      return _medicationsController.stream.asBroadcastStream(
-        onListen: (StreamSubscription<List<Medication>> subscription) {
-          _dispatch();
-        },
-      );
+      return getObjectsStream();
     } catch (e) {
       return Stream<List<Medication>>.error(e);
     }
-  }
-
-  @override
-  Future<void> saveMedication(Medication medication) async {
-    try {
-      dynamic response = await Backend.saveObject(medication);
-
-      medication = medication.copyWith(
-        objectId: response['objectId'],
-        createdAt: DateTime.tryParse(response['createdAt'] ?? '') ??
-            medication.createdAt,
-        updatedAt: DateTime.tryParse(response['updatedAt'] ?? '') ??
-            medication.updatedAt,
-      );
-
-      int medicationIndex = _getIndex(medication);
-
-      if (medicationIndex >= 0) {
-        _medicationsList[medicationIndex] = medication;
-        _medicationsList = <Medication>[..._medicationsList];
-      }
-
-      if (medicationIndex < 0) {
-        _medicationsList = <Medication>[..._medicationsList, medication];
-      }
-
-      _dispatch();
-    } catch (e) {
-      return;
-    }
-  }
-
-  @override
-  Future<void> removeMedication(Medication medication) async {
-    try {
-      await Backend.removeObject(medication);
-
-      int medicationIndex = _getIndex(medication);
-
-      _medicationsList.removeAt(medicationIndex);
-      _medicationsList = <Medication>[..._medicationsList];
-
-      _dispatch();
-    } catch (e) {
-      return;
-    }
-  }
-
-  void _dispatch() {
-    _medicationsController.sink.add(_medicationsList);
-  }
-
-  int _getIndex(Medication medication) {
-    return _medicationsList.indexWhere(
-      (Medication element) => element.objectId == medication.objectId,
-    );
   }
 }

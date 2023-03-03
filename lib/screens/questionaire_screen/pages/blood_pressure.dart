@@ -60,7 +60,7 @@ class BloodPressure extends StatelessWidget {
       backFunction: previousPage,
       nextFunction: nextPage,
       child: QuestionaireCard(
-        label: PicosLabel(label: _bloodPressure!),
+        label: PicosLabel(_bloodPressure!),
         child: Row(
           children: <Widget>[
             Expanded(

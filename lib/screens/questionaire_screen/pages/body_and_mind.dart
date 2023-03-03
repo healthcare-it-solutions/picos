@@ -50,7 +50,7 @@ class BodyAndMind extends StatelessWidget {
       nextFunction: nextPage,
       child: RadioSelectCard(
         callback: onChangedInterest,
-        label: PicosLabel(label: _howOftenAffected!),
+        label: PicosLabel(_howOftenAffected!),
         description: questionType,
         options: _bodyAndMindValues!,
       ),

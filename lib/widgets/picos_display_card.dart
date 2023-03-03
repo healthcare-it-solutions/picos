@@ -17,57 +17,55 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../widgets/picos_label.dart';
-
-/// Card item for displaying some input for use inside the QuestionaireScreen.
-class QuestionaireCard extends StatefulWidget {
-  /// Creates a QuestionaireCard.
-  const QuestionaireCard({
+/// Creates a card or a box for displaying any content inside of it.
+class PicosDisplayCard extends StatelessWidget {
+  /// PicosDisplayBox constructor.
+  PicosDisplayCard({
     required this.child,
+    Key? key,
     this.label,
     this.padding,
-    Key? key,
+    this.backgroundColor,
   }) : super(key: key);
 
-  /// The label of the questionaire card.
+  /// The label of the box.
   final Widget? label;
 
-  /// The card content.
+  /// The content to be displayed.
   final Widget child;
 
   /// Possible custom padding.
   final EdgeInsetsGeometry? padding;
 
-  @override
-  State<QuestionaireCard> createState() => _QuestionaireCardState();
-}
+  /// The card's background color.
+  final Color? backgroundColor;
 
-class _QuestionaireCardState extends State<QuestionaireCard>
-    with AutomaticKeepAliveClientMixin {
+  final List<Widget> _children = <Widget>[];
+
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    if (label != null) {
+      _children.add(label!);
+      _children.add(const SizedBox(height: 15));
+    }
+
+    _children.add(child);
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Card(
+        color: backgroundColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 5,
         child: Padding(
-          padding: widget.padding ??
+          padding: padding ??
               const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              widget.label ?? const PicosLabel(''),
-              const SizedBox(height: 15),
-              widget.child,
-            ],
+            children: _children,
           ),
         ),
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

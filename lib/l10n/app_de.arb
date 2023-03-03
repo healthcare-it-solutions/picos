@@ -185,5 +185,18 @@
     "enterDischargeDate": "Bitte geben Sie das Datum der Entlassung ein!",
     "enterInstituteKey": "Bitte geben Sie den Institutionsschlüssel ein!",
     "therapyName": "Therapiename",
-    "enterName": "Bitte tragen Sie den Namen ein"
+    "enterName": "Bitte tragen Sie den Namen ein",
+    "visits": "Arzt-/Krankenhausbesuche",
+    "visitInfoPart1": "Diese Angaben sind nur erforderlich, wenn Sie ",
+    "visitInfoPart2": "ungeplant",
+    "visitInfoPart3": " eine Arztpraxis oder ein Krankenhaus aufgesucht haben.",
+    "iWasUnscheduled": "Ich war ungeplant",
+    "toSeeAResidentPhysician": "bei einem/r niedergelassenen Arzt/Ärztin",
+    "inAHospital": "in einem Krankenhaus",
+    "whenDidYouSeeThePhysician": "Wann waren Sie bei dem/r Arzt/Ärztin?",
+    "whenWereYouInHospital": "Wann waren Sie im Krankenhaus?",
+    "dayOfRecording": "Tag der Aufnahme",
+    "dayOfDischarge": "Tag der Entlassung",
+    "reasonForHospitalization": "Grund des Krankenhausbesuches",
+    "reasonForVisitToTheDoctor": "Grund des Arztbesuches"
 }
