@@ -167,15 +167,9 @@ class _ConfigurationPages extends State<ConfigurationPages> {
     patientProfileACL.setWriteAccess(
       userId: Role.doctor.roleTitle,
     );
-    dynamic responsePatientProfile = await Backend.saveObject(
+    await Backend.saveObject(
       patientProfile,
       acl: patientProfileACL,
-    );
-    patientProfile = patientProfile.copyWith(
-      objectId: responsePatientProfile['objectId'],
-      createdAt: DateTime.parse(
-        responsePatientProfile['createdAt'],
-      ),
     );
   }
 
