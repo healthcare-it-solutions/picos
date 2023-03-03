@@ -58,7 +58,7 @@ class PrivacyNoticeScreen extends StatelessWidget {
               ),
             ),
             Text(
-              '''Weiterhin haben Sie die Möglichkeit die Rechte auf Berichtigung, Löschung oder Einschrän-kung der Verarbeitung geltend zu machen. Sie können auch jederzeit Widerspruch gegen die Verarbeitung Ihrer Daten gegenüber uns einlegen.\n''',
+              '''Weiterhin haben Sie die Möglichkeit die Rechte auf Berichtigung, Löschung oder Einschränkung der Verarbeitung geltend zu machen. Sie können auch jederzeit Widerspruch gegen die Verarbeitung Ihrer Daten gegenüber uns einlegen.\n''',
             ),
             Text(
               '''Widerruf im Falle einer Einwilligung (Art. 7 Abs. 3 DSGVO, § 8 Abs. 6 KDG, § 11 Abs. 3 DSG-EKD):''',
@@ -67,7 +67,7 @@ class PrivacyNoticeScreen extends StatelessWidget {
               ),
             ),
             Text(
-              '''Sofern Sie Ihre personenbezogenen Daten auf Grundlage einer Einwilligung abgegeben ha-ben, haben sie das Recht die Einwilligung jederzeit für die Zukunft zu widerrufen. Wir möchten Sie darauf hinweisen, dass durch den Widerruf der Einwilligung die Rechtmäßigkeit, der auf-grund der Einwilligung bis zum Widerruf erfolgten Verarbeitung nicht berührt wird.\n''',
+              '''Sofern Sie Ihre personenbezogenen Daten auf Grundlage einer Einwilligung abgegeben haben, haben sie das Recht die Einwilligung jederzeit für die Zukunft zu widerrufen. Wir möchten Sie darauf hinweisen, dass durch den Widerruf der Einwilligung die Rechtmäßigkeit, der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung nicht berührt wird.\n''',
             ),
             Text(
               'Recht auf Beschwerde bei der Aufsichtsbehörde',
