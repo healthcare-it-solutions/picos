@@ -19,7 +19,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
-import 'package:picos/secrets.dart';
+import 'package:picos/config.dart';
 
 import '../models/abstract_database_object.dart';
 
