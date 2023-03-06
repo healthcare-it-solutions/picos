@@ -9,5 +9,13 @@ in the
 ["DISTANCE"](https://www.gesundheitsforschung-bmbf.de/de/distance-krankheitsverlaufe-nach-intensivmedizinischer-betreuung-besser-vorhersagen-13021.php)
 data donation program.
 
-## License 
+## License
+
 This program is subject to the GNU General Public License 3.0
+
+## Participate
+
+If you want to test app features or help out with development you can use the following credentials to access the test backend:
+
+> Username: `gitpatienttest`
+> Password: `Q9O210cZBIbi`
