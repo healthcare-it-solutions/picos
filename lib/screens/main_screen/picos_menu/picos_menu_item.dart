@@ -17,6 +17,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../../../themes/global_theme.dart';
 import '../../../widgets/picos_svg_icon.dart';
 
 /// An menu item for the picos menu.
@@ -36,20 +37,29 @@ class PicosMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const double iconSize = 27;
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
     Widget? leadingIcon;
 
     if (iconPath != null) {
       leadingIcon = PicosSvgIcon(
         assetName: iconPath!,
-        height: 30,
-        width: 30,
+        height: iconSize,
+        width: iconSize,
       );
     }
 
     return ListTile(
-      leading: leadingIcon,
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 20, right: 10),
+        child: leadingIcon,
+      ),
       title: Text(title ?? ''),
-      trailing: const Icon(Icons.keyboard_arrow_right),
+      trailing: Icon(
+        Icons.keyboard_arrow_right_rounded,
+        size: 50,
+        color: theme.darkGreen2,
+      ),
       onTap: onTap,
     );
   }

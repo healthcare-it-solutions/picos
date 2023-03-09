@@ -17,9 +17,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/screens/main_screen/picos_menu/picos_menu_item.dart';
 import 'package:picos/widgets/picos_label.dart';
-
-import '../../../widgets/picos_svg_icon.dart';
 
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
@@ -31,46 +30,33 @@ class PicosMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     const double labelSize = 17;
     const double sidePadding = 15;
+    const double labelPadding = 10;
 
     List<Widget> items = <Widget>[
       Padding(
-        padding: const EdgeInsets.only(left: sidePadding),
+        padding: const EdgeInsets.only(left: sidePadding, bottom: labelPadding),
         child: PicosLabel(
           AppLocalizations.of(context)!.myHealth,
           fontSize: labelSize,
         ),
       ),
-      ListTile(
-        leading: const PicosSvgIcon(
-          assetName: 'assets/Medikation.svg',
-          height: 30,
-          width: 30,
-        ),
-        title: Text(AppLocalizations.of(context)!.medicationScheme),
-        trailing: const Icon(Icons.keyboard_arrow_right),
+      PicosMenuItem(
+        iconPath: 'assets/Medikation.svg',
+        title: AppLocalizations.of(context)!.medicationScheme,
         onTap: () => Navigator.of(context)
             .pushNamed('/my-medications-screen/my-medications'),
       ),
-      ListTile(
-        leading: const PicosSvgIcon(
-          assetName: 'assets/Therapie.svg',
-          height: 30,
-          width: 30,
-        ),
-        title: Text(AppLocalizations.of(context)!.therapy),
-        trailing: const Icon(Icons.keyboard_arrow_right),
+      PicosMenuItem(
+        iconPath: 'assets/Therapie.svg',
+        title: AppLocalizations.of(context)!.therapy,
         onTap: () =>
             Navigator.of(context).pushNamed('/my-therapy-screen/my-therapy'),
       ),
-      ListTile(
-        leading: const PicosSvgIcon(
-          assetName: 'assets/Krankenhaus.svg',
-          height: 30,
-          width: 30,
-        ),
-        title: Text(AppLocalizations.of(context)!.visits),
-        trailing: const Icon(Icons.keyboard_arrow_right),
-        onTap: () => Navigator.of(context).pushNamed('/visits-screen/visits'),
+      PicosMenuItem(
+        iconPath: 'assets/Krankenhaus.svg',
+        title: AppLocalizations.of(context)!.visits,
+        onTap: () => Navigator.of(context)
+            .pushNamed('/visits-screen/visits'),
       ),
       Padding(
         padding: const EdgeInsets.only(left: sidePadding),
@@ -79,43 +65,35 @@ class PicosMenu extends StatelessWidget {
           fontSize: labelSize,
         ),
       ),
-      ListTile(
-        leading: const PicosSvgIcon(
-          assetName: 'assets/Impressum.svg',
-          height: 30,
-          width: 30,
-        ),
-        title: Text(AppLocalizations.of(context)!.legals),
-        trailing: const Icon(Icons.keyboard_arrow_right),
-        onTap: () => Navigator.of(context).pushNamed('/legals-screen'),
+      PicosMenuItem(
+        iconPath: 'assets/Impressum.svg',
+        title: AppLocalizations.of(context)!.legals,
+        onTap: () => Navigator.of(context)
+            .pushNamed('/legals-screen'),
       ),
-      ListTile(
-        leading: const PicosSvgIcon(
-          assetName: 'assets/Datenschutz.svg',
-          height: 30,
-          width: 30,
-        ),
-        title: Text(AppLocalizations.of(context)!.privacyNotice),
-        trailing: const Icon(Icons.keyboard_arrow_right),
-        onTap: () => Navigator.of(context).pushNamed('/privacy-notice-screen'),
+      PicosMenuItem(
+        iconPath: 'assets/Datenschutz.svg',
+        title: AppLocalizations.of(context)!.privacyNotice,
+        onTap: () => Navigator.of(context)
+            .pushNamed('/privacy-notice-screen'),
       ),
-      ListTile(
-        leading: const PicosSvgIcon(
-          assetName: 'assets/Log-out.svg',
-          height: 30,
-          width: 30,
-        ),
-        title: Text(AppLocalizations.of(context)!.logout),
-        trailing: const Icon(Icons.keyboard_arrow_right),
-        onTap: () => Navigator.of(context).pushNamed('/privacy-notice-screen'),
+      PicosMenuItem(
+        iconPath: 'assets/Log-out.svg',
+        title: AppLocalizations.of(context)!.logout,
+        onTap: () => Navigator.of(context)
+            .pushNamed('/privacy-notice-screen'),
       ),
     ];
 
     return ListView.separated(
       separatorBuilder: (BuildContext context, int index) {
+        if (index == 3 || index == 4) {
+          return const SizedBox(height: labelPadding);
+        }
+
         return const Padding(
           padding: EdgeInsets.symmetric(horizontal: sidePadding),
-          child: Divider(color: Colors.grey),
+          child: Divider(color: Colors.grey, height: 0),
         );
       },
       padding: const EdgeInsets.symmetric(vertical: sidePadding),
