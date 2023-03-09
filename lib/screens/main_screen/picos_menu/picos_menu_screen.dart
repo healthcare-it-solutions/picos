@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_label.dart';
 
-import '../../widgets/picos_svg_icon.dart';
+import '../../../widgets/picos_svg_icon.dart';
 
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
