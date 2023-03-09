@@ -17,6 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/widgets/picos_label.dart';
 
 import '../../widgets/picos_svg_icon.dart';
 
@@ -28,91 +29,100 @@ class PicosMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(15.0),
-      children: <Widget>[
-        Text(
+    const double labelSize = 17;
+    const double sidePadding = 15;
+
+    List<Widget> items = <Widget>[
+      Padding(
+        padding: const EdgeInsets.only(left: sidePadding),
+        child: PicosLabel(
           AppLocalizations.of(context)!.myHealth,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+          fontSize: labelSize,
         ),
-        const SizedBox(height: 20),
-        ListTile(
-          leading: const PicosSvgIcon(
-            assetName: 'assets/Medikation.svg',
-            height: 30,
-            width: 30,
-          ),
-          title: Text(AppLocalizations.of(context)!.medicationScheme),
-          trailing: const Icon(Icons.keyboard_arrow_right),
-          onTap: () => Navigator.of(context)
-              .pushNamed('/my-medications-screen/my-medications'),
+      ),
+      ListTile(
+        leading: const PicosSvgIcon(
+          assetName: 'assets/Medikation.svg',
+          height: 30,
+          width: 30,
         ),
-        ListTile(
-          leading: const PicosSvgIcon(
-            assetName: 'assets/Therapie.svg',
-            height: 30,
-            width: 30,
-          ),
-          title: Text(AppLocalizations.of(context)!.therapy),
-          trailing: const Icon(Icons.keyboard_arrow_right),
-          onTap: () =>
-              Navigator.of(context).pushNamed('/my-therapy-screen/my-therapy'),
+        title: Text(AppLocalizations.of(context)!.medicationScheme),
+        trailing: const Icon(Icons.keyboard_arrow_right),
+        onTap: () => Navigator.of(context)
+            .pushNamed('/my-medications-screen/my-medications'),
+      ),
+      ListTile(
+        leading: const PicosSvgIcon(
+          assetName: 'assets/Therapie.svg',
+          height: 30,
+          width: 30,
         ),
-        ListTile(
-          leading: const PicosSvgIcon(
-            assetName: 'assets/Krankenhaus.svg',
-            height: 30,
-            width: 30,
-          ),
-          title: Text(AppLocalizations.of(context)!.visits),
-          trailing: const Icon(Icons.keyboard_arrow_right),
-          onTap: () => Navigator.of(context).pushNamed('/visits-screen/visits'),
+        title: Text(AppLocalizations.of(context)!.therapy),
+        trailing: const Icon(Icons.keyboard_arrow_right),
+        onTap: () =>
+            Navigator.of(context).pushNamed('/my-therapy-screen/my-therapy'),
+      ),
+      ListTile(
+        leading: const PicosSvgIcon(
+          assetName: 'assets/Krankenhaus.svg',
+          height: 30,
+          width: 30,
         ),
-        const SizedBox(
-          height: 20,
-        ),
-        Text(
+        title: Text(AppLocalizations.of(context)!.visits),
+        trailing: const Icon(Icons.keyboard_arrow_right),
+        onTap: () => Navigator.of(context).pushNamed('/visits-screen/visits'),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(left: sidePadding),
+        child: PicosLabel(
           AppLocalizations.of(context)!.more,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+          fontSize: labelSize,
         ),
-        const SizedBox(height: 20),
-        ListTile(
-          leading: const PicosSvgIcon(
-            assetName: 'assets/Impressum.svg',
-            height: 30,
-            width: 30,
-          ),
-          title: Text(AppLocalizations.of(context)!.legals),
-          trailing: const Icon(Icons.keyboard_arrow_right),
-          onTap: () => Navigator.of(context).pushNamed('/legals-screen'),
+      ),
+      ListTile(
+        leading: const PicosSvgIcon(
+          assetName: 'assets/Impressum.svg',
+          height: 30,
+          width: 30,
         ),
-        ListTile(
-          leading: const PicosSvgIcon(
-            assetName: 'assets/Datenschutz.svg',
-            height: 30,
-            width: 30,
-          ),
-          title: Text(AppLocalizations.of(context)!.privacyNotice),
-          trailing: const Icon(Icons.keyboard_arrow_right),
-          onTap: () =>
-              Navigator.of(context).pushNamed('/privacy-notice-screen'),
+        title: Text(AppLocalizations.of(context)!.legals),
+        trailing: const Icon(Icons.keyboard_arrow_right),
+        onTap: () => Navigator.of(context).pushNamed('/legals-screen'),
+      ),
+      ListTile(
+        leading: const PicosSvgIcon(
+          assetName: 'assets/Datenschutz.svg',
+          height: 30,
+          width: 30,
         ),
-        ListTile(
-          leading: const PicosSvgIcon(
-            assetName: 'assets/Log-out.svg',
-            height: 30,
-            width: 30,
-          ),
-          title: Text(AppLocalizations.of(context)!.logout),
-          trailing: const Icon(Icons.keyboard_arrow_right),
-          onTap: () =>
-              Navigator.of(context).pushNamed('/privacy-notice-screen'),
+        title: Text(AppLocalizations.of(context)!.privacyNotice),
+        trailing: const Icon(Icons.keyboard_arrow_right),
+        onTap: () => Navigator.of(context).pushNamed('/privacy-notice-screen'),
+      ),
+      ListTile(
+        leading: const PicosSvgIcon(
+          assetName: 'assets/Log-out.svg',
+          height: 30,
+          width: 30,
         ),
-      ],
+        title: Text(AppLocalizations.of(context)!.logout),
+        trailing: const Icon(Icons.keyboard_arrow_right),
+        onTap: () => Navigator.of(context).pushNamed('/privacy-notice-screen'),
+      ),
+    ];
+
+    return ListView.separated(
+      separatorBuilder: (BuildContext context, int index) {
+        return const Padding(
+          padding: EdgeInsets.symmetric(horizontal: sidePadding),
+          child: Divider(color: Colors.grey),
+        );
+      },
+      padding: const EdgeInsets.symmetric(vertical: sidePadding),
+      itemBuilder: (BuildContext context, int index) {
+        return items[index];
+      },
+      itemCount: items.length,
     );
   }
 }
