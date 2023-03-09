@@ -81,7 +81,11 @@ class PicosMenu extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         ListTile(
-          leading: const Icon(Icons.gavel),
+          leading: const PicosSvgIcon(
+            assetName: 'assets/Impressum.svg',
+            height: 30,
+            width: 30,
+          ),
           title: Text(AppLocalizations.of(context)!.legals),
           trailing: const Icon(Icons.keyboard_arrow_right),
           onTap: () => Navigator.of(context).pushNamed('/legals-screen'),
@@ -94,17 +98,19 @@ class PicosMenu extends StatelessWidget {
           ),
           title: Text(AppLocalizations.of(context)!.privacyNotice),
           trailing: const Icon(Icons.keyboard_arrow_right),
-          onTap: () => Navigator.of(context).pushNamed('/privacy-notice-screen'),
+          onTap: () =>
+              Navigator.of(context).pushNamed('/privacy-notice-screen'),
         ),
         ListTile(
           leading: const PicosSvgIcon(
-            assetName: 'assets/Datenschutz.svg',
+            assetName: 'assets/Log-out.svg',
             height: 30,
             width: 30,
           ),
           title: Text(AppLocalizations.of(context)!.logout),
           trailing: const Icon(Icons.keyboard_arrow_right),
-          onTap: () => Navigator.of(context).pushNamed('/privacy-notice-screen'),
+          onTap: () =>
+              Navigator.of(context).pushNamed('/privacy-notice-screen'),
         ),
       ],
     );
