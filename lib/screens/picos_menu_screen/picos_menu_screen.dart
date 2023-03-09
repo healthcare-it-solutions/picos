@@ -18,7 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../widgets/picos_svg_icon.dart';
+import '../../widgets/picos_svg_icon.dart';
 
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
@@ -93,6 +93,16 @@ class PicosMenu extends StatelessWidget {
             width: 30,
           ),
           title: Text(AppLocalizations.of(context)!.privacyNotice),
+          trailing: const Icon(Icons.keyboard_arrow_right),
+          onTap: () => Navigator.of(context).pushNamed('/privacy-notice-screen'),
+        ),
+        ListTile(
+          leading: const PicosSvgIcon(
+            assetName: 'assets/Datenschutz.svg',
+            height: 30,
+            width: 30,
+          ),
+          title: Text(AppLocalizations.of(context)!.logout),
           trailing: const Icon(Icons.keyboard_arrow_right),
           onTap: () => Navigator.of(context).pushNamed('/privacy-notice-screen'),
         ),
