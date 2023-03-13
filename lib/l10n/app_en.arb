@@ -922,5 +922,9 @@
     "needHelp": "Do you need help or have a question about using the PICOS app?",
     "@needHelp": {
         "description": "Do you need help or have a question about using the PICOS app?"
+    },
+    "myPatients": "My Patients",
+    "@myPatients": {
+        "description": "My Patients"
     }
 }
