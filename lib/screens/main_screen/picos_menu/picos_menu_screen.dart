@@ -20,6 +20,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/main_screen/picos_menu/picos_menu_item.dart';
 import 'package:picos/widgets/picos_label.dart';
 
+import '../../../util/backend.dart';
+
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
 class PicosMenu extends StatelessWidget {
@@ -80,8 +82,16 @@ class PicosMenu extends StatelessWidget {
       PicosMenuItem(
         iconPath: 'assets/Log-out.svg',
         title: AppLocalizations.of(context)!.logout,
-        onTap: () => Navigator.of(context)
-            .pushNamed('/privacy-notice-screen'),
+        onTap: () async {
+          if(!context.mounted) {
+            return;
+          }
+
+          if (await Backend.logout()) {
+            // ignore: use_build_context_synchronously
+            Navigator.of(context).pushReplacementNamed('/login-screen');
+          }
+        },
       ),
     ];
 
