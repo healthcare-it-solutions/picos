@@ -46,7 +46,7 @@ class TextFieldCard extends StatelessWidget {
   final bool disabled;
 
   /// Populates the field with an initial value.
-  final double? initialValue;
+  final num? initialValue;
 
   @override
   Widget build(BuildContext context) {
