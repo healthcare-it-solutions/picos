@@ -19,11 +19,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/api/backend_medications_api.dart';
+import 'package:picos/api/backend_patient_api.dart';
 import 'package:picos/models/patient.dart';
 import 'package:picos/state/objects_list_bloc.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
 import 'package:picos/widgets/picos_body.dart';
-import 'package:picos/widgets/picos_info_card.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:picos/widgets/picos_text_field.dart';
@@ -39,70 +39,68 @@ class AddPatientScreen extends StatefulWidget {
 
 class _AddPatientScreenState extends State<AddPatientScreen> {
   /// The denotation for the first name.
-  late String _firstName;
+  String _firstName = '';
 
   /// The denotation for the last name.
-  late String _lastName;
+  String _lastName = '';
 
   /// The denotation for the form of address.
-  late String _formOfAddress;
+  String _formOfAddress = '';
 
   /// The denotation for phone number.
-  late String _number;
+  String _number = '';
 
   /// The denotation for email.
-  late String _email;
+  String _email = '';
 
   /// The denotation for address.
-  late String _address;
+  String _address = '';
 
   /// Determines if you are able to add the medication.
   bool _addDisabled = true;
 
-  final String _title = 'Edit patient';
+  String? _title;
 
   Patient? _patientEdit;
 
+  late String _firstNameHint;
+  late String _lastNameHint;
+  late String _formOfAddressHint;
+  late String _numberHint;
+  late String _emailHint;
+  late String _addressHint;
+
   @override
   Widget build(BuildContext context) {
-    //Object? patientEdit = ModalRoute.of(context)!.settings.arguments;
+    if (_title == null) {
+      _title = 'Edit Patient';
+      _firstNameHint = 'Please enter the first name.';
+      _lastNameHint = 'Please enter the last name.';
+      _emailHint = 'Please enter the email address.';
+      _numberHint = 'Please enter the phone number.';
+      _addressHint = 'Please enter the address.';
+      _formOfAddressHint = 'Please enter the form of Address';
+    }
 
-    //Initialize medicationEdit if the medication is to be edited.
-    /*if (_patientEdit == null && patientEdit != null) {
+    Object? patientEdit = ModalRoute.of(context)!.settings.arguments;
+
+    if (_patientEdit == null && patientEdit != null) {
       _patientEdit = patientEdit as Patient;
 
-      _morning = _patientEdit!.morning;
-      _noon = _patientEdit!.noon;
-      _evening = _patientEdit!.evening;
-      _night = _patientEdit!.night;
-      _compound = _patientEdit!.compound;
-      _morningOld = _patientEdit!.morning;
-      _noonOld = _patientEdit!.noon;
-      _eveningOld = _patientEdit!.evening;
-      _nightOld = _patientEdit!.night;
+      _firstName = _patientEdit!.firstName;
+      _lastName = _patientEdit!.familyName;
+      _email = _patientEdit!.email;
+      _number = _patientEdit!.number;
+      _address = _patientEdit!.address;
+      _formOfAddress = _patientEdit!.formOfAddress;
 
-      _title = AppLocalizations.of(context)!.editMedication;
-      _compoundHint = _compound;
-
-      _morningHint += ' ${Patient.amountToString(_morning)}';
-      _noonHint += ' ${Patient.amountToString(_noon)}';
-      _eveningHint += ' ${Patient.amountToString(_evening)}';
-      _nightHint += ' ${Patient.amountToString(_night)}';
-
-      _disabledCompoundSelect = false;
-      _compoundAutoFocus = false;
-    }*/
-
-    /*const EdgeInsets selectPaddingRight = EdgeInsets.only(
-      bottom: 5,
-      right: 5,
-      top: 5,
-    );
-    const EdgeInsets selectPaddingLeft = EdgeInsets.only(
-      bottom: 5,
-      left: 5,
-      top: 5,
-    );*/
+      _firstNameHint = _patientEdit!.firstName;
+      _lastNameHint = _patientEdit!.familyName;
+      _emailHint = _patientEdit!.email;
+      _numberHint = _patientEdit!.number;
+      _addressHint = _patientEdit!.address;
+      _formOfAddressHint = _patientEdit!.formOfAddress;
+    }
 
     return BlocBuilder<ObjectsListBloc<BackendMedicationsApi>,
         ObjectsListState>(
@@ -111,34 +109,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
           body: PicosBody(
             child: Column(
               children: <Widget>[
-                PicosInfoCard(
-                  infoText: RichText(
-                    text: TextSpan(
-                      text:
-                          AppLocalizations.of(context)!.addMedicationInfoPart1,
-                      style: const TextStyle(
-                        color: PicosInfoCard.infoTextFontColor,
-                        fontSize: PicosInfoCard.infoTextFontSize,
-                      ),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: AppLocalizations.of(context)!
-                              .addMedicationInfoPart2,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        TextSpan(
-                          text: AppLocalizations.of(context)!
-                              .addMedicationInfoPart3,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
                 PicosLabel(AppLocalizations.of(context)!.firstName),
                 PicosTextField(
                   onChanged: (String value) {
@@ -153,7 +123,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       _addDisabled = true;
                     });
                   },
-                  hint: _firstName,
+                  hint: _firstNameHint,
                   initialValue: _firstName,
                 ),
                 const SizedBox(
@@ -173,7 +143,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       _addDisabled = true;
                     });
                   },
-                  hint: _lastName,
+                  hint: _lastNameHint,
                   initialValue: _lastName,
                 ),
                 const SizedBox(
@@ -193,7 +163,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       _addDisabled = true;
                     });
                   },
-                  hint: _email,
+                  hint: _emailHint,
                   initialValue: _email,
                 ),
                 const SizedBox(
@@ -213,7 +183,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       _addDisabled = true;
                     });
                   },
-                  hint: _number,
+                  hint: _numberHint,
                   initialValue: _number,
                 ),
                 const SizedBox(
@@ -233,8 +203,28 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       _addDisabled = true;
                     });
                   },
-                  hint: _address,
+                  hint: _addressHint,
                   initialValue: _address,
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                PicosLabel(AppLocalizations.of(context)!.title),
+                PicosTextField(
+                  onChanged: (String value) {
+                    _formOfAddress = value;
+
+                    setState(() {
+                      if (value.isNotEmpty) {
+                        _addDisabled = false;
+                        return;
+                      }
+
+                      _addDisabled = true;
+                    });
+                  },
+                  hint: _formOfAddressHint,
+                  initialValue: _formOfAddress,
                 ),
                 const SizedBox(
                   height: 30,
@@ -268,7 +258,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
               }
 
               context
-                  .read<ObjectsListBloc<BackendMedicationsApi>>()
+                  .read<ObjectsListBloc<BackendPatientApi>>()
                   .add(SaveObject(patient));
               Navigator.of(context).pop();
             },

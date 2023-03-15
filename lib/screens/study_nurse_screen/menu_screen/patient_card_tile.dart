@@ -21,11 +21,11 @@ import 'package:flutter/material.dart';
 /// have to take.
 class PatientCardTile extends StatelessWidget {
   /// MedicationCardTile(Time:[String], Amount:[String])
-  const PatientCardTile(this._time, this._amount, {Key? key})
+  const PatientCardTile(this._denotation, this._value, {Key? key})
       : super(key: key);
 
-  final String _time;
-  final String _amount;
+  final String _denotation;
+  final String _value;
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +33,18 @@ class PatientCardTile extends StatelessWidget {
       children: <Widget>[
         SizedBox(
           width: 80,
-          child: Text(_time),
+          child: Text(
+            _denotation,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
-        const Spacer(),
         Expanded(
           child: Center(
             child: Text(
-              _amount,
-              softWrap: false,
+              _value,
+              softWrap: true,
               overflow: TextOverflow.visible,
             ),
           ),

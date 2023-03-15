@@ -21,9 +21,9 @@ import 'package:picos/screens/study_nurse_screen/menu_screen/patients_list.dart'
 import 'package:picos/widgets/picos_add_mono_button_bar.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 
-/// Shows a list with all personal medication plans.
+/// Shows a list with all patients.
 class MenuMainScreen extends StatelessWidget {
-  /// Creates MyMedicationsScreen
+  /// Creates MenuMainScreen.
   const MenuMainScreen({Key? key}) : super(key: key);
 
   @override
@@ -32,7 +32,7 @@ class MenuMainScreen extends StatelessWidget {
       title: AppLocalizations.of(context)!.myPatients,
       body: const PatientsList(),
       bottomNavigationBar: const PicosAddMonoButtonBar(
-        route: 'study-nurse-screen/menu-screen/add-patient',
+        route: '/study-nurse-screen/configuration-screen',
       ),
     );
   }
