@@ -53,6 +53,7 @@ class _PicosRadioSelectState extends State<PicosRadioSelect> {
               _selectValue = newValue;
             });
           },
+          controlAffinity: ListTileControlAffinity.trailing,
         );
       },
     ).toList();
@@ -61,7 +62,16 @@ class _PicosRadioSelectState extends State<PicosRadioSelect> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: _createItemList(),
+      children: <ListView>[
+        ListView(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          children: ListTile.divideTiles(
+            context: context,
+            tiles: _createItemList(),
+          ).toList(),
+        )
+      ],
     );
   }
 }
