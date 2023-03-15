@@ -71,6 +71,13 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
       return false;
     }
 
+    if (_name!.isEmpty || _name!.trim() == '') {
+      return false;
+    }
+
+    if (_therapy!.isEmpty || _therapy!.trim() == '') {
+      return false;
+    }
     return true;
   }
 
