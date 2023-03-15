@@ -34,6 +34,7 @@ class Weight extends StatefulWidget {
     this.bodyHeight,
     Key? key,
     this.initialValue,
+    this.initialBmi,
   }) : super(key: key);
 
   /// Previous page button function.
@@ -50,6 +51,9 @@ class Weight extends StatefulWidget {
 
   /// Populates the field with an initial value.
   final double? initialValue;
+
+  /// Populates the BMI field with an initial value.
+  final double? initialBmi;
 
   @override
   State<Weight> createState() => _WeightState();
@@ -123,6 +127,7 @@ class _WeightState extends State<Weight> {
             },
           ),
           TextFieldCard(
+            initialValue: widget.initialBmi,
             label: 'BMI',
             hint: _hint,
             disabled: true,
