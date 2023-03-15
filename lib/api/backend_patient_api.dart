@@ -35,7 +35,7 @@ class BackendPatientApi extends BackendObjectsApi {
           Patient(
             firstName: element['Firstname'],
             familyName: element['Lastname'],
-            email: element['email'],
+            email: element['username'],
             number: element['PhoneNo'],
             address: element['Address'],
             formOfAddress: element['Form'],
