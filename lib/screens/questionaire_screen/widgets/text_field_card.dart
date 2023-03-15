@@ -46,14 +46,14 @@ class TextFieldCard extends StatelessWidget {
   final bool disabled;
 
   /// Populates the field with an initial value.
-  final String? initialValue;
+  final double? initialValue;
 
   @override
   Widget build(BuildContext context) {
     return QuestionaireCard(
       label: PicosLabel(label),
       child: PicosTextField(
-        initialValue: initialValue,
+        initialValue: initialValue.toString(),
         onChanged: onChanged,
         hint: hint,
         keyboardType: TextInputType.number,

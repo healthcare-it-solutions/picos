@@ -49,7 +49,7 @@ class Weight extends StatefulWidget {
   final int? bodyHeight;
 
   /// Populates the field with an initial value.
-  final String? initialValue;
+  final double? initialValue;
 
   @override
   State<Weight> createState() => _WeightState();
