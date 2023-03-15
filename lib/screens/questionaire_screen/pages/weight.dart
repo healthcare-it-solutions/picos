@@ -33,6 +33,7 @@ class Weight extends StatefulWidget {
     required this.onChangedBodyWeight,
     this.bodyHeight,
     Key? key,
+    this.initialValue,
   }) : super(key: key);
 
   /// Previous page button function.
@@ -46,6 +47,9 @@ class Weight extends StatefulWidget {
 
   /// The body height.
   final int? bodyHeight;
+
+  /// Populates the field with an initial value.
+  final String? initialValue;
 
   @override
   State<Weight> createState() => _WeightState();
@@ -81,7 +85,7 @@ class _WeightState extends State<Weight> {
     if (_bodyWeight == null) {
       _bodyWeight = AppLocalizations.of(context)!.bodyWeight;
       _autoCalc = AppLocalizations.of(context)!.autoCalc;
-      _unknownHeight =  AppLocalizations.of(context)!.unknownHeight;
+      _unknownHeight = AppLocalizations.of(context)!.unknownHeight;
     }
 
     _createHint();
@@ -92,6 +96,7 @@ class _WeightState extends State<Weight> {
       child: Column(
         children: <TextFieldCard>[
           TextFieldCard(
+            initialValue: widget.initialValue,
             label: _bodyWeight!,
             hint: 'kg',
             onChanged: (String weightString) {
