@@ -30,6 +30,7 @@ class TextFieldCard extends StatelessWidget {
     this.onChanged,
     this.disabled = false,
     Key? key,
+    this.initialValue,
   }) : super(key: key);
 
   /// The title of the input field.
@@ -44,11 +45,15 @@ class TextFieldCard extends StatelessWidget {
   /// Determines if the text field is disabled.
   final bool disabled;
 
+  /// Populates the field with an initial value.
+  final String? initialValue;
+
   @override
   Widget build(BuildContext context) {
     return QuestionaireCard(
       label: PicosLabel(label),
       child: PicosTextField(
+        initialValue: initialValue,
         onChanged: onChanged,
         hint: hint,
         keyboardType: TextInputType.number,
