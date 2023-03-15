@@ -33,10 +33,10 @@ class BloodPressure extends StatelessWidget {
   final dynamic Function(String value) onChangedDias;
 
   /// Initial Syst Value.
-  final String? initialSyst;
+  final int? initialSyst;
 
   /// Initial Dias Value.
-  final String? initialDias;
+  final int? initialDias;
 
   static List<String> _createBloodPressureSelection() {
     int min = 40;
@@ -73,7 +73,7 @@ class BloodPressure extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: PicosSelect(
-                initialValue: initialSyst,
+                initialValue: initialSyst.toString(),
                 selection: _bloodPressureSelection!,
                 callBackFunction: onChangedSyst,
                 hint: 'Syst',
@@ -85,7 +85,7 @@ class BloodPressure extends StatelessWidget {
             ),
             Expanded(
               child: PicosSelect(
-                initialValue: initialDias,
+                initialValue: initialDias.toString(),
                 selection: _bloodPressureSelection!,
                 callBackFunction: onChangedDias,
                 hint: 'Dias',
