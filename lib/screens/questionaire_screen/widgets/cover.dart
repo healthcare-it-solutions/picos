@@ -158,7 +158,7 @@ class Cover extends StatelessWidget {
               height: sizedBoxHeight,
             ),
             Positioned(
-              bottom: 10,
+              bottom: 30,
               child: PicosInkWellButton(
                 text: start,
                 onTap: nextFunction!,
@@ -206,7 +206,7 @@ class Cover extends StatelessWidget {
                   left: 30,
                   right: 13,
                   top: 15,
-                  bottom: 10,
+                  bottom: 30,
                 ),
                 text: back,
                 onTap: backFunction!,
@@ -218,7 +218,7 @@ class Cover extends StatelessWidget {
                   right: 30,
                   left: 13,
                   top: 15,
-                  bottom: 10,
+                  bottom: 30,
                 ),
                 text: next,
                 onTap: nextFunction!,
