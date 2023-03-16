@@ -28,6 +28,7 @@ class SleepQualityCard extends StatefulWidget {
     required this.callBack,
     Key? key,
     this.label = '',
+    this.initialValue,
   }) : super(key: key);
 
   /// The label for the card.
@@ -35,6 +36,9 @@ class SleepQualityCard extends StatefulWidget {
 
   /// The function that is executed when an item gets selected.
   final Function(dynamic value) callBack;
+
+  /// Initial value for sleep quality.
+  final int? initialValue;
 
   @override
   State<SleepQualityCard> createState() => _SleepQualityCardState();
@@ -178,6 +182,8 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
 
   @override
   Widget build(BuildContext context) {
+    groupValue = widget.initialValue;
+
     if (_good == null) {
       _initStrings(context);
     }
