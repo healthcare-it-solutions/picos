@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:picos/screens/questionaire_screen/widgets/questionaire_card.dart';
 
 import '../../../widgets/picos_label.dart';
@@ -31,6 +32,7 @@ class TextFieldCard extends StatelessWidget {
     this.disabled = false,
     Key? key,
     this.initialValue,
+    this.decimalValue = false,
   }) : super(key: key);
 
   /// The title of the input field.
@@ -48,6 +50,9 @@ class TextFieldCard extends StatelessWidget {
   /// Populates the field with an initial value.
   final num? initialValue;
 
+  /// Determines if you should be able to input an decimal value.
+  final bool decimalValue;
+
   @override
   Widget build(BuildContext context) {
     String initialStringValue = '';
@@ -62,8 +67,13 @@ class TextFieldCard extends StatelessWidget {
         initialValue: initialStringValue,
         onChanged: onChanged,
         hint: hint,
-        keyboardType: TextInputType.number,
+        keyboardType: const TextInputType.numberWithOptions(
+          decimal: true,
+        ),
         disabled: disabled,
+        inputFormatters: decimalValue == false
+            ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
+            : null,
       ),
     );
   }

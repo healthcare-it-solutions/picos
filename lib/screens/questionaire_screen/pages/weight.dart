@@ -63,9 +63,11 @@ class _WeightState extends State<Weight> {
   static String? _bodyWeight;
   static String? _autoCalc;
   static String? _unknownHeight;
+  static String? _isInvalid;
 
   double _bmi = 0;
   String _hint = '';
+  bool _error = false;
 
   double _calculateBmi(int height, double bodyWeight) {
     return (bodyWeight / pow(height / 100, 2));
@@ -96,6 +98,13 @@ class _WeightState extends State<Weight> {
       _bodyWeight = AppLocalizations.of(context)!.bodyWeight;
       _autoCalc = AppLocalizations.of(context)!.autoCalc;
       _unknownHeight = AppLocalizations.of(context)!.unknownHeight;
+      _isInvalid = AppLocalizations.of(context)!.isInvalid;
+    }
+
+    String label = _bodyWeight!;
+
+    if (_error) {
+      label = '${_bodyWeight!} ${_isInvalid!}';
     }
 
     _createHint();
@@ -106,19 +115,32 @@ class _WeightState extends State<Weight> {
       child: Column(
         children: <TextFieldCard>[
           TextFieldCard(
+            decimalValue: true,
             initialValue: widget.initialValue,
-            label: _bodyWeight!,
+            label: label,
             hint: 'kg',
             onChanged: (String weightString) {
               if (weightString.isEmpty) {
                 widget.onChangedBodyWeight(null, null);
                 setState(() {
                   _bmi = 0;
+                  _error = false;
                 });
                 return;
               }
 
-              double weight = double.parse(weightString);
+              double? weight = double.tryParse(weightString);
+
+              if (weight == null) {
+                widget.onChangedBodyWeight(null, null);
+                setState(() {
+                  _bmi = 0;
+                  _error = true;
+                });
+                return;
+              }
+
+              _error = false;
 
               if (widget.bodyHeight == null) {
                 widget.onChangedBodyWeight(weight, null);
@@ -133,6 +155,7 @@ class _WeightState extends State<Weight> {
             },
           ),
           TextFieldCard(
+            decimalValue: true,
             label: 'BMI',
             hint: _hint,
             disabled: true,
