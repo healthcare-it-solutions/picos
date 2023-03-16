@@ -65,7 +65,8 @@ class Cover extends StatelessWidget {
 
     Widget picosBody = GestureDetector(
       onTap: () => Navigator.of(context).pop(),
-      child: PicosBody(
+      child: Padding(
+        padding: const EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
             SizedBox(
@@ -131,7 +132,8 @@ class Cover extends StatelessWidget {
     if (backFunction == null && nextFunction != null) {
       sizedBoxHeight = height / 3;
       fontSize = 40;
-      picosBody = PicosBody(
+      picosBody = Padding(
+        padding: const EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
             SizedBox(
@@ -172,7 +174,8 @@ class Cover extends StatelessWidget {
         sizedBoxHeight = height / 3;
       }
       fontSize = 40;
-      picosBody = PicosBody(
+      picosBody = Padding(
+        padding: const EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
             SizedBox(
