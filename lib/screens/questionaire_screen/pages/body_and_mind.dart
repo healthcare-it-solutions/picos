@@ -15,6 +15,7 @@ class BodyAndMind extends StatelessWidget {
     required this.onChangedInterest,
     required this.questionType,
     Key? key,
+    this.initialValue,
   }) : super(key: key);
 
   /// Previous page button function.
@@ -29,12 +30,14 @@ class BodyAndMind extends StatelessWidget {
   /// Question type for body and mind.
   final String questionType;
 
+  /// Initial body and mind value.
+  final dynamic initialValue;
+
   static String? _howOftenAffected;
   static Map<String, dynamic>? _bodyAndMindValues;
 
   @override
   Widget build(BuildContext context) {
-
     if (_howOftenAffected == null) {
       _howOftenAffected = AppLocalizations.of(context)!.howOftenAffected;
       _bodyAndMindValues = <String, dynamic>{
@@ -49,6 +52,7 @@ class BodyAndMind extends StatelessWidget {
       backFunction: previousPage,
       nextFunction: nextPage,
       child: RadioSelectCard(
+        initialValue: initialValue,
         callback: onChangedInterest,
         label: PicosLabel(_howOftenAffected!),
         description: questionType,
