@@ -72,6 +72,12 @@ class _WeightState extends State<Weight> {
   }
 
   void _createHint() {
+    if (widget.initialBmi != null && _hint.isEmpty) {
+      _bmi = widget.initialBmi!;
+      _hint = widget.initialBmi.toString();
+      return;
+    }
+
     if (widget.bodyHeight == null && _hint.isNotEmpty) {
       return;
     }
@@ -127,7 +133,6 @@ class _WeightState extends State<Weight> {
             },
           ),
           TextFieldCard(
-            initialValue: widget.initialBmi,
             label: 'BMI',
             hint: _hint,
             disabled: true,
