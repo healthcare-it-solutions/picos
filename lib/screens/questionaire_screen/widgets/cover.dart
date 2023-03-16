@@ -57,16 +57,14 @@ class Cover extends StatelessWidget {
     final String next = AppLocalizations.of(context)!.next;
     final String start = AppLocalizations.of(context)!.letsStart;
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-    final double height = MediaQuery.of(context).size.height -
-        kToolbarHeight -
-        MediaQuery.of(context).viewPadding.top;
+    final double height = MediaQuery.of(context).size.height - kToolbarHeight;
+    //MediaQuery.of(context).viewPadding.top;
     double sizedBoxHeight = height / 10;
     double fontSize = 30;
 
     Widget picosBody = GestureDetector(
       onTap: () => Navigator.of(context).pop(),
-      child: Padding(
-        padding: const EdgeInsets.all(10),
+      child: PicosBody(
         child: Column(
           children: <Widget>[
             SizedBox(
@@ -132,8 +130,7 @@ class Cover extends StatelessWidget {
     if (backFunction == null && nextFunction != null) {
       sizedBoxHeight = height / 3;
       fontSize = 40;
-      picosBody = Padding(
-        padding: const EdgeInsets.all(10),
+      picosBody = PicosBody(
         child: Column(
           children: <Widget>[
             SizedBox(
@@ -158,7 +155,7 @@ class Cover extends StatelessWidget {
               height: sizedBoxHeight,
             ),
             Positioned(
-              bottom: 30,
+              bottom: 10,
               child: PicosInkWellButton(
                 text: start,
                 onTap: nextFunction!,
@@ -174,8 +171,7 @@ class Cover extends StatelessWidget {
         sizedBoxHeight = height / 3;
       }
       fontSize = 40;
-      picosBody = Padding(
-        padding: const EdgeInsets.all(10),
+      picosBody = PicosBody(
         child: Column(
           children: <Widget>[
             SizedBox(
