@@ -59,6 +59,17 @@ class BloodPressure extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? initialStringSyst;
+    String? initialStringDias;
+
+    if (initialSyst != null) {
+      initialStringSyst = initialSyst.toString();
+    }
+
+    if (initialDias != null) {
+      initialStringDias = initialDias.toString();
+    }
+
     if (_bloodPressure == null) {
       _bloodPressure = AppLocalizations.of(context)!.bloodPressure;
       _bloodPressureSelection = _createBloodPressureSelection();
@@ -73,7 +84,7 @@ class BloodPressure extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: PicosSelect(
-                initialValue: initialSyst.toString(),
+                initialValue: initialStringSyst,
                 selection: _bloodPressureSelection!,
                 callBackFunction: onChangedSyst,
                 hint: 'Syst',
@@ -85,7 +96,7 @@ class BloodPressure extends StatelessWidget {
             ),
             Expanded(
               child: PicosSelect(
-                initialValue: initialDias.toString(),
+                initialValue: initialStringDias,
                 selection: _bloodPressureSelection!,
                 callBackFunction: onChangedDias,
                 hint: 'Dias',
