@@ -182,7 +182,7 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
 
   @override
   Widget build(BuildContext context) {
-    groupValue = widget.initialValue;
+    groupValue ??= widget.initialValue;
 
     if (_good == null) {
       _initStrings(context);
@@ -198,6 +198,7 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
           InkWell(
             onTap: () {
               setState(() {
+                widget.callBack(value);
                 groupValue = value;
               });
             },
