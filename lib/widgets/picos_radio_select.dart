@@ -64,7 +64,7 @@ class _PicosRadioSelectState extends State<PicosRadioSelect> {
 
   @override
   Widget build(BuildContext context) {
-    _selectValue = widget.initialValue;
+    _selectValue ??= widget.initialValue;
 
     return Column(
       children: _createItemList(),
