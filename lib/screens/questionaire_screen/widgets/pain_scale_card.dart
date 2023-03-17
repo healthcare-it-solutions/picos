@@ -258,7 +258,7 @@ class _PainScaleCardState extends State<PainScaleCard> {
 
   @override
   Widget build(BuildContext context) {
-    groupValue = widget.initialValue;
+    groupValue ??= widget.initialValue;
 
     if (_veryMild == null) {
       _initStrings(context);
