@@ -46,6 +46,10 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   final List<String> _titles = <String>[];
   String? _title;
   final List<Widget> _pages = <Widget>[];
+  Weekly? _weekly;
+  Daily? _daily;
+  PHQ4? _phq4;
+  final DateTime _now = DateTime.now();
 
   final Map<String, int> _redirectingPages = <String, int>{
     'medicationPage': 16,
@@ -102,10 +106,147 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     );
   }
 
+  bool _hasDailyNullValues(Daily daily) {
+    if (daily.bloodDiastolic == null ||
+        daily.bloodSugar == null ||
+        daily.bloodSystolic == null ||
+        daily.heartFrequency == null ||
+        daily.pain == null ||
+        daily.sleepDuration == null) {
+      return true;
+    }
+
+    return false;
+  }
+
+  Daily? _createDaily(dynamic model) {
+    Daily daily = Daily(
+      heartFrequency: model['HeartRate'],
+      bloodSugar: model['BloodSugar'],
+      bloodSystolic: model['BloodPSystolic'],
+      bloodDiastolic: model['BloodPDiastolic'],
+      sleepDuration: model['SleepDuration'],
+      date: DateTime.parse(model['datetime']['iso']),
+      pain: model['Pain'],
+      objectId: model['objectId'],
+      createdAt: DateTime.parse(model['createdAt']),
+      updatedAt: DateTime.parse(model['updatedAt']),
+    );
+
+    if (_hasDailyNullValues(daily) &&
+        !daily.date.isBefore(
+          DateTime(
+            _now.year,
+            _now.month,
+            _now.day,
+          ),
+        )) {
+      return daily;
+    }
+
+    return null;
+  }
+
+  bool _hasWeeklyNullValues(Weekly weekly) {
+    if (weekly.bodyWeight == null ||
+        weekly.bmi == null ||
+        weekly.sleepQuality == null ||
+        weekly.walkingDistance == null) {
+      return true;
+    }
+
+    return false;
+  }
+
+  Weekly? _createWeekly(dynamic model) {
+    Weekly weekly = Weekly(
+      bmi: model['BMI']?.toDouble(),
+      bodyWeight: model['BodyWeight']?.toDouble(),
+      sleepQuality: model['SISQS'],
+      walkingDistance: model['WalkingDistance'],
+      date: DateTime.parse(model['datetime']['iso']),
+      objectId: model['objectId'],
+      createdAt: DateTime.parse(model['createdAt']),
+      updatedAt: DateTime.parse(model['updatedAt']),
+    );
+
+    if (_hasWeeklyNullValues(weekly) &&
+        !weekly.date.isBefore(
+          DateTime(
+            _now.year,
+            _now.month,
+            _now.day,
+          ).subtract(const Duration(days: 7)),
+        )) {
+      return weekly;
+    }
+
+    return null;
+  }
+
+  bool _hasPhq4NullValues(PHQ4 phq4) {
+    if (phq4.a == null || phq4.b == null || phq4.c == null || phq4.d == null) {
+      return true;
+    }
+
+    return false;
+  }
+
+  PHQ4? _createPHQ4(dynamic model) {
+    PHQ4 phq4 = PHQ4(
+      a: model['a'],
+      b: model['b'],
+      c: model['c'],
+      d: model['d'],
+      date: DateTime.parse(model['datetime']['iso']),
+      objectId: model['objectId'],
+      createdAt: DateTime.parse(model['createdAt']),
+      updatedAt: DateTime.parse(model['updatedAt']),
+    );
+
+    if (_hasPhq4NullValues(phq4) &&
+        !phq4.date.isBefore(
+          DateTime(
+            _now.year,
+            _now.month,
+            _now.day,
+          ).subtract(const Duration(days: 14)),
+        )) {
+      return phq4;
+    }
+
+    return null;
+  }
+
   // Class init.
   Future<bool> _classInit(BuildContext context) async {
-    _pageStorage ??=
-        await QuestionairePageStorage.create(_previousPage, _nextPage, context);
+    if (_daily != null || _weekly != null || _phq4 != null) {
+      return true;
+    }
+
+    List<dynamic> dailyData = await Backend.getAll(Daily.databaseTable);
+    List<dynamic> weeklyData = await Backend.getAll(Weekly.databaseTable);
+    List<dynamic> phq4Data = await Backend.getAll(PHQ4.databaseTable);
+
+    if (dailyData.isEmpty ||
+        weeklyData.isEmpty ||
+        phq4Data.isEmpty ||
+        !mounted) {
+      return false;
+    }
+
+    _daily = _createDaily(dailyData.last);
+    _weekly = _createWeekly(weeklyData.last);
+    _phq4 = _createPHQ4(phq4Data.last);
+
+    _pageStorage = await QuestionairePageStorage.create(
+      _previousPage,
+      _nextPage,
+      context,
+      _daily,
+      _weekly,
+      _phq4,
+    );
 
     return true;
   }

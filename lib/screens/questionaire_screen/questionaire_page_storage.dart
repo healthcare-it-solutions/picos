@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:picos/models/phq4.dart';
 import 'package:picos/screens/questionaire_screen/pages/blood_pressure.dart';
 import 'package:picos/screens/questionaire_screen/pages/body_and_mind.dart';
 import 'package:picos/screens/questionaire_screen/pages/weight.dart';
@@ -28,14 +29,22 @@ import 'package:picos/screens/questionaire_screen/widgets/sleep_quality_card.dar
 import 'package:picos/screens/questionaire_screen/widgets/text_field_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../models/daily.dart';
 import '../../models/patient_registration_data.dart';
+import '../../models/weekly.dart';
 import '../../util/backend.dart';
 
 import '../../widgets/picos_label.dart';
 
 /// Manages the state of the questionaire pages.
 class QuestionairePageStorage {
-  QuestionairePageStorage._create(BuildContext context) {
+  QuestionairePageStorage._create(
+    BuildContext context,
+      Daily? daily,
+      Weekly? weekly,
+      PHQ4? phq4,
+  ) {
+    _initValues(daily, weekly, phq4);
     _initStrings(context);
     _initTitles();
   }
@@ -45,8 +54,16 @@ class QuestionairePageStorage {
     void Function() previousPage,
     void Function() nextPage,
     BuildContext context,
+    Daily? daily,
+    Weekly? weekly,
+    PHQ4? phq4,
   ) async {
-    QuestionairePageStorage qps = QuestionairePageStorage._create(context);
+    QuestionairePageStorage qps = QuestionairePageStorage._create(
+      context,
+      daily,
+      weekly,
+      phq4,
+    );
     await qps._initPages(previousPage, nextPage);
     return qps;
   }
@@ -60,9 +77,6 @@ class QuestionairePageStorage {
   // Value store for the user
   /// The selected body weight.
   double? selectedBodyWeight;
-
-  /// The selected height.
-  int? selectedHeight;
 
   /// The given bmi.
   double? selectedBMI;
@@ -150,6 +164,23 @@ class QuestionairePageStorage {
 
   static int? _bodyHeight;
 
+  void _initValues(Daily? daily, Weekly? weekly, PHQ4? phq4) {
+    selectedBodyWeight = weekly?.bodyWeight;
+    selectedBMI = weekly?.bmi;
+    selectedHeartFrequency = daily?.heartFrequency;
+    selectedSyst = daily?.bloodSystolic;
+    selectedDias = daily?.bloodDiastolic;
+    selectedBloodSugar = daily?.bloodSugar;
+    selectedWalkDistance = weekly?.walkingDistance;
+    selectedSleepDuration = daily?.sleepDuration;
+    selectedSleepQuality = weekly?.sleepQuality;
+    selectedPain = daily?.pain;
+    selectedQuestionA = phq4?.a;
+    selectedQuestionB = phq4?.b;
+    selectedQuestionC = phq4?.c;
+    selectedQuestionD = phq4?.d;
+  }
+
   void _initStrings(BuildContext context) {
     _heartFrequency = AppLocalizations.of(context)!.heartFrequency;
     _bloodSugar = AppLocalizations.of(context)!.bloodSugar;
@@ -218,6 +249,8 @@ class QuestionairePageStorage {
         nextFunction: nextPage,
       ),
       'weightPage': Weight(
+        initialBmi: selectedBMI,
+        initialValue: selectedBodyWeight,
         previousPage: previousPage,
         nextPage: nextPage,
         onChangedBodyWeight: (double? weight, double? bmi) {
@@ -230,14 +263,23 @@ class QuestionairePageStorage {
         backFunction: previousPage,
         nextFunction: nextPage,
         child: TextFieldCard(
+          initialValue: selectedHeartFrequency,
           label: _heartFrequency!,
           hint: 'bpm',
           onChanged: (String value) {
-            selectedHeartFrequency = int.tryParse(value);
+            int? intValue = int.tryParse(value);
+
+            if (intValue == null && value.isNotEmpty) {
+              intValue = int.tryParse(value.split('.')[0]);
+            }
+
+            selectedHeartFrequency = intValue;
           },
         ),
       ),
       'bloodPressurePage': BloodPressure(
+        initialDias: selectedDias,
+        initialSyst: selectedSyst,
         previousPage: previousPage,
         nextPage: nextPage,
         onChangedSyst: (String value) {
@@ -251,6 +293,7 @@ class QuestionairePageStorage {
         backFunction: previousPage,
         nextFunction: nextPage,
         child: TextFieldCard(
+          initialValue: selectedBloodSugar,
           label: _bloodSugar!,
           hint: 'mg/dL',
           onChanged: (String value) {
@@ -268,6 +311,7 @@ class QuestionairePageStorage {
         backFunction: previousPage,
         nextFunction: nextPage,
         child: TextFieldCard(
+          initialValue: selectedWalkDistance,
           label: _possibleWalkDistance!,
           hint: 'Meter',
           onChanged: (String value) {
@@ -279,6 +323,7 @@ class QuestionairePageStorage {
         backFunction: previousPage,
         nextFunction: nextPage,
         child: TextFieldCard(
+          initialValue: selectedSleepDuration,
           label: _sleepDuration!,
           hint: _hrs!,
           onChanged: (String value) {
@@ -290,6 +335,7 @@ class QuestionairePageStorage {
         backFunction: previousPage,
         nextFunction: nextPage,
         child: SleepQualityCard(
+          initialValue: selectedSleepQuality,
           callBack: (dynamic value) {
             selectedSleepQuality = value;
           },
@@ -306,6 +352,7 @@ class QuestionairePageStorage {
         backFunction: previousPage,
         nextFunction: nextPage,
         child: PainScaleCard(
+          initialValue: selectedPain,
           label: _pain!,
           callBack: (dynamic value) {
             selectedPain = value as int;
@@ -313,6 +360,7 @@ class QuestionairePageStorage {
         ),
       ),
       'interestPage': BodyAndMind(
+        initialValue: selectedQuestionA,
         previousPage: previousPage,
         nextPage: nextPage,
         onChangedInterest: (dynamic value) {
@@ -321,6 +369,7 @@ class QuestionairePageStorage {
         questionType: _lowInterest!,
       ),
       'dejectionPage': BodyAndMind(
+        initialValue: selectedQuestionB,
         previousPage: previousPage,
         nextPage: nextPage,
         onChangedInterest: (dynamic value) {
@@ -329,6 +378,7 @@ class QuestionairePageStorage {
         questionType: _dejection!,
       ),
       'nervousnessPage': BodyAndMind(
+        initialValue: selectedQuestionC,
         previousPage: previousPage,
         nextPage: nextPage,
         onChangedInterest: (dynamic value) {
@@ -337,6 +387,7 @@ class QuestionairePageStorage {
         questionType: _nervousness!,
       ),
       'worriesPage': BodyAndMind(
+        initialValue: selectedQuestionD,
         previousPage: previousPage,
         nextPage: nextPage,
         onChangedInterest: (dynamic value) {
