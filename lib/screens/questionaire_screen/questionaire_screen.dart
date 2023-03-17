@@ -323,31 +323,54 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
               if (value == _pages.length - 1) {
                 DateTime date = DateTime.now();
 
-                Daily daily = Daily(
-                  date: date,
-                  bloodDiastolic: _pageStorage!.selectedDias,
-                  bloodSugar: _pageStorage!.selectedBloodSugar,
-                  bloodSystolic: _pageStorage!.selectedSyst,
-                  pain: _pageStorage!.selectedPain,
-                  sleepDuration: _pageStorage!.selectedSleepDuration,
-                  heartFrequency: _pageStorage!.selectedHeartFrequency,
-                );
+                Daily daily = _daily == null
+                    ? Daily(
+                        date: date,
+                        bloodDiastolic: _pageStorage!.selectedDias,
+                        bloodSugar: _pageStorage!.selectedBloodSugar,
+                        bloodSystolic: _pageStorage!.selectedSyst,
+                        pain: _pageStorage!.selectedPain,
+                        sleepDuration: _pageStorage!.selectedSleepDuration,
+                        heartFrequency: _pageStorage!.selectedHeartFrequency,
+                      )
+                    : _daily!.copyWith(
+                        bloodDiastolic: _pageStorage!.selectedDias,
+                        bloodSugar: _pageStorage!.selectedBloodSugar,
+                        bloodSystolic: _pageStorage!.selectedSyst,
+                        pain: _pageStorage!.selectedPain,
+                        sleepDuration: _pageStorage!.selectedSleepDuration,
+                        heartFrequency: _pageStorage!.selectedHeartFrequency,
+                      );
 
-                Weekly weekly = Weekly(
-                  date: date,
-                  bodyWeight: _pageStorage!.selectedBodyWeight,
-                  bmi: _pageStorage!.selectedBMI,
-                  sleepQuality: _pageStorage!.selectedSleepQuality,
-                  walkingDistance: _pageStorage!.selectedWalkDistance,
-                );
+                Weekly weekly = _weekly == null
+                    ? Weekly(
+                        date: date,
+                        bodyWeight: _pageStorage!.selectedBodyWeight,
+                        bmi: _pageStorage!.selectedBMI,
+                        sleepQuality: _pageStorage!.selectedSleepQuality,
+                        walkingDistance: _pageStorage!.selectedWalkDistance,
+                      )
+                    : _weekly!.copyWith(
+                        bodyWeight: _pageStorage!.selectedBodyWeight,
+                        bmi: _pageStorage!.selectedBMI,
+                        sleepQuality: _pageStorage!.selectedSleepQuality,
+                        walkingDistance: _pageStorage!.selectedWalkDistance,
+                      );
 
-                PHQ4 phq4 = PHQ4(
-                  date: date,
-                  a: _pageStorage!.selectedQuestionA,
-                  b: _pageStorage!.selectedQuestionB,
-                  c: _pageStorage!.selectedQuestionC,
-                  d: _pageStorage!.selectedQuestionD,
-                );
+                PHQ4 phq4 = _phq4 == null
+                    ? PHQ4(
+                        date: date,
+                        a: _pageStorage!.selectedQuestionA,
+                        b: _pageStorage!.selectedQuestionB,
+                        c: _pageStorage!.selectedQuestionC,
+                        d: _pageStorage!.selectedQuestionD,
+                      )
+                    : _phq4!.copyWith(
+                        a: _pageStorage!.selectedQuestionA,
+                        b: _pageStorage!.selectedQuestionB,
+                        c: _pageStorage!.selectedQuestionC,
+                        d: _pageStorage!.selectedQuestionD,
+                      );
 
                 await Backend.saveObject(daily);
                 await Backend.saveObject(weekly);
