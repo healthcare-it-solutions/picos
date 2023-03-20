@@ -17,6 +17,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:picos/screens/legals_screen.dart';
+import 'package:picos/screens/login_screen.dart';
 import 'package:picos/screens/my_medications_screen/add_medication_screen.dart';
 import 'package:picos/screens/my_therapies_screen/add_therapy_screen.dart';
 import 'package:picos/screens/my_therapies_screen/my_therapies_screen.dart';
@@ -74,6 +75,7 @@ class Routes {
       '/legals-screen': (BuildContext ctx) => const LegalsScreen(),
       '/privacy-notice-screen': (BuildContext ctx) => const PrivacyNoticeScreen(),
       '/visits-screen/visits': (BuildContext ctx) => const VisitsScreen(),
+      '/login-screen': (BuildContext ctx) => const LoginScreen(),
     };
   }
 
