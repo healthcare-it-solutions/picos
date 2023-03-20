@@ -21,6 +21,7 @@ import 'package:picos/screens/questionaire_screen/pages/body_and_mind.dart';
 import 'package:picos/screens/questionaire_screen/pages/weight.dart';
 import 'package:picos/screens/questionaire_screen/widgets/cover.dart';
 import 'package:picos/screens/questionaire_screen/widgets/doctor_card.dart';
+import 'package:picos/screens/questionaire_screen/widgets/last_cover.dart';
 import 'package:picos/screens/questionaire_screen/widgets/pain_scale_card.dart';
 import 'package:picos/screens/questionaire_screen/widgets/questionaire_page.dart';
 import 'package:picos/screens/questionaire_screen/widgets/radio_select_card.dart';
@@ -145,8 +146,6 @@ class QuestionairePageStorage {
   static String? _changedMedication;
   static String? _changedTherapy;
   static Map<String, dynamic>? _medicationAndTherapyValues;
-  static String? _tips;
-  static String? _drinkEnough;
 
   static int? _bodyHeight;
 
@@ -174,8 +173,6 @@ class QuestionairePageStorage {
     _activityAndRest = AppLocalizations.of(context)!.activityAndRest;
     _bodyAndMind = AppLocalizations.of(context)!.bodyAndMind;
     _medicationAndTherapy = AppLocalizations.of(context)!.medicationAndTherapy;
-    _tips = AppLocalizations.of(context)!.tips;
-    _drinkEnough = AppLocalizations.of(context)!.drinkEnough;
   }
 
   void _initTitles() {
@@ -214,8 +211,9 @@ class QuestionairePageStorage {
     pages = <String, Widget?>{
       'vitalCover': Cover(
         title: _vitalValues!,
-        image: 'assets/Vitalwerte_neg.png',
+        image: 'assets/Vitalwerte_neg.svg',
         nextFunction: nextPage,
+        backFunction: previousPage,
       ),
       'weightPage': Weight(
         previousPage: previousPage,
@@ -260,9 +258,9 @@ class QuestionairePageStorage {
       ),
       'activityCover': Cover(
         title: _activityAndRest!,
-        image: 'assets/Aktivitaet+Ruhe_neg.png',
-        backFunction: previousPage,
+        image: 'assets/Aktivitaet+Ruhe_neg.svg',
         nextFunction: nextPage,
+        backFunction: previousPage,
       ),
       'walkPage': QuestionairePage(
         backFunction: previousPage,
@@ -298,9 +296,9 @@ class QuestionairePageStorage {
       ),
       'bodyCover': Cover(
         title: _bodyAndMind!,
-        image: 'assets/Koerper+Psyche_neg.png',
-        backFunction: previousPage,
+        image: 'assets/Koerper+Psyche_neg.svg',
         nextFunction: nextPage,
+        backFunction: previousPage,
       ),
       'painPage': QuestionairePage(
         backFunction: previousPage,
@@ -346,9 +344,9 @@ class QuestionairePageStorage {
       ),
       'medicationCover': Cover(
         title: _medicationAndTherapy!,
-        image: 'assets/Medikation+Therapie_neg.png',
-        backFunction: previousPage,
+        image: 'assets/Medikation+Therapie_neg.svg',
         nextFunction: nextPage,
+        backFunction: previousPage,
       ),
       'medicationPage': QuestionairePage(
         backFunction: previousPage,
@@ -385,19 +383,12 @@ class QuestionairePageStorage {
           radioOptions: _medicationAndTherapyValues!,
         ),
       ),
-      'readyCover': Cover(
+      'readyCover': LastCover(
         title: _ready!,
-        image: 'assets/Fertig_Smiley_neg.png',
-        infoText: <TextSpan>[
-          TextSpan(
-            text: '$_tips\n',
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          TextSpan(
-            text: _drinkEnough,
-          ),
-        ],
-      ),
+        image: 'assets/Fertig_Smiley.svg',
+        backFunction: previousPage,
+        nextFunction: nextPage,
+      )
     };
   }
 }
