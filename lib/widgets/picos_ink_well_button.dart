@@ -72,36 +72,35 @@ class PicosInkWellButton extends StatelessWidget {
     }
 
     return Padding(
-        padding: padding,
-        child: Material(
-          color: Colors.transparent,
-          child: AbsorbPointer(
-            absorbing: disabled,
-            child: Ink(
-              decoration: BoxDecoration(
-                borderRadius: buttonBorderRadius,
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    gradientColor1,
-                    gradientColor2,
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
+      padding: padding,
+      child: Material(
+        color: Colors.transparent,
+        child: AbsorbPointer(
+          absorbing: disabled,
+          child: Ink(
+            decoration: BoxDecoration(
+              borderRadius: buttonBorderRadius,
+              gradient: LinearGradient(
+                colors: <Color>[
+                  gradientColor1,
+                  gradientColor2,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              child: InkWell(
-                onTap: onTap,
-                borderRadius: buttonBorderRadius,
-                child: SizedBox(
-                  height: 45,
-                  child: Center(
-                    child: Text(
-                      text,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: fontSize,
-                      ),
+            ),
+            child: InkWell(
+              onTap: onTap,
+              borderRadius: buttonBorderRadius,
+              child: SizedBox(
+                height: 45,
+                child: Center(
+                  child: Text(
+                    text,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: fontSize,
                     ),
                   ),
                 ),
@@ -109,6 +108,7 @@ class PicosInkWellButton extends StatelessWidget {
             ),
           ),
         ),
-      );
+      ),
+    );
   }
 }
