@@ -73,6 +73,7 @@ class InputCardSection extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               PicosInkWellButton(
+                padding: const EdgeInsets.symmetric(horizontal: 0),
                 text: AppLocalizations.of(context)!.howFeel,
                 onTap: () {
                   Navigator.push(
