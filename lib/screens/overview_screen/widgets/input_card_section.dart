@@ -20,6 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:picos/screens/overview_screen/widgets/mini_calendar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/questionaire_screen/questionaire_screen.dart';
+import 'package:picos/widgets/picos_ink_well_button.dart';
 
 /// This class implements the top section of the 'overview'.
 class InputCardSection extends StatelessWidget {
@@ -71,26 +72,19 @@ class InputCardSection extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              IntrinsicWidth(
-                stepWidth: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute<Widget>(
-                        builder: (BuildContext context) =>
-                            const QuestionaireScreen(),
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                  ),
-                  child: Text(
-                    AppLocalizations.of(context)!.howFeel,
-                  ),
-                ),
-              )
+              PicosInkWellButton(
+                text: AppLocalizations.of(context)!.howFeel,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<Widget>(
+                      builder: (BuildContext context) =>
+                          const QuestionaireScreen(),
+                    ),
+                  );
+                },
+                fontSize: 18,
+              ),
             ],
           ),
         ),
