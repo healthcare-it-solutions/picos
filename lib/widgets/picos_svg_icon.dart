@@ -28,6 +28,7 @@ class PicosSvgIcon extends StatelessWidget {
     Key? key,
     this.height,
     this.width,
+    this.color,
   }) : super(key: key);
 
   /// Path to the asset.
@@ -41,6 +42,9 @@ class PicosSvgIcon extends StatelessWidget {
   /// take the width of its parent.
   final double? width;
 
+  /// Color for the colorFilter.
+  final Color? color;
+
   @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
@@ -49,7 +53,8 @@ class PicosSvgIcon extends StatelessWidget {
       assetName,
       height: height,
       width: width,
-      colorFilter: ColorFilter.mode(theme.darkGreen1!, BlendMode.srcIn),
+      colorFilter:
+          ColorFilter.mode(color ?? theme.darkGreen1!, BlendMode.srcIn),
     );
   }
 }

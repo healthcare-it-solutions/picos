@@ -30,12 +30,16 @@ class QuestionairePage extends StatelessWidget {
   const QuestionairePage({
     required this.child,
     Key? key,
+    this.color = Colors.white,
     this.backFunction,
     this.nextFunction,
   }) : super(key: key);
 
   /// The body of the page.
   final Widget child;
+
+  /// The color of the column.
+  final Color color;
 
   /// Function for getting a page back.
   final void Function()? backFunction;
@@ -53,8 +57,11 @@ class QuestionairePage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Expanded(
-          child: PicosBody(
-            child: child,
+          child: Container(
+            color: color,
+            child: PicosBody(
+              child: child,
+            ),
           ),
         ),
         PicosAddButtonBar(
