@@ -22,6 +22,7 @@ import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
 import 'package:picos/screens/my_therapies_screen/my_therapies_screen.dart';
 import 'package:picos/screens/visits_screen/visits_screen.dart';
 import 'package:picos/screens/overview_screen/widgets/section.dart';
+import 'package:picos/themes/global_theme.dart';
 
 /// Widget which displays health-related information
 class MyHealthSection extends StatelessWidget {
@@ -30,6 +31,11 @@ class MyHealthSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
+    Color gradientColor1 = theme.green1!;
+    Color gradientColor2 = theme.green2!;
+
     return Section(
       title: AppLocalizations.of(context)!.myHealth,
       titleColor: Colors.white,
@@ -41,7 +47,17 @@ class MyHealthSection extends StatelessWidget {
           runSpacing: 20,
           children: <Widget>[
             Container(
-              color: Colors.green,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(7),
+                gradient: LinearGradient(
+                  colors: <Color>[
+                    gradientColor1,
+                    gradientColor2,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
               width: 180,
               height: 180,
               child: GestureDetector(
@@ -49,14 +65,20 @@ class MyHealthSection extends StatelessWidget {
                   context,
                   MaterialPageRoute<Widget>(
                     builder: (BuildContext context) =>
-                    const MyMedicationsScreen(),
+                        const MyMedicationsScreen(),
                   ),
                 ),
                 child: Column(
                   children: <Widget>[
                     Flexible(
                       flex: 3,
-                      child: Image.asset('assets/Medikationsplan.png'),
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(7),
+                          topRight: Radius.circular(7),
+                        ),
+                        child: Image.asset('assets/Medikationsplan.png'),
+                      ),
                     ),
                     Flexible(
                       flex: 2,
@@ -76,7 +98,18 @@ class MyHealthSection extends StatelessWidget {
               ),
             ),
             Container(
-              color: Colors.green,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(7),
+                color: Colors.green,
+                gradient: LinearGradient(
+                  colors: <Color>[
+                    gradientColor1,
+                    gradientColor2,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
               width: 180,
               height: 180,
               child: GestureDetector(
@@ -84,14 +117,20 @@ class MyHealthSection extends StatelessWidget {
                   context,
                   MaterialPageRoute<Widget>(
                     builder: (BuildContext context) =>
-                    const MyTherapiesScreen(),
+                        const MyTherapiesScreen(),
                   ),
                 ),
                 child: Column(
                   children: <Widget>[
                     Flexible(
                       flex: 3,
-                      child: Image.asset('assets/Physiotherapie.png'),
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(7),
+                          topRight: Radius.circular(7),
+                        ),
+                        child: Image.asset('assets/Physiotherapie.png'),
+                      ),
                     ),
                     Flexible(
                       flex: 2,
@@ -111,22 +150,40 @@ class MyHealthSection extends StatelessWidget {
               ),
             ),
             Container(
-              color: Colors.green,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(7),
+                color: Colors.green,
+                gradient: LinearGradient(
+                  colors: <Color>[
+                    gradientColor1,
+                    gradientColor2,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
               width: 180,
               height: 180,
               child: GestureDetector(
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute<Widget>(
-                    builder: (BuildContext context) =>
-                    const VisitsScreen(),
+                    builder: (BuildContext context) => const VisitsScreen(),
                   ),
                 ),
                 child: Column(
                   children: <Widget>[
                     Flexible(
                       flex: 3,
-                      child: Image.asset('assets/Rehospitalisierung_1225743855_┬®iStock.png'),
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(7),
+                          topRight: Radius.circular(7),
+                        ),
+                        child: Image.asset(
+                          'assets/Rehospitalisierung_1225743855_┬®iStock.png',
+                        ),
+                      ),
                     ),
                     Flexible(
                       flex: 2,
