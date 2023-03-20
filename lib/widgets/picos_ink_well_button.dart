@@ -34,6 +34,7 @@ class PicosInkWellButton extends StatelessWidget {
       top: 15,
       bottom: 10,
     ),
+    this.fontSize,
   }) : super(key: key);
 
   /// The text shown on the button.
@@ -54,6 +55,9 @@ class PicosInkWellButton extends StatelessWidget {
   /// The amount of space by which to inset the button.
   final EdgeInsetsGeometry padding;
 
+  /// The font size for the PicosInkWellButton text.
+  final double? fontSize;
+
   @override
   Widget build(BuildContext context) {
     final BorderRadius buttonBorderRadius = BorderRadius.circular(7);
@@ -68,34 +72,36 @@ class PicosInkWellButton extends StatelessWidget {
     }
 
     return Padding(
-      padding: padding,
-      child: Material(
-        color: Colors.transparent,
-        child: AbsorbPointer(
-          absorbing: disabled,
-          child: Ink(
-            decoration: BoxDecoration(
-              borderRadius: buttonBorderRadius,
-              gradient: LinearGradient(
-                colors: <Color>[
-                  gradientColor1,
-                  gradientColor2,
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+        padding: padding,
+        child: Material(
+          color: Colors.transparent,
+          child: AbsorbPointer(
+            absorbing: disabled,
+            child: Ink(
+              decoration: BoxDecoration(
+                borderRadius: buttonBorderRadius,
+                gradient: LinearGradient(
+                  colors: <Color>[
+                    gradientColor1,
+                    gradientColor2,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
               ),
-            ),
-            child: InkWell(
-              onTap: onTap,
-              borderRadius: buttonBorderRadius,
-              child: SizedBox(
-                height: 45,
-                child: Center(
-                  child: Text(
-                    text,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+              child: InkWell(
+                onTap: onTap,
+                borderRadius: buttonBorderRadius,
+                child: SizedBox(
+                  height: 45,
+                  child: Center(
+                    child: Text(
+                      text,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: fontSize,
+                      ),
                     ),
                   ),
                 ),
@@ -103,7 +109,6 @@ class PicosInkWellButton extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }
