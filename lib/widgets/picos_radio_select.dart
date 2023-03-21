@@ -45,7 +45,7 @@ class _PicosRadioSelectState extends State<PicosRadioSelect> {
       (MapEntry<String, dynamic> element) {
         return RadioListTile<dynamic>(
           title: Text(element.key),
-          contentPadding: const EdgeInsets.all(0),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 21),
           value: element.value,
           groupValue: _selectValue,
           onChanged: (dynamic newValue) {
@@ -66,7 +66,6 @@ class _PicosRadioSelectState extends State<PicosRadioSelect> {
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.symmetric(horizontal: 21),
       itemCount: _createItemList().length,
       itemBuilder: (BuildContext context, int index) =>
           _createItemList()[index],
@@ -75,6 +74,8 @@ class _PicosRadioSelectState extends State<PicosRadioSelect> {
           thickness: 1,
           height: 0,
           color: Color.fromRGBO(145, 151, 156, 1),
+          indent: 19,
+          endIndent: 19,
         );
       },
     );
