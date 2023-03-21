@@ -72,7 +72,6 @@ class Cover extends StatelessWidget {
       color: theme.darkGreen1!,
       child: SizedBox(
         width: width,
-        height: height - (45 + 15 + 10),
         child: Column(
           children: <Widget>[
             SizedBox(
@@ -82,7 +81,6 @@ class Cover extends StatelessWidget {
               assetName: image,
               height: 200,
               width: 175,
-              color: Colors.white,
             ),
             Padding(
               padding: const EdgeInsets.only(top: 60),
@@ -141,7 +139,6 @@ class Cover extends StatelessWidget {
                             assetName: 'assets/Tipp.svg',
                             height: 50,
                             width: 50,
-                            color: Colors.white,
                           ),
                         ),
                       ],

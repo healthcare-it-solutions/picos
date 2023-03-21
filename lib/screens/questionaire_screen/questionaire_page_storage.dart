@@ -387,7 +387,7 @@ class QuestionairePageStorage {
       ),
       'readyCover': Cover(
         title: _ready!,
-        image: 'assets/Fertig_Smiley.svg',
+        image: 'assets/Fertig_Smiley_neg.svg',
         backFunction: previousPage,
         nextFunction: nextPage,
         isLastPage: true,

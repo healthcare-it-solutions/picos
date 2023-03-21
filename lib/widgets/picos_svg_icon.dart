@@ -18,8 +18,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../themes/global_theme.dart';
-
 /// Instantiates a widget that renders an SVG picture from an AssetBundle.
 class PicosSvgIcon extends StatelessWidget {
   /// PicosSvgIcon constructor.
@@ -28,7 +26,6 @@ class PicosSvgIcon extends StatelessWidget {
     Key? key,
     this.height,
     this.width,
-    this.color,
   }) : super(key: key);
 
   /// Path to the asset.
@@ -42,19 +39,12 @@ class PicosSvgIcon extends StatelessWidget {
   /// take the width of its parent.
   final double? width;
 
-  /// Color for the colorFilter.
-  final Color? color;
-
   @override
   Widget build(BuildContext context) {
-    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-
     return SvgPicture.asset(
       assetName,
       height: height,
       width: width,
-      colorFilter:
-          ColorFilter.mode(color ?? theme.darkGreen1!, BlendMode.srcIn),
     );
   }
 }
