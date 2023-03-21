@@ -290,7 +290,7 @@ class _PainScaleCardState extends State<PainScaleCard> {
         horizontal: 0,
       ),
       label: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: _cardContentPadding),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: PicosLabel(widget.label),
       ),
       child: Column(

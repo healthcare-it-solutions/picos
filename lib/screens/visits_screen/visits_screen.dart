@@ -319,7 +319,7 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
                   horizontal: 0,
                 ),
                 label: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: PicosLabel(_iWasUnscheduled!),
                 ),
                 child: PicosRadioSelect(

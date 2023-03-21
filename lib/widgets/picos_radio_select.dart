@@ -40,12 +40,14 @@ class PicosRadioSelect extends StatefulWidget {
 class _PicosRadioSelectState extends State<PicosRadioSelect> {
   dynamic _selectValue;
 
+  final double _distance = 15;
+
   List<RadioListTile<dynamic>> _createItemList() {
     return widget.selection.entries.map<RadioListTile<dynamic>>(
       (MapEntry<String, dynamic> element) {
         return RadioListTile<dynamic>(
           title: Text(element.key),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 21),
+          contentPadding: EdgeInsets.symmetric(horizontal: _distance),
           value: element.value,
           groupValue: _selectValue,
           onChanged: (dynamic newValue) {
@@ -70,12 +72,12 @@ class _PicosRadioSelectState extends State<PicosRadioSelect> {
       itemBuilder: (BuildContext context, int index) =>
           _createItemList()[index],
       separatorBuilder: (BuildContext context, int index) {
-        return const Divider(
+        return Divider(
           thickness: 1,
           height: 0,
-          color: Color.fromRGBO(145, 151, 156, 1),
-          indent: 19,
-          endIndent: 19,
+          color: const Color.fromRGBO(145, 151, 156, 1),
+          indent: _distance,
+          endIndent: _distance,
         );
       },
     );
