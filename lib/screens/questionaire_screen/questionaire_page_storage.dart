@@ -21,7 +21,6 @@ import 'package:picos/screens/questionaire_screen/pages/body_and_mind.dart';
 import 'package:picos/screens/questionaire_screen/pages/weight.dart';
 import 'package:picos/screens/questionaire_screen/widgets/cover.dart';
 import 'package:picos/screens/questionaire_screen/widgets/doctor_card.dart';
-import 'package:picos/screens/questionaire_screen/widgets/last_cover.dart';
 import 'package:picos/screens/questionaire_screen/widgets/pain_scale_card.dart';
 import 'package:picos/screens/questionaire_screen/widgets/questionaire_page.dart';
 import 'package:picos/screens/questionaire_screen/widgets/radio_select_card.dart';
@@ -383,11 +382,12 @@ class QuestionairePageStorage {
           radioOptions: _medicationAndTherapyValues!,
         ),
       ),
-      'readyCover': LastCover(
+      'readyCover': Cover(
         title: _ready!,
         image: 'assets/Fertig_Smiley.svg',
         backFunction: previousPage,
         nextFunction: nextPage,
+        isLastPage: true,
       )
     };
   }

@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:picos/themes/global_theme.dart';
 import 'package:picos/widgets/picos_svg_icon.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'questionaire_page.dart';
 
@@ -29,6 +30,7 @@ class Cover extends StatelessWidget {
     required this.image,
     required this.backFunction,
     required this.nextFunction,
+    this.isLastPage = false,
     Key? key,
   }) : super(key: key);
 
@@ -44,6 +46,9 @@ class Cover extends StatelessWidget {
   /// Function for getting the next page.
   final void Function()? nextFunction;
 
+  /// Determines whether it is the last cover page or not.
+  final bool isLastPage;
+
   @override
   Widget build(BuildContext context) {
     double? height = MediaQuery.of(context).size.height -
@@ -51,6 +56,10 @@ class Cover extends StatelessWidget {
         kToolbarHeight;
     double? width = MediaQuery.of(context).size.width;
     double? fontSize = 30;
+
+    String tips = AppLocalizations.of(context)!.tips;
+    String drinkEnough = AppLocalizations.of(context)!.drinkEnough;
+
     GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
 
     return QuestionairePage(
@@ -68,7 +77,7 @@ class Cover extends StatelessWidget {
             PicosSvgIcon(
               assetName: image,
               height: 200,
-              width: 170,
+              width: 175,
               color: Colors.white,
             ),
             Padding(
@@ -83,6 +92,57 @@ class Cover extends StatelessWidget {
                 ),
               ),
             ),
+            isLastPage
+                ? SizedBox(
+                    height: height / 10,
+                  )
+                : const SizedBox.shrink(),
+            isLastPage
+                ? Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(10.0),
+                      ),
+                    ),
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: RichText(
+                            text: TextSpan(
+                              style: const TextStyle(
+                                color: Colors.white,
+                                height: 2,
+                              ),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: '$tips\n',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                TextSpan(
+                                  text: drinkEnough,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const Positioned(
+                          top: -20,
+                          right: 20,
+                          child: PicosSvgIcon(
+                            assetName: 'assets/Tipp.svg',
+                            height: 50,
+                            width: 50,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : const SizedBox.shrink()
           ],
         ),
       ),
