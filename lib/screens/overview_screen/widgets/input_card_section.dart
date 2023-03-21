@@ -19,7 +19,6 @@
 import 'package:flutter/material.dart';
 import 'package:picos/screens/overview_screen/widgets/mini_calendar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/screens/questionaire_screen/questionaire_screen.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
 
 /// This class implements the top section of the 'overview'.
@@ -76,12 +75,9 @@ class InputCardSection extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 0),
                 text: AppLocalizations.of(context)!.howFeel,
                 onTap: () {
-                  Navigator.push(
+                  Navigator.pushNamed(
                     context,
-                    MaterialPageRoute<Widget>(
-                      builder: (BuildContext context) =>
-                          const QuestionaireScreen(),
-                    ),
+                    '/questionnaire-screen/questionnaire-screen',
                   );
                 },
                 fontSize: 18,
