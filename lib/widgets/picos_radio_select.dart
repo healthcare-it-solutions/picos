@@ -44,7 +44,7 @@ class _PicosRadioSelectState extends State<PicosRadioSelect> {
     return widget.selection.entries.map<RadioListTile<dynamic>>(
       (MapEntry<String, dynamic> element) {
         return RadioListTile<dynamic>(
-          title: Text(element.key), 
+          title: Text(element.key),
           contentPadding: const EdgeInsets.all(0),
           value: element.value,
           groupValue: _selectValue,
@@ -62,24 +62,21 @@ class _PicosRadioSelectState extends State<PicosRadioSelect> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <ListView>[
-        ListView.separated(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          padding: const EdgeInsets.symmetric(horizontal: 21),
-          itemCount: _createItemList().length,
-          itemBuilder: (BuildContext context, int index) =>
-              _createItemList()[index],
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              thickness: 1,
-              height: 0,
-              color: Color.fromRGBO(145, 151, 156, 1),
-            );
-          },
-        ),
-      ],
+    return ListView.separated(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      padding: const EdgeInsets.symmetric(horizontal: 21),
+      itemCount: _createItemList().length,
+      itemBuilder: (BuildContext context, int index) =>
+          _createItemList()[index],
+      separatorBuilder: (BuildContext context, int index) {
+        return const Divider(
+          thickness: 1,
+          height: 0,
+          color: Color.fromRGBO(145, 151, 156, 1),
+        );
+      },
     );
   }
 }
