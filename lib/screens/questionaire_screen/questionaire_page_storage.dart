@@ -127,6 +127,7 @@ class QuestionairePageStorage {
   //Static Strings
   static String? _myEntries;
   static String? _vitalValues;
+  static String? _letsStart;
   static String? _activityAndRest;
   static String? _bodyAndMind;
   static String? _medicationAndTherapy;
@@ -172,6 +173,7 @@ class QuestionairePageStorage {
     _activityAndRest = AppLocalizations.of(context)!.activityAndRest;
     _bodyAndMind = AppLocalizations.of(context)!.bodyAndMind;
     _medicationAndTherapy = AppLocalizations.of(context)!.medicationAndTherapy;
+    _letsStart = AppLocalizations.of(context)!.letsStart;
   }
 
   void _initTitles() {
@@ -213,6 +215,7 @@ class QuestionairePageStorage {
         image: 'assets/Vitalwerte_neg.svg',
         nextFunction: nextPage,
         backFunction: previousPage,
+        textNext: _letsStart,
       ),
       'weightPage': Weight(
         previousPage: previousPage,

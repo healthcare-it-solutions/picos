@@ -31,6 +31,7 @@ class Cover extends StatelessWidget {
     required this.backFunction,
     required this.nextFunction,
     this.isLastPage = false,
+    this.textNext,
     Key? key,
   }) : super(key: key);
 
@@ -49,6 +50,8 @@ class Cover extends StatelessWidget {
   /// Determines whether it is the last cover page or not.
   final bool isLastPage;
 
+  final String? textNext;
+
   @override
   Widget build(BuildContext context) {
     double? height = MediaQuery.of(context).size.height -
@@ -65,6 +68,7 @@ class Cover extends StatelessWidget {
     return QuestionairePage(
       nextFunction: nextFunction,
       backFunction: backFunction,
+      textNext: textNext ?? '',
       color: theme.darkGreen1!,
       child: SizedBox(
         width: width,
@@ -120,7 +124,8 @@ class Cover extends StatelessWidget {
                                 TextSpan(
                                   text: '$tips\n',
                                   style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                                 TextSpan(
                                   text: drinkEnough,

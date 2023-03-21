@@ -33,6 +33,7 @@ class QuestionairePage extends StatelessWidget {
     this.color = Colors.white,
     this.backFunction,
     this.nextFunction,
+    this.textNext = '',
   }) : super(key: key);
 
   /// The body of the page.
@@ -46,6 +47,9 @@ class QuestionairePage extends StatelessWidget {
 
   /// Function for getting the next page.
   final void Function()? nextFunction;
+
+  /// The text for the "Next"-Button.
+  final String textNext;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +88,7 @@ class QuestionairePage extends StatelessWidget {
               top: 15,
               bottom: 10,
             ),
-            text: next,
+            text: textNext.isEmpty ? next : textNext,
             onTap: nextFunction ?? () {},
           ),
         )
