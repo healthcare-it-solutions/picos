@@ -47,7 +47,7 @@ class _PicosRadioSelectState extends State<PicosRadioSelect> {
       (MapEntry<String, dynamic> element) {
         return RadioListTile<dynamic>(
           title: Text(element.key),
-          contentPadding: EdgeInsets.symmetric(horizontal: _distance),
+          contentPadding: const EdgeInsets.symmetric(horizontal: _distance),
           value: element.value,
           groupValue: _selectValue,
           onChanged: (dynamic newValue) {
