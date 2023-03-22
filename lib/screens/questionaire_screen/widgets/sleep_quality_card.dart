@@ -196,7 +196,8 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
               });
             },
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: cardContentPadding),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: cardContentPadding),
               child: Row(
                 children: <Widget>[
                   Padding(

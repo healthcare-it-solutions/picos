@@ -75,7 +75,7 @@ class _PicosRadioSelectState extends State<PicosRadioSelect> {
         return const Divider(
           thickness: 1,
           height: 0,
-          color: const Color.fromRGBO(145, 151, 156, 1),
+          color: Color.fromRGBO(145, 151, 156, 1),
           indent: _distance,
           endIndent: _distance,
         );
