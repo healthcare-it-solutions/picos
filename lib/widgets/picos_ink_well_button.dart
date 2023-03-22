@@ -34,6 +34,7 @@ class PicosInkWellButton extends StatelessWidget {
       top: 15,
       bottom: 10,
     ),
+    this.fontSize,
   }) : super(key: key);
 
   /// The text shown on the button.
@@ -53,6 +54,9 @@ class PicosInkWellButton extends StatelessWidget {
 
   /// The amount of space by which to inset the button.
   final EdgeInsetsGeometry padding;
+
+  /// The font size for the PicosInkWellButton text.
+  final double? fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -93,9 +97,10 @@ class PicosInkWellButton extends StatelessWidget {
                 child: Center(
                   child: Text(
                     text,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
+                      fontSize: fontSize,
                     ),
                   ),
                 ),
