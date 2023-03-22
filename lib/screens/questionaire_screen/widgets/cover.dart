@@ -50,6 +50,7 @@ class Cover extends StatelessWidget {
   /// Determines whether it is the last cover page or not.
   final bool isLastPage;
 
+  /// The text for the "Next"-Button.
   final String? textNext;
 
   @override
