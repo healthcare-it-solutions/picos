@@ -44,11 +44,14 @@ class PicosRadioSelect extends StatefulWidget {
 class _PicosRadioSelectState extends State<PicosRadioSelect> {
   dynamic _selectValue;
 
+  static const double _distance = 15;
+
   List<RadioListTile<dynamic>> _createItemList() {
     return widget.selection.entries.map<RadioListTile<dynamic>>(
       (MapEntry<String, dynamic> element) {
         return RadioListTile<dynamic>(
           title: Text(element.key),
+          contentPadding: const EdgeInsets.symmetric(horizontal: _distance),
           value: element.value,
           groupValue: _selectValue,
           onChanged: (dynamic newValue) {
@@ -57,6 +60,7 @@ class _PicosRadioSelectState extends State<PicosRadioSelect> {
               _selectValue = newValue;
             });
           },
+          controlAffinity: ListTileControlAffinity.trailing,
         );
       },
     ).toList();
@@ -66,8 +70,22 @@ class _PicosRadioSelectState extends State<PicosRadioSelect> {
   Widget build(BuildContext context) {
     _selectValue ??= widget.initialValue;
 
-    return Column(
-      children: _createItemList(),
+    return ListView.separated(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: _createItemList().length,
+      itemBuilder: (BuildContext context, int index) =>
+      _createItemList()[index],
+      separatorBuilder: (BuildContext context, int index) {
+        return const Divider(
+          thickness: 1,
+          height: 0,
+          color: Color.fromRGBO(145, 151, 156, 1),
+          indent: _distance,
+          endIndent: _distance,
+        );
+      },
     );
   }
 }
