@@ -18,11 +18,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
-import 'package:picos/screens/my_therapies_screen/my_therapies_screen.dart';
-import 'package:picos/screens/visits_screen/visits_screen.dart';
+import 'package:picos/screens/overview_screen/widgets/tile.dart';
 import 'package:picos/screens/overview_screen/widgets/section.dart';
-import 'package:picos/themes/global_theme.dart';
 
 /// Widget which displays health-related information
 class MyHealthSection extends StatelessWidget {
@@ -31,11 +28,6 @@ class MyHealthSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-
-    Color gradientColor1 = theme.green1!;
-    Color gradientColor2 = theme.green2!;
-
     return Section(
       title: AppLocalizations.of(context)!.myHealth,
       titleColor: Colors.white,
@@ -46,162 +38,21 @@ class MyHealthSection extends StatelessWidget {
           spacing: 20,
           runSpacing: 20,
           children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(7),
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    gradientColor1,
-                    gradientColor2,
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
-              width: 180,
-              height: 180,
-              child: GestureDetector(
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute<Widget>(
-                    builder: (BuildContext context) =>
-                        const MyMedicationsScreen(),
-                  ),
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Flexible(
-                      flex: 3,
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(7),
-                          topRight: Radius.circular(7),
-                        ),
-                        child: Image.asset('assets/Medikationsplan.png'),
-                      ),
-                    ),
-                    Flexible(
-                      flex: 2,
-                      child: Center(
-                        child: Text(
-                          AppLocalizations.of(context)!.medicationScheme,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            Tile(
+              imageName: 'assets/Medikationsplan.png',
+              sectionName: AppLocalizations.of(context)!.myMedications,
+              routeName: '/my-medications-screen/my-medications',
             ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(7),
-                color: Colors.green,
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    gradientColor1,
-                    gradientColor2,
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
-              width: 180,
-              height: 180,
-              child: GestureDetector(
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute<Widget>(
-                    builder: (BuildContext context) =>
-                        const MyTherapiesScreen(),
-                  ),
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Flexible(
-                      flex: 3,
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(7),
-                          topRight: Radius.circular(7),
-                        ),
-                        child: Image.asset('assets/Physiotherapie.png'),
-                      ),
-                    ),
-                    Flexible(
-                      flex: 2,
-                      child: Center(
-                        child: Text(
-                          AppLocalizations.of(context)!.myTherapy,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            Tile(
+              imageName: 'assets/Physiotherapie.png',
+              sectionName: AppLocalizations.of(context)!.myTherapy,
+              routeName: '/my-therapy-screen/my-therapy',
             ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(7),
-                color: Colors.green,
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    gradientColor1,
-                    gradientColor2,
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
-              width: 180,
-              height: 180,
-              child: GestureDetector(
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute<Widget>(
-                    builder: (BuildContext context) => const VisitsScreen(),
-                  ),
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Flexible(
-                      flex: 3,
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(7),
-                          topRight: Radius.circular(7),
-                        ),
-                        child: Image.asset(
-                          'assets/Rehospitalisierung_1225743855_┬®iStock.png',
-                        ),
-                      ),
-                    ),
-                    Flexible(
-                      flex: 2,
-                      child: Center(
-                        child: Text(
-                          AppLocalizations.of(context)!.visits,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            Tile(
+              imageName: 'assets/Rehospitalisierung_1225743855_┬®iStock.png',
+              sectionName: AppLocalizations.of(context)!.visits,
+              routeName: '/visits-screen/visits',
+            )
           ],
         ),
       ),
