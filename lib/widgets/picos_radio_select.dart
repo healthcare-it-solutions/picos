@@ -40,7 +40,7 @@ class PicosRadioSelect extends StatefulWidget {
 class _PicosRadioSelectState extends State<PicosRadioSelect> {
   dynamic _selectValue;
 
-  final double _distance = 15;
+  static const double _distance = 15;
 
   List<RadioListTile<dynamic>> _createItemList() {
     return widget.selection.entries.map<RadioListTile<dynamic>>(
