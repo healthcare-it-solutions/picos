@@ -72,7 +72,7 @@ class _PicosRadioSelectState extends State<PicosRadioSelect> {
       itemBuilder: (BuildContext context, int index) =>
           _createItemList()[index],
       separatorBuilder: (BuildContext context, int index) {
-        return Divider(
+        return const Divider(
           thickness: 1,
           height: 0,
           color: const Color.fromRGBO(145, 151, 156, 1),
