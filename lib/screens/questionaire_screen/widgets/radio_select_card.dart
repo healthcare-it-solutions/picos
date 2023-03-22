@@ -45,7 +45,7 @@ class RadioSelectCard extends StatelessWidget {
   /// The function that is executed when an item gets selected.
   final Function(dynamic value) callback;
 
-  static const double _horizontalPadding = 15;
+  static const double _horizontalPadding = 10;
 
   @override
   Widget build(BuildContext context) {

@@ -184,7 +184,7 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
 
     List<Widget> children = <Widget>[];
 
-    double cardContentPadding = 15;
+    const double cardContentPadding = 15;
 
     _options.forEach(
       (String key, int value) {
@@ -196,7 +196,8 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
               });
             },
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: cardContentPadding),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: cardContentPadding),
               child: Row(
                 children: <Widget>[
                   Padding(
@@ -251,7 +252,7 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
         horizontal: 0,
       ),
       label: Padding(
-        padding: EdgeInsets.symmetric(horizontal: cardContentPadding),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: PicosLabel(widget.label),
       ),
       child: Stack(
@@ -278,7 +279,7 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
+            padding: const EdgeInsets.symmetric(horizontal: cardContentPadding),
             child: Column(
               children: _generateDivider(),
             ),
