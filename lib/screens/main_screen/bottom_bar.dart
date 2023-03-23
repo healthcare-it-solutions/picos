@@ -53,16 +53,6 @@ class _BottomBarState extends State<BottomBar> {
     'MyPicos',
   ];
 
-  // TODO: refactor the appBarTitle to return localized messages
-  String appBarTitle(BuildContext context, int index) {
-    final List<String> appBarTitles = <String>[
-      'Overview',
-      'MyPicos',
-    ];
-
-    return appBarTitles[index];
-  }
-
   /// This function gets called when tapping on an element on the bottom bar.
   /// It keeps track of the currently selected element.
   void onItemTapped(int index) {
