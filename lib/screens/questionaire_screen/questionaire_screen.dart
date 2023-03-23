@@ -192,16 +192,21 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     List<dynamic> weeklyData = await Backend.getAll(Weekly.databaseTable);
     List<dynamic> phq4Data = await Backend.getAll(PHQ4.databaseTable);
 
-    if (dailyData.isEmpty ||
-        weeklyData.isEmpty ||
-        phq4Data.isEmpty ||
-        !mounted) {
+    if (!mounted) {
       return false;
     }
 
-    _daily = _createDaily(dailyData.last);
-    _weekly = _createWeekly(weeklyData.last);
-    _phq4 = _createPHQ4(phq4Data.last);
+    if (dailyData.isNotEmpty) {
+      _daily = _createDaily(dailyData.last);
+    }
+
+    if (weeklyData.isNotEmpty) {
+      _weekly = _createWeekly(weeklyData.last);
+    }
+
+    if (phq4Data.isNotEmpty) {
+      _phq4 = _createPHQ4(phq4Data.last);
+    }
 
     _pageStorage = await QuestionairePageStorage.create(
       _previousPage,
