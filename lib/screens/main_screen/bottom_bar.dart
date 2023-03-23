@@ -50,14 +50,14 @@ class _BottomBarState extends State<BottomBar> {
   // TODO: refactor and remove this List
   final List<String> _appBarTitles = <String>[
     'Overview',
-    'MyPicos'
+    'MyPicos',
   ];
 
   // TODO: refactor the appBarTitle to return localized messages
   String appBarTitle(BuildContext context, int index) {
     final List<String> appBarTitles = <String>[
       'Overview',
-      'MyPicos'
+      'MyPicos',
     ];
 
     return appBarTitles[index];
@@ -71,23 +71,37 @@ class _BottomBarState extends State<BottomBar> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
+  PreferredSizeWidget _appBarStyle() {
+    if (selectedIndex == 0) {
+      return AppBar(
+        backgroundColor: Colors.white,
+        title: Image.asset(
+          'assets/PICOS_Logo_RGB.png',
+          height: 70,
+        ),
+      );
+    } else {
+      return AppBar(
         backgroundColor: const Color.fromRGBO(25, 102, 117, 1.0),
         title: Center(
           child: Text(
             _appBarTitles[selectedIndex],
           ),
         ),
-      ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: _appBarStyle(),
       body: Center(
         // TODO: move this widget list outside of the build function,
         // TODO: implement a function that returns a title instead
         child: <Widget>[
           const OverviewScreen(),
-          const PicosMenu()
+          const PicosMenu(),
         ].elementAt(selectedIndex),
       ),
       backgroundColor: Colors.white,
