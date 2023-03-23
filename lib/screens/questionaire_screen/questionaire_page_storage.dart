@@ -167,9 +167,9 @@ class QuestionairePageStorage {
   late final bool _phq4;
 
   void _initValues(Daily? daily, Weekly? weekly, PHQ4? phq4) {
-    _daily = daily != null && daily.hasNullValues ? true : false;
-    _weekly = weekly != null && weekly.hasNullValues ? true : false;
-    _phq4 = phq4 != null && phq4.hasNullValues ? true : false;
+    _daily = daily == null || daily.hasNullValues ? true : false;
+    _weekly = weekly == null || weekly.hasNullValues ? true : false;
+    _phq4 = phq4 == null || phq4.hasNullValues ? true : false;
 
     selectedBodyWeight = weekly?.bodyWeight;
     selectedBMI = weekly?.bmi;
