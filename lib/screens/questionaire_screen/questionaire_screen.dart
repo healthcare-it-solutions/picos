@@ -105,18 +105,30 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     );
   }
 
-  Daily? _createDaily(dynamic model) {
+  dynamic _filterCurrentObject(List<dynamic> objects) {
+    objects.sort((dynamic a, dynamic b) {
+      return DateTime
+          .parse(a['datetime']['iso'])
+          .compareTo(DateTime.parse(b['datetime']['iso']));
+      },);
+
+    return objects.last;
+  }
+
+  Daily? _createDaily(List<dynamic> dailies) {
+    dynamic currentDaily = _filterCurrentObject(dailies);
+
     Daily daily = Daily(
-      heartFrequency: model['HeartRate'],
-      bloodSugar: model['BloodSugar'],
-      bloodSystolic: model['BloodPSystolic'],
-      bloodDiastolic: model['BloodPDiastolic'],
-      sleepDuration: model['SleepDuration'],
-      date: DateTime.parse(model['datetime']['iso']),
-      pain: model['Pain'],
-      objectId: model['objectId'],
-      createdAt: DateTime.parse(model['createdAt']),
-      updatedAt: DateTime.parse(model['updatedAt']),
+      heartFrequency: currentDaily['HeartRate'],
+      bloodSugar: currentDaily['BloodSugar'],
+      bloodSystolic: currentDaily['BloodPSystolic'],
+      bloodDiastolic: currentDaily['BloodPDiastolic'],
+      sleepDuration: currentDaily['SleepDuration'],
+      date: DateTime.parse(currentDaily['datetime']['iso']),
+      pain: currentDaily['Pain'],
+      objectId: currentDaily['objectId'],
+      createdAt: DateTime.parse(currentDaily['createdAt']),
+      updatedAt: DateTime.parse(currentDaily['updatedAt']),
     );
 
     if (!daily.date.isBefore(
@@ -132,16 +144,18 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     return null;
   }
 
-  Weekly? _createWeekly(dynamic model) {
+  Weekly? _createWeekly(List<dynamic> weeklies) {
+    dynamic currentWeekly = _filterCurrentObject(weeklies);
+
     Weekly weekly = Weekly(
-      bmi: model['BMI']?.toDouble(),
-      bodyWeight: model['BodyWeight']?.toDouble(),
-      sleepQuality: model['SISQS'],
-      walkingDistance: model['WalkingDistance'],
-      date: DateTime.parse(model['datetime']['iso']),
-      objectId: model['objectId'],
-      createdAt: DateTime.parse(model['createdAt']),
-      updatedAt: DateTime.parse(model['updatedAt']),
+      bmi: currentWeekly['BMI']?.toDouble(),
+      bodyWeight: currentWeekly['BodyWeight']?.toDouble(),
+      sleepQuality: currentWeekly['SISQS'],
+      walkingDistance: currentWeekly['WalkingDistance'],
+      date: DateTime.parse(currentWeekly['datetime']['iso']),
+      objectId: currentWeekly['objectId'],
+      createdAt: DateTime.parse(currentWeekly['createdAt']),
+      updatedAt: DateTime.parse(currentWeekly['updatedAt']),
     );
 
     if (!weekly.date.isBefore(
@@ -157,16 +171,18 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     return null;
   }
 
-  PHQ4? _createPHQ4(dynamic model) {
+  PHQ4? _createPHQ4(List<dynamic> phq4s) {
+    dynamic currentPhq4 = _filterCurrentObject(phq4s);
+
     PHQ4 phq4 = PHQ4(
-      a: model['a'],
-      b: model['b'],
-      c: model['c'],
-      d: model['d'],
-      date: DateTime.parse(model['datetime']['iso']),
-      objectId: model['objectId'],
-      createdAt: DateTime.parse(model['createdAt']),
-      updatedAt: DateTime.parse(model['updatedAt']),
+      a: currentPhq4['a'],
+      b: currentPhq4['b'],
+      c: currentPhq4['c'],
+      d: currentPhq4['d'],
+      date: DateTime.parse(currentPhq4['datetime']['iso']),
+      objectId: currentPhq4['objectId'],
+      createdAt: DateTime.parse(currentPhq4['createdAt']),
+      updatedAt: DateTime.parse(currentPhq4['updatedAt']),
     );
 
     if (!phq4.date.isBefore(
@@ -197,15 +213,15 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     }
 
     if (dailyData.isNotEmpty) {
-      _daily = _createDaily(dailyData.last);
+      _daily = _createDaily(dailyData);
     }
 
     if (weeklyData.isNotEmpty) {
-      _weekly = _createWeekly(weeklyData.last);
+      _weekly = _createWeekly(weeklyData);
     }
 
     if (phq4Data.isNotEmpty) {
-      _phq4 = _createPHQ4(phq4Data.last);
+      _phq4 = _createPHQ4(phq4Data);
     }
 
     _pageStorage = await QuestionairePageStorage.create(
@@ -250,52 +266,52 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
 
                 Daily daily = _daily == null
                     ? Daily(
-                        date: date,
-                        bloodDiastolic: _pageStorage!.selectedDias,
-                        bloodSugar: _pageStorage!.selectedBloodSugar,
-                        bloodSystolic: _pageStorage!.selectedSyst,
-                        pain: _pageStorage!.selectedPain,
-                        sleepDuration: _pageStorage!.selectedSleepDuration,
-                        heartFrequency: _pageStorage!.selectedHeartFrequency,
-                      )
+                  date: date,
+                  bloodDiastolic: _pageStorage!.selectedDias,
+                  bloodSugar: _pageStorage!.selectedBloodSugar,
+                  bloodSystolic: _pageStorage!.selectedSyst,
+                  pain: _pageStorage!.selectedPain,
+                  sleepDuration: _pageStorage!.selectedSleepDuration,
+                  heartFrequency: _pageStorage!.selectedHeartFrequency,
+                )
                     : _daily!.copyWith(
-                        bloodDiastolic: _pageStorage!.selectedDias,
-                        bloodSugar: _pageStorage!.selectedBloodSugar,
-                        bloodSystolic: _pageStorage!.selectedSyst,
-                        pain: _pageStorage!.selectedPain,
-                        sleepDuration: _pageStorage!.selectedSleepDuration,
-                        heartFrequency: _pageStorage!.selectedHeartFrequency,
-                      );
+                  bloodDiastolic: _pageStorage!.selectedDias,
+                  bloodSugar: _pageStorage!.selectedBloodSugar,
+                  bloodSystolic: _pageStorage!.selectedSyst,
+                  pain: _pageStorage!.selectedPain,
+                  sleepDuration: _pageStorage!.selectedSleepDuration,
+                  heartFrequency: _pageStorage!.selectedHeartFrequency,
+                );
 
                 Weekly weekly = _weekly == null
                     ? Weekly(
-                        date: date,
-                        bodyWeight: _pageStorage!.selectedBodyWeight,
-                        bmi: _pageStorage!.selectedBMI,
-                        sleepQuality: _pageStorage!.selectedSleepQuality,
-                        walkingDistance: _pageStorage!.selectedWalkDistance,
-                      )
+                  date: date,
+                  bodyWeight: _pageStorage!.selectedBodyWeight,
+                  bmi: _pageStorage!.selectedBMI,
+                  sleepQuality: _pageStorage!.selectedSleepQuality,
+                  walkingDistance: _pageStorage!.selectedWalkDistance,
+                )
                     : _weekly!.copyWith(
-                        bodyWeight: _pageStorage!.selectedBodyWeight,
-                        bmi: _pageStorage!.selectedBMI,
-                        sleepQuality: _pageStorage!.selectedSleepQuality,
-                        walkingDistance: _pageStorage!.selectedWalkDistance,
-                      );
+                  bodyWeight: _pageStorage!.selectedBodyWeight,
+                  bmi: _pageStorage!.selectedBMI,
+                  sleepQuality: _pageStorage!.selectedSleepQuality,
+                  walkingDistance: _pageStorage!.selectedWalkDistance,
+                );
 
                 PHQ4 phq4 = _phq4 == null
                     ? PHQ4(
-                        date: date,
-                        a: _pageStorage!.selectedQuestionA,
-                        b: _pageStorage!.selectedQuestionB,
-                        c: _pageStorage!.selectedQuestionC,
-                        d: _pageStorage!.selectedQuestionD,
-                      )
+                  date: date,
+                  a: _pageStorage!.selectedQuestionA,
+                  b: _pageStorage!.selectedQuestionB,
+                  c: _pageStorage!.selectedQuestionC,
+                  d: _pageStorage!.selectedQuestionD,
+                )
                     : _phq4!.copyWith(
-                        a: _pageStorage!.selectedQuestionA,
-                        b: _pageStorage!.selectedQuestionB,
-                        c: _pageStorage!.selectedQuestionC,
-                        d: _pageStorage!.selectedQuestionD,
-                      );
+                  a: _pageStorage!.selectedQuestionA,
+                  b: _pageStorage!.selectedQuestionB,
+                  c: _pageStorage!.selectedQuestionC,
+                  d: _pageStorage!.selectedQuestionD,
+                );
 
                 await Backend.saveObject(daily);
                 await Backend.saveObject(weekly);
