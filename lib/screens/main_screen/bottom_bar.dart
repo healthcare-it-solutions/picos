@@ -19,8 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/main_screen/picos_menu/picos_menu_screen.dart';
 import 'package:picos/screens/overview_screen/overview_screen.dart';
-
-// TODO: add proper docs
+import 'package:picos/widgets/picos_screen_frame.dart';
 
 /// This widget is the home page of your application. It is stateful, meaning
 /// that it has a State object (defined below) that contains fields that affect
@@ -32,10 +31,7 @@ import 'package:picos/screens/overview_screen/overview_screen.dart';
 /// always marked "final".
 class BottomBar extends StatefulWidget {
   /// BottomBar constructor
-  const BottomBar({required this.title, Key? key}) : super(key: key);
-
-  /// home screen title
-  final String title;
+  const BottomBar({Key? key}) : super(key: key);
 
   @override
   State<BottomBar> createState() => _BottomBarState();
@@ -47,22 +43,6 @@ class _BottomBarState extends State<BottomBar> {
   /// stores the currently selected element of the navbar
   int selectedIndex = 0;
 
-  // TODO: refactor and remove this List
-  final List<String> _appBarTitles = <String>[
-    'Overview',
-    'MyPicos'
-  ];
-
-  // TODO: refactor the appBarTitle to return localized messages
-  String appBarTitle(BuildContext context, int index) {
-    final List<String> appBarTitles = <String>[
-      'Overview',
-      'MyPicos'
-    ];
-
-    return appBarTitles[index];
-  }
-
   /// This function gets called when tapping on an element on the bottom bar.
   /// It keeps track of the currently selected element.
   void onItemTapped(int index) {
@@ -71,47 +51,45 @@ class _BottomBarState extends State<BottomBar> {
     });
   }
 
+  Widget _generateHomeScreen() {
+    BottomNavigationBar bottomNavigationBar = BottomNavigationBar(
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: const Icon(
+            Icons.house_outlined,
+            color: Colors.black,
+          ),
+          label: AppLocalizations.of(context)!.overview,
+        ),
+        BottomNavigationBarItem(
+          icon: const Icon(
+            Icons.chat_bubble_outline,
+            color: Colors.black,
+          ),
+          label: AppLocalizations.of(context)!.myPicos,
+        ),
+      ],
+      type: BottomNavigationBarType.fixed,
+      currentIndex: selectedIndex,
+      onTap: onItemTapped,
+    );
+
+    if (selectedIndex == 0) {
+      return Scaffold(
+        body: const OverviewScreen(),
+        bottomNavigationBar: bottomNavigationBar,
+      );
+    }
+
+    return PicosScreenFrame(
+      body: const PicosMenu(),
+      title: 'MyPicos',
+      bottomNavigationBar: bottomNavigationBar,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(25, 102, 117, 1.0),
-        title: Center(
-          child: Text(
-            _appBarTitles[selectedIndex],
-          ),
-        ),
-      ),
-      body: Center(
-        // TODO: move this widget list outside of the build function,
-        // TODO: implement a function that returns a title instead
-        child: <Widget>[
-          const OverviewScreen(),
-          const PicosMenu()
-        ].elementAt(selectedIndex),
-      ),
-      backgroundColor: Colors.white,
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: const Icon(
-              Icons.house_outlined,
-              color: Colors.black,
-            ),
-            label: Text(AppLocalizations.of(context)!.overview).data,
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(
-              Icons.chat_bubble_outline,
-              color: Colors.black,
-            ),
-            label: Text(AppLocalizations.of(context)!.myPicos).data,
-          ),
-        ],
-        type: BottomNavigationBarType.fixed,
-        currentIndex: selectedIndex,
-        onTap: onItemTapped,
-      ),
-    );
+    return _generateHomeScreen();
   }
 }

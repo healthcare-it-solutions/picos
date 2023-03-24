@@ -29,6 +29,18 @@ class OverviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
+        const SizedBox(
+          height: 15,
+        ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Image>[
+            Image.asset(
+              'assets/PICOS_Logo_RGB.png',
+              height: 75,
+            )
+          ],
+        ),
         Container(
           color: const Color.fromARGB(255, 15, 88, 104),
           child: const InputCardSection(),
