@@ -15,8 +15,6 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:picos/screens/overview_screen/widgets/contact_section.dart';
 import 'package:picos/screens/overview_screen/widgets/my_health_section.dart';
@@ -31,21 +29,17 @@ class OverviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
-        SizedBox(
-          height: window.padding.top / window.devicePixelRatio,
+        const SizedBox(
+          height: 10,
         ),
-        Container(
-          color: Colors.white,
-          height: 60,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Image>[
-              Image.asset(
-                'assets/PICOS_Logo_RGB.png',
-                height: 60,
-              )
-            ],
-          ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Image>[
+            Image.asset(
+              'assets/PICOS_Logo_RGB.png',
+              height: 75,
+            )
+          ],
         ),
         Container(
           color: const Color.fromARGB(255, 15, 88, 104),

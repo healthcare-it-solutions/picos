@@ -55,9 +55,7 @@ class Routes {
           const AddPhysicianScreen(),
       '/physician-list-screen/physicians': (BuildContext ctx) =>
           const PhysiciansScreen(),
-      '/main-screen/mainscreen': (BuildContext ctx) => const BottomBar(
-            title: 'PICOS',
-          ),
+      '/main-screen/mainscreen': (BuildContext ctx) => const BottomBar(),
       '/study-nurse-screen/studynursescreen': (BuildContext ctx) =>
           const StudyNurseScreen(),
       '/study-nurse-screen/configuration-screen': (BuildContext ctx) =>
