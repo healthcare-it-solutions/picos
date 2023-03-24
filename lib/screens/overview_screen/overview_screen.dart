@@ -30,7 +30,7 @@ class OverviewScreen extends StatelessWidget {
     return ListView(
       children: <Widget>[
         const SizedBox(
-          height: 10,
+          height: 15,
         ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
