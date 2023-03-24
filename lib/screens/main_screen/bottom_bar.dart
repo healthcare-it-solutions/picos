@@ -47,12 +47,6 @@ class _BottomBarState extends State<BottomBar> {
   /// stores the currently selected element of the navbar
   int selectedIndex = 0;
 
-  // TODO: refactor and remove this List
-  final List<String> _appBarTitles = <String>[
-    'Overview',
-    'MyPicos',
-  ];
-
   /// This function gets called when tapping on an element on the bottom bar.
   /// It keeps track of the currently selected element.
   void onItemTapped(int index) {
@@ -62,21 +56,21 @@ class _BottomBarState extends State<BottomBar> {
   }
 
   PreferredSizeWidget _appBarStyle() {
-    if (selectedIndex == 0) {
+    if (selectedIndex == 1) {
       return AppBar(
-        backgroundColor: Colors.white,
-        title: Image.asset(
-          'assets/PICOS_Logo_RGB.png',
-          height: 70,
+        backgroundColor: const Color.fromRGBO(25, 102, 117, 1.0),
+        title: const Center(
+          child: Text(
+            'MyPicos',
+          ),
         ),
       );
     } else {
-      return AppBar(
-        backgroundColor: const Color.fromRGBO(25, 102, 117, 1.0),
-        title: Center(
-          child: Text(
-            _appBarTitles[selectedIndex],
-          ),
+      return PreferredSize(
+        preferredSize: const Size(double.infinity, 56),
+        child: Visibility(
+          visible: false,
+          child: AppBar(),
         ),
       );
     }
