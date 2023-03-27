@@ -17,9 +17,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/screens/main_screen/picos_menu/picos_menu_screen.dart';
-import 'package:picos/screens/overview_screen/overview_screen.dart';
+import 'package:picos/screens/main_screen/picos_menu/picos_menu.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
+
+import 'overview_screen/overview.dart';
 
 /// This widget is the home page of your application. It is stateful, meaning
 /// that it has a State object (defined below) that contains fields that affect
@@ -76,7 +77,7 @@ class _BottomBarState extends State<BottomBar> {
 
     if (selectedIndex == 0) {
       return Scaffold(
-        body: const OverviewScreen(),
+        body: const Overview(),
         bottomNavigationBar: bottomNavigationBar,
       );
     }

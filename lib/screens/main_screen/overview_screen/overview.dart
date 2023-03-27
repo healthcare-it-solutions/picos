@@ -16,14 +16,14 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/screens/overview_screen/widgets/contact_section.dart';
-import 'package:picos/screens/overview_screen/widgets/my_health_section.dart';
+import 'package:picos/screens/main_screen/overview_screen/widgets/contact_section.dart';
+import 'package:picos/screens/main_screen/overview_screen/widgets/my_health_section.dart';
 import 'widgets/input_card_section.dart';
 
 /// Main widget using all subwidgets to build up the "overview"-screen
-class OverviewScreen extends StatelessWidget {
+class Overview extends StatelessWidget {
   /// OverviewScreen constructor
-  const OverviewScreen({Key? key}) : super(key: key);
+  const Overview({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
