@@ -24,6 +24,7 @@ class PicosRadioSelect extends StatefulWidget {
     required this.selection,
     required this.callBack,
     Key? key,
+    this.initialValue,
   }) : super(key: key);
 
   /// The Map of selectable items. [String] is what you will see and [dynamic]
@@ -32,6 +33,9 @@ class PicosRadioSelect extends StatefulWidget {
 
   /// The function that is executed when an item gets selected.
   final Function(dynamic value) callBack;
+
+  /// The initial value for this select.
+  final dynamic initialValue;
 
   @override
   State<PicosRadioSelect> createState() => _PicosRadioSelectState();
@@ -64,13 +68,15 @@ class _PicosRadioSelectState extends State<PicosRadioSelect> {
 
   @override
   Widget build(BuildContext context) {
+    _selectValue ??= widget.initialValue;
+
     return ListView.separated(
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: _createItemList().length,
       itemBuilder: (BuildContext context, int index) =>
-          _createItemList()[index],
+      _createItemList()[index],
       separatorBuilder: (BuildContext context, int index) {
         return const Divider(
           thickness: 1,

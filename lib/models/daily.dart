@@ -20,7 +20,7 @@ import 'package:picos/models/abstract_database_object.dart';
 /// Class with daily questionaire information.
 class Daily extends AbstractDatabaseObject {
   /// Creates a Daily object.
-  const Daily({
+  Daily({
     required this.date,
     this.heartFrequency,
     this.bloodSugar,
@@ -31,7 +31,9 @@ class Daily extends AbstractDatabaseObject {
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
-  }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt);
+  }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt) {
+    hasNullValues = _checkHasNullValues();
+  }
 
   /// The database table the objects are stored in.
   static const String databaseTable = 'PICOS_daily';
@@ -56,6 +58,9 @@ class Daily extends AbstractDatabaseObject {
 
   /// The assessment date.
   final DateTime date;
+
+  /// The information if this objects has any null values.
+  late final bool hasNullValues;
 
   @override
   get table {
@@ -104,4 +109,17 @@ class Daily extends AbstractDatabaseObject {
         'Pain': pain,
         'datetime': date,
       };
+
+  bool _checkHasNullValues() {
+    if (bloodDiastolic == null ||
+        bloodSugar == null ||
+        bloodSystolic == null ||
+        heartFrequency == null ||
+        pain == null ||
+        sleepDuration == null) {
+      return true;
+    }
+
+    return false;
+  }
 }
