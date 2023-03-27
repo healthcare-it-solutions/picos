@@ -33,12 +33,12 @@ enum FormOfAddress {
 class Patient extends AbstractDatabaseObject {
   /// Creates a patient object.
   const Patient({
-    required this.firstName,
-    required this.familyName,
     required this.email,
-    required this.number,
-    required this.address,
-    required this.formOfAddress,
+    this.firstName,
+    this.familyName,
+    this.number,
+    this.address,
+    this.formOfAddress,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -51,22 +51,22 @@ class Patient extends AbstractDatabaseObject {
   static const String role = 'Patient';
 
   /// Stores the first name of the patient;
-  final String firstName;
+  final String? firstName;
 
   /// Stores the last name of the patient.
-  final String familyName;
+  final String? familyName;
 
   /// Stores the email-address of the patient.
   final String email;
 
   /// Stores the phone number of the patient.
-  final String number;
+  final String? number;
 
   /// Stores the address of the patient.
-  final String address;
+  final String? address;
 
   /// Contains the gender of the patient.
-  final String formOfAddress;
+  final String? formOfAddress;
 
   @override
   get table {
@@ -101,12 +101,7 @@ class Patient extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-    firstName,
-    familyName,
     email,
-    number,
-    address,
-    formOfAddress,
   ];
 
   /// Method that returns a random password.
