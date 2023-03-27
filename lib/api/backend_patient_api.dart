@@ -33,12 +33,12 @@ class BackendPatientApi extends BackendObjectsApi {
       for (dynamic element in response) {
         objectList.add(
           Patient(
-            firstName: element['Firstname'],
-            familyName: element['Lastname'],
+            firstName: element['Firstname'] ?? '',
+            familyName: element['Lastname'] ?? '',
             email: element['username'],
-            number: element['PhoneNo'],
-            address: element['Address'],
-            formOfAddress: element['Form'],
+            number: element['PhoneNo'] ?? '',
+            address: element['Address'] ?? '',
+            formOfAddress: element['Form'] ?? '',
             objectId: element['objectId'],
             createdAt: DateTime.parse(element['createdAt']),
             updatedAt: DateTime.parse(element['updatedAt']),

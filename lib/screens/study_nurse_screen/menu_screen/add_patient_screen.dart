@@ -87,19 +87,19 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
     if (_patientEdit == null && patientEdit != null) {
       _patientEdit = patientEdit as Patient;
 
-      _firstName = _patientEdit!.firstName;
-      _lastName = _patientEdit!.familyName;
+      _firstName = _patientEdit!.firstName!;
+      _lastName = _patientEdit!.familyName!;
       _email = _patientEdit!.email;
-      _number = _patientEdit!.number;
-      _address = _patientEdit!.address;
-      _formOfAddress = _patientEdit!.formOfAddress;
+      _number = _patientEdit!.number!;
+      _address = _patientEdit!.address!;
+      _formOfAddress = _patientEdit!.formOfAddress!;
 
-      _firstNameHint = _patientEdit!.firstName;
-      _lastNameHint = _patientEdit!.familyName;
+      _firstNameHint = _patientEdit!.firstName!;
+      _lastNameHint = _patientEdit!.familyName!;
       _emailHint = _patientEdit!.email;
-      _numberHint = _patientEdit!.number;
-      _addressHint = _patientEdit!.address;
-      _formOfAddressHint = _patientEdit!.formOfAddress;
+      _numberHint = _patientEdit!.number!;
+      _addressHint = _patientEdit!.address!;
+      _formOfAddressHint = _patientEdit!.formOfAddress!;
     }
 
     return BlocBuilder<ObjectsListBloc<BackendMedicationsApi>,

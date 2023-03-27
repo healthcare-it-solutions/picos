@@ -17,7 +17,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/api/backend_patient_api.dart';
 import 'package:picos/models/patient.dart';
 import 'package:picos/screens/study_nurse_screen/menu_screen/patient_card_tile.dart';
@@ -92,14 +91,14 @@ class PatientCard extends StatelessWidget {
             'Email Address',
             _patient.email,
             'Form',
-            _patient.formOfAddress,
+            _patient.formOfAddress!,
           ),
           _createCardColumn(
             context,
             'Phone Number',
-            _patient.number,
+            _patient.number!,
             'Address',
-            _patient.address,
+            _patient.address!,
           ),
         ],
       ),
