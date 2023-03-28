@@ -23,6 +23,7 @@ import 'package:picos/state/objects_list_bloc.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
+import 'package:picos/widgets/picos_text_field.dart';
 import 'package:queen_validators/queen_validators.dart';
 
 import '../../widgets/picos_body.dart';
@@ -55,9 +56,11 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
   static final List<String> _selection = <String>[];
   static late final String _specialty;
   static late final String _practice;
+  static late final String _firstName;
 
   //State
-  String? _subjectArea;
+  String? _selectedSubjectArea;
+  String? _selectedFirstName;
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +78,9 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
       _selection.add(AppLocalizations.of(context)!.psychiatry);
       _selection.add(AppLocalizations.of(context)!.urology);
 
-
       _specialty = AppLocalizations.of(context)!.specialty;
       _practice = AppLocalizations.of(context)!.practice;
+      _firstName = AppLocalizations.of(context)!.firstName;
     }
 
     return BlocBuilder<ObjectsListBloc<BackendPhysiciansApi>, ObjectsListState>(
@@ -97,23 +100,38 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                     callBackFunction: (String value) {
                       setState(
                         () {
-                          _subjectArea = value;
+                          _selectedSubjectArea = value;
                         },
                       );
                     },
-                    hint: _subjectArea ?? _specialty,
+                    hint: _selectedSubjectArea ?? _specialty,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  PicosLabel(
+                    _firstName,
+                  ),
+                  PicosTextField(
+                    hint: _firstName,
+                    keyboardType: TextInputType.name,
+                    initialValue: _selectedFirstName,
+                    onChanged: (String value) {
+                      setState(() {
+                        _selectedFirstName = value;
+                      });
+                    },
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                      icon: const Icon(Icons.local_hospital),
-                      labelText:
-                          '${AppLocalizations.of(context)!.practiceName} *',
+                      icon: const Icon(Icons.person),
+                      labelText: '${AppLocalizations.of(context)!.firstName} *',
                     ),
                     keyboardType: TextInputType.name,
                     validator: qValidator(
                       <TextValidationRule>[
                         IsRequired(
-                          AppLocalizations.of(context)!.entryPracticeName,
+                          AppLocalizations.of(context)!.entryFirstName,
                         ),
                       ],
                     ),
@@ -169,20 +187,6 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                         ),
                       ),
                     ],
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      icon: const Icon(Icons.person),
-                      labelText: '${AppLocalizations.of(context)!.firstName} *',
-                    ),
-                    keyboardType: TextInputType.name,
-                    validator: qValidator(
-                      <TextValidationRule>[
-                        IsRequired(
-                          AppLocalizations.of(context)!.entryFirstName,
-                        ),
-                      ],
-                    ),
                   ),
                   TextFormField(
                     decoration: InputDecoration(
