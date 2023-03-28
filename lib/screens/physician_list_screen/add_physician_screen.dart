@@ -16,14 +16,22 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/api/backend_physicians_api.dart';
+import 'package:picos/state/objects_list_bloc.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
+import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:queen_validators/queen_validators.dart';
 
-/// contains the gender of the corresponding physician
+import '../../widgets/picos_body.dart';
+import '../../widgets/picos_select.dart';
+
+/// Contains the gender of the corresponding physician.
 enum Gender {
   /// element for denoting the title of men
   male,
+
   /// element for denoting the title of women
   female,
 }
@@ -43,217 +51,213 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  static final List<String> _selection = <String>[];
+  static late final String _specialty;
+
+  //State
+  String? _subjectArea;
+
   @override
   Widget build(BuildContext context) {
-    String dropDownValue = AppLocalizations.of(context)!.familyDoctor;
+    if (_selection.isEmpty) {
+      _selection.add(AppLocalizations.of(context)!.familyDoctor);
+      _selection.add(AppLocalizations.of(context)!.cardiologist);
+      _selection.add(AppLocalizations.of(context)!.nephrologist);
+      _selection.add(AppLocalizations.of(context)!.neurologist);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.addPhysician),
-        backgroundColor: const Color.fromRGBO(
-          25,
-          102,
-          117,
-          1.0,
-        ),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(10),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              DropdownButtonFormField<String>(
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.chooseField,
-                ),
-                isExpanded: true,
-                value: dropDownValue,
-                icon: const Icon(Icons.arrow_downward),
-                elevation: 16,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-                onChanged: (String? newValue) {
-                  setState(
-                    () {
-                      dropDownValue = newValue!;
-                    },
-                  );
-                },
-                items: <String>[
-                  AppLocalizations.of(context)!.familyDoctor,
-                  AppLocalizations.of(context)!.cardiologist,
-                  AppLocalizations.of(context)!.nephrologist,
-                  AppLocalizations.of(context)!.neurologist,
-                ].map<DropdownMenuItem<String>>(
-                  (String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  },
-                ).toList(),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  icon: const Icon(Icons.local_hospital),
-                  labelText: '${AppLocalizations.of(context)!.practiceName} *',
-                ),
-                keyboardType: TextInputType.name,
-                validator: qValidator(
-                  <TextValidationRule>[
-                    IsRequired(AppLocalizations.of(context)!.entryPracticeName),
-                  ],
-                ),
-              ),
-              Row(
+      _specialty = AppLocalizations.of(context)!.specialty;
+    }
+
+    return BlocBuilder<ObjectsListBloc<BackendPhysiciansApi>, ObjectsListState>(
+      builder: (BuildContext context, ObjectsListState state) {
+        return PicosScreenFrame(
+          body: PicosBody(
+            child: Form(
+              key: _formKey,
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    '${AppLocalizations.of(context)!.title} *',
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
+                  PicosSelect(
+                    selection: _selection,
+                    callBackFunction: (String value) {
+                      setState(
+                        () {
+                          _subjectArea = value;
+                        },
+                      );
+                    },
+                    hint: _subjectArea ?? '$_specialty...',
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      icon: const Icon(Icons.local_hospital),
+                      labelText:
+                          '${AppLocalizations.of(context)!.practiceName} *',
+                    ),
+                    keyboardType: TextInputType.name,
+                    validator: qValidator(
+                      <TextValidationRule>[
+                        IsRequired(
+                          AppLocalizations.of(context)!.entryPracticeName,
+                        ),
+                      ],
                     ),
                   ),
-                  Expanded(
-                    child: RadioListTile<Gender>(
-                      title: Text(
-                        AppLocalizations.of(context)!.mr,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        '${AppLocalizations.of(context)!.title} *',
                         style: const TextStyle(
+                          fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      value: Gender.male,
-                      groupValue: _gender,
-                      onChanged: (Gender? value) {
-                        setState(
-                          () {
-                            _gender = value;
+                      Expanded(
+                        child: RadioListTile<Gender>(
+                          title: Text(
+                            AppLocalizations.of(context)!.mr,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          value: Gender.male,
+                          groupValue: _gender,
+                          onChanged: (Gender? value) {
+                            setState(
+                              () {
+                                _gender = value;
+                              },
+                            );
                           },
-                        );
-                      },
-                      selected: false,
-                    ),
-                  ),
-                  Expanded(
-                    child: RadioListTile<Gender>(
-                      title: Text(
-                        AppLocalizations.of(context)!.mrs,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
+                          selected: false,
                         ),
                       ),
-                      value: Gender.female,
-                      groupValue: _gender,
-                      onChanged: (Gender? value) {
-                        setState(
-                          () {
-                            _gender = value;
+                      Expanded(
+                        child: RadioListTile<Gender>(
+                          title: Text(
+                            AppLocalizations.of(context)!.mrs,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          value: Gender.female,
+                          groupValue: _gender,
+                          onChanged: (Gender? value) {
+                            setState(
+                              () {
+                                _gender = value;
+                              },
+                            );
                           },
-                        );
-                      },
-                      selected: false,
+                          selected: false,
+                        ),
+                      ),
+                    ],
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      icon: const Icon(Icons.person),
+                      labelText: '${AppLocalizations.of(context)!.firstName} *',
+                    ),
+                    keyboardType: TextInputType.name,
+                    validator: qValidator(
+                      <TextValidationRule>[
+                        IsRequired(
+                          AppLocalizations.of(context)!.entryFirstName,
+                        ),
+                      ],
+                    ),
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      icon: const Icon(Icons.person),
+                      labelText:
+                          '${AppLocalizations.of(context)!.familyName} *',
+                    ),
+                    keyboardType: TextInputType.name,
+                    validator: qValidator(
+                      <TextValidationRule>[
+                        IsRequired(
+                          AppLocalizations.of(context)!.entryFamilyName,
+                        ),
+                      ],
+                    ),
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      icon: const Icon(Icons.email),
+                      labelText: '${AppLocalizations.of(context)!.email} *',
+                    ),
+                    keyboardType: TextInputType.emailAddress,
+                    validator: qValidator(
+                      <TextValidationRule>[
+                        IsRequired(AppLocalizations.of(context)!.entryEmail),
+                        IsEmail(AppLocalizations.of(context)!.entryValidEmail),
+                      ],
+                    ),
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      icon: const Icon(Icons.numbers),
+                      labelText:
+                          '${AppLocalizations.of(context)!.phoneNumber} *',
+                    ),
+                    keyboardType: TextInputType.number,
+                    validator: qValidator(
+                      <TextValidationRule>[
+                        IsRequired(
+                          AppLocalizations.of(context)!.entryPhoneNumber,
+                        ),
+                      ],
+                    ),
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      icon: const Icon(Icons.web),
+                      labelText: '${AppLocalizations.of(context)!.website} *',
+                    ),
+                    keyboardType: TextInputType.url,
+                    validator: qValidator(
+                      <TextValidationRule>[
+                        IsRequired(AppLocalizations.of(context)!.entryWebsite),
+                        IsUrl(AppLocalizations.of(context)!.entryValidWebsite),
+                      ],
+                    ),
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      icon: const Icon(Icons.house),
+                      labelText: '${AppLocalizations.of(context)!.address} *',
+                    ),
+                    keyboardType: TextInputType.multiline,
+                    minLines: 2,
+                    maxLines: null,
+                    validator: qValidator(
+                      <TextValidationRule>[
+                        IsRequired(AppLocalizations.of(context)!.entryAddress),
+                      ],
                     ),
                   ),
                 ],
               ),
-              TextFormField(
-                decoration: InputDecoration(
-                  icon: const Icon(Icons.person),
-                  labelText: '${AppLocalizations.of(context)!.firstName} *',
-                ),
-                keyboardType: TextInputType.name,
-                validator: qValidator(
-                  <TextValidationRule>[
-                    IsRequired(AppLocalizations.of(context)!.entryFirstName),
-                  ],
-                ),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  icon: const Icon(Icons.person),
-                  labelText: '${AppLocalizations.of(context)!.familyName} *',
-                ),
-                keyboardType: TextInputType.name,
-                validator: qValidator(
-                  <TextValidationRule>[
-                    IsRequired(AppLocalizations.of(context)!.entryFamilyName),
-                  ],
-                ),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  icon: const Icon(Icons.email),
-                  labelText: '${AppLocalizations.of(context)!.email} *',
-                ),
-                keyboardType: TextInputType.emailAddress,
-                validator: qValidator(
-                  <TextValidationRule>[
-                    IsRequired(AppLocalizations.of(context)!.entryEmail),
-                    IsEmail(AppLocalizations.of(context)!.entryValidEmail),
-                  ],
-                ),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  icon: const Icon(Icons.numbers),
-                  labelText: '${AppLocalizations.of(context)!.phoneNumber} *',
-                ),
-                keyboardType: TextInputType.number,
-                validator: qValidator(
-                  <TextValidationRule>[
-                    IsRequired(AppLocalizations.of(context)!.entryPhoneNumber),
-                  ],
-                ),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  icon: const Icon(Icons.web),
-                  labelText: '${AppLocalizations.of(context)!.website} *',
-                ),
-                keyboardType: TextInputType.url,
-                validator: qValidator(
-                  <TextValidationRule>[
-                    IsRequired(AppLocalizations.of(context)!.entryWebsite),
-                    IsUrl(AppLocalizations.of(context)!.entryValidWebsite),
-                  ],
-                ),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  icon: const Icon(Icons.house),
-                  labelText: '${AppLocalizations.of(context)!.address} *',
-                ),
-                keyboardType: TextInputType.multiline,
-                minLines: 2,
-                maxLines: null,
-                validator: qValidator(
-                  <TextValidationRule>[
-                    IsRequired(AppLocalizations.of(context)!.entryAddress),
-                  ],
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
-      bottomNavigationBar: PicosAddButtonBar(
-        onTap: () {
-          if (_formKey.currentState!.validate()) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  AppLocalizations.of(context)!.submitData,
-                ),
-              ),
-            );
-          }
-        },
-      ),
+          bottomNavigationBar: PicosAddButtonBar(
+            onTap: () {
+              if (_formKey.currentState!.validate()) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      AppLocalizations.of(context)!.submitData,
+                    ),
+                  ),
+                );
+              }
+            },
+          ),
+        );
+      },
     );
   }
 }
