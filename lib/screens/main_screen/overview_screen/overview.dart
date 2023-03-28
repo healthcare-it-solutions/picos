@@ -16,19 +16,31 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/screens/overview_screen/widgets/contact_section.dart';
-import 'package:picos/screens/overview_screen/widgets/my_health_section.dart';
+import 'package:picos/screens/main_screen/overview_screen/widgets/contact_section.dart';
+import 'package:picos/screens/main_screen/overview_screen/widgets/my_health_section.dart';
 import 'widgets/input_card_section.dart';
 
 /// Main widget using all subwidgets to build up the "overview"-screen
-class OverviewScreen extends StatelessWidget {
+class Overview extends StatelessWidget {
   /// OverviewScreen constructor
-  const OverviewScreen({Key? key}) : super(key: key);
+  const Overview({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
+        const SizedBox(
+          height: 15,
+        ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Image>[
+            Image.asset(
+              'assets/PICOS_Logo_RGB.png',
+              height: 75,
+            )
+          ],
+        ),
         Container(
           color: const Color.fromARGB(255, 15, 88, 104),
           child: const InputCardSection(),

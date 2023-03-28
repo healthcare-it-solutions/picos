@@ -199,6 +199,7 @@
     "dayOfDischarge": "Tag der Entlassung",
     "reasonForHospitalization": "Grund des Krankenhausbesuches",
     "reasonForVisitToTheDoctor": "Grund des Arztbesuches",
-    "needHelp": "Benötigen Sie Hilfe, oder haben Sie eine Frage zur Benutzung der PICOS App?",
     "myPatients": "Meine Patienten"
+    "needHelp": "Benötigen Sie Hilfe oder haben Sie eine Frage zur Benutzung der PICOS App?",
+    "isInvalid": "ist unzulässig"
 }

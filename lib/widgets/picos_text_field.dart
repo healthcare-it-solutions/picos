@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// A pre configured text field widget.
 class PicosTextField extends StatelessWidget {
@@ -38,6 +39,7 @@ class PicosTextField extends StatelessWidget {
     this.keyboardType,
     this.maxLength,
     this.controller,
+    this.inputFormatters,
   }) : super(key: key);
 
   /// Determines if the text field is disabled.
@@ -88,6 +90,9 @@ class PicosTextField extends StatelessWidget {
 
   /// Contains controller for further submissions.
   final TextEditingController? controller;
+
+  /// Adds [TextInputFormatters] to the text field.
+  final List<TextInputFormatter>? inputFormatters;
 
   static final BorderRadius _borderRadius = BorderRadius.circular(7);
 
@@ -149,6 +154,7 @@ class PicosTextField extends StatelessWidget {
         keyboardType: keyboardType ?? TextInputType.text,
         maxLength: maxLength,
         controller: controller,
+        inputFormatters: inputFormatters,
       ),
     );
   }

@@ -926,5 +926,9 @@
     "myPatients": "My Patients",
     "@myPatients": {
         "description": "My Patients"
+    },
+    "isInvalid": "is invalid",
+    "@isInvalid": {
+        "description": "is invalid"
     }
 }

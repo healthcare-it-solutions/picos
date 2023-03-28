@@ -64,6 +64,11 @@ class Backend {
     return res.success;
   }
 
+  /// Logs the user out and return if it was successful.
+  static Future<bool> logout() async {
+    return (await user.logout()).success;
+  }
+
   /// Retrieves the current user role as a [String].
   static Future<String> getRole() async {
     // these are thr routes we are going to forward the user to
