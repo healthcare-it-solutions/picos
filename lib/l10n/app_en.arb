@@ -312,27 +312,54 @@
     "@website": {
         "description": "Website"
     },
-
-    "familyDoctor": "Family doctor",
-    "@familyDoctor": {
-        "description": "Family doctor"
+    "ophthalmology": "Ophthalmology",
+    "@ophthalmology": {
+        "description": "Ophthalmology"
     },
-
-    "cardiologist": "Cardiologist",
-    "@cardiologist": {
-        "description": "Cardiologist"
+    "gynecology": "Gynecology",
+    "@gynecology": {
+        "description": "Gynecology"
     },
-
-    "nephrologist": "Nephrologist",
-    "@nephrologist": {
-        "description": "Nephrologist"
+    "otolaryngology": "Otolaryngology",
+    "@otolaryngology": {
+        "description": "Otolaryngology"
     },
-
-    "neurologist": "Neurologist",
-    "@neurologist": {
-        "description": "Neurologist"
+    "generalPractitioner": "General practitioner",
+    "@generalPractitioner": {
+        "description": "General practitioner"
     },
-
+    "skinAndVenerealDiseases": "Skin and venereal diseases",
+    "@skinAndVenerealDiseases": {
+        "description": "Skin and venereal diseases"
+    },
+    "internalMedicine": "Internal medicine",
+    "@internalMedicine": {
+        "description": "Internal medicine"
+    },
+    "microbiology": "Microbiology",
+    "@microbiology": {
+        "description": "Microbiology"
+    },
+    "neurology": "Neurology",
+    "@neurology": {
+        "description": "Neurology"
+    },
+    "pathology": "Pathology",
+    "@pathology": {
+        "description": "Pathology"
+    },
+    "pulmonology": "Pulmonology",
+    "@pulmonology": {
+        "description": "Pulmonology"
+    },
+    "psychiatry": "Psychiatry",
+    "@psychiatry": {
+        "description": "Psychiatry"
+    },
+    "urology": "Urology",
+    "@urology": {
+        "description": "Urology"
+    },
     "addFamilyMember": "Add family member",
     "@addFamilyMember": {
         "description": "Add family member"
