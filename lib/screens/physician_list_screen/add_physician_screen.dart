@@ -21,6 +21,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/api/backend_physicians_api.dart';
 import 'package:picos/state/objects_list_bloc.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
+import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:queen_validators/queen_validators.dart';
 
@@ -53,6 +54,7 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
 
   static final List<String> _selection = <String>[];
   static late final String _specialty;
+  static late final String _practice;
 
   //State
   String? _subjectArea;
@@ -66,6 +68,7 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
       _selection.add(AppLocalizations.of(context)!.neurologist);
 
       _specialty = AppLocalizations.of(context)!.specialty;
+      _practice = AppLocalizations.of(context)!.practice;
     }
 
     return BlocBuilder<ObjectsListBloc<BackendPhysiciansApi>, ObjectsListState>(
@@ -77,6 +80,9 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
+                  PicosLabel(
+                    _practice,
+                  ),
                   PicosSelect(
                     selection: _selection,
                     callBackFunction: (String value) {
