@@ -53,13 +53,13 @@ class PicosTextField extends StatelessWidget {
   final bool autofocus;
 
   /// The function that is executed when the user writes something.
-  final Function(String)? onChanged;
+  final Function(String value)? onChanged;
 
   /// The function that is executed when the user taps the field.
   final Function()? onTap;
 
   /// The function that is responsible for validation.
-  final String? Function(String?)? validator;
+  final String? Function(String? value)? validator;
 
   /// Whether the text can be changed.
   final bool readOnly;
