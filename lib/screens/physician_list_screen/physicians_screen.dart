@@ -17,117 +17,23 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/screens/physician_list_screen/widgets/physicians_list.dart';
 import 'package:picos/widgets/picos_add_mono_button_bar.dart';
+import 'package:picos/widgets/picos_screen_frame.dart';
 
-import '/../widgets/picos_list_card.dart';
-
-/// builds 'Column' as a parent widget for the given cards
-class MyCard extends StatelessWidget {
-  /// MyCard constructor
-  const MyCard({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    /// Declaration of the List-variable 'cards' for building
-    /// the main components of the UI of this screen
-    List<CustomCard> cards;
-
-    /// A fixed list of Strings denoting the type of physicians
-    List<String> physicianType = <String>[
-      AppLocalizations.of(context)!.familyDoctor,
-      AppLocalizations.of(context)!.cardiologist,
-      AppLocalizations.of(context)!.nephrologist,
-      AppLocalizations.of(context)!.neurologist,
-    ];
-
-    /// generates a list of CustomCard-Widgets
-    cards = List<CustomCard>.generate(
-      4,
-      (int index) => CustomCard(
-        physicianType: physicianType.elementAt(index),
-      ),
-    );
-
-    return Column(
-      children: cards,
-    );
-  }
-}
-
-/// This class serves for customizing the card properties showing information
-/// about the corresponding physicians
-class CustomCard extends StatelessWidget {
-  /// CustomCard constructor
-  const CustomCard({
-    required this.physicianType,
-    Key? key,
-  }) : super(key: key);
-
-  /// initialized physicianType-variable which is used to
-  /// show the physician type
-  final String physicianType;
-
-  @override
-  Widget build(BuildContext context) {
-    return PicosListCard(
-      title: physicianType,
-      child: SizedBox(
-        width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              '${AppLocalizations.of(context)!.practice} xyz',
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              '${AppLocalizations.of(context)!.mr}/${AppLocalizations.of(context)!.mrs} Dr. Vorname Nachname',
-            ),
-            const Text('Musterstraße 1'),
-            const Text('00000 Musterstadt'),
-            const Text('Tel. +49 000 12 34 56'),
-            const Text('name@webmail.de'),
-            const Text('www.praxis-name.de')
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// This is the screen in which a user will see a list of his physicians
+/// This is the screen in which a user will see a list of his physicians.
 class PhysiciansScreen extends StatelessWidget {
-  /// Physicians constructor
+  /// Physicians constructor.
   const PhysiciansScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.myPhysicians),
-        backgroundColor: const Color.fromRGBO(
-          25,
-          102,
-          117,
-          1.0,
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          color: const Color.fromRGBO(
-            232,
-            241,
-            243,
-            1,
-          ),
-          child: const MyCard(),
-        ),
-      ),
+    return PicosScreenFrame(
+      title: AppLocalizations.of(context)!.myPhysicians,
       bottomNavigationBar: const PicosAddMonoButtonBar(
         route: '/physician-list-screen/add-physician',
       ),
+      body: const PhysiciansList(),
     );
   }
 }
