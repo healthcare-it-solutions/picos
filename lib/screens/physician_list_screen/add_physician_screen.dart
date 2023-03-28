@@ -92,7 +92,7 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                         },
                       );
                     },
-                    hint: _subjectArea ?? '$_specialty...',
+                    hint: _subjectArea ?? _specialty,
                   ),
                   TextFormField(
                     decoration: InputDecoration(
