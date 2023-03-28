@@ -62,10 +62,19 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
   @override
   Widget build(BuildContext context) {
     if (_selection.isEmpty) {
-      _selection.add(AppLocalizations.of(context)!.familyDoctor);
-      _selection.add(AppLocalizations.of(context)!.cardiologist);
-      _selection.add(AppLocalizations.of(context)!.nephrologist);
-      _selection.add(AppLocalizations.of(context)!.neurologist);
+      _selection.add(AppLocalizations.of(context)!.ophthalmology);
+      _selection.add(AppLocalizations.of(context)!.gynecology);
+      _selection.add(AppLocalizations.of(context)!.otolaryngology);
+      _selection.add(AppLocalizations.of(context)!.generalPractitioner);
+      _selection.add(AppLocalizations.of(context)!.skinAndVenerealDiseases);
+      _selection.add(AppLocalizations.of(context)!.internalMedicine);
+      _selection.add(AppLocalizations.of(context)!.microbiology);
+      _selection.add(AppLocalizations.of(context)!.neurology);
+      _selection.add(AppLocalizations.of(context)!.pathology);
+      _selection.add(AppLocalizations.of(context)!.pulmonology);
+      _selection.add(AppLocalizations.of(context)!.psychiatry);
+      _selection.add(AppLocalizations.of(context)!.urology);
+
 
       _specialty = AppLocalizations.of(context)!.specialty;
       _practice = AppLocalizations.of(context)!.practice;
