@@ -17,9 +17,10 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/screens/overview_screen/widgets/mini_calendar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
+
+import 'mini_calendar.dart';
 
 /// This class implements the top section of the 'overview'.
 class InputCardSection extends StatelessWidget {
