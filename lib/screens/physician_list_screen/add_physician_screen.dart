@@ -24,7 +24,6 @@ import 'package:picos/widgets/picos_add_button_bar.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:picos/widgets/picos_text_field.dart';
-import 'package:queen_validators/queen_validators.dart';
 
 import '../../widgets/picos_body.dart';
 import '../../widgets/picos_select.dart';
@@ -49,18 +48,61 @@ class AddPhysicianScreen extends StatefulWidget {
 }
 
 class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
-  Gender? _gender = Gender.male;
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   static final List<String> _selection = <String>[];
   static late final String _specialty;
   static late final String _practice;
   static late final String _firstName;
+  static late final String _familyName;
+  static late final String _email;
+  static late final String _phoneNumber;
+  static late final String _mobilePhone;
+  static late final String _address;
+  static late final String _streetAndHouseNo;
+  static late final String _zipCode;
+  static late final String _city;
 
   //State
   String? _selectedSubjectArea;
   String? _selectedFirstName;
+  String? _selectedFamilyName;
+  String? _selectedEmail;
+  String? _selectedPhoneNumber;
+  String? _selectedMobilePhone;
+  String? _selectedAddress;
+  String? _selectedZipCode;
+  String? _selectedCity;
+
+  bool _disabledSave = true;
+
+  void _checkInputs() {
+    if (_selectedSubjectArea == null ||
+        _selectedFirstName == null ||
+        _selectedFamilyName == null ||
+        _selectedEmail == null ||
+        _selectedPhoneNumber == null ||
+        _selectedMobilePhone == null ||
+        _selectedAddress == null ||
+        _selectedZipCode == null ||
+        _selectedCity == null ||
+        _selectedSubjectArea!.isEmpty ||
+        _selectedFirstName!.isEmpty ||
+        _selectedFamilyName!.isEmpty ||
+        _selectedEmail!.isEmpty ||
+        _selectedPhoneNumber!.isEmpty ||
+        _selectedMobilePhone!.isEmpty ||
+        _selectedAddress!.isEmpty ||
+        _selectedZipCode!.isEmpty ||
+        _selectedCity!.isEmpty) {
+      setState(() {
+        _disabledSave = true;
+      });
+      return;
+    }
+
+    setState(() {
+      _disabledSave = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,199 +123,175 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
       _specialty = AppLocalizations.of(context)!.specialty;
       _practice = AppLocalizations.of(context)!.practice;
       _firstName = AppLocalizations.of(context)!.firstName;
+      _familyName = AppLocalizations.of(context)!.familyName;
+      _email = AppLocalizations.of(context)!.email;
+      _phoneNumber = AppLocalizations.of(context)!.phoneNumber;
+      _mobilePhone = AppLocalizations.of(context)!.mobilePhone;
+      _address = AppLocalizations.of(context)!.address;
+      _streetAndHouseNo = AppLocalizations.of(context)!.streetAndHouseNo;
+      _zipCode = AppLocalizations.of(context)!.zipCode;
+      _city = AppLocalizations.of(context)!.city;
     }
 
     return BlocBuilder<ObjectsListBloc<BackendPhysiciansApi>, ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
+        const double columnPadding = 10;
+        const double doubleInputPadding = 15;
+
         return PicosScreenFrame(
           body: PicosBody(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  PicosLabel(
-                    _practice,
-                  ),
-                  PicosSelect(
-                    selection: _selection,
-                    callBackFunction: (String value) {
-                      setState(
-                        () {
-                          _selectedSubjectArea = value;
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                PicosLabel(
+                  _practice,
+                ),
+                PicosSelect(
+                  selection: _selection,
+                  callBackFunction: (String value) {
+                    _selectedSubjectArea = value;
+                    _checkInputs();
+                  },
+                  hint: _selectedSubjectArea ?? _specialty,
+                ),
+                const SizedBox(
+                  height: columnPadding,
+                ),
+                PicosLabel(
+                  _firstName,
+                ),
+                PicosTextField(
+                  hint: _firstName,
+                  keyboardType: TextInputType.name,
+                  initialValue: _selectedFirstName,
+                  onChanged: (String value) {
+                    _selectedFirstName = value;
+                    _checkInputs();
+                  },
+                ),
+                const SizedBox(
+                  height: columnPadding,
+                ),
+                PicosLabel(
+                  _familyName,
+                ),
+                PicosTextField(
+                  hint: _familyName,
+                  keyboardType: TextInputType.name,
+                  initialValue: _selectedFamilyName,
+                  onChanged: (String value) {
+                    _selectedFamilyName = value;
+                    _checkInputs();
+                  },
+                ),
+                const SizedBox(
+                  height: columnPadding,
+                ),
+                PicosLabel(
+                  _email,
+                ),
+                PicosTextField(
+                  hint: _email,
+                  keyboardType: TextInputType.emailAddress,
+                  initialValue: _selectedEmail,
+                  onChanged: (String value) {
+                    _selectedEmail = value;
+                    _checkInputs();
+                  },
+                ),
+                const SizedBox(
+                  height: columnPadding,
+                ),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Column(
+                        children: <Widget>[
+                          PicosLabel(_phoneNumber),
+                          PicosTextField(
+                            hint: _phoneNumber,
+                            keyboardType: TextInputType.phone,
+                            initialValue: _selectedPhoneNumber,
+                            onChanged: (String value) {
+                              _selectedPhoneNumber = value;
+                              _checkInputs();
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      width: doubleInputPadding,
+                    ),
+                    Expanded(
+                      child: Column(
+                        children: <Widget>[
+                          PicosLabel(_mobilePhone),
+                          PicosTextField(
+                            hint: _mobilePhone,
+                            keyboardType: TextInputType.phone,
+                            initialValue: _selectedMobilePhone,
+                            onChanged: (String value) {
+                              _selectedMobilePhone = value;
+                              _checkInputs();
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: columnPadding,
+                ),
+                PicosLabel(_address),
+                PicosTextField(
+                  hint: _streetAndHouseNo,
+                  keyboardType: TextInputType.streetAddress,
+                  initialValue: _selectedAddress,
+                  onChanged: (String value) {
+                    _selectedAddress = value;
+                    _checkInputs();
+                  },
+                ),
+                const SizedBox(
+                  height: columnPadding,
+                ),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: PicosTextField(
+                        hint: _zipCode,
+                        keyboardType: TextInputType.streetAddress,
+                        initialValue: _selectedZipCode,
+                        onChanged: (String value) {
+                          _selectedZipCode = value;
+                          _checkInputs();
                         },
-                      );
-                    },
-                    hint: _selectedSubjectArea ?? _specialty,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  PicosLabel(
-                    _firstName,
-                  ),
-                  PicosTextField(
-                    hint: _firstName,
-                    keyboardType: TextInputType.name,
-                    initialValue: _selectedFirstName,
-                    onChanged: (String value) {
-                      setState(() {
-                        _selectedFirstName = value;
-                      });
-                    },
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      icon: const Icon(Icons.person),
-                      labelText: '${AppLocalizations.of(context)!.firstName} *',
-                    ),
-                    keyboardType: TextInputType.name,
-                    validator: qValidator(
-                      <TextValidationRule>[
-                        IsRequired(
-                          AppLocalizations.of(context)!.entryFirstName,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        '${AppLocalizations.of(context)!.title} *',
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
                       ),
-                      Expanded(
-                        child: RadioListTile<Gender>(
-                          title: Text(
-                            AppLocalizations.of(context)!.mr,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          value: Gender.male,
-                          groupValue: _gender,
-                          onChanged: (Gender? value) {
-                            setState(
-                              () {
-                                _gender = value;
-                              },
-                            );
-                          },
-                          selected: false,
-                        ),
+                    ),
+                    const SizedBox(
+                      width: doubleInputPadding,
+                    ),
+                    Expanded(
+                      child: PicosTextField(
+                        hint: _city,
+                        keyboardType: TextInputType.streetAddress,
+                        initialValue: _selectedCity,
+                        onChanged: (String value) {
+                          _selectedCity = value;
+                          _checkInputs();
+                        },
                       ),
-                      Expanded(
-                        child: RadioListTile<Gender>(
-                          title: Text(
-                            AppLocalizations.of(context)!.mrs,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          value: Gender.female,
-                          groupValue: _gender,
-                          onChanged: (Gender? value) {
-                            setState(
-                              () {
-                                _gender = value;
-                              },
-                            );
-                          },
-                          selected: false,
-                        ),
-                      ),
-                    ],
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      icon: const Icon(Icons.person),
-                      labelText:
-                          '${AppLocalizations.of(context)!.familyName} *',
                     ),
-                    keyboardType: TextInputType.name,
-                    validator: qValidator(
-                      <TextValidationRule>[
-                        IsRequired(
-                          AppLocalizations.of(context)!.entryFamilyName,
-                        ),
-                      ],
-                    ),
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      icon: const Icon(Icons.email),
-                      labelText: '${AppLocalizations.of(context)!.email} *',
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    validator: qValidator(
-                      <TextValidationRule>[
-                        IsRequired(AppLocalizations.of(context)!.entryEmail),
-                        IsEmail(AppLocalizations.of(context)!.entryValidEmail),
-                      ],
-                    ),
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      icon: const Icon(Icons.numbers),
-                      labelText:
-                          '${AppLocalizations.of(context)!.phoneNumber} *',
-                    ),
-                    keyboardType: TextInputType.number,
-                    validator: qValidator(
-                      <TextValidationRule>[
-                        IsRequired(
-                          AppLocalizations.of(context)!.entryPhoneNumber,
-                        ),
-                      ],
-                    ),
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      icon: const Icon(Icons.web),
-                      labelText: '${AppLocalizations.of(context)!.website} *',
-                    ),
-                    keyboardType: TextInputType.url,
-                    validator: qValidator(
-                      <TextValidationRule>[
-                        IsRequired(AppLocalizations.of(context)!.entryWebsite),
-                        IsUrl(AppLocalizations.of(context)!.entryValidWebsite),
-                      ],
-                    ),
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      icon: const Icon(Icons.house),
-                      labelText: '${AppLocalizations.of(context)!.address} *',
-                    ),
-                    keyboardType: TextInputType.multiline,
-                    minLines: 2,
-                    maxLines: null,
-                    validator: qValidator(
-                      <TextValidationRule>[
-                        IsRequired(AppLocalizations.of(context)!.entryAddress),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              ],
             ),
           ),
           bottomNavigationBar: PicosAddButtonBar(
-            onTap: () {
-              if (_formKey.currentState!.validate()) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      AppLocalizations.of(context)!.submitData,
-                    ),
-                  ),
-                );
-              }
-            },
+            disabled: _disabledSave,
+            onTap: () {},
           ),
         );
       },
