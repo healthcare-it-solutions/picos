@@ -200,7 +200,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
 
   // Class init.
   Future<bool> _classInit(BuildContext context) async {
-    if (_daily != null || _weekly != null || _phq4 != null) {
+    if (_pageStorage != null) {
       return true;
     }
 
