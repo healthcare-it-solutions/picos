@@ -222,7 +222,10 @@
     "@phoneNumber": {
         "description": "Telephone number"
     },
-
+    "mobilePhone": "Cell phone",
+    "@mobilePhone": {
+        "description": "Cell phone"
+    },
     "address": "Address",
     "@address": {
         "description": "Address"
@@ -953,5 +956,17 @@
     "specialty": "Specialty",
     "@specialty": {
         "description": "Specialty"
+    },
+    "streetAndHouseNo": "Street, house no.",
+    "@streetAndHouseNo": {
+        "description": "Street, house no."
+    },
+    "zipCode": "ZIP CODE",
+    "@zipCode": {
+        "description": "ZIP CODE"
+    },
+    "city": "City",
+    "@city": {
+        "description": "City"
     }
 }

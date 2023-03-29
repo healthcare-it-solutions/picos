@@ -45,6 +45,7 @@
     "familyName": "Nachname",
     "email": "E-Mail",
     "phoneNumber": "Telefonnummer",
+    "mobilePhone": "Mobiltelefon",
     "address": "Adresse",
     "abort": "Abbrechen",
     "proceed": "Fortfahren",
@@ -208,5 +209,8 @@
     "dayOfDischarge": "Tag der Entlassung",
     "reasonForHospitalization": "Grund des Krankenhausbesuches",
     "reasonForVisitToTheDoctor": "Grund des Arztbesuches",
-    "needHelp": "Benötigen Sie Hilfe, oder haben Sie eine Frage zur Benutzung der PICOS App?"
+    "needHelp": "Benötigen Sie Hilfe, oder haben Sie eine Frage zur Benutzung der PICOS App?",
+    "streetAndHouseNo": "Straße,  Hausnr.",
+    "zipCode": "PLZ",
+    "city": "Stadt"
 }
