@@ -17,6 +17,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:picos/screens/legals_screen.dart';
+import 'package:picos/screens/login_screen.dart';
+import 'package:picos/screens/main_screen/overview_screen/overview.dart';
 import 'package:picos/screens/my_medications_screen/add_medication_screen.dart';
 import 'package:picos/screens/my_therapies_screen/add_therapy_screen.dart';
 import 'package:picos/screens/my_therapies_screen/my_therapies_screen.dart';
@@ -24,13 +26,13 @@ import 'package:picos/screens/physician_list_screen/add_physician_screen.dart';
 import 'package:picos/screens/family_member_list_screen/add_family_member_screen.dart';
 import 'package:picos/screens/family_member_list_screen/family_members_screen.dart';
 import 'package:picos/screens/privacy_notice_screen.dart';
+import 'package:picos/screens/questionaire_screen/questionaire_screen.dart';
 import 'package:picos/screens/visits_screen/visits_screen.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_finished_screen.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_pages.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_screen.dart';
 import 'package:picos/screens/main_screen/bottom_bar.dart';
 import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
-import 'package:picos/screens/overview_screen/overview_screen.dart';
 import 'package:picos/screens/physician_list_screen/physicians_screen.dart';
 import 'package:picos/screens/study_nurse_screen/study_nurse_screen.dart';
 import 'package:picos/screens/my_therapies_screen/view_therapy_screen.dart';
@@ -53,9 +55,7 @@ class Routes {
           const AddPhysicianScreen(),
       '/physician-list-screen/physicians': (BuildContext ctx) =>
           const PhysiciansScreen(),
-      '/main-screen/mainscreen': (BuildContext ctx) => const BottomBar(
-            title: 'PICOS',
-          ),
+      '/main-screen/mainscreen': (BuildContext ctx) => const BottomBar(),
       '/study-nurse-screen/studynursescreen': (BuildContext ctx) =>
           const StudyNurseScreen(),
       '/study-nurse-screen/configuration-screen': (BuildContext ctx) =>
@@ -64,7 +64,7 @@ class Routes {
           const ConfigurationPages(),
       '/study-nurse-screen/configuration-finish-screen': (BuildContext ctx) =>
           const ConfigurationFinishedScreen(),
-      '/overview-screen/overview': (BuildContext ctx) => const OverviewScreen(),
+      '/overview-screen/overview': (BuildContext ctx) => const Overview(),
       '/my-therapy-screen/add-therapy': (BuildContext ctx) =>
           const AddTherapyScreen(),
       '/my-therapy-screen/view-therapy': (BuildContext ctx) =>
@@ -72,8 +72,12 @@ class Routes {
       '/my-therapy-screen/my-therapy': (BuildContext ctx) =>
           const MyTherapiesScreen(),
       '/legals-screen': (BuildContext ctx) => const LegalsScreen(),
-      '/privacy-notice-screen': (BuildContext ctx) => const PrivacyNoticeScreen(),
+      '/privacy-notice-screen': (BuildContext ctx) =>
+          const PrivacyNoticeScreen(),
       '/visits-screen/visits': (BuildContext ctx) => const VisitsScreen(),
+      '/login-screen': (BuildContext ctx) => const LoginScreen(),
+      '/questionnaire-screen/questionnaire-screen': (BuildContext ctx) =>
+          const QuestionaireScreen(),
     };
   }
 

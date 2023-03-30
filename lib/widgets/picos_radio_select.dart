@@ -24,6 +24,7 @@ class PicosRadioSelect extends StatefulWidget {
     required this.selection,
     required this.callBack,
     Key? key,
+    this.initialValue,
   }) : super(key: key);
 
   /// The Map of selectable items. [String] is what you will see and [dynamic]
@@ -33,6 +34,9 @@ class PicosRadioSelect extends StatefulWidget {
   /// The function that is executed when an item gets selected.
   final Function(dynamic value) callBack;
 
+  /// The initial value for this select.
+  final dynamic initialValue;
+
   @override
   State<PicosRadioSelect> createState() => _PicosRadioSelectState();
 }
@@ -40,11 +44,14 @@ class PicosRadioSelect extends StatefulWidget {
 class _PicosRadioSelectState extends State<PicosRadioSelect> {
   dynamic _selectValue;
 
+  static const double _distance = 15;
+
   List<RadioListTile<dynamic>> _createItemList() {
     return widget.selection.entries.map<RadioListTile<dynamic>>(
       (MapEntry<String, dynamic> element) {
         return RadioListTile<dynamic>(
           title: Text(element.key),
+          contentPadding: const EdgeInsets.symmetric(horizontal: _distance),
           value: element.value,
           groupValue: _selectValue,
           onChanged: (dynamic newValue) {
@@ -53,6 +60,7 @@ class _PicosRadioSelectState extends State<PicosRadioSelect> {
               _selectValue = newValue;
             });
           },
+          controlAffinity: ListTileControlAffinity.trailing,
         );
       },
     ).toList();
@@ -60,8 +68,24 @@ class _PicosRadioSelectState extends State<PicosRadioSelect> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: _createItemList(),
+    _selectValue ??= widget.initialValue;
+
+    return ListView.separated(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: _createItemList().length,
+      itemBuilder: (BuildContext context, int index) =>
+      _createItemList()[index],
+      separatorBuilder: (BuildContext context, int index) {
+        return const Divider(
+          thickness: 1,
+          height: 0,
+          color: Color.fromRGBO(145, 151, 156, 1),
+          indent: _distance,
+          endIndent: _distance,
+        );
+      },
     );
   }
 }

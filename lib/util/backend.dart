@@ -19,7 +19,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
-import 'package:picos/secrets.dart';
+import 'package:picos/config.dart';
 
 import '../models/abstract_database_object.dart';
 
@@ -62,6 +62,11 @@ class Backend {
     ParseResponse res = await user.login();
 
     return res.success;
+  }
+
+  /// Logs the user out and return if it was successful.
+  static Future<bool> logout() async {
+    return (await user.logout()).success;
   }
 
   /// Retrieves the current user role as a [String].

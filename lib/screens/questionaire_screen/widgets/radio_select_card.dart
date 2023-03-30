@@ -30,6 +30,7 @@ class RadioSelectCard extends StatelessWidget {
     Key? key,
     this.label = const PicosLabel(''),
     this.description = '',
+    this.initialValue,
   }) : super(key: key);
 
   /// The label for the card.
@@ -45,7 +46,10 @@ class RadioSelectCard extends StatelessWidget {
   /// The function that is executed when an item gets selected.
   final Function(dynamic value) callback;
 
-  static const double _horizontalPadding = 15;
+  /// The initial value for the select.
+  final dynamic initialValue;
+
+  static const double _horizontalPadding = 10;
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +67,7 @@ class RadioSelectCard extends StatelessWidget {
 
     children.add(
       PicosRadioSelect(
+        initialValue: initialValue,
         selection: options,
         callBack: callback,
       ),

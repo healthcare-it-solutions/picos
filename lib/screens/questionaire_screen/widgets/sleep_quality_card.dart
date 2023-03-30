@@ -28,6 +28,7 @@ class SleepQualityCard extends StatefulWidget {
     required this.callBack,
     Key? key,
     this.label = '',
+    this.initialValue,
   }) : super(key: key);
 
   /// The label for the card.
@@ -35,6 +36,9 @@ class SleepQualityCard extends StatefulWidget {
 
   /// The function that is executed when an item gets selected.
   final Function(dynamic value) callBack;
+
+  /// Initial value for sleep quality.
+  final int? initialValue;
 
   @override
   State<SleepQualityCard> createState() => _SleepQualityCardState();
@@ -178,13 +182,15 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
 
   @override
   Widget build(BuildContext context) {
+    groupValue ??= widget.initialValue;
+
     if (_good == null) {
       _initStrings(context);
     }
 
     List<Widget> children = <Widget>[];
 
-    double cardContentPadding = 15;
+    const double cardContentPadding = 15;
 
     _options.forEach(
       (String key, int value) {
@@ -192,11 +198,13 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
           InkWell(
             onTap: () {
               setState(() {
+                widget.callBack(value);
                 groupValue = value;
               });
             },
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: cardContentPadding),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: cardContentPadding),
               child: Row(
                 children: <Widget>[
                   Padding(
@@ -251,7 +259,7 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
         horizontal: 0,
       ),
       label: Padding(
-        padding: EdgeInsets.symmetric(horizontal: cardContentPadding),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: PicosLabel(widget.label),
       ),
       child: Stack(
@@ -278,7 +286,7 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
+            padding: const EdgeInsets.symmetric(horizontal: cardContentPadding),
             child: Column(
               children: _generateDivider(),
             ),

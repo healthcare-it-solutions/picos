@@ -27,6 +27,7 @@ class PicosSelect extends StatefulWidget {
     this.hint,
     this.disabled = false,
     this.validator,
+    this.initialValue,
   }) : super(key: key);
 
   /// The array of items selectable in the dropdown.
@@ -43,6 +44,9 @@ class PicosSelect extends StatefulWidget {
 
   /// The function that is executed when the validator is triggered.
   final String? Function(String?)? validator;
+
+  /// An item that is optionally preselected.
+  final String? initialValue;
 
   @override
   State<PicosSelect> createState() => _PicosSelectState();
@@ -66,6 +70,10 @@ class _PicosSelectState extends State<PicosSelect> {
   Widget build(BuildContext context) {
     Color borderColor = Colors.grey.shade400;
     final BorderRadius borderRadius = BorderRadius.circular(7);
+
+    if (widget.initialValue != null) {
+      _dropdownValue = widget.initialValue;
+    }
 
     OutlineInputBorder outlineInputBorder = OutlineInputBorder(
       borderSide: BorderSide(
