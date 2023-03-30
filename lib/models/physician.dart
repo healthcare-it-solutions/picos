@@ -21,7 +21,6 @@ import 'package:picos/models/abstract_database_object.dart';
 class Physician extends AbstractDatabaseObject {
   /// Creates a physician object.
   const Physician({
-    required this.form,
     required this.name,
     required this.address,
     required this.city,
@@ -30,6 +29,7 @@ class Physician extends AbstractDatabaseObject {
     required this.mail,
     required this.phone,
     required this.subjectArea,
+    this.form,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -39,7 +39,7 @@ class Physician extends AbstractDatabaseObject {
   final String subjectArea;
 
   /// The gender of the physician.
-  final String form;
+  final String? form;
 
   /// Name of the physician
   final String name;
@@ -104,7 +104,6 @@ class Physician extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-        form,
         name,
         address,
         city,
