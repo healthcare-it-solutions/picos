@@ -447,7 +447,6 @@ class QuestionairePageStorage {
         image: 'assets/Medikation+Therapie_neg.svg',
         backFunction: previousPage,
         nextFunction: nextPage,
-        backFunction: previousPage,
       ),
     );
     pages.add(
