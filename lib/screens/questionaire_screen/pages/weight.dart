@@ -33,6 +33,8 @@ class Weight extends StatefulWidget {
     required this.onChangedBodyWeight,
     this.bodyHeight,
     Key? key,
+    this.initialValue,
+    this.initialBmi,
   }) : super(key: key);
 
   /// Previous page button function.
@@ -47,6 +49,12 @@ class Weight extends StatefulWidget {
   /// The body height.
   final int? bodyHeight;
 
+  /// Populates the field with an initial value.
+  final double? initialValue;
+
+  /// Populates the BMI field with an initial value.
+  final double? initialBmi;
+
   @override
   State<Weight> createState() => _WeightState();
 }
@@ -55,15 +63,23 @@ class _WeightState extends State<Weight> {
   static String? _bodyWeight;
   static String? _autoCalc;
   static String? _unknownHeight;
+  static String? _isInvalid;
 
   double _bmi = 0;
   String _hint = '';
+  bool _error = false;
 
   double _calculateBmi(int height, double bodyWeight) {
     return (bodyWeight / pow(height / 100, 2));
   }
 
   void _createHint() {
+    if (widget.initialBmi != null && _hint.isEmpty) {
+      _bmi = widget.initialBmi!;
+      _hint = widget.initialBmi.toString();
+      return;
+    }
+
     if (widget.bodyHeight == null && _hint.isNotEmpty) {
       return;
     }
@@ -81,7 +97,14 @@ class _WeightState extends State<Weight> {
     if (_bodyWeight == null) {
       _bodyWeight = AppLocalizations.of(context)!.bodyWeight;
       _autoCalc = AppLocalizations.of(context)!.autoCalc;
-      _unknownHeight =  AppLocalizations.of(context)!.unknownHeight;
+      _unknownHeight = AppLocalizations.of(context)!.unknownHeight;
+      _isInvalid = AppLocalizations.of(context)!.isInvalid;
+    }
+
+    String label = _bodyWeight!;
+
+    if (_error) {
+      label = '${_bodyWeight!} ${_isInvalid!}';
     }
 
     _createHint();
@@ -92,18 +115,32 @@ class _WeightState extends State<Weight> {
       child: Column(
         children: <TextFieldCard>[
           TextFieldCard(
-            label: _bodyWeight!,
+            decimalValue: true,
+            initialValue: widget.initialValue,
+            label: label,
             hint: 'kg',
             onChanged: (String weightString) {
               if (weightString.isEmpty) {
                 widget.onChangedBodyWeight(null, null);
                 setState(() {
                   _bmi = 0;
+                  _error = false;
                 });
                 return;
               }
 
-              double weight = double.parse(weightString);
+              double? weight = double.tryParse(weightString);
+
+              if (weight == null) {
+                widget.onChangedBodyWeight(null, null);
+                setState(() {
+                  _bmi = 0;
+                  _error = true;
+                });
+                return;
+              }
+
+              _error = false;
 
               if (widget.bodyHeight == null) {
                 widget.onChangedBodyWeight(weight, null);
@@ -118,6 +155,7 @@ class _WeightState extends State<Weight> {
             },
           ),
           TextFieldCard(
+            decimalValue: true,
             label: 'BMI',
             hint: _hint,
             disabled: true,

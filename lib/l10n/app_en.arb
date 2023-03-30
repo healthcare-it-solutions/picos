@@ -968,5 +968,9 @@
     "city": "City",
     "@city": {
         "description": "City"
+    },
+    "isInvalid": "is invalid",
+    "@isInvalid": {
+        "description": "is invalid"
     }
 }

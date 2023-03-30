@@ -212,5 +212,6 @@
     "needHelp": "Benötigen Sie Hilfe, oder haben Sie eine Frage zur Benutzung der PICOS App?",
     "streetAndHouseNo": "Straße,  Hausnr.",
     "zipCode": "PLZ",
-    "city": "Stadt"
+    "city": "Stadt",
+    "isInvalid": "ist unzulässig"
 }

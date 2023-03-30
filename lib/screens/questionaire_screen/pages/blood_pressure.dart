@@ -16,6 +16,8 @@ class BloodPressure extends StatelessWidget {
     required this.onChangedSyst,
     required this.onChangedDias,
     Key? key,
+    this.initialSyst,
+    this.initialDias,
   }) : super(key: key);
 
   /// Previous page button function.
@@ -29,6 +31,12 @@ class BloodPressure extends StatelessWidget {
 
   /// Callback for dias.
   final dynamic Function(String value) onChangedDias;
+
+  /// Initial Syst Value.
+  final int? initialSyst;
+
+  /// Initial Dias Value.
+  final int? initialDias;
 
   static List<String> _createBloodPressureSelection() {
     int min = 40;
@@ -51,6 +59,17 @@ class BloodPressure extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? initialStringSyst;
+    String? initialStringDias;
+
+    if (initialSyst != null) {
+      initialStringSyst = initialSyst.toString();
+    }
+
+    if (initialDias != null) {
+      initialStringDias = initialDias.toString();
+    }
+
     if (_bloodPressure == null) {
       _bloodPressure = AppLocalizations.of(context)!.bloodPressure;
       _bloodPressureSelection = _createBloodPressureSelection();
@@ -65,6 +84,7 @@ class BloodPressure extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: PicosSelect(
+                initialValue: initialStringSyst,
                 selection: _bloodPressureSelection!,
                 callBackFunction: onChangedSyst,
                 hint: 'Syst',
@@ -76,6 +96,7 @@ class BloodPressure extends StatelessWidget {
             ),
             Expanded(
               child: PicosSelect(
+                initialValue: initialStringDias,
                 selection: _bloodPressureSelection!,
                 callBackFunction: onChangedDias,
                 hint: 'Dias',

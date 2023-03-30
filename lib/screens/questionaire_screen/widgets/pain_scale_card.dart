@@ -28,6 +28,7 @@ class PainScaleCard extends StatefulWidget {
     required this.callBack,
     Key? key,
     this.label = '',
+    this.initialValue,
   }) : super(key: key);
 
   /// The label for the card.
@@ -35,6 +36,9 @@ class PainScaleCard extends StatefulWidget {
 
   /// The function that is executed when an item gets selected.
   final Function(dynamic value) callBack;
+
+  /// Initial value for pain.
+  final int? initialValue;
 
   @override
   State<PainScaleCard> createState() => _PainScaleCardState();
@@ -254,6 +258,8 @@ class _PainScaleCardState extends State<PainScaleCard> {
 
   @override
   Widget build(BuildContext context) {
+    groupValue ??= widget.initialValue;
+
     if (_veryMild == null) {
       _initStrings(context);
     }
@@ -271,8 +277,7 @@ class _PainScaleCardState extends State<PainScaleCard> {
             value != 10) {
           children.add(
             const Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: _cardContentPadding),
+              padding: EdgeInsets.symmetric(horizontal: _cardContentPadding),
               child: Divider(
                 thickness: 1,
                 height: 0,
