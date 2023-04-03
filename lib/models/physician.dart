@@ -21,7 +21,7 @@ import 'package:picos/models/abstract_database_object.dart';
 class Physician extends AbstractDatabaseObject {
   /// Creates a physician object.
   const Physician({
-    required this.name,
+    required this.practice,
     required this.address,
     required this.city,
     required this.homepage,
@@ -30,6 +30,7 @@ class Physician extends AbstractDatabaseObject {
     required this.phone,
     required this.subjectArea,
     required this.form,
+    required this.firstName,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -41,8 +42,8 @@ class Physician extends AbstractDatabaseObject {
   /// The gender of the physician.
   final String form;
 
-  /// Name of the physician
-  final String name;
+  /// Name of the practice
+  final String practice;
 
   /// Last name.
   final String lastName;
@@ -62,6 +63,9 @@ class Physician extends AbstractDatabaseObject {
   /// Homepage of the physician.
   final String homepage;
 
+  /// The first name of the physician.
+  final String firstName;
+
   /// The database table the objects are stored in.
   static const String databaseTable = 'PICOS_treating';
 
@@ -74,7 +78,7 @@ class Physician extends AbstractDatabaseObject {
   @override
   Physician copyWith({
     String? form,
-    String? name,
+    String? practice,
     String? address,
     String? city,
     String? homepage,
@@ -82,13 +86,15 @@ class Physician extends AbstractDatabaseObject {
     String? mail,
     String? phone,
     String? subjectArea,
+    String? firstName,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
     return Physician(
+      firstName: firstName ?? this.firstName,
       form: form ?? this.form,
-      name: name ?? this.name,
+      practice: practice ?? this.practice,
       address: address ?? this.address,
       city: city ?? this.city,
       homepage: homepage ?? this.homepage,
@@ -105,7 +111,7 @@ class Physician extends AbstractDatabaseObject {
   @override
   List<Object> get props => <Object>[
         form,
-        name,
+        practice,
         address,
         city,
         homepage,
@@ -113,18 +119,20 @@ class Physician extends AbstractDatabaseObject {
         mail,
         phone,
         subjectArea,
+        firstName,
       ];
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
         'Form': form,
-        'Name': name,
+        'Name': practice,
         'Address': address,
         'City': city,
         'Homepage': homepage,
         'Lastname': lastName,
         'Mail': mail,
         'Tele': phone,
-        'SubjectArea': subjectArea
+        'SubjectArea': subjectArea,
+        'Firstname': firstName,
       };
 }
