@@ -29,15 +29,6 @@ import 'package:picos/widgets/picos_text_field.dart';
 import '../../widgets/picos_body.dart';
 import '../../widgets/picos_select.dart';
 
-/// Contains the gender of the corresponding physician.
-enum Gender {
-  /// element for denoting the title of men
-  male,
-
-  /// element for denoting the title of women
-  female,
-}
-
 /// This is the screen in which a user can add/edit
 /// information about his physicians
 class AddPhysicianScreen extends StatefulWidget {
@@ -57,11 +48,11 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
   static String? _familyName;
   static String? _email;
   static String? _phoneNumber;
-  static String? _mobilePhone;
   static String? _address;
   static String? _streetAndHouseNo;
   static String? _zipCode;
   static String? _city;
+  static String? _website;
 
   //State
   String? _selectedSubjectArea;
@@ -70,10 +61,10 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
   String? _selectedFamilyName;
   String? _selectedEmail;
   String? _selectedPhoneNumber;
-  String? _selectedMobilePhone;
   String? _selectedAddress;
-  String? _selectedZipCode;
   String? _selectedCity;
+  String? _selectedWebsite;
+  String? _selectedPractice;
 
   bool _disabledSave = true;
 
@@ -83,18 +74,19 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
         _selectedFamilyName == null ||
         _selectedEmail == null ||
         _selectedPhoneNumber == null ||
-        _selectedMobilePhone == null ||
+        _selectedWebsite == null ||
         _selectedAddress == null ||
-        _selectedZipCode == null ||
+        _selectedPractice == null ||
         _selectedCity == null ||
+        _selectedForm == null ||
         _selectedSubjectArea!.isEmpty ||
         _selectedFirstName!.isEmpty ||
         _selectedFamilyName!.isEmpty ||
         _selectedEmail!.isEmpty ||
         _selectedPhoneNumber!.isEmpty ||
-        _selectedMobilePhone!.isEmpty ||
+        _selectedWebsite!.isEmpty ||
         _selectedAddress!.isEmpty ||
-        _selectedZipCode!.isEmpty ||
+        _selectedPractice!.isEmpty ||
         _selectedCity!.isEmpty ||
         _selectedForm!.isEmpty) {
       setState(() {
@@ -130,27 +122,34 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
       _familyName = AppLocalizations.of(context)!.familyName;
       _email = AppLocalizations.of(context)!.email;
       _phoneNumber = AppLocalizations.of(context)!.phoneNumber;
-      _mobilePhone = AppLocalizations.of(context)!.mobilePhone;
       _address = AppLocalizations.of(context)!.address;
       _streetAndHouseNo = AppLocalizations.of(context)!.streetAndHouseNo;
       _zipCode = AppLocalizations.of(context)!.zipCode;
       _city = AppLocalizations.of(context)!.city;
       _title = AppLocalizations.of(context)!.title;
+      _website = AppLocalizations.of(context)!.website;
     }
 
     return BlocBuilder<ObjectsListBloc<BackendPhysiciansApi>, ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
         const double columnPadding = 10;
-        const double doubleInputPadding = 15;
 
         return PicosScreenFrame(
           body: PicosBody(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                PicosLabel(
-                  _practice!,
+                PicosLabel(_practice!),
+                PicosTextField(
+                  hint: _practice!,
+                  keyboardType: TextInputType.name,
+                  initialValue: _selectedPractice,
+                  onChanged: (String value) {
+                    _selectedPractice = value;
+                    _checkInputs();
+                  },
                 ),
+                const SizedBox(height: columnPadding),
                 PicosSelect(
                   selection: _selection,
                   callBackFunction: (String value) {
@@ -159,24 +158,16 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                   },
                   hint: _selectedSubjectArea ?? _specialty,
                 ),
-                const SizedBox(
-                  height: columnPadding,
-                ),
-                PicosLabel(
-                  _title!,
-                ),
+                const SizedBox(height: columnPadding),
+                PicosLabel(_title!),
                 PicosFormOfAddress(
                   callBackFunction: (String value) {
                     _selectedForm = value;
                     _checkInputs();
                   },
                 ),
-                const SizedBox(
-                  height: columnPadding,
-                ),
-                PicosLabel(
-                  _firstName!,
-                ),
+                const SizedBox(height: columnPadding),
+                PicosLabel(_firstName!),
                 PicosTextField(
                   hint: _firstName!,
                   keyboardType: TextInputType.name,
@@ -186,12 +177,8 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                     _checkInputs();
                   },
                 ),
-                const SizedBox(
-                  height: columnPadding,
-                ),
-                PicosLabel(
-                  _familyName!,
-                ),
+                const SizedBox(height: columnPadding),
+                PicosLabel(_familyName!,),
                 PicosTextField(
                   hint: _familyName!,
                   keyboardType: TextInputType.name,
@@ -201,12 +188,8 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                     _checkInputs();
                   },
                 ),
-                const SizedBox(
-                  height: columnPadding,
-                ),
-                PicosLabel(
-                  _email!,
-                ),
+                const SizedBox(height: columnPadding),
+                PicosLabel(_email!),
                 PicosTextField(
                   hint: _email!,
                   keyboardType: TextInputType.emailAddress,
@@ -216,51 +199,18 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                     _checkInputs();
                   },
                 ),
-                const SizedBox(
-                  height: columnPadding,
+                const SizedBox(height: columnPadding),
+                PicosLabel(_phoneNumber!),
+                PicosTextField(
+                  hint: _phoneNumber!,
+                  keyboardType: TextInputType.phone,
+                  initialValue: _selectedPhoneNumber,
+                  onChanged: (String value) {
+                    _selectedPhoneNumber = value;
+                    _checkInputs();
+                  },
                 ),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        children: <Widget>[
-                          PicosLabel(_phoneNumber!),
-                          PicosTextField(
-                            hint: _phoneNumber!,
-                            keyboardType: TextInputType.phone,
-                            initialValue: _selectedPhoneNumber,
-                            onChanged: (String value) {
-                              _selectedPhoneNumber = value;
-                              _checkInputs();
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      width: doubleInputPadding,
-                    ),
-                    Expanded(
-                      child: Column(
-                        children: <Widget>[
-                          PicosLabel(_mobilePhone!),
-                          PicosTextField(
-                            hint: _mobilePhone!,
-                            keyboardType: TextInputType.phone,
-                            initialValue: _selectedMobilePhone,
-                            onChanged: (String value) {
-                              _selectedMobilePhone = value;
-                              _checkInputs();
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: columnPadding,
-                ),
+                const SizedBox(height: columnPadding),
                 PicosLabel(_address!),
                 PicosTextField(
                   hint: _streetAndHouseNo!,
@@ -271,37 +221,27 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                     _checkInputs();
                   },
                 ),
-                const SizedBox(
-                  height: columnPadding,
+                const SizedBox(height: columnPadding),
+                PicosLabel(_city!),
+                PicosTextField(
+                  hint: '${_city!}, ${_zipCode!}',
+                  keyboardType: TextInputType.streetAddress,
+                  initialValue: _selectedCity,
+                  onChanged: (String value) {
+                    _selectedCity = value;
+                    _checkInputs();
+                  },
                 ),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: PicosTextField(
-                        hint: _zipCode!,
-                        keyboardType: TextInputType.streetAddress,
-                        initialValue: _selectedZipCode,
-                        onChanged: (String value) {
-                          _selectedZipCode = value;
-                          _checkInputs();
-                        },
-                      ),
-                    ),
-                    const SizedBox(
-                      width: doubleInputPadding,
-                    ),
-                    Expanded(
-                      child: PicosTextField(
-                        hint: _city!,
-                        keyboardType: TextInputType.streetAddress,
-                        initialValue: _selectedCity,
-                        onChanged: (String value) {
-                          _selectedCity = value;
-                          _checkInputs();
-                        },
-                      ),
-                    ),
-                  ],
+                const SizedBox(height: columnPadding),
+                PicosLabel(_website!),
+                PicosTextField(
+                  hint: _website!,
+                  keyboardType: TextInputType.url,
+                  initialValue: _selectedWebsite,
+                  onChanged: (String value) {
+                    _selectedWebsite = value;
+                    _checkInputs();
+                  },
                 ),
               ],
             ),
