@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/api/backend_physicians_api.dart';
+import 'package:picos/models/physician.dart';
 import 'package:picos/state/objects_list_bloc.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
 import 'package:picos/widgets/picos_form_of_address.dart';
@@ -178,7 +179,9 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                   },
                 ),
                 const SizedBox(height: columnPadding),
-                PicosLabel(_familyName!,),
+                PicosLabel(
+                  _familyName!,
+                ),
                 PicosTextField(
                   hint: _familyName!,
                   keyboardType: TextInputType.name,
@@ -248,7 +251,25 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
           ),
           bottomNavigationBar: PicosAddButtonBar(
             disabled: _disabledSave,
-            onTap: () {},
+            onTap: () {
+              Physician physician = Physician(
+                practice: _selectedPractice!,
+                address: _selectedAddress!,
+                city: _selectedCity!,
+                homepage: _selectedWebsite!,
+                lastName: _selectedFamilyName!,
+                mail: _selectedEmail!,
+                phone: _selectedPhoneNumber!,
+                subjectArea: _selectedSubjectArea!,
+                form: _selectedForm!,
+                firstName: _selectedFirstName!,
+              );
+
+              context
+                  .read<ObjectsListBloc<BackendPhysiciansApi>>()
+                  .add(SaveObject(physician));
+              Navigator.of(context).pop();
+            },
           ),
         );
       },
