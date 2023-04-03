@@ -57,7 +57,7 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
 
   //State
   String? _selectedSubjectArea;
-  String? _selectedForm;
+  FormOfAddress? _selectedForm;
   String? _selectedFirstName;
   String? _selectedFamilyName;
   String? _selectedEmail;
@@ -88,8 +88,7 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
         _selectedWebsite!.isEmpty ||
         _selectedAddress!.isEmpty ||
         _selectedPractice!.isEmpty ||
-        _selectedCity!.isEmpty ||
-        _selectedForm!.isEmpty) {
+        _selectedCity!.isEmpty) {
       setState(() {
         _disabledSave = true;
       });
@@ -162,7 +161,7 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                 const SizedBox(height: columnPadding),
                 PicosLabel(_title!),
                 PicosFormOfAddress(
-                  callBackFunction: (String value) {
+                  callBackFunction: (FormOfAddress value) {
                     _selectedForm = value;
                     _checkInputs();
                   },
