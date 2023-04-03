@@ -83,7 +83,6 @@ class _PicosFormOfAddressState extends State<PicosFormOfAddress> {
                   horizontal: VisualDensity.minimumDensity,
                   vertical: VisualDensity.standard.vertical,
                 ),
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 value: FormOfAddress.female,
                 groupValue: _groupValue,
                 onChanged: (FormOfAddress? value) {
