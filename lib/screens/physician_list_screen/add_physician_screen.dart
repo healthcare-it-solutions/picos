@@ -21,6 +21,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/api/backend_physicians_api.dart';
 import 'package:picos/state/objects_list_bloc.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
+import 'package:picos/widgets/picos_form_of_address.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:picos/widgets/picos_text_field.dart';
@@ -49,20 +50,22 @@ class AddPhysicianScreen extends StatefulWidget {
 
 class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
   static final List<String> _selection = <String>[];
-  static late final String _specialty;
-  static late final String _practice;
-  static late final String _firstName;
-  static late final String _familyName;
-  static late final String _email;
-  static late final String _phoneNumber;
-  static late final String _mobilePhone;
-  static late final String _address;
-  static late final String _streetAndHouseNo;
-  static late final String _zipCode;
-  static late final String _city;
+  static String? _specialty;
+  static String? _title;
+  static String? _practice;
+  static String? _firstName;
+  static String? _familyName;
+  static String? _email;
+  static String? _phoneNumber;
+  static String? _mobilePhone;
+  static String? _address;
+  static String? _streetAndHouseNo;
+  static String? _zipCode;
+  static String? _city;
 
   //State
   String? _selectedSubjectArea;
+  String? _selectedForm;
   String? _selectedFirstName;
   String? _selectedFamilyName;
   String? _selectedEmail;
@@ -92,7 +95,8 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
         _selectedMobilePhone!.isEmpty ||
         _selectedAddress!.isEmpty ||
         _selectedZipCode!.isEmpty ||
-        _selectedCity!.isEmpty) {
+        _selectedCity!.isEmpty ||
+        _selectedForm!.isEmpty) {
       setState(() {
         _disabledSave = true;
       });
@@ -131,6 +135,7 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
       _streetAndHouseNo = AppLocalizations.of(context)!.streetAndHouseNo;
       _zipCode = AppLocalizations.of(context)!.zipCode;
       _city = AppLocalizations.of(context)!.city;
+      _title = AppLocalizations.of(context)!.title;
     }
 
     return BlocBuilder<ObjectsListBloc<BackendPhysiciansApi>, ObjectsListState>(
@@ -144,7 +149,7 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 PicosLabel(
-                  _practice,
+                  _practice!,
                 ),
                 PicosSelect(
                   selection: _selection,
@@ -158,10 +163,22 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                   height: columnPadding,
                 ),
                 PicosLabel(
-                  _firstName,
+                  _title!,
+                ),
+                PicosFormOfAddress(
+                  callBackFunction: (String value) {
+                    _selectedForm = value;
+                    _checkInputs();
+                  },
+                ),
+                const SizedBox(
+                  height: columnPadding,
+                ),
+                PicosLabel(
+                  _firstName!,
                 ),
                 PicosTextField(
-                  hint: _firstName,
+                  hint: _firstName!,
                   keyboardType: TextInputType.name,
                   initialValue: _selectedFirstName,
                   onChanged: (String value) {
@@ -173,10 +190,10 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                   height: columnPadding,
                 ),
                 PicosLabel(
-                  _familyName,
+                  _familyName!,
                 ),
                 PicosTextField(
-                  hint: _familyName,
+                  hint: _familyName!,
                   keyboardType: TextInputType.name,
                   initialValue: _selectedFamilyName,
                   onChanged: (String value) {
@@ -188,10 +205,10 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                   height: columnPadding,
                 ),
                 PicosLabel(
-                  _email,
+                  _email!,
                 ),
                 PicosTextField(
-                  hint: _email,
+                  hint: _email!,
                   keyboardType: TextInputType.emailAddress,
                   initialValue: _selectedEmail,
                   onChanged: (String value) {
@@ -207,9 +224,9 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                     Expanded(
                       child: Column(
                         children: <Widget>[
-                          PicosLabel(_phoneNumber),
+                          PicosLabel(_phoneNumber!),
                           PicosTextField(
-                            hint: _phoneNumber,
+                            hint: _phoneNumber!,
                             keyboardType: TextInputType.phone,
                             initialValue: _selectedPhoneNumber,
                             onChanged: (String value) {
@@ -226,9 +243,9 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                     Expanded(
                       child: Column(
                         children: <Widget>[
-                          PicosLabel(_mobilePhone),
+                          PicosLabel(_mobilePhone!),
                           PicosTextField(
-                            hint: _mobilePhone,
+                            hint: _mobilePhone!,
                             keyboardType: TextInputType.phone,
                             initialValue: _selectedMobilePhone,
                             onChanged: (String value) {
@@ -244,9 +261,9 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                 const SizedBox(
                   height: columnPadding,
                 ),
-                PicosLabel(_address),
+                PicosLabel(_address!),
                 PicosTextField(
-                  hint: _streetAndHouseNo,
+                  hint: _streetAndHouseNo!,
                   keyboardType: TextInputType.streetAddress,
                   initialValue: _selectedAddress,
                   onChanged: (String value) {
@@ -261,7 +278,7 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                   children: <Widget>[
                     Expanded(
                       child: PicosTextField(
-                        hint: _zipCode,
+                        hint: _zipCode!,
                         keyboardType: TextInputType.streetAddress,
                         initialValue: _selectedZipCode,
                         onChanged: (String value) {
@@ -275,7 +292,7 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                     ),
                     Expanded(
                       child: PicosTextField(
-                        hint: _city,
+                        hint: _city!,
                         keyboardType: TextInputType.streetAddress,
                         initialValue: _selectedCity,
                         onChanged: (String value) {
