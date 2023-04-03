@@ -15,6 +15,7 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -27,7 +28,7 @@ class PicosFormOfAddress extends StatefulWidget {
   }) : super(key: key);
 
   /// The function that is executed when an item gets selected.
-  final Function(String value) callBackFunction;
+  final Function(FormOfAddress value) callBackFunction;
 
   @override
   State<PicosFormOfAddress> createState() => _PicosFormOfAddressState();
@@ -45,6 +46,27 @@ enum FormOfAddress {
   diverse,
 }
 
+/// Converter methods for [FormOfAddress].
+extension FormOfAddressConverter on FormOfAddress {
+  /// Takes [value] and returns the corresponding [FormOfAddress].
+  static FormOfAddress stringToFormOfAddress(String value) {
+    return FormOfAddress.values
+        .firstWhere((FormOfAddress element) => describeEnum(element) == value);
+  }
+
+  /// Returns the correct [String] representation of [FormOfAddress].
+  String toForm(BuildContext context) {
+    switch (this) {
+      case FormOfAddress.female:
+        return AppLocalizations.of(context)!.mrs;
+      case FormOfAddress.male:
+        return AppLocalizations.of(context)!.mr;
+      case FormOfAddress.diverse:
+        return '';
+    }
+  }
+}
+
 class _PicosFormOfAddressState extends State<PicosFormOfAddress> {
   static String? _mrs;
   static String? _mr;
@@ -53,7 +75,7 @@ class _PicosFormOfAddressState extends State<PicosFormOfAddress> {
   FormOfAddress? _groupValue;
 
   void _updateState(FormOfAddress value) {
-    widget.callBackFunction(value.name);
+    widget.callBackFunction(value);
 
     setState(() {
       _groupValue = value;
