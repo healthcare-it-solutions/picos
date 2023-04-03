@@ -36,13 +36,14 @@ class BackendPhysiciansApi extends BackendObjectsApi {
           Physician(
             subjectArea: element['SubjectArea'],
             form: element['Form'],
-            name: element['Name'],
+            practice: element['Name'],
             lastName: element['Lastname'],
             mail: element['Mail'],
             phone: element['Tele'],
             address: element['Address'],
             city:  element['City'],
             homepage:  element['Homepage'],
+            firstName: element['Firstname'],
           ),
         );
       }
