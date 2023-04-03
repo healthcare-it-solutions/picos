@@ -17,11 +17,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/models/patient.dart';
 import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_text_area.dart';
 import 'package:picos/widgets/picos_text_field.dart';
+
+import '../../../../widgets/picos_form_of_address.dart';
 
 /// Shows form for patient registration.
 class ConfigurationForm extends StatefulWidget {
