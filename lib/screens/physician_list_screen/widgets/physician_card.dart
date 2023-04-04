@@ -18,6 +18,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/api/backend_physicians_api.dart';
+import 'package:picos/widgets/picos_form_of_address.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../models/physician.dart';
 import '../../../state/objects_list_bloc.dart';
@@ -32,6 +34,14 @@ class PhysicianCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const double fontSize = 16;
+    const double padding = 2;
+    String form = _physician.form.toForm(context);
+
+    if (form.isNotEmpty) {
+      form = '$form ';
+    }
+
     return PicosListCard(
       edit: () {
         Navigator.of(context).pushNamed(
@@ -50,12 +60,52 @@ class PhysicianCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(_physician.form),
-            Text(_physician.name),
-            Text('${_physician.address} ${_physician.city}'),
-            Text(_physician.phone),
-            Text(_physician.mail),
-            Text(_physician.homepage),
+            Text(
+              _physician.practice,
+              style: const TextStyle(fontSize: fontSize),
+            ),
+            const SizedBox(
+              height: padding,
+            ),
+            Text(
+              '${form}Dr. ${_physician.firstName} ${_physician.lastName}',
+              style: const TextStyle(fontSize: fontSize),
+            ),
+            const SizedBox(
+              height: padding,
+            ),
+            Text(
+              _physician.address,
+              style: const TextStyle(fontSize: fontSize),
+            ),
+            const SizedBox(
+              height: padding,
+            ),
+            Text(
+              _physician.city,
+              style: const TextStyle(fontSize: fontSize),
+            ),
+            const SizedBox(
+              height: padding,
+            ),
+            Text(
+              '${AppLocalizations.of(context)!.phone} ${_physician.phone}',
+              style: const TextStyle(fontSize: fontSize),
+            ),
+            const SizedBox(
+              height: padding,
+            ),
+            Text(
+              _physician.mail,
+              style: const TextStyle(fontSize: fontSize),
+            ),
+            const SizedBox(
+              height: padding,
+            ),
+            Text(
+              _physician.homepage,
+              style: const TextStyle(fontSize: fontSize),
+            ),
           ],
         ),
       ),
