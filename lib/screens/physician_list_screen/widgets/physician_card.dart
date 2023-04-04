@@ -18,7 +18,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/api/backend_physicians_api.dart';
-import 'package:picos/widgets/picos_form_of_address.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../models/physician.dart';
@@ -36,11 +35,6 @@ class PhysicianCard extends StatelessWidget {
   Widget build(BuildContext context) {
     const double fontSize = 16;
     const double padding = 2;
-    String form = _physician.form.toForm(context);
-
-    if (form.isNotEmpty) {
-      form = '$form ';
-    }
 
     return PicosListCard(
       edit: () {
@@ -68,7 +62,7 @@ class PhysicianCard extends StatelessWidget {
               height: padding,
             ),
             Text(
-              '${form}Dr. ${_physician.firstName} ${_physician.lastName}',
+              'Dr. ${_physician.firstName} ${_physician.lastName}',
               style: const TextStyle(fontSize: fontSize),
             ),
             const SizedBox(
