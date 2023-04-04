@@ -213,5 +213,6 @@
     "streetAndHouseNo": "Straße,  Hausnr.",
     "zipCode": "PLZ",
     "city": "Stadt",
-    "isInvalid": "ist unzulässig"
+    "isInvalid": "ist unzulässig",
+    "phone": "Tel."
 }

@@ -972,5 +972,9 @@
     "isInvalid": "is invalid",
     "@isInvalid": {
         "description": "is invalid"
+    },
+    "phone": "Phone",
+    "@phone": {
+        "description": "Phone"
     }
 }
