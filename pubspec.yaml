@@ -39,9 +39,9 @@ dependencies:
   flutter_bloc: ^8.1.2
   equatable: ^2.0.5
   fl_chart: ^0.61.0
-  parse_server_sdk: ^4.0.0
+  parse_server_sdk: ^4.0.2
   queen_validators: ^1.0.1
-  flutter_svg: ^2.0.2
+  flutter_svg: ^2.0.4
 
 dev_dependencies:
   flutter_launcher_icons: ^0.12.0
