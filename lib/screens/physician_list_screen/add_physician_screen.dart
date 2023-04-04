@@ -22,7 +22,6 @@ import 'package:picos/api/backend_physicians_api.dart';
 import 'package:picos/models/physician.dart';
 import 'package:picos/state/objects_list_bloc.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
-import 'package:picos/widgets/picos_form_of_address.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:picos/widgets/picos_text_field.dart';
@@ -43,7 +42,6 @@ class AddPhysicianScreen extends StatefulWidget {
 class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
   static final List<String> _selection = <String>[];
   static String? _specialty;
-  static String? _title;
   static String? _practice;
   static String? _firstName;
   static String? _familyName;
@@ -57,7 +55,6 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
 
   //State
   String? _selectedSubjectArea;
-  FormOfAddress? _selectedForm;
   String? _selectedFirstName;
   String? _selectedFamilyName;
   String? _selectedEmail;
@@ -66,6 +63,8 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
   String? _selectedCity;
   String? _selectedWebsite;
   String? _selectedPractice;
+  Physician? _physicianEdit;
+  String? _title;
 
   bool _disabledSave = true;
 
@@ -79,7 +78,6 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
         _selectedAddress == null ||
         _selectedPractice == null ||
         _selectedCity == null ||
-        _selectedForm == null ||
         _selectedSubjectArea!.isEmpty ||
         _selectedFirstName!.isEmpty ||
         _selectedFamilyName!.isEmpty ||
@@ -102,6 +100,8 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
 
   @override
   Widget build(BuildContext context) {
+    _title = AppLocalizations.of(context)!.addPhysician;
+
     if (_selection.isEmpty) {
       _selection.add(AppLocalizations.of(context)!.ophthalmology);
       _selection.add(AppLocalizations.of(context)!.gynecology);
@@ -130,11 +130,29 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
       _website = AppLocalizations.of(context)!.website;
     }
 
+    Object? physicianEdit = ModalRoute.of(context)!.settings.arguments;
+
+    if (_physicianEdit == null && physicianEdit != null) {
+      _title = AppLocalizations.of(context)!.editPhysician;
+      _physicianEdit = physicianEdit as Physician;
+
+      _selectedSubjectArea = _physicianEdit!.subjectArea;
+      _selectedFirstName = _physicianEdit!.firstName;
+      _selectedFamilyName = _physicianEdit!.lastName;
+      _selectedEmail = _physicianEdit!.mail;
+      _selectedPhoneNumber = _physicianEdit!.phone;
+      _selectedAddress = _physicianEdit!.address;
+      _selectedCity = _physicianEdit!.city;
+      _selectedWebsite = _physicianEdit!.homepage;
+      _selectedPractice = _physicianEdit!.practice;
+    }
+
     return BlocBuilder<ObjectsListBloc<BackendPhysiciansApi>, ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
         const double columnPadding = 10;
 
         return PicosScreenFrame(
+          title: _title,
           body: PicosBody(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -156,15 +174,8 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                     _selectedSubjectArea = value;
                     _checkInputs();
                   },
-                  hint: _selectedSubjectArea ?? _specialty,
-                ),
-                const SizedBox(height: columnPadding),
-                PicosLabel(_title!),
-                PicosFormOfAddress(
-                  callBackFunction: (FormOfAddress value) {
-                    _selectedForm = value;
-                    _checkInputs();
-                  },
+                  initialValue: _selectedSubjectArea,
+                  hint: _specialty,
                 ),
                 const SizedBox(height: columnPadding),
                 PicosLabel(_firstName!),
@@ -260,7 +271,6 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                 mail: _selectedEmail!,
                 phone: _selectedPhoneNumber!,
                 subjectArea: _selectedSubjectArea!,
-                form: _selectedForm!,
                 firstName: _selectedFirstName!,
               );
 
