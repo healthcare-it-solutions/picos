@@ -372,6 +372,10 @@
     "@addPhysician": {
         "description": "Add physician"
     },
+    "editPhysician": "Edit physician",
+    "@editPhysician": {
+        "description": "Edit physician"
+    },
 
     "chooseField": "Choose your medical field",
     "@chooseField": {
