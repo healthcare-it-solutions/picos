@@ -25,10 +25,14 @@ class PicosFormOfAddress extends StatefulWidget {
   const PicosFormOfAddress({
     required this.callBackFunction,
     Key? key,
+    this.initialValue,
   }) : super(key: key);
 
   /// The function that is executed when an item gets selected.
   final Function(FormOfAddress value) callBackFunction;
+
+  /// A [FormOfAddress] that is optionally preselected.
+  final FormOfAddress? initialValue;
 
   @override
   State<PicosFormOfAddress> createState() => _PicosFormOfAddressState();
@@ -80,6 +84,16 @@ class _PicosFormOfAddressState extends State<PicosFormOfAddress> {
     setState(() {
       _groupValue = value;
     });
+  }
+
+  @override
+  initState() {
+    if (widget.initialValue != null) {
+      setState(() {
+        _groupValue = widget.initialValue;
+      });
+    }
+    super.initState();
   }
 
   @override
