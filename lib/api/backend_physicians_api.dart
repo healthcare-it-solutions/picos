@@ -22,7 +22,6 @@ import 'package:picos/models/physician.dart';
 import '../models/abstract_database_object.dart';
 import '../models/therapy.dart';
 import '../util/backend.dart';
-import '../widgets/picos_form_of_address.dart';
 import 'backend_objects_api.dart';
 
 /// API for storing physicians at the backend.
@@ -36,7 +35,6 @@ class BackendPhysiciansApi extends BackendObjectsApi {
         objectList.add(
           Physician(
             subjectArea: element['SubjectArea'],
-            form: FormOfAddressConverter.stringToFormOfAddress(element['Form']),
             practice: element['Name'],
             lastName: element['Lastname'],
             mail: element['Mail'],

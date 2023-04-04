@@ -30,7 +30,6 @@ class Physician extends AbstractDatabaseObject {
     required this.mail,
     required this.phone,
     required this.subjectArea,
-    required this.form,
     required this.firstName,
     String? objectId,
     DateTime? createdAt,
@@ -39,9 +38,6 @@ class Physician extends AbstractDatabaseObject {
 
   /// Subject area of the physician.
   final String subjectArea;
-
-  /// The gender of the physician.
-  final FormOfAddress form;
 
   /// Name of the practice
   final String practice;
@@ -94,7 +90,6 @@ class Physician extends AbstractDatabaseObject {
   }) {
     return Physician(
       firstName: firstName ?? this.firstName,
-      form: form ?? this.form,
       practice: practice ?? this.practice,
       address: address ?? this.address,
       city: city ?? this.city,
@@ -111,7 +106,6 @@ class Physician extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-        form,
         practice,
         address,
         city,
@@ -125,7 +119,6 @@ class Physician extends AbstractDatabaseObject {
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
-        'Form': form.name,
         'Name': practice,
         'Address': address,
         'City': city,
