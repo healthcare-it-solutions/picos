@@ -262,17 +262,29 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
           bottomNavigationBar: PicosAddButtonBar(
             disabled: _disabledSave,
             onTap: () {
-              Physician physician = Physician(
-                practice: _selectedPractice!,
-                address: _selectedAddress!,
-                city: _selectedCity!,
-                homepage: _selectedWebsite!,
-                lastName: _selectedFamilyName!,
-                mail: _selectedEmail!,
-                phone: _selectedPhoneNumber!,
-                subjectArea: _selectedSubjectArea!,
-                firstName: _selectedFirstName!,
-              );
+              Physician physician = _physicianEdit != null
+                  ? _physicianEdit!.copyWith(
+                      practice: _selectedPractice!,
+                      address: _selectedAddress!,
+                      city: _selectedCity!,
+                      homepage: _selectedWebsite!,
+                      lastName: _selectedFamilyName!,
+                      mail: _selectedEmail!,
+                      phone: _selectedPhoneNumber!,
+                      subjectArea: _selectedSubjectArea!,
+                      firstName: _selectedFirstName!,
+                    )
+                  : Physician(
+                      practice: _selectedPractice!,
+                      address: _selectedAddress!,
+                      city: _selectedCity!,
+                      homepage: _selectedWebsite!,
+                      lastName: _selectedFamilyName!,
+                      mail: _selectedEmail!,
+                      phone: _selectedPhoneNumber!,
+                      subjectArea: _selectedSubjectArea!,
+                      firstName: _selectedFirstName!,
+                    );
 
               context
                   .read<ObjectsListBloc<BackendPhysiciansApi>>()
