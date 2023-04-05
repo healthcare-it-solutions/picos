@@ -62,7 +62,7 @@ class Relative extends AbstractDatabaseObject {
     return databaseTable;
   }
 
-  /// Returns a copy of this physician with the given values updated.
+  /// Returns a copy of this relative with the given values updated.
   @override
   Relative copyWith({
     String? type,
