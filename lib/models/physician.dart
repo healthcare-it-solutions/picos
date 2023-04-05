@@ -16,7 +16,6 @@
 */
 
 import 'package:picos/models/abstract_database_object.dart';
-import 'package:picos/widgets/picos_form_of_address.dart';
 
 /// Class with physician information.
 class Physician extends AbstractDatabaseObject {
@@ -74,7 +73,6 @@ class Physician extends AbstractDatabaseObject {
   /// Returns a copy of this physician with the given values updated.
   @override
   Physician copyWith({
-    FormOfAddress? form,
     String? practice,
     String? address,
     String? city,
