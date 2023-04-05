@@ -21,6 +21,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/api/backend_medications_api.dart';
 import 'package:picos/api/backend_physicians_api.dart';
+import 'package:picos/api/backend_relatives_api.dart';
 import 'package:picos/api/backend_stays_api.dart';
 import 'package:picos/api/backend_therapies_api.dart';
 import 'package:picos/api/database_object_api.dart';
@@ -63,6 +64,12 @@ class MainScreen extends StatelessWidget {
           create: (BuildContext context) =>
           ObjectsListBloc<BackendPhysiciansApi>(
             BackendPhysiciansApi(),
+          )..add(const ObjectsListSubscriptionRequested()),
+        ),
+        BlocProvider<ObjectsListBloc<BackendRelativesApi>>(
+          create: (BuildContext context) =>
+          ObjectsListBloc<BackendRelativesApi>(
+            BackendRelativesApi(),
           )..add(const ObjectsListSubscriptionRequested()),
         ),
       ],
