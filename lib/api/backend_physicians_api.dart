@@ -20,7 +20,6 @@ import 'dart:async';
 import 'package:picos/models/physician.dart';
 
 import '../models/abstract_database_object.dart';
-import '../models/therapy.dart';
 import '../util/backend.dart';
 import 'backend_objects_api.dart';
 
@@ -52,7 +51,7 @@ class BackendPhysiciansApi extends BackendObjectsApi {
 
       return getObjectsStream();
     } catch (e) {
-      return Stream<List<Therapy>>.error(e);
+      return Stream<List<Physician>>.error(e);
     }
   }
 }
