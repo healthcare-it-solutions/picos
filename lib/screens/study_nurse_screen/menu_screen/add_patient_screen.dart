@@ -18,15 +18,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/api/backend_medications_api.dart';
-import 'package:picos/api/backend_patient_api.dart';
+import 'package:picos/api/backend_patient_profile_api.dart';
 import 'package:picos/models/patient.dart';
+import 'package:picos/models/patient_profile.dart';
 import 'package:picos/state/objects_list_bloc.dart';
+import 'package:picos/util/backend.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
 import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
-import 'package:picos/widgets/picos_text_field.dart';
 
 /// A screen for adding new medication schedules.
 class AddPatientScreen extends StatefulWidget {
@@ -38,23 +38,49 @@ class AddPatientScreen extends StatefulWidget {
 }
 
 class _AddPatientScreenState extends State<AddPatientScreen> {
-  /// The denotation for the first name.
-  String _firstName = '';
+  /// Local variable for weight and BMI.
+  late bool _weightBMI;
 
-  /// The denotation for the last name.
-  String _lastName = '';
+  /// Local variable for heart frequency.
+  late bool _heartFrequency;
 
-  /// The denotation for the form of address.
-  String _formOfAddress = '';
+  /// Local variable for blood pressure.
+  late bool _bloodPressure;
 
-  /// The denotation for phone number.
-  String _number = '';
+  /// Local variable for blood sugar levels.
+  late bool _bloodSugarLevels;
 
-  /// The denotation for email.
-  String _email = '';
+  /// Local variable for walk distance.
+  late bool _walkDistance;
 
-  /// The denotation for address.
-  String _address = '';
+  /// Local variable for sleep duration.
+  late bool _sleepDuration;
+
+  /// Local variable for sleep quality.
+  late bool _sleepQuality;
+
+  /// Local variable for pain.
+  late bool _pain;
+
+  /// Local variable for blood PHQ4.
+  late bool _phq4;
+
+  /// Local variable for medication.
+  late bool _medication;
+
+  /// Local variable for therapy.
+  late bool _therapy;
+
+  /// Local variable for doctor visits.
+  late bool _doctorsVisit;
+
+  late String _caseNumber;
+
+  late String _patientID;
+
+  late String _instituteKey;
+
+  late String height;
 
   /// Determines if you are able to add the medication.
   bool _addDisabled = true;
@@ -63,208 +89,198 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
 
   Patient? _patientEdit;
 
-  late String _firstNameHint;
-  late String _lastNameHint;
-  late String _formOfAddressHint;
-  late String _numberHint;
-  late String _emailHint;
-  late String _addressHint;
+  Map<String, dynamic>? _patientProfileElement;
+
+  Future<bool> _allProfileQEntries() async {
+    if (_patientProfileElement != null) return true;
+
+    List<dynamic> listPatientProfile =
+        await Backend.getAll(PatientProfile.databaseTable);
+
+    _patientProfileElement = listPatientProfile.firstWhere(
+      (dynamic element) =>
+          element['Patient']['objectId'] == _patientEdit!.objectId,
+    );
+
+    _weightBMI = _patientProfileElement!['Weight_BMI'];
+    _heartFrequency = _patientProfileElement!['HeartRate'];
+    _bloodPressure = _patientProfileElement!['BloodPressure'];
+    _bloodSugarLevels = _patientProfileElement!['BloodSugar'];
+    _walkDistance = _patientProfileElement!['WalkingDistance'];
+    _sleepDuration = _patientProfileElement!['SleepDuration'];
+    _sleepQuality = _patientProfileElement!['SISQS'];
+    _pain = _patientProfileElement!['Pain'];
+    _phq4 = _patientProfileElement!['PHQ4'];
+    _medication = _patientProfileElement!['Medication'];
+    _therapy = _patientProfileElement!['Therapies'];
+    _doctorsVisit = _patientProfileElement!['Stays'];
+
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
-    if (_title == null) {
-      _title = 'Edit Patient';
-      _firstNameHint = 'Please enter the first name.';
-      _lastNameHint = 'Please enter the last name.';
-      _emailHint = 'Please enter the email address.';
-      _numberHint = 'Please enter the phone number.';
-      _addressHint = 'Please enter the address.';
-      _formOfAddressHint = 'Please enter the form of Address';
-    }
+    _title ??= 'Edit Patient information';
 
-    Object? patientEdit = ModalRoute.of(context)!.settings.arguments;
+    _patientEdit = ModalRoute.of(context)!.settings.arguments as Patient;
 
-    if (_patientEdit == null && patientEdit != null) {
-      _patientEdit = patientEdit as Patient;
+    return FutureBuilder<bool>(
+      future: _allProfileQEntries(),
+      builder: ((BuildContext context, AsyncSnapshot<bool> snapshot) {
+        if (!snapshot.hasData && !snapshot.hasError) {
+          return const CircularProgressIndicator();
+        }
 
-      _firstName = _patientEdit!.firstName!;
-      _lastName = _patientEdit!.familyName!;
-      _email = _patientEdit!.email;
-      _number = _patientEdit!.number!;
-      _address = _patientEdit!.address!;
-      _formOfAddress = _patientEdit!.formOfAddress!;
-
-      _firstNameHint = _patientEdit!.firstName!;
-      _lastNameHint = _patientEdit!.familyName!;
-      _emailHint = _patientEdit!.email;
-      _numberHint = _patientEdit!.number!;
-      _addressHint = _patientEdit!.address!;
-      _formOfAddressHint = _patientEdit!.formOfAddress!;
-    }
-
-    return BlocBuilder<ObjectsListBloc<BackendMedicationsApi>,
-        ObjectsListState>(
-      builder: (BuildContext context, ObjectsListState state) {
-        return PicosScreenFrame(
-          body: PicosBody(
-            child: Column(
-              children: <Widget>[
-                PicosLabel(AppLocalizations.of(context)!.firstName),
-                PicosTextField(
-                  onChanged: (String value) {
-                    _firstName = value;
-
-                    setState(() {
-                      if (value.isNotEmpty) {
-                        _addDisabled = false;
-                        return;
-                      }
-
-                      _addDisabled = true;
-                    });
-                  },
-                  hint: _firstNameHint,
-                  initialValue: _firstName,
+        return BlocBuilder<ObjectsListBloc<BackendPatientProfileApi>,
+            ObjectsListState>(
+          builder: (BuildContext context, ObjectsListState state) {
+            return PicosScreenFrame(
+              body: PicosBody(
+                child: Column(
+                  children: <Widget>[
+                    PicosLabel(AppLocalizations.of(context)!.vitalValues),
+                    SwitchListTile(
+                      value: _weightBMI,
+                      onChanged: (bool value) {
+                        setState(() {
+                          _addDisabled = false;
+                          _weightBMI = value;
+                        });
+                      },
+                      secondary: const Icon(Icons.monitor_weight_outlined),
+                      title: Text(
+                        AppLocalizations.of(context)!.weightBMI,
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                      shape: const Border(
+                        bottom: BorderSide(color: Colors.grey),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    SwitchListTile(
+                      value: _heartFrequency,
+                      onChanged: (bool value) {
+                        setState(() {
+                          _addDisabled = false;
+                        });
+                        _heartFrequency = value;
+                      },
+                      secondary: const Icon(Icons.monitor_heart_outlined),
+                      title: Text(
+                        AppLocalizations.of(context)!.heartFrequency,
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                      shape: const Border(
+                        bottom: BorderSide(color: Colors.grey),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    SwitchListTile(
+                      value: _bloodPressure,
+                      onChanged: (bool value) {
+                        setState(() {
+                          _addDisabled = false;
+                        });
+                        _bloodPressure = value;
+                      },
+                      secondary: const Icon(Icons.bloodtype_outlined),
+                      title: Text(
+                        AppLocalizations.of(context)!.bloodPressure,
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                      shape: const Border(
+                        bottom: BorderSide(color: Colors.grey),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    SwitchListTile(
+                      value: _bloodSugarLevels,
+                      onChanged: (bool value) {
+                        setState(() {
+                          _addDisabled = false;
+                        });
+                        _bloodSugarLevels = value;
+                      },
+                      secondary: const Icon(Icons.device_thermostat_outlined),
+                      title: Text(
+                        AppLocalizations.of(context)!.bloodSugar,
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                      shape: const Border(
+                        bottom: BorderSide(color: Colors.grey),
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  height: 25,
-                ),
-                PicosLabel(AppLocalizations.of(context)!.familyName),
-                PicosTextField(
-                  onChanged: (String value) {
-                    _lastName = value;
-
-                    setState(() {
-                      if (value.isNotEmpty) {
-                        _addDisabled = false;
-                        return;
-                      }
-
-                      _addDisabled = true;
-                    });
-                  },
-                  hint: _lastNameHint,
-                  initialValue: _lastName,
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                PicosLabel(AppLocalizations.of(context)!.email),
-                PicosTextField(
-                  onChanged: (String value) {
-                    _email = value;
-
-                    setState(() {
-                      if (value.isNotEmpty) {
-                        _addDisabled = false;
-                        return;
-                      }
-
-                      _addDisabled = true;
-                    });
-                  },
-                  hint: _emailHint,
-                  initialValue: _email,
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                PicosLabel(AppLocalizations.of(context)!.phoneNumber),
-                PicosTextField(
-                  onChanged: (String value) {
-                    _number = value;
-
-                    setState(() {
-                      if (value.isNotEmpty) {
-                        _addDisabled = false;
-                        return;
-                      }
-
-                      _addDisabled = true;
-                    });
-                  },
-                  hint: _numberHint,
-                  initialValue: _number,
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                PicosLabel(AppLocalizations.of(context)!.address),
-                PicosTextField(
-                  onChanged: (String value) {
-                    _address = value;
-
-                    setState(() {
-                      if (value.isNotEmpty) {
-                        _addDisabled = false;
-                        return;
-                      }
-
-                      _addDisabled = true;
-                    });
-                  },
-                  hint: _addressHint,
-                  initialValue: _address,
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                PicosLabel(AppLocalizations.of(context)!.title),
-                PicosTextField(
-                  onChanged: (String value) {
-                    _formOfAddress = value;
-
-                    setState(() {
-                      if (value.isNotEmpty) {
-                        _addDisabled = false;
-                        return;
-                      }
-
-                      _addDisabled = true;
-                    });
-                  },
-                  hint: _formOfAddressHint,
-                  initialValue: _formOfAddress,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-              ],
-            ),
-          ),
-          title: _title,
-          bottomNavigationBar: PicosAddButtonBar(
-            disabled: _addDisabled,
-            onTap: () {
-              Patient patient = _patientEdit ??
-                  Patient(
-                    formOfAddress: _formOfAddress,
-                    firstName: _firstName,
-                    familyName: _lastName,
-                    email: _email,
-                    number: _number,
-                    address: _address,
+              ),
+              title: _title,
+              bottomNavigationBar: PicosAddButtonBar(
+                disabled: _addDisabled,
+                onTap: () {
+                  PatientProfile patientProfile = PatientProfile(
+                    weightBMIEnabled: _weightBMI,
+                    heartFrequencyEnabled: _heartFrequency,
+                    bloodPressureEnabled: _bloodPressure,
+                    bloodSugarLevelsEnabled: _bloodSugarLevels,
+                    walkDistanceEnabled: _walkDistance,
+                    sleepDurationEnabled: _sleepDuration,
+                    sleepQualityEnabled: _sleepQuality,
+                    painEnabled: _pain,
+                    phq4Enabled: _phq4,
+                    medicationEnabled: _medication,
+                    therapyEnabled: _therapy,
+                    doctorsVisitEnabled: _doctorsVisit,
+                    patientObjectId: _patientProfileElement!['Patient']
+                        ['ObjectId'],
+                    doctorObjectId: _patientProfileElement!['Doctor']
+                        ['ObjectId'],
                   );
 
-              if (_patientEdit != null) {
-                patient = patient.copyWith(
-                  formOfAddress: _formOfAddress,
-                  firstName: _firstName,
-                  familyName: _lastName,
-                  email: _email,
-                  number: _number,
-                  address: _address,
-                );
-              }
+                  if (_patientEdit != null) {
+                    patientProfile = patientProfile.copyWith(
+                      weightBMIEnabled: _weightBMI,
+                      heartFrequencyEnabled: _heartFrequency,
+                      bloodPressureEnabled: _bloodPressure,
+                      bloodSugarLevelsEnabled: _bloodSugarLevels,
+                      walkDistanceEnabled: _walkDistance,
+                      sleepDurationEnabled: _sleepDuration,
+                      sleepQualityEnabled: _sleepQuality,
+                      painEnabled: _pain,
+                      phq4Enabled: _phq4,
+                      medicationEnabled: _medication,
+                      therapyEnabled: _therapy,
+                      doctorsVisitEnabled: _doctorsVisit,
+                      patientObjectId: _patientProfileElement!['Patient']
+                          ['objectId'],
+                      doctorObjectId: _patientProfileElement!['Doctor']
+                          ['objectId'],
+                    );
+                  }
 
-              context
-                  .read<ObjectsListBloc<BackendPatientApi>>()
-                  .add(SaveObject(patient));
-              Navigator.of(context).pop();
-            },
-          ),
+                  context
+                      .read<ObjectsListBloc<BackendPatientProfileApi>>()
+                      .add(SaveObject(patientProfile));
+                  Navigator.of(context).pop();
+                },
+              ),
+            );
+          },
         );
-      },
+      }),
     );
   }
 }
