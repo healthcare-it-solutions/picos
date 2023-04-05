@@ -222,7 +222,10 @@
     "@phoneNumber": {
         "description": "Telephone number"
     },
-
+    "mobilePhone": "Cell phone",
+    "@mobilePhone": {
+        "description": "Cell phone"
+    },
     "address": "Address",
     "@address": {
         "description": "Address"
@@ -312,27 +315,54 @@
     "@website": {
         "description": "Website"
     },
-
-    "familyDoctor": "Family doctor",
-    "@familyDoctor": {
-        "description": "Family doctor"
+    "ophthalmology": "Ophthalmology",
+    "@ophthalmology": {
+        "description": "Ophthalmology"
     },
-
-    "cardiologist": "Cardiologist",
-    "@cardiologist": {
-        "description": "Cardiologist"
+    "gynecology": "Gynecology",
+    "@gynecology": {
+        "description": "Gynecology"
     },
-
-    "nephrologist": "Nephrologist",
-    "@nephrologist": {
-        "description": "Nephrologist"
+    "otolaryngology": "Otolaryngology",
+    "@otolaryngology": {
+        "description": "Otolaryngology"
     },
-
-    "neurologist": "Neurologist",
-    "@neurologist": {
-        "description": "Neurologist"
+    "generalPractitioner": "General practitioner",
+    "@generalPractitioner": {
+        "description": "General practitioner"
     },
-
+    "skinAndVenerealDiseases": "Skin and venereal diseases",
+    "@skinAndVenerealDiseases": {
+        "description": "Skin and venereal diseases"
+    },
+    "internalMedicine": "Internal medicine",
+    "@internalMedicine": {
+        "description": "Internal medicine"
+    },
+    "microbiology": "Microbiology",
+    "@microbiology": {
+        "description": "Microbiology"
+    },
+    "neurology": "Neurology",
+    "@neurology": {
+        "description": "Neurology"
+    },
+    "pathology": "Pathology",
+    "@pathology": {
+        "description": "Pathology"
+    },
+    "pulmonology": "Pulmonology",
+    "@pulmonology": {
+        "description": "Pulmonology"
+    },
+    "psychiatry": "Psychiatry",
+    "@psychiatry": {
+        "description": "Psychiatry"
+    },
+    "urology": "Urology",
+    "@urology": {
+        "description": "Urology"
+    },
     "addFamilyMember": "Add family member",
     "@addFamilyMember": {
         "description": "Add family member"
@@ -341,6 +371,10 @@
     "addPhysician": "Add physician",
     "@addPhysician": {
         "description": "Add physician"
+    },
+    "editPhysician": "Edit physician",
+    "@editPhysician": {
+        "description": "Edit physician"
     },
 
     "chooseField": "Choose your medical field",
@@ -923,8 +957,28 @@
     "@needHelp": {
         "description": "Do you need help or have a question about using the PICOS app?"
     },
+    "specialty": "Specialty",
+    "@specialty": {
+        "description": "Specialty"
+    },
+    "streetAndHouseNo": "Street, house no.",
+    "@streetAndHouseNo": {
+        "description": "Street, house no."
+    },
+    "zipCode": "ZIP CODE",
+    "@zipCode": {
+        "description": "ZIP CODE"
+    },
+    "city": "City",
+    "@city": {
+        "description": "City"
+    },
     "isInvalid": "is invalid",
     "@isInvalid": {
         "description": "is invalid"
+    },
+    "phone": "Phone",
+    "@phone": {
+        "description": "Phone"
     }
 }
