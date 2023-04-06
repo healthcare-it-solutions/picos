@@ -54,10 +54,15 @@ class MyHealthSection extends StatelessWidget {
               routeName: '/physician-list-screen/physicians',
             ),
             Tile(
+              imageName: 'assets/Angehoerige.png',
+              sectionName: AppLocalizations.of(context)!.myFamilyMembers,
+              routeName: '/family-member-list-screen/family-members',
+            ),
+            Tile(
               imageName: 'assets/Rehospitalisierung_1225743855_┬®iStock.png',
               sectionName: AppLocalizations.of(context)!.visits,
               routeName: '/visits-screen/visits',
-            )
+            ),
           ],
         ),
       ),
