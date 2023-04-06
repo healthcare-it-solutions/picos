@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_add_mono_button_bar.dart';
+import 'package:picos/widgets/picos_list_card_buttons.dart';
 
 import '/../widgets/picos_list_card.dart';
 
@@ -71,6 +72,7 @@ class CustomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return PicosListCard(
       title: memberType,
+      button: const PicosListCardButtons(edit: null, delete: null,),
       child: SizedBox(
         width: double.infinity,
         child: Column(
