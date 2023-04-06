@@ -15,7 +15,6 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/api/backend_physicians_api.dart';
@@ -36,8 +35,7 @@ class PhysiciansList extends StatefulWidget {
 class _PhysiciansListState extends State<PhysiciansList> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ObjectsListBloc<BackendPhysiciansApi>,
-        ObjectsListState>(
+    return BlocBuilder<ObjectsListBloc<BackendPhysiciansApi>, ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
         if (state.objectsList.isEmpty &&
             state.status == ObjectsListStatus.loading) {
