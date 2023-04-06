@@ -260,6 +260,22 @@
     "@husband": {
         "description": "Husband"
     },
+    "spouse": "Spouse",
+    "@spouse": {
+        "description": "Spouse"
+    },
+    "siblings": "Siblings",
+    "@siblings": {
+        "description": "Siblings"
+    },
+    "roommate": "Roommate",
+    "@roommate": {
+        "description": "Roommate"
+    },
+    "otherRelatives": "Other relatives",
+    "@otherRelatives": {
+        "description": "Other relatives"
+    },
 
     "wife": "Wife",
     "@wife": {
