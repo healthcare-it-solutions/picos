@@ -58,6 +58,8 @@
     "siblings": "Geschwister",
     "roommates": "Mitbewohner",
     "otherRelatives": "Andere Verwandte",
+    "editFamilyMember": "Angehörige/n bearbeiten",
+    "typeOfRelation": "Art der Beziehung",
     "entryEmail": "Bitte geben Sie die E-Mail-Adresse ein!",
     "entryValidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein!",
     "entryFirstName": "Bitte geben Sie den Vornamen ein!",

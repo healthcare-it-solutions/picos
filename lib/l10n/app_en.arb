@@ -276,6 +276,14 @@
     "@otherRelatives": {
         "description": "Other relatives"
     },
+    "editFamilyMember": "Edit family member",
+    "@editFamilyMember": {
+        "description": "Edit family member"
+    },
+    "typeOfRelation": "Type of relation",
+    "@typeOfRelation": {
+        "description": "Type of relation"
+    },
 
     "wife": "Wife",
     "@wife": {
