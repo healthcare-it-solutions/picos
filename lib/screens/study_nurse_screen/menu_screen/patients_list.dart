@@ -37,6 +37,7 @@ class _PatientsListState extends State<PatientsList> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
+      // ignore: always_specify_types
       listeners: [
         BlocListener<ObjectsListBloc<BackendPatientApi>, ObjectsListState>(
           listener: (BuildContext context, ObjectsListState state) {},

@@ -149,6 +149,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
         }
 
         return MultiBlocListener(
+          // ignore: always_specify_types
           listeners: [
             BlocListener<ObjectsListBloc<BackendPatientProfileApi>,
                 ObjectsListState>(
