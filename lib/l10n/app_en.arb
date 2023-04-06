@@ -268,9 +268,9 @@
     "@siblings": {
         "description": "Siblings"
     },
-    "roommate": "Roommate",
-    "@roommate": {
-        "description": "Roommate"
+    "roommates": "Roommates",
+    "@roommates": {
+        "description": "Roommates"
     },
     "otherRelatives": "Other relatives",
     "@otherRelatives": {
