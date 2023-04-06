@@ -16,10 +16,13 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:picos/api/backend_relatives_api.dart';
 import 'package:picos/widgets/picos_list_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../models/relative.dart';
+import '../../../state/objects_list_bloc.dart';
 
 /// The card displaying a family member.
 class RelativeCard extends StatelessWidget {
@@ -34,6 +37,17 @@ class RelativeCard extends StatelessWidget {
     const double padding = 2;
 
     return PicosListCard(
+      edit: () {
+        Navigator.of(context).pushNamed(
+          '/family-member-list-screen/add-family-member',
+          arguments: _relative,
+        );
+      },
+      delete: () {
+        context
+            .read<ObjectsListBloc<BackendRelativesApi>>()
+            .add(RemoveObject(_relative));
+      },
       title: _relative.type,
       child: SizedBox(
         width: double.infinity,
