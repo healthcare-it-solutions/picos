@@ -16,29 +16,35 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:picos/api/backend_patient_api.dart';
 import 'package:picos/models/patient.dart';
+import 'package:picos/models/patient_data.dart';
 import 'package:picos/screens/study_nurse_screen/menu_screen/patient_card_tile.dart';
-import 'package:picos/state/objects_list_bloc.dart';
 import 'package:picos/widgets/picos_list_card.dart';
+import 'package:picos/widgets/picos_list_card_mono_button.dart';
 
 /// The card displaying patient information.
 class PatientCard extends StatelessWidget {
   /// Creates the card with the patient.
   const PatientCard(
-    this._patient, {
+    this._patient,
+    this._patientData, {
     Key? key,
   }) : super(key: key);
 
   final Patient _patient;
 
+  final PatientData _patientData;
+
   _createCardColumn(
     BuildContext context,
-    String denotationTop,
-    String valueTop,
-    String denotationBottom,
-    String valueBottom,
+    String firstDenotation,
+    String firstValue,
+    String secondDenotation,
+    String secondValue,
+    String thirdDenotation,
+    String thirdValue,
+    String fourthDenotation,
+    String fourthValue,
   ) {
     const double dividerThickness = 1.5;
 
@@ -51,14 +57,28 @@ class PatientCard extends StatelessWidget {
           children: <Widget>[
             Container(
               padding: const EdgeInsets.only(right: 15),
-              child: PatientCardTile(denotationTop, valueTop),
+              child: PatientCardTile(firstDenotation, firstValue),
             ),
             const Divider(
               thickness: dividerThickness,
             ),
             Container(
               padding: const EdgeInsets.only(right: 15),
-              child: PatientCardTile(denotationBottom, valueBottom),
+              child: PatientCardTile(secondDenotation, secondValue),
+            ),
+            const Divider(
+              thickness: dividerThickness,
+            ),
+            Container(
+              padding: const EdgeInsets.only(right: 15),
+              child: PatientCardTile(thirdDenotation, thirdValue),
+            ),
+            const Divider(
+              thickness: dividerThickness,
+            ),
+            Container(
+              padding: const EdgeInsets.only(right: 15),
+              child: PatientCardTile(fourthDenotation, fourthValue),
             ),
             const Divider(
               thickness: dividerThickness,
@@ -73,32 +93,26 @@ class PatientCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return PicosListCard(
       title: '${_patient.firstName} ${_patient.familyName}',
-      edit: () {
-        Navigator.of(context).pushNamed(
-          '/study-nurse-screen/menu-screen/add-patient',
-          arguments: _patient,
-        );
-      },
-      delete: () {
-        context
-            .read<ObjectsListBloc<BackendPatientApi>>()
-            .add(RemoveObject(_patient));
-      },
+      button: PicosListCardMonoButton(
+        edit: () {
+          Navigator.of(context).pushNamed(
+            '/study-nurse-screen/menu-screen/add-patient',
+            arguments: _patient,
+          );
+        },
+      ),
       child: Row(
         children: <Expanded>[
           _createCardColumn(
             context,
             'Email Address',
             _patient.email,
-            'Form',
-            _patient.formOfAddress!,
-          ),
-          _createCardColumn(
-            context,
-            'Phone Number',
-            _patient.number!,
             'Address',
             _patient.address!,
+            'PatientID',
+            _patientData.patientID,
+            'Case Number',
+            _patientData.caseNumber,
           ),
         ],
       ),

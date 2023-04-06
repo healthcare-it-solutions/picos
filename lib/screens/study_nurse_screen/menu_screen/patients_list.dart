@@ -18,7 +18,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/api/backend_patient_api.dart';
+import 'package:picos/api/backend_patient_data_api.dart';
 import 'package:picos/models/patient.dart';
+import 'package:picos/models/patient_data.dart';
 import 'package:picos/state/objects_list_bloc.dart';
 import 'patient_card.dart';
 
@@ -34,29 +36,49 @@ class PatientsList extends StatefulWidget {
 class _PatientsListState extends State<PatientsList> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ObjectsListBloc<BackendPatientApi>,
-        ObjectsListState>(
-      builder: (BuildContext context, ObjectsListState state) {
-        if (state.objectsList.isEmpty &&
-            state.status == ObjectsListStatus.loading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<ObjectsListBloc<BackendPatientApi>, ObjectsListState>(
+          listener: (BuildContext context, ObjectsListState state) {},
+        ),
+        BlocListener<ObjectsListBloc<BackendPatientDataApi>, ObjectsListState>(
+          listener: (BuildContext context, ObjectsListState state) {},
+        ),
+      ],
+      child: BlocBuilder<ObjectsListBloc<BackendPatientApi>, ObjectsListState>(
+        builder: (BuildContext context, ObjectsListState statePatient) {
+          return BlocBuilder<ObjectsListBloc<BackendPatientDataApi>,
+              ObjectsListState>(
+            builder: (BuildContext context, ObjectsListState statePatientData) {
+              if (statePatient.objectsList.isEmpty &&
+                  statePatientData.objectsList.isEmpty &&
+                  statePatient.status == ObjectsListStatus.loading &&
+                  statePatientData.status == ObjectsListStatus.loading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
 
-        if (state.status == ObjectsListStatus.failure) {
-          return const Center(
-            child: Text('Error'),
-          );
-        }
+              if (statePatient.status == ObjectsListStatus.failure ||
+                  statePatientData.status == ObjectsListStatus.failure) {
+                return const Center(
+                  child: Text('Error'),
+                );
+              }
 
-        return ListView.builder(
-          itemCount: state.objectsList.length,
-          itemBuilder: (BuildContext context, int index) {
-            return PatientCard(state.objectsList[index] as Patient);
-          },
-        );
-      },
+              return ListView.builder(
+                itemCount: statePatient.objectsList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return PatientCard(
+                    statePatient.objectsList[index] as Patient,
+                    statePatientData.objectsList[index] as PatientData,
+                  );
+                },
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }
