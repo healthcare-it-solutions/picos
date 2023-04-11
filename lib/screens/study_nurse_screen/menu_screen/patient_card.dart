@@ -21,6 +21,7 @@ import 'package:picos/models/patient_data.dart';
 import 'package:picos/screens/study_nurse_screen/menu_screen/patient_card_tile.dart';
 import 'package:picos/widgets/picos_list_card.dart';
 import 'package:picos/widgets/picos_list_card_mono_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// The card displaying patient information.
 class PatientCard extends StatelessWidget {
@@ -105,13 +106,13 @@ class PatientCard extends StatelessWidget {
         children: <Expanded>[
           _createCardColumn(
             context,
-            'Email Address',
+            AppLocalizations.of(context)!.email,
             _patient.email,
-            'Address',
+            AppLocalizations.of(context)!.address,
             _patient.address!,
-            'PatientID',
+            AppLocalizations.of(context)!.patientID,
             _patientData.patientID,
-            'Case Number',
+            AppLocalizations.of(context)!.caseNumber,
             _patientData.caseNumber,
           ),
         ],
