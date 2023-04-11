@@ -26,9 +26,10 @@ import 'package:picos/screens/physician_list_screen/add_physician_screen.dart';
 import 'package:picos/screens/family_member_list_screen/add_family_member_screen.dart';
 import 'package:picos/screens/family_member_list_screen/family_members_screen.dart';
 import 'package:picos/screens/privacy_notice_screen.dart';
+import 'package:picos/screens/questionaire_screen/questionaire_screen.dart';
+import 'package:picos/screens/visits_screen/visits_screen.dart';
 import 'package:picos/screens/study_nurse_screen/menu_screen/add_patient_screen.dart';
 import 'package:picos/screens/study_nurse_screen/menu_screen/menu_main_screen.dart';
-import 'package:picos/screens/visits_screen/visits_screen.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_finished_screen.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_pages.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_screen.dart';
@@ -37,8 +38,6 @@ import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
 import 'package:picos/screens/physician_list_screen/physicians_screen.dart';
 import 'package:picos/screens/study_nurse_screen/study_nurse_screen.dart';
 import 'package:picos/screens/my_therapies_screen/view_therapy_screen.dart';
-
-import 'screens/questionaire_screen/questionaire_screen.dart';
 
 ///This is a central place to manage all routes contained in the app.
 ///Remember to put the "/" when using the routes.
@@ -76,7 +75,6 @@ class Routes {
           const MyTherapiesScreen(),
       '/legals-screen': (BuildContext ctx) => const LegalsScreen(),
       '/privacy-notice-screen': (BuildContext ctx) =>
-         
           const PrivacyNoticeScreen(),
       '/visits-screen/visits': (BuildContext ctx) => const VisitsScreen(),
       '/login-screen': (BuildContext ctx) => const LoginScreen(),
