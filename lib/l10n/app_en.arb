@@ -930,5 +930,9 @@
     "isInvalid": "is invalid",
     "@isInvalid": {
         "description": "is invalid"
+    },
+    "editPatientInformation": "Edit Patient Information",
+    "@editPatientInformation": {
+        "description": "Edit Patient Information"
     }
 }

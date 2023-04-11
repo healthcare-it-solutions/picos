@@ -201,5 +201,6 @@
     "reasonForVisitToTheDoctor": "Grund des Arztbesuches",
     "myPatients": "Meine Patienten",
     "needHelp": "Benötigen Sie Hilfe oder haben Sie eine Frage zur Benutzung der PICOS App?",
-    "isInvalid": "ist unzulässig"
+    "isInvalid": "ist unzulässig",
+    "editPatientInformation": "Bearbeite Patienteninformationen"
 }
