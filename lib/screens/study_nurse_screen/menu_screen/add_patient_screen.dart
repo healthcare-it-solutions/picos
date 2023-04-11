@@ -100,6 +100,8 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
   Future<bool> _allProfileQEntries() async {
     if (_patientProfile != null) return true;
 
+    if (_patientData != null) return true;
+
     List<dynamic> listPatientProfile =
         await Backend.getAll(PatientProfile.databaseTable);
 
@@ -110,7 +112,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
       (dynamic element) => element['Patient']['objectId'] == _patient!.objectId,
     );
 
-    _patientData = listPatientData.lastWhere(
+    _patientData = listPatientData.firstWhere(
       (dynamic element) => element['Patient']['objectId'] == _patient!.objectId,
     );
 
@@ -127,7 +129,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
     _therapy = _patientProfile!['Therapies'];
     _doctorsVisit = _patientProfile!['Stays'];
 
-    _bodyHeight = double.parse(_patientData!['BodyHeight']);
+    _bodyHeight = double.parse(_patientData!['BodyHeight'].toString());
     _patientID = _patientData!['ID'];
     _caseNumber = _patientData!['CaseNumber'];
     _instituteKey = _patientData!['inst_key'];
@@ -137,7 +139,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _title ??= 'Edit Patient information';
+    _title ??= AppLocalizations.of(context)!.editPatientInformation;
 
     _patient = ModalRoute.of(context)!.settings.arguments as Patient;
 
@@ -448,8 +450,12 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       ),
                       PicosLabel(AppLocalizations.of(context)!.caseNumber),
                       PicosTextField(
-                        hint: AppLocalizations.of(context)!.caseNumber,
+                        hint: _caseNumber,
                         onChanged: (String? value) {
+                          setState(() {
+                            _addDisabled = false;
+                          });
+
                           _caseNumber = value!;
                         },
                         validator: (String? value) {
@@ -462,8 +468,12 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       ),
                       PicosLabel(AppLocalizations.of(context)!.patientID),
                       PicosTextField(
-                        hint: AppLocalizations.of(context)!.patientID,
+                        hint: _patientID,
                         onChanged: (String? value) {
+                          setState(() {
+                            _addDisabled = false;
+                          });
+
                           _patientID = value!;
                         },
                         validator: (String? value) {
@@ -489,9 +499,13 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                           '502'
                         ],
                         callBackFunction: (String? value) {
+                          setState(() {
+                            _addDisabled = false;
+                          });
+
                           _instituteKey = value!;
                         },
-                        hint: AppLocalizations.of(context)!.instituteKey,
+                        hint: _instituteKey,
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
                             return '''     ${AppLocalizations.of(context)!.enterInstituteKey}''';
@@ -501,8 +515,12 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       ),
                       PicosLabel(AppLocalizations.of(context)!.height),
                       PicosTextField(
-                        hint: '${AppLocalizations.of(context)!.height} (cm)',
+                        hint: _bodyHeight.toString(),
                         onChanged: (String? value) {
+                          setState(() {
+                            _addDisabled = false;
+                          });
+
                           _bodyHeight = double.parse(value!);
                         },
                         keyboardType: TextInputType.number,
@@ -569,6 +587,9 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         patientID: _patientID,
                         caseNumber: _caseNumber,
                         instKey: _instituteKey,
+                        patientObjectId: _patientProfile!['Patient']['objectId'],
+                        doctorObjectId: _patientProfile!['Doctor']['objectId'],
+                        objectId: _patientData!['objectId'],
                       );
                     }
 
