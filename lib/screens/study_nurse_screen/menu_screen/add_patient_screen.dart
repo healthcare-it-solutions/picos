@@ -587,7 +587,8 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         patientID: _patientID,
                         caseNumber: _caseNumber,
                         instKey: _instituteKey,
-                        patientObjectId: _patientProfile!['Patient']['objectId'],
+                        patientObjectId: _patientProfile!['Patient']
+                            ['objectId'],
                         doctorObjectId: _patientProfile!['Doctor']['objectId'],
                         objectId: _patientData!['objectId'],
                       );
