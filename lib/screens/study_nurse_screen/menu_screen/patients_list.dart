@@ -34,6 +34,14 @@ class PatientsList extends StatefulWidget {
 }
 
 class _PatientsListState extends State<PatientsList> {
+  /*Map<String, dynamic>? _patient;
+
+  Map<String, dynamic>? _patientData;
+
+  Future<bool> _initData() async {
+    List<dynamic> _patient
+  }*/
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
@@ -70,10 +78,18 @@ class _PatientsListState extends State<PatientsList> {
               return ListView.builder(
                 itemCount: statePatient.objectsList.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return PatientCard(
-                    statePatient.objectsList[index] as Patient,
-                    statePatientData.objectsList[index] as PatientData,
-                  );
+                  for (int j = 0;
+                      j < statePatientData.objectsList.length;
+                      j++) {
+                    if ((statePatient.objectsList[index] as Patient).objectId ==
+                        (statePatientData.objectsList[j] as PatientData)
+                            .patientObjectId) {
+                      return PatientCard(
+                        statePatient.objectsList[index] as Patient,
+                        statePatientData.objectsList[j] as PatientData,
+                      );
+                    }
+                  }
                 },
               );
             },
