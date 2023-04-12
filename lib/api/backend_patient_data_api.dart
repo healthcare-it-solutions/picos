@@ -38,6 +38,7 @@ class BackendPatientDataApi extends BackendObjectsApi {
             caseNumber: element['CaseNumber'] ?? '',
             instKey: element['inst_key'] ?? '',
             objectId: element['objectId'],
+            patientObjectId: element['Patient']['objectId'],
             createdAt: DateTime.parse(element['createdAt']),
             updatedAt: DateTime.parse(element['updatedAt']),
           ),
