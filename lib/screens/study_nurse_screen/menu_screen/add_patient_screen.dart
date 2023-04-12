@@ -97,24 +97,30 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
 
   Map<String, dynamic>? _patientData;
 
-  Future<bool> _allProfileQEntries() async {
+  Future<bool> _profileQEntriesAndData() async {
     if (_patientProfile != null) return true;
 
     if (_patientData != null) return true;
 
-    List<dynamic> listPatientProfile =
+    try {
+      List<dynamic> listPatientProfile =
         await Backend.getAll(PatientProfile.databaseTable);
 
-    List<dynamic> listPatientData =
+      List<dynamic> listPatientData =
         await Backend.getAll(PatientData.databaseTable);
 
-    _patientProfile = listPatientProfile.lastWhere(
-      (dynamic element) => element['Patient']['objectId'] == _patient!.objectId,
-    );
+      _patientProfile = listPatientProfile.lastWhere(
+        (dynamic element) =>
+            element['Patient']['objectId'] == _patient!.objectId,
+      );
 
-    _patientData = listPatientData.firstWhere(
-      (dynamic element) => element['Patient']['objectId'] == _patient!.objectId,
-    );
+      _patientData = listPatientData.lastWhere(
+        (dynamic element) =>
+            element['Patient']['objectId'] == _patient!.objectId,
+      );
+    } catch (e) {
+      return false;
+    }
 
     _weightBMI = _patientProfile!['Weight_BMI'];
     _heartFrequency = _patientProfile!['HeartRate'];
@@ -144,10 +150,14 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
     _patient = ModalRoute.of(context)!.settings.arguments as Patient;
 
     return FutureBuilder<bool>(
-      future: _allProfileQEntries(),
+      future: _profileQEntriesAndData(),
       builder: ((BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (!snapshot.hasData && !snapshot.hasError) {
           return const CircularProgressIndicator();
+        }
+
+        if (snapshot.hasError) {
+          return const Text('Error');
         }
 
         return MultiBlocListener(
