@@ -18,6 +18,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:picos/screens/legals_screen.dart';
 import 'package:picos/screens/login_screen.dart';
+import 'package:picos/screens/my_documents_screen/add_document_screen.dart';
 import 'package:picos/screens/my_documents_screen/my_documents_screen.dart';
 import 'package:picos/screens/my_medications_screen/add_medication_screen.dart';
 import 'package:picos/screens/my_therapies_screen/add_therapy_screen.dart';
@@ -79,8 +80,8 @@ class Routes {
           const QuestionaireScreen(),
       '/my-documents-screen/my-documents': (BuildContext ctx) =>
       const MyDocumentsScreen(),
-  //    '/my-medication-screen/add-medication': (BuildContext ctx) =>
-  //    const AddMedicationScreen(),
+      '/my-documents-screen/add-documents': (BuildContext ctx) =>
+      const AddDocumentScreen(),
     };
   }
 
