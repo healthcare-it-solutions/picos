@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../themes/global_theme.dart';
 
@@ -25,12 +26,16 @@ class PicosListCard extends StatelessWidget {
   const PicosListCard({
     required this.title,
     required this.child,
-    required this.button,
+    this.edit,
+    this.delete,
     Key? key,
   }) : super(key: key);
 
-  /// Button Widget to show card buttons.
-  final Widget button;
+  /// Function to edit the card.
+  final Function()? edit;
+
+  /// Function to delete the card.
+  final Function()? delete;
 
   /// Title shown on the card.
   final String title;
@@ -41,6 +46,7 @@ class PicosListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final BorderRadius borderRadius = BorderRadius.circular(10);
+    final BorderRadius buttonBorderRadius = BorderRadius.circular(5);
 
     return Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 0, left: 10, right: 10),
@@ -77,7 +83,71 @@ class PicosListCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 23),
               child: child,
             ),
-            button,
+            Row(
+              children: <Expanded>[
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: 10,
+                      top: 0,
+                      left: 20,
+                      right: 10,
+                    ),
+                    child: TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          Theme.of(context)
+                              .extension<GlobalTheme>()!
+                              .cardButton,
+                        ),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: buttonBorderRadius,
+                          ),
+                        ),
+                        foregroundColor: MaterialStateProperty.all(
+                          Theme.of(context).extension<GlobalTheme>()!.grey1,
+                        ),
+                      ),
+                      onPressed: edit,
+                      child: Text(AppLocalizations.of(context)!.edit),
+                    ),
+                  ),
+                ),
+                if (delete != null)
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 10,
+                        top: 0,
+                        left: 10,
+                        right: 20,
+                      ),
+                      child: TextButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                            Theme.of(context)
+                                .extension<GlobalTheme>()!
+                                .cardButton,
+                          ),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: buttonBorderRadius,
+                            ),
+                          ),
+                          foregroundColor: MaterialStateProperty.all(
+                            Theme.of(context).extension<GlobalTheme>()!.grey1,
+                          ),
+                        ),
+                        onPressed: delete,
+                        child: Text(AppLocalizations.of(context)!.delete),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
           ],
         ),
       ),
