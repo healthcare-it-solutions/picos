@@ -23,6 +23,8 @@ import 'package:picos/api/backend_medications_api.dart';
 import 'package:picos/api/backend_patient_api.dart';
 import 'package:picos/api/backend_patient_data_api.dart';
 import 'package:picos/api/backend_patient_profile_api.dart';
+import 'package:picos/api/backend_physicians_api.dart';
+import 'package:picos/api/backend_relatives_api.dart';
 import 'package:picos/api/backend_stays_api.dart';
 import 'package:picos/api/backend_therapies_api.dart';
 import 'package:picos/api/database_object_api.dart';
@@ -77,6 +79,18 @@ class MainScreen extends StatelessWidget {
           create: (BuildContext context) =>
           ObjectsListBloc<BackendStaysApi>(
             BackendStaysApi(),
+          )..add(const ObjectsListSubscriptionRequested()),
+        ),
+        BlocProvider<ObjectsListBloc<BackendPhysiciansApi>>(
+          create: (BuildContext context) =>
+          ObjectsListBloc<BackendPhysiciansApi>(
+            BackendPhysiciansApi(),
+          )..add(const ObjectsListSubscriptionRequested()),
+        ),
+        BlocProvider<ObjectsListBloc<BackendRelativesApi>>(
+          create: (BuildContext context) =>
+          ObjectsListBloc<BackendRelativesApi>(
+            BackendRelativesApi(),
           )..add(const ObjectsListSubscriptionRequested()),
         ),
       ],

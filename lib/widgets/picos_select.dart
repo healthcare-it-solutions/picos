@@ -43,7 +43,7 @@ class PicosSelect extends StatefulWidget {
   final bool disabled;
 
   /// The function that is executed when the validator is triggered.
-  final String? Function(String?)? validator;
+  final String? Function(String? value)? validator;
 
   /// An item that is optionally preselected.
   final String? initialValue;

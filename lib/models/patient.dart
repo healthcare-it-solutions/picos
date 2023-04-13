@@ -19,16 +19,6 @@ import 'dart:math';
 
 import 'package:picos/models/abstract_database_object.dart';
 
-/// Enumeration for FormOfAddress-variable.
-enum FormOfAddress {
-  /// Element for denoting 'male'.
-  male,
-  /// Element for denoting 'female'.
-  female,
-  /// Element for denoting 'diverse'.
-  diverse,
-}
-
 /// Class with patient information.
 class Patient extends AbstractDatabaseObject {
   /// Creates a patient object.

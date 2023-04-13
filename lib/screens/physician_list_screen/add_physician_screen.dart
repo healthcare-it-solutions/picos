@@ -16,17 +16,18 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/api/backend_physicians_api.dart';
+import 'package:picos/models/physician.dart';
+import 'package:picos/state/objects_list_bloc.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
-import 'package:queen_validators/queen_validators.dart';
+import 'package:picos/widgets/picos_label.dart';
+import 'package:picos/widgets/picos_screen_frame.dart';
+import 'package:picos/widgets/picos_text_field.dart';
 
-/// contains the gender of the corresponding physician
-enum Gender {
-  /// element for denoting the title of men
-  male,
-  /// element for denoting the title of women
-  female,
-}
+import '../../widgets/picos_body.dart';
+import '../../widgets/picos_select.dart';
 
 /// This is the screen in which a user can add/edit
 /// information about his physicians
@@ -39,221 +40,263 @@ class AddPhysicianScreen extends StatefulWidget {
 }
 
 class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
-  Gender? _gender = Gender.male;
+  static final List<String> _selection = <String>[];
+  static String? _specialty;
+  static String? _practice;
+  static String? _firstName;
+  static String? _familyName;
+  static String? _email;
+  static String? _phoneNumber;
+  static String? _address;
+  static String? _streetAndHouseNo;
+  static String? _zipCode;
+  static String? _city;
+  static String? _website;
+  static String? _addPhysician;
+  static String? _editPhysician;
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  //State
+  String? _selectedSubjectArea;
+  String? _selectedFirstName;
+  String? _selectedFamilyName;
+  String? _selectedEmail;
+  String? _selectedPhoneNumber;
+  String? _selectedAddress;
+  String? _selectedCity;
+  String? _selectedWebsite;
+  String? _selectedPractice;
+  Physician? _physicianEdit;
+  String? _title;
+
+  bool _disabledSave = true;
+
+  void _checkInputs() {
+    if (_selectedSubjectArea == null ||
+        _selectedFirstName == null ||
+        _selectedFamilyName == null ||
+        _selectedEmail == null ||
+        _selectedPhoneNumber == null ||
+        _selectedWebsite == null ||
+        _selectedAddress == null ||
+        _selectedPractice == null ||
+        _selectedCity == null ||
+        _selectedSubjectArea!.isEmpty ||
+        _selectedFirstName!.isEmpty ||
+        _selectedFamilyName!.isEmpty ||
+        _selectedEmail!.isEmpty ||
+        _selectedPhoneNumber!.isEmpty ||
+        _selectedWebsite!.isEmpty ||
+        _selectedAddress!.isEmpty ||
+        _selectedPractice!.isEmpty ||
+        _selectedCity!.isEmpty) {
+      setState(() {
+        _disabledSave = true;
+      });
+      return;
+    }
+
+    setState(() {
+      _disabledSave = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    String dropDownValue = AppLocalizations.of(context)!.familyDoctor;
+    if (_selection.isEmpty) {
+      _selection.add(AppLocalizations.of(context)!.ophthalmology);
+      _selection.add(AppLocalizations.of(context)!.gynecology);
+      _selection.add(AppLocalizations.of(context)!.otolaryngology);
+      _selection.add(AppLocalizations.of(context)!.generalPractitioner);
+      _selection.add(AppLocalizations.of(context)!.skinAndVenerealDiseases);
+      _selection.add(AppLocalizations.of(context)!.internalMedicine);
+      _selection.add(AppLocalizations.of(context)!.microbiology);
+      _selection.add(AppLocalizations.of(context)!.neurology);
+      _selection.add(AppLocalizations.of(context)!.pathology);
+      _selection.add(AppLocalizations.of(context)!.pulmonology);
+      _selection.add(AppLocalizations.of(context)!.psychiatry);
+      _selection.add(AppLocalizations.of(context)!.urology);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.addPhysician),
-        backgroundColor: const Color.fromRGBO(
-          25,
-          102,
-          117,
-          1.0,
-        ),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(10),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              DropdownButtonFormField<String>(
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.chooseField,
-                ),
-                isExpanded: true,
-                value: dropDownValue,
-                icon: const Icon(Icons.arrow_downward),
-                elevation: 16,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-                onChanged: (String? newValue) {
-                  setState(
-                    () {
-                      dropDownValue = newValue!;
-                    },
-                  );
-                },
-                items: <String>[
-                  AppLocalizations.of(context)!.familyDoctor,
-                  AppLocalizations.of(context)!.cardiologist,
-                  AppLocalizations.of(context)!.nephrologist,
-                  AppLocalizations.of(context)!.neurologist,
-                ].map<DropdownMenuItem<String>>(
-                  (String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
+      _specialty = AppLocalizations.of(context)!.specialty;
+      _practice = AppLocalizations.of(context)!.practice;
+      _firstName = AppLocalizations.of(context)!.firstName;
+      _familyName = AppLocalizations.of(context)!.familyName;
+      _email = AppLocalizations.of(context)!.email;
+      _phoneNumber = AppLocalizations.of(context)!.phoneNumber;
+      _address = AppLocalizations.of(context)!.address;
+      _streetAndHouseNo = AppLocalizations.of(context)!.streetAndHouseNo;
+      _zipCode = AppLocalizations.of(context)!.zipCode;
+      _city = AppLocalizations.of(context)!.city;
+      _title = AppLocalizations.of(context)!.title;
+      _website = AppLocalizations.of(context)!.website;
+      _addPhysician = AppLocalizations.of(context)!.addPhysician;
+      _editPhysician = AppLocalizations.of(context)!.editPhysician;
+    }
+
+    _title = _addPhysician;
+    Object? physicianEdit = ModalRoute.of(context)!.settings.arguments;
+
+    if (_physicianEdit == null && physicianEdit != null) {
+      _title = _editPhysician;
+      _physicianEdit = physicianEdit as Physician;
+
+      _selectedSubjectArea = _physicianEdit!.subjectArea;
+      _selectedFirstName = _physicianEdit!.firstName;
+      _selectedFamilyName = _physicianEdit!.lastName;
+      _selectedEmail = _physicianEdit!.mail;
+      _selectedPhoneNumber = _physicianEdit!.phone;
+      _selectedAddress = _physicianEdit!.address;
+      _selectedCity = _physicianEdit!.city;
+      _selectedWebsite = _physicianEdit!.homepage;
+      _selectedPractice = _physicianEdit!.practice;
+    }
+
+    return BlocBuilder<ObjectsListBloc<BackendPhysiciansApi>, ObjectsListState>(
+      builder: (BuildContext context, ObjectsListState state) {
+        const double columnPadding = 10;
+
+        return PicosScreenFrame(
+          title: _title,
+          body: PicosBody(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                PicosLabel(_practice!),
+                PicosTextField(
+                  hint: _practice!,
+                  keyboardType: TextInputType.name,
+                  initialValue: _selectedPractice,
+                  onChanged: (String value) {
+                    _selectedPractice = value;
+                    _checkInputs();
                   },
-                ).toList(),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  icon: const Icon(Icons.local_hospital),
-                  labelText: '${AppLocalizations.of(context)!.practiceName} *',
                 ),
-                keyboardType: TextInputType.name,
-                validator: qValidator(
-                  <TextValidationRule>[
-                    IsRequired(AppLocalizations.of(context)!.entryPracticeName),
-                  ],
+                const SizedBox(height: columnPadding),
+                PicosSelect(
+                  selection: _selection,
+                  callBackFunction: (String value) {
+                    _selectedSubjectArea = value;
+                    _checkInputs();
+                  },
+                  initialValue: _selectedSubjectArea,
+                  hint: _specialty,
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    '${AppLocalizations.of(context)!.title} *',
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Expanded(
-                    child: RadioListTile<Gender>(
-                      title: Text(
-                        AppLocalizations.of(context)!.mr,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      value: Gender.male,
-                      groupValue: _gender,
-                      onChanged: (Gender? value) {
-                        setState(
-                          () {
-                            _gender = value;
-                          },
-                        );
-                      },
-                      selected: false,
-                    ),
-                  ),
-                  Expanded(
-                    child: RadioListTile<Gender>(
-                      title: Text(
-                        AppLocalizations.of(context)!.mrs,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      value: Gender.female,
-                      groupValue: _gender,
-                      onChanged: (Gender? value) {
-                        setState(
-                          () {
-                            _gender = value;
-                          },
-                        );
-                      },
-                      selected: false,
-                    ),
-                  ),
-                ],
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  icon: const Icon(Icons.person),
-                  labelText: '${AppLocalizations.of(context)!.firstName} *',
+                const SizedBox(height: columnPadding),
+                PicosLabel(_firstName!),
+                PicosTextField(
+                  hint: _firstName!,
+                  keyboardType: TextInputType.name,
+                  initialValue: _selectedFirstName,
+                  onChanged: (String value) {
+                    _selectedFirstName = value;
+                    _checkInputs();
+                  },
                 ),
-                keyboardType: TextInputType.name,
-                validator: qValidator(
-                  <TextValidationRule>[
-                    IsRequired(AppLocalizations.of(context)!.entryFirstName),
-                  ],
+                const SizedBox(height: columnPadding),
+                PicosLabel(
+                  _familyName!,
                 ),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  icon: const Icon(Icons.person),
-                  labelText: '${AppLocalizations.of(context)!.familyName} *',
+                PicosTextField(
+                  hint: _familyName!,
+                  keyboardType: TextInputType.name,
+                  initialValue: _selectedFamilyName,
+                  onChanged: (String value) {
+                    _selectedFamilyName = value;
+                    _checkInputs();
+                  },
                 ),
-                keyboardType: TextInputType.name,
-                validator: qValidator(
-                  <TextValidationRule>[
-                    IsRequired(AppLocalizations.of(context)!.entryFamilyName),
-                  ],
+                const SizedBox(height: columnPadding),
+                PicosLabel(_email!),
+                PicosTextField(
+                  hint: _email!,
+                  keyboardType: TextInputType.emailAddress,
+                  initialValue: _selectedEmail,
+                  onChanged: (String value) {
+                    _selectedEmail = value;
+                    _checkInputs();
+                  },
                 ),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  icon: const Icon(Icons.email),
-                  labelText: '${AppLocalizations.of(context)!.email} *',
+                const SizedBox(height: columnPadding),
+                PicosLabel(_phoneNumber!),
+                PicosTextField(
+                  hint: _phoneNumber!,
+                  keyboardType: TextInputType.phone,
+                  initialValue: _selectedPhoneNumber,
+                  onChanged: (String value) {
+                    _selectedPhoneNumber = value;
+                    _checkInputs();
+                  },
                 ),
-                keyboardType: TextInputType.emailAddress,
-                validator: qValidator(
-                  <TextValidationRule>[
-                    IsRequired(AppLocalizations.of(context)!.entryEmail),
-                    IsEmail(AppLocalizations.of(context)!.entryValidEmail),
-                  ],
+                const SizedBox(height: columnPadding),
+                PicosLabel(_address!),
+                PicosTextField(
+                  hint: _streetAndHouseNo!,
+                  keyboardType: TextInputType.streetAddress,
+                  initialValue: _selectedAddress,
+                  onChanged: (String value) {
+                    _selectedAddress = value;
+                    _checkInputs();
+                  },
                 ),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  icon: const Icon(Icons.numbers),
-                  labelText: '${AppLocalizations.of(context)!.phoneNumber} *',
+                const SizedBox(height: columnPadding),
+                PicosLabel(_city!),
+                PicosTextField(
+                  hint: '${_city!}, ${_zipCode!}',
+                  keyboardType: TextInputType.streetAddress,
+                  initialValue: _selectedCity,
+                  onChanged: (String value) {
+                    _selectedCity = value;
+                    _checkInputs();
+                  },
                 ),
-                keyboardType: TextInputType.number,
-                validator: qValidator(
-                  <TextValidationRule>[
-                    IsRequired(AppLocalizations.of(context)!.entryPhoneNumber),
-                  ],
+                const SizedBox(height: columnPadding),
+                PicosLabel(_website!),
+                PicosTextField(
+                  hint: _website!,
+                  keyboardType: TextInputType.url,
+                  initialValue: _selectedWebsite,
+                  onChanged: (String value) {
+                    _selectedWebsite = value;
+                    _checkInputs();
+                  },
                 ),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  icon: const Icon(Icons.web),
-                  labelText: '${AppLocalizations.of(context)!.website} *',
-                ),
-                keyboardType: TextInputType.url,
-                validator: qValidator(
-                  <TextValidationRule>[
-                    IsRequired(AppLocalizations.of(context)!.entryWebsite),
-                    IsUrl(AppLocalizations.of(context)!.entryValidWebsite),
-                  ],
-                ),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  icon: const Icon(Icons.house),
-                  labelText: '${AppLocalizations.of(context)!.address} *',
-                ),
-                keyboardType: TextInputType.multiline,
-                minLines: 2,
-                maxLines: null,
-                validator: qValidator(
-                  <TextValidationRule>[
-                    IsRequired(AppLocalizations.of(context)!.entryAddress),
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ),
-      bottomNavigationBar: PicosAddButtonBar(
-        onTap: () {
-          if (_formKey.currentState!.validate()) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  AppLocalizations.of(context)!.submitData,
-                ),
-              ),
-            );
-          }
-        },
-      ),
+          bottomNavigationBar: PicosAddButtonBar(
+            disabled: _disabledSave,
+            onTap: () {
+              Physician physician = _physicianEdit != null
+                  ? _physicianEdit!.copyWith(
+                      practice: _selectedPractice!,
+                      address: _selectedAddress!,
+                      city: _selectedCity!,
+                      homepage: _selectedWebsite!,
+                      lastName: _selectedFamilyName!,
+                      mail: _selectedEmail!,
+                      phone: _selectedPhoneNumber!,
+                      subjectArea: _selectedSubjectArea!,
+                      firstName: _selectedFirstName!,
+                    )
+                  : Physician(
+                      practice: _selectedPractice!,
+                      address: _selectedAddress!,
+                      city: _selectedCity!,
+                      homepage: _selectedWebsite!,
+                      lastName: _selectedFamilyName!,
+                      mail: _selectedEmail!,
+                      phone: _selectedPhoneNumber!,
+                      subjectArea: _selectedSubjectArea!,
+                      firstName: _selectedFirstName!,
+                    );
+
+              context
+                  .read<ObjectsListBloc<BackendPhysiciansApi>>()
+                  .add(SaveObject(physician));
+              Navigator.of(context).pop();
+            },
+          ),
+        );
+      },
     );
   }
 }
