@@ -55,7 +55,7 @@ class PicosMenu extends StatelessWidget {
             Navigator.of(context).pushNamed('/my-therapy-screen/my-therapy'),
       ),
       PicosMenuItem(
-        iconPath: 'assets/BehandlerInnen_icon.svg',
+        iconPath: 'assets/Therapie.svg',
         title: AppLocalizations.of(context)!.physicians,
         onTap: () =>
             Navigator.of(context).pushNamed('/physician-list-screen/physicians'),
@@ -103,7 +103,7 @@ class PicosMenu extends StatelessWidget {
 
     return ListView.separated(
       separatorBuilder: (BuildContext context, int index) {
-        if (index == 4 || index == 5) {
+        if (index == 3 || index == 4) {
           return const SizedBox(height: labelPadding);
         }
 
