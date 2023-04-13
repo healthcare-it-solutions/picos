@@ -52,6 +52,8 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
   static String? _zipCode;
   static String? _city;
   static String? _website;
+  static String? _addPhysician;
+  static String? _editPhysician;
 
   //State
   String? _selectedSubjectArea;
@@ -100,8 +102,6 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _title = AppLocalizations.of(context)!.addPhysician;
-
     if (_selection.isEmpty) {
       _selection.add(AppLocalizations.of(context)!.ophthalmology);
       _selection.add(AppLocalizations.of(context)!.gynecology);
@@ -128,12 +128,15 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
       _city = AppLocalizations.of(context)!.city;
       _title = AppLocalizations.of(context)!.title;
       _website = AppLocalizations.of(context)!.website;
+      _addPhysician = AppLocalizations.of(context)!.addPhysician;
+      _editPhysician = AppLocalizations.of(context)!.editPhysician;
     }
 
+    _title = _addPhysician;
     Object? physicianEdit = ModalRoute.of(context)!.settings.arguments;
 
     if (_physicianEdit == null && physicianEdit != null) {
-      _title = AppLocalizations.of(context)!.editPhysician;
+      _title = _editPhysician;
       _physicianEdit = physicianEdit as Physician;
 
       _selectedSubjectArea = _physicianEdit!.subjectArea;
