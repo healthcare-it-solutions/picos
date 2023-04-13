@@ -57,7 +57,7 @@ class Tile extends StatelessWidget {
           end: Alignment.bottomCenter,
         ),
       ),
-      width: 180,
+      width: 180 - (MediaQuery.of(context).size.width / 32),
       height: 180,
       child: GestureDetector(
         onTap: () => Navigator.of(context).pushNamed(routeName),
