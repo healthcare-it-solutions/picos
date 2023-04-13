@@ -25,6 +25,7 @@ class Document extends AbstractDatabaseObject {
     required this.filename,
     required this.important,
     required this.document,
+    required this.date,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -42,6 +43,9 @@ class Document extends AbstractDatabaseObject {
   /// The document object.
   final ParseFile document;
 
+  /// The document date.
+  final DateTime date;
+
   @override
   get table {
     return databaseTable;
@@ -52,6 +56,7 @@ class Document extends AbstractDatabaseObject {
     String? filename,
     bool? important,
     ParseFile? document,
+    DateTime? date,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -60,6 +65,7 @@ class Document extends AbstractDatabaseObject {
       filename: filename ?? this.filename,
       important: important ?? this.important,
       document: document ?? this.document,
+      date: date ?? this.date,
       objectId: objectId ?? this.objectId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -71,6 +77,7 @@ class Document extends AbstractDatabaseObject {
     filename,
     important,
     document,
+    date,
   ];
 
   @override
@@ -78,5 +85,6 @@ class Document extends AbstractDatabaseObject {
     'filename': filename,
     'prio': important,
     'document': document,
+    'date': date,
   };
 }

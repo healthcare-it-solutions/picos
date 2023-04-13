@@ -36,6 +36,7 @@ class BackendDocumentsApi extends BackendObjectsApi {
             filename: element['filename'],
             important: element['prio'],
             document: element['document'],
+            date: DateTime.parse(element['date']['iso']),
             objectId: element['objectId'],
             createdAt: DateTime.parse(element['createdAt']),
             updatedAt: DateTime.parse(element['updatedAt']),
