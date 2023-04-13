@@ -18,19 +18,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:picos/api/backend_documents_api.dart';
-import 'package:picos/api/backend_medications_api.dart';
-import 'package:picos/api/backend_physicians_api.dart';
-import 'package:picos/api/backend_relatives_api.dart';
-import 'package:picos/api/backend_stays_api.dart';
-import 'package:picos/api/backend_therapies_api.dart';
-import 'package:picos/api/database_object_api.dart';
 import 'package:picos/screens/login_screen.dart';
 import 'package:picos/themes/global_theme.dart';
 
+import '../../blocs.dart';
 import '../../routes.dart';
-import '../../state/objects_list_bloc.dart';
 
 /// This is the screen which contains all relevant information
 class MainScreen extends StatelessWidget {
@@ -41,45 +33,7 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     const GlobalTheme theme = GlobalTheme();
 
-    return MultiBlocProvider(
-      providers: <BlocProvider<ObjectsListBloc<DatabaseObjectApi>>>[
-        BlocProvider<ObjectsListBloc<BackendMedicationsApi>>(
-          create: (BuildContext context) =>
-              ObjectsListBloc<BackendMedicationsApi>(
-            BackendMedicationsApi(),
-          )..add(const ObjectsListSubscriptionRequested()),
-        ),
-        BlocProvider<ObjectsListBloc<BackendTherapiesApi>>(
-          create: (BuildContext context) =>
-              ObjectsListBloc<BackendTherapiesApi>(
-            BackendTherapiesApi(),
-          )..add(const ObjectsListSubscriptionRequested()),
-        ),
-        BlocProvider<ObjectsListBloc<BackendStaysApi>>(
-          create: (BuildContext context) =>
-          ObjectsListBloc<BackendStaysApi>(
-            BackendStaysApi(),
-          )..add(const ObjectsListSubscriptionRequested()),
-        ),
-        BlocProvider<ObjectsListBloc<BackendPhysiciansApi>>(
-          create: (BuildContext context) =>
-          ObjectsListBloc<BackendPhysiciansApi>(
-            BackendPhysiciansApi(),
-          )..add(const ObjectsListSubscriptionRequested()),
-        ),
-        BlocProvider<ObjectsListBloc<BackendRelativesApi>>(
-          create: (BuildContext context) =>
-          ObjectsListBloc<BackendRelativesApi>(
-            BackendRelativesApi(),
-          )..add(const ObjectsListSubscriptionRequested()),
-        ),
-        BlocProvider<ObjectsListBloc<BackendDocumentsApi>>(
-          create: (BuildContext context) =>
-          ObjectsListBloc<BackendDocumentsApi>(
-            BackendDocumentsApi(),
-          )..add(const ObjectsListSubscriptionRequested()),
-        ),
-      ],
+    return Blocs(
       child: MaterialApp(
         title: 'PICOS',
         localizationsDelegates: AppLocalizations.localizationsDelegates,
