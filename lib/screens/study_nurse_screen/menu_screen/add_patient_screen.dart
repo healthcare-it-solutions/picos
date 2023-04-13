@@ -136,9 +136,9 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
     _doctorsVisit = _patientProfile!['Stays'];
 
     _bodyHeight = double.parse(_patientData!['BodyHeight'].toString());
-    _patientID = _patientData!['ID'];
-    _caseNumber = _patientData!['CaseNumber'];
-    _instituteKey = _patientData!['inst_key'];
+    _patientID = _patientData!['ID'] ?? '';
+    _caseNumber = _patientData!['CaseNumber'] ?? '';
+    _instituteKey = _patientData!['inst_key'] ?? '';
 
     return true;
   }
@@ -154,10 +154,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
       builder: ((BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (!snapshot.hasData && !snapshot.hasError) {
           return const CircularProgressIndicator();
-        }
-
-        if (snapshot.hasError) {
-          return const Text('Error');
         }
 
         return MultiBlocListener(
