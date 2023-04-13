@@ -30,7 +30,7 @@ import 'package:picos/screens/visits_screen/visits_screen.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_finished_screen.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_pages.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_screen.dart';
-import 'package:picos/screens/main_screen/bottom_bar.dart';
+import 'package:picos/screens/home_screen/home_screen.dart';
 import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
 import 'package:picos/screens/physician_list_screen/physicians_screen.dart';
 import 'package:picos/screens/study_nurse_screen/study_nurse_screen.dart';
@@ -54,7 +54,7 @@ class Routes {
           const AddPhysicianScreen(),
       '/physician-list-screen/physicians': (BuildContext ctx) =>
           const PhysiciansScreen(),
-      '/main-screen/mainscreen': (BuildContext ctx) => const BottomBar(),
+      '/home-screen/home-screen': (BuildContext ctx) => const HomeScreen(),
       '/study-nurse-screen/studynursescreen': (BuildContext ctx) =>
           const StudyNurseScreen(),
       '/study-nurse-screen/configuration-screen': (BuildContext ctx) =>

@@ -16,8 +16,8 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/screens/main_screen/overview/widgets/contact_section.dart';
-import 'package:picos/screens/main_screen/overview/widgets/my_health_section.dart';
+import 'package:picos/screens/home_screen/overview/widgets/contact_section.dart';
+import 'package:picos/screens/home_screen/overview/widgets/my_health_section.dart';
 import 'widgets/input_card_section.dart';
 
 /// Main widget using all subwidgets to build up the "overview"-screen
