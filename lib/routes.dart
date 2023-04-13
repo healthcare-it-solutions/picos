@@ -18,7 +18,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:picos/screens/legals_screen.dart';
 import 'package:picos/screens/login_screen.dart';
-import 'package:picos/screens/main_screen/overview_screen/overview.dart';
 import 'package:picos/screens/my_medications_screen/add_medication_screen.dart';
 import 'package:picos/screens/my_therapies_screen/add_therapy_screen.dart';
 import 'package:picos/screens/my_therapies_screen/my_therapies_screen.dart';
@@ -64,7 +63,6 @@ class Routes {
           const ConfigurationPages(),
       '/study-nurse-screen/configuration-finish-screen': (BuildContext ctx) =>
           const ConfigurationFinishedScreen(),
-      '/overview-screen/overview': (BuildContext ctx) => const Overview(),
       '/my-therapy-screen/add-therapy': (BuildContext ctx) =>
           const AddTherapyScreen(),
       '/my-therapy-screen/view-therapy': (BuildContext ctx) =>

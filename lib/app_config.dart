@@ -21,13 +21,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/login_screen.dart';
 import 'package:picos/themes/global_theme.dart';
 
-import '../../blocs.dart';
-import '../../routes.dart';
+import 'blocs.dart';
+import 'routes.dart';
 
-/// This is the screen which contains all relevant information
-class MainScreen extends StatelessWidget {
-  /// MainScreen constructor
-  const MainScreen({Key? key}) : super(key: key);
+/// Here the app gets initialized.
+class AppConfig extends StatelessWidget {
+  /// AppConfig constructor
+  const AppConfig({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

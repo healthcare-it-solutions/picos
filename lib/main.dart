@@ -17,7 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:picos/screens/main_screen/main_screen.dart';
+import 'package:picos/app_config.dart';
 
 /// This is the main entry point of the application.
 void main() {
@@ -25,6 +25,6 @@ void main() {
   SystemChrome.setPreferredOrientations(
     <DeviceOrientation>[DeviceOrientation.portraitUp],
   ).then((_) {
-    runApp(const MainScreen());
+    runApp(const AppConfig());
   });
 }
