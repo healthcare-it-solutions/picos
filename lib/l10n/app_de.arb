@@ -221,5 +221,15 @@
     "zipCode": "PLZ",
     "city": "Stadt",
     "isInvalid": "ist unzulässig",
-    "phone": "Tel."
+    "phone": "Tel.",
+    "addDocument": "Dokument hinzufügen",
+    "editDocument": "Dokument bearbeiten",
+    "priority": "Priorität",
+    "importantDocument": "Wichtiges Dokument - oben halten",
+    "sortByDate": "Nach Datum einsortieren",
+    "documentTitle": "Titel des Dokuments",
+    "uploadDocument": "Dokument hochladen",
+    "downloadDocument": "Dokument herunterladen",
+    "importantDocuments": "Wichtige Dokumente",
+    "documentsSortedDesc": "Dokumente absteigend sortiert"
 }
