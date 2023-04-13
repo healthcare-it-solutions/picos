@@ -21,7 +21,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/models/medication.dart';
 import 'package:picos/screens/my_medications_screen/medication_card_tile.dart';
 import 'package:picos/widgets/picos_list_card.dart';
-import 'package:picos/widgets/picos_list_card_buttons.dart';
 
 import '../../api/backend_medications_api.dart';
 import '../../state/objects_list_bloc.dart';
@@ -80,19 +79,17 @@ class MedicationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return PicosListCard(
       title: _medication.compound,
-      button: PicosListCardButtons(
-        edit: () {
-          Navigator.of(context).pushNamed(
-            '/my-medication-screen/add-medication',
-            arguments: _medication,
-          );
-        },
-        delete: () {
-          context
-              .read<ObjectsListBloc<BackendMedicationsApi>>()
-              .add(RemoveObject(_medication));
-        },
-      ),
+      edit: () {
+        Navigator.of(context).pushNamed(
+          '/my-medication-screen/add-medication',
+          arguments: _medication,
+        );
+      },
+      delete: () {
+        context
+            .read<ObjectsListBloc<BackendMedicationsApi>>()
+            .add(RemoveObject(_medication));
+      },
       child: Row(
         children: <Expanded>[
           _createCardColumn(
