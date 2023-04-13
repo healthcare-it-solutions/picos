@@ -47,6 +47,7 @@ class PicosMenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
     Widget? leadingIcon;
+    const double padding = 15;
 
     if (iconPath != null) {
       leadingIcon = PicosSvgIcon(
@@ -56,18 +57,36 @@ class PicosMenuItem extends StatelessWidget {
       );
     }
 
-    return ListTile(
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 10),
-        child: leadingIcon,
-      ),
-      title: Text(title ?? ''),
-      trailing: Icon(
-        Icons.keyboard_arrow_right_rounded,
-        size: 50,
-        color: theme.darkGreen2,
-      ),
+    return InkWell(
       onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 3),
+        child: Row(
+          children: <Widget>[
+            const SizedBox(
+              width: padding,
+            ),
+            SizedBox(width: 50, child: leadingIcon),
+            const SizedBox(
+              width: padding,
+            ),
+            Expanded(
+              child: Text(
+                title ?? '',
+                style: const TextStyle(fontSize: 17),
+              ),
+            ),
+            Icon(
+              Icons.keyboard_arrow_right_rounded,
+              size: 50,
+              color: theme.darkGreen2,
+            ),
+            const SizedBox(
+              width: padding,
+            )
+          ],
+        ),
+      ),
     );
   }
 }
