@@ -41,47 +41,57 @@ class MyHealthSection extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Tile(
-                  imageName: 'assets/Medikationsplan.png',
-                  sectionName: AppLocalizations.of(context)!.myMedications,
-                  routeName: '/my-medications-screen/my-medications',
+                Flexible(
+                  child: Tile(
+                    imageName: 'assets/Medikationsplan.png',
+                    sectionName: AppLocalizations.of(context)!.myMedications,
+                    routeName: '/my-medications-screen/my-medications',
+                  ),
                 ),
                 const SizedBox(
-                  width: 20,
+                  width: 15,
                 ),
-                Tile(
-                  imageName: 'assets/Physiotherapie.png',
-                  sectionName: AppLocalizations.of(context)!.myTherapy,
-                  routeName: '/my-therapy-screen/my-therapy',
+                Flexible(
+                  child: Tile(
+                    imageName: 'assets/Physiotherapie.png',
+                    sectionName: AppLocalizations.of(context)!.myTherapy,
+                    routeName: '/my-therapy-screen/my-therapy',
+                  ),
                 ),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Tile(
-                  imageName: 'assets/BehandlerInnen.png',
-                  sectionName: AppLocalizations.of(context)!.myPhysicians,
-                  routeName: '/physician-list-screen/physicians',
+                Flexible(
+                  child: Tile(
+                    imageName: 'assets/BehandlerInnen.png',
+                    sectionName: AppLocalizations.of(context)!.myPhysicians,
+                    routeName: '/physician-list-screen/physicians',
+                  ),
                 ),
                 const SizedBox(
-                  width: 20,
+                  width: 15,
                 ),
-                Tile(
-                  imageName: 'assets/Angehoerige.png',
-                  sectionName: AppLocalizations.of(context)!.myFamilyMembers,
-                  routeName: '/family-member-list-screen/family-members',
+                Flexible(
+                  child: Tile(
+                    imageName: 'assets/Angehoerige.png',
+                    sectionName: AppLocalizations.of(context)!.myFamilyMembers,
+                    routeName: '/family-member-list-screen/family-members',
+                  ),
                 ),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Tile(
-                  imageName:
-                      'assets/Rehospitalisierung_1225743855_┬®iStock.png',
-                  sectionName: AppLocalizations.of(context)!.visits,
-                  routeName: '/visits-screen/visits',
+                Flexible(
+                  child: Tile(
+                    imageName:
+                        'assets/Rehospitalisierung_1225743855_┬®iStock.png',
+                    sectionName: AppLocalizations.of(context)!.visits,
+                    routeName: '/visits-screen/visits',
+                  ),
                 ),
               ],
             ),
