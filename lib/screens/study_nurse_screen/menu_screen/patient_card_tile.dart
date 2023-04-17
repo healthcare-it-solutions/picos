@@ -17,10 +17,10 @@
 
 import 'package:flutter/material.dart';
 
-/// Each quarter of the medication card showing when and how much medicine you
-/// have to take.
+/// Shows the patient card tile.
 class PatientCardTile extends StatelessWidget {
-  /// MedicationCardTile(Time:[String], Amount:[String])
+  /// Constructor for PatientCardTile where you enter a denotation and a value
+  /// as argument.
   const PatientCardTile(this._denotation, this._value, {Key? key})
       : super(key: key);
 

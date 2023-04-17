@@ -18,8 +18,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/api/backend_patient_data_api.dart';
-import 'package:picos/api/backend_patient_profile_api.dart';
+import 'package:picos/api/backend_patients_data_api.dart';
+import 'package:picos/api/backend_patients_profile_api.dart';
 import 'package:picos/models/patient.dart';
 import 'package:picos/models/patient_data.dart';
 import 'package:picos/models/patient_profile.dart';
@@ -159,16 +159,16 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
         return MultiBlocListener(
           // ignore: always_specify_types
           listeners: [
-            BlocListener<ObjectsListBloc<BackendPatientProfileApi>,
+            BlocListener<ObjectsListBloc<BackendPatientsProfileApi>,
                 ObjectsListState>(
               listener: (BuildContext context, ObjectsListState state) {},
             ),
-            BlocListener<ObjectsListBloc<BackendPatientDataApi>,
+            BlocListener<ObjectsListBloc<BackendPatientsDataApi>,
                 ObjectsListState>(
               listener: (BuildContext context, ObjectsListState state) {},
             ),
           ],
-          child: BlocBuilder<ObjectsListBloc<BackendPatientProfileApi>,
+          child: BlocBuilder<ObjectsListBloc<BackendPatientsProfileApi>,
               ObjectsListState>(
             builder: (BuildContext context, ObjectsListState state) {
               return PicosScreenFrame(
@@ -601,11 +601,11 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                     }
 
                     context
-                        .read<ObjectsListBloc<BackendPatientProfileApi>>()
+                        .read<ObjectsListBloc<BackendPatientsProfileApi>>()
                         .add(SaveObject(patientProfileElement));
 
                     context
-                        .read<ObjectsListBloc<BackendPatientDataApi>>()
+                        .read<ObjectsListBloc<BackendPatientsDataApi>>()
                         .add(SaveObject(patientDataElement));
                     Navigator.of(context).pop();
                   },
