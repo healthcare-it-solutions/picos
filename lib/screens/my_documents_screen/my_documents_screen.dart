@@ -31,7 +31,7 @@ class MyDocumentsScreen extends StatelessWidget {
     return PicosScreenFrame(
       body: const TherapiesList(),
       bottomNavigationBar: const PicosAddMonoButtonBar(
-        route: '/my-documents-screen/add-document',
+        route: '/my-documents-screen/add-documents',
       ),
       title: AppLocalizations.of(context)!.myDocuments,
     );
