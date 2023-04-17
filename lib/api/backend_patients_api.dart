@@ -24,7 +24,7 @@ import 'package:picos/models/patient.dart';
 import '../util/backend.dart';
 
 /// API for storing patients at the backend.
-class BackendPatientApi extends BackendObjectsApi {
+class BackendPatientsApi extends BackendObjectsApi {
   @override
   Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
     try {

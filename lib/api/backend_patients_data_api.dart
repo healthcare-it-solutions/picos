@@ -19,35 +19,26 @@ import 'dart:async';
 
 import 'package:picos/api/backend_objects_api.dart';
 import 'package:picos/models/abstract_database_object.dart';
-import 'package:picos/models/patient_profile.dart';
+import 'package:picos/models/patient_data.dart';
 
 import '../util/backend.dart';
 
-/// API for storing patients' profile data at the backend.
-class BackendPatientProfileApi extends BackendObjectsApi {
+/// API for storing patients' data at the backend.
+class BackendPatientsDataApi extends BackendObjectsApi {
   @override
   Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
     try {
-      List<dynamic> response =
-          await Backend.getAll(PatientProfile.databaseTable);
+      List<dynamic> response = await Backend.getAll(PatientData.databaseTable);
 
       for (dynamic element in response) {
         objectList.add(
-          PatientProfile(
-            weightBMIEnabled: element['Weight_BMI'],
-            heartFrequencyEnabled: element['HeartRate'],
-            bloodPressureEnabled: element['BloodPressure'],
-            bloodSugarLevelsEnabled: element['BloodSugar'],
-            walkDistanceEnabled: element['WalkingDistance'],
-            sleepDurationEnabled: element['SleepDuration'],
-            sleepQualityEnabled: element['SISQS'],
-            painEnabled: element['Pain'],
-            phq4Enabled: element['PHQ4'],
-            medicationEnabled: element['Medication'],
-            therapyEnabled: element['Therapies'],
-            doctorsVisitEnabled: element['Stays'],
+          PatientData(
+            bodyHeight: element['BodyHeight'].toDouble(),
+            patientID: element['ID'] ?? '',
+            caseNumber: element['CaseNumber'] ?? '',
+            instKey: element['inst_key'] ?? '',
+            objectId: element['objectId'],
             patientObjectId: element['Patient']['objectId'],
-            doctorObjectId: element['Doctor']['objectId'],
             createdAt: DateTime.parse(element['createdAt']),
             updatedAt: DateTime.parse(element['updatedAt']),
           ),
@@ -56,7 +47,7 @@ class BackendPatientProfileApi extends BackendObjectsApi {
 
       return getObjectsStream();
     } catch (e) {
-      return Stream<List<PatientProfile>>.error(e);
+      return Stream<List<PatientData>>.error(e);
     }
   }
 }
