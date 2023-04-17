@@ -57,14 +57,14 @@ class Tile extends StatelessWidget {
           end: Alignment.bottomCenter,
         ),
       ),
-      width: 180,
+      width: 160,
       height: 135,
       child: GestureDetector(
         onTap: () => Navigator.of(context).pushNamed(routeName),
         child: Column(
           children: <Widget>[
             Flexible(
-              flex: 11,
+              flex: 9,
               child: ClipRRect(
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(7),
@@ -74,15 +74,20 @@ class Tile extends StatelessWidget {
               ),
             ),
             Flexible(
-              flex: 4,
+              flex: 5,
               child: Center(
-                child: Text(
-                  sectionName,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 5,
+                  ),
+                  child: Text(
+                    sectionName,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
                   ),
                 ),
               ),
