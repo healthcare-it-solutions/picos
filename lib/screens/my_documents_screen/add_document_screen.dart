@@ -66,7 +66,7 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
         _selectedTitle == null ||
         _uploadedDocument == null) {
       setState(() {
-        _saveDisabled = false;
+        _saveDisabled = true;
       });
 
       return;
@@ -74,14 +74,14 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
 
     if (_selectedTitle!.isEmpty || _selectedTitle!.trim() == '') {
       setState(() {
-        _saveDisabled = false;
+        _saveDisabled = true;
       });
 
       return;
     }
 
     setState(() {
-      _saveDisabled = true;
+      _saveDisabled = false;
     });
   }
 
