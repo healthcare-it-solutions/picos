@@ -20,9 +20,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/api/backend_medications_api.dart';
-import 'package:picos/api/backend_patient_api.dart';
-import 'package:picos/api/backend_patient_data_api.dart';
-import 'package:picos/api/backend_patient_profile_api.dart';
+import 'package:picos/api/backend_patients_api.dart';
+import 'package:picos/api/backend_patients_data_api.dart';
+import 'package:picos/api/backend_patients_profile_api.dart';
 import 'package:picos/api/backend_physicians_api.dart';
 import 'package:picos/api/backend_relatives_api.dart';
 import 'package:picos/api/backend_stays_api.dart';
@@ -51,22 +51,22 @@ class MainScreen extends StatelessWidget {
             BackendMedicationsApi(),
           )..add(const ObjectsListSubscriptionRequested()),
         ),
-        BlocProvider<ObjectsListBloc<BackendPatientApi>>(
+        BlocProvider<ObjectsListBloc<BackendPatientsApi>>(
           create: (BuildContext context) =>
-              ObjectsListBloc<BackendPatientApi>(
-            BackendPatientApi(),
+              ObjectsListBloc<BackendPatientsApi>(
+            BackendPatientsApi(),
           )..add(const ObjectsListSubscriptionRequested()),
         ),
-        BlocProvider<ObjectsListBloc<BackendPatientDataApi>>(
+        BlocProvider<ObjectsListBloc<BackendPatientsDataApi>>(
           create: (BuildContext context) =>
-              ObjectsListBloc<BackendPatientDataApi>(
-            BackendPatientDataApi(),
+              ObjectsListBloc<BackendPatientsDataApi>(
+            BackendPatientsDataApi(),
           )..add(const ObjectsListSubscriptionRequested()),
         ),
-        BlocProvider<ObjectsListBloc<BackendPatientProfileApi>>(
+        BlocProvider<ObjectsListBloc<BackendPatientsProfileApi>>(
           create: (BuildContext context) =>
-              ObjectsListBloc<BackendPatientProfileApi>(
-            BackendPatientProfileApi(),
+              ObjectsListBloc<BackendPatientsProfileApi>(
+            BackendPatientsProfileApi(),
           )..add(const ObjectsListSubscriptionRequested()),
         ),
         BlocProvider<ObjectsListBloc<BackendTherapiesApi>>(
