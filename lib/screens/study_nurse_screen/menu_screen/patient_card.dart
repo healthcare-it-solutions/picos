@@ -36,7 +36,6 @@ class PatientCard extends StatelessWidget {
   final PatientData _patientData;
 
   _createCardColumn(
-    BuildContext context,
     String firstDenotation,
     String firstValue,
     String secondDenotation,
@@ -48,43 +47,38 @@ class PatientCard extends StatelessWidget {
   ) {
     const double dividerThickness = 1.5;
 
-    EdgeInsetsGeometry padding = const EdgeInsets.only(right: 13);
-
     return Expanded(
-      child: Padding(
-        padding: padding,
-        child: Column(
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.only(right: 15),
-              child: PatientCardTile(firstDenotation, firstValue),
-            ),
-            const Divider(
-              thickness: dividerThickness,
-            ),
-            Container(
-              padding: const EdgeInsets.only(right: 15),
-              child: PatientCardTile(secondDenotation, secondValue),
-            ),
-            const Divider(
-              thickness: dividerThickness,
-            ),
-            Container(
-              padding: const EdgeInsets.only(right: 15),
-              child: PatientCardTile(thirdDenotation, thirdValue),
-            ),
-            const Divider(
-              thickness: dividerThickness,
-            ),
-            Container(
-              padding: const EdgeInsets.only(right: 15),
-              child: PatientCardTile(fourthDenotation, fourthValue),
-            ),
-            const Divider(
-              thickness: dividerThickness,
-            ),
-          ],
-        ),
+      child: Column(
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.only(right: 15),
+            child: PatientCardTile(firstDenotation, firstValue),
+          ),
+          const Divider(
+            thickness: dividerThickness,
+          ),
+          Container(
+            padding: const EdgeInsets.only(right: 15),
+            child: PatientCardTile(secondDenotation, secondValue),
+          ),
+          const Divider(
+            thickness: dividerThickness,
+          ),
+          Container(
+            padding: const EdgeInsets.only(right: 15),
+            child: PatientCardTile(thirdDenotation, thirdValue),
+          ),
+          const Divider(
+            thickness: dividerThickness,
+          ),
+          Container(
+            padding: const EdgeInsets.only(right: 15),
+            child: PatientCardTile(fourthDenotation, fourthValue),
+          ),
+          const Divider(
+            thickness: dividerThickness,
+          ),
+        ],
       ),
     );
   }
@@ -93,16 +87,15 @@ class PatientCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return PicosListCard(
       title: '${_patient.firstName} ${_patient.familyName}',
-        edit: () {
-          Navigator.of(context).pushNamed(
-            '/study-nurse-screen/menu-screen/add-patient',
-            arguments: _patient,
-          );
-        },
+      edit: () {
+        Navigator.of(context).pushNamed(
+          '/study-nurse-screen/menu-screen/add-patient',
+          arguments: _patient,
+        );
+      },
       child: Row(
         children: <Expanded>[
           _createCardColumn(
-            context,
             AppLocalizations.of(context)!.email,
             _patient.email,
             AppLocalizations.of(context)!.address,
