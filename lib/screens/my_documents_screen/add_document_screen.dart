@@ -18,16 +18,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/api/backend_therapies_api.dart';
+import 'package:parse_server_sdk/parse_server_sdk.dart';
+import 'package:picos/api/backend_documents_api.dart';
+import 'package:picos/models/document.dart';
+import 'package:picos/screens/my_documents_screen/widgets/document_button.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
+import 'package:picos/widgets/picos_date_picker.dart';
+import 'package:picos/widgets/picos_radio_select.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 
-import '../../models/therapy.dart';
 import '../../state/objects_list_bloc.dart';
-import '../../themes/global_theme.dart';
-import '../../widgets/picos_body.dart';
 import '../../widgets/picos_label.dart';
-import '../../widgets/picos_text_area.dart';
 import '../../widgets/picos_text_field.dart';
 
 /// A screen for adding new documents.
@@ -40,197 +41,158 @@ class AddDocumentScreen extends StatefulWidget {
 }
 
 class _AddDocumentScreenState extends State<AddDocumentScreen> {
-  /// The name of the therapy.
-  String? _name;
+  static String? _priority;
+  static String? _date;
+  static String? _documentTitle;
+  static String? _addDocument;
+  static String? _editDocument;
+  static String? _uploadDocument;
+  static String? _downloadDocument;
+  static final Map<String, bool> _selection = <String, bool>{};
 
-  /// The therapy to be taken.
-  DateTime? _date;
-
-  /// The therapy description.
-  String? _therapy;
-
-  String? _nameOld;
-  DateTime? _dateOld;
-  String? _therapyOld;
-
-  Therapy? _therapyEdit;
+  // State
   String? _title;
-  String? _nameHint;
-  String? _dateHint;
+  bool? _selectedPriority;
+  DateTime? _selectedDate;
+  String? _selectedTitle;
+  ParseFile? _uploadedDocument;
   bool _saveDisabled = true;
-  String _dateHintSuffix = '';
-  String _emptyNameHint = '';
-  String _emptyDateHint = '';
+  Document? _document;
+  String? _buttonTitle;
 
-  bool _checkValues() {
-    if (_therapy == null || _date == null || _name == null) {
-      return false;
+  void _checkValues() {
+    if (_selectedPriority == null ||
+        _selectedDate == null ||
+        _selectedTitle == null ||
+        _uploadedDocument == null) {
+      setState(() {
+        _saveDisabled = false;
+      });
+
+      return;
     }
 
-    if (_therapy == _therapyOld && _date == _dateOld && _name == _nameOld) {
-      return false;
+    if (_selectedTitle!.isEmpty || _selectedTitle!.trim() == '') {
+      setState(() {
+        _saveDisabled = false;
+      });
+
+      return;
     }
 
-    if (_name!.isEmpty || _name!.trim() == '') {
-      return false;
-    }
-
-    if (_therapy!.isEmpty || _therapy!.trim() == '') {
-      return false;
-    }
-    return true;
-  }
-
-  String _buildDateHint(DateTime? date) {
-    if (date == null) {
-      return _emptyDateHint;
-    }
-
-    return '${date.day}.${date.month}.${date.year} $_dateHintSuffix';
-  }
-
-  String _buildNameHint(String? name) {
-    if (name == null) return _emptyNameHint;
-
-    return name;
+    setState(() {
+      _saveDisabled = true;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    const double padding = 10;
+
     // Init variables.
-    if (_title == null) {
-      _emptyNameHint = AppLocalizations.of(context)!.enterName;
-      _emptyDateHint = AppLocalizations.of(context)!.selectDate;
-      _title = AppLocalizations.of(context)!.addTherapy;
-      _nameHint = _buildNameHint(_name);
-      _dateHint = _buildDateHint(_date);
-      _dateHintSuffix = '///// ${AppLocalizations.of(context)!.day}.'
-          '${AppLocalizations.of(context)!.month}.'
-          '${AppLocalizations.of(context)!.year}';
+    if (_selection.isEmpty) {
+      _selection.addAll(<String, bool>{
+        AppLocalizations.of(context)!.importantDocument: true,
+        AppLocalizations.of(context)!.sortByDate: false,
+      });
+
+      _priority = AppLocalizations.of(context)!.priority;
+      _date = AppLocalizations.of(context)!.date;
+      _documentTitle = AppLocalizations.of(context)!.documentTitle;
+      _addDocument = AppLocalizations.of(context)!.addDocument;
+      _editDocument = AppLocalizations.of(context)!.editDocument;
+      _uploadDocument = AppLocalizations.of(context)!.uploadDocument;
+      _downloadDocument = AppLocalizations.of(context)!.downloadDocument;
     }
 
-    Object? therapyEdit = ModalRoute.of(context)!.settings.arguments;
+    _title = _addDocument;
+    _buttonTitle = _uploadDocument;
+    Object? document = ModalRoute.of(context)!.settings.arguments;
 
-    //Initialize therapyEdit if the therapy is to be edited.
-    if (_therapyEdit == null && therapyEdit != null) {
-      _therapyEdit = therapyEdit as Therapy;
+    if (_document == null && document != null) {
+      _title = _editDocument;
+      _buttonTitle = _downloadDocument;
+      _document = document as Document;
 
-      _name = therapyEdit.name;
-      _date = _therapyEdit!.date;
-      _therapy = _therapyEdit!.therapy;
-      _nameOld = _name;
-      _dateOld = _date;
-      _therapyOld = _therapy;
-
-      _dateHint = _buildDateHint(_date);
-      _nameHint = _buildNameHint(_name);
-
-      _title = AppLocalizations.of(context)!.editTherapy;
+      _selectedTitle = _document!.filename;
+      _selectedDate = _document!.date;
+      _selectedPriority = _document!.important;
+      _uploadedDocument = _document!.document;
     }
 
-    return BlocBuilder<ObjectsListBloc<BackendTherapiesApi>, ObjectsListState>(
+    return BlocBuilder<ObjectsListBloc<BackendDocumentsApi>, ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
         return PicosScreenFrame(
           title: _title,
           bottomNavigationBar: PicosAddButtonBar(
             disabled: _saveDisabled,
             onTap: () {
-              Therapy therapy = _therapyEdit ??
-                  Therapy(
-                    name: _name!,
-                    therapy: _therapy!,
-                    date: _date!,
-                  );
-
-              if (_therapyEdit != null) {
-                therapy = therapy.copyWith(
-                  name: _name,
-                  date: _date,
-                  therapy: _therapy,
-                );
-              }
-
-              context
-                  .read<ObjectsListBloc<BackendTherapiesApi>>()
-                  .add(SaveObject(therapy));
-              Navigator.of(context).pop(therapy);
+              //        Therapy therapy = _therapyEdit ??
+              //            Therapy(
+              //              name: _name!,
+              //              therapy: _therapy!,
+              //              date: _date!,
+              //            );
+//
+              //        if (_therapyEdit != null) {
+              //          therapy = therapy.copyWith(
+              //            name: _name,
+              //            date: _date,
+              //            therapy: _therapy,
+              //          );
+              //        }
+//
+              //        context
+              //            .read<ObjectsListBloc<BackendTherapiesApi>>()
+              //            .add(SaveObject(therapy));
+              //        Navigator.of(context).pop(therapy);
             },
           ),
-          body: PicosBody(
+          body: SingleChildScrollView(
             child: Column(
               children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: padding, left: padding),
+                  child: PicosLabel(_priority!),
+                ),
+                PicosRadioSelect(
+                  selection: _selection,
+                  callBack: (dynamic value) {
+                    _selectedPriority = value;
+                    _checkValues();
+                  },
+                ),
                 const SizedBox(
                   height: 25,
                 ),
-                PicosLabel(AppLocalizations.of(context)!.therapyName),
-                PicosTextField(
-                  initialValue: _name,
-                  hint: _nameHint!,
-                  onChanged: (String value) {
-                    _name = value;
-
-                    setState(() {
-                      _nameHint = _buildNameHint(_name);
-                      _saveDisabled = !_checkValues();
-                    });
-                  },
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                PicosLabel(AppLocalizations.of(context)!.date),
-                PicosTextField(
-                  hint: _dateHint!,
-                  onTap: () async {
-                    DateTime? date = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime.now()
-                          .subtract(const Duration(days: 365 * 10)),
-                      lastDate:
-                          DateTime.now().add(const Duration(days: 365 * 10)),
-                      builder: (BuildContext context, Widget? child) {
-                        return Theme(
-                          data: Theme.of(context).copyWith(
-                            dialogBackgroundColor: Theme.of(context)
-                                .extension<GlobalTheme>()!
-                                .bottomNavigationBar!,
-                            colorScheme: ColorScheme.light(
-                              primary: Theme.of(context)
-                                  .extension<GlobalTheme>()!
-                                  .darkGreen1!,
-                            ),
-                          ),
-                          child: child!,
-                        );
-                      },
-                    );
-
-                    if (date != null) {
-                      _date = date;
-                    }
-
-                    setState(() {
-                      _dateHint = _buildDateHint(_date);
-                      _saveDisabled = !_checkValues();
-                    });
-                  },
-                  readOnly: true,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                PicosLabel(AppLocalizations.of(context)!.therapy),
-                PicosTextArea(
-                  maxLines: 10,
-                  initialValue: _therapy,
-                  onChanged: (String value) {
-                    _therapy = value;
-
-                    setState(() {
-                      _saveDisabled = !_checkValues();
-                    });
-                  },
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: padding),
+                  child: Column(
+                    children: <Widget>[
+                      PicosLabel(_date!),
+                      PicosDatePicker(
+                        callBackFunction: (DateTime value) {
+                          _selectedDate = value;
+                          _checkValues();
+                        },
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      PicosLabel(_documentTitle!),
+                      PicosTextField(
+                        hint: _documentTitle!,
+                        onChanged: (String value) {
+                          _selectedTitle = value;
+                          _checkValues();
+                        },
+                      ),
+                      const SizedBox(
+                        height: 45,
+                      ),
+                      DocumentButton(buttonTitle: _buttonTitle),
+                    ],
+                  ),
                 ),
               ],
             ),
