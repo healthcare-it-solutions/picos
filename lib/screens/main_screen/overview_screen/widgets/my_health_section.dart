@@ -83,6 +83,14 @@ class MyHealthSection extends StatelessWidget {
                   sectionName: AppLocalizations.of(context)!.visits,
                   routeName: '/visits-screen/visits',
                 ),
+                const SizedBox(
+                  width: 15,
+                ),
+                const Expanded(
+                  child: SizedBox(
+                    width: 150,
+                  ),
+                ),
               ],
             ),
           ],
