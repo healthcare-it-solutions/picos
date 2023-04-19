@@ -16,24 +16,39 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/screens/my_documents_screen/documents_list.dart';
-import 'package:picos/widgets/picos_add_mono_button_bar.dart';
-import 'package:picos/widgets/picos_screen_frame.dart';
 
-/// Shows a list with all personal documents.
-class MyDocumentsScreen extends StatelessWidget {
-  /// Creates MyDocumentsScreen
-  const MyDocumentsScreen({Key? key}) : super(key: key);
+import '../../models/document.dart';
+import '../../themes/global_theme.dart';
+
+/// Displays a document item.
+class DocumentItem extends StatelessWidget {
+  /// Creates DocumentItem.
+  const DocumentItem(
+    this._document, {
+    Key? key,
+  }) : super(key: key);
+
+  final Document _document;
 
   @override
   Widget build(BuildContext context) {
-    return PicosScreenFrame(
-      body: const DocumentsList(),
-      bottomNavigationBar: const PicosAddMonoButtonBar(
-        route: '/my-documents-screen/add-documents',
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
+    return ListTile(
+      title: Text('${_document.filename} - ${_document.filename}'),
+      trailing: Padding(
+        padding: const EdgeInsets.only(
+          right: 10,
+        ),
+        child: Icon(
+          Icons.arrow_forward_ios_rounded,
+          color: theme.green2,
+        ),
       ),
-      title: AppLocalizations.of(context)!.myDocuments,
+      onTap: () {
+        Navigator.of(context)
+            .pushNamed('/my-documents-screen/add-documents', arguments: _document);
+      },
     );
   }
 }
