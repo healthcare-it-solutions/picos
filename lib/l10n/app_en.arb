@@ -1044,5 +1044,9 @@
     "documentsSortedDesc": "Documents sorted descending",
     "@documentsSortedDesc": {
         "description": "Documents sorted descending"
+    },
+    "documentSelected": "Document selected",
+    "@documentSelected": {
+        "description": "Document selected"
     }
 }
