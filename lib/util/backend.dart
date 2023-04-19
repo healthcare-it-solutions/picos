@@ -130,11 +130,6 @@ class Backend {
     ParseObject parseObject = ParseObject(object.table);
     await parseObject.delete(id: object.objectId);
   }
-
-  /// Saves an [file] at the backend storage.
-  static Future<dynamic> saveFile(BackendFile file) async {
-    return jsonDecode((await file.save()).results!.first.toString());
-  }
 }
 
 /// Allows to prepare read and write permissions for an object to be saved.
@@ -166,9 +161,16 @@ class BackendACL {
 
 /// Allows to interact with the file storage in the cloud.
 class BackendFile {
-  /// Creates a new BackendFile.
+  /// Creates a new [BackendFile].
   BackendFile(File file) {
     _parseFile = ParseFile(file);
+  }
+
+  /// Creates a new [BackendFile] by [url] and a [name].
+  /// This is usually relevant if you try to recreate a local BackendFile you
+  /// already uploaded to the backend.
+  BackendFile.byUrl(String name, String url) {
+    _parseFile = ParseFile(null, name: name, url: url);
   }
 
   late final ParseFile _parseFile;
@@ -179,7 +181,7 @@ class BackendFile {
   }
 
   /// Uploads a file to Parse Server.
-  Future<dynamic> save() async {
-    return jsonDecode((await _parseFile.save()).results!.first.toString());
+  Future<dynamic> upload() async {
+    return jsonDecode((await _parseFile.upload()).results!.first.toString());
   }
 }
