@@ -15,9 +15,8 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import 'dart:io';
-
 import 'package:picos/models/abstract_database_object.dart';
+import 'package:picos/util/backend.dart';
 
 /// Class with documents.
 class Document extends AbstractDatabaseObject {
@@ -42,7 +41,7 @@ class Document extends AbstractDatabaseObject {
   final bool important;
 
   /// The document object.
-  final File document;
+  final BackendFile document;
 
   /// The document date.
   final DateTime date;
@@ -56,7 +55,7 @@ class Document extends AbstractDatabaseObject {
   Document copyWith({
     String? filename,
     bool? important,
-    File? document,
+    BackendFile? document,
     DateTime? date,
     String? objectId,
     DateTime? createdAt,
@@ -85,7 +84,7 @@ class Document extends AbstractDatabaseObject {
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
     'filename': filename,
     'prio': important,
-    'document': document,
+    'document': document.file,
     'date': date,
   };
 }

@@ -26,6 +26,12 @@ import '../util/backend.dart';
 /// API for storing documents at the backend.
 class BackendDocumentsApi extends BackendObjectsApi {
   @override
+  Future<void> saveObject(AbstractDatabaseObject object) async {
+    (object as Document).document.save();
+    super.saveObject(object);
+  }
+
+  @override
   Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
     try {
       List<dynamic> response = await Backend.getAll(Document.databaseTable);
