@@ -22,10 +22,14 @@ import '../../../themes/global_theme.dart';
 /// Creates a light blue form button.
 class DocumentButton extends StatelessWidget {
   /// DocumentButton constructor.
-  const DocumentButton({this.buttonTitle, Key? key}) : super(key: key);
+  const DocumentButton({this.buttonTitle, Key? key, this.onPressed})
+      : super(key: key);
 
   /// The shown title of the button.
   final String? buttonTitle;
+
+  /// The action happening when pressing the button.
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,7 @@ class DocumentButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: TextButton(
-        onPressed: () {},
+        onPressed: onPressed ?? () {},
         style: TextButton.styleFrom(
           backgroundColor: theme.cardButton,
           shape: RoundedRectangleBorder(
