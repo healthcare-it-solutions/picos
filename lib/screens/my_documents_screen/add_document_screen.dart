@@ -15,10 +15,12 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:picos/api/backend_documents_api.dart';
 import 'package:picos/models/document.dart';
 import 'package:picos/screens/my_documents_screen/widgets/document_button.dart';
@@ -28,6 +30,7 @@ import 'package:picos/widgets/picos_radio_select.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 
 import '../../state/objects_list_bloc.dart';
+import '../../util/backend.dart';
 import '../../widgets/picos_label.dart';
 import '../../widgets/picos_text_field.dart';
 
@@ -46,8 +49,6 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
   static String? _documentTitle;
   static String? _addDocument;
   static String? _editDocument;
-  static String? _uploadDocument;
-  static String? _downloadDocument;
   static final Map<String, bool> _selection = <String, bool>{};
 
   // State
@@ -55,10 +56,9 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
   bool? _selectedPriority;
   DateTime? _selectedDate;
   String? _selectedTitle;
-  ParseFile? _uploadedDocument;
+  BackendFile? _uploadedDocument;
   bool _saveDisabled = true;
   Document? _document;
-  String? _buttonTitle;
 
   void _checkValues() {
     if (_selectedPriority == null ||
@@ -101,17 +101,13 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
       _documentTitle = AppLocalizations.of(context)!.documentTitle;
       _addDocument = AppLocalizations.of(context)!.addDocument;
       _editDocument = AppLocalizations.of(context)!.editDocument;
-      _uploadDocument = AppLocalizations.of(context)!.uploadDocument;
-      _downloadDocument = AppLocalizations.of(context)!.downloadDocument;
     }
 
     _title = _addDocument;
-    _buttonTitle = _uploadDocument;
     Object? document = ModalRoute.of(context)!.settings.arguments;
 
     if (_document == null && document != null) {
       _title = _editDocument;
-      _buttonTitle = _downloadDocument;
       _document = document as Document;
 
       _selectedTitle = _document!.filename;
@@ -127,25 +123,18 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
           bottomNavigationBar: PicosAddButtonBar(
             disabled: _saveDisabled,
             onTap: () {
-              //        Therapy therapy = _therapyEdit ??
-              //            Therapy(
-              //              name: _name!,
-              //              therapy: _therapy!,
-              //              date: _date!,
-              //            );
-//
-              //        if (_therapyEdit != null) {
-              //          therapy = therapy.copyWith(
-              //            name: _name,
-              //            date: _date,
-              //            therapy: _therapy,
-              //          );
-              //        }
-//
-              //        context
-              //            .read<ObjectsListBloc<BackendTherapiesApi>>()
-              //            .add(SaveObject(therapy));
-              //        Navigator.of(context).pop(therapy);
+              context.read<ObjectsListBloc<BackendDocumentsApi>>().add(
+                    SaveObject(
+                      Document(
+                        date: _selectedDate!,
+                        document: _uploadedDocument!,
+                        filename: _selectedTitle!,
+                        important: _selectedPriority!,
+                      ),
+                    ),
+                  );
+
+              Navigator.of(context).pop();
             },
           ),
           body: SingleChildScrollView(
@@ -190,7 +179,22 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
                       const SizedBox(
                         height: 45,
                       ),
-                      DocumentButton(buttonTitle: _buttonTitle),
+                      DocumentButton(
+                        onPressed: () async {
+                          FilePickerResult? result =
+                              await FilePicker.platform.pickFiles();
+
+                          if (result != null) {
+                            _uploadedDocument =
+                                BackendFile(File(result.files.single.path!));
+                            _checkValues();
+
+                            return true;
+                          }
+
+                          return false;
+                        },
+                      ),
                     ],
                   ),
                 ),
