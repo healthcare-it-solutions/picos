@@ -15,7 +15,8 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import 'package:parse_server_sdk/parse_server_sdk.dart';
+import 'dart:io';
+
 import 'package:picos/models/abstract_database_object.dart';
 
 /// Class with documents.
@@ -41,7 +42,7 @@ class Document extends AbstractDatabaseObject {
   final bool important;
 
   /// The document object.
-  final ParseFile document;
+  final File document;
 
   /// The document date.
   final DateTime date;
@@ -55,7 +56,7 @@ class Document extends AbstractDatabaseObject {
   Document copyWith({
     String? filename,
     bool? important,
-    ParseFile? document,
+    File? document,
     DateTime? date,
     String? objectId,
     DateTime? createdAt,
