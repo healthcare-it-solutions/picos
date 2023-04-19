@@ -42,6 +42,7 @@ dependencies:
   parse_server_sdk: ^4.0.2
   queen_validators: ^1.0.1
   flutter_svg: ^2.0.4
+  file_picker: ^5.2.9
 
 dev_dependencies:
   flutter_launcher_icons: ^0.12.0
