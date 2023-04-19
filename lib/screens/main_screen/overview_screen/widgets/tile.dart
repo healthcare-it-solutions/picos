@@ -45,43 +45,50 @@ class Tile extends StatelessWidget {
     Color gradientColor1 = theme.green1!;
     Color gradientColor2 = theme.green2!;
 
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(7),
-        gradient: LinearGradient(
-          colors: <Color>[
-            gradientColor1,
-            gradientColor2,
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-      ),
-      width: 180,
-      height: 180,
+    return Expanded(
       child: GestureDetector(
         onTap: () => Navigator.of(context).pushNamed(routeName),
         child: Column(
           children: <Widget>[
-            Flexible(
-              flex: 3,
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(7),
-                  topRight: Radius.circular(7),
-                ),
-                child: Image.asset(imageName),
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(7),
+                topRight: Radius.circular(7),
+              ),
+              child: Image.asset(
+                imageName,
               ),
             ),
-            Flexible(
-              flex: 2,
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(7),
+                  bottomRight: Radius.circular(7),
+                ),
+                gradient: LinearGradient(
+                  colors: <Color>[
+                    gradientColor1,
+                    gradientColor2,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              height: 60,
               child: Center(
-                child: Text(
-                  sectionName,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 5,
+                    vertical: 10,
+                  ),
+                  child: Text(
+                    sectionName,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
                   ),
                 ),
               ),
