@@ -16,6 +16,7 @@
 */
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
@@ -129,6 +130,11 @@ class Backend {
     ParseObject parseObject = ParseObject(object.table);
     await parseObject.delete(id: object.objectId);
   }
+
+  /// Saves an [file] at the backend storage.
+  static Future<dynamic> saveFile(BackendFile file) async {
+    return jsonDecode((await file.save()).results!.first.toString());
+  }
 }
 
 /// Allows to prepare read and write permissions for an object to be saved.
@@ -155,5 +161,25 @@ class BackendACL {
   /// Set whether the user is allowed to write this object.
   void setWriteAccess({required String userId, bool allowed = true}) {
     _parseACL.setWriteAccess(userId: userId, allowed: allowed);
+  }
+}
+
+/// Allows to interact with the file storage in the cloud.
+class BackendFile {
+  /// Creates a new BackendFile.
+  BackendFile(File file) {
+    _parseFile = ParseFile(file);
+  }
+
+  late final ParseFile _parseFile;
+
+  /// Returns the file.
+  ParseFile get file {
+    return _parseFile;
+  }
+
+  /// Uploads a file to Parse Server.
+  Future<dynamic> save() async {
+    return jsonDecode((await _parseFile.save()).results!.first.toString());
   }
 }
