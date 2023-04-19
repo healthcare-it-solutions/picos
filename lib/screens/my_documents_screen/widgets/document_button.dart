@@ -18,27 +18,69 @@
 import 'package:flutter/material.dart';
 
 import '../../../themes/global_theme.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// Creates a light blue form button.
-class DocumentButton extends StatelessWidget {
+class DocumentButton extends StatefulWidget {
   /// DocumentButton constructor.
-  const DocumentButton({this.buttonTitle, Key? key, this.onPressed})
+  const DocumentButton({Key? key, this.onPressed, this.title})
       : super(key: key);
 
-  /// The shown title of the button.
-  final String? buttonTitle;
-
   /// The action happening when pressing the button.
-  final void Function()? onPressed;
+  final Future<bool> Function()? onPressed;
+
+  /// A title for the button.
+  final String? title;
+
+  @override
+  State<DocumentButton> createState() => _DocumentButtonState();
+}
+
+class _DocumentButtonState extends State<DocumentButton> {
+  static String? _uploadDocument;
+  static String? _documentSelected;
+
+  //State.
+  String buttonTitle = '';
+
+  void setButtonTitle() {
+    if (buttonTitle.isNotEmpty) {
+      return;
+    }
+
+    if (widget.title == null) {
+      buttonTitle = _uploadDocument!;
+      return;
+    }
+
+    buttonTitle = widget.title!;
+  }
 
   @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
 
+    if (_uploadDocument == null) {
+      _uploadDocument = AppLocalizations.of(context)!.uploadDocument;
+      _documentSelected = AppLocalizations.of(context)!.documentSelected;
+    }
+
+    setButtonTitle();
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: TextButton(
-        onPressed: onPressed ?? () {},
+        onPressed: () async {
+          if (widget.onPressed == null) {
+            return;
+          }
+
+          if (await widget.onPressed!()) {
+            setState(() {
+              buttonTitle = _documentSelected!;
+            });
+          }
+        },
         style: TextButton.styleFrom(
           backgroundColor: theme.cardButton,
           shape: RoundedRectangleBorder(
@@ -50,7 +92,7 @@ class DocumentButton extends StatelessWidget {
           width: double.infinity,
           child: Center(
             child: Text(
-              buttonTitle ?? '',
+              buttonTitle,
               style: TextStyle(color: theme.grey1),
             ),
           ),
