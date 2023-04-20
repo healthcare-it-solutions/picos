@@ -27,7 +27,10 @@ import '../util/backend.dart';
 class BackendDocumentsApi extends BackendObjectsApi {
   @override
   Future<void> saveObject(AbstractDatabaseObject object) async {
-    (object as Document).document.upload();
+    if (object.createdAt == null) {
+      (object as Document).document.upload();
+    }
+
     super.saveObject(object);
   }
 
