@@ -103,7 +103,7 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
       _editDocument = AppLocalizations.of(context)!.editDocument;
     }
 
-    _title = _addDocument;
+    _title ??= _addDocument;
     Object? document = ModalRoute.of(context)!.settings.arguments;
 
     if (_document == null && document != null) {
@@ -145,6 +145,7 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
                   child: PicosLabel(_priority!),
                 ),
                 PicosRadioSelect(
+                  initialValue: _selectedPriority,
                   selection: _selection,
                   callBack: (dynamic value) {
                     _selectedPriority = value;
@@ -160,6 +161,7 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
                     children: <Widget>[
                       PicosLabel(_date!),
                       PicosDatePicker(
+                        initialValue: _selectedDate,
                         callBackFunction: (DateTime value) {
                           _selectedDate = value;
                           _checkValues();
@@ -170,6 +172,7 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
                       ),
                       PicosLabel(_documentTitle!),
                       PicosTextField(
+                        initialValue: _selectedTitle,
                         hint: _documentTitle!,
                         onChanged: (String value) {
                           _selectedTitle = value;
