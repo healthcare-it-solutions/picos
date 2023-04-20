@@ -38,7 +38,7 @@ class _FamilyMembersListState extends State<FamilyMembersList> {
     return BlocBuilder<ObjectsListBloc<BackendRelativesApi>,
         ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
-        if (state.objectsList.isEmpty &&
+        if (state.status == ObjectsListStatus.initial ||
             state.status == ObjectsListStatus.loading) {
           return const Center(
             child: CircularProgressIndicator(),

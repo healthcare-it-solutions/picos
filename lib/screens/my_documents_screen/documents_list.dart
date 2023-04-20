@@ -90,7 +90,7 @@ class _DocumentsListState extends State<DocumentsList> {
 
     return BlocBuilder<ObjectsListBloc<BackendDocumentsApi>, ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
-        if (state.objectsList.isEmpty &&
+        if (state.status == ObjectsListStatus.initial ||
             state.status == ObjectsListStatus.loading) {
           return const Center(
             child: CircularProgressIndicator(),

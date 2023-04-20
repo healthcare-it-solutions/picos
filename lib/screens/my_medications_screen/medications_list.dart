@@ -37,7 +37,7 @@ class _MedicationsListState extends State<MedicationsList> {
     return BlocBuilder<ObjectsListBloc<BackendMedicationsApi>,
         ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
-        if (state.objectsList.isEmpty &&
+        if (state.status == ObjectsListStatus.initial ||
             state.status == ObjectsListStatus.loading) {
           return const Center(
             child: CircularProgressIndicator(),
