@@ -29,6 +29,7 @@ class PicosDatePicker extends StatefulWidget {
     Key? key,
     this.dateHint = '',
     this.dateHintSuffix = '',
+    this.initialValue,
   }) : super(key: key);
 
   /// The function that is executed when a date gets selected.
@@ -39,6 +40,9 @@ class PicosDatePicker extends StatefulWidget {
 
   /// The suffix to be shown behind the date.
   final String dateHintSuffix;
+
+  /// Initial date shown.
+  final DateTime? initialValue;
 
   /// A method to get a formatted String for a [date].
   static String formatDate(DateTime date) {
@@ -71,6 +75,11 @@ class _PicosDatePickerState extends State<PicosDatePicker> {
   @override
   Widget build(BuildContext context) {
     globalTheme ??= Theme.of(context).extension<GlobalTheme>();
+    if (widget.initialValue != null) {
+      _date = widget.initialValue;
+      _buildHint();
+    }
+
     _hint ??= widget.dateHint;
 
     return PicosTextField(
