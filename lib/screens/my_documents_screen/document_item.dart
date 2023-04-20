@@ -30,12 +30,17 @@ class DocumentItem extends StatelessWidget {
 
   final Document _document;
 
+  String _formatDate() {
+    //ignore: lines_longer_than_80_chars
+    return '${_document.date.year}-${_document.date.month}-${_document.date.day}';
+  }
+
   @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
 
     return ListTile(
-      title: Text('${_document.filename} - ${_document.filename}'),
+      title: Text('${_formatDate()}  ${_document.filename}'),
       trailing: Padding(
         padding: const EdgeInsets.only(
           right: 10,
@@ -46,8 +51,10 @@ class DocumentItem extends StatelessWidget {
         ),
       ),
       onTap: () {
-        Navigator.of(context)
-            .pushNamed('/my-documents-screen/add-documents', arguments: _document);
+        Navigator.of(context).pushNamed(
+          '/my-documents-screen/add-documents',
+          arguments: _document,
+        );
       },
     );
   }
