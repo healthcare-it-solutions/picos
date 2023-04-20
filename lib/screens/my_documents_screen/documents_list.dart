@@ -71,11 +71,14 @@ class _DocumentsListState extends State<DocumentsList> {
   }
 
   List<AbstractDatabaseObject> _sortList(List<AbstractDatabaseObject> list) {
-    list.sort((AbstractDatabaseObject a, AbstractDatabaseObject b) {
+    List<AbstractDatabaseObject> sortedList = <AbstractDatabaseObject>[];
+    sortedList.addAll(list);
+
+    sortedList.sort((AbstractDatabaseObject a, AbstractDatabaseObject b) {
       return (b as Document).date.compareTo((a as Document).date);
     });
 
-    return list;
+    return sortedList;
   }
 
   @override
