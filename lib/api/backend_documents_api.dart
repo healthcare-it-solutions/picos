@@ -28,10 +28,10 @@ class BackendDocumentsApi extends BackendObjectsApi {
   @override
   Future<void> saveObject(AbstractDatabaseObject object) async {
     if (object.createdAt == null) {
-      (object as Document).document.upload();
+      await (object as Document).document.upload();
     }
 
-    super.saveObject(object);
+    await super.saveObject(object);
   }
 
   @override
