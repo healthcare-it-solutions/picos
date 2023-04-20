@@ -88,44 +88,42 @@ class _DocumentsListState extends State<DocumentsList> {
       _documentsSortedDesc = AppLocalizations.of(context)!.documentsSortedDesc;
     }
 
-    return SingleChildScrollView(
-      child: BlocBuilder<ObjectsListBloc<BackendDocumentsApi>, ObjectsListState>(
-        builder: (BuildContext context, ObjectsListState state) {
-          if (state.objectsList.isEmpty &&
-              state.status == ObjectsListStatus.loading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-
-          if (state.status == ObjectsListStatus.failure) {
-            return const Center(
-              child: Text('Error'),
-            );
-          }
-
-          _createLists(state.objectsList);
-
-          return Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 10, left: 10),
-                child: PicosLabel(_importantDocuments!),
-              ),
-              Column(
-                children: _importantList!,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10, top: 50),
-                child: PicosLabel(_documentsSortedDesc!),
-              ),
-              Column(
-                children: _sortedList!,
-              ),
-            ],
+    return BlocBuilder<ObjectsListBloc<BackendDocumentsApi>, ObjectsListState>(
+      builder: (BuildContext context, ObjectsListState state) {
+        if (state.objectsList.isEmpty &&
+            state.status == ObjectsListStatus.loading) {
+          return const Center(
+            child: CircularProgressIndicator(),
           );
-        },
-      ),
+        }
+
+        if (state.status == ObjectsListStatus.failure) {
+          return const Center(
+            child: Text('Error'),
+          );
+        }
+
+        _createLists(state.objectsList);
+
+        return Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 10, left: 10),
+              child: PicosLabel(_importantDocuments!),
+            ),
+            Column(
+              children: _importantList!,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10, top: 50),
+              child: PicosLabel(_documentsSortedDesc!),
+            ),
+            Column(
+              children: _sortedList!,
+            ),
+          ],
+        );
+      },
     );
   }
 }

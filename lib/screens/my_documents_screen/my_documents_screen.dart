@@ -29,7 +29,7 @@ class MyDocumentsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PicosScreenFrame(
-      body: const DocumentsList(),
+      body: const SingleChildScrollView(child: DocumentsList()),
       bottomNavigationBar: const PicosAddMonoButtonBar(
         route: '/my-documents-screen/add-documents',
       ),
