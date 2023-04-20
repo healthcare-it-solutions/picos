@@ -164,17 +164,23 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
           bottomNavigationBar: PicosAddButtonBar(
             disabled: _saveDisabled,
             onTap: () {
-              context.read<ObjectsListBloc<BackendDocumentsApi>>().add(
-                    SaveObject(
-                      Document(
-                        date: _selectedDate!,
-                        document: _uploadedDocument!,
-                        filename: _selectedTitle!,
-                        important: _selectedPriority!,
-                      ),
-                    ),
-                  );
+              Document document = _document != null
+                  ? _document!.copyWith(
+                      date: _selectedDate!,
+                      document: _uploadedDocument!,
+                      filename: _selectedTitle!,
+                      important: _selectedPriority!,
+                    )
+                  : Document(
+                      date: _selectedDate!,
+                      document: _uploadedDocument!,
+                      filename: _selectedTitle!,
+                      important: _selectedPriority!,
+                    );
 
+              context
+                  .read<ObjectsListBloc<BackendDocumentsApi>>()
+                  .add(SaveObject(document));
               Navigator.of(context).pop();
             },
           ),
