@@ -49,6 +49,8 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
   static String? _documentTitle;
   static String? _addDocument;
   static String? _editDocument;
+  static String? _downloadDocument;
+  static String? _delete;
   static final Map<String, bool> _selection = <String, bool>{};
 
   // State
@@ -85,6 +87,43 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
     });
   }
 
+  List<Widget> _createDocumentButtons() {
+    if (_document != null) {
+      return <Widget>[
+        DocumentButton(
+          title: _downloadDocument,
+          onPressed: () async {
+            return true;
+          },
+        ),
+        const SizedBox(height: 35),
+        DocumentButton(
+          title: _delete,
+          onPressed: () async {
+            return true;
+          },
+        ),
+      ];
+    }
+
+    return <Widget>[
+      DocumentButton(
+        onPressed: () async {
+          FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+          if (result != null) {
+            _uploadedDocument = BackendFile(File(result.files.single.path!));
+            _checkValues();
+
+            return true;
+          }
+
+          return false;
+        },
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     const double padding = 10;
@@ -101,6 +140,8 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
       _documentTitle = AppLocalizations.of(context)!.documentTitle;
       _addDocument = AppLocalizations.of(context)!.addDocument;
       _editDocument = AppLocalizations.of(context)!.editDocument;
+      _downloadDocument = AppLocalizations.of(context)!.downloadDocument;
+      _delete = AppLocalizations.of(context)!.delete;
     }
 
     _title ??= _addDocument;
@@ -182,21 +223,8 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
                       const SizedBox(
                         height: 45,
                       ),
-                      DocumentButton(
-                        onPressed: () async {
-                          FilePickerResult? result =
-                              await FilePicker.platform.pickFiles();
-
-                          if (result != null) {
-                            _uploadedDocument =
-                                BackendFile(File(result.files.single.path!));
-                            _checkValues();
-
-                            return true;
-                          }
-
-                          return false;
-                        },
+                      Column(
+                        children: _createDocumentButtons(),
                       ),
                     ],
                   ),
