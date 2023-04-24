@@ -20,6 +20,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:picos/config.dart';
 
 import '../models/abstract_database_object.dart';
@@ -30,6 +31,15 @@ import '../models/abstract_database_object.dart';
 class Backend {
   /// initializes the parse server
   Backend() {
+    _initialized = _initParse();
+  }
+
+  static late final Future<bool> _initialized;
+
+  /// The user that is currently logged in.
+  static late ParseUser user;
+
+  static Future<bool> _initParse() async {
     String url = '';
 
     if (kReleaseMode) {
@@ -40,21 +50,25 @@ class Backend {
       url = serverUrl;
     }
 
-    Parse().initialize(
+    await Parse().initialize(
       appId,
       url,
       clientKey: clientKey,
       appName: appName,
       debug: true,
+      fileDirectory: await _getDownloadPath(),
     );
-  }
 
-  /// The user that is currently logged in.
-  static late ParseUser user;
+    return true;
+  }
 
   /// Takes [login] and [password] to login a user
   /// and returns if it was successful as a [bool].
   static Future<bool> login(String login, String password) async {
+    if (!Parse().hasParseBeenInitialized()) {
+      await _initialized;
+    }
+
     // in case the next line throws a null is not int compatible or
     // something like 'os broken pipe' remember to set the appid,
     // server url and the client key properly above.
@@ -130,6 +144,18 @@ class Backend {
     ParseObject parseObject = ParseObject(object.table);
     await parseObject.delete(id: object.objectId);
   }
+
+  static Future<String?> _getDownloadPath() async {
+    if (Platform.isIOS) {
+      return (await getApplicationDocumentsDirectory()).path;
+    }
+
+    if (!await Directory('/storage/emulated/0/Download').exists()) {
+      return (await getExternalStorageDirectory())?.path;
+    }
+
+    return Directory('/storage/emulated/0/Download').path;
+  }
 }
 
 /// Allows to prepare read and write permissions for an object to be saved.
@@ -183,5 +209,10 @@ class BackendFile {
   /// Uploads a file to Parse Server.
   Future<dynamic> upload() async {
     return jsonDecode((await _parseFile.upload()).results!.first.toString());
+  }
+
+  /// Downloads a file from Parse Server.
+  Future<File> download() async {
+    return (await _parseFile.download()).file!;
   }
 }
