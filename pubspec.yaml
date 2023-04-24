@@ -43,6 +43,7 @@ dependencies:
   queen_validators: ^1.0.1
   flutter_svg: ^2.0.5
   path_provider: ^2.0.14
+  open_file_plus: ^3.4.0
   file_picker: ^5.2.10
 
 dev_dependencies:
