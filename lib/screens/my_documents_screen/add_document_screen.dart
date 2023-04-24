@@ -21,6 +21,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:open_file_plus/open_file_plus.dart';
 import 'package:picos/api/backend_documents_api.dart';
 import 'package:picos/models/document.dart';
 import 'package:picos/screens/my_documents_screen/document_button.dart';
@@ -93,14 +94,16 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
         DocumentButton(
           title: _downloadDocument,
           onPressed: () async {
-            return true;
+            File file = await _document!.document.download();
+            await OpenFile.open(file.path);
+            return false;
           },
         ),
         const SizedBox(height: 35),
         DocumentButton(
           title: _delete,
           onPressed: () async {
-            return true;
+            return false;
           },
         ),
       ];
