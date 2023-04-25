@@ -35,11 +35,17 @@ class Backend {
   }
 
   static late final Future<bool> _initialized;
+  static bool _blockInit = false;
 
   /// The user that is currently logged in.
   static late ParseUser user;
 
   static Future<bool> _initParse() async {
+    if (_blockInit) {
+      return true;
+    }
+
+    _blockInit = true;
     String url = '';
 
     if (kReleaseMode) {
