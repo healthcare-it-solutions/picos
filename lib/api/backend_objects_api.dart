@@ -31,16 +31,19 @@ abstract class BackendObjectsApi extends DatabaseObjectApi {
       StreamController<List<AbstractDatabaseObject>>();
 
   @override
-  Future<void> saveObject(AbstractDatabaseObject object) async {
+  Future<void> saveObject(
+    AbstractDatabaseObject object, {
+    BackendACL? acl,
+  }) async {
     try {
-      dynamic response = await Backend.saveObject(object);
+      dynamic response = await Backend.saveObject(object, acl: acl);
 
       object = object.copyWith(
         objectId: response['objectId'],
-        createdAt: DateTime.tryParse(response['createdAt'] ?? '') ??
-            object.createdAt,
-        updatedAt: DateTime.tryParse(response['updatedAt'] ?? '') ??
-            object.updatedAt,
+        createdAt:
+            DateTime.tryParse(response['createdAt'] ?? '') ?? object.createdAt,
+        updatedAt:
+            DateTime.tryParse(response['updatedAt'] ?? '') ?? object.updatedAt,
       );
 
       int objectIndex = _getIndex(object);
