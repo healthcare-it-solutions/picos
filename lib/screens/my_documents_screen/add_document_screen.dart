@@ -103,6 +103,10 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
         DocumentButton(
           title: _delete,
           onPressed: () async {
+            context
+                .read<ObjectsListBloc<BackendDocumentsApi>>()
+                .add(RemoveObject(_document!));
+            Navigator.of(context).pop();
             return false;
           },
         ),
