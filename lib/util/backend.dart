@@ -222,3 +222,24 @@ class BackendFile {
     return (await _parseFile.download()).file!;
   }
 }
+
+/// Enumeration for role.
+enum BackendRole {
+  /// Denotation for doctor's role.
+  doctor,
+  /// Denotation for patient's role.
+  patient,
+}
+
+/// Extension for Role-enumeration.
+extension BackendRoleExtension on BackendRole {
+  /// ID of the Role.
+  String get id {
+    switch (this) {
+      case BackendRole.doctor:
+        return 'role:Doctor';
+      case BackendRole.patient:
+        return 'role:Patient';
+    }
+  }
+}
