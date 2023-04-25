@@ -26,21 +26,15 @@ import '../util/backend.dart';
 /// API for storing documents at the backend.
 class BackendDocumentsApi extends BackendObjectsApi {
   @override
-  Future<void> saveObject(
-    AbstractDatabaseObject object, {
-    BackendACL? acl,
-  }) async {
-    if (acl == null) {
-      acl = BackendACL();
-      acl.setDefault();
-      acl.setReadAccess(userId: BackendRole.doctor.id);
-    }
-
+  Future<void> saveObject(AbstractDatabaseObject object) async {
     if (object.createdAt == null) {
       (object as Document).document.upload();
+      acl = BackendACL();
+      acl!.setDefault();
+      acl!.setReadAccess(userId: BackendRole.doctor.id);
     }
 
-    await super.saveObject(object, acl: acl);
+    await super.saveObject(object);
   }
 
   @override

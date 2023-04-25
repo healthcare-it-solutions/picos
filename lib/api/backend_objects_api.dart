@@ -26,15 +26,15 @@ abstract class BackendObjectsApi extends DatabaseObjectApi {
   /// Contains all objects that are controlled by [_objectController].
   List<AbstractDatabaseObject> objectList = <AbstractDatabaseObject>[];
 
+  /// The acl used, when creating a new object.
+  BackendACL? acl;
+
   /// Controls the database objects.
   final StreamController<List<AbstractDatabaseObject>> _objectController =
       StreamController<List<AbstractDatabaseObject>>();
 
   @override
-  Future<void> saveObject(
-    AbstractDatabaseObject object, {
-    BackendACL? acl,
-  }) async {
+  Future<void> saveObject(AbstractDatabaseObject object) async {
     try {
       dynamic response = await Backend.saveObject(object, acl: acl);
 
