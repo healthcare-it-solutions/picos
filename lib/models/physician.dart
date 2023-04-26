@@ -15,6 +15,7 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:picos/models/abstract_database_object.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -135,32 +136,50 @@ class Physician extends AbstractDatabaseObject {
 enum PhysicianSubjectArea {
   /// Ophthalmology
   ophthalmology,
+
   /// Gynecology
   gynecology,
+
   /// Otolaryngology
   otolaryngology,
+
   /// General practitioner
   generalPractitioner,
+
   /// Skin and venereal diseases
   skinAndVenerealDiseases,
+
   /// Internal medicine
   internalMedicine,
+
   /// Microbiology
   microbiology,
+
   /// Neurology
   neurology,
+
   /// Pathology
   pathology,
+
   /// Pulmonology
   pulmonology,
+
   /// Psychiatry
   psychiatry,
+
   /// Urology
   urology,
 }
 
 /// Extension for [PhysicianSubjectArea].
 extension PhysicianSubjectAreaConverter on PhysicianSubjectArea {
+  /// Takes [value] and returns the corresponding [PhysicianSubjectArea].
+  static PhysicianSubjectArea stringToPhysicianSubjectArea(String value) {
+    return PhysicianSubjectArea.values.firstWhere(
+      (PhysicianSubjectArea element) => describeEnum(element) == value,
+    );
+  }
+
   /// Get the localized name.
   String getLocalization(BuildContext context) {
     switch (this) {

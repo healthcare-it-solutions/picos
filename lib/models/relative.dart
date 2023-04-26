@@ -15,6 +15,7 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:picos/models/abstract_database_object.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -132,7 +133,13 @@ enum RelativeType {
 }
 
 /// Extension for [RelativeType].
-extension PhysicianSubjectAreaConverter on RelativeType {
+extension RelativeTypeConverter on RelativeType {
+  /// Takes [value] and returns the corresponding [RelativeType].
+  static RelativeType stringToRelativeType(String value) {
+    return RelativeType.values
+        .firstWhere((RelativeType element) => describeEnum(element) == value);
+  }
+
   /// Get the localized name.
   String getLocalization(BuildContext context) {
     switch (this) {

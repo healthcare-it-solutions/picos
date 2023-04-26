@@ -48,7 +48,9 @@ class PhysicianCard extends StatelessWidget {
             .read<ObjectsListBloc<BackendPhysiciansApi>>()
             .add(RemoveObject(_physician));
       },
-      title: _physician.subjectArea,
+      title: PhysicianSubjectAreaConverter.stringToPhysicianSubjectArea(
+        _physician.subjectArea,
+      ).getLocalization(context),
       child: SizedBox(
         width: double.infinity,
         child: Column(
