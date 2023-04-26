@@ -40,7 +40,7 @@ class AddPhysicianScreen extends StatefulWidget {
 }
 
 class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
-  static final List<String> _selection = <String>[];
+  static final Map<String, String> _selection = <String, String>{};
   static String? _specialty;
   static String? _practice;
   static String? _firstName;
@@ -103,18 +103,33 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
   @override
   Widget build(BuildContext context) {
     if (_selection.isEmpty) {
-      _selection.add(AppLocalizations.of(context)!.ophthalmology);
-      _selection.add(AppLocalizations.of(context)!.gynecology);
-      _selection.add(AppLocalizations.of(context)!.otolaryngology);
-      _selection.add(AppLocalizations.of(context)!.generalPractitioner);
-      _selection.add(AppLocalizations.of(context)!.skinAndVenerealDiseases);
-      _selection.add(AppLocalizations.of(context)!.internalMedicine);
-      _selection.add(AppLocalizations.of(context)!.microbiology);
-      _selection.add(AppLocalizations.of(context)!.neurology);
-      _selection.add(AppLocalizations.of(context)!.pathology);
-      _selection.add(AppLocalizations.of(context)!.pulmonology);
-      _selection.add(AppLocalizations.of(context)!.psychiatry);
-      _selection.add(AppLocalizations.of(context)!.urology);
+      _selection.addAll(<String, String>{
+        PhysicianSubjectArea.otolaryngology.name:
+            PhysicianSubjectArea.otolaryngology.getLocalization(context),
+        PhysicianSubjectArea.gynecology.name:
+            PhysicianSubjectArea.gynecology.getLocalization(context),
+        PhysicianSubjectArea.otolaryngology.name:
+            PhysicianSubjectArea.otolaryngology.getLocalization(context),
+        PhysicianSubjectArea.generalPractitioner.name:
+            PhysicianSubjectArea.generalPractitioner.getLocalization(context),
+        PhysicianSubjectArea.skinAndVenerealDiseases.name: PhysicianSubjectArea
+            .skinAndVenerealDiseases
+            .getLocalization(context),
+        PhysicianSubjectArea.internalMedicine.name:
+            PhysicianSubjectArea.internalMedicine.getLocalization(context),
+        PhysicianSubjectArea.microbiology.name:
+            PhysicianSubjectArea.microbiology.getLocalization(context),
+        PhysicianSubjectArea.neurology.name:
+            PhysicianSubjectArea.neurology.getLocalization(context),
+        PhysicianSubjectArea.pathology.name:
+            PhysicianSubjectArea.pathology.getLocalization(context),
+        PhysicianSubjectArea.pulmonology.name:
+            PhysicianSubjectArea.pulmonology.getLocalization(context),
+        PhysicianSubjectArea.psychiatry.name:
+            PhysicianSubjectArea.psychiatry.getLocalization(context),
+        PhysicianSubjectArea.urology.name:
+            PhysicianSubjectArea.urology.getLocalization(context),
+      });
 
       _specialty = AppLocalizations.of(context)!.specialty;
       _practice = AppLocalizations.of(context)!.practice;

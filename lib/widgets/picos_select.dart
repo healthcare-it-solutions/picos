@@ -61,7 +61,7 @@ class _PicosSelectState extends State<PicosSelect> {
 
     widget.selection.forEach((String key, dynamic value) {
       dropdownMenuItems
-          .add(DropdownMenuItem<String>(value: value, child: Text(key)));
+          .add(DropdownMenuItem<String>(value: key, child: Text(value)));
     });
 
     return dropdownMenuItems;

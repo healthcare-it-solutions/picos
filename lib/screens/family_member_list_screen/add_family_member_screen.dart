@@ -40,7 +40,7 @@ class AddFamilyMemberScreen extends StatefulWidget {
 }
 
 class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
-  static final List<String> _selection = <String>[];
+  static final Map<String, String> _selection = <String, String>{};
   static String? _typeOfRelation;
   static String? _firstName;
   static String? _familyName;
@@ -94,12 +94,17 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
   @override
   Widget build(BuildContext context) {
     if (_selection.isEmpty) {
-      _selection.add(AppLocalizations.of(context)!.spouse);
-      _selection.add(AppLocalizations.of(context)!.siblings);
-      _selection.add(AppLocalizations.of(context)!.roommates);
-      _selection.add(AppLocalizations.of(context)!.mother);
-      _selection.add(AppLocalizations.of(context)!.father);
-      _selection.add(AppLocalizations.of(context)!.otherRelatives);
+      _selection.addAll(<String, String>{
+        RelativeType.spouse.name: RelativeType.spouse.getLocalization(context),
+        RelativeType.siblings.name:
+            RelativeType.siblings.getLocalization(context),
+        RelativeType.roommates.name:
+            RelativeType.roommates.getLocalization(context),
+        RelativeType.mother.name: RelativeType.mother.getLocalization(context),
+        RelativeType.father.name: RelativeType.father.getLocalization(context),
+        RelativeType.otherRelatives.name:
+            RelativeType.otherRelatives.getLocalization(context),
+      });
 
       _typeOfRelation = AppLocalizations.of(context)!.typeOfRelation;
       _firstName = AppLocalizations.of(context)!.firstName;

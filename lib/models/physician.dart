@@ -15,7 +15,9 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import 'package:flutter/material.dart';
 import 'package:picos/models/abstract_database_object.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// Class with physician information.
 class Physician extends AbstractDatabaseObject {
@@ -127,4 +129,65 @@ class Physician extends AbstractDatabaseObject {
         'SubjectArea': subjectArea,
         'Firstname': firstName,
       };
+}
+
+/// The possible subject areas.
+enum PhysicianSubjectArea {
+  /// Ophthalmology
+  ophthalmology,
+  /// Gynecology
+  gynecology,
+  /// Otolaryngology
+  otolaryngology,
+  /// General practitioner
+  generalPractitioner,
+  /// Skin and venereal diseases
+  skinAndVenerealDiseases,
+  /// Internal medicine
+  internalMedicine,
+  /// Microbiology
+  microbiology,
+  /// Neurology
+  neurology,
+  /// Pathology
+  pathology,
+  /// Pulmonology
+  pulmonology,
+  /// Psychiatry
+  psychiatry,
+  /// Urology
+  urology,
+}
+
+/// Extension for [PhysicianSubjectArea].
+extension PhysicianSubjectAreaConverter on PhysicianSubjectArea {
+  /// Get the localized name.
+  String getLocalization(BuildContext context) {
+    switch (this) {
+      case PhysicianSubjectArea.ophthalmology:
+        return AppLocalizations.of(context)!.ophthalmology;
+      case PhysicianSubjectArea.gynecology:
+        return AppLocalizations.of(context)!.gynecology;
+      case PhysicianSubjectArea.otolaryngology:
+        return AppLocalizations.of(context)!.otolaryngology;
+      case PhysicianSubjectArea.generalPractitioner:
+        return AppLocalizations.of(context)!.generalPractitioner;
+      case PhysicianSubjectArea.skinAndVenerealDiseases:
+        return AppLocalizations.of(context)!.skinAndVenerealDiseases;
+      case PhysicianSubjectArea.internalMedicine:
+        return AppLocalizations.of(context)!.internalMedicine;
+      case PhysicianSubjectArea.microbiology:
+        return AppLocalizations.of(context)!.microbiology;
+      case PhysicianSubjectArea.neurology:
+        return AppLocalizations.of(context)!.neurology;
+      case PhysicianSubjectArea.pathology:
+        return AppLocalizations.of(context)!.pathology;
+      case PhysicianSubjectArea.pulmonology:
+        return AppLocalizations.of(context)!.pulmonology;
+      case PhysicianSubjectArea.psychiatry:
+        return AppLocalizations.of(context)!.psychiatry;
+      case PhysicianSubjectArea.urology:
+        return AppLocalizations.of(context)!.urology;
+    }
+  }
 }
