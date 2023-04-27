@@ -1004,5 +1004,49 @@
     "phone": "Phone",
     "@phone": {
         "description": "Phone"
+    },
+    "addDocument": "Add document",
+    "@addDocument": {
+        "description": "Add document"
+    },
+    "editDocument": "Edit document",
+    "@editDocument": {
+        "description": "Edit document"
+    },
+    "priority": "Priority",
+    "@priority": {
+        "description": "Priority"
+    },
+    "importantDocument": "Important document - keep on top",
+    "@importantDocument": {
+        "description": "Important document - keep on top"
+    },
+    "sortByDate": "Sort by date",
+    "@sortByDate": {
+        "description": "Sort by date"
+    },
+    "documentTitle": "Document title",
+    "@documentTitle": {
+        "description": "Document title"
+    },
+    "uploadDocument": "Upload Document",
+    "@uploadDocument": {
+        "description": "Upload Document"
+    },
+    "downloadDocument": "Download document",
+    "@downloadDocument": {
+        "description": "Download document"
+    },
+    "importantDocuments": "Important documents",
+    "@importantDocuments": {
+        "description": "Important documents"
+    },
+    "documentsSortedDesc": "Documents sorted descending",
+    "@documentsSortedDesc": {
+        "description": "Documents sorted descending"
+    },
+    "documentSelected": "Document selected",
+    "@documentSelected": {
+        "description": "Document selected"
     }
 }

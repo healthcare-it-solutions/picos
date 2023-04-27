@@ -38,13 +38,16 @@ dependencies:
   cupertino_icons: ^1.0.5
   flutter_bloc: ^8.1.2
   equatable: ^2.0.5
-  fl_chart: ^0.61.0
+  fl_chart: ^0.62.0
   parse_server_sdk: ^4.0.2
   queen_validators: ^1.0.1
-  flutter_svg: ^2.0.4
+  flutter_svg: ^2.0.5
+  path_provider: ^2.0.14
+  open_file_plus: ^3.4.0
+  file_picker: ^5.2.10
 
 dev_dependencies:
-  flutter_launcher_icons: ^0.12.0
+  flutter_launcher_icons: ^0.13.1
   flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter

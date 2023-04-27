@@ -18,8 +18,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/screens/main_screen/overview_screen/widgets/section.dart';
-import 'package:picos/screens/main_screen/overview_screen/widgets/tile.dart';
+import 'package:picos/screens/home_screen/overview/widgets/section.dart';
+import 'package:picos/screens/home_screen/overview/widgets/tile.dart';
 
 /// Widget which displays health-related information
 class MyHealthSection extends StatelessWidget {
@@ -86,10 +86,10 @@ class MyHealthSection extends StatelessWidget {
                 const SizedBox(
                   width: 15,
                 ),
-                const Expanded(
-                  child: SizedBox(
-                    width: 150,
-                  ),
+                Tile(
+                  imageName: 'assets/Dokumente.png',
+                  sectionName: AppLocalizations.of(context)!.myDocuments,
+                  routeName: '/my-documents-screen/my-documents',
                 ),
               ],
             ),

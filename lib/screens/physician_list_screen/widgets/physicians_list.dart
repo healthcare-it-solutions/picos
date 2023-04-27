@@ -37,7 +37,7 @@ class _PhysiciansListState extends State<PhysiciansList> {
   Widget build(BuildContext context) {
     return BlocBuilder<ObjectsListBloc<BackendPhysiciansApi>, ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
-        if (state.objectsList.isEmpty &&
+        if (state.status == ObjectsListStatus.initial ||
             state.status == ObjectsListStatus.loading) {
           return const Center(
             child: CircularProgressIndicator(),

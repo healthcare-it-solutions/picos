@@ -17,7 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/screens/main_screen/picos_menu/picos_menu_item.dart';
+import 'package:picos/screens/home_screen/picos_menu/picos_menu_item.dart';
 import 'package:picos/widgets/picos_label.dart';
 
 import '../../../util/backend.dart';
@@ -36,7 +36,8 @@ class PicosMenu extends StatelessWidget {
 
     List<Widget> items = <Widget>[
       Padding(
-        padding: const EdgeInsets.only(left: sidePadding, bottom: labelPadding),
+        padding:
+            const EdgeInsets.only(left: labelPadding, bottom: labelPadding),
         child: PicosLabel(
           AppLocalizations.of(context)!.myHealth,
           fontSize: labelSize,
@@ -57,24 +58,30 @@ class PicosMenu extends StatelessWidget {
       PicosMenuItem(
         iconPath: 'assets/BehandlerInnen_icon.svg',
         title: AppLocalizations.of(context)!.physicians,
-        onTap: () =>
-            Navigator.of(context).pushNamed('/physician-list-screen/physicians'),
+        onTap: () => Navigator.of(context)
+            .pushNamed('/physician-list-screen/physicians'),
       ),
       PicosMenuItem(
         iconSize: 20,
         iconPath: 'assets/Angehoerige_icon.svg',
         title: AppLocalizations.of(context)!.familyMembers,
-        onTap: () =>
-            Navigator.of(context).pushNamed('/family-member-list-screen/family-members'),
+        onTap: () => Navigator.of(context)
+            .pushNamed('/family-member-list-screen/family-members'),
+      ),
+      PicosMenuItem(
+        // iconSize: ,
+        iconPath: 'assets/Dokumente_icon.svg',
+        title: AppLocalizations.of(context)!.documents,
+        onTap: () => Navigator.of(context)
+            .pushNamed('/my-documents-screen/my-documents'),
       ),
       PicosMenuItem(
         iconPath: 'assets/Krankenhaus.svg',
         title: AppLocalizations.of(context)!.visits,
-        onTap: () => Navigator.of(context)
-            .pushNamed('/visits-screen/visits'),
+        onTap: () => Navigator.of(context).pushNamed('/visits-screen/visits'),
       ),
       Padding(
-        padding: const EdgeInsets.only(left: sidePadding),
+        padding: const EdgeInsets.only(left: labelPadding),
         child: PicosLabel(
           AppLocalizations.of(context)!.more,
           fontSize: labelSize,
@@ -83,20 +90,18 @@ class PicosMenu extends StatelessWidget {
       PicosMenuItem(
         iconPath: 'assets/Impressum.svg',
         title: AppLocalizations.of(context)!.legals,
-        onTap: () => Navigator.of(context)
-            .pushNamed('/legals-screen'),
+        onTap: () => Navigator.of(context).pushNamed('/legals-screen'),
       ),
       PicosMenuItem(
         iconPath: 'assets/Datenschutz.svg',
         title: AppLocalizations.of(context)!.privacyNotice,
-        onTap: () => Navigator.of(context)
-            .pushNamed('/privacy-notice-screen'),
+        onTap: () => Navigator.of(context).pushNamed('/privacy-notice-screen'),
       ),
       PicosMenuItem(
         iconPath: 'assets/Log-out.svg',
         title: AppLocalizations.of(context)!.logout,
         onTap: () async {
-          if(!context.mounted) {
+          if (!context.mounted) {
             return;
           }
 
@@ -110,7 +115,7 @@ class PicosMenu extends StatelessWidget {
 
     return ListView.separated(
       separatorBuilder: (BuildContext context, int index) {
-        if (index == 5 || index == 6) {
+        if (index == 6 || index == 7) {
           return const SizedBox(height: labelPadding);
         }
 

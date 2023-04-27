@@ -16,9 +16,11 @@
 */
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:picos/config.dart';
 
 import '../models/abstract_database_object.dart';
@@ -29,6 +31,21 @@ import '../models/abstract_database_object.dart';
 class Backend {
   /// initializes the parse server
   Backend() {
+    _initialized = _initParse();
+  }
+
+  static late final Future<bool> _initialized;
+  static bool _blockInit = false;
+
+  /// The user that is currently logged in.
+  static late ParseUser user;
+
+  static Future<bool> _initParse() async {
+    if (_blockInit) {
+      return true;
+    }
+
+    _blockInit = true;
     String url = '';
 
     if (kReleaseMode) {
@@ -39,21 +56,25 @@ class Backend {
       url = serverUrl;
     }
 
-    Parse().initialize(
+    await Parse().initialize(
       appId,
       url,
       clientKey: clientKey,
       appName: appName,
       debug: true,
+      fileDirectory: await _getDownloadPath(),
     );
-  }
 
-  /// The user that is currently logged in.
-  static late ParseUser user;
+    return true;
+  }
 
   /// Takes [login] and [password] to login a user
   /// and returns if it was successful as a [bool].
   static Future<bool> login(String login, String password) async {
+    if (!Parse().hasParseBeenInitialized()) {
+      await _initialized;
+    }
+
     // in case the next line throws a null is not int compatible or
     // something like 'os broken pipe' remember to set the appid,
     // server url and the client key properly above.
@@ -73,7 +94,7 @@ class Backend {
   static Future<String> getRole() async {
     // these are thr routes we are going to forward the user to
     Map<String, String> routes = <String, String>{
-      'Patient': '/main-screen/mainscreen',
+      'Patient': '/home-screen/home-screen',
       'Doctor': '/study-nurse-screen/studynursescreen'
     };
 
@@ -129,6 +150,18 @@ class Backend {
     ParseObject parseObject = ParseObject(object.table);
     await parseObject.delete(id: object.objectId);
   }
+
+  static Future<String?> _getDownloadPath() async {
+    if (Platform.isIOS) {
+      return (await getApplicationDocumentsDirectory()).path;
+    }
+
+    if (!await Directory('/storage/emulated/0/Download').exists()) {
+      return (await getExternalStorageDirectory())?.path;
+    }
+
+    return Directory('/storage/emulated/0/Download').path;
+  }
 }
 
 /// Allows to prepare read and write permissions for an object to be saved.
@@ -155,5 +188,58 @@ class BackendACL {
   /// Set whether the user is allowed to write this object.
   void setWriteAccess({required String userId, bool allowed = true}) {
     _parseACL.setWriteAccess(userId: userId, allowed: allowed);
+  }
+}
+
+/// Allows to interact with the file storage in the cloud.
+class BackendFile {
+  /// Creates a new [BackendFile].
+  BackendFile(File file) {
+    _parseFile = ParseFile(file);
+  }
+
+  /// Creates a new [BackendFile] by [url] and a [name].
+  /// This is usually relevant if you try to recreate a local BackendFile you
+  /// already uploaded to the backend.
+  BackendFile.byUrl(String name, String url) {
+    _parseFile = ParseFile(null, name: name, url: url);
+  }
+
+  late final ParseFile _parseFile;
+
+  /// Returns the file.
+  ParseFile get file {
+    return _parseFile;
+  }
+
+  /// Uploads a file to Parse Server.
+  Future<dynamic> upload() async {
+    return jsonDecode((await _parseFile.upload()).results!.first.toString());
+  }
+
+  /// Downloads a file from Parse Server.
+  Future<File> download() async {
+    return (await _parseFile.download()).file!;
+  }
+}
+
+/// Enumeration for role.
+enum BackendRole {
+  /// Denotation for doctor's role.
+  doctor,
+  /// Denotation for patient's role.
+  patient,
+}
+
+/// Extension for Role-enumeration.
+extension BackendRoleExtension on BackendRole {
+  /// ID of the Role.
+  String get id {
+    switch (this) {
+      case BackendRole.doctor:
+        return 'role:Doctor';
+      case BackendRole.patient:
+        return 'role:Patient';
+    }
   }
 }

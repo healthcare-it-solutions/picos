@@ -16,41 +16,38 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:picos/api/backend_medications_api.dart';
-import 'package:picos/api/backend_physicians_api.dart';
-import 'package:picos/api/backend_relatives_api.dart';
-import 'package:picos/api/backend_stays_api.dart';
-import 'package:picos/api/backend_therapies_api.dart';
-import 'package:picos/api/database_object_api.dart';
-import 'package:picos/screens/login_screen.dart';
-import 'package:picos/themes/global_theme.dart';
+import 'package:picos/state/objects_list_bloc.dart';
 
-import '../../routes.dart';
-import '../../state/objects_list_bloc.dart';
+import 'api/backend_documents_api.dart';
+import 'api/backend_medications_api.dart';
+import 'api/backend_physicians_api.dart';
+import 'api/backend_relatives_api.dart';
+import 'api/backend_stays_api.dart';
+import 'api/backend_therapies_api.dart';
+import 'api/database_object_api.dart';
 
-/// This is the screen which contains all relevant information
-class MainScreen extends StatelessWidget {
-  /// MainScreen constructor
-  const MainScreen({Key? key}) : super(key: key);
+/// This is a central place to manage all BLoCs.
+class Blocs extends StatelessWidget {
+  /// Creates Blocs.
+  const Blocs({required this.child, Key? key}) : super(key: key);
+
+  /// The app to initialize.
+  final MaterialApp child;
 
   @override
   Widget build(BuildContext context) {
-    const GlobalTheme theme = GlobalTheme();
-
     return MultiBlocProvider(
       providers: <BlocProvider<ObjectsListBloc<DatabaseObjectApi>>>[
         BlocProvider<ObjectsListBloc<BackendMedicationsApi>>(
           create: (BuildContext context) =>
-              ObjectsListBloc<BackendMedicationsApi>(
+          ObjectsListBloc<BackendMedicationsApi>(
             BackendMedicationsApi(),
           )..add(const ObjectsListSubscriptionRequested()),
         ),
         BlocProvider<ObjectsListBloc<BackendTherapiesApi>>(
           create: (BuildContext context) =>
-              ObjectsListBloc<BackendTherapiesApi>(
+          ObjectsListBloc<BackendTherapiesApi>(
             BackendTherapiesApi(),
           )..add(const ObjectsListSubscriptionRequested()),
         ),
@@ -72,33 +69,14 @@ class MainScreen extends StatelessWidget {
             BackendRelativesApi(),
           )..add(const ObjectsListSubscriptionRequested()),
         ),
-      ],
-      child: MaterialApp(
-        title: 'PICOS',
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        theme: ThemeData(
-          colorScheme: Theme.of(context).colorScheme.copyWith(
-                secondary: theme.grey3,
-              ),
-          textSelectionTheme: Theme.of(context).textSelectionTheme.copyWith(
-                selectionColor: theme.grey2,
-                selectionHandleColor: theme.grey1,
-              ),
-          appBarTheme: AppBarTheme(
-            backgroundColor: theme.darkGreen1,
-          ),
-          dialogBackgroundColor: theme.darkGreen2,
-          focusColor: theme.darkGreen3,
-          shadowColor: theme.grey2,
-        ).copyWith(
-          extensions: <ThemeExtension<dynamic>>{
-            theme,
-          },
+        BlocProvider<ObjectsListBloc<BackendDocumentsApi>>(
+          create: (BuildContext context) =>
+          ObjectsListBloc<BackendDocumentsApi>(
+            BackendDocumentsApi(),
+          )..add(const ObjectsListSubscriptionRequested()),
         ),
-        home: const LoginScreen(),
-        routes: Routes(context).getRoutes(),
-      ),
+      ],
+      child: child,
     );
   }
 }
