@@ -63,6 +63,11 @@ class MyHealthSection extends StatelessWidget {
               sectionName: AppLocalizations.of(context)!.visits,
               routeName: '/visits-screen/visits',
             ),
+            Tile(
+              imageName: 'assets/Dokumente.png',
+              sectionName: AppLocalizations.of(context)!.myDocuments,
+              routeName: '/my-documents-screen/my-documents',
+            ),
           ],
         ),
       ),
