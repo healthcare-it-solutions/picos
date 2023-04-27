@@ -86,17 +86,12 @@ class MyHealthSection extends StatelessWidget {
                 const SizedBox(
                   width: 15,
                 ),
-                const Expanded(
-                  child: SizedBox(
-                    width: 150,
-                  ),
+                Tile(
+                  imageName: 'assets/Dokumente.png',
+                  sectionName: AppLocalizations.of(context)!.myDocuments,
+                  routeName: '/my-documents-screen/my-documents',
                 ),
               ],
-            ),
-            Tile(
-              imageName: 'assets/Dokumente.png',
-              sectionName: AppLocalizations.of(context)!.myDocuments,
-              routeName: '/my-documents-screen/my-documents',
             ),
           ],
         ),
