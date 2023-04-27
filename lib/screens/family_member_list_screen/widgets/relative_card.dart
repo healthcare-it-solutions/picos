@@ -48,7 +48,8 @@ class RelativeCard extends StatelessWidget {
             .read<ObjectsListBloc<BackendRelativesApi>>()
             .add(RemoveObject(_relative));
       },
-      title: _relative.type,
+      title: RelativeTypeConverter.stringToRelativeType(_relative.type)
+          .getLocalization(context),
       child: SizedBox(
         width: double.infinity,
         child: Column(

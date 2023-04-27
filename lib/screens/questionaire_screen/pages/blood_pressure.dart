@@ -38,15 +38,16 @@ class BloodPressure extends StatelessWidget {
   /// Initial Dias Value.
   final int? initialDias;
 
-  static List<String> _createBloodPressureSelection() {
+  static Map<String, String> _createBloodPressureSelection() {
     int min = 40;
     int max = 250;
     int interval = 10;
-    List<String> bloodPressureSelection = <String>[];
+    Map<String, String> bloodPressureSelection = <String, String>{};
 
     int i = min;
     do {
-      bloodPressureSelection.add(i.toString());
+      String entry = i.toString();
+      bloodPressureSelection.addAll(<String, String>{entry: entry});
 
       i = i + interval;
     } while (i <= max);
@@ -55,7 +56,7 @@ class BloodPressure extends StatelessWidget {
   }
 
   static String? _bloodPressure;
-  static List<String>? _bloodPressureSelection;
+  static Map<String, String>? _bloodPressureSelection;
 
   @override
   Widget build(BuildContext context) {

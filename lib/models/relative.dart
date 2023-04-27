@@ -15,7 +15,10 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:picos/models/abstract_database_object.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// Class with relative information.
 class Relative extends AbstractDatabaseObject {
@@ -111,4 +114,47 @@ class Relative extends AbstractDatabaseObject {
         'Name': firstName,
         'Type': type,
       };
+}
+
+/// The possible relative types.
+enum RelativeType {
+  /// Spouse
+  spouse,
+  /// Siblings
+  siblings,
+  /// Roommates
+  roommates,
+  /// Mother
+  mother,
+  /// Father
+  father,
+  /// Other Relatives
+  otherRelatives,
+}
+
+/// Extension for [RelativeType].
+extension RelativeTypeConverter on RelativeType {
+  /// Takes [value] and returns the corresponding [RelativeType].
+  static RelativeType stringToRelativeType(String value) {
+    return RelativeType.values
+        .firstWhere((RelativeType element) => describeEnum(element) == value);
+  }
+
+  /// Get the localized name.
+  String getLocalization(BuildContext context) {
+    switch (this) {
+      case RelativeType.spouse:
+        return AppLocalizations.of(context)!.spouse;
+      case RelativeType.siblings:
+        return AppLocalizations.of(context)!.siblings;
+      case RelativeType.roommates:
+        return AppLocalizations.of(context)!.roommates;
+      case RelativeType.mother:
+        return AppLocalizations.of(context)!.mother;
+      case RelativeType.father:
+        return AppLocalizations.of(context)!.father;
+      case RelativeType.otherRelatives:
+    return AppLocalizations.of(context)!.otherRelatives;
+    }
+  }
 }
