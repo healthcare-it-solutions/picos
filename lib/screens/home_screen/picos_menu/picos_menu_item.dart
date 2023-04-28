@@ -23,8 +23,13 @@ import '../../../widgets/picos_svg_icon.dart';
 /// An menu item for the picos menu.
 class PicosMenuItem extends StatelessWidget {
   /// Creates a PicosMenuItem.
-  const PicosMenuItem({Key? key, this.iconPath, this.title, this.onTap})
-      : super(key: key);
+  const PicosMenuItem({
+    Key? key,
+    this.iconPath,
+    this.title,
+    this.onTap,
+    this.iconSize = 27,
+  }) : super(key: key);
 
   /// A path to the icon to display before the title.
   final String? iconPath;
@@ -35,11 +40,14 @@ class PicosMenuItem extends StatelessWidget {
   /// Called when the user taps this list tile.
   final void Function()? onTap;
 
+  /// The size of the icon.
+  final double iconSize;
+
   @override
   Widget build(BuildContext context) {
-    const double iconSize = 27;
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
     Widget? leadingIcon;
+    const double padding = 15;
 
     if (iconPath != null) {
       leadingIcon = PicosSvgIcon(
@@ -49,18 +57,36 @@ class PicosMenuItem extends StatelessWidget {
       );
     }
 
-    return ListTile(
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 10),
-        child: leadingIcon,
-      ),
-      title: Text(title ?? ''),
-      trailing: Icon(
-        Icons.keyboard_arrow_right_rounded,
-        size: 50,
-        color: theme.darkGreen2,
-      ),
+    return InkWell(
       onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 3),
+        child: Row(
+          children: <Widget>[
+            const SizedBox(
+              width: padding,
+            ),
+            SizedBox(width: 50, child: leadingIcon),
+            const SizedBox(
+              width: padding,
+            ),
+            Expanded(
+              child: Text(
+                title ?? '',
+                style: const TextStyle(fontSize: 17),
+              ),
+            ),
+            Icon(
+              Icons.keyboard_arrow_right_rounded,
+              size: 50,
+              color: theme.darkGreen2,
+            ),
+            const SizedBox(
+              width: padding,
+            )
+          ],
+        ),
+      ),
     );
   }
 }

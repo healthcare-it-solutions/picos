@@ -17,24 +17,26 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../api/backend_therapies_api.dart';
-import '../../models/therapy.dart';
-import '../../state/objects_list_bloc.dart';
-import 'therapy_item.dart';
+import 'package:picos/api/backend_relatives_api.dart';
+import 'package:picos/models/relative.dart';
+import 'package:picos/screens/family_member_list_screen/widgets/relative_card.dart';
 
-/// A List with all therapies.
-class TherapiesList extends StatefulWidget {
-  /// Creates TherapiesList.
-  const TherapiesList({Key? key}) : super(key: key);
+import '../../../state/objects_list_bloc.dart';
+
+/// A list with all family members.
+class FamilyMembersList extends StatefulWidget {
+  /// Creates the FamilyMembersList.
+  const FamilyMembersList({Key? key}) : super(key: key);
 
   @override
-  State<TherapiesList> createState() => _TherapiesListState();
+  State<FamilyMembersList> createState() => _FamilyMembersListState();
 }
 
-class _TherapiesListState extends State<TherapiesList> {
+class _FamilyMembersListState extends State<FamilyMembersList> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ObjectsListBloc<BackendTherapiesApi>, ObjectsListState>(
+    return BlocBuilder<ObjectsListBloc<BackendRelativesApi>,
+        ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
         if (state.status == ObjectsListStatus.initial ||
             state.status == ObjectsListStatus.loading) {
@@ -49,19 +51,10 @@ class _TherapiesListState extends State<TherapiesList> {
           );
         }
 
-        return ListView.separated(
+        return ListView.builder(
           itemCount: state.objectsList.length,
           itemBuilder: (BuildContext context, int index) {
-            return TherapyItem(state.objectsList[index] as Therapy);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Divider(
-                thickness: 1,
-                height: 0,
-              ),
-            );
+            return RelativeCard(state.objectsList[index] as Relative);
           },
         );
       },

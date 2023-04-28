@@ -17,10 +17,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/screens/main_screen/picos_menu/picos_menu.dart';
+import 'package:picos/screens/home_screen/picos_menu/picos_menu.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 
-import 'overview_screen/overview.dart';
+import 'overview/overview.dart';
 
 /// This widget is the home page of your application. It is stateful, meaning
 /// that it has a State object (defined below) that contains fields that affect
@@ -30,17 +30,17 @@ import 'overview_screen/overview.dart';
 /// case the title) provided by the parent (in this case the App widget) and
 /// used by the build method of the State. Fields in a Widget subclass are
 /// always marked "final".
-class BottomBar extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   /// BottomBar constructor
-  const BottomBar({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<BottomBar> createState() => _BottomBarState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
 /// This class contains all relevant Widgets for the UI.
 /// The needed variables and functions/methods are also implemented here.
-class _BottomBarState extends State<BottomBar> {
+class _HomeScreenState extends State<HomeScreen> {
   /// stores the currently selected element of the navbar
   int selectedIndex = 0;
 

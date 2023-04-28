@@ -17,24 +17,25 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../api/backend_therapies_api.dart';
-import '../../models/therapy.dart';
-import '../../state/objects_list_bloc.dart';
-import 'therapy_item.dart';
+import 'package:picos/api/backend_physicians_api.dart';
+import 'package:picos/screens/physician_list_screen/widgets/physician_card.dart';
 
-/// A List with all therapies.
-class TherapiesList extends StatefulWidget {
-  /// Creates TherapiesList.
-  const TherapiesList({Key? key}) : super(key: key);
+import '../../../models/physician.dart';
+import '../../../state/objects_list_bloc.dart';
+
+/// A list with all physicians.
+class PhysiciansList extends StatefulWidget {
+  /// Creates the PhysiciansList.
+  const PhysiciansList({Key? key}) : super(key: key);
 
   @override
-  State<TherapiesList> createState() => _TherapiesListState();
+  State<PhysiciansList> createState() => _PhysiciansListState();
 }
 
-class _TherapiesListState extends State<TherapiesList> {
+class _PhysiciansListState extends State<PhysiciansList> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ObjectsListBloc<BackendTherapiesApi>, ObjectsListState>(
+    return BlocBuilder<ObjectsListBloc<BackendPhysiciansApi>, ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
         if (state.status == ObjectsListStatus.initial ||
             state.status == ObjectsListStatus.loading) {
@@ -49,19 +50,10 @@ class _TherapiesListState extends State<TherapiesList> {
           );
         }
 
-        return ListView.separated(
+        return ListView.builder(
           itemCount: state.objectsList.length,
           itemBuilder: (BuildContext context, int index) {
-            return TherapyItem(state.objectsList[index] as Therapy);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Divider(
-                thickness: 1,
-                height: 0,
-              ),
-            );
+            return PhysicianCard(state.objectsList[index] as Physician);
           },
         );
       },

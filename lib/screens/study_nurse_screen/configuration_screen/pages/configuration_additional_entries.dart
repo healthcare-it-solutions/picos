@@ -74,19 +74,19 @@ class _ConfigurationAdditionalEntriesState
           ),
           PicosLabel(AppLocalizations.of(context)!.instituteKey),
           PicosSelect(
-            selection: const <String>[
-              '100',
-              '101',
-              '102',
-              '103',
-              '104',
-              '105',
-              '201',
-              '300',
-              '400',
-              '501',
-              '502'
-            ],
+            selection: const <String, String>{
+              '100': '100',
+              '101': '101',
+              '102': '102',
+              '103': '103',
+              '104': '104',
+              '105': '105',
+              '201': '201',
+              '300': '300',
+              '400': '400',
+              '501': '501',
+              '502': '502'
+            },
             callBackFunction: (String? value) {
               widget.callbackAdditionalEntries('entryInstituteKey', value!);
             },

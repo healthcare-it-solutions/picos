@@ -31,7 +31,7 @@ class PicosSelect extends StatefulWidget {
   }) : super(key: key);
 
   /// The array of items selectable in the dropdown.
-  final List<String> selection;
+  final Map<String, String> selection;
 
   /// The function that is executed when an item gets selected.
   final Function(String value) callBackFunction;
@@ -43,7 +43,7 @@ class PicosSelect extends StatefulWidget {
   final bool disabled;
 
   /// The function that is executed when the validator is triggered.
-  final String? Function(String?)? validator;
+  final String? Function(String? value)? validator;
 
   /// An item that is optionally preselected.
   final String? initialValue;
@@ -56,14 +56,15 @@ class _PicosSelectState extends State<PicosSelect> {
   String? _dropdownValue;
 
   List<DropdownMenuItem<String>> _createItemList() {
-    return widget.selection
-        .map<DropdownMenuItem<String>>(
-          (String e) => DropdownMenuItem<String>(
-            value: e,
-            child: Text(e),
-          ),
-        )
-        .toList();
+    List<DropdownMenuItem<String>> dropdownMenuItems =
+        <DropdownMenuItem<String>>[];
+
+    widget.selection.forEach((String key, dynamic value) {
+      dropdownMenuItems
+          .add(DropdownMenuItem<String>(value: key, child: Text(value)));
+    });
+
+    return dropdownMenuItems;
   }
 
   @override

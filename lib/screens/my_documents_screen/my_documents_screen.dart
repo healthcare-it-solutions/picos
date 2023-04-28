@@ -16,15 +16,24 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:picos/app_config.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/screens/my_documents_screen/documents_list.dart';
+import 'package:picos/widgets/picos_add_mono_button_bar.dart';
+import 'package:picos/widgets/picos_screen_frame.dart';
 
-/// This is the main entry point of the application.
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations(
-    <DeviceOrientation>[DeviceOrientation.portraitUp],
-  ).then((_) {
-    runApp(const AppConfig());
-  });
+/// Shows a list with all personal documents.
+class MyDocumentsScreen extends StatelessWidget {
+  /// Creates MyDocumentsScreen
+  const MyDocumentsScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return PicosScreenFrame(
+      body: const SingleChildScrollView(child: DocumentsList()),
+      bottomNavigationBar: const PicosAddMonoButtonBar(
+        route: '/my-documents-screen/add-documents',
+      ),
+      title: AppLocalizations.of(context)!.myDocuments,
+    );
+  }
 }
