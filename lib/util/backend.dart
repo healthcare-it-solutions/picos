@@ -31,6 +31,10 @@ import '../models/abstract_database_object.dart';
 class Backend {
   /// initializes the parse server
   Backend() {
+    if (_blockInit) {
+      return;
+    }
+
     _initialized = _initParse();
   }
 
@@ -41,10 +45,6 @@ class Backend {
   static late ParseUser user;
 
   static Future<bool> _initParse() async {
-    if (_blockInit) {
-      return true;
-    }
-
     _blockInit = true;
     String url = '';
 
