@@ -212,11 +212,6 @@ class BackendFile {
     return _parseFile;
   }
 
-  /// Uploads a file to Parse Server.
-  Future<dynamic> upload() async {
-    return jsonDecode((await _parseFile.upload()).results!.first.toString());
-  }
-
   /// Downloads a file from Parse Server.
   Future<File> download() async {
     return (await _parseFile.download()).file!;

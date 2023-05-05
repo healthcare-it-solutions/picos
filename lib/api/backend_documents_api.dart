@@ -28,7 +28,6 @@ class BackendDocumentsApi extends BackendObjectsApi {
   @override
   Future<void> saveObject(AbstractDatabaseObject object) async {
     if (object.createdAt == null) {
-      (object as Document).document.upload();
       acl = BackendACL();
       acl!.setDefault();
       acl!.setReadAccess(userId: BackendRole.doctor.id);
