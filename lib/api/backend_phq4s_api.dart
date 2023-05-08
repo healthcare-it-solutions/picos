@@ -28,7 +28,8 @@ class BackendPhq4sApi extends BackendObjectsApi {
   @override
   Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
     try {
-      List<dynamic> response = await Backend.getAll(PHQ4.databaseTable);
+      List<dynamic> response =
+          await Backend.getNewest14Days(PHQ4.databaseTable);
 
       for (dynamic element in response) {
         objectList.add(

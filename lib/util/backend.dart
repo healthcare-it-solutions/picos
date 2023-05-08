@@ -112,6 +112,20 @@ class Backend {
     return res.map((dynamic e) => jsonDecode(e.toString())).toList();
   }
 
+  /// Retrieves the newest 14 days worth of objects from [table].
+  static Future<List<dynamic>> getNewest14Days(
+    String table, {
+    String column = 'datetime',
+  }) async {
+    QueryBuilder<ParseObject> query =
+        QueryBuilder<ParseObject>(ParseObject(table))
+          ..whereLessThan(column, 14);
+    ParseResponse parses = await query.query();
+    List<dynamic> res = parses.results ?? <dynamic>[];
+
+    return res.map((dynamic e) => jsonDecode(e.toString())).toList();
+  }
+
   /// Saves an [object] at the backend.
   /// You can provide an [acl] for custom read/write permissions.
   /// Otherwise default read/write permissions are set.
@@ -227,6 +241,7 @@ class BackendFile {
 enum BackendRole {
   /// Denotation for doctor's role.
   doctor,
+
   /// Denotation for patient's role.
   patient,
 }

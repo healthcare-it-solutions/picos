@@ -28,7 +28,8 @@ class BackendWeekliesApi extends BackendObjectsApi {
   @override
   Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
     try {
-      List<dynamic> response = await Backend.getAll(Weekly.databaseTable);
+      List<dynamic> response =
+          await Backend.getNewest14Days(Weekly.databaseTable);
 
       for (dynamic element in response) {
         objectList.add(
