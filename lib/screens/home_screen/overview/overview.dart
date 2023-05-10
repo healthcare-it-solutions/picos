@@ -18,6 +18,8 @@
 import 'package:flutter/material.dart';
 import 'package:picos/screens/home_screen/overview/widgets/contact_section.dart';
 import 'package:picos/screens/home_screen/overview/widgets/my_health_section.dart';
+import 'package:picos/screens/home_screen/overview/widgets/progress_section.dart';
+import '../../../themes/global_theme.dart';
 import 'widgets/input_card_section.dart';
 
 /// Main widget using all subwidgets to build up the "overview"-screen
@@ -27,30 +29,38 @@ class Overview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        const SizedBox(
-          height: 15,
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Image>[
-            Image.asset(
-              'assets/PICOS_Logo_RGB.png',
-              height: 75,
-            )
-          ],
-        ),
-        Container(
-          color: const Color.fromARGB(255, 15, 88, 104),
-          child: const InputCardSection(),
-        ),
-        Container(
-          color: Colors.blue,
-          child: const MyHealthSection(),
-        ),
-        const ContactSection()
-      ],
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Image>[
+              Image.asset(
+                'assets/PICOS_Logo_RGB.png',
+                height: 75,
+              )
+            ],
+          ),
+          Container(
+            color: theme.darkGreen1,
+            child: const InputCardSection(),
+          ),
+          Container(
+            color: theme.darkGreen3,
+            child: const ProgressSection(),
+          ),
+          Container(
+            color: theme.blue,
+            child: const MyHealthSection(),
+          ),
+          const ContactSection()
+        ],
+      ),
     );
   }
 }
