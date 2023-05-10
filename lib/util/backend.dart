@@ -107,22 +107,28 @@ class Backend {
   /// Retrieves all possible objects from a [table].
   static Future<List<dynamic>> getAll(String table) async {
     ParseResponse parses = await ParseObject(table).getAll();
-    List<dynamic> res = parses.results ?? <dynamic>[];
-
-    return res.map((dynamic e) => jsonDecode(e.toString())).toList();
+    return _createListResponse(parses);
   }
 
-  /// Retrieves the newest 14 days worth of objects from [table].
-  static Future<List<dynamic>> getNewest14Days(
-    String table, {
-    String column = 'datetime',
-  }) async {
-    QueryBuilder<ParseObject> query =
-        QueryBuilder<ParseObject>(ParseObject(table))
-          ..whereLessThan(column, 14);
-    ParseResponse parses = await query.query();
-    List<dynamic> res = parses.results ?? <dynamic>[];
+  /// Calls the [endpoint].
+  static Future<List<dynamic>> callEndpoint(
+    String endpoint, [
+    Map<String, dynamic>? parameters,
+  ]) async {
+    ParseCloudFunction parseCloudFunction = ParseCloudFunction(endpoint);
 
+    parameters?.forEach((String key, dynamic value) {
+      parseCloudFunction.set(key, value);
+    });
+
+    ParseResponse parses = await parseCloudFunction
+        .executeObjectFunction<ParseObject>();
+
+    return _createListResponse(parses);
+  }
+
+  static List<dynamic> _createListResponse(ParseResponse response) {
+    List<dynamic> res = response.results ?? <dynamic>[];
     return res.map((dynamic e) => jsonDecode(e.toString())).toList();
   }
 
