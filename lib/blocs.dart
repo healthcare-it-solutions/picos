@@ -17,9 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:picos/api/backend_dailies_api.dart';
-import 'package:picos/api/backend_phq4s_api.dart';
-import 'package:picos/api/backend_weeklies_api.dart';
+import 'package:picos/api/backend_daily_inputs_api.dart';
 import 'package:picos/state/objects_list_bloc.dart';
 
 import 'api/backend_documents_api.dart';
@@ -78,22 +76,10 @@ class Blocs extends StatelessWidget {
             BackendDocumentsApi(),
           )..add(const ObjectsListSubscriptionRequested()),
         ),
-        BlocProvider<ObjectsListBloc<BackendDailiesApi>>(
+        BlocProvider<ObjectsListBloc<BackendDailyInputsApi>>(
           create: (BuildContext context) =>
-          ObjectsListBloc<BackendDailiesApi>(
-            BackendDailiesApi(),
-          )..add(const ObjectsListSubscriptionRequested()),
-        ),
-        BlocProvider<ObjectsListBloc<BackendWeekliesApi>>(
-          create: (BuildContext context) =>
-          ObjectsListBloc<BackendWeekliesApi>(
-            BackendWeekliesApi(),
-          )..add(const ObjectsListSubscriptionRequested()),
-        ),
-        BlocProvider<ObjectsListBloc<BackendPhq4sApi>>(
-          create: (BuildContext context) =>
-          ObjectsListBloc<BackendPhq4sApi>(
-            BackendPhq4sApi(),
+          ObjectsListBloc<BackendDailyInputsApi>(
+            BackendDailyInputsApi(),
           )..add(const ObjectsListSubscriptionRequested()),
         ),
       ],
