@@ -27,7 +27,7 @@ class GlobalTheme extends ThemeExtension<GlobalTheme> {
     this.darkGreen1 = const Color(0xFF197888),
     this.darkGreen2 = const Color(0xFF4a8a96),
     this.darkGreen3 = const Color(0xFF0f5868),
-    this.white = const Color(0xFFe8f1f3),
+    this.white = const Color(0x00ffffff),
     this.blue = const Color(0xFF236fa8),
     this.green1 = const Color(0xFF95c11f),
     this.green2 = const Color(0xFF6eab27),
