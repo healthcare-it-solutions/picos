@@ -426,9 +426,9 @@
         "description": "My medical data"
     },
 
-    "achievedValues": "Today's achieved values",
-    "@achievedValues": {
-        "description": "Today's achieved values"
+    "submittedValues": "Submitted values (14 days)",
+    "@submittedValues": {
+        "description": "Submitted values (14 days)"
     },
 
     "days": "days",
