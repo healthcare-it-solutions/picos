@@ -213,9 +213,7 @@ class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
 
   void _previousPageCallback() {
     setState(() {
-      if (page.toInt() - 1 < 0) {
-        _nextDisabled = false;
-      } else {
+      if (page.toInt() >= 1) {
         _nextDisabled = _disabledNextPages[page.toInt() - 1];
       }
 
