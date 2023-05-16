@@ -233,5 +233,7 @@
     "importantDocuments": "Wichtige Dokumente",
     "documentsSortedDesc": "Dokumente absteigend sortiert",
     "documentSelected": "Dokument ausgewählt",
-    "completeTheDays": "Bitte vervollständigen Sie die rotten und orangenen Tage"
+    "completeTheDays": "Bitte vervollständigen Sie die rotten und orangenen Tage",
+    "today": "Heute",
+    "yesterday": "Gestern"
 }

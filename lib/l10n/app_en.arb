@@ -1052,5 +1052,13 @@
     "completeTheDays": "Please complete the red and orange days",
     "@completeTheDays": {
         "description": "Please complete the red and orange days"
+    },
+    "today": "today",
+    "@today": {
+        "description": "today"
+    },
+    "yesterday": "yesterday",
+    "@yesterday": {
+        "description": "yesterday"
     }
 }
