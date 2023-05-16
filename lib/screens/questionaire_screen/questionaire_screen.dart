@@ -100,10 +100,6 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       Navigator.of(context).pushNamed('/visits-screen/visits');
     }
 
-    print(_pageStorage?.pages.length);
-
-  //  _controller.jumpToPage(8);
-
     _controller.nextPage(
       duration: _controllerDuration,
       curve: _controllerCurve,
