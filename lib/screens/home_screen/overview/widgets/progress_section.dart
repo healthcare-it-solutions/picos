@@ -17,13 +17,9 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/models/daily_input.dart';
-import 'package:picos/screens/home_screen/overview/widgets/section.dart';
-import 'package:picos/state/objects_list_bloc.dart';
+import 'package:picos/screens/home_screen/overview/widgets/progress_list.dart';
 
-import '../../../../api/backend_daily_inputs_api.dart';
 import '../../../../themes/global_theme.dart';
 
 /// Widget which is used for displaying
@@ -36,39 +32,42 @@ class ProgressSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
 
-    return Section(
-      titleColor: theme.white,
-      title: AppLocalizations.of(context)!.submittedValues,
-      child:
-          BlocBuilder<ObjectsListBloc<BackendDailyInputsApi>, ObjectsListState>(
-        builder: (BuildContext context, ObjectsListState state) {
-          if (state.status == ObjectsListStatus.initial ||
-              state.status == ObjectsListStatus.loading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                AppLocalizations.of(context)!.submittedValues,
+                style: TextStyle(
+                  color: theme.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
 
-          if (state.status == ObjectsListStatus.failure) {
-            return const Center(
-              child: Text('Error'),
-            );
-          }
-
-          return SizedBox(
-            height: 500,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: state.objectsList.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Text(
-                  (state.objectsList[index] as DailyInput).day.toString(),
-                );
-              },
-            ),
-          );
-        },
-      ),
+              Divider(
+                color: theme.white,
+                height: 5,
+                thickness: 1,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                AppLocalizations.of(context)!.completeTheDays,
+                style: TextStyle(
+                  color: theme.white,
+                  fontSize: 17,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const ProgressList(),
+      ],
     );
   }
 }
