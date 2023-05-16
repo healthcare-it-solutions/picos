@@ -45,7 +45,7 @@ class ProgressList extends StatelessWidget {
         }
 
         return SizedBox(
-          height: 200,
+          height: 150,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: state.objectsList.length,
