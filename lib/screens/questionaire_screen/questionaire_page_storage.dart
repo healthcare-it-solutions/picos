@@ -220,7 +220,7 @@ class QuestionairePageStorage {
   ) async {
     _bodyHeight =
         (await Backend.getAll(PatientRegistrationData.databaseTable))[0]
-            ['BodyHeight'];
+            ['BodyHeight']?['estimateNumber'];
     if (_weekly || _daily) {
       pages.add(
         Cover(
