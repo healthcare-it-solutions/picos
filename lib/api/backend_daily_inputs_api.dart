@@ -34,27 +34,29 @@ class BackendDailyInputsApi extends BackendObjectsApi {
       Map<String, dynamic> response = (await Backend.callEndpoint(
         'getPatientsDailyInput',
         <String, int>{'days': 14},
-      ))
-          .first['result'];
+      )).first['result'];
 
       int day = 0;
 
       response.forEach((String key, dynamic value) {
+        Daily? daily;
         Weekly? weekly;
         PHQ4? phq4;
 
-        Daily daily = Daily(
-          date: DateTime.parse(value['daily']['datetime']['iso']),
-          heartFrequency: value['daily']['HeartRate'],
-          bloodSugar: value['daily']['BloodSugar'],
-          bloodSystolic: value['daily']['BloodPSystolic'],
-          bloodDiastolic: value['daily']['BloodPDiastolic'],
-          sleepDuration: value['daily']['SleepDuration'],
-          pain: value['daily']['Pain'],
-          objectId: value['daily']['objectId'],
-          createdAt: DateTime.parse(value['daily']['createdAt']),
-          updatedAt: DateTime.parse(value['daily']['updatedAt']),
-        );
+        if (value['daily']['objectId'] != null) {
+          daily = Daily(
+            date: DateTime.parse(value['daily']['datetime']['iso']),
+            heartFrequency: value['daily']['HeartRate'],
+            bloodSugar: value['daily']['BloodSugar'],
+            bloodSystolic: value['daily']['BloodPSystolic'],
+            bloodDiastolic: value['daily']['BloodPDiastolic'],
+            sleepDuration: value['daily']['SleepDuration'],
+            pain: value['daily']['Pain'],
+            objectId: value['daily']['objectId'],
+            createdAt: DateTime.parse(value['daily']['createdAt']),
+            updatedAt: DateTime.parse(value['daily']['updatedAt']),
+          );
+        }
 
         if (value['weekly']['objectId'] != null) {
           weekly = Weekly(
@@ -83,12 +85,12 @@ class BackendDailyInputsApi extends BackendObjectsApi {
         }
 
         objectList.add(
-          DailyInput(
-            day: day,
-            daily: daily,
-            weekly: weekly,
-            phq4: phq4,
-          ),
+            DailyInput(
+              day: day,
+              daily: daily,
+              weekly: weekly,
+              phq4: phq4,
+            ),
         );
 
         day++;

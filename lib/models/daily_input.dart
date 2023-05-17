@@ -27,7 +27,7 @@ class DailyInput extends AbstractDatabaseObject {
   /// Creates a Daily object.
   const DailyInput({
     required this.day,
-    required this.daily,
+    this.daily,
     this.weekly,
     this.phq4,
     String? objectId,
@@ -42,7 +42,7 @@ class DailyInput extends AbstractDatabaseObject {
   final int day;
 
   /// [Daily]
-  final Daily daily;
+  final Daily? daily;
 
   /// [Weekly]
   final Weekly? weekly;
@@ -77,9 +77,7 @@ class DailyInput extends AbstractDatabaseObject {
   }
 
   @override
-  List<Object> get props => <Object>[
-    daily,
-  ];
+  List<Object> get props => <Object>[];
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{};
