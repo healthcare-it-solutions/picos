@@ -163,7 +163,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
         _now.year,
         _now.month,
         _now.day,
-      ).subtract(const Duration(days: 7)),
+      ).subtract(const Duration(days: 6)),
     )) {
       return weekly;
     }
@@ -190,7 +190,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
         _now.year,
         _now.month,
         _now.day,
-      ).subtract(const Duration(days: 14)),
+      ).subtract(const Duration(days: 13)),
     )) {
       return phq4;
     }
