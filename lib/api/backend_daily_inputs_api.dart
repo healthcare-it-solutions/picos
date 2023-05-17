@@ -28,13 +28,22 @@ import '../util/backend.dart';
 
 /// API for calling [DailyInput] at the backend.
 class BackendDailyInputsApi extends BackendObjectsApi {
+  bool _checkDay(dynamic value, String key) {
+    if (value[key] != null) {
+      return true;
+    }
+
+    return false;
+  }
+
   @override
   Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
     try {
       Map<String, dynamic> response = (await Backend.callEndpoint(
         'getPatientsDailyInput',
         <String, int>{'days': 14},
-      )).first['result'];
+      ))
+          .first['result'];
 
       int day = 0;
 
@@ -42,6 +51,8 @@ class BackendDailyInputsApi extends BackendObjectsApi {
         Daily? daily;
         Weekly? weekly;
         PHQ4? phq4;
+        bool weeklyDay = _checkDay(value, 'daily');
+        bool phq4Day = _checkDay(value, 'weekly');
 
         if (value['daily']['objectId'] != null) {
           daily = Daily(
@@ -58,7 +69,7 @@ class BackendDailyInputsApi extends BackendObjectsApi {
           );
         }
 
-        if (value['weekly']['objectId'] != null) {
+        if (weeklyDay && value['weekly']?['objectId'] != null) {
           weekly = Weekly(
             date: DateTime.parse(value['weekly']['datetime']['iso']),
             bmi: value['weekly']['BMI']?.toDouble(),
@@ -71,7 +82,7 @@ class BackendDailyInputsApi extends BackendObjectsApi {
           );
         }
 
-        if (value['phq4']['objectId'] != null) {
+        if (phq4Day && value['phq4']?['objectId'] != null) {
           phq4 = PHQ4(
             date: DateTime.parse(value['phq4']['datetime']['iso']),
             a: value['phq4']['a'],
@@ -85,12 +96,14 @@ class BackendDailyInputsApi extends BackendObjectsApi {
         }
 
         objectList.add(
-            DailyInput(
-              day: day,
-              daily: daily,
-              weekly: weekly,
-              phq4: phq4,
-            ),
+          DailyInput(
+            day: day,
+            daily: daily,
+            weekly: weekly,
+            phq4: phq4,
+            weeklyDay: weeklyDay,
+            phq4Day: phq4Day,
+          ),
         );
 
         day++;

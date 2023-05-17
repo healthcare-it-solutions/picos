@@ -30,6 +30,8 @@ class DailyInput extends AbstractDatabaseObject {
     this.daily,
     this.weekly,
     this.phq4,
+    this.weeklyDay = false,
+    this.phq4Day = false,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -49,6 +51,12 @@ class DailyInput extends AbstractDatabaseObject {
 
   /// [PHQ4]
   final PHQ4? phq4;
+
+  /// Tells if a new [Weekly] has to be created.
+  final bool weeklyDay;
+
+  /// Tells if a new [PHQ4] has to be created.
+  final bool phq4Day;
 
   @override
   get table {
