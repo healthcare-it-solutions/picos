@@ -31,6 +31,7 @@ class Weekly extends AbstractDatabaseObject {
     DateTime? updatedAt,
   }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt) {
     hasNullValues = _checkHasNullValues();
+    hasAnyValue = _checkHasAnyValue();
   }
 
   /// The database table the objects are stored in.
@@ -53,6 +54,9 @@ class Weekly extends AbstractDatabaseObject {
 
   /// The information if this objects has any null values.
   late final bool hasNullValues;
+
+  /// The information if this objects has any non-null value.
+  late final bool hasAnyValue;
 
   @override
   get table {
@@ -84,23 +88,34 @@ class Weekly extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-    date,
-  ];
+        date,
+      ];
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
-    'BodyWeight': bodyWeight,
-    'BMI': bmi,
-    'SISQS': sleepQuality,
-    'WalkingDistance': walkingDistance,
-    'datetime': date,
-  };
+        'BodyWeight': bodyWeight,
+        'BMI': bmi,
+        'SISQS': sleepQuality,
+        'WalkingDistance': walkingDistance,
+        'datetime': date,
+      };
 
   bool _checkHasNullValues() {
     if (bodyWeight == null ||
         bmi == null ||
         sleepQuality == null ||
         walkingDistance == null) {
+      return true;
+    }
+
+    return false;
+  }
+
+  bool _checkHasAnyValue() {
+    if (bodyWeight != null ||
+        bmi != null ||
+        sleepQuality != null ||
+        walkingDistance != null) {
       return true;
     }
 

@@ -33,6 +33,7 @@ class Daily extends AbstractDatabaseObject {
     DateTime? updatedAt,
   }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt) {
     hasNullValues = _checkHasNullValues();
+    hasAnyValue = _checkHasAnyValue();
   }
 
   /// The database table the objects are stored in.
@@ -61,6 +62,9 @@ class Daily extends AbstractDatabaseObject {
 
   /// The information if this objects has any null values.
   late final bool hasNullValues;
+
+  /// The information if this objects has any non-null value.
+  late final bool hasAnyValue;
 
   @override
   get table {
@@ -117,6 +121,19 @@ class Daily extends AbstractDatabaseObject {
         heartFrequency == null ||
         pain == null ||
         sleepDuration == null) {
+      return true;
+    }
+
+    return false;
+  }
+
+  bool _checkHasAnyValue() {
+    if (bloodDiastolic != null ||
+        bloodSugar != null ||
+        bloodSystolic != null ||
+        heartFrequency != null ||
+        pain != null ||
+        sleepDuration != null) {
       return true;
     }
 
