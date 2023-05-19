@@ -51,8 +51,8 @@ class BackendDailyInputsApi extends BackendObjectsApi {
         Daily? daily;
         Weekly? weekly;
         PHQ4? phq4;
-        bool weeklyDay = _checkDay(value, 'daily');
-        bool phq4Day = _checkDay(value, 'weekly');
+        bool weeklyDay = _checkDay(value, 'weekly');
+        bool phq4Day = _checkDay(value, 'phq4');
 
         if (value['daily']['objectId'] != null) {
           daily = Daily(
