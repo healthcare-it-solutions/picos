@@ -163,11 +163,11 @@ class _LoginScreenState extends State<LoginScreen>
               _loginfailure
                   ? Text(AppLocalizations.of(context)!.wrongCredentials)
                   : const Text(''),
-              Padding(
-                padding: const EdgeInsets.all(_sponsorLogoPadding),
+              const Padding(
+                padding: EdgeInsets.all(_sponsorLogoPadding),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const <Widget>[
+                  children: <Widget>[
                     Expanded(
                       child: Image(
                         image: AssetImage('assets/BMBF.png'),
