@@ -112,7 +112,13 @@ class ProgressTile extends StatelessWidget {
               height: size,
               width: size + 20,
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/questionnaire-screen/questionnaire-screen',
+                    arguments: dailyInput,
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   shape: const CircleBorder(),
                   backgroundColor: _getTileColor(theme, state),
