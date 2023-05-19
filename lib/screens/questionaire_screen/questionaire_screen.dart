@@ -18,6 +18,7 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
+import 'package:picos/models/daily_input.dart';
 import 'package:picos/models/phq4.dart';
 import 'package:picos/models/weekly.dart';
 import 'package:picos/screens/questionaire_screen/questionaire_page_storage.dart';
@@ -28,6 +29,7 @@ import '../../util/backend.dart';
 
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
+/// Requires an [DailyInput] as argument.
 class QuestionaireScreen extends StatefulWidget {
   /// QuestionaireScreen constructor
   const QuestionaireScreen({Key? key}) : super(key: key);
@@ -43,11 +45,8 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   static const Curve _controllerCurve = Curves.ease;
 
   // State
+  DailyInput? _dailyInput;
   String? _title;
-  Weekly? _weekly;
-  Daily? _daily;
-  PHQ4? _phq4;
-  final DateTime _now = DateTime.now();
 
   final Map<String, int> _redirectingPages = <String, int>{
     'medicationPage': 16,
@@ -105,139 +104,77 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     );
   }
 
-  dynamic _filterCurrentObject(List<dynamic> objects) {
-    objects.sort((dynamic a, dynamic b) {
-      return DateTime
-          .parse(a['datetime']['iso'])
-          .compareTo(DateTime.parse(b['datetime']['iso']));
-      },);
-
-    return objects.last;
-  }
-
-  Daily? _createDaily(List<dynamic> dailies) {
-    dynamic currentDaily = _filterCurrentObject(dailies);
-
-    Daily daily = Daily(
-      heartFrequency: currentDaily['HeartRate'],
-      bloodSugar: currentDaily['BloodSugar'],
-      bloodSystolic: currentDaily['BloodPSystolic'],
-      bloodDiastolic: currentDaily['BloodPDiastolic'],
-      sleepDuration: currentDaily['SleepDuration'],
-      date: DateTime.parse(currentDaily['datetime']['iso']),
-      pain: currentDaily['Pain'],
-      objectId: currentDaily['objectId'],
-      createdAt: DateTime.parse(currentDaily['createdAt']),
-      updatedAt: DateTime.parse(currentDaily['updatedAt']),
-    );
-
-    if (!daily.date.isBefore(
-      DateTime(
-        _now.year,
-        _now.month,
-        _now.day,
-      ),
-    )) {
-      return daily;
-    }
-
-    return null;
-  }
-
-  Weekly? _createWeekly(List<dynamic> weeklies) {
-    dynamic currentWeekly = _filterCurrentObject(weeklies);
-
-    Weekly weekly = Weekly(
-      bmi: currentWeekly['BMI']?.toDouble(),
-      bodyWeight: currentWeekly['BodyWeight']?.toDouble(),
-      sleepQuality: currentWeekly['SISQS'],
-      walkingDistance: currentWeekly['WalkingDistance'],
-      date: DateTime.parse(currentWeekly['datetime']['iso']),
-      objectId: currentWeekly['objectId'],
-      createdAt: DateTime.parse(currentWeekly['createdAt']),
-      updatedAt: DateTime.parse(currentWeekly['updatedAt']),
-    );
-
-    if (!weekly.date.isBefore(
-      DateTime(
-        _now.year,
-        _now.month,
-        _now.day,
-      ).subtract(const Duration(days: 6)),
-    )) {
-      return weekly;
-    }
-
-    return null;
-  }
-
-  PHQ4? _createPHQ4(List<dynamic> phq4s) {
-    dynamic currentPhq4 = _filterCurrentObject(phq4s);
-
-    PHQ4 phq4 = PHQ4(
-      a: currentPhq4['a'],
-      b: currentPhq4['b'],
-      c: currentPhq4['c'],
-      d: currentPhq4['d'],
-      date: DateTime.parse(currentPhq4['datetime']['iso']),
-      objectId: currentPhq4['objectId'],
-      createdAt: DateTime.parse(currentPhq4['createdAt']),
-      updatedAt: DateTime.parse(currentPhq4['updatedAt']),
-    );
-
-    if (!phq4.date.isBefore(
-      DateTime(
-        _now.year,
-        _now.month,
-        _now.day,
-      ).subtract(const Duration(days: 13)),
-    )) {
-      return phq4;
-    }
-
-    return null;
-  }
-
   // Class init.
   Future<bool> _classInit(BuildContext context) async {
     if (_pageStorage != null) {
       return true;
     }
 
-    List<dynamic> dailyData = await Backend.getAll(Daily.databaseTable);
-    List<dynamic> weeklyData = await Backend.getAll(Weekly.databaseTable);
-    List<dynamic> phq4Data = await Backend.getAll(PHQ4.databaseTable);
-
     if (!mounted) {
       return false;
-    }
-
-    if (dailyData.isNotEmpty) {
-      _daily = _createDaily(dailyData);
-    }
-
-    if (weeklyData.isNotEmpty) {
-      _weekly = _createWeekly(weeklyData);
-    }
-
-    if (phq4Data.isNotEmpty) {
-      _phq4 = _createPHQ4(phq4Data);
     }
 
     _pageStorage = await QuestionairePageStorage.create(
       _previousPage,
       _nextPage,
       context,
-      _daily,
-      _weekly,
-      _phq4,
+      _dailyInput!,
     );
 
     return true;
   }
 
+  Weekly? _createWeekly(DateTime date) {
+    if (!_dailyInput!.weeklyDay) {
+      return null;
+    }
+
+    if (_dailyInput!.weekly == null) {
+      return Weekly(
+        date: date,
+        bodyWeight: _pageStorage!.selectedBodyWeight,
+        bmi: _pageStorage!.selectedBMI,
+        sleepQuality: _pageStorage!.selectedSleepQuality,
+        walkingDistance: _pageStorage!.selectedWalkDistance,
+      );
+    }
+
+    return _dailyInput!.weekly!.copyWith(
+      bodyWeight: _pageStorage!.selectedBodyWeight,
+      bmi: _pageStorage!.selectedBMI,
+      sleepQuality: _pageStorage!.selectedSleepQuality,
+      walkingDistance: _pageStorage!.selectedWalkDistance,
+    );
+  }
+
+  PHQ4? _createPhq4(DateTime date) {
+    if (!_dailyInput!.phq4Day) {
+      return null;
+    }
+
+    if (_dailyInput!.phq4 == null) {
+      return PHQ4(
+        date: date,
+        a: _pageStorage!.selectedQuestionA,
+        b: _pageStorage!.selectedQuestionB,
+        c: _pageStorage!.selectedQuestionC,
+        d: _pageStorage!.selectedQuestionD,
+      );
+    }
+
+    return _dailyInput!.phq4!.copyWith(
+      a: _pageStorage!.selectedQuestionA,
+      b: _pageStorage!.selectedQuestionB,
+      c: _pageStorage!.selectedQuestionC,
+      d: _pageStorage!.selectedQuestionD,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    //Required argument.
+    _dailyInput ??= ModalRoute.of(context)!.settings.arguments as DailyInput;
+
     return FutureBuilder<bool>(
       future: _classInit(context),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
@@ -262,60 +199,40 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
               }
 
               if (value == _pageStorage!.pages.length - 1) {
-                DateTime date = DateTime.now();
+                DateTime date =
+                    DateTime.now().subtract(Duration(days: _dailyInput!.day));
 
-                Daily daily = _daily == null
+                Daily daily = _dailyInput!.daily == null
                     ? Daily(
-                  date: date,
-                  bloodDiastolic: _pageStorage!.selectedDias,
-                  bloodSugar: _pageStorage!.selectedBloodSugar,
-                  bloodSystolic: _pageStorage!.selectedSyst,
-                  pain: _pageStorage!.selectedPain,
-                  sleepDuration: _pageStorage!.selectedSleepDuration,
-                  heartFrequency: _pageStorage!.selectedHeartFrequency,
-                )
-                    : _daily!.copyWith(
-                  bloodDiastolic: _pageStorage!.selectedDias,
-                  bloodSugar: _pageStorage!.selectedBloodSugar,
-                  bloodSystolic: _pageStorage!.selectedSyst,
-                  pain: _pageStorage!.selectedPain,
-                  sleepDuration: _pageStorage!.selectedSleepDuration,
-                  heartFrequency: _pageStorage!.selectedHeartFrequency,
-                );
+                        date: date,
+                        bloodDiastolic: _pageStorage!.selectedDias,
+                        bloodSugar: _pageStorage!.selectedBloodSugar,
+                        bloodSystolic: _pageStorage!.selectedSyst,
+                        pain: _pageStorage!.selectedPain,
+                        sleepDuration: _pageStorage!.selectedSleepDuration,
+                        heartFrequency: _pageStorage!.selectedHeartFrequency,
+                      )
+                    : _dailyInput!.daily!.copyWith(
+                        bloodDiastolic: _pageStorage!.selectedDias,
+                        bloodSugar: _pageStorage!.selectedBloodSugar,
+                        bloodSystolic: _pageStorage!.selectedSyst,
+                        pain: _pageStorage!.selectedPain,
+                        sleepDuration: _pageStorage!.selectedSleepDuration,
+                        heartFrequency: _pageStorage!.selectedHeartFrequency,
+                      );
 
-                Weekly weekly = _weekly == null
-                    ? Weekly(
-                  date: date,
-                  bodyWeight: _pageStorage!.selectedBodyWeight,
-                  bmi: _pageStorage!.selectedBMI,
-                  sleepQuality: _pageStorage!.selectedSleepQuality,
-                  walkingDistance: _pageStorage!.selectedWalkDistance,
-                )
-                    : _weekly!.copyWith(
-                  bodyWeight: _pageStorage!.selectedBodyWeight,
-                  bmi: _pageStorage!.selectedBMI,
-                  sleepQuality: _pageStorage!.selectedSleepQuality,
-                  walkingDistance: _pageStorage!.selectedWalkDistance,
-                );
-
-                PHQ4 phq4 = _phq4 == null
-                    ? PHQ4(
-                  date: date,
-                  a: _pageStorage!.selectedQuestionA,
-                  b: _pageStorage!.selectedQuestionB,
-                  c: _pageStorage!.selectedQuestionC,
-                  d: _pageStorage!.selectedQuestionD,
-                )
-                    : _phq4!.copyWith(
-                  a: _pageStorage!.selectedQuestionA,
-                  b: _pageStorage!.selectedQuestionB,
-                  c: _pageStorage!.selectedQuestionC,
-                  d: _pageStorage!.selectedQuestionD,
-                );
+                Weekly? weekly = _createWeekly(date);
+                PHQ4? phq4 = _createPhq4(date);
 
                 await Backend.saveObject(daily);
-                await Backend.saveObject(weekly);
-                await Backend.saveObject(phq4);
+
+                if (weekly != null) {
+                  await Backend.saveObject(weekly);
+                }
+
+                if (phq4 != null) {
+                  await Backend.saveObject(phq4);
+                }
               }
             },
             children: _pageStorage!.pages,
