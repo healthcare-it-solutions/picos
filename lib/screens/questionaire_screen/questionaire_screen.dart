@@ -50,12 +50,6 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   PHQ4? _phq4;
   final DateTime _now = DateTime.now();
 
-  final Map<String, int> _redirectingPages = <String, int>{
-    'medicationPage': 16,
-    'therapyPage': 17,
-    'doctorPage': 18,
-  };
-
   void _previousPage() {
     FocusManager.instance.primaryFocus?.unfocus();
 
@@ -79,21 +73,21 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       return;
     }
 
-    if (_controller.page == _redirectingPages['medicationPage'] &&
+    if (_controller.page == _pageStorage!.redirectingPages['medicationPage'] &&
         _pageStorage!.medicationChanged == true &&
         _pageStorage!.medicationUpdated == false) {
       _pageStorage!.medicationUpdated = true;
       Navigator.of(context).pushNamed('/my-medications-screen/my-medications');
     }
 
-    if (_controller.page == _redirectingPages['therapyPage'] &&
+    if (_controller.page == _pageStorage!.redirectingPages['therapyPage'] &&
         _pageStorage!.therapyChanged == true &&
         _pageStorage!.therapyUpdated == false) {
       _pageStorage!.therapyUpdated = true;
       Navigator.of(context).pushNamed('/my-therapy-screen/my-therapy');
     }
 
-    if (_controller.page == _redirectingPages['doctorPage'] &&
+    if (_controller.page == _pageStorage!.redirectingPages['doctorPage'] &&
         _pageStorage!.doctorVisited == true &&
         _pageStorage!.doctorVisitedUpdated == false) {
       _pageStorage!.doctorVisitedUpdated = true;
