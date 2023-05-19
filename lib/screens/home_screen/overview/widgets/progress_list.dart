@@ -23,7 +23,9 @@ import '../../../../api/backend_daily_inputs_api.dart';
 import '../../../../models/daily_input.dart';
 import '../../../../state/objects_list_bloc.dart';
 
+/// A list with daily questionaire progress.
 class ProgressList extends StatelessWidget {
+  /// Creates ProgressList.
   const ProgressList({Key? key}) : super(key: key);
 
   @override
