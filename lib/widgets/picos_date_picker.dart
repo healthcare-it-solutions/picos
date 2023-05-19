@@ -69,7 +69,7 @@ class _PicosDatePickerState extends State<PicosDatePicker> {
       return _hint!;
     }
 
-    return '${PicosDatePicker.formatDate(_date!)}${widget.dateHintSuffix}';
+    return '${PicosDatePicker.formatDate(_date!)} ${widget.dateHintSuffix}';
   }
 
   @override
