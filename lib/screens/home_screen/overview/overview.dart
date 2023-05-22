@@ -18,9 +18,8 @@
 import 'package:flutter/material.dart';
 import 'package:picos/screens/home_screen/overview/widgets/contact_section.dart';
 import 'package:picos/screens/home_screen/overview/widgets/my_health_section.dart';
-import 'package:picos/screens/home_screen/overview/widgets/progress_section.dart';
+import 'package:picos/screens/home_screen/overview/widgets/questionnaire_section.dart';
 import '../../../themes/global_theme.dart';
-import 'widgets/input_card_section.dart';
 
 /// Main widget using all subwidgets to build up the "overview"-screen
 class Overview extends StatelessWidget {
@@ -46,14 +45,7 @@ class Overview extends StatelessWidget {
               )
             ],
           ),
-          Container(
-            color: theme.darkGreen1,
-            child: const InputCardSection(),
-          ),
-          Container(
-            color: theme.darkGreen3,
-            child: const ProgressSection(),
-          ),
+          const QuestionaireSection(),
           Container(
             color: theme.blue,
             child: const MyHealthSection(),

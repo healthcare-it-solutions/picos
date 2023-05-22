@@ -18,15 +18,45 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/screens/home_screen/overview/widgets/progress_list.dart';
+import 'package:picos/screens/home_screen/overview/widgets/progress_tile.dart';
+import 'package:picos/state/objects_list_bloc.dart';
 
+import '../../../../models/daily_input.dart';
 import '../../../../themes/global_theme.dart';
 
 /// Widget which is used for displaying
 /// the progress bar in the corresponding section on the "overview"-screen
 class ProgressSection extends StatelessWidget {
   /// ProgressSection constructor
-  const ProgressSection({Key? key}) : super(key: key);
+  const ProgressSection({required this.state, Key? key}) : super(key: key);
+
+  ///State of the required objects request;
+  final ObjectsListState state;
+
+  Widget _buildContent() {
+    if (state.status == ObjectsListStatus.initial ||
+        state.status == ObjectsListStatus.loading) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    if (state.status == ObjectsListStatus.failure) {
+      return const Center(
+        child: Text('Error'),
+      );
+    }
+
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: state.objectsList.length,
+      itemBuilder: (BuildContext context, int index) {
+        return ProgressTile(
+          dailyInput: state.objectsList[index] as DailyInput,
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +77,6 @@ class ProgressSection extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-
               Divider(
                 color: theme.white,
                 height: 5,
@@ -66,7 +95,7 @@ class ProgressSection extends StatelessWidget {
             ],
           ),
         ),
-        const ProgressList(),
+        SizedBox(height: 150, child: _buildContent()),
       ],
     );
   }
