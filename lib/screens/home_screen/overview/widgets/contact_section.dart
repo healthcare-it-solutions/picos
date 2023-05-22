@@ -28,7 +28,7 @@ class ContactSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Section(
-      titleColor: Colors.blue,
+      titleColor: const Color.fromARGB(255, 35, 111, 168),
       title: AppLocalizations.of(context)!.contact,
       child: Stack(
         children: <Widget>[

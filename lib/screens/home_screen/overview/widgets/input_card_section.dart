@@ -27,7 +27,7 @@ class InputCardSection extends StatelessWidget {
   /// InputCardSection constructor
   const InputCardSection({Key? key}) : super(key: key);
 
-  static const Color _standardTitleColor = Colors.blue;
+  static const Color _standardTitleColor = Color.fromARGB(255, 25, 120, 136);
 
   @override
   Widget build(BuildContext context) {

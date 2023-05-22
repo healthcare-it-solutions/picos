@@ -47,11 +47,12 @@ class MiniCalendar extends StatelessWidget {
               117,
               1.0,
             ),
-            border: Border.all(),
+            border: Border.all(color: const Color.fromARGB(255, 25, 120, 136)),
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(5),
               topRight: Radius.circular(5),
             ),
+            
           ),
           child: Center(
             child: Text(
@@ -74,7 +75,7 @@ class MiniCalendar extends StatelessWidget {
               bottomLeft: Radius.circular(5),
               bottomRight: Radius.circular(5),
             ),
-            border: Border.all(),
+            border: Border.all(color: const Color.fromARGB(255, 25, 120, 136)),
           ),
           child: Center(
             child: Text(

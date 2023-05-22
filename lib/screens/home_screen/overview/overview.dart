@@ -42,11 +42,11 @@ class Overview extends StatelessWidget {
           ],
         ),
         Container(
-          color: const Color.fromARGB(255, 15, 88, 104),
+          color: const Color.fromARGB(255, 25, 120, 136),
           child: const InputCardSection(),
         ),
         Container(
-          color: Colors.blue,
+          color: const Color.fromARGB(255, 35, 111, 168),
           child: const MyHealthSection(),
         ),
         const ContactSection()
