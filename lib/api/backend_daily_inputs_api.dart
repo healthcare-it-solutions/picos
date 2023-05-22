@@ -37,6 +37,53 @@ class BackendDailyInputsApi extends BackendObjectsApi {
   }
 
   @override
+  Future<void> saveObject(AbstractDatabaseObject object) async {
+    Daily daily;
+    Weekly? weekly;
+    PHQ4? phq4;
+
+    if ((object as DailyInput).weeklyDay) {
+      dynamic response = await Backend.saveObject(object.weekly!);
+      weekly = object.weekly!.copyWith(
+        objectId: response['objectId'],
+        createdAt:
+        DateTime.tryParse(response['createdAt'] ?? '') ?? object.createdAt,
+        updatedAt:
+        DateTime.tryParse(response['updatedAt'] ?? '') ?? object.updatedAt,
+      );
+    }
+
+    if (object.phq4Day) {
+      dynamic response = await Backend.saveObject(object.phq4!);
+      phq4 = object.phq4!.copyWith(
+        objectId: response['objectId'],
+        createdAt:
+        DateTime.tryParse(response['createdAt'] ?? '') ?? object.createdAt,
+        updatedAt:
+        DateTime.tryParse(response['updatedAt'] ?? '') ?? object.updatedAt,
+      );
+    }
+
+    dynamic response = await Backend.saveObject(object.daily!);
+    daily = object.daily!.copyWith(
+      objectId: response['objectId'],
+      createdAt:
+      DateTime.tryParse(response['createdAt'] ?? '') ?? object.createdAt,
+      updatedAt:
+      DateTime.tryParse(response['updatedAt'] ?? '') ?? object.updatedAt,
+    );
+
+    object = object.copyWith(
+      daily: daily,
+      weekly: weekly,
+      phq4: phq4,
+    );
+
+    objectList[object.day] = object;
+    dispatch();
+  }
+
+  @override
   Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
     try {
       Map<String, dynamic> response = (await Backend.callEndpoint(

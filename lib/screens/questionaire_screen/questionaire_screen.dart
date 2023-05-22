@@ -18,14 +18,17 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:picos/api/backend_daily_inputs_api.dart';
 import 'package:picos/models/daily_input.dart';
 import 'package:picos/models/phq4.dart';
 import 'package:picos/models/weekly.dart';
 import 'package:picos/screens/questionaire_screen/questionaire_page_storage.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 
+import '../../api/backend_medications_api.dart';
 import '../../models/daily.dart';
-import '../../util/backend.dart';
+import '../../state/objects_list_bloc.dart';
 
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
@@ -175,68 +178,81 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     //Required argument.
     _dailyInput ??= ModalRoute.of(context)!.settings.arguments as DailyInput;
 
-    return FutureBuilder<bool>(
-      future: _classInit(context),
-      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        if (!snapshot.hasData && !snapshot.hasError) {
-          return const CircularProgressIndicator();
-        }
+    return BlocBuilder<ObjectsListBloc<BackendMedicationsApi>,
+        ObjectsListState>(
+      builder: (BuildContext context, ObjectsListState state) {
+        return FutureBuilder<bool>(
+          future: _classInit(context),
+          builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+            if (!snapshot.hasData && !snapshot.hasError) {
+              return const CircularProgressIndicator();
+            }
 
-        // Instance init.
-        _title ??= _pageStorage!.titles[0];
+            // Instance init.
+            _title ??= _pageStorage!.titles[0];
 
-        return PicosScreenFrame(
-          appBarElevation: 0.0,
-          title: _title,
-          body: PageView(
-            controller: _controller,
-            physics: const NeverScrollableScrollPhysics(),
-            onPageChanged: (int value) async {
-              if (_title != _pageStorage!.titles[value]) {
-                setState(() {
-                  _title = _pageStorage!.titles[value];
-                });
-              }
+            return PicosScreenFrame(
+              appBarElevation: 0.0,
+              title: _title,
+              body: PageView(
+                controller: _controller,
+                physics: const NeverScrollableScrollPhysics(),
+                onPageChanged: (int value) async {
+                  if (_title != _pageStorage!.titles[value]) {
+                    setState(() {
+                      _title = _pageStorage!.titles[value];
+                    });
+                  }
 
-              if (value == _pageStorage!.pages.length - 1) {
-                DateTime date =
-                    DateTime.now().subtract(Duration(days: _dailyInput!.day));
+                  if (value == _pageStorage!.pages.length - 1) {
+                    DateTime date = DateTime.now()
+                        .subtract(Duration(days: _dailyInput!.day));
 
-                Daily daily = _dailyInput!.daily == null
-                    ? Daily(
-                        date: date,
-                        bloodDiastolic: _pageStorage!.selectedDias,
-                        bloodSugar: _pageStorage!.selectedBloodSugar,
-                        bloodSystolic: _pageStorage!.selectedSyst,
-                        pain: _pageStorage!.selectedPain,
-                        sleepDuration: _pageStorage!.selectedSleepDuration,
-                        heartFrequency: _pageStorage!.selectedHeartFrequency,
-                      )
-                    : _dailyInput!.daily!.copyWith(
-                        bloodDiastolic: _pageStorage!.selectedDias,
-                        bloodSugar: _pageStorage!.selectedBloodSugar,
-                        bloodSystolic: _pageStorage!.selectedSyst,
-                        pain: _pageStorage!.selectedPain,
-                        sleepDuration: _pageStorage!.selectedSleepDuration,
-                        heartFrequency: _pageStorage!.selectedHeartFrequency,
-                      );
+                    Daily daily = _dailyInput!.daily == null
+                        ? Daily(
+                            date: date,
+                            bloodDiastolic: _pageStorage!.selectedDias,
+                            bloodSugar: _pageStorage!.selectedBloodSugar,
+                            bloodSystolic: _pageStorage!.selectedSyst,
+                            pain: _pageStorage!.selectedPain,
+                            sleepDuration: _pageStorage!.selectedSleepDuration,
+                            heartFrequency:
+                                _pageStorage!.selectedHeartFrequency,
+                          )
+                        : _dailyInput!.daily!.copyWith(
+                            bloodDiastolic: _pageStorage!.selectedDias,
+                            bloodSugar: _pageStorage!.selectedBloodSugar,
+                            bloodSystolic: _pageStorage!.selectedSyst,
+                            pain: _pageStorage!.selectedPain,
+                            sleepDuration: _pageStorage!.selectedSleepDuration,
+                            heartFrequency:
+                                _pageStorage!.selectedHeartFrequency,
+                          );
 
-                Weekly? weekly = _createWeekly(date);
-                PHQ4? phq4 = _createPhq4(date);
+                    Weekly? weekly = _createWeekly(date);
+                    PHQ4? phq4 = _createPhq4(date);
 
-                await Backend.saveObject(daily);
+                    _dailyInput!.copyWith(
+                      daily: daily,
+                      weekly: weekly,
+                      phq4: phq4,
+                    );
 
-                if (weekly != null) {
-                  await Backend.saveObject(weekly);
-                }
-
-                if (phq4 != null) {
-                  await Backend.saveObject(phq4);
-                }
-              }
-            },
-            children: _pageStorage!.pages,
-          ),
+                    context.read<ObjectsListBloc<BackendDailyInputsApi>>().add(
+                          SaveObject(
+                            _dailyInput!.copyWith(
+                              daily: daily,
+                              weekly: weekly,
+                              phq4: phq4,
+                            ),
+                          ),
+                        );
+                  }
+                },
+                children: _pageStorage!.pages,
+              ),
+            );
+          },
         );
       },
     );
