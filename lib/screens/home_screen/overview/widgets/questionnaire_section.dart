@@ -41,7 +41,7 @@ class QuestionaireSection extends StatelessWidget {
           children: <Container>[
             Container(
               color: theme.darkGreen1,
-              child: const InputCardSection(),
+              child: InputCardSection(state: state),
             ),
             Container(
               color: theme.darkGreen3,

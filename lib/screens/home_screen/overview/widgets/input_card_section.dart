@@ -18,15 +18,20 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/models/daily_input.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
 
+import '../../../../state/objects_list_bloc.dart';
 import '../../../../themes/global_theme.dart';
 import 'mini_calendar.dart';
 
 /// This class implements the top section of the 'overview'.
 class InputCardSection extends StatelessWidget {
   /// InputCardSection constructor
-  const InputCardSection({Key? key}) : super(key: key);
+  const InputCardSection({required this.state, Key? key}) : super(key: key);
+
+  ///State of the required objects request;
+  final ObjectsListState state;
 
   @override
   Widget build(BuildContext context) {
@@ -74,12 +79,17 @@ class InputCardSection extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             PicosInkWellButton(
+              disabled:
+                  state.status == ObjectsListStatus.success ? false : true,
               padding: const EdgeInsets.symmetric(horizontal: 0),
-              text: AppLocalizations.of(context)!.howFeel,
+              text: state.status == ObjectsListStatus.failure
+                  ? 'Error'
+                  : AppLocalizations.of(context)!.howFeel,
               onTap: () {
                 Navigator.pushNamed(
                   context,
                   '/questionnaire-screen/questionnaire-screen',
+                  arguments: state.objectsList[0] as DailyInput,
                 );
               },
               fontSize: 20,
