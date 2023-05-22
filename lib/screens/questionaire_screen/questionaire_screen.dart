@@ -43,6 +43,7 @@ class QuestionaireScreen extends StatefulWidget {
 
 class _QuestionaireScreenState extends State<QuestionaireScreen> {
   QuestionairePageStorage? _pageStorage;
+  late Future<bool> _init;
   static final PageController _controller = PageController();
   static const Duration _controllerDuration = Duration(milliseconds: 300);
   static const Curve _controllerCurve = Curves.ease;
@@ -50,12 +51,6 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   // State
   DailyInput? _dailyInput;
   String? _title;
-
-  final Map<String, int> _redirectingPages = <String, int>{
-    'medicationPage': 16,
-    'therapyPage': 17,
-    'doctorPage': 18,
-  };
 
   void _previousPage() {
     FocusManager.instance.primaryFocus?.unfocus();
@@ -80,21 +75,21 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       return;
     }
 
-    if (_controller.page == _redirectingPages['medicationPage'] &&
+    if (_controller.page == _pageStorage!.redirectingPages['medicationPage'] &&
         _pageStorage!.medicationChanged == true &&
         _pageStorage!.medicationUpdated == false) {
       _pageStorage!.medicationUpdated = true;
       Navigator.of(context).pushNamed('/my-medications-screen/my-medications');
     }
 
-    if (_controller.page == _redirectingPages['therapyPage'] &&
+    if (_controller.page == _pageStorage!.redirectingPages['therapyPage'] &&
         _pageStorage!.therapyChanged == true &&
         _pageStorage!.therapyUpdated == false) {
       _pageStorage!.therapyUpdated = true;
       Navigator.of(context).pushNamed('/my-therapy-screen/my-therapy');
     }
 
-    if (_controller.page == _redirectingPages['doctorPage'] &&
+    if (_controller.page == _pageStorage!.redirectingPages['doctorPage'] &&
         _pageStorage!.doctorVisited == true &&
         _pageStorage!.doctorVisitedUpdated == false) {
       _pageStorage!.doctorVisitedUpdated = true;
@@ -174,6 +169,12 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _init = _classInit(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     //Required argument.
     _dailyInput ??= ModalRoute.of(context)!.settings.arguments as DailyInput;
@@ -182,9 +183,9 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
         ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
         return FutureBuilder<bool>(
-          future: _classInit(context),
+          future: _init,
           builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-            if (!snapshot.hasData && !snapshot.hasError) {
+            if (snapshot.connectionState != ConnectionState.done) {
               return const CircularProgressIndicator();
             }
 

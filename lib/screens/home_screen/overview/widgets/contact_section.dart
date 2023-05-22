@@ -63,9 +63,9 @@ class ContactSection extends StatelessWidget {
               const SizedBox(
                 height: 45,
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const <Expanded>[
+                children: <Expanded>[
                   Expanded(
                     flex: 55,
                     child: Text('E-Mail:\npicos@hit-solutions.de'),
