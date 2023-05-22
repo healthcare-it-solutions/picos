@@ -21,11 +21,6 @@ import 'package:intl/intl.dart';
 
 import '../../../../themes/global_theme.dart';
 
-// TODO: add some configuration, maybe even hard coded
-// TODO: make widget follow global theme setting
-// TODO: document
-// TODO: make it less ugly
-
 /// Widget which displays a calendar on the "overview"-screen
 class MiniCalendar extends StatelessWidget {
   /// MiniCalendar constructor
