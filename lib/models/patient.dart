@@ -104,7 +104,7 @@ class Patient extends AbstractDatabaseObject {
     // A non-negative number for determining the length of the password.
     const int length = 12;
 
-    Random randomString = Random();
+    Random randomString = Random.secure();
 
     return String.fromCharCodes(
       List<int>.generate(

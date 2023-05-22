@@ -34,10 +34,10 @@ class BackendMedicationsApi extends BackendObjectsApi {
         objectList.add(
           Medication(
             compound: element['MedicalProduct'],
-            morning: element['Morning'].toDouble(),
-            noon: element['Noon'].toDouble(),
-            evening: element['Evening'].toDouble(),
-            night: element['AtNight'].toDouble(),
+            morning: element['Morning']['estimateNumber'].toDouble(),
+            noon: element['Noon']['estimateNumber'].toDouble(),
+            evening: element['Evening']['estimateNumber'].toDouble(),
+            night: element['AtNight']['estimateNumber'].toDouble(),
             objectId: element['objectId'],
             createdAt: DateTime.parse(element['createdAt']),
             updatedAt: DateTime.parse(element['updatedAt']),

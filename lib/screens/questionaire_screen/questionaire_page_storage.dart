@@ -137,6 +137,13 @@ class QuestionairePageStorage {
   /// (synced) by the user.
   bool? doctorVisited;
 
+  /// Tells what pages include redirects.
+  final Map<String, int> redirectingPages = <String, int>{
+    'medicationPage': 16,
+    'therapyPage': 17,
+    'doctorPage': 18,
+  };
+
   //Static Strings
   static String? _myEntries;
   static String? _vitalValues;
@@ -220,7 +227,7 @@ class QuestionairePageStorage {
   ) async {
     _bodyHeight =
         (await Backend.getAll(PatientRegistrationData.databaseTable))[0]
-            ['BodyHeight'];
+            ['BodyHeight']?['estimateNumber'];
     if (_weekly || _daily) {
       pages.add(
         Cover(
@@ -449,6 +456,7 @@ class QuestionairePageStorage {
         nextFunction: nextPage,
       ),
     );
+    redirectingPages['medicationPage'] = pages.length;
     pages.add(
       QuestionairePage(
         backFunction: previousPage,
@@ -463,6 +471,7 @@ class QuestionairePageStorage {
         ),
       ),
     );
+    redirectingPages['therapyPage'] = pages.length;
     pages.add(
       QuestionairePage(
         backFunction: previousPage,
@@ -477,6 +486,7 @@ class QuestionairePageStorage {
         ),
       ),
     );
+    redirectingPages['doctorPage'] = pages.length;
     pages.add(
       QuestionairePage(
         backFunction: previousPage,

@@ -38,6 +38,7 @@ class QuestionaireScreen extends StatefulWidget {
 
 class _QuestionaireScreenState extends State<QuestionaireScreen> {
   QuestionairePageStorage? _pageStorage;
+  late Future<bool> _init;
   static final PageController _controller = PageController();
   static const Duration _controllerDuration = Duration(milliseconds: 300);
   static const Curve _controllerCurve = Curves.ease;
@@ -48,12 +49,6 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   Daily? _daily;
   PHQ4? _phq4;
   final DateTime _now = DateTime.now();
-
-  final Map<String, int> _redirectingPages = <String, int>{
-    'medicationPage': 16,
-    'therapyPage': 17,
-    'doctorPage': 18,
-  };
 
   void _previousPage() {
     FocusManager.instance.primaryFocus?.unfocus();
@@ -78,21 +73,21 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       return;
     }
 
-    if (_controller.page == _redirectingPages['medicationPage'] &&
+    if (_controller.page == _pageStorage!.redirectingPages['medicationPage'] &&
         _pageStorage!.medicationChanged == true &&
         _pageStorage!.medicationUpdated == false) {
       _pageStorage!.medicationUpdated = true;
       Navigator.of(context).pushNamed('/my-medications-screen/my-medications');
     }
 
-    if (_controller.page == _redirectingPages['therapyPage'] &&
+    if (_controller.page == _pageStorage!.redirectingPages['therapyPage'] &&
         _pageStorage!.therapyChanged == true &&
         _pageStorage!.therapyUpdated == false) {
       _pageStorage!.therapyUpdated = true;
       Navigator.of(context).pushNamed('/my-therapy-screen/my-therapy');
     }
 
-    if (_controller.page == _redirectingPages['doctorPage'] &&
+    if (_controller.page == _pageStorage!.redirectingPages['doctorPage'] &&
         _pageStorage!.doctorVisited == true &&
         _pageStorage!.doctorVisitedUpdated == false) {
       _pageStorage!.doctorVisitedUpdated = true;
@@ -106,11 +101,12 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   }
 
   dynamic _filterCurrentObject(List<dynamic> objects) {
-    objects.sort((dynamic a, dynamic b) {
-      return DateTime
-          .parse(a['datetime']['iso'])
-          .compareTo(DateTime.parse(b['datetime']['iso']));
-      },);
+    objects.sort(
+      (dynamic a, dynamic b) {
+        return DateTime.parse(a['datetime']['iso'])
+            .compareTo(DateTime.parse(b['datetime']['iso']));
+      },
+    );
 
     return objects.last;
   }
@@ -119,13 +115,13 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     dynamic currentDaily = _filterCurrentObject(dailies);
 
     Daily daily = Daily(
-      heartFrequency: currentDaily['HeartRate'],
-      bloodSugar: currentDaily['BloodSugar'],
-      bloodSystolic: currentDaily['BloodPSystolic'],
-      bloodDiastolic: currentDaily['BloodPDiastolic'],
-      sleepDuration: currentDaily['SleepDuration'],
+      heartFrequency: currentDaily['HeartRate']?['estimateNumber'],
+      bloodSugar: currentDaily['BloodSugar']?['estimateNumber'],
+      bloodSystolic: currentDaily['BloodPSystolic']?['estimateNumber'],
+      bloodDiastolic: currentDaily['BloodPDiastolic']?['estimateNumber'],
+      sleepDuration: currentDaily['SleepDuration']?['estimateNumber'],
       date: DateTime.parse(currentDaily['datetime']['iso']),
-      pain: currentDaily['Pain'],
+      pain: currentDaily['Pain']?['estimateNumber'],
       objectId: currentDaily['objectId'],
       createdAt: DateTime.parse(currentDaily['createdAt']),
       updatedAt: DateTime.parse(currentDaily['updatedAt']),
@@ -148,10 +144,10 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     dynamic currentWeekly = _filterCurrentObject(weeklies);
 
     Weekly weekly = Weekly(
-      bmi: currentWeekly['BMI']?.toDouble(),
-      bodyWeight: currentWeekly['BodyWeight']?.toDouble(),
-      sleepQuality: currentWeekly['SISQS'],
-      walkingDistance: currentWeekly['WalkingDistance'],
+      bmi: currentWeekly['BMI']?['estimateNumber']?.toDouble(),
+      bodyWeight: currentWeekly['BodyWeight']?['estimateNumber']?.toDouble(),
+      sleepQuality: currentWeekly['SISQS']?['estimateNumber'],
+      walkingDistance: currentWeekly['WalkingDistance']?['estimateNumber'],
       date: DateTime.parse(currentWeekly['datetime']['iso']),
       objectId: currentWeekly['objectId'],
       createdAt: DateTime.parse(currentWeekly['createdAt']),
@@ -175,10 +171,10 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     dynamic currentPhq4 = _filterCurrentObject(phq4s);
 
     PHQ4 phq4 = PHQ4(
-      a: currentPhq4['a'],
-      b: currentPhq4['b'],
-      c: currentPhq4['c'],
-      d: currentPhq4['d'],
+      a: currentPhq4['a']?['estimateNumber'],
+      b: currentPhq4['b']?['estimateNumber'],
+      c: currentPhq4['c']?['estimateNumber'],
+      d: currentPhq4['d']?['estimateNumber'],
       date: DateTime.parse(currentPhq4['datetime']['iso']),
       objectId: currentPhq4['objectId'],
       createdAt: DateTime.parse(currentPhq4['createdAt']),
@@ -237,11 +233,20 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _init = _classInit(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder<bool>(
-      future: _classInit(context),
-      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        if (!snapshot.hasData && !snapshot.hasError) {
+      future: _init,
+      builder: (
+        BuildContext context,
+        AsyncSnapshot<bool> snapshot,
+      ) {
+        if (snapshot.connectionState != ConnectionState.done) {
           return const CircularProgressIndicator();
         }
 
