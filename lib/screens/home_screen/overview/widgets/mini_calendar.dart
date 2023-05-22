@@ -19,6 +19,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../themes/global_theme.dart';
+
 // TODO: add some configuration, maybe even hard coded
 // TODO: make widget follow global theme setting
 // TODO: document
@@ -33,6 +35,8 @@ class MiniCalendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
     return Column(
       children: <Widget>[
         Container(
@@ -41,26 +45,25 @@ class MiniCalendar extends StatelessWidget {
             height: 30,
           ),
           decoration: BoxDecoration(
-            color: const Color.fromRGBO(
-              25,
-              102,
-              117,
-              1.0,
-            ),
-            border: Border.all(),
+            color: theme.darkGreen1,
+            border: Border.all(color: theme.darkGreen1!),
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(5),
               topRight: Radius.circular(5),
             ),
           ),
           child: Center(
-            child: Text(
-              DateFormat.E(
-                Localizations.localeOf(context).toString(),
-              ).format(_dateTime),
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 3.0),
+              child: Text(
+                DateFormat.E(
+                  Localizations.localeOf(context).toString(),
+                ).format(_dateTime),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
               ),
             ),
           ),
@@ -74,7 +77,7 @@ class MiniCalendar extends StatelessWidget {
               bottomLeft: Radius.circular(5),
               bottomRight: Radius.circular(5),
             ),
-            border: Border.all(),
+            border: Border.all(color: theme.darkGreen1!, width: 2),
           ),
           child: Center(
             child: Text(
