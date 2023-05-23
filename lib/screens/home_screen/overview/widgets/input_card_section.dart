@@ -47,7 +47,7 @@ class InputCardSection extends StatelessWidget {
                 Text(
                   AppLocalizations.of(context)!.myEntries,
                   style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 24,
                     color: theme.darkGreen1,
                     fontWeight: FontWeight.bold,
                   ),
