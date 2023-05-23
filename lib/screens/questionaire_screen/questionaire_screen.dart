@@ -104,6 +104,9 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
 
   // Class init.
   Future<bool> _classInit(BuildContext context) async {
+    //Required argument.
+    _dailyInput = ModalRoute.of(context)!.settings.arguments as DailyInput;
+
     if (_pageStorage != null) {
       return true;
     }
@@ -168,17 +171,18 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     );
   }
 
+  /// This is used instead of initState() because it would cause an error inside
+  /// the [FutureBuilder] due to too early execution of [_title] etc.
   @override
-  void initState() {
-    super.initState();
-    _init = _classInit(context);
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_pageStorage == null) {
+      _init = _classInit(context);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    //Required argument.
-    _dailyInput ??= ModalRoute.of(context)!.settings.arguments as DailyInput;
-
     return BlocBuilder<ObjectsListBloc<BackendMedicationsApi>,
         ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
