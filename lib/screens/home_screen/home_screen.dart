@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/home_screen/picos_menu/picos_menu.dart';
+import 'package:picos/themes/global_theme.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:picos/widgets/picos_svg_icon.dart';
 
@@ -53,7 +54,9 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  Widget _generateHomeScreen() {
+  Widget _generateHomeScreen(BuildContext context) {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
     BottomNavigationBar bottomNavigationBar = BottomNavigationBar(
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
@@ -76,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
       type: BottomNavigationBarType.fixed,
       currentIndex: selectedIndex,
       onTap: onItemTapped,
-      selectedItemColor: const Color.fromARGB(255, 25, 120, 136),
+      selectedItemColor: theme.darkGreen1,
     );
 
     if (selectedIndex == 0) {
@@ -95,6 +98,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return _generateHomeScreen();
+    return _generateHomeScreen(context);
   }
 }
