@@ -24,8 +24,8 @@ import 'package:picos/widgets/picos_screen_frame.dart';
 
 import '../../models/therapy.dart';
 import '../../state/objects_list_bloc.dart';
-import '../../themes/global_theme.dart';
 import '../../widgets/picos_body.dart';
+import '../../widgets/picos_date_picker.dart';
 import '../../widgets/picos_label.dart';
 import '../../widgets/picos_text_area.dart';
 import '../../widgets/picos_text_field.dart';
@@ -56,11 +56,9 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
   Therapy? _therapyEdit;
   String? _title;
   String? _nameHint;
-  String? _dateHint;
   bool _saveDisabled = true;
   String _dateHintSuffix = '';
   String _emptyNameHint = '';
-  String _emptyDateHint = '';
 
   bool _checkValues() {
     if (_therapy == null || _date == null || _name == null) {
@@ -108,10 +106,8 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
     // Init variables.
     if (_title == null) {
       _emptyNameHint = AppLocalizations.of(context)!.enterName;
-      _emptyDateHint = AppLocalizations.of(context)!.selectDate;
       _title = AppLocalizations.of(context)!.addTherapy;
       _nameHint = _buildNameHint(_name);
-      _dateHint = _buildDateHint(_date);
       _dateHintSuffix = '///// ${AppLocalizations.of(context)!.day}.'
           '${AppLocalizations.of(context)!.month}.'
           '${AppLocalizations.of(context)!.year}';
@@ -130,7 +126,6 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
       _dateOld = _date;
       _therapyOld = _therapy;
 
-      _dateHint = _buildDateHint(_date);
       _nameHint = _buildNameHint(_name);
 
       _title = AppLocalizations.of(context)!.editTherapy;
@@ -187,43 +182,15 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
                   height: 30,
                 ),
                 PicosLabel(AppLocalizations.of(context)!.date),
-                PicosTextField(
-                  hint: _dateHint!,
-                  onTap: () async {
-                    DateTime? date = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime.now()
-                          .subtract(const Duration(days: 365 * 10)),
-                      lastDate:
-                          DateTime.now().add(const Duration(days: 365 * 10)),
-                      builder: (BuildContext context, Widget? child) {
-                        return Theme(
-                          data: Theme.of(context).copyWith(
-                            dialogBackgroundColor: Theme.of(context)
-                                .extension<GlobalTheme>()!
-                                .bottomNavigationBar!,
-                            colorScheme: ColorScheme.light(
-                              primary: Theme.of(context)
-                                  .extension<GlobalTheme>()!
-                                  .darkGreen1!,
-                            ),
-                          ),
-                          child: child!,
-                        );
-                      },
-                    );
-
-                    if (date != null) {
-                      _date = date;
-                    }
-
+                PicosDatePicker(
+                  initialValue: _date,
+                  dateHintSuffix: _dateHintSuffix,
+                  callBackFunction: (DateTime value) {
                     setState(() {
-                      _dateHint = _buildDateHint(_date);
+                      _date = value;
                       _saveDisabled = !_checkValues();
                     });
                   },
-                  readOnly: true,
                 ),
                 const SizedBox(
                   height: 30,
