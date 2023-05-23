@@ -87,14 +87,6 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
         date1.day == date2.day;
   }
 
-  String _buildDateHint(DateTime? date) {
-    if (date == null) {
-      return _emptyDateHint;
-    }
-
-    return '${date.day}.${date.month}.${date.year} $_dateHintSuffix';
-  }
-
   String _buildNameHint(String? name) {
     if (name == null || name.isEmpty) return _emptyNameHint;
 
