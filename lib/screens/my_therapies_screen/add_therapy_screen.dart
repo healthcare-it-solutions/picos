@@ -67,7 +67,9 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
       return false;
     }
 
-    if (_therapy == _therapyOld && _date == _dateOld && _name == _nameOld) {
+    if (_therapy == _therapyOld &&
+        _isSameDay(_date!, _dateOld!) &&
+        _name == _nameOld) {
       return false;
     }
 
@@ -81,6 +83,12 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
     return true;
   }
 
+  bool _isSameDay(DateTime date1, DateTime date2) {
+    return date1.year == date2.year &&
+        date1.month == date2.month &&
+        date1.day == date2.day;
+  }
+
   String _buildDateHint(DateTime? date) {
     if (date == null) {
       return _emptyDateHint;
@@ -90,7 +98,7 @@ class _AddTherapyScreenState extends State<AddTherapyScreen> {
   }
 
   String _buildNameHint(String? name) {
-    if (name == null) return _emptyNameHint;
+    if (name == null || name.isEmpty) return _emptyNameHint;
 
     return name;
   }
