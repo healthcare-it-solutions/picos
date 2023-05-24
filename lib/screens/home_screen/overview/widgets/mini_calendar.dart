@@ -48,17 +48,14 @@ class MiniCalendar extends StatelessWidget {
             ),
           ),
           child: Center(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 3.0),
-              child: Text(
-                DateFormat.E(
-                  Localizations.localeOf(context).toString(),
-                ).format(_dateTime),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 21,
-                ),
+            child: Text(
+              DateFormat.E(
+                Localizations.localeOf(context).toString(),
+              ).format(_dateTime),
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 21,
               ),
             ),
           ),
