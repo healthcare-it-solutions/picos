@@ -39,6 +39,9 @@ class InputCardSection extends StatelessWidget {
     const EdgeInsets inset = EdgeInsets.all(15);
 
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
       margin: inset,
       child: Padding(
         padding: inset,

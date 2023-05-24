@@ -37,7 +37,7 @@ class MiniCalendar extends StatelessWidget {
         Container(
           constraints: const BoxConstraints.expand(
             width: 100,
-            height: 30,
+            height: 25,
           ),
           decoration: BoxDecoration(
             color: theme.darkGreen1,
@@ -57,7 +57,7 @@ class MiniCalendar extends StatelessWidget {
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  fontSize: 21,
                 ),
               ),
             ),
@@ -77,7 +77,9 @@ class MiniCalendar extends StatelessWidget {
           child: Center(
             child: Text(
               _dateTime.day.toString(),
-              textScaleFactor: 4,
+              style: const TextStyle(
+                fontSize: 50,
+              ),
             ),
           ),
         ),
