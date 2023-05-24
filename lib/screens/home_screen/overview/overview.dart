@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:picos/screens/home_screen/overview/widgets/contact_section.dart';
 import 'package:picos/screens/home_screen/overview/widgets/my_health_section.dart';
+import 'package:picos/themes/global_theme.dart';
 import 'widgets/input_card_section.dart';
 
 /// Main widget using all subwidgets to build up the "overview"-screen
@@ -27,6 +28,8 @@ class Overview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
     return ListView(
       children: <Widget>[
         const SizedBox(
@@ -42,11 +45,11 @@ class Overview extends StatelessWidget {
           ],
         ),
         Container(
-          color: const Color.fromARGB(255, 15, 88, 104),
+          color: theme.darkGreen1,
           child: const InputCardSection(),
         ),
         Container(
-          color: Colors.blue,
+          color: theme.blue,
           child: const MyHealthSection(),
         ),
         const ContactSection()

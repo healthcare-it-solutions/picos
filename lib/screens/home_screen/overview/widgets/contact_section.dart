@@ -19,6 +19,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/home_screen/overview/widgets/section.dart';
+import 'package:picos/themes/global_theme.dart';
 
 /// Widget which shows a graph
 class ContactSection extends StatelessWidget {
@@ -27,8 +28,10 @@ class ContactSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
     return Section(
-      titleColor: Colors.blue,
+      titleColor: theme.blue,
       title: AppLocalizations.of(context)!.contact,
       child: Stack(
         children: <Widget>[

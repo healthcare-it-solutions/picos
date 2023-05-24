@@ -60,17 +60,18 @@ class MyHealthSection extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Tile(
-                  imageName: 'assets/BehandlerInnen.png',
-                  sectionName: AppLocalizations.of(context)!.myPhysicians,
-                  routeName: '/physician-list-screen/physicians',
+                  imageName:
+                      'assets/Rehospitalisierung_1225743855_┬®iStock.png',
+                  sectionName: AppLocalizations.of(context)!.visits,
+                  routeName: '/visits-screen/visits',
                 ),
                 const SizedBox(
                   width: 15,
                 ),
                 Tile(
-                  imageName: 'assets/Angehoerige.png',
-                  sectionName: AppLocalizations.of(context)!.myFamilyMembers,
-                  routeName: '/family-member-list-screen/family-members',
+                  imageName: 'assets/BehandlerInnen.png',
+                  sectionName: AppLocalizations.of(context)!.myPhysicians,
+                  routeName: '/physician-list-screen/physicians',
                 ),
               ],
             ),
@@ -78,10 +79,9 @@ class MyHealthSection extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Tile(
-                  imageName:
-                      'assets/Rehospitalisierung_1225743855_┬®iStock.png',
-                  sectionName: AppLocalizations.of(context)!.visits,
-                  routeName: '/visits-screen/visits',
+                  imageName: 'assets/Angehoerige.png',
+                  sectionName: AppLocalizations.of(context)!.myFamilyMembers,
+                  routeName: '/family-member-list-screen/family-members',
                 ),
                 const SizedBox(
                   width: 15,
