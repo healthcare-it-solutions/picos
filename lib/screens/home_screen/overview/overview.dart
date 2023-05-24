@@ -34,7 +34,7 @@ class Overview extends StatelessWidget {
       child: Column(
         children: <Widget>[
           const SizedBox(
-            height: 15,
+            height: 45,
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
