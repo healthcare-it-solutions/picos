@@ -34,6 +34,7 @@ class QuestionairePage extends StatelessWidget {
     this.backFunction,
     this.nextFunction,
     this.textNext = '',
+    this.disabledNext = false,
   }) : super(key: key);
 
   /// The body of the page.
@@ -50,6 +51,9 @@ class QuestionairePage extends StatelessWidget {
 
   /// The text for the "Next"-Button.
   final String textNext;
+
+  /// Deactivates the next button.
+  final bool disabledNext;
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +86,7 @@ class QuestionairePage extends StatelessWidget {
             buttonColor2: theme.grey1,
           ),
           rightButton: PicosInkWellButton(
+            disabled: disabledNext,
             padding: const EdgeInsets.only(
               right: 30,
               left: 13,
