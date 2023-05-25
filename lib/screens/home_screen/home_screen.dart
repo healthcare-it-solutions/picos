@@ -105,8 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
         statusBarIconBrightness: Brightness.dark,
         statusBarColor: Colors.transparent,
         systemNavigationBarColor: Colors.red,
-        // Change Background color
-        systemNavigationBarIconBrightness: Brightness.dark, // Change Icon color
+        systemNavigationBarIconBrightness: Brightness.dark,
       ),
       child: Scaffold(
         body: _generateHomeScreen(),
