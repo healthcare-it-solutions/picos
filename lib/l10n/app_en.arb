@@ -1060,5 +1060,9 @@
     "yesterday": "yesterday",
     "@yesterday": {
         "description": "yesterday"
+    },
+    "checkValue": "Please check whether your entry is correct!",
+    "@checkValue": {
+        "description": "Please check whether your entry is correct!"
     }
 }
