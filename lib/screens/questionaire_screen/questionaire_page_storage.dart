@@ -212,7 +212,7 @@ class QuestionairePageStorage {
     void Function() previousPage,
     void Function() nextPage,
   ) async {
-    _bodyHeight =
+    _bodyHeight ??=
         (await Backend.getAll(PatientRegistrationData.databaseTable))[0]
             ['BodyHeight']?['estimateNumber'];
     pages.add(
