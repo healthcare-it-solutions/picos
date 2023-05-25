@@ -18,8 +18,8 @@
 import 'package:flutter/material.dart';
 import 'package:picos/screens/home_screen/overview/widgets/contact_section.dart';
 import 'package:picos/screens/home_screen/overview/widgets/my_health_section.dart';
-import 'package:picos/themes/global_theme.dart';
-import 'widgets/input_card_section.dart';
+import 'package:picos/screens/home_screen/overview/widgets/questionnaire_section.dart';
+import '../../../themes/global_theme.dart';
 
 /// Main widget using all subwidgets to build up the "overview"-screen
 class Overview extends StatelessWidget {
@@ -30,30 +30,29 @@ class Overview extends StatelessWidget {
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
 
-    return ListView(
-      children: <Widget>[
-        const SizedBox(
-          height: 15,
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Image>[
-            Image.asset(
-              'assets/PICOS_Logo_RGB.png',
-              height: 75,
-            )
-          ],
-        ),
-        Container(
-          color: theme.darkGreen1,
-          child: const InputCardSection(),
-        ),
-        Container(
-          color: theme.blue,
-          child: const MyHealthSection(),
-        ),
-        const ContactSection()
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          const SizedBox(
+            height: 45,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Image>[
+              Image.asset(
+                'assets/PICOS_Logo_RGB.png',
+                height: 75,
+              )
+            ],
+          ),
+          const QuestionaireSection(),
+          Container(
+            color: theme.blue,
+            child: const MyHealthSection(),
+          ),
+          const ContactSection()
+        ],
+      ),
     );
   }
 }

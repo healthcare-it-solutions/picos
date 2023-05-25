@@ -16,7 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/models/phq4.dart';
+import 'package:picos/models/daily_input.dart';
 import 'package:picos/screens/questionaire_screen/pages/blood_pressure.dart';
 import 'package:picos/screens/questionaire_screen/pages/body_and_mind.dart';
 import 'package:picos/screens/questionaire_screen/pages/weight.dart';
@@ -29,9 +29,7 @@ import 'package:picos/screens/questionaire_screen/widgets/sleep_quality_card.dar
 import 'package:picos/screens/questionaire_screen/widgets/text_field_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../models/daily.dart';
 import '../../models/patient_registration_data.dart';
-import '../../models/weekly.dart';
 import '../../util/backend.dart';
 
 import '../../widgets/picos_label.dart';
@@ -39,12 +37,10 @@ import '../../widgets/picos_label.dart';
 /// Manages the state of the questionaire pages.
 class QuestionairePageStorage {
   QuestionairePageStorage._create(
-    BuildContext context,
-    Daily? daily,
-    Weekly? weekly,
-    PHQ4? phq4,
-  ) {
-    _initValues(daily, weekly, phq4);
+    BuildContext context, {
+    required this.dailyInput,
+  }) {
+    _initValues();
     _initStrings(context);
   }
 
@@ -53,19 +49,18 @@ class QuestionairePageStorage {
     void Function() previousPage,
     void Function() nextPage,
     BuildContext context,
-    Daily? daily,
-    Weekly? weekly,
-    PHQ4? phq4,
+    DailyInput dailyInput,
   ) async {
     QuestionairePageStorage qps = QuestionairePageStorage._create(
       context,
-      daily,
-      weekly,
-      phq4,
+      dailyInput: dailyInput,
     );
     await qps._initPages(previousPage, nextPage);
     return qps;
   }
+
+  /// The [DailyInput] model containing all question answers.
+  final DailyInput dailyInput;
 
   /// The loaded pages.
   final List<Widget> pages = <Widget>[];
@@ -169,29 +164,21 @@ class QuestionairePageStorage {
 
   static int? _bodyHeight;
 
-  late final bool _daily;
-  late final bool _weekly;
-  late final bool _phq4;
-
-  void _initValues(Daily? daily, Weekly? weekly, PHQ4? phq4) {
-    _daily = daily == null || daily.hasNullValues ? true : false;
-    _weekly = weekly == null || weekly.hasNullValues ? true : false;
-    _phq4 = phq4 == null || phq4.hasNullValues ? true : false;
-
-    selectedBodyWeight = weekly?.bodyWeight;
-    selectedBMI = weekly?.bmi;
-    selectedHeartFrequency = daily?.heartFrequency;
-    selectedSyst = daily?.bloodSystolic;
-    selectedDias = daily?.bloodDiastolic;
-    selectedBloodSugar = daily?.bloodSugar;
-    selectedWalkDistance = weekly?.walkingDistance;
-    selectedSleepDuration = daily?.sleepDuration;
-    selectedSleepQuality = weekly?.sleepQuality;
-    selectedPain = daily?.pain;
-    selectedQuestionA = phq4?.a;
-    selectedQuestionB = phq4?.b;
-    selectedQuestionC = phq4?.c;
-    selectedQuestionD = phq4?.d;
+  void _initValues() {
+    selectedBodyWeight = dailyInput.weekly?.bodyWeight;
+    selectedBMI = dailyInput.weekly?.bmi;
+    selectedHeartFrequency = dailyInput.daily?.heartFrequency;
+    selectedSyst = dailyInput.daily?.bloodSystolic;
+    selectedDias = dailyInput.daily?.bloodDiastolic;
+    selectedBloodSugar = dailyInput.daily?.bloodSugar;
+    selectedWalkDistance = dailyInput.weekly?.walkingDistance;
+    selectedSleepDuration = dailyInput.daily?.sleepDuration;
+    selectedSleepQuality = dailyInput.weekly?.sleepQuality;
+    selectedPain = dailyInput.daily?.pain;
+    selectedQuestionA = dailyInput.phq4?.a;
+    selectedQuestionB = dailyInput.phq4?.b;
+    selectedQuestionC = dailyInput.phq4?.c;
+    selectedQuestionD = dailyInput.phq4?.d;
   }
 
   void _initStrings(BuildContext context) {
@@ -228,19 +215,17 @@ class QuestionairePageStorage {
     _bodyHeight =
         (await Backend.getAll(PatientRegistrationData.databaseTable))[0]
             ['BodyHeight']?['estimateNumber'];
-    if (_weekly || _daily) {
-      pages.add(
-        Cover(
-          title: _vitalValues!,
-          image: 'assets/Vitalwerte_neg.svg',
-          nextFunction: nextPage,
-          backFunction: previousPage,
-          textNext: _letsStart,
-        ),
-      );
-      titles.add(_myEntries!);
-    }
-    if (_weekly) {
+    pages.add(
+      Cover(
+        title: _vitalValues!,
+        image: 'assets/Vitalwerte_neg.svg',
+        nextFunction: nextPage,
+        backFunction: previousPage,
+        textNext: _letsStart,
+      ),
+    );
+    titles.add(_myEntries!);
+    if (dailyInput.weeklyDay) {
       pages.add(
         Weight(
           initialBmi: selectedBMI,
@@ -256,72 +241,68 @@ class QuestionairePageStorage {
       );
       titles.add(_vitalValues!);
     }
-    if (_daily) {
-      pages.add(
-        QuestionairePage(
-          backFunction: previousPage,
-          nextFunction: nextPage,
-          child: TextFieldCard(
-            initialValue: selectedHeartFrequency,
-            label: _heartFrequency!,
-            hint: 'bpm',
-            onChanged: (String value) {
-              int? intValue = int.tryParse(value);
+    pages.add(
+      QuestionairePage(
+        backFunction: previousPage,
+        nextFunction: nextPage,
+        child: TextFieldCard(
+          initialValue: selectedHeartFrequency,
+          label: _heartFrequency!,
+          hint: 'bpm',
+          onChanged: (String value) {
+            int? intValue = int.tryParse(value);
 
-              if (intValue == null && value.isNotEmpty) {
-                intValue = int.tryParse(value.split('.')[0]);
-              }
+            if (intValue == null && value.isNotEmpty) {
+              intValue = int.tryParse(value.split('.')[0]);
+            }
 
-              selectedHeartFrequency = intValue;
-            },
-          ),
-        ),
-      );
-      pages.add(
-        BloodPressure(
-          initialDias: selectedDias,
-          initialSyst: selectedSyst,
-          previousPage: previousPage,
-          nextPage: nextPage,
-          onChangedSyst: (String value) {
-            selectedSyst = int.tryParse(value);
-          },
-          onChangedDias: (String value) {
-            selectedDias = int.tryParse(value);
+            selectedHeartFrequency = intValue;
           },
         ),
-      );
-      pages.add(
-        QuestionairePage(
-          backFunction: previousPage,
-          nextFunction: nextPage,
-          child: TextFieldCard(
-            initialValue: selectedBloodSugar,
-            label: _bloodSugar!,
-            hint: 'mg/dL',
-            onChanged: (String value) {
-              selectedBloodSugar = int.tryParse(value);
-            },
-          ),
+      ),
+    );
+    pages.add(
+      BloodPressure(
+        initialDias: selectedDias,
+        initialSyst: selectedSyst,
+        previousPage: previousPage,
+        nextPage: nextPage,
+        onChangedSyst: (String value) {
+          selectedSyst = int.tryParse(value);
+        },
+        onChangedDias: (String value) {
+          selectedDias = int.tryParse(value);
+        },
+      ),
+    );
+    pages.add(
+      QuestionairePage(
+        backFunction: previousPage,
+        nextFunction: nextPage,
+        child: TextFieldCard(
+          initialValue: selectedBloodSugar,
+          label: _bloodSugar!,
+          hint: 'mg/dL',
+          onChanged: (String value) {
+            selectedBloodSugar = int.tryParse(value);
+          },
         ),
-      );
+      ),
+    );
 
-      for (int i = 0; i < 3; i++) {
-        titles.add(_vitalValues!);
-      }
+    for (int i = 0; i < 3; i++) {
+      titles.add(_vitalValues!);
     }
-    if (_weekly || _daily) {
-      pages.add(
-        Cover(
-          title: _activityAndRest!,
-          image: 'assets/Aktivitaet+Ruhe_neg.svg',
-          backFunction: previousPage,
-          nextFunction: nextPage,
-        ),
-      );
-      titles.add(_myEntries!);
-    }
-    if (_weekly) {
+    pages.add(
+      Cover(
+        title: _activityAndRest!,
+        image: 'assets/Aktivitaet+Ruhe_neg.svg',
+        backFunction: previousPage,
+        nextFunction: nextPage,
+      ),
+    );
+    titles.add(_myEntries!);
+    if (dailyInput.weeklyDay) {
       pages.add(
         QuestionairePage(
           backFunction: previousPage,
@@ -338,24 +319,22 @@ class QuestionairePageStorage {
       );
       titles.add(_activityAndRest!);
     }
-    if (_daily) {
-      pages.add(
-        QuestionairePage(
-          backFunction: previousPage,
-          nextFunction: nextPage,
-          child: TextFieldCard(
-            initialValue: selectedSleepDuration,
-            label: _sleepDuration!,
-            hint: _hrs!,
-            onChanged: (String value) {
-              selectedSleepDuration = int.tryParse(value);
-            },
-          ),
+    pages.add(
+      QuestionairePage(
+        backFunction: previousPage,
+        nextFunction: nextPage,
+        child: TextFieldCard(
+          initialValue: selectedSleepDuration,
+          label: _sleepDuration!,
+          hint: _hrs!,
+          onChanged: (String value) {
+            selectedSleepDuration = int.tryParse(value);
+          },
         ),
-      );
-      titles.add(_activityAndRest!);
-    }
-    if (_weekly) {
+      ),
+    );
+    titles.add(_activityAndRest!);
+    if (dailyInput.weeklyDay) {
       pages.add(
         QuestionairePage(
           backFunction: previousPage,
@@ -371,34 +350,30 @@ class QuestionairePageStorage {
       );
       titles.add(_activityAndRest!);
     }
-    if (_daily || _phq4) {
-      pages.add(
-        Cover(
-          title: _bodyAndMind!,
-          image: 'assets/Koerper+Psyche_neg.svg',
-          backFunction: previousPage,
-          nextFunction: nextPage,
+    pages.add(
+      Cover(
+        title: _bodyAndMind!,
+        image: 'assets/Koerper+Psyche_neg.svg',
+        backFunction: previousPage,
+        nextFunction: nextPage,
+      ),
+    );
+    titles.add(_myEntries!);
+    pages.add(
+      QuestionairePage(
+        backFunction: previousPage,
+        nextFunction: nextPage,
+        child: PainScaleCard(
+          initialValue: selectedPain,
+          label: _pain!,
+          callBack: (dynamic value) {
+            selectedPain = value as int;
+          },
         ),
-      );
-      titles.add(_myEntries!);
-    }
-    if (_daily) {
-      pages.add(
-        QuestionairePage(
-          backFunction: previousPage,
-          nextFunction: nextPage,
-          child: PainScaleCard(
-            initialValue: selectedPain,
-            label: _pain!,
-            callBack: (dynamic value) {
-              selectedPain = value as int;
-            },
-          ),
-        ),
-      );
-      titles.add(_bodyAndMind!);
-    }
-    if (_phq4) {
+      ),
+    );
+    titles.add(_bodyAndMind!);
+    if (dailyInput.phq4Day) {
       pages.add(
         BodyAndMind(
           initialValue: selectedQuestionA,

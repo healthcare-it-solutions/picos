@@ -91,7 +91,7 @@
     "entryValidWebsite": "Bitte geben Sie eine gültige Website ein!",
     "entryPracticeName": "Bitte geben Sie den Praxisnamen ein!",
     "myMedicalData": "Meine Werte",
-    "achievedValues": "Heute erreichte Gesamteingabe",
+    "submittedValues": "Erreichte Eingaben (14 Tage)",
     "days": "Tage",
     "month": "Monat",
     "months": "Monate",
@@ -232,5 +232,8 @@
     "downloadDocument": "Dokument herunterladen",
     "importantDocuments": "Wichtige Dokumente",
     "documentsSortedDesc": "Dokumente absteigend sortiert",
-    "documentSelected": "Dokument ausgewählt"
+    "documentSelected": "Dokument ausgewählt",
+    "completeTheDays": "Bitte vervollständigen Sie die roten und orangenen Tage",
+    "today": "Heute",
+    "yesterday": "Gestern"
 }
