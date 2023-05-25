@@ -108,7 +108,11 @@ class _HomeScreenState extends State<HomeScreen> {
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
       child: Scaffold(
-        body: _generateHomeScreen(),
+        body: Builder(
+          builder: (BuildContext context) {
+            return _generateHomeScreen(context);
+          },
+        ),
       ),
     );
   }
