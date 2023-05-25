@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:picos/models/daily_input.dart';
 import 'package:picos/screens/questionaire_screen/pages/blood_pressure.dart';
 import 'package:picos/screens/questionaire_screen/pages/body_and_mind.dart';
+import 'package:picos/screens/questionaire_screen/pages/heart_frequency.dart';
 import 'package:picos/screens/questionaire_screen/pages/weight.dart';
 import 'package:picos/screens/questionaire_screen/widgets/cover.dart';
 import 'package:picos/screens/questionaire_screen/widgets/doctor_card.dart';
@@ -147,7 +148,6 @@ class QuestionairePageStorage {
   static String? _bodyAndMind;
   static String? _medicationAndTherapy;
   static String? _ready;
-  static String? _heartFrequency;
   static String? _bloodSugar;
   static String? _possibleWalkDistance;
   static String? _sleepDuration;
@@ -182,7 +182,6 @@ class QuestionairePageStorage {
   }
 
   void _initStrings(BuildContext context) {
-    _heartFrequency = AppLocalizations.of(context)!.heartFrequency;
     _bloodSugar = AppLocalizations.of(context)!.bloodSugar;
     _possibleWalkDistance = AppLocalizations.of(context)!.possibleWalkDistance;
     _sleepDuration = AppLocalizations.of(context)!.sleepDuration;
@@ -242,23 +241,19 @@ class QuestionairePageStorage {
       titles.add(_vitalValues!);
     }
     pages.add(
-      QuestionairePage(
-        backFunction: previousPage,
-        nextFunction: nextPage,
-        child: TextFieldCard(
-          initialValue: selectedHeartFrequency,
-          label: _heartFrequency!,
-          hint: 'bpm',
-          onChanged: (String value) {
-            int? intValue = int.tryParse(value);
+      HeartFrequency(
+        initialValue: selectedHeartFrequency,
+        previousPage: previousPage,
+        nextPage: nextPage,
+        onChanged: (String value) {
+          int? intValue = int.tryParse(value);
 
-            if (intValue == null && value.isNotEmpty) {
-              intValue = int.tryParse(value.split('.')[0]);
-            }
+          if (intValue == null && value.isNotEmpty) {
+            intValue = int.tryParse(value.split('.')[0]);
+          }
 
-            selectedHeartFrequency = intValue;
-          },
-        ),
+          selectedHeartFrequency = intValue;
+        },
       ),
     );
     pages.add(
