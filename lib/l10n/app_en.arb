@@ -1060,5 +1060,9 @@
     "yesterday": "yesterday",
     "@yesterday": {
         "description": "yesterday"
+    },
+    "other": "other",
+    "@other": {
+        "description": "other"
     }
 }
