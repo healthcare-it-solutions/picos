@@ -24,46 +24,46 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class Physician extends AbstractDatabaseObject {
   /// Creates a physician object.
   const Physician({
-    required this.practice,
-    required this.address,
-    required this.city,
-    required this.homepage,
-    required this.lastName,
-    required this.mail,
-    required this.phone,
-    required this.subjectArea,
-    required this.firstName,
+    this.practice,
+    this.address,
+    this.city,
+    this.homepage,
+    this.lastName,
+    this.mail,
+    this.phone,
+    this.subjectArea,
+    this.firstName,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt);
 
   /// Subject area of the physician.
-  final String subjectArea;
+  final String? subjectArea;
 
   /// Name of the practice
-  final String practice;
+  final String? practice;
 
   /// Last name.
-  final String lastName;
+  final String? lastName;
 
   /// E-Mail address.
-  final String mail;
+  final String? mail;
 
   /// Phone number.
-  final String phone;
+  final String? phone;
 
   /// Location of the physician.
-  final String address;
+  final String? address;
 
   /// City.
-  final String city;
+  final String? city;
 
   /// Homepage of the physician.
-  final String homepage;
+  final String? homepage;
 
   /// The first name of the physician.
-  final String firstName;
+  final String? firstName;
 
   /// The database table the objects are stored in.
   static const String databaseTable = 'PICOS_treating';
@@ -107,15 +107,15 @@ class Physician extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-        practice,
-        address,
-        city,
-        homepage,
-        lastName,
-        mail,
-        phone,
-        subjectArea,
-        firstName,
+        practice!,
+        address!,
+        city!,
+        homepage!,
+        lastName!,
+        mail!,
+        phone!,
+        subjectArea!,
+        firstName!,
       ];
 
   @override
@@ -169,6 +169,9 @@ enum PhysicianSubjectArea {
 
   /// Urology
   urology,
+
+  /// Other
+  other,
 }
 
 /// Extension for [PhysicianSubjectArea].
@@ -207,6 +210,10 @@ extension PhysicianSubjectAreaConverter on PhysicianSubjectArea {
         return AppLocalizations.of(context)!.psychiatry;
       case PhysicianSubjectArea.urology:
         return AppLocalizations.of(context)!.urology;
+      case PhysicianSubjectArea.other:
+        return AppLocalizations.of(context)!.other;
+      default:
+        return AppLocalizations.of(context)!.other;
     }
   }
 }
