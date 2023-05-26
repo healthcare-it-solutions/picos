@@ -68,9 +68,9 @@ class PhysicianCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             if (!_hasAnyValues())
-              const Text(
-                'No data',
-                style: TextStyle(
+              Text(
+                AppLocalizations.of(context)!.noData,
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: fontSize,
                 ),
