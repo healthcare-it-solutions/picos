@@ -63,33 +63,6 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
   String? _selectedCity;
   Relative? _relativeEdit;
   String? _title;
-  bool _disabledSave = true;
-
-  void _checkInputs() {
-    if (_selectedType == null ||
-        _selectedFirstName == null ||
-        _selectedFamilyName == null ||
-        _selectedEmail == null ||
-        _selectedPhoneNumber == null ||
-        _selectedAddress == null ||
-        _selectedCity == null ||
-        _selectedType!.isEmpty ||
-        _selectedFirstName!.isEmpty ||
-        _selectedFamilyName!.isEmpty ||
-        _selectedEmail!.isEmpty ||
-        _selectedPhoneNumber!.isEmpty ||
-        _selectedAddress!.isEmpty ||
-        _selectedCity!.isEmpty) {
-      setState(() {
-        _disabledSave = true;
-      });
-      return;
-    }
-
-    setState(() {
-      _disabledSave = false;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,6 +108,16 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
       _selectedCity = _relativeEdit!.city;
     }
 
+    if (relativeEdit == null) {
+      _selectedType = RelativeType.otherRelatives.name;
+      _selectedFirstName = '';
+      _selectedFamilyName = '';
+      _selectedEmail = '';
+      _selectedPhoneNumber = '';
+      _selectedAddress = '';
+      _selectedCity = '';
+    }
+
     return BlocBuilder<ObjectsListBloc<BackendRelativesApi>, ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
         const double columnPadding = 10;
@@ -150,7 +133,6 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                   selection: _selection,
                   callBackFunction: (String value) {
                     _selectedType = value;
-                    _checkInputs();
                   },
                   initialValue: _selectedType,
                   hint: _typeOfRelation,
@@ -163,7 +145,6 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                   initialValue: _selectedFirstName,
                   onChanged: (String value) {
                     _selectedFirstName = value;
-                    _checkInputs();
                   },
                 ),
                 const SizedBox(height: columnPadding),
@@ -176,7 +157,6 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                   initialValue: _selectedFamilyName,
                   onChanged: (String value) {
                     _selectedFamilyName = value;
-                    _checkInputs();
                   },
                 ),
                 const SizedBox(height: columnPadding),
@@ -187,7 +167,6 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                   initialValue: _selectedEmail,
                   onChanged: (String value) {
                     _selectedEmail = value;
-                    _checkInputs();
                   },
                 ),
                 const SizedBox(height: columnPadding),
@@ -198,7 +177,6 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                   initialValue: _selectedPhoneNumber,
                   onChanged: (String value) {
                     _selectedPhoneNumber = value;
-                    _checkInputs();
                   },
                 ),
                 const SizedBox(height: columnPadding),
@@ -209,7 +187,6 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                   initialValue: _selectedAddress,
                   onChanged: (String value) {
                     _selectedAddress = value;
-                    _checkInputs();
                   },
                 ),
                 const SizedBox(height: columnPadding),
@@ -220,14 +197,13 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                   initialValue: _selectedCity,
                   onChanged: (String value) {
                     _selectedCity = value;
-                    _checkInputs();
                   },
                 ),
               ],
             ),
           ),
           bottomNavigationBar: PicosAddButtonBar(
-            disabled: _disabledSave,
+            disabled: false,
             onTap: () {
               Relative relative = _relativeEdit != null
                   ? _relativeEdit!.copyWith(
