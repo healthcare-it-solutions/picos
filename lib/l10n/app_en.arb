@@ -1064,5 +1064,9 @@
     "other": "other",
     "@other": {
         "description": "other"
+    },
+    "noData": "No Data",
+    "@noData": {
+        "description": "No Data"
     }
 }
