@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:picos/models/daily_input.dart';
 import 'package:picos/screens/questionaire_screen/pages/blood_pressure.dart';
+import 'package:picos/screens/questionaire_screen/pages/blood_sugar.dart';
 import 'package:picos/screens/questionaire_screen/pages/body_and_mind.dart';
 import 'package:picos/screens/questionaire_screen/pages/heart_frequency.dart';
 import 'package:picos/screens/questionaire_screen/pages/weight.dart';
@@ -148,7 +149,6 @@ class QuestionairePageStorage {
   static String? _bodyAndMind;
   static String? _medicationAndTherapy;
   static String? _ready;
-  static String? _bloodSugar;
   static String? _possibleWalkDistance;
   static String? _sleepDuration;
   static String? _hrs;
@@ -182,7 +182,6 @@ class QuestionairePageStorage {
   }
 
   void _initStrings(BuildContext context) {
-    _bloodSugar = AppLocalizations.of(context)!.bloodSugar;
     _possibleWalkDistance = AppLocalizations.of(context)!.possibleWalkDistance;
     _sleepDuration = AppLocalizations.of(context)!.sleepDuration;
     _hrs = AppLocalizations.of(context)!.hrs;
@@ -271,17 +270,13 @@ class QuestionairePageStorage {
       ),
     );
     pages.add(
-      QuestionairePage(
-        backFunction: previousPage,
-        nextFunction: nextPage,
-        child: TextFieldCard(
-          initialValue: selectedBloodSugar,
-          label: _bloodSugar!,
-          hint: 'mg/dL',
-          onChanged: (String value) {
-            selectedBloodSugar = int.tryParse(value);
-          },
-        ),
+      BloodSugar(
+        previousPage: previousPage,
+        nextPage: nextPage,
+        onChanged: (String value) {
+          selectedBloodSugar = int.tryParse(value);
+        },
+        initialValue: selectedBloodSugar,
       ),
     );
 
