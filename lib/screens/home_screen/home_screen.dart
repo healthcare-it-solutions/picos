@@ -16,7 +16,6 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/home_screen/picos_menu/picos_menu.dart';
 import 'package:picos/themes/global_theme.dart';
@@ -99,21 +98,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarBrightness: Brightness.light,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarColor: Colors.transparent,
-        systemNavigationBarColor: Colors.red,
-        systemNavigationBarIconBrightness: Brightness.dark,
-      ),
-      child: Scaffold(
-        body: Builder(
-          builder: (BuildContext context) {
-            return _generateHomeScreen(context);
-          },
-        ),
-      ),
-    );
+    return _generateHomeScreen(context);
   }
 }
