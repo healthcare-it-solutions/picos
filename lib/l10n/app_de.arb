@@ -237,5 +237,6 @@
     "today": "Heute",
     "yesterday": "Gestern",
     "other": "Andere",
-    "noData": "Keine Daten"
+    "noData": "Keine Daten",
+    "checkValue": "Bitte prüfe ob der Eintrag korrekt ist!"
 }
