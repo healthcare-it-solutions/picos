@@ -235,5 +235,6 @@
     "documentSelected": "Dokument ausgewählt",
     "completeTheDays": "Bitte vervollständigen Sie die roten und orangenen Tage",
     "today": "Heute",
-    "yesterday": "Gestern"
+    "yesterday": "Gestern",
+    "checkValue": "Bitte prüfe ob der Eintrag korrekt ist!"
 }
