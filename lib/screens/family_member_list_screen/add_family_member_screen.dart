@@ -207,22 +207,22 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
             onTap: () {
               Relative relative = _relativeEdit != null
                   ? _relativeEdit!.copyWith(
-                      type: _selectedType!,
-                      address: _selectedAddress!,
-                      city: _selectedCity!,
-                      lastName: _selectedFamilyName!,
-                      mail: _selectedEmail!,
-                      phone: _selectedPhoneNumber!,
-                      firstName: _selectedFirstName!,
+                      type: _selectedType,
+                      address: _selectedAddress,
+                      city: _selectedCity,
+                      lastName: _selectedFamilyName,
+                      mail: _selectedEmail,
+                      phone: _selectedPhoneNumber,
+                      firstName: _selectedFirstName,
                     )
                   : Relative(
-                      type: _selectedType!,
-                      address: _selectedAddress!,
-                      city: _selectedCity!,
-                      lastName: _selectedFamilyName!,
-                      mail: _selectedEmail!,
-                      phone: _selectedPhoneNumber!,
-                      firstName: _selectedFirstName!,
+                      type: _selectedType,
+                      address: _selectedAddress,
+                      city: _selectedCity,
+                      lastName: _selectedFamilyName,
+                      mail: _selectedEmail,
+                      phone: _selectedPhoneNumber,
+                      firstName: _selectedFirstName,
                     );
 
               context
