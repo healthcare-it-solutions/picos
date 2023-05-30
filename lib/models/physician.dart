@@ -106,17 +106,7 @@ class Physician extends AbstractDatabaseObject {
   }
 
   @override
-  List<Object> get props => <Object>[
-        practice!,
-        address!,
-        city!,
-        homepage!,
-        lastName!,
-        mail!,
-        phone!,
-        subjectArea!,
-        firstName!,
-      ];
+  List<Object> get props => <Object>[];
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{

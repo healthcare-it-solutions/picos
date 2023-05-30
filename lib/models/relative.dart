@@ -94,15 +94,7 @@ class Relative extends AbstractDatabaseObject {
   }
 
   @override
-  List<Object> get props => <Object>[
-        address!,
-        city!,
-        lastName!,
-        mail!,
-        phone!,
-        firstName!,
-        type!,
-      ];
+  List<Object> get props => <Object>[];
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
