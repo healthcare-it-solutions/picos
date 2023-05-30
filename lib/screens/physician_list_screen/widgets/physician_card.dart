@@ -31,6 +31,17 @@ class PhysicianCard extends StatelessWidget {
 
   final Physician _physician;
 
+  bool _hasAnyValues() {
+    return (_physician.practice != '' ||
+        _physician.firstName != '' ||
+        _physician.lastName != '' ||
+        _physician.address != '' ||
+        _physician.city != '' ||
+        _physician.phone != '' ||
+        _physician.mail != '' ||
+        _physician.homepage != '');
+  }
+
   @override
   Widget build(BuildContext context) {
     const double fontSize = 16;
@@ -49,59 +60,90 @@ class PhysicianCard extends StatelessWidget {
             .add(RemoveObject(_physician));
       },
       title: PhysicianSubjectAreaConverter.stringToPhysicianSubjectArea(
-        _physician.subjectArea,
+        _physician.subjectArea!,
       ).getLocalization(context),
       child: SizedBox(
         width: double.infinity,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              _physician.practice,
-              style: const TextStyle(fontSize: fontSize),
-            ),
-            const SizedBox(
-              height: padding,
-            ),
-            Text(
-              'Dr. ${_physician.firstName} ${_physician.lastName}',
-              style: const TextStyle(fontSize: fontSize),
-            ),
-            const SizedBox(
-              height: padding,
-            ),
-            Text(
-              _physician.address,
-              style: const TextStyle(fontSize: fontSize),
-            ),
-            const SizedBox(
-              height: padding,
-            ),
-            Text(
-              _physician.city,
-              style: const TextStyle(fontSize: fontSize),
-            ),
-            const SizedBox(
-              height: padding,
-            ),
-            Text(
-              '${AppLocalizations.of(context)!.phone} ${_physician.phone}',
-              style: const TextStyle(fontSize: fontSize),
-            ),
-            const SizedBox(
-              height: padding,
-            ),
-            Text(
-              _physician.mail,
-              style: const TextStyle(fontSize: fontSize),
-            ),
-            const SizedBox(
-              height: padding,
-            ),
-            Text(
-              _physician.homepage,
-              style: const TextStyle(fontSize: fontSize),
-            ),
+            if (!_hasAnyValues())
+              Text(
+                AppLocalizations.of(context)!.noData,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: fontSize,
+                ),
+              ),
+            if (_physician.practice != '')
+              Text(
+                _physician.practice!,
+                style: const TextStyle(fontSize: fontSize),
+              ),
+              const SizedBox(
+                height: padding,
+              ),
+            if (_physician.firstName != '' && _physician.lastName != '')
+              Text(
+                '${_physician.firstName} ${_physician.lastName}',
+                style: const TextStyle(fontSize: fontSize),
+              ),
+              const SizedBox(
+                height: padding,
+              ),
+            if (_physician.firstName != '' && _physician.lastName == '')
+              Text(
+                '${_physician.firstName}',
+                style: const TextStyle(fontSize: fontSize),
+              ),
+              const SizedBox(
+                height: padding,
+              ),
+            if (_physician.firstName == '' && _physician.lastName != '')
+              Text(
+                '${_physician.lastName}',
+                style: const TextStyle(fontSize: fontSize),
+              ),
+              const SizedBox(
+                height: padding,
+              ),
+            if (_physician.address != '')
+              Text(
+                _physician.address!,
+                style: const TextStyle(fontSize: fontSize),
+              ),
+              const SizedBox(
+                height: padding,
+              ),
+            if (_physician.city != '')
+              Text(
+                _physician.city!,
+                style: const TextStyle(fontSize: fontSize),
+              ),
+              const SizedBox(
+                height: padding,
+              ),
+            if (_physician.phone != '')
+              Text(
+                '${AppLocalizations.of(context)!.phone} ${_physician.phone}',
+                style: const TextStyle(fontSize: fontSize),
+              ),
+              const SizedBox(
+                height: padding,
+              ),
+            if (_physician.mail != '')
+              Text(
+                _physician.mail!,
+                style: const TextStyle(fontSize: fontSize),
+              ),
+              const SizedBox(
+                height: padding,
+              ),
+            if (_physician.homepage != '')
+              Text(
+                _physician.homepage!,
+                style: const TextStyle(fontSize: fontSize),
+              ),
           ],
         ),
       ),

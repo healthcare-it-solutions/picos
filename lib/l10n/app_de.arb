@@ -236,5 +236,7 @@
     "completeTheDays": "Bitte vervollständigen Sie die roten und orangenen Tage",
     "today": "Heute",
     "yesterday": "Gestern",
+    "other": "Andere",
+    "noData": "Keine Daten",
     "checkValue": "Bitte prüfe ob der Eintrag korrekt ist!"
 }

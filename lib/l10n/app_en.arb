@@ -1061,6 +1061,14 @@
     "@yesterday": {
         "description": "yesterday"
     },
+    "other": "other",
+    "@other": {
+        "description": "other"
+    },
+    "noData": "No Data",
+    "@noData": {
+        "description": "No Data"
+    },
     "checkValue": "Please check whether your entry is correct!",
     "@checkValue": {
         "description": "Please check whether your entry is correct!"
