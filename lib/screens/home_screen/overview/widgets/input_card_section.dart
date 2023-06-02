@@ -18,73 +18,86 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/models/daily_input.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
 
+import '../../../../state/objects_list_bloc.dart';
+import '../../../../themes/global_theme.dart';
 import 'mini_calendar.dart';
 
 /// This class implements the top section of the 'overview'.
 class InputCardSection extends StatelessWidget {
   /// InputCardSection constructor
-  const InputCardSection({Key? key}) : super(key: key);
+  const InputCardSection({required this.state, Key? key}) : super(key: key);
 
-  static const Color _standardTitleColor = Colors.blue;
+  ///State of the required objects request;
+  final ObjectsListState state;
 
   @override
   Widget build(BuildContext context) {
-    return FractionallySizedBox(
-      child: Card(
-        margin: const EdgeInsets.all(15),
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Text(
-                    AppLocalizations.of(context)!.myEntries,
-                    style: const TextStyle(
-                      fontSize: 22,
-                      color: _standardTitleColor,
-                      fontWeight: FontWeight.bold,
-                    ),
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+    const EdgeInsets inset = EdgeInsets.all(15);
+
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      margin: inset,
+      child: Padding(
+        padding: inset,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Text(
+                  AppLocalizations.of(context)!.myEntries,
+                  style: TextStyle(
+                    fontSize: 23,
+                    color: theme.darkGreen1,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
-              ),
-              const Divider(
-                height: 1,
-                color: _standardTitleColor,
-                thickness: 1,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Stack(
-                alignment: Alignment.topLeft,
-                children: <Widget>[
-                  Image.asset('assets/Eingabe_Start.png'),
-                  Align(
-                    heightFactor: 1,
-                    widthFactor: 3,
-                    alignment: Alignment.topLeft,
-                    child: MiniCalendar(),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              PicosInkWellButton(
-                padding: const EdgeInsets.symmetric(horizontal: 0),
-                text: AppLocalizations.of(context)!.howFeel,
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    '/questionnaire-screen/questionnaire-screen',
-                  );
-                },
-                fontSize: 18,
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+            Divider(
+              height: 1,
+              color: theme.darkGreen1,
+              thickness: 1,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Stack(
+              alignment: Alignment.topLeft,
+              children: <Widget>[
+                Image.asset('assets/Eingabe_Start.png'),
+                Align(
+                  heightFactor: 1,
+                  widthFactor: 3,
+                  alignment: Alignment.topLeft,
+                  child: MiniCalendar(),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            PicosInkWellButton(
+              disabled:
+                  state.status == ObjectsListStatus.success ? false : true,
+              padding: const EdgeInsets.symmetric(horizontal: 0),
+              text: state.status == ObjectsListStatus.failure
+                  ? 'Error'
+                  : AppLocalizations.of(context)!.howFeel,
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  '/questionnaire-screen/questionnaire-screen',
+                  arguments: state.objectsList[0] as DailyInput,
+                );
+              },
+              fontSize: 20,
+            ),
+          ],
         ),
       ),
     );

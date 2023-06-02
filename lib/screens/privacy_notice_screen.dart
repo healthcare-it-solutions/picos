@@ -29,10 +29,10 @@ class PrivacyNoticeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PicosScreenFrame(
       title: AppLocalizations.of(context)!.privacyNotice,
-      body: PicosBody(
+      body: const PicosBody(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const <Widget>[
+          children: <Widget>[
             Text(
               'Rechte des Betroffenen',
               style: TextStyle(

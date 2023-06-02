@@ -19,10 +19,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-// TODO: add some configuration, maybe even hard coded
-// TODO: make widget follow global theme setting
-// TODO: document
-// TODO: make it less ugly
+import '../../../../themes/global_theme.dart';
 
 /// Widget which displays a calendar on the "overview"-screen
 class MiniCalendar extends StatelessWidget {
@@ -33,21 +30,18 @@ class MiniCalendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
     return Column(
       children: <Widget>[
         Container(
           constraints: const BoxConstraints.expand(
             width: 100,
-            height: 30,
+            height: 25,
           ),
           decoration: BoxDecoration(
-            color: const Color.fromRGBO(
-              25,
-              102,
-              117,
-              1.0,
-            ),
-            border: Border.all(),
+            color: theme.darkGreen1,
+            border: Border.all(color: theme.darkGreen1!),
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(5),
               topRight: Radius.circular(5),
@@ -61,6 +55,7 @@ class MiniCalendar extends StatelessWidget {
               style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
+                fontSize: 21,
               ),
             ),
           ),
@@ -74,12 +69,14 @@ class MiniCalendar extends StatelessWidget {
               bottomLeft: Radius.circular(5),
               bottomRight: Radius.circular(5),
             ),
-            border: Border.all(),
+            border: Border.all(color: theme.darkGreen1!, width: 2),
           ),
           child: Center(
             child: Text(
               _dateTime.day.toString(),
-              textScaleFactor: 4,
+              style: const TextStyle(
+                fontSize: 50,
+              ),
             ),
           ),
         ),

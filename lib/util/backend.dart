@@ -31,6 +31,10 @@ import '../models/abstract_database_object.dart';
 class Backend {
   /// initializes the parse server
   Backend() {
+    if (_blockInit) {
+      return;
+    }
+
     _initialized = _initParse();
   }
 
@@ -41,10 +45,6 @@ class Backend {
   static late ParseUser user;
 
   static Future<bool> _initParse() async {
-    if (_blockInit) {
-      return true;
-    }
-
     _blockInit = true;
     String url = '';
 
@@ -107,8 +107,28 @@ class Backend {
   /// Retrieves all possible objects from a [table].
   static Future<List<dynamic>> getAll(String table) async {
     ParseResponse parses = await ParseObject(table).getAll();
-    List<dynamic> res = parses.results ?? <dynamic>[];
+    return _createListResponse(parses);
+  }
 
+  /// Calls the [endpoint].
+  static Future<List<dynamic>> callEndpoint(
+    String endpoint, [
+    Map<String, dynamic>? parameters,
+  ]) async {
+    ParseCloudFunction parseCloudFunction = ParseCloudFunction(endpoint);
+
+    parameters?.forEach((String key, dynamic value) {
+      parseCloudFunction.set(key, value);
+    });
+
+    ParseResponse parses = await parseCloudFunction
+        .executeObjectFunction<ParseObject>();
+
+    return _createListResponse(parses);
+  }
+
+  static List<dynamic> _createListResponse(ParseResponse response) {
+    List<dynamic> res = response.results ?? <dynamic>[];
     return res.map((dynamic e) => jsonDecode(e.toString())).toList();
   }
 
@@ -212,11 +232,6 @@ class BackendFile {
     return _parseFile;
   }
 
-  /// Uploads a file to Parse Server.
-  Future<dynamic> upload() async {
-    return jsonDecode((await _parseFile.upload()).results!.first.toString());
-  }
-
   /// Downloads a file from Parse Server.
   Future<File> download() async {
     return (await _parseFile.download()).file!;
@@ -227,6 +242,7 @@ class BackendFile {
 enum BackendRole {
   /// Denotation for doctor's role.
   doctor,
+
   /// Denotation for patient's role.
   patient,
 }

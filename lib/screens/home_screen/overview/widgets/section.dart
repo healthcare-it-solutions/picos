@@ -33,7 +33,7 @@ class Section extends StatelessWidget {
               title ?? '',
               style: TextStyle(
                 color: titleColor ?? _standardTitleColor,
-                fontSize: 22,
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),

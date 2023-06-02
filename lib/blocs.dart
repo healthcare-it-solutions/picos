@@ -17,6 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:picos/api/backend_daily_inputs_api.dart';
 import 'package:picos/state/objects_list_bloc.dart';
 
 import 'api/backend_documents_api.dart';
@@ -73,6 +74,12 @@ class Blocs extends StatelessWidget {
           create: (BuildContext context) =>
           ObjectsListBloc<BackendDocumentsApi>(
             BackendDocumentsApi(),
+          )..add(const ObjectsListSubscriptionRequested()),
+        ),
+        BlocProvider<ObjectsListBloc<BackendDailyInputsApi>>(
+          create: (BuildContext context) =>
+          ObjectsListBloc<BackendDailyInputsApi>(
+            BackendDailyInputsApi(),
           )..add(const ObjectsListSubscriptionRequested()),
         ),
       ],

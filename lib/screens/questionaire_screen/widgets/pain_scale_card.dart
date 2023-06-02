@@ -177,6 +177,7 @@ class _PainScaleCardState extends State<PainScaleCard> {
     return InkWell(
       onTap: () {
         setState(() {
+          widget.callBack(value);
           groupValue = value;
         });
       },

@@ -426,9 +426,9 @@
         "description": "My medical data"
     },
 
-    "achievedValues": "Today's achieved values",
-    "@achievedValues": {
-        "description": "Today's achieved values"
+    "submittedValues": "Submitted values (14 days)",
+    "@submittedValues": {
+        "description": "Submitted values (14 days)"
     },
 
     "days": "days",
@@ -1048,5 +1048,29 @@
     "documentSelected": "Document selected",
     "@documentSelected": {
         "description": "Document selected"
+    },
+    "completeTheDays": "Please complete the red and orange days",
+    "@completeTheDays": {
+        "description": "Please complete the red and orange days"
+    },
+    "today": "today",
+    "@today": {
+        "description": "today"
+    },
+    "yesterday": "yesterday",
+    "@yesterday": {
+        "description": "yesterday"
+    },
+    "other": "other",
+    "@other": {
+        "description": "other"
+    },
+    "noData": "No Data",
+    "@noData": {
+        "description": "No Data"
+    },
+    "checkValue": "Please check whether your entry is correct!",
+    "@checkValue": {
+        "description": "Please check whether your entry is correct!"
     }
 }
