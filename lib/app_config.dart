@@ -33,6 +33,7 @@ class AppConfig extends StatelessWidget {
   void _setSystemNavigationBarColor(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
+        systemNavigationBarIconBrightness: Brightness.dark,
         systemNavigationBarColor:
             Theme.of(context).bottomNavigationBarTheme.backgroundColor ??
                 Theme.of(context).canvasColor,
