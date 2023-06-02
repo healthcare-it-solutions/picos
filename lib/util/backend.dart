@@ -107,8 +107,28 @@ class Backend {
   /// Retrieves all possible objects from a [table].
   static Future<List<dynamic>> getAll(String table) async {
     ParseResponse parses = await ParseObject(table).getAll();
-    List<dynamic> res = parses.results ?? <dynamic>[];
+    return _createListResponse(parses);
+  }
 
+  /// Calls the [endpoint].
+  static Future<List<dynamic>> callEndpoint(
+    String endpoint, [
+    Map<String, dynamic>? parameters,
+  ]) async {
+    ParseCloudFunction parseCloudFunction = ParseCloudFunction(endpoint);
+
+    parameters?.forEach((String key, dynamic value) {
+      parseCloudFunction.set(key, value);
+    });
+
+    ParseResponse parses = await parseCloudFunction
+        .executeObjectFunction<ParseObject>();
+
+    return _createListResponse(parses);
+  }
+
+  static List<dynamic> _createListResponse(ParseResponse response) {
+    List<dynamic> res = response.results ?? <dynamic>[];
     return res.map((dynamic e) => jsonDecode(e.toString())).toList();
   }
 
@@ -222,6 +242,7 @@ class BackendFile {
 enum BackendRole {
   /// Denotation for doctor's role.
   doctor,
+
   /// Denotation for patient's role.
   patient,
 }

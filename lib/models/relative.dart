@@ -24,38 +24,38 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class Relative extends AbstractDatabaseObject {
   /// Creates a relative object.
   const Relative({
-    required this.type,
-    required this.address,
-    required this.city,
-    required this.lastName,
-    required this.mail,
-    required this.phone,
-    required this.firstName,
+    this.type,
+    this.address,
+    this.city,
+    this.lastName,
+    this.mail,
+    this.phone,
+    this.firstName,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt);
 
   /// The relative type.
-  final String type;
+  final String? type;
 
   /// Last name.
-  final String lastName;
+  final String? lastName;
 
   /// E-Mail address.
-  final String mail;
+  final String? mail;
 
   /// Phone number.
-  final String phone;
+  final String? phone;
 
   /// Address of the relative.
-  final String address;
+  final String? address;
 
   /// City.
-  final String city;
+  final String? city;
 
   /// The first name of the relative.
-  final String firstName;
+  final String? firstName;
 
   /// The database table the objects are stored in.
   static const String databaseTable = 'PICOS_relatives';
@@ -94,15 +94,7 @@ class Relative extends AbstractDatabaseObject {
   }
 
   @override
-  List<Object> get props => <Object>[
-        address,
-        city,
-        lastName,
-        mail,
-        phone,
-        firstName,
-        type,
-      ];
+  List<Object> get props => <Object>[];
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
@@ -154,7 +146,9 @@ extension RelativeTypeConverter on RelativeType {
       case RelativeType.father:
         return AppLocalizations.of(context)!.father;
       case RelativeType.otherRelatives:
-    return AppLocalizations.of(context)!.otherRelatives;
+        return AppLocalizations.of(context)!.otherRelatives;
+      default:
+        return AppLocalizations.of(context)!.otherRelatives;
     }
   }
 }

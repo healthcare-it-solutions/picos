@@ -18,64 +18,85 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/screens/home_screen/overview/widgets/progress_tile.dart';
+import 'package:picos/state/objects_list_bloc.dart';
+
+import '../../../../models/daily_input.dart';
+import '../../../../themes/global_theme.dart';
 
 /// Widget which is used for displaying
 /// the progress bar in the corresponding section on the "overview"-screen
 class ProgressSection extends StatelessWidget {
   /// ProgressSection constructor
-  const ProgressSection({Key? key}) : super(key: key);
+  const ProgressSection({required this.state, Key? key}) : super(key: key);
 
-  /// Declaration of the value (percentage) which is shown on the progress bar
-  final double progressPercentage = 0.95;
+  ///State of the required objects request;
+  final ObjectsListState state;
+
+  Widget _buildContent() {
+    if (state.status == ObjectsListStatus.initial ||
+        state.status == ObjectsListStatus.loading) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    if (state.status == ObjectsListStatus.failure) {
+      return const Center(
+        child: Text('Error'),
+      );
+    }
+
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: state.objectsList.length,
+      itemBuilder: (BuildContext context, int index) {
+        return ProgressTile(
+          dailyInput: state.objectsList[index] as DailyInput,
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(15),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                AppLocalizations.of(context)!.achievedValues,
-                style: const TextStyle(
-                  color: Colors.white,
+                AppLocalizations.of(context)!.submittedValues,
+                style: TextStyle(
+                  color: theme.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              ConstrainedBox(
-                constraints:
-                    const BoxConstraints(minHeight: 20, maxHeight: 100),
+              Divider(
+                color: theme.white,
+                height: 5,
+                thickness: 1,
               ),
-              ElevatedButton(
-                child: Text(AppLocalizations.of(context)!.proceed),
-                onPressed: () {
-                  return;
-                },
-              )
-            ],
-          ),
-          Stack(
-            alignment: Alignment.center,
-            children: <Widget>[
               const SizedBox(
-                width: 100,
-                height: 100,
-                child: CircularProgressIndicator(
-                  color: Colors.green,
-                  value: 0.96,
-                ),
+                height: 10,
               ),
               Text(
-                '${(progressPercentage * 100).round()} %',
-                style: const TextStyle(color: Colors.white),
-                textScaleFactor: 2,
-              )
+                AppLocalizations.of(context)!.completeTheDays,
+                style: TextStyle(
+                  color: theme.white,
+                  fontSize: 17,
+                ),
+              ),
             ],
           ),
-        ],
-      ),
+        ),
+        SizedBox(height: 150, child: _buildContent()),
+      ],
     );
   }
 }

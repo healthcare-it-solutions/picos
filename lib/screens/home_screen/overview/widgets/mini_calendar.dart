@@ -18,12 +18,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:picos/themes/global_theme.dart';
 
-// TODO: add some configuration, maybe even hard coded
-// TODO: make widget follow global theme setting
-// TODO: document
-// TODO: make it less ugly
+import '../../../../themes/global_theme.dart';
 
 /// Widget which displays a calendar on the "overview"-screen
 class MiniCalendar extends StatelessWidget {
@@ -73,10 +69,7 @@ class MiniCalendar extends StatelessWidget {
               bottomLeft: Radius.circular(5),
               bottomRight: Radius.circular(5),
             ),
-            border: Border.all(
-              color: theme.darkGreen1!,
-              width: 2,
-            ),
+            border: Border.all(color: theme.darkGreen1!, width: 2),
           ),
           child: Center(
             child: Text(
