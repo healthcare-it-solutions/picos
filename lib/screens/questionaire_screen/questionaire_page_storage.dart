@@ -18,9 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:picos/models/daily_input.dart';
 import 'package:picos/screens/questionaire_screen/pages/blood_pressure.dart';
-import 'package:picos/screens/questionaire_screen/pages/blood_sugar.dart';
 import 'package:picos/screens/questionaire_screen/pages/body_and_mind.dart';
-import 'package:picos/screens/questionaire_screen/pages/heart_frequency.dart';
 import 'package:picos/screens/questionaire_screen/pages/weight.dart';
 import 'package:picos/screens/questionaire_screen/widgets/cover.dart';
 import 'package:picos/screens/questionaire_screen/widgets/doctor_card.dart';
@@ -149,6 +147,8 @@ class QuestionairePageStorage {
   static String? _bodyAndMind;
   static String? _medicationAndTherapy;
   static String? _ready;
+  static String? _heartFrequency;
+  static String? _bloodSugar;
   static String? _possibleWalkDistance;
   static String? _sleepDuration;
   static String? _hrs;
@@ -182,6 +182,8 @@ class QuestionairePageStorage {
   }
 
   void _initStrings(BuildContext context) {
+    _heartFrequency = AppLocalizations.of(context)!.heartFrequency;
+    _bloodSugar = AppLocalizations.of(context)!.bloodSugar;
     _possibleWalkDistance = AppLocalizations.of(context)!.possibleWalkDistance;
     _sleepDuration = AppLocalizations.of(context)!.sleepDuration;
     _hrs = AppLocalizations.of(context)!.hrs;
@@ -210,7 +212,7 @@ class QuestionairePageStorage {
     void Function() previousPage,
     void Function() nextPage,
   ) async {
-    _bodyHeight ??=
+    _bodyHeight =
         (await Backend.getAll(PatientRegistrationData.databaseTable))[0]
             ['BodyHeight']?['estimateNumber'];
     pages.add(
@@ -240,19 +242,23 @@ class QuestionairePageStorage {
       titles.add(_vitalValues!);
     }
     pages.add(
-      HeartFrequency(
-        initialValue: selectedHeartFrequency,
-        previousPage: previousPage,
-        nextPage: nextPage,
-        onChanged: (String value) {
-          int? intValue = int.tryParse(value);
+      QuestionairePage(
+        backFunction: previousPage,
+        nextFunction: nextPage,
+        child: TextFieldCard(
+          initialValue: selectedHeartFrequency,
+          label: _heartFrequency!,
+          hint: 'bpm',
+          onChanged: (String value) {
+            int? intValue = int.tryParse(value);
 
-          if (intValue == null && value.isNotEmpty) {
-            intValue = int.tryParse(value.split('.')[0]);
-          }
+            if (intValue == null && value.isNotEmpty) {
+              intValue = int.tryParse(value.split('.')[0]);
+            }
 
-          selectedHeartFrequency = intValue;
-        },
+            selectedHeartFrequency = intValue;
+          },
+        ),
       ),
     );
     pages.add(
@@ -270,13 +276,17 @@ class QuestionairePageStorage {
       ),
     );
     pages.add(
-      BloodSugar(
-        previousPage: previousPage,
-        nextPage: nextPage,
-        onChanged: (String value) {
-          selectedBloodSugar = int.tryParse(value);
-        },
-        initialValue: selectedBloodSugar,
+      QuestionairePage(
+        backFunction: previousPage,
+        nextFunction: nextPage,
+        child: TextFieldCard(
+          initialValue: selectedBloodSugar,
+          label: _bloodSugar!,
+          hint: 'mg/dL',
+          onChanged: (String value) {
+            selectedBloodSugar = int.tryParse(value);
+          },
+        ),
       ),
     );
 

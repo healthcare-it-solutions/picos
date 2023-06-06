@@ -68,6 +68,38 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
   Physician? _physicianEdit;
   String? _title;
 
+  bool _disabledSave = true;
+
+  void _checkInputs() {
+    if (_selectedSubjectArea == null ||
+        _selectedFirstName == null ||
+        _selectedFamilyName == null ||
+        _selectedEmail == null ||
+        _selectedPhoneNumber == null ||
+        _selectedWebsite == null ||
+        _selectedAddress == null ||
+        _selectedPractice == null ||
+        _selectedCity == null ||
+        _selectedSubjectArea!.isEmpty ||
+        _selectedFirstName!.isEmpty ||
+        _selectedFamilyName!.isEmpty ||
+        _selectedEmail!.isEmpty ||
+        _selectedPhoneNumber!.isEmpty ||
+        _selectedWebsite!.isEmpty ||
+        _selectedAddress!.isEmpty ||
+        _selectedPractice!.isEmpty ||
+        _selectedCity!.isEmpty) {
+      setState(() {
+        _disabledSave = true;
+      });
+      return;
+    }
+
+    setState(() {
+      _disabledSave = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_selection.isEmpty) {
@@ -97,8 +129,6 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
             PhysicianSubjectArea.psychiatry.getLocalization(context),
         PhysicianSubjectArea.urology.name:
             PhysicianSubjectArea.urology.getLocalization(context),
-        PhysicianSubjectArea.other.name:
-            PhysicianSubjectArea.other.getLocalization(context),
       });
 
       _specialty = AppLocalizations.of(context)!.specialty;
@@ -135,18 +165,6 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
       _selectedPractice = _physicianEdit!.practice;
     }
 
-    if (physicianEdit == null) {
-      _selectedSubjectArea = PhysicianSubjectArea.other.name;
-      _selectedFirstName = '';
-      _selectedFamilyName = '';
-      _selectedEmail = '';
-      _selectedPhoneNumber = '';
-      _selectedAddress = '';
-      _selectedCity = '';
-      _selectedWebsite = '';
-      _selectedPractice = '';
-    }
-
     return BlocBuilder<ObjectsListBloc<BackendPhysiciansApi>, ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
         const double columnPadding = 10;
@@ -164,6 +182,7 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                   initialValue: _selectedPractice,
                   onChanged: (String value) {
                     _selectedPractice = value;
+                    _checkInputs();
                   },
                 ),
                 const SizedBox(height: columnPadding),
@@ -171,6 +190,7 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                   selection: _selection,
                   callBackFunction: (String value) {
                     _selectedSubjectArea = value;
+                    _checkInputs();
                   },
                   initialValue: _selectedSubjectArea,
                   hint: _specialty,
@@ -183,6 +203,7 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                   initialValue: _selectedFirstName,
                   onChanged: (String value) {
                     _selectedFirstName = value;
+                    _checkInputs();
                   },
                 ),
                 const SizedBox(height: columnPadding),
@@ -195,6 +216,7 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                   initialValue: _selectedFamilyName,
                   onChanged: (String value) {
                     _selectedFamilyName = value;
+                    _checkInputs();
                   },
                 ),
                 const SizedBox(height: columnPadding),
@@ -205,6 +227,7 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                   initialValue: _selectedEmail,
                   onChanged: (String value) {
                     _selectedEmail = value;
+                    _checkInputs();
                   },
                 ),
                 const SizedBox(height: columnPadding),
@@ -215,6 +238,7 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                   initialValue: _selectedPhoneNumber,
                   onChanged: (String value) {
                     _selectedPhoneNumber = value;
+                    _checkInputs();
                   },
                 ),
                 const SizedBox(height: columnPadding),
@@ -225,6 +249,7 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                   initialValue: _selectedAddress,
                   onChanged: (String value) {
                     _selectedAddress = value;
+                    _checkInputs();
                   },
                 ),
                 const SizedBox(height: columnPadding),
@@ -235,6 +260,7 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                   initialValue: _selectedCity,
                   onChanged: (String value) {
                     _selectedCity = value;
+                    _checkInputs();
                   },
                 ),
                 const SizedBox(height: columnPadding),
@@ -245,36 +271,37 @@ class _AddPhysicianScreenState extends State<AddPhysicianScreen> {
                   initialValue: _selectedWebsite,
                   onChanged: (String value) {
                     _selectedWebsite = value;
+                    _checkInputs();
                   },
                 ),
               ],
             ),
           ),
           bottomNavigationBar: PicosAddButtonBar(
-            disabled: false,
+            disabled: _disabledSave,
             onTap: () {
               Physician physician = _physicianEdit != null
                   ? _physicianEdit!.copyWith(
-                      practice: _selectedPractice,
-                      address: _selectedAddress,
-                      city: _selectedCity,
-                      homepage: _selectedWebsite,
-                      lastName: _selectedFamilyName,
-                      mail: _selectedEmail,
-                      phone: _selectedPhoneNumber,
-                      subjectArea: _selectedSubjectArea,
-                      firstName: _selectedFirstName,
+                      practice: _selectedPractice!,
+                      address: _selectedAddress!,
+                      city: _selectedCity!,
+                      homepage: _selectedWebsite!,
+                      lastName: _selectedFamilyName!,
+                      mail: _selectedEmail!,
+                      phone: _selectedPhoneNumber!,
+                      subjectArea: _selectedSubjectArea!,
+                      firstName: _selectedFirstName!,
                     )
                   : Physician(
-                      practice: _selectedPractice,
-                      address: _selectedAddress,
-                      city: _selectedCity,
-                      homepage: _selectedWebsite,
-                      lastName: _selectedFamilyName,
-                      mail: _selectedEmail,
-                      phone: _selectedPhoneNumber,
-                      subjectArea: _selectedSubjectArea,
-                      firstName: _selectedFirstName,
+                      practice: _selectedPractice!,
+                      address: _selectedAddress!,
+                      city: _selectedCity!,
+                      homepage: _selectedWebsite!,
+                      lastName: _selectedFamilyName!,
+                      mail: _selectedEmail!,
+                      phone: _selectedPhoneNumber!,
+                      subjectArea: _selectedSubjectArea!,
+                      firstName: _selectedFirstName!,
                     );
 
               context

@@ -1,20 +1,3 @@
-/*   This file is part of Picos, a health tracking mobile app
-*    Copyright (C) 2022 Healthcare IT Solutions GmbH
-*
-*    This program is free software: you can redistribute it and/or modify
-*    it under the terms of the GNU General Public License as published by
-*    the Free Software Foundation, either version 3 of the License, or
-*    (at your option) any later version.
-*
-*    This program is distributed in the hope that it will be useful,
-*    but WITHOUT ANY WARRANTY; without even the implied warranty of
-*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*    GNU General Public License for more details.
-*
-*    You should have received a copy of the GNU General Public License
-*    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
-
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -25,7 +8,7 @@ import '../widgets/questionaire_card.dart';
 import '../widgets/questionaire_page.dart';
 
 /// Questionnaire blood pressure page.
-class BloodPressure extends StatefulWidget {
+class BloodPressure extends StatelessWidget {
   /// BloodPressure constructor.
   const BloodPressure({
     required this.previousPage,
@@ -55,15 +38,10 @@ class BloodPressure extends StatefulWidget {
   /// Initial Dias Value.
   final int? initialDias;
 
-  @override
-  State<BloodPressure> createState() => _BloodPressureState();
-}
-
-class _BloodPressureState extends State<BloodPressure> {
-  static Map<String, String> _createBloodPressureSelection(int min,
-      int max, [
-        int interval = 5,
-      ]) {
+  static Map<String, String> _createBloodPressureSelection() {
+    int min = 40;
+    int max = 250;
+    int interval = 10;
     Map<String, String> bloodPressureSelection = <String, String>{};
 
     int i = min;
@@ -78,94 +56,38 @@ class _BloodPressureState extends State<BloodPressure> {
   }
 
   static String? _bloodPressure;
-  static String? _checkValue;
-  static Map<String, String>? _systSelection;
-  static Map<String, String>? _diasSelection;
-
-  int? _valueSyst;
-  int? _valueDias;
-  String? _label;
-
-  bool _checkValues() {
-    if (_valueSyst == null && _valueDias == null) {
-      _setLabel(_bloodPressure!);
-      return false;
-    }
-
-    if (_valueSyst == null || _valueDias == null) {
-      return true;
-    }
-
-    if (_valueSyst! <= _valueDias!) {
-      _setLabel(_checkValue!);
-      return true;
-    }
-
-    if (_valueSyst! < 90 || _valueSyst! > 160 || _valueDias! < 60 ||
-        _valueDias! > 100) {
-      _setLabel(_checkValue!);
-      return false;
-    }
-
-    _setLabel(_bloodPressure!);
-    return false;
-  }
-
-  void _setLabel(String label) {
-    if (label == _label) {
-      return;
-    }
-
-    _label = label;
-  }
-
-  @override
-  void initState() {
-    _valueDias = widget.initialDias;
-    _valueSyst = widget.initialSyst;
-    super.initState();
-  }
+  static Map<String, String>? _bloodPressureSelection;
 
   @override
   Widget build(BuildContext context) {
     String? initialStringSyst;
     String? initialStringDias;
 
-    if (widget.initialSyst != null) {
-      initialStringSyst = widget.initialSyst.toString();
+    if (initialSyst != null) {
+      initialStringSyst = initialSyst.toString();
     }
 
-    if (widget.initialDias != null) {
-      initialStringDias = widget.initialDias.toString();
+    if (initialDias != null) {
+      initialStringDias = initialDias.toString();
     }
 
     if (_bloodPressure == null) {
       _bloodPressure = AppLocalizations.of(context)!.bloodPressure;
-      _checkValue = AppLocalizations.of(context)!.checkValue;
-      _systSelection = _createBloodPressureSelection(70, 200);
-      _diasSelection = _createBloodPressureSelection(35, 130);
+      _bloodPressureSelection = _createBloodPressureSelection();
     }
 
-    final bool disabledNext = _checkValues();
-
     return QuestionairePage(
-      disabledNext: disabledNext,
-      backFunction: widget.previousPage,
-      nextFunction: widget.nextPage,
+      backFunction: previousPage,
+      nextFunction: nextPage,
       child: QuestionaireCard(
-        label: PicosLabel(_label!),
+        label: PicosLabel(_bloodPressure!),
         child: Row(
           children: <Widget>[
             Expanded(
               child: PicosSelect(
                 initialValue: initialStringSyst,
-                selection: _systSelection!,
-                callBackFunction: (String value) {
-                  widget.onChangedSyst(value);
-                  setState(() {
-                    _valueSyst = int.tryParse(value);
-                  });
-                },
+                selection: _bloodPressureSelection!,
+                callBackFunction: onChangedSyst,
                 hint: 'Syst',
               ),
             ),
@@ -176,13 +98,8 @@ class _BloodPressureState extends State<BloodPressure> {
             Expanded(
               child: PicosSelect(
                 initialValue: initialStringDias,
-                selection: _diasSelection!,
-                callBackFunction: (String value) {
-                  widget.onChangedDias(value);
-                  setState(() {
-                    _valueDias = int.tryParse(value);
-                  });
-                },
+                selection: _bloodPressureSelection!,
+                callBackFunction: onChangedDias,
                 hint: 'Dias',
               ),
             ),
