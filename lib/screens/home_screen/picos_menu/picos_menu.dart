@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/home_screen/picos_menu/picos_menu_item.dart';
 import 'package:picos/widgets/picos_label.dart';
@@ -28,8 +29,18 @@ class PicosMenu extends StatelessWidget {
   /// PicosMenu constructor
   const PicosMenu({Key? key}) : super(key: key);
 
+  void _setSystemNavigationBarColor(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Theme.of(context).appBarTheme.backgroundColor,
+        statusBarIconBrightness: Brightness.light,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    _setSystemNavigationBarColor(context);
     const double labelSize = 17;
     const double sidePadding = 15;
     const double labelPadding = 10;

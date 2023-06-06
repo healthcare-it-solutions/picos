@@ -48,6 +48,7 @@ class AppConfig extends StatelessWidget {
               ),
           appBarTheme: AppBarTheme(
             backgroundColor: theme.darkGreen1,
+            shadowColor: Colors.transparent,
           ),
           dialogBackgroundColor: theme.darkGreen2,
           focusColor: theme.darkGreen3,
