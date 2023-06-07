@@ -16,10 +16,10 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:picos/util/backend.dart';
 import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
-import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_text_field.dart';
 
@@ -86,103 +86,119 @@ class _LoginScreenState extends State<LoginScreen>
     super.dispose();
   }
 
+  void _setSystemNavigationBarColor(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Theme.of(context).canvasColor,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return PicosScreenFrame(
-      body: Center(
-        child: PicosBody(
-          child: Column(
-            children: <Widget>[
-              const Image(
-                image: AssetImage('assets/PICOS_Logo_RGB.png'),
-              ),
-              RichText(
-                text: TextSpan(
-                  style: const TextStyle(
-                    height: 2,
-                    color: Colors.black,
-                  ),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text:
-                          '${AppLocalizations.of(context)!.welcomeToPICOS},\n',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
+    _setSystemNavigationBarColor(context);
+    return SafeArea(
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(0.0), // here the desired height
+          child: AppBar(),
+        ),
+        body: Center(
+          child: PicosBody(
+            child: Column(
+              children: <Widget>[
+                const Image(
+                  image: AssetImage('assets/PICOS_Logo_RGB.png'),
+                ),
+                RichText(
+                  text: TextSpan(
+                    style: const TextStyle(
+                      height: 2,
+                      color: Colors.black,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text:
+                            '${AppLocalizations.of(context)!.welcomeToPICOS},\n',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    TextSpan(
-                      text: AppLocalizations.of(context)!
-                          .thankYouForParticipation,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              SizedBox(
-                width: 200,
-                child: PicosTextField(
-                  controller: _loginController,
-                  hint: AppLocalizations.of(context)!.username,
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              SizedBox(
-                width: 200,
-                child: PicosTextField(
-                  controller: _passwordController,
-                  hint: AppLocalizations.of(context)!.password,
-                  obscureText: !_passwordVisible,
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _passwordVisible
-                          ? Icons.visibility_rounded
-                          : Icons.visibility_off_rounded,
-                    ),
-                    color: Colors.grey,
-                    onPressed: () => setState(() {
-                      _passwordVisible = !_passwordVisible;
-                    }),
+                      TextSpan(
+                        text: AppLocalizations.of(context)!
+                            .thankYouForParticipation,
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              SizedBox(
-                width: 200,
-                child: PicosInkWellButton(
-                  onTap: () => _submitHandler(
-                    _loginController.text,
-                    _passwordController.text,
-                    context,
+                const SizedBox(
+                  height: 15,
+                ),
+                SizedBox(
+                  width: 200,
+                  child: PicosTextField(
+                    controller: _loginController,
+                    hint: AppLocalizations.of(context)!.username,
                   ),
-                  text: AppLocalizations.of(context)!.submit,
                 ),
-              ),
-              _loginfailure
-                  ? Text(AppLocalizations.of(context)!.wrongCredentials)
-                  : const Text(''),
-              const Padding(
-                padding: EdgeInsets.all(_sponsorLogoPadding),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Expanded(
-                      child: Image(
-                        image: AssetImage('assets/BMBF.png'),
-                      ),
-                    ),
-                    SizedBox(width: _sponsorLogoPadding),
-                    Expanded(
-                      child: Image(
-                        image: AssetImage('assets/Logo_MII.png'),
-                      ),
-                    ),
-                  ],
+                const SizedBox(
+                  height: 10,
                 ),
-              ),
-            ],
+                SizedBox(
+                  width: 200,
+                  child: PicosTextField(
+                    controller: _passwordController,
+                    hint: AppLocalizations.of(context)!.password,
+                    obscureText: !_passwordVisible,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _passwordVisible
+                            ? Icons.visibility_rounded
+                            : Icons.visibility_off_rounded,
+                      ),
+                      color: Colors.grey,
+                      onPressed: () => setState(() {
+                        _passwordVisible = !_passwordVisible;
+                      }),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 200,
+                  child: PicosInkWellButton(
+                    onTap: () => _submitHandler(
+                      _loginController.text,
+                      _passwordController.text,
+                      context,
+                    ),
+                    text: AppLocalizations.of(context)!.submit,
+                  ),
+                ),
+                _loginfailure
+                    ? Text(AppLocalizations.of(context)!.wrongCredentials)
+                    : const Text(''),
+                const Padding(
+                  padding: EdgeInsets.all(_sponsorLogoPadding),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(
+                        child: Image(
+                          image: AssetImage('assets/BMBF.png'),
+                        ),
+                      ),
+                      SizedBox(width: _sponsorLogoPadding),
+                      Expanded(
+                        child: Image(
+                          image: AssetImage('assets/Logo_MII.png'),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

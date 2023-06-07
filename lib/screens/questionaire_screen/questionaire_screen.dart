@@ -197,7 +197,6 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
             _title ??= _pageStorage!.titles[0];
 
             return PicosScreenFrame(
-              appBarElevation: 0.0,
               title: _title,
               body: PageView(
                 controller: _controller,

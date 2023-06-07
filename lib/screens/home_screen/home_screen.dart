@@ -89,10 +89,12 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
 
-    return PicosScreenFrame(
-      body: const PicosMenu(),
-      title: 'MyPICOS',
-      bottomNavigationBar: bottomNavigationBar,
+    return SafeArea(
+      child: PicosScreenFrame(
+        body: const PicosMenu(),
+        title: 'MyPICOS',
+        bottomNavigationBar: bottomNavigationBar,
+      ),
     );
   }
 
