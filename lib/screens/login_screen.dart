@@ -101,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen>
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(0.0), // here the desired height
+          preferredSize: const Size.fromHeight(0.0),
           child: AppBar(),
         ),
         body: Center(
