@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:picos/screens/login_screen.dart';
@@ -29,8 +30,20 @@ class AppConfig extends StatelessWidget {
   /// AppConfig constructor
   const AppConfig({Key? key}) : super(key: key);
 
+  void _setSystemNavigationBarColor(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        systemNavigationBarColor:
+        Theme.of(context).bottomNavigationBarTheme.backgroundColor ??
+            Theme.of(context).canvasColor,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    _setSystemNavigationBarColor(context);
     const GlobalTheme theme = GlobalTheme();
 
     return Blocs(
@@ -40,12 +53,12 @@ class AppConfig extends StatelessWidget {
         supportedLocales: AppLocalizations.supportedLocales,
         theme: ThemeData(
           colorScheme: Theme.of(context).colorScheme.copyWith(
-                secondary: theme.grey3,
-              ),
+            secondary: theme.grey3,
+          ),
           textSelectionTheme: Theme.of(context).textSelectionTheme.copyWith(
-                selectionColor: theme.grey2,
-                selectionHandleColor: theme.grey1,
-              ),
+            selectionColor: theme.grey2,
+            selectionHandleColor: theme.grey1,
+          ),
           appBarTheme: AppBarTheme(
             backgroundColor: theme.darkGreen1,
           ),
