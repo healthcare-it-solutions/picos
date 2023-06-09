@@ -16,7 +16,9 @@
 */
 
 import 'dart:convert';
-import 'dart:io';
+import 'package:file_picker/file_picker.dart';
+import 'package:universal_io/io.dart';
+import 'package:file_saver/file_saver.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
@@ -214,27 +216,67 @@ class BackendACL {
 /// Allows to interact with the file storage in the cloud.
 class BackendFile {
   /// Creates a new [BackendFile].
-  BackendFile(File file) {
-    _parseFile = ParseFile(file);
+  BackendFile(PlatformFile file) {
+    if (kIsWeb) {
+      _parseFile = ParseWebFile(
+         file.bytes!,
+         name: file.name,);
+    }
+    else {
+      _parseFile = ParseFile(File(file.path!));
+    }
   }
 
   /// Creates a new [BackendFile] by [url] and a [name].
   /// This is usually relevant if you try to recreate a local BackendFile you
   /// already uploaded to the backend.
   BackendFile.byUrl(String name, String url) {
-    _parseFile = ParseFile(null, name: name, url: url);
+    if (kIsWeb) {
+      _parseFile = ParseWebFile(null, name: name, url: url);
+    }
+    else {
+      _parseFile = ParseFile(null, name: name, url: url);
+    }
   }
 
-  late final ParseFile _parseFile;
+  late final ParseFileBase _parseFile;
+
 
   /// Returns the file.
-  ParseFile get file {
+  ParseFileBase get file {
     return _parseFile;
   }
 
+  
   /// Downloads a file from Parse Server.
-  Future<File> download() async {
-    return (await _parseFile.download()).file!;
+  Future<PlatformFile> download() async {
+    if (kIsWeb){
+      ParseWebFile parseFile = _parseFile as ParseWebFile;
+      
+      await parseFile.download();
+      PlatformFile platformFile = PlatformFile(name: parseFile.name,
+        bytes: parseFile.file,
+        size: parseFile.file?.lengthInBytes as int,);
+      // TODO: maybe save file with location picker in 
+      /// "add_document_screen.dart -> 
+      /// _AddDocumentScreenState -> 
+      /// _createDocumentButtons"
+      // saves file in users download folder
+      FileSaver.instance.saveFile(name: parseFile.name,
+        bytes: parseFile.file,
+        ext: '',
+        mimeType: MimeType.other,);
+      return platformFile;
+    }
+    else {
+      ParseFile parseFile = _parseFile as ParseFile;
+      // creates/saves file in _getDownloadPath
+      await parseFile.download();
+      PlatformFile platformFile = PlatformFile(path: parseFile.file?.path, 
+       name: parseFile.name,
+       size: parseFile.file?.lengthSync() as int,);
+      return platformFile;
+    }
   }
 }
 
