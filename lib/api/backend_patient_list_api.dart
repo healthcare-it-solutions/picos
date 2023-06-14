@@ -34,38 +34,62 @@ class BackendPatientListApi extends BackendObjectsApi {
 
     ParseObject patientProfile = ParseObject(PatientProfile.databaseTable);
 
-    Map<String, dynamic> resultList = {};
-
     final QueryBuilder<ParseObject> parseQueryPatient =
-        QueryBuilder<ParseObject>(patient);
+        QueryBuilder<ParseObject>(patient)..whereEqualTo('Role', 'Patient');
+
+    ParseResponse responsePatient = await parseQueryPatient.query();
+
+    for (dynamic obj in responsePatient.results!) {
+      print(obj);
+    }
 
     final QueryBuilder<ParseObject> parseQueryPatientData =
-        QueryBuilder<ParseObject>(patientData);
+        QueryBuilder<ParseObject>(patientData)
+          ..whereMatchesKeyInQuery('Patient', 'objectId', parseQueryPatient);
+
+    ParseResponse responsePatientData = await parseQueryPatientData.query();
+
+    for (dynamic obj in responsePatientData.results!) {
+      print(obj);
+    }
 
     final QueryBuilder<ParseObject> parseQueryPatientProfile =
-        QueryBuilder<ParseObject>(patientProfile);
+        QueryBuilder<ParseObject>(patientProfile)
+          ..whereMatchesKeyInQuery(
+              'Patient', 'Patient.objectId', parseQueryPatientData);
 
-    parseQueryPatientData.whereMatchesKeyInQuery(
-      'Patient',
+    ParseResponse endResponse = await parseQueryPatientProfile.query();
+
+    for (int i = 0; i < endResponse.results!.length; i++) {
+      String patientObjectID =
+          ((endResponse.results![i] as ParseObject).get('Patient') as ParseObject)
+              .get('objectId')
+              .toString();
+    }
+
+      /*parseQueryPatientData.whereMatchesQuery(
       'objectId',
       parseQueryPatient..whereEqualTo('Role', 'Patient'),
     );
 
-    ParseResponse joinQueryResults = await parseQueryPatientData.query();
+    parseQueryPatientData.includeObject(
+        [jsonEncode(patientContent.results!.first['objectId'].toString())]);
 
-    for (ParseObject joinResult
-        in joinQueryResults.results as List<ParseObject>) {
+    //parseQueryPatientData.whereMatchesQuery('objectId', parseQueryPatient);
+
+    List<ParseObject> joinQueryResults = await parseQueryPatientData.find();*/
+
+      //ParseResponse patientContent = await parseQueryPatient.query();
+
+      /*for (ParseObject joinResult in joinQueryResults as List<ParseObject>) {
       print(
-        'BodyHeight: ' +
+        '${'${'BodyHeight: ' +
             joinResult.get('BodyHeight').toString() +
             ' | CaseNumber: ' +
             joinResult.get('CaseNumber') +
             ' ID: ' +
-            joinResult.get('ID') +
-            ' Institute_key: ' +
-            joinResult.get('inst_key') +
-            ' Patient: ' +
-            joinResult.get('Patient'),
+            joinResult.get('ID')} Institute_key: ' +
+            joinResult.get('inst_key')} Patient: ${joinResult.get('Patient')}',
       );
     }
 
@@ -79,11 +103,15 @@ class BackendPatientListApi extends BackendObjectsApi {
         await parseQueryPatientProfile.query();
 
     for (dynamic obj in joinQueryResultsProfile.results!) {
-      String patientID = ((obj as ParseObject).get('Patient') as ParseObject)
-          .get('objectId')
-          .toString();
-    }
-    /*try {
+      String patientObjectID =
+          ((obj as ParseObject).get('Patient') as ParseObject)
+              .get('objectId')
+              .toString();
+
+      ParseResponse patientAfterJoin = await patient.getObject(patientObjectID);
+
+    }*/
+      /*try {
       Map<String, dynamic> response = (await Backend.callEndpoint(
         'getPatientsDailyInput',
         <String, int>{'days': 14},
@@ -138,7 +166,7 @@ class BackendPatientListApi extends BackendObjectsApi {
           );
         }*/
 
-    /*objectList.add(
+      /*objectList.add(
           DailyInput(
             day: day,
             daily: daily,
@@ -150,7 +178,7 @@ class BackendPatientListApi extends BackendObjectsApi {
         day++;
       })*/
 
-    return getObjectsStream();
+      return getObjectsStream();
   } /*catch (e) {
       return Stream<List<DailyInput>>.error(e);
     }*/
