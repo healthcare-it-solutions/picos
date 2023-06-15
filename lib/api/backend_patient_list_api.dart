@@ -19,12 +19,51 @@ import 'dart:async';
 
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:picos/api/backend_objects_api.dart';
-import 'package:picos/api/patient_join_result.dart';
 import 'package:picos/models/abstract_database_object.dart';
 import 'package:picos/models/patient.dart';
 import 'package:picos/models/patient_data.dart';
 import 'package:picos/models/patient_profile.dart';
 import 'package:collection/collection.dart';
+
+/// Helpe class for Join tables
+class PatientJoinResult {
+  ParseObject? _patient;
+  ParseObject? _patientData;
+  ParseObject? _patientProfile;
+
+  /// Constructur
+  PatientJoinResult(this._patient, this._patientData, this._patientProfile);
+
+  /// set patient
+  ParseObject? getPatient() {
+    return _patient;
+  }
+
+  /// Set patient data
+  ParseObject? getPatientData() {
+    return _patientData;
+  }
+
+  /// Set patient profile
+  ParseObject? getPatientProfile() {
+    return _patientProfile;
+  }
+
+  /// set patient
+  void setPatient(ParseObject newPatient) {
+    _patient = newPatient;
+  }
+
+  /// Set patient data
+  void setPatientData(ParseObject newPatientData) {
+    _patientData = newPatientData;
+  }
+
+  /// Set patient profile
+  void setPatientProfile(ParseObject newPatientProfile) {
+    _patientProfile = newPatientProfile;
+  }
+}
 
 /// API for calling teh corresponding tables for the patient list.
 class BackendPatientListApi extends BackendObjectsApi {
