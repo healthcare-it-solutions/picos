@@ -21,9 +21,9 @@ import 'package:picos/models/patient_data.dart';
 import 'package:picos/models/patient_profile.dart';
 
 /// Class with patient list information.
-abstract class PatientList extends AbstractDatabaseObject {
+class PatientsListElement extends AbstractDatabaseObject {
   /// Creates a patient list object.
-  const PatientList({
+  const PatientsListElement({
     required this.patient,
     required this.patientData,
     required this.patientProfile,
@@ -33,7 +33,7 @@ abstract class PatientList extends AbstractDatabaseObject {
   }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt);
 
   /// The database table the objects are stored in.
-  // static const String databaseTable = '_User';
+  static const String databaseTable = '';
 
   /// Stores patient object;
   final Patient patient;
@@ -43,4 +43,32 @@ abstract class PatientList extends AbstractDatabaseObject {
 
   /// Stores patient profile object.
   final PatientProfile patientProfile;
+
+  @override
+  PatientsListElement copyWith({
+    Patient? patient,
+    PatientData? patientData,
+    PatientProfile? patientProfile,
+    String? objectId,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return PatientsListElement(
+      patient: patient ?? this.patient,
+      patientData: patientData ?? this.patientData,
+      patientProfile: patientProfile ?? this.patientProfile,
+      objectId: objectId ?? this.objectId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
+  @override
+  Map<String, dynamic> get databaseMapping => <String, dynamic>{};
+
+  @override
+  List<Object> get props => <Object>[];
+
+  @override
+  String get table => databaseTable;
 }

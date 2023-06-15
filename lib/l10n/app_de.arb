@@ -238,5 +238,6 @@
     "yesterday": "Gestern",
     "other": "Andere",
     "noData": "Keine Daten",
-    "checkValue": "Bitte prüfe ob der Eintrag korrekt ist!"
+    "checkValue": "Bitte prüfe ob der Eintrag korrekt ist!",
+    "myPatients": "Meine Patienten"
 }

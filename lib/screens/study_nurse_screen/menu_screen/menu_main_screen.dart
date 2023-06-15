@@ -16,18 +16,24 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/api/backend_patients_list_api.dart';
-import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/screens/study_nurse_screen/menu_screen/patients_list.dart';
+import 'package:picos/widgets/picos_add_mono_button_bar.dart';
+import 'package:picos/widgets/picos_screen_frame.dart';
 
-///StudyNurseScreen
-class StudyNurseScreen extends StatelessWidget {
-  ///StudyNurseScreen Constructor
-  const StudyNurseScreen({Key? key}) : super(key: key);
+/// Shows a list with all patients.
+class MenuMainScreen extends StatelessWidget {
+  /// Creates MenuMainScreen.
+  const MenuMainScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    BackendPatientsListApi bpla = BackendPatientsListApi();
-    bpla.getObjects();
-    return const ConfigurationScreen();
+    return PicosScreenFrame(
+      title: AppLocalizations.of(context)!.myPatients,
+      body: const PatientsList(),
+      bottomNavigationBar: const PicosAddMonoButtonBar(
+        route: '/study-nurse-screen/configuration-screen',
+      ),
+    );
   }
 }

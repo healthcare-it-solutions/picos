@@ -16,18 +16,40 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/api/backend_patients_list_api.dart';
-import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_screen.dart';
 
-///StudyNurseScreen
-class StudyNurseScreen extends StatelessWidget {
-  ///StudyNurseScreen Constructor
-  const StudyNurseScreen({Key? key}) : super(key: key);
+/// Shows the patient card tile.
+class PatientsListCardTile extends StatelessWidget {
+  /// Constructor for PatientCardTile where you enter a denotation and a value
+  /// as argument.
+  const PatientsListCardTile(this._denotation, this._value, {Key? key})
+      : super(key: key);
+
+  final String _denotation;
+  final String _value;
 
   @override
   Widget build(BuildContext context) {
-    BackendPatientsListApi bpla = BackendPatientsListApi();
-    bpla.getObjects();
-    return const ConfigurationScreen();
+    return Row(
+      children: <Widget>[
+        SizedBox(
+          width: 80,
+          child: Text(
+            _denotation,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Center(
+            child: Text(
+              _value,
+              softWrap: true,
+              overflow: TextOverflow.visible,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
