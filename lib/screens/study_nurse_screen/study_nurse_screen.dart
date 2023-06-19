@@ -16,7 +16,6 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/api/backend_patients_list_api.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_screen.dart';
 
 ///StudyNurseScreen
@@ -26,8 +25,6 @@ class StudyNurseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BackendPatientsListApi bpla = BackendPatientsListApi();
-    bpla.getObjects();
     return const ConfigurationScreen();
   }
 }
