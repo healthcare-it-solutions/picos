@@ -18,6 +18,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/api/backend_daily_inputs_api.dart';
+import 'package:picos/api/backend_patients_data_api.dart';
+import 'package:picos/api/backend_patients_list_api.dart';
+import 'package:picos/api/backend_patients_profile_api.dart';
 import 'package:picos/state/objects_list_bloc.dart';
 
 import 'api/backend_documents_api.dart';
@@ -80,6 +83,24 @@ class Blocs extends StatelessWidget {
           create: (BuildContext context) =>
           ObjectsListBloc<BackendDailyInputsApi>(
             BackendDailyInputsApi(),
+          )..add(const ObjectsListSubscriptionRequested()),
+        ),
+        BlocProvider<ObjectsListBloc<BackendPatientsListApi>>(
+          create: (BuildContext context) =>
+          ObjectsListBloc<BackendPatientsListApi>(
+            BackendPatientsListApi(),
+          )..add(const ObjectsListSubscriptionRequested()),
+        ),
+        BlocProvider<ObjectsListBloc<BackendPatientsDataApi>>(
+          create: (BuildContext context) =>
+          ObjectsListBloc<BackendPatientsDataApi>(
+            BackendPatientsDataApi(),
+          )..add(const ObjectsListSubscriptionRequested()),
+        ),
+        BlocProvider<ObjectsListBloc<BackendPatientsProfileApi>>(
+          create: (BuildContext context) =>
+          ObjectsListBloc<BackendPatientsProfileApi>(
+            BackendPatientsProfileApi(),
           )..add(const ObjectsListSubscriptionRequested()),
         ),
       ],
