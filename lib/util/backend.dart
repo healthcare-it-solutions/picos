@@ -95,7 +95,7 @@ class Backend {
     // these are thr routes we are going to forward the user to
     Map<String, String> routes = <String, String>{
       'Patient': '/home-screen/home-screen',
-      'Doctor': '/study-nurse-screen/studynursescreen'
+      'Doctor': '/study-nurse-screen/menu-screen/menu-main-screen'
     };
 
     // TODO: maybe refactor for type safety
