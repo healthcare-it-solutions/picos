@@ -28,6 +28,8 @@ import 'package:picos/screens/family_member_list_screen/add_family_member_screen
 import 'package:picos/screens/family_member_list_screen/family_members_screen.dart';
 import 'package:picos/screens/privacy_notice_screen.dart';
 import 'package:picos/screens/questionaire_screen/questionaire_screen.dart';
+import 'package:picos/screens/study_nurse_screen/menu_screen/add_patient_screen.dart';
+import 'package:picos/screens/study_nurse_screen/menu_screen/menu_main_screen.dart';
 import 'package:picos/screens/visits_screen/visits_screen.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_finished_screen.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_pages.dart';
@@ -35,7 +37,6 @@ import 'package:picos/screens/study_nurse_screen/configuration_screen/configurat
 import 'package:picos/screens/home_screen/home_screen.dart';
 import 'package:picos/screens/my_medications_screen/my_medications_screen.dart';
 import 'package:picos/screens/physician_list_screen/physicians_screen.dart';
-import 'package:picos/screens/study_nurse_screen/study_nurse_screen.dart';
 import 'package:picos/screens/my_therapies_screen/view_therapy_screen.dart';
 
 ///This is a central place to manage all routes contained in the app.
@@ -57,8 +58,6 @@ class Routes {
       '/physician-list-screen/physicians': (BuildContext ctx) =>
           const PhysiciansScreen(),
       '/home-screen/home-screen': (BuildContext ctx) => const HomeScreen(),
-      '/study-nurse-screen/studynursescreen': (BuildContext ctx) =>
-          const StudyNurseScreen(),
       '/study-nurse-screen/configuration-screen': (BuildContext ctx) =>
           const ConfigurationScreen(),
       '/study-nurse-screen/configuration-pages': (BuildContext ctx) =>
@@ -82,6 +81,10 @@ class Routes {
       const MyDocumentsScreen(),
       '/my-documents-screen/add-documents': (BuildContext ctx) =>
       const AddDocumentScreen(),
+      '/study-nurse-screen/menu-screen/menu-main-screen': (BuildContext ctx) =>
+          const MenuMainScreen(),
+      '/study-nurse-screen/menu-screen/add-patient': (BuildContext ctx) =>
+        const AddPatientScreen(),
     };
   }
 
