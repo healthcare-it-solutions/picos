@@ -1076,5 +1076,9 @@
     "myPatients": "My Patients",
     "@checkValue": {
         "description": "My Patients"
+    },
+    "editPatientInformation": "Edit Patient Information",
+    "@editPatientInformation": {
+        "description": "Edit Patient Information"
     }
 }
