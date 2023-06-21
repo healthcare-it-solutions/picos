@@ -119,7 +119,14 @@ class BackendPatientsListApi extends BackendObjectsApi {
 
       int index = getIndex(object);
 
-      objectList[index] = object;
+      if (index >= 0) {
+        objectList[index] = object;
+        objectList = <AbstractDatabaseObject>[...objectList];
+      }
+
+      if (index < 0) {
+        objectList = <AbstractDatabaseObject>[...objectList, object];
+      }
 
       dispatch();
     } catch (e) {}
