@@ -46,7 +46,7 @@ abstract class BackendObjectsApi extends DatabaseObjectApi {
             DateTime.tryParse(response['updatedAt'] ?? '') ?? object.updatedAt,
       );
 
-      int objectIndex = _getIndex(object);
+      int objectIndex = getIndex(object);
 
       if (objectIndex >= 0) {
         objectList[objectIndex] = object;
@@ -68,7 +68,7 @@ abstract class BackendObjectsApi extends DatabaseObjectApi {
     try {
       await Backend.removeObject(object);
 
-      int objectIndex = _getIndex(object);
+      int objectIndex = getIndex(object);
 
       objectList.removeAt(objectIndex);
       objectList = <AbstractDatabaseObject>[...objectList];
@@ -94,7 +94,8 @@ abstract class BackendObjectsApi extends DatabaseObjectApi {
     _objectController.sink.add(objectList);
   }
 
-  int _getIndex(AbstractDatabaseObject object) {
+  /// Returns the index of the object. 
+  int getIndex(AbstractDatabaseObject object) {
     return objectList.indexWhere(
       (AbstractDatabaseObject element) => element.objectId == object.objectId,
     );
