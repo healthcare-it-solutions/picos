@@ -95,44 +95,52 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
 
   PatientsListElement? _patientsListElement;
 
-  Future<bool> _patientListElementInformation(
-    PatientsListElement patListElement,
-  ) async {
-    if (_patientsListElement != null) return true;
-
-    _weightBMI = patListElement.patientProfile.weightBMIEnabled;
-    _heartFrequency = patListElement.patientProfile.heartFrequencyEnabled;
-    _bloodPressure = patListElement.patientProfile.bloodPressureEnabled;
-    _bloodSugarLevels = patListElement.patientProfile.bloodSugarLevelsEnabled;
-    _walkDistance = patListElement.patientProfile.walkDistanceEnabled;
-    _sleepDuration = patListElement.patientProfile.sleepDurationEnabled;
-    _sleepQuality = patListElement.patientProfile.sleepQualityEnabled;
-    _pain = patListElement.patientProfile.painEnabled;
-    _phq4 = patListElement.patientProfile.phq4Enabled;
-    _medication = patListElement.patientProfile.medicationEnabled;
-    _therapy = patListElement.patientProfile.therapyEnabled;
-    _doctorsVisit = patListElement.patientProfile.doctorsVisitEnabled;
-
-    _bodyHeight = patListElement.patientData.bodyHeight;
-    _patientID = patListElement.patientData.patientID;
-    _caseNumber = patListElement.patientData.caseNumber;
-    _instituteKey = patListElement.patientData.instKey;
-
-    return true;
-  }
-
   @override
   Widget build(BuildContext context) {
     _title ??= AppLocalizations.of(context)!.editPatientInformation;
 
-    _patientsListElement =
-        ModalRoute.of(context)!.settings.arguments as PatientsListElement;
+    Object? patientsListEdit = ModalRoute.of(context)!.settings.arguments;
 
-    return FutureBuilder<bool>(
-      future: _patientListElementInformation(_patientsListElement!),
-      builder: ((BuildContext context, AsyncSnapshot<bool> snapshot) {
-        if (!snapshot.hasData && !snapshot.hasError) {
-          return const CircularProgressIndicator();
+    if (_patientsListElement == null && patientsListEdit != null) {
+      _patientsListElement = patientsListEdit as PatientsListElement;
+
+      _weightBMI = _patientsListElement!.patientProfile.weightBMIEnabled;
+      _heartFrequency =
+          _patientsListElement!.patientProfile.heartFrequencyEnabled;
+      _bloodPressure =
+          _patientsListElement!.patientProfile.bloodPressureEnabled;
+      _bloodSugarLevels =
+          _patientsListElement!.patientProfile.bloodSugarLevelsEnabled;
+      _walkDistance = _patientsListElement!.patientProfile.walkDistanceEnabled;
+      _sleepDuration =
+          _patientsListElement!.patientProfile.sleepDurationEnabled;
+      _sleepQuality = _patientsListElement!.patientProfile.sleepQualityEnabled;
+      _pain = _patientsListElement!.patientProfile.painEnabled;
+      _phq4 = _patientsListElement!.patientProfile.phq4Enabled;
+      _medication = _patientsListElement!.patientProfile.medicationEnabled;
+      _therapy = _patientsListElement!.patientProfile.therapyEnabled;
+      _doctorsVisit = _patientsListElement!.patientProfile.doctorsVisitEnabled;
+
+      _bodyHeight = _patientsListElement!.patientData.bodyHeight;
+      _patientID = _patientsListElement!.patientData.patientID;
+      _caseNumber = _patientsListElement!.patientData.caseNumber;
+      _instituteKey = _patientsListElement!.patientData.instKey;
+    }
+
+    return BlocBuilder<ObjectsListBloc<BackendPatientsListApi>,
+        ObjectsListState>(
+      builder: (BuildContext context, ObjectsListState state) {
+        if (state.status == ObjectsListStatus.initial ||
+            state.status == ObjectsListStatus.loading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        if (state.status == ObjectsListStatus.failure) {
+          return const Center(
+            child: Text('Error'),
+          );
         }
 
         return PicosScreenFrame(
@@ -455,17 +463,17 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                 PicosLabel(AppLocalizations.of(context)!.instituteKey),
                 PicosSelect(
                   selection: const <String, String>{
-                    '1': '100',
-                    '2': '101',
-                    '3': '102',
-                    '4': '103',
-                    '5': '104',
-                    '6': '105',
-                    '7': '201',
-                    '8': '300',
-                    '9': '400',
-                    '10': '501',
-                    '11': '502'
+                    '100': '100',
+                    '101': '101',
+                    '102': '102',
+                    '103': '103',
+                    '104': '104',
+                    '105': '105',
+                    '201': '201',
+                    '300': '300',
+                    '400': '400',
+                    '501': '501',
+                    '502': '502'
                   },
                   callBackFunction: (String? value) {
                     setState(() {
@@ -507,47 +515,18 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
           bottomNavigationBar: PicosAddButtonBar(
             disabled: _addDisabled,
             onTap: () {
-              PatientData updatedPatientData = PatientData(
-                bodyHeight: _bodyHeight,
-                patientID: _patientID,
-                caseNumber: _caseNumber,
-                instKey: _instituteKey,
-              );
-
-              PatientProfile updatedPatientProfile = PatientProfile(
-                weightBMIEnabled: _weightBMI,
-                heartFrequencyEnabled: _heartFrequency,
-                bloodPressureEnabled: _bloodPressure,
-                bloodSugarLevelsEnabled: _bloodSugarLevels,
-                walkDistanceEnabled: _walkDistance,
-                sleepDurationEnabled: _sleepDuration,
-                sleepQualityEnabled: _sleepQuality,
-                painEnabled: _pain,
-                phq4Enabled: _phq4,
-                medicationEnabled: _medication,
-                therapyEnabled: _therapy,
-                doctorsVisitEnabled: _doctorsVisit,
-                patientObjectId:
-                    _patientsListElement!.patientData.patientObjectId!,
-                doctorObjectId:
-                    _patientsListElement!.patientData.doctorObjectId!,
-              );
-
-              PatientsListElement patientsListElement = PatientsListElement(
-                patient: _patientsListElement!.patient,
-                patientData: updatedPatientData,
-                patientProfile: updatedPatientProfile,
-              );
-
               if (_patientsListElement != null) {
-                updatedPatientData.copyWith(
+                PatientData newPatientData;
+
+                newPatientData = _patientsListElement!.patientData.copyWith(
                   bodyHeight: _bodyHeight,
                   patientID: _patientID,
                   caseNumber: _caseNumber,
                   instKey: _instituteKey,
                 );
 
-                updatedPatientProfile.copyWith(
+                PatientProfile newPatientProfile;
+                newPatientProfile = _patientsListElement!.patientProfile.copyWith(
                   weightBMIEnabled: _weightBMI,
                   heartFrequencyEnabled: _heartFrequency,
                   bloodPressureEnabled: _bloodPressure,
@@ -560,30 +539,26 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                   medicationEnabled: _medication,
                   therapyEnabled: _therapy,
                   doctorsVisitEnabled: _doctorsVisit,
-                  patientObjectId:
-                      _patientsListElement!.patientData.patientObjectId!,
-                  doctorObjectId:
-                      _patientsListElement!.patientData.doctorObjectId!,
                 );
 
-                patientsListElement = patientsListElement.copyWith(
+                
+                PatientsListElement newPatientListElement;
+
+                newPatientListElement = _patientsListElement!.copyWith(
                   patient: _patientsListElement!.patient,
-                  patientData: updatedPatientData,
-                  patientProfile: updatedPatientProfile,
-                  objectId: _patientsListElement!.patient.objectId,
-                  createdAt: _patientsListElement!.patient.createdAt,
-                  updatedAt: _patientsListElement!.patient.updatedAt,
+                  patientData: newPatientData,
+                  patientProfile: newPatientProfile,
                 );
-              }
 
-              context
+                context
                   .read<ObjectsListBloc<BackendPatientsListApi>>()
-                  .add(SaveObject(patientsListElement));
-              Navigator.of(context).pop();
+                  .add(SaveObject(newPatientListElement));
+                Navigator.of(context).pop();
+              }
             },
           ),
         );
-      }),
+      },
     );
   }
 }

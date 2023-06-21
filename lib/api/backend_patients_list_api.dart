@@ -69,7 +69,7 @@ class PatientJoinResult {
   }
 }
 
-/// API for calling teh corresponding tables for the patient list.
+/// API for calling the corresponding tables for the patient list.
 class BackendPatientsListApi extends BackendObjectsApi {
   @override
   Future<void> saveObject(AbstractDatabaseObject object) async {
@@ -87,36 +87,42 @@ class BackendPatientsListApi extends BackendObjectsApi {
           object.patient.updatedAt,
     );*/
 
-    dynamic responsePatientData =
-        await Backend.saveObject((object as PatientsListElement).patientData);
+    try {
+      dynamic responsePatientData =
+          await Backend.saveObject((object as PatientsListElement).patientData);
 
-    patientData = object.patientData.copyWith(
-      objectId: responsePatientData['objectId'],
-      createdAt: DateTime.tryParse(responsePatientData['createdAt'] ?? '') ??
-          object.patientData.createdAt,
-      updatedAt: DateTime.tryParse(responsePatientData['updatedAt'] ?? '') ??
-          object.patientData.updatedAt,
-    );
+      patientData = object.patientData.copyWith(
+        objectId: responsePatientData['objectId'],
+        createdAt: DateTime.tryParse(responsePatientData['createdAt'] ?? '') ??
+            object.patientData.createdAt,
+        updatedAt: DateTime.tryParse(responsePatientData['updatedAt'] ?? '') ??
+            object.patientData.updatedAt,
+      );
 
-    dynamic responsePatientProfile =
-        await Backend.saveObject((object).patientProfile);
+      dynamic responsePatientProfile =
+          await Backend.saveObject((object).patientProfile);
 
-    patientProfile = object.patientProfile.copyWith(
-      objectId: responsePatientProfile['objectId'],
-      createdAt: DateTime.tryParse(responsePatientProfile['createdAt'] ?? '') ??
-          object.patientProfile.createdAt,
-      updatedAt: DateTime.tryParse(responsePatientProfile['updatedAt'] ?? '') ??
-          object.patientProfile.updatedAt,
-    );
+      patientProfile = object.patientProfile.copyWith(
+        objectId: responsePatientProfile['objectId'],
+        createdAt:
+            DateTime.tryParse(responsePatientProfile['createdAt'] ?? '') ??
+                object.patientProfile.createdAt,
+        updatedAt:
+            DateTime.tryParse(responsePatientProfile['updatedAt'] ?? '') ??
+                object.patientProfile.updatedAt,
+      );
 
-    object = object.copyWith(
-      patientData: patientData,
-      patientProfile: patientProfile,
-    );
+      object = object.copyWith(
+        patientData: patientData,
+        patientProfile: patientProfile,
+      );
 
-    objectList = object as List<AbstractDatabaseObject>;
+      int index = getIndex(object);
 
-    dispatch();
+      objectList[index] = object;
+
+      dispatch();
+    } catch (e) {}
   }
 
   @override
@@ -188,8 +194,10 @@ class BackendPatientsListApi extends BackendObjectsApi {
             caseNumber: element._patientData!.get('CaseNumber').toString(),
             instKey: element._patientData!.get('inst_key').toString(),
             objectId: element._patientData!.get('objectId').toString(),
-            patientObjectId: element._patientData!.get('Patient').toString(),
-            doctorObjectId: element._patientData!.get('Doctor').toString(),
+            patientObjectId:
+                element._patientData!.get('Patient')?.objectId.toString(),
+            doctorObjectId:
+                element._patientData!.get('Doctor')?.objectId.toString(),
             createdAt: element._patientData!.get('createdAt'),
             updatedAt: element._patientData!.get('updatedAt'),
           );
@@ -208,13 +216,11 @@ class BackendPatientsListApi extends BackendObjectsApi {
             medicationEnabled: element._patientProfile!.get('Medication'),
             therapyEnabled: element._patientProfile!.get('Therapies'),
             doctorsVisitEnabled: element._patientProfile!.get('Stays'),
-            patientObjectId: element._patientProfile!.get('Patient').toString(),
-            doctorObjectId: element._patientProfile!.get('Doctor').toString(),
+            patientObjectId: element._patientProfile!.get('Patient')?.objectId,
+            doctorObjectId: element._patientProfile!.get('Doctor')?.objectId,
             objectId: element._patientProfile!.get('objectId').toString(),
-            createdAt:
-                element._patientProfile!.get('createdAt'),
-            updatedAt:
-                element._patientProfile!.get('updatedAt'),
+            createdAt: element._patientProfile!.get('createdAt'),
+            updatedAt: element._patientProfile!.get('updatedAt'),
           );
 
           objectList.add(
