@@ -67,7 +67,7 @@ class PatientsListElement extends AbstractDatabaseObject {
   Map<String, dynamic> get databaseMapping => <String, dynamic>{};
 
   @override
-  List<Object> get props => <Object>[];
+  List<Object> get props => <Object>[patient, patientData, patientProfile];
 
   @override
   String get table => databaseTable;
