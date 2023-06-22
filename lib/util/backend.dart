@@ -18,10 +18,12 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:picos/config.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../models/abstract_database_object.dart';
 
@@ -68,21 +70,26 @@ class Backend {
     return true;
   }
 
-  /// Takes [login] and [password] to login a user
-  /// and returns if it was successful as a [bool].
-  static Future<bool> login(String login, String password) async {
+  /// Takes [login] and [password] to login a user.
+  /// Returns [BackendError] when something went wrong.
+  static Future<BackendError?> login(String login, String password) async {
     if (!Parse().hasParseBeenInitialized()) {
       await _initialized;
     }
 
-    // in case the next line throws a null is not int compatible or
-    // something like 'os broken pipe' remember to set the appid,
-    // server url and the client key properly above.
+    if (login.isEmpty || password.isEmpty) {
+      return BackendError.credentials;
+    }
+
     user = ParseUser.createUser(login, password);
 
-    ParseResponse res = await user.login();
+    ParseResponse response = await user.login();
 
-    return res.success;
+    if (response.statusCode == 101) {
+      return BackendError.credentials;
+    }
+
+    return null;
   }
 
   /// Logs the user out and return if it was successful.
@@ -121,8 +128,8 @@ class Backend {
       parseCloudFunction.set(key, value);
     });
 
-    ParseResponse parses = await parseCloudFunction
-        .executeObjectFunction<ParseObject>();
+    ParseResponse parses =
+        await parseCloudFunction.executeObjectFunction<ParseObject>();
 
     return _createListResponse(parses);
   }
@@ -256,6 +263,23 @@ extension BackendRoleExtension on BackendRole {
         return 'role:Doctor';
       case BackendRole.patient:
         return 'role:Patient';
+    }
+  }
+}
+
+/// An enum with different errors.
+enum BackendError {
+  /// Wrong credentials.
+  credentials,
+}
+
+/// Extends [BackendError].
+extension BackendErrorExtension on BackendError {
+  /// Shows the current error message.
+  String getMessage(BuildContext context) {
+    switch (this) {
+      case BackendError.credentials:
+        return AppLocalizations.of(context)!.wrongCredentials;
     }
   }
 }
