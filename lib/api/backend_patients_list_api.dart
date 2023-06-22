@@ -76,17 +76,6 @@ class BackendPatientsListApi extends BackendObjectsApi {
     PatientData patientData;
     PatientProfile patientProfile;
 
-    /*dynamic responsePatient =
-        await Backend.saveObject((object as PatientsListElement).patient);
-
-    patient = object.patient.copyWith(
-      objectId: responsePatient['objectId'],
-      createdAt: DateTime.tryParse(responsePatient['createdAt'] ?? '') ??
-          object.patient.createdAt,
-      updatedAt: DateTime.tryParse(responsePatient['updatedAt'] ?? '') ??
-          object.patient.updatedAt,
-    );*/
-
     try {
       dynamic responsePatientData =
           await Backend.saveObject((object as PatientsListElement).patientData);
@@ -100,7 +89,7 @@ class BackendPatientsListApi extends BackendObjectsApi {
       );
 
       dynamic responsePatientProfile =
-          await Backend.saveObject((object).patientProfile);
+          await Backend.saveObject(object.patientProfile);
 
       patientProfile = object.patientProfile.copyWith(
         objectId: responsePatientProfile['objectId'],
@@ -129,7 +118,9 @@ class BackendPatientsListApi extends BackendObjectsApi {
       }
 
       dispatch();
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -235,6 +226,7 @@ class BackendPatientsListApi extends BackendObjectsApi {
               patient: patient,
               patientData: patientData,
               patientProfile: patientProfile,
+              objectId: patient.objectId,
             ),
           );
         }
