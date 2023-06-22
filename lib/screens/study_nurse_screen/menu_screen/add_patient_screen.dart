@@ -541,7 +541,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                   doctorsVisitEnabled: _doctorsVisit,
                 );
 
-                
                 PatientsListElement newPatientListElement;
 
                 newPatientListElement = _patientsListElement!.copyWith(
