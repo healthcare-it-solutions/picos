@@ -28,6 +28,7 @@ class Daily extends AbstractDatabaseObject {
     this.bloodDiastolic,
     this.sleepDuration,
     this.pain,
+    this.bloodSugarMol,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -44,6 +45,9 @@ class Daily extends AbstractDatabaseObject {
 
   /// The patients blood sugar value.
   final int? bloodSugar;
+
+  /// The patients blood sugar value (mmol/l).
+  final double? bloodSugarMol;
 
   /// The patients blood pressure systolic value.
   final int? bloodSystolic;
@@ -80,11 +84,13 @@ class Daily extends AbstractDatabaseObject {
     int? bloodDiastolic,
     int? sleepDuration,
     int? pain,
+    double? bloodSugarMol,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
     return Daily(
+      bloodSugarMol: bloodSugarMol ?? this.bloodSugarMol,
       date: date ?? this.date,
       heartFrequency: heartFrequency ?? this.heartFrequency,
       bloodSugar: bloodSugar ?? this.bloodSugar,
@@ -112,6 +118,7 @@ class Daily extends AbstractDatabaseObject {
         'SleepDuration': sleepDuration,
         'Pain': pain,
         'datetime': date,
+        'BloodSugarMol': bloodSugarMol,
       };
 
   bool _checkHasNullValues() {
@@ -120,7 +127,8 @@ class Daily extends AbstractDatabaseObject {
         bloodSystolic == null ||
         heartFrequency == null ||
         pain == null ||
-        sleepDuration == null) {
+        sleepDuration == null ||
+        bloodSugarMol == null) {
       return true;
     }
 
@@ -133,7 +141,8 @@ class Daily extends AbstractDatabaseObject {
         bloodSystolic != null ||
         heartFrequency != null ||
         pain != null ||
-        sleepDuration != null) {
+        sleepDuration != null ||
+        bloodSugarMol != null) {
       return true;
     }
 

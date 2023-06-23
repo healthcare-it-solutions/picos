@@ -46,6 +46,8 @@ dependencies:
   path_provider: ^2.0.15
   open_file_plus: ^3.4.1
   file_picker: ^5.3.1
+  universal_io: ^2.2.2
+  file_saver: ^0.1.1
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1

@@ -31,6 +31,7 @@ class BloodSugar extends StatefulWidget {
     required this.onChanged,
     Key? key,
     this.initialValue,
+    this.initialValueMol,
   }) : super(key: key);
 
   /// Previous page button function.
@@ -40,10 +41,13 @@ class BloodSugar extends StatefulWidget {
   final void Function() nextPage;
 
   /// Callback for syst.
-  final dynamic Function(String value) onChanged;
+  final dynamic Function(String? value, String? valueMol) onChanged;
 
   /// Initial value.
   final int? initialValue;
+
+  /// Initial value mmol/l.
+  final double? initialValueMol;
 
   @override
   State<BloodSugar> createState() => _BloodSugarState();
@@ -53,17 +57,33 @@ class _BloodSugarState extends State<BloodSugar> {
   static String? _bloodSugar;
   static String? _checkValue;
   int? _value;
+  double? _valueMol;
 
   bool _setDisabledNext() {
-    if (_value == null) {
+    bool bloodSugar = true;
+    bool bloodSugarMol = true;
+
+    if (_value == null && _valueMol == null) {
       return false;
     }
 
-    if (_value! < 50 || _value! > 300) {
-      return true;
+    if (_value != null) {
+      bloodSugar = _checkBloodSugar();
     }
 
-    return false;
+    if (_valueMol != null) {
+      bloodSugarMol = _checkBloodSugarMol();
+    }
+
+    return !(bloodSugarMol && bloodSugar);
+  }
+
+  bool _checkBloodSugar() {
+    return !(_value! < 50 || _value! > 300);
+  }
+
+  bool _checkBloodSugarMol() {
+    return !(_valueMol! < 3.9 || _valueMol! > 6.7);
   }
 
   String _setLabel() {
@@ -78,8 +98,23 @@ class _BloodSugarState extends State<BloodSugar> {
     return _bloodSugar!;
   }
 
+  String _setLabelMol() {
+    final String bloodSugarMol = '${_bloodSugar!} (mmol/l)';
+
+    if (_valueMol == null) {
+      return bloodSugarMol;
+    }
+
+    if (_valueMol! < 3.9 || _valueMol! > 6.7) {
+      return _checkValue!;
+    }
+
+    return bloodSugarMol;
+  }
+
   @override void initState() {
     _value = widget.initialValue;
+    _valueMol = widget.initialValueMol;
     super.initState();
   }
 
@@ -92,21 +127,38 @@ class _BloodSugarState extends State<BloodSugar> {
 
     final bool disabledNext = _setDisabledNext();
     final String label = _setLabel();
+    final String labelMol = _setLabelMol();
 
     return QuestionairePage(
       disabledNext: disabledNext,
       backFunction: widget.previousPage,
       nextFunction: widget.nextPage,
-      child: TextFieldCard(
-        initialValue: widget.initialValue,
-        label: label,
-        hint: 'mg/dL',
-        onChanged: (String value) {
-          widget.onChanged(value);
-          setState(() {
-            _value = int.tryParse(value);
-          });
-        },
+      child: Column(
+        children: <TextFieldCard>[
+          TextFieldCard(
+            initialValue: widget.initialValue,
+            label: label,
+            hint: 'mg/dL',
+            onChanged: (String value) {
+              widget.onChanged(value, null);
+              setState(() {
+                _value = int.tryParse(value);
+              });
+            },
+          ),
+          TextFieldCard(
+            initialValue: widget.initialValueMol,
+            label: labelMol,
+            hint: 'mmol/l',
+            decimalValue: true,
+            onChanged: (String value) {
+              widget.onChanged(null, value);
+              setState(() {
+                _valueMol = double.tryParse(value);
+              });
+            },
+          ),
+        ],
       ),
     );
   }
