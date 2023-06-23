@@ -16,16 +16,20 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/api/backend_patients_list_api.dart';
 import 'package:picos/models/patient.dart';
 import 'package:picos/models/patient_data.dart';
 import 'package:picos/models/patient_profile.dart';
+import 'package:picos/models/patients_list_element.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_additional_entries.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_form.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_vital_values.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_activity_and_rest.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_body_and_mind.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_medication_and_therapy.dart';
+import 'package:picos/state/objects_list_bloc.dart';
 import 'package:picos/util/backend.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
 
@@ -92,7 +96,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
 
   late Patient patient;
 
-  Future<void> _savePatient() async {
+  Future<Patient> _savePatient() async {
     patient = Patient(
       firstName: _formEntries['entryFirstName']!,
       familyName: _formEntries['entryFamilyName']!,
@@ -113,9 +117,11 @@ class _ConfigurationPages extends State<ConfigurationPages> {
       objectId: responsePatient['objectId'],
       createdAt: DateTime.parse(responsePatient['createdAt']),
     );
+
+    return patient;
   }
 
-  Future<void> _savePatientProfile() async {
+  Future<PatientProfile> _savePatientProfile() async {
     PatientProfile patientProfile = PatientProfile(
       bloodPressureEnabled: _vitalValuesEntries['entryBloodPressureEnabled']!,
       bloodSugarLevelsEnabled:
@@ -150,9 +156,11 @@ class _ConfigurationPages extends State<ConfigurationPages> {
       patientProfile,
       acl: patientProfileACL,
     );
+
+    return patientProfile;
   }
 
-  Future<void> _savePatientData() async {
+  Future<PatientData> _savePatientData() async {
     PatientData patientData = PatientData(
       bodyHeight: double.parse(_additionalEntries['entryHeight']!),
       patientID: _additionalEntries['entryPatientID']!,
@@ -175,6 +183,8 @@ class _ConfigurationPages extends State<ConfigurationPages> {
       patientData,
       acl: patientDataACL,
     );
+
+    return patientData;
   }
 
   @override
@@ -233,70 +243,82 @@ class _ConfigurationPages extends State<ConfigurationPages> {
       ]);
     }
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.configuration),
-        backgroundColor: theme.darkGreen3,
-      ),
-      body: Form(
-        key: formKeyConfiguration,
-        child: PageView(
-          physics: const NeverScrollableScrollPhysics(),
-          controller: _controller,
-          onPageChanged: (int num) {
-            setState(() {
-              _currentPage = num;
-            });
-          },
-          children: _list,
-        ),
-      ),
-      bottomNavigationBar: Row(
-        children: <Widget>[
-          Expanded(
-            child: PicosInkWellButton(
-              text: AppLocalizations.of(context)!.back,
-              onTap: () {
-                if (_currentPage == 0) {
-                  Navigator.of(context).pop();
-                } else {
-                  _controller.jumpToPage(_currentPage - 1);
-                }
+    return BlocBuilder<ObjectsListBloc<BackendPatientsListApi>,
+        ObjectsListState>(
+      builder: (BuildContext context, ObjectsListState state) {
+        return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            title: Text(AppLocalizations.of(context)!.configuration),
+            backgroundColor: theme.darkGreen3,
+          ),
+          body: Form(
+            key: formKeyConfiguration,
+            child: PageView(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: _controller,
+              onPageChanged: (int num) {
+                setState(() {
+                  _currentPage = num;
+                });
               },
-              buttonColor1: theme.grey3,
-              buttonColor2: theme.grey1,
+              children: _list,
             ),
           ),
-          Expanded(
-            child: PicosInkWellButton(
-              text: AppLocalizations.of(context)!.proceed,
-              onTap: () async {
-                if (!mounted) {
-                  return;
-                }
-                if (_currentPage == _list.length - 1 &&
-                    formKeyConfiguration.currentState!.validate()) {
-                  formKeyConfiguration.currentState!.save();
-                  await _savePatient();
-                  await _savePatientProfile();
-                  await _savePatientData();
-                  if (!mounted) return;
-                  Navigator.of(context).pushReplacementNamed(
-                    '/study-nurse-screen/configuration-finish-screen',
-                  );
-                  return;
-                }
-                if ((_currentPage == 0 &&
-                        formKeyConfiguration.currentState!.validate()) ||
-                    _currentPage > 0 && _currentPage != _list.length - 1) {
-                  _controller.jumpToPage(_currentPage + 1);
-                }
-              },
-            ),
+          bottomNavigationBar: Row(
+            children: <Widget>[
+              Expanded(
+                child: PicosInkWellButton(
+                  text: AppLocalizations.of(context)!.back,
+                  onTap: () {
+                    if (_currentPage == 0) {
+                      Navigator.of(context).pop();
+                    } else {
+                      _controller.jumpToPage(_currentPage - 1);
+                    }
+                  },
+                  buttonColor1: theme.grey3,
+                  buttonColor2: theme.grey1,
+                ),
+              ),
+              Expanded(
+                child: PicosInkWellButton(
+                  text: AppLocalizations.of(context)!.proceed,
+                  onTap: () async {
+                    if (!mounted) {
+                      return;
+                    }
+                    if (_currentPage == _list.length - 1 &&
+                        formKeyConfiguration.currentState!.validate()) {
+                      formKeyConfiguration.currentState!.save();
+                      PatientsListElement patientsListElement =
+                          PatientsListElement(
+                        patient: await _savePatient(),
+                        patientData: await _savePatientData(),
+                        patientProfile: await _savePatientProfile(),
+                      );
+                      if (!mounted) return;
+                      context
+                          .read<ObjectsListBloc<BackendPatientsListApi>>()
+                          .add(SaveObject(patientsListElement));
+                      if (!mounted) return;
+                      Navigator.of(context).pushReplacementNamed(
+                        '/study-nurse-screen/configuration-finish-screen',
+                      );
+                      return;
+                    }
+                    if ((_currentPage == 0 &&
+                            formKeyConfiguration.currentState!.validate()) ||
+                        _currentPage > 0 && _currentPage != _list.length - 1) {
+                      _controller.jumpToPage(_currentPage + 1);
+                    }
+                  },
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
