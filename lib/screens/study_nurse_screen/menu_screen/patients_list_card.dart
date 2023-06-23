@@ -29,22 +29,22 @@ import '../../../state/objects_list_bloc.dart';
 class PatientsListCard extends StatelessWidget {
   /// Creates the card with the patient.
   const PatientsListCard(
-    this._patientsListElement, {
-    Key? key,
-  }) : super(key: key);
+      this._patientsListElement, {
+        Key? key,
+      }) : super(key: key);
 
   final PatientsListElement _patientsListElement;
 
   _createCardColumn(
-    String firstDenotation,
-    String firstValue,
-    String secondDenotation,
-    String secondValue,
-    String thirdDenotation,
-    String thirdValue,
-    String fourthDenotation,
-    String fourthValue,
-  ) {
+      String firstDenotation,
+      String firstValue,
+      String secondDenotation,
+      String secondValue,
+      String thirdDenotation,
+      String thirdValue,
+      String fourthDenotation,
+      String fourthValue,
+      ) {
     const double dividerThickness = 1.5;
 
     return Expanded(
@@ -87,7 +87,7 @@ class PatientsListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return PicosListCard(
       title:
-          '${_patientsListElement.patient.firstName} ${_patientsListElement.patient.familyName}',
+      '${_patientsListElement.patient.firstName} ${_patientsListElement.patient.familyName}',
       edit: () {
         Navigator.of(context).pushNamed(
           '/study-nurse-screen/menu-screen/add-patient',
