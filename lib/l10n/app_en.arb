@@ -1072,5 +1072,26 @@
     "checkValue": "Please check whether your entry is correct!",
     "@checkValue": {
         "description": "Please check whether your entry is correct!"
+    },
+    "inclusionCriteriaDistance": "Inclusion criteria DISTANCE",
+    "@inclusionCriteriaDistance": {
+        "description": "Inclusion criteria DISTANCE"
+    },
+
+    "mechanicalVentilation": "mechanical ventilation",
+    "@mechanicalVentilation": {
+        "description": "mechanical ventilation"
+    },
+    "icuStay": "ICU stay",
+    "@icuStay": {
+        "description": "ICU stay"
+    },
+    "age": "age",
+    "@age": {
+        "description": "age"
+    },
+    "years": "years",
+    "@years": {
+        "description": "years"
     }
 }

@@ -238,5 +238,10 @@
     "yesterday": "Gestern",
     "other": "Andere",
     "noData": "Keine Daten",
-    "checkValue": "Bitte prüfe ob der Eintrag korrekt ist!"
+    "checkValue": "Bitte prüfe ob der Eintrag korrekt ist!",
+    "inclusionCriteriaDistance": "Einschluss-Kriterien DISTANCE",
+    "mechanicalVentilation": "Maschinelle Beatmung",
+    "icuStay": "ICU-Aufenthalt",
+    "age": "Lebensalter",
+    "years": "Jahre"
 }
