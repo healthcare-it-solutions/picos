@@ -118,6 +118,24 @@ class BackendPatientsListApi extends BackendObjectsApi {
   }
 
   @override
+  Future<void> removeObject(AbstractDatabaseObject object) async {
+    try {
+      await Backend.removeObject((object as PatientsListElement).patient);
+      await Backend.removeObject(object.patientData);
+      await Backend.removeObject(object.patientProfile);
+
+      int objectIndex = getIndex(object);
+
+      objectList.removeAt(objectIndex);
+      objectList = <AbstractDatabaseObject>[...objectList];
+
+      dispatch();
+    } catch (e) {
+      return;
+    }
+  }
+
+  @override
   Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
     try {
       ParseObject patient = ParseObject(Patient.databaseTable);
