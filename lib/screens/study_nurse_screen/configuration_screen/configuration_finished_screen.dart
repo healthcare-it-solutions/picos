@@ -70,7 +70,7 @@ class ConfigurationFinishedScreen extends StatelessWidget {
               text: AppLocalizations.of(context)!.endConfiguration,
               onTap: () {
                 Navigator.of(context)
-                    .pushNamed('/study-nurse-screen/configuration-screen');
+                    .pushNamed('/study-nurse-screen/menu-screen/menu-main-screen');
               },
             ),
           ],
