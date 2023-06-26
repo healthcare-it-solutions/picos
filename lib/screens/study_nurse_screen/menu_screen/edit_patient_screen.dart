@@ -97,12 +97,12 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _title ??= AppLocalizations.of(context)!.editPatientInformation;
-
-    PatientsListElement? patientsListElement =
-        ModalRoute.of(context)!.settings.arguments as PatientsListElement;
+    _title = AppLocalizations.of(context)!.editPatientInformation;
 
     if (_patientsListElement == null) {
+      PatientsListElement? patientsListElement =
+        ModalRoute.of(context)!.settings.arguments as PatientsListElement;
+      
       _patientsListElement = patientsListElement;
 
       _weightBMI = _patientsListElement!.patientProfile.weightBMIEnabled;
