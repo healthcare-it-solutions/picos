@@ -15,7 +15,7 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -94,8 +94,10 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
         DocumentButton(
           title: _downloadDocument,
           onPressed: () async {
-            File file = await _document!.document.download();
-            await OpenFile.open(file.path);
+            PlatformFile file = await _document!.document.download();
+            if (!kIsWeb) {
+              await OpenFile.open(file.path);
+            }
             return false;
           },
         ),
@@ -119,7 +121,7 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
           FilePickerResult? result = await FilePicker.platform.pickFiles();
 
           if (result != null) {
-            _uploadedDocument = BackendFile(File(result.files.single.path!));
+            _uploadedDocument = BackendFile(result.files.single);
             _checkValues();
 
             return true;
