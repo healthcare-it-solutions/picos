@@ -243,5 +243,11 @@
     "mechanicalVentilation": "Maschinelle Beatmung",
     "icuStay": "ICU-Aufenthalt",
     "age": "Lebensalter",
-    "years": "Jahre"
+    "years": "Jahre",
+    "icuDiagnosis": "ICU Diagnose",
+    "mainDiagnosis": "ICU-Hauptdiagnose",
+    "progressDiagnosis": "ICU-Verlaufsdiagnose",
+    "coMorbidity": "CO-Morbiditäten",
+    "icuaw": "ICUAW",
+    "pics": "PICS"
 }

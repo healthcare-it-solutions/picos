@@ -1093,5 +1093,29 @@
     "years": "years",
     "@years": {
         "description": "years"
+    },
+    "icuDiagnosis": "ICU Diagnosis",
+    "@icuDiagnosis": {
+        "description": "ICU Diagnosis"
+    },
+    "mainDiagnosis": "ICU main diagnosis",
+    "@mainDiagnosis": {
+        "description": "ICU main diagnosis"
+    },
+    "progressDiagnosis": "ICU progress diagnosis",
+    "@progressDiagnosis": {
+        "description": "ICU progress diagnosis"
+    },
+    "coMorbidity": "Co-morbidity",
+    "@coMorbidity": {
+        "description": "Co-morbidity"
+    },
+    "icuaw": "ICUAW",
+    "@icuaw": {
+        "description": "ICUAW"
+    },
+    "pics": "PICS",
+    "@pics": {
+        "description": "PICS"
     }
 }
