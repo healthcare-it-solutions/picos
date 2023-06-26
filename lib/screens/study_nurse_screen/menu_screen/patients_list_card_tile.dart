@@ -32,7 +32,7 @@ class PatientsListCardTile extends StatelessWidget {
     return Row(
       children: <Widget>[
         SizedBox(
-          width: 80,
+          width: 90,
           child: Text(
             _denotation,
             style: const TextStyle(
@@ -41,12 +41,11 @@ class PatientsListCardTile extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: Center(
-            child: Text(
-              _value,
-              softWrap: true,
-              overflow: TextOverflow.visible,
-            ),
+          child: Text(
+            _value,
+            softWrap: true,
+            overflow: TextOverflow.visible,
+            textAlign: TextAlign.right,
           ),
         ),
       ],

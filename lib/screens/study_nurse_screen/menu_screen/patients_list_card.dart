@@ -29,65 +29,20 @@ import '../../../state/objects_list_bloc.dart';
 class PatientsListCard extends StatelessWidget {
   /// Creates the card with the patient.
   const PatientsListCard(
-      this._patientsListElement, {
-        Key? key,
-      }) : super(key: key);
+    this._patientsListElement, {
+    Key? key,
+  }) : super(key: key);
 
   final PatientsListElement _patientsListElement;
 
-  _createCardColumn(
-      String firstDenotation,
-      String firstValue,
-      String secondDenotation,
-      String secondValue,
-      String thirdDenotation,
-      String thirdValue,
-      String fourthDenotation,
-      String fourthValue,
-      ) {
-    const double dividerThickness = 1.5;
-
-    return Expanded(
-      child: Column(
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.only(right: 15),
-            child: PatientsListCardTile(firstDenotation, firstValue),
-          ),
-          const Divider(
-            thickness: dividerThickness,
-          ),
-          Container(
-            padding: const EdgeInsets.only(right: 15),
-            child: PatientsListCardTile(secondDenotation, secondValue),
-          ),
-          const Divider(
-            thickness: dividerThickness,
-          ),
-          Container(
-            padding: const EdgeInsets.only(right: 15),
-            child: PatientsListCardTile(thirdDenotation, thirdValue),
-          ),
-          const Divider(
-            thickness: dividerThickness,
-          ),
-          Container(
-            padding: const EdgeInsets.only(right: 15),
-            child: PatientsListCardTile(fourthDenotation, fourthValue),
-          ),
-          const Divider(
-            thickness: dividerThickness,
-          ),
-        ],
-      ),
-    );
-  }
+  /// Contains the value of the thickness of the Divider-widget.
+  final double dividerThickness = 1.5;
 
   @override
   Widget build(BuildContext context) {
     return PicosListCard(
       title:
-      '${_patientsListElement.patient.firstName} ${_patientsListElement.patient.familyName}',
+          '${_patientsListElement.patient.firstName} ${_patientsListElement.patient.familyName}',
       edit: () {
         Navigator.of(context).pushNamed(
           '/study-nurse-screen/menu-screen/add-patient',
@@ -101,16 +56,40 @@ class PatientsListCard extends StatelessWidget {
       },
       child: Row(
         children: <Expanded>[
-          _createCardColumn(
-            AppLocalizations.of(context)!.email,
-            _patientsListElement.patient.email,
-            AppLocalizations.of(context)!.address,
-            _patientsListElement.patient.address,
-            AppLocalizations.of(context)!.patientID,
-            _patientsListElement.patientData.patientID,
-            AppLocalizations.of(context)!.caseNumber,
-            _patientsListElement.patientData.caseNumber,
-          ),
+          Expanded(
+            child: Column(
+              children: <Widget>[
+                PatientsListCardTile(
+                  AppLocalizations.of(context)!.email,
+                  _patientsListElement.patient.email,
+                ),
+                Divider(
+                  thickness: dividerThickness,
+                ),
+                PatientsListCardTile(
+                  AppLocalizations.of(context)!.address,
+                  _patientsListElement.patient.address,
+                ),
+                Divider(
+                  thickness: dividerThickness,
+                ),
+                PatientsListCardTile(
+                  AppLocalizations.of(context)!.patientID,
+                  _patientsListElement.patientData.patientID,
+                ),
+                Divider(
+                  thickness: dividerThickness,
+                ),
+                PatientsListCardTile(
+                  AppLocalizations.of(context)!.caseNumber,
+                  _patientsListElement.patientData.caseNumber,
+                ),
+                Divider(
+                  thickness: dividerThickness,
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
