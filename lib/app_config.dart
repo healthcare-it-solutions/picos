@@ -34,7 +34,8 @@ class AppConfig extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         systemNavigationBarColor:
-            Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+        Theme.of(context).bottomNavigationBarTheme.backgroundColor ??
+            Theme.of(context).canvasColor,
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
@@ -52,12 +53,12 @@ class AppConfig extends StatelessWidget {
         supportedLocales: AppLocalizations.supportedLocales,
         theme: ThemeData(
           colorScheme: Theme.of(context).colorScheme.copyWith(
-                secondary: theme.grey3,
-              ),
+            secondary: theme.grey3,
+          ),
           textSelectionTheme: Theme.of(context).textSelectionTheme.copyWith(
-                selectionColor: theme.grey2,
-                selectionHandleColor: theme.grey1,
-              ),
+            selectionColor: theme.grey2,
+            selectionHandleColor: theme.grey1,
+          ),
           appBarTheme: AppBarTheme(
             backgroundColor: theme.darkGreen1,
           ),
