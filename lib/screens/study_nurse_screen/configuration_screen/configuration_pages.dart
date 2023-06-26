@@ -285,34 +285,31 @@ class _ConfigurationPages extends State<ConfigurationPages> {
                 child: PicosInkWellButton(
                   text: AppLocalizations.of(context)!.proceed,
                   onTap: () async {
-                    if (!mounted) {
-                      return;
-                    }
-                    if (_currentPage == _list.length - 1 &&
-                        formKeyConfiguration.currentState!.validate()) {
-                      formKeyConfiguration.currentState!.save();
-                      PatientsListElement patientsListElement =
-                          PatientsListElement(
-                        patient: await _savePatient(),
-                        patientData: await _savePatientData(),
-                        patientProfile: await _savePatientProfile(),
-                      );
-                      if (!mounted) return;
-                      context
-                          .read<ObjectsListBloc<BackendPatientsListApi>>()
-                          .add(SaveObject(patientsListElement));
-                      if (!mounted) return;
-                      Navigator.of(context).pushReplacementNamed(
-                        '/study-nurse-screen/configuration-finish-screen',
-                      );
-                      return;
-                    }
-                    if ((_currentPage == 0 &&
-                            formKeyConfiguration.currentState!.validate()) ||
-                        _currentPage > 0 && _currentPage != _list.length - 1) {
-                      _controller.jumpToPage(_currentPage + 1);
-                    }
-                  },
+                  if (_currentPage == _list.length - 1 &&
+                      formKeyConfiguration.currentState!.validate()) {
+
+                    formKeyConfiguration.currentState!.save();
+                    PatientsListElement patientsListElement =
+                        PatientsListElement(
+                      patient: await _savePatient(),
+                      patientData: await _savePatientData(),
+                      patientProfile: await _savePatientProfile(),
+                    );
+                    if (!mounted) return;
+                    context
+                        .read<ObjectsListBloc<BackendPatientsListApi>>()
+                        .add(SaveObject(patientsListElement));
+                    Navigator.of(context).pushReplacementNamed(
+                      '/study-nurse-screen/configuration-finish-screen',
+                    );
+                    return;
+                  }
+                  if ((_currentPage == 0 &&
+                          formKeyConfiguration.currentState!.validate()) ||
+                      _currentPage > 0 && _currentPage != _list.length - 1) {
+                    _controller.jumpToPage(_currentPage + 1);
+                  }
+                },
                 ),
               ),
             ],
