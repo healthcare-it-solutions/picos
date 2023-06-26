@@ -102,7 +102,7 @@ class Patient extends AbstractDatabaseObject {
   /// Method that returns a random password.
   static String _createPassword() {
     // A non-negative number for determining the length of the password.
-    const int length = 12;
+    const int length = 8;
 
     Random randomString = Random.secure();
 
