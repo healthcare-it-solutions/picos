@@ -59,14 +59,14 @@ class InclusionCriteria extends StatelessWidget {
       padding: EdgeInsets.zero,
       children: <PicosSwitch>[
         PicosSwitch(
-          callbackFunction: (bool value) {
+          onChanged: (bool value) {
             mechanicalVentilation24hCallback(value);
           },
           initialValue: initialMechanicalVentilation24h,
           title: '${AppLocalizations.of(context)!.mechanicalVentilation} >24h',
         ),
         PicosSwitch(
-          callbackFunction: (bool value) {
+          onChanged: (bool value) {
             icuStay72hCallback(value);
           },
           initialValue: initialIcuStay72h,
@@ -74,7 +74,7 @@ class InclusionCriteria extends StatelessWidget {
               '${AppLocalizations.of(context)!.icuStay} >72h',
         ),
         PicosSwitch(
-          callbackFunction: (bool value) {
+          onChanged: (bool value) {
             age18YearsCallback(value);
           },
           initialValue: initialAge18Years,

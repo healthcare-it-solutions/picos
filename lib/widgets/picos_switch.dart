@@ -21,7 +21,7 @@ import 'package:flutter/material.dart';
 class PicosSwitch extends StatefulWidget {
   /// Creates a PicosSwitch.
   const PicosSwitch({
-    required this.callbackFunction,
+    required this.onChanged,
     Key? key,
     this.initialValue,
     this.title,
@@ -32,7 +32,7 @@ class PicosSwitch extends StatefulWidget {
   final bool? initialValue;
 
   /// The function to be called on changing values.
-  final void Function(bool value) callbackFunction;
+  final void Function(bool value) onChanged;
 
   /// Switch title.
   final String? title;
@@ -65,7 +65,7 @@ class _PicosSwitchState extends State<PicosSwitch> {
           _value = value;
         });
 
-        widget.callbackFunction(value);
+        widget.onChanged(value);
       },
       title: Padding(
         padding: const EdgeInsets.only(left: 5.0),
