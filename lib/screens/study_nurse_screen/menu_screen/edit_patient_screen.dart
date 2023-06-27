@@ -22,6 +22,7 @@ import 'package:picos/api/backend_patients_list_api.dart';
 import 'package:picos/models/patient_data.dart';
 import 'package:picos/models/patient_profile.dart';
 import 'package:picos/models/patients_list_element.dart';
+import 'package:picos/screens/study_nurse_screen/models/institute_key.dart';
 import 'package:picos/state/objects_list_bloc.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
 import 'package:picos/widgets/picos_body.dart';
@@ -96,8 +97,12 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
 
   PatientsListElement? _patientsListElement;
 
-  Column _picosSwitchAndSizedBox(bool valueProfile, Function(bool value) function,
-      String title, ShapeBorder shape) {
+  Column _picosSwitchAndSizedBox(
+    bool valueProfile,
+    Function(bool value) function,
+    String title,
+    ShapeBorder shape,
+  ) {
     return Column(
       children: <Widget>[
         PicosSwitch(
@@ -374,19 +379,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 ),
                 PicosLabel(AppLocalizations.of(context)!.instituteKey),
                 PicosSelect(
-                  selection: const <String, String>{
-                    '100': '100',
-                    '101': '101',
-                    '102': '102',
-                    '103': '103',
-                    '104': '104',
-                    '105': '105',
-                    '201': '201',
-                    '300': '300',
-                    '400': '400',
-                    '501': '501',
-                    '502': '502'
-                  },
+                  selection: InstituteKey.instituteKey,
                   callBackFunction: (String? value) {
                     setState(() {
                       _addDisabled = false;
