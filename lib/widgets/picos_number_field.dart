@@ -37,7 +37,7 @@ class PicosNumberField extends StatelessWidget {
   final String hint;
 
   /// Callback function when the value changes.
-  final dynamic Function(String)? onChanged;
+  final dynamic Function(String value)? onChanged;
 
   /// If true prevents [double]. Only [int].
   final bool digitsOnly;
