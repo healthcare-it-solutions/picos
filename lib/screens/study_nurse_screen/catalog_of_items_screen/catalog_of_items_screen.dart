@@ -36,6 +36,11 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
   static String? _back;
   static String? _next;
 
+  // All values can be accessed here.
+  CatalogOfItemsPageStorage? pageStorage;
+
+  //TODO: Create next page callback for saving the values inside pages.
+
   @override
   Widget build(BuildContext context) {
     if (pages.isEmpty) {
@@ -44,7 +49,8 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
       _back = AppLocalizations.of(context)!.back;
       _next = AppLocalizations.of(context)!.next;
 
-      pages = CatalogOfItemsPageStorage(context).pages;
+      pageStorage = CatalogOfItemsPageStorage(context);
+      pages = pageStorage!.pages;
     }
 
     return PicosScreenFrame(
