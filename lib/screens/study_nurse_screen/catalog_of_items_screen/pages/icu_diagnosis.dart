@@ -41,13 +41,13 @@ class IcuDiagnosis extends StatelessWidget {
   }) : super(key: key);
 
   /// Main diagnosis callback.
-  final void Function(String value) mainDiagnosisCallback;
+  final void Function(String? value) mainDiagnosisCallback;
 
   /// Progress diagnosis callback.
-  final void Function(String value) progressDiagnosisCallback;
+  final void Function(String? value) progressDiagnosisCallback;
 
   /// ICUAW callback.
-  final void Function(String value) coMorbidityCallback;
+  final void Function(String? value) coMorbidityCallback;
 
   /// PICS callback.
   final void Function(bool value) icuawCallback;
