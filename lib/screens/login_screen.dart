@@ -40,6 +40,7 @@ class _LoginScreenState extends State<LoginScreen>
   BackendError? _backendError;
 
   bool _passwordVisible = false;
+  bool _sendDisabled = false;
 
   static const double _sponsorLogoPadding = 30;
 
@@ -48,6 +49,10 @@ class _LoginScreenState extends State<LoginScreen>
     String password,
     BuildContext con,
   ) async {
+    setState(() {
+      _sendDisabled = true;
+    });
+
     BackendError? login = await Backend.login(username, password);
 
     if (login == null) {
@@ -60,6 +65,7 @@ class _LoginScreenState extends State<LoginScreen>
 
     setState(() {
       _backendError = login;
+      _sendDisabled = false;
     });
   }
 
@@ -154,6 +160,7 @@ class _LoginScreenState extends State<LoginScreen>
               SizedBox(
                 width: 200,
                 child: PicosInkWellButton(
+                  disabled: _sendDisabled,
                   onTap: () => _submitHandler(
                     _loginController.text,
                     _passwordController.text,
