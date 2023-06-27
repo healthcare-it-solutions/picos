@@ -1117,5 +1117,33 @@
     "pics": "PICS",
     "@pics": {
         "description": "PICS"
+    },
+    "vitalDataIcuDischarge": "Vital data ICU discharge",
+    "@vitalDataIcuDischarge": {
+        "description": "PICS"
+    },
+    "systolicArterialPressure": "SAP",
+    "@systolicArterialPressure": {
+        "description": "SAP"
+    },
+    "meanArterialPressure": "MAP",
+    "@meanArterialPressure": {
+        "description": "MAP"
+    },
+    "diastolicArterialPressure": "DAP",
+    "@diastolicArterialPressure": {
+        "description": "DAP"
+    },
+    "centralVenousPressure": "Central venous pressure",
+    "@centralVenousPressure": {
+        "description": "Central venous pressure"
+    },
+    "last": "Last",
+    "@last": {
+        "description": "Last"
+    },
+    "preLast": "Pre-Last",
+    "@preLast": {
+        "description": "Pre-Last"
     }
 }

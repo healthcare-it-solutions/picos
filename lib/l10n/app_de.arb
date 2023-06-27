@@ -249,5 +249,12 @@
     "progressDiagnosis": "ICU-Verlaufsdiagnose",
     "coMorbidity": "CO-Morbiditäten",
     "icuaw": "ICUAW",
-    "pics": "PICS"
+    "pics": "PICS",
+    "vitalDataIcuDischarge": "Vitaldaten ICU-discharge",
+    "systolicArterialPressure": "SAP",
+    "meanArterialPressure": "MAP",
+    "diastolicArterialPressure": "DAP",
+    "centralVenousPressure": "ZVD",
+    "last": "Letztes",
+    "preLast": "Vorletztes"
 }
