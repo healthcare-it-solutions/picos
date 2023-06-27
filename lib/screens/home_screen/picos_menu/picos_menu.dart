@@ -43,6 +43,13 @@ class PicosMenu extends StatelessWidget {
           fontSize: labelSize,
         ),
       ),
+      //TODO: Remove Catalog of items from here to its place.
+      PicosMenuItem(
+        iconPath: 'assets/Medikation.svg',
+        title: 'Catalog of Items',
+        onTap: () => Navigator.of(context)
+            .pushNamed('/study-nurse-screen/catalog-of-items'),
+      ),
       PicosMenuItem(
         iconPath: 'assets/Medikation.svg',
         title: AppLocalizations.of(context)!.medicationScheme,
