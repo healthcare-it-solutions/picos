@@ -59,14 +59,22 @@ class _OverviewState extends State<Overview> {
   }
 
   void _setSystemNavigationBarColor(BuildContext context) {
+    final Color? statusBarColorValue;
+    final Brightness? statusBarIconBrightnessValue;
+    if (_isScrolled) {
+      statusBarColorValue =
+          Theme.of(context).extension<GlobalTheme>()!.darkGreen1;
+      statusBarIconBrightnessValue = Brightness.light;
+    } else {
+      statusBarColorValue =
+          Theme.of(context).bottomNavigationBarTheme.backgroundColor ??
+              Theme.of(context).canvasColor;
+      statusBarIconBrightnessValue = Brightness.dark;
+    }
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: _isScrolled
-            ? Theme.of(context).extension<GlobalTheme>()!.darkGreen1
-            : Theme.of(context).bottomNavigationBarTheme.backgroundColor ??
-                Theme.of(context).canvasColor,
-        statusBarIconBrightness:
-            _isScrolled ? Brightness.light : Brightness.dark,
+        statusBarColor: statusBarColorValue,
+        statusBarIconBrightness: statusBarIconBrightnessValue,
       ),
     );
   }
