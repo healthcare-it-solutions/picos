@@ -450,7 +450,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 PatientsListElement newPatientListElement;
 
                 newPatientListElement = _patientsListElement!.copyWith(
-                  patient: _patientsListElement!.patient,
                   patientData: newPatientData,
                   patientProfile: newPatientProfile,
                 );
