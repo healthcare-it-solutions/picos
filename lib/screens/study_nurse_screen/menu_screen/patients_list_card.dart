@@ -42,7 +42,8 @@ class PatientsListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return PicosListCard(
       title:
-          '${_patientsListElement.patient.firstName} ${_patientsListElement.patient.familyName}',
+          '${_patientsListElement.patient.firstName} ' 
+          '${_patientsListElement.patient.familyName}',
       edit: () {
         Navigator.of(context).pushNamed(
           '/study-nurse-screen/menu-screen/add-patient',
