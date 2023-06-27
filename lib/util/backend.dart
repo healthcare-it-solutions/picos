@@ -85,6 +85,14 @@ class Backend {
 
     ParseResponse response = await user.login();
 
+    if (response.error == null) {
+      return null;
+    }
+
+    if (response.error!.message.startsWith('Your account is locked')) {
+      return BackendError.bruteforceLock;
+    }
+
     if (response.statusCode == 101) {
       return BackendError.credentials;
     }
@@ -271,6 +279,12 @@ extension BackendRoleExtension on BackendRole {
 enum BackendError {
   /// Wrong credentials.
   credentials,
+
+  /// Account temporarily locke for brute force protection.
+  bruteforceLock,
+
+  /// An undefined [BackendError].
+  error,
 }
 
 /// Extends [BackendError].
@@ -280,6 +294,10 @@ extension BackendErrorExtension on BackendError {
     switch (this) {
       case BackendError.credentials:
         return AppLocalizations.of(context)!.wrongCredentials;
+      case BackendError.bruteforceLock:
+        return AppLocalizations.of(context)!.bruteforceLock;
+      default:
+        return AppLocalizations.of(context)!.connectionError;
     }
   }
 }
