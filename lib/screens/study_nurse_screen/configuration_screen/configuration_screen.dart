@@ -43,6 +43,7 @@ class ConfigurationScreen extends StatelessWidget {
           ),
         ),
         backgroundColor: Colors.white,
+        leading: BackButton(color: theme.darkGreen3),
       ),
       body: Container(
         color: Colors.white,

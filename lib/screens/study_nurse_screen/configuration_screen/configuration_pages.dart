@@ -250,7 +250,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
           backgroundColor: Colors.white,
           appBar: AppBar(
             title: Text(AppLocalizations.of(context)!.configuration),
-            backgroundColor: theme.darkGreen3,
+            backgroundColor: theme.darkGreen2,
           ),
           body: Form(
             key: formKeyConfiguration,
