@@ -28,6 +28,7 @@ import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:picos/widgets/picos_select.dart';
+import 'package:picos/widgets/picos_switch.dart';
 import 'package:picos/widgets/picos_text_field.dart';
 
 /// A screen for adding new patient.
@@ -97,13 +98,14 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _title = AppLocalizations.of(context)!.editPatientInformation;
-
     if (_patientsListElement == null) {
       PatientsListElement? patientsListElement =
-        ModalRoute.of(context)!.settings.arguments as PatientsListElement;
-      
+          ModalRoute.of(context)!.settings.arguments as PatientsListElement;
+
       _patientsListElement = patientsListElement;
+
+      _title = '${_patientsListElement!.patient.firstName} '
+          '${_patientsListElement!.patient.familyName}';
 
       _weightBMI = _patientsListElement!.patientProfile.weightBMIEnabled;
       _heartFrequency =
@@ -149,21 +151,15 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
             child: Column(
               children: <Widget>[
                 PicosLabel(AppLocalizations.of(context)!.vitalValues),
-                SwitchListTile(
-                  value: _weightBMI,
+                PicosSwitch(
+                  initialValue: _weightBMI,
                   onChanged: (bool value) {
                     setState(() {
                       _addDisabled = false;
                       _weightBMI = value;
                     });
                   },
-                  secondary: const Icon(Icons.monitor_weight_outlined),
-                  title: Text(
-                    AppLocalizations.of(context)!.weightBMI,
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
+                  title: AppLocalizations.of(context)!.weightBMI,
                   shape: const Border(
                     bottom: BorderSide(color: Colors.grey),
                   ),
@@ -171,21 +167,15 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 const SizedBox(
                   height: 25,
                 ),
-                SwitchListTile(
-                  value: _heartFrequency,
+                PicosSwitch(
+                  initialValue: _heartFrequency,
                   onChanged: (bool value) {
                     setState(() {
                       _addDisabled = false;
                       _heartFrequency = value;
                     });
                   },
-                  secondary: const Icon(Icons.monitor_heart_outlined),
-                  title: Text(
-                    AppLocalizations.of(context)!.heartFrequency,
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
+                  title: AppLocalizations.of(context)!.heartFrequency,
                   shape: const Border(
                     bottom: BorderSide(color: Colors.grey),
                   ),
@@ -193,21 +183,15 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 const SizedBox(
                   height: 25,
                 ),
-                SwitchListTile(
-                  value: _bloodPressure,
+                PicosSwitch(
+                  initialValue: _bloodPressure,
                   onChanged: (bool value) {
                     setState(() {
                       _addDisabled = false;
                       _bloodPressure = value;
                     });
                   },
-                  secondary: const Icon(Icons.bloodtype_outlined),
-                  title: Text(
-                    AppLocalizations.of(context)!.bloodPressure,
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
+                  title: AppLocalizations.of(context)!.bloodPressure,
                   shape: const Border(
                     bottom: BorderSide(color: Colors.grey),
                   ),
@@ -215,21 +199,15 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 const SizedBox(
                   height: 25,
                 ),
-                SwitchListTile(
-                  value: _bloodSugarLevels,
+                PicosSwitch(
+                  initialValue: _bloodSugarLevels,
                   onChanged: (bool value) {
                     setState(() {
                       _addDisabled = false;
                       _bloodSugarLevels = value;
                     });
                   },
-                  secondary: const Icon(Icons.device_thermostat_outlined),
-                  title: Text(
-                    AppLocalizations.of(context)!.bloodSugar,
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
+                  title: AppLocalizations.of(context)!.bloodSugar,
                   shape: const Border(
                     bottom: BorderSide(color: Colors.grey),
                   ),
@@ -241,21 +219,15 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                SwitchListTile(
-                  value: _walkDistance,
+                PicosSwitch(
+                  initialValue: _walkDistance,
                   onChanged: (bool value) {
                     setState(() {
                       _addDisabled = false;
                       _walkDistance = value;
                     });
                   },
-                  secondary: const Icon(Icons.directions_walk_outlined),
-                  title: Text(
-                    AppLocalizations.of(context)!.walkDistance,
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
+                  title: AppLocalizations.of(context)!.walkDistance,
                   shape: const Border(
                     bottom: BorderSide(color: Colors.grey),
                   ),
@@ -263,21 +235,15 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 const SizedBox(
                   height: 25,
                 ),
-                SwitchListTile(
-                  value: _sleepDuration,
+                PicosSwitch(
+                  initialValue: _sleepDuration,
                   onChanged: (bool value) {
                     setState(() {
                       _addDisabled = false;
                       _sleepDuration = value;
                     });
                   },
-                  secondary: const Icon(Icons.access_alarm_outlined),
-                  title: Text(
-                    AppLocalizations.of(context)!.sleepDuration,
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
+                  title: AppLocalizations.of(context)!.sleepDuration,
                   shape: const Border(
                     bottom: BorderSide(color: Colors.grey),
                   ),
@@ -285,21 +251,15 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 const SizedBox(
                   height: 25,
                 ),
-                SwitchListTile(
-                  value: _sleepQuality,
+                PicosSwitch(
+                  initialValue: _sleepQuality,
                   onChanged: (bool value) {
                     setState(() {
                       _addDisabled = false;
                       _sleepQuality = value;
                     });
                   },
-                  secondary: const Icon(Icons.bed_outlined),
-                  title: Text(
-                    AppLocalizations.of(context)!.sleepQuality,
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
+                  title: AppLocalizations.of(context)!.sleepQuality,
                   shape: const Border(
                     bottom: BorderSide(color: Colors.grey),
                   ),
@@ -311,21 +271,15 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                SwitchListTile(
-                  value: _pain,
+                PicosSwitch(
+                  initialValue: _pain,
                   onChanged: (bool value) {
                     setState(() {
                       _addDisabled = false;
                       _pain = value;
                     });
                   },
-                  secondary: const Icon(Icons.mood_bad_outlined),
-                  title: Text(
-                    AppLocalizations.of(context)!.pain,
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
+                  title: AppLocalizations.of(context)!.pain,
                   shape: const Border(
                     bottom: BorderSide(color: Colors.grey),
                   ),
@@ -333,21 +287,15 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 const SizedBox(
                   height: 25,
                 ),
-                SwitchListTile(
-                  value: _phq4,
+                PicosSwitch(
+                  initialValue: _phq4,
                   onChanged: (bool value) {
                     setState(() {
                       _addDisabled = false;
                       _phq4 = value;
                     });
                   },
-                  secondary: const Icon(Icons.psychology_outlined),
-                  title: const Text(
-                    'PHQ-4',
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
+                  title: 'PHQ-4',
                   shape: const Border(
                     bottom: BorderSide(color: Colors.grey),
                   ),
@@ -361,21 +309,15 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                SwitchListTile(
-                  value: _medication,
+                PicosSwitch(
+                  initialValue: _medication,
                   onChanged: (bool value) {
                     setState(() {
                       _addDisabled = false;
                       _medication = value;
                     });
                   },
-                  secondary: const Icon(Icons.medication),
-                  title: Text(
-                    AppLocalizations.of(context)!.medication,
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
+                  title: AppLocalizations.of(context)!.medication,
                   shape: const Border(
                     bottom: BorderSide(color: Colors.grey),
                   ),
@@ -383,21 +325,15 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 const SizedBox(
                   height: 25,
                 ),
-                SwitchListTile(
-                  value: _therapy,
+                PicosSwitch(
+                  initialValue: _therapy,
                   onChanged: (bool value) {
                     setState(() {
                       _addDisabled = false;
                       _therapy = value;
                     });
                   },
-                  secondary: const Icon(Icons.healing_outlined),
-                  title: Text(
-                    AppLocalizations.of(context)!.therapy,
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
+                  title: AppLocalizations.of(context)!.therapy,
                   shape: const Border(
                     bottom: BorderSide(color: Colors.grey),
                   ),
@@ -405,21 +341,15 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 const SizedBox(
                   height: 25,
                 ),
-                SwitchListTile(
-                  value: _doctorsVisit,
+                PicosSwitch(
+                  initialValue: _doctorsVisit,
                   onChanged: (bool value) {
                     setState(() {
                       _addDisabled = false;
                       _doctorsVisit = value;
                     });
                   },
-                  secondary: const Icon(Icons.local_hospital_outlined),
-                  title: Text(
-                    AppLocalizations.of(context)!.doctorsVisit,
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
+                  title: AppLocalizations.of(context)!.doctorsVisit,
                   shape: const Border(
                     bottom: BorderSide(color: Colors.grey),
                   ),
