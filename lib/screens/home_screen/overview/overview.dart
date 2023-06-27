@@ -44,10 +44,10 @@ class _OverviewState extends State<Overview> {
   void _handleScroll() {
     final double appBarHeight = AppBar().preferredSize.height;
     final double statusBarHeight = MediaQuery.of(context).padding.top;
-
+    bool isScrolled =
+        _scrollController.offset >= (appBarHeight + statusBarHeight);
     setState(() {
-      _isScrolled =
-          _scrollController.offset >= (appBarHeight + statusBarHeight);
+      _isScrolled = isScrolled;
     });
   }
 
