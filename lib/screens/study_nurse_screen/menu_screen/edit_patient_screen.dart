@@ -96,12 +96,8 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
 
   PatientsListElement? _patientsListElement;
 
-  Column _picosSwitchAndSizedBox(
-    bool valueProfile,
-    Function(bool value) function,
-    String title,
-    ShapeBorder shape,
-  ) {
+  Column _picosSwitchAndSizedBox(bool valueProfile, Function(bool value) function,
+      String title, ShapeBorder shape) {
     return Column(
       children: <Widget>[
         PicosSwitch(
