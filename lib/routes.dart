@@ -28,6 +28,7 @@ import 'package:picos/screens/family_member_list_screen/add_family_member_screen
 import 'package:picos/screens/family_member_list_screen/family_members_screen.dart';
 import 'package:picos/screens/privacy_notice_screen.dart';
 import 'package:picos/screens/questionaire_screen/questionaire_screen.dart';
+import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/catalog_of_items_screen.dart';
 import 'package:picos/screens/visits_screen/visits_screen.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_finished_screen.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_pages.dart';
@@ -82,6 +83,8 @@ class Routes {
       const MyDocumentsScreen(),
       '/my-documents-screen/add-documents': (BuildContext ctx) =>
       const AddDocumentScreen(),
+      '/study-nurse-screen/catalog-of-items': (BuildContext ctx) =>
+      const CatalogOfItemsScreen(),
     };
   }
 
