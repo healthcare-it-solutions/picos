@@ -74,12 +74,13 @@ class _LoginScreenState extends State<LoginScreen>
   @override
   void initState() {
     super.initState();
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: Theme.of(context).canvasColor,
         statusBarIconBrightness: Brightness.dark,
-      ),
-    );
+      ));
+    });
+
     _loginController = TextEditingController(text: '');
     _passwordController = TextEditingController(text: '');
     _passwordVisible = false;
@@ -116,8 +117,7 @@ class _LoginScreenState extends State<LoginScreen>
                     children: <TextSpan>[
                       TextSpan(
                         text:
-                            '${AppLocalizations.of(context)!
-                                .welcomeToPICOS},\n',
+                            '${AppLocalizations.of(context)!.welcomeToPICOS},\n',
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
