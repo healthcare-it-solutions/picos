@@ -241,6 +241,6 @@
     "checkValue": "Bitte prüfe ob der Eintrag korrekt ist!",
     "myPatients": "Meine Patienten",
     "editPatientInformation": "Bearbeite Informationen",
-    "bruteforceLock": "Der Account ist zur Sicherheit gesperrt. Bitte veruchen Sie es in 5 Minuten erneut.",
+    "bruteforceLock": "Der Account ist zur Sicherheit gesperrt. Bitte versuchen Sie es in 5 Minuten erneut.",
     "connectionError": "Verbindungsfehler"
 }
