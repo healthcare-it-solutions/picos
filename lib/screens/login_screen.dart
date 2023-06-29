@@ -116,7 +116,8 @@ class _LoginScreenState extends State<LoginScreen>
                     children: <TextSpan>[
                       TextSpan(
                         text:
-                            '${AppLocalizations.of(context)!.welcomeToPICOS},\n',
+                            '${AppLocalizations.of(context)!
+                                .welcomeToPICOS},\n',
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
