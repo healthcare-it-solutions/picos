@@ -74,6 +74,12 @@ class _LoginScreenState extends State<LoginScreen>
   @override
   void initState() {
     super.initState();
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Theme.of(context).canvasColor,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
     _loginController = TextEditingController(text: '');
     _passwordController = TextEditingController(text: '');
     _passwordVisible = false;
@@ -86,18 +92,8 @@ class _LoginScreenState extends State<LoginScreen>
     super.dispose();
   }
 
-  void _setSystemNavigationBarColor(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Theme.of(context).canvasColor,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    _setSystemNavigationBarColor(context);
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
