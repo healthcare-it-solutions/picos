@@ -23,11 +23,6 @@ import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_text_field.dart';
 
-// We don't reference provider directly but
-// to invoke context.read<T>()
-// ignore: depend_on_referenced_packages, unused_import
-// import 'package:provider/provider.dart';
-
 ///Displays the login screen.
 class LoginScreen extends StatefulWidget {
   ///LoginScreen constructor.
@@ -37,43 +32,47 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-// TODO: make the text widgets go red on login failure
-// TODO: display an animated toast
-
 class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
   late final TextEditingController _loginController;
   late final TextEditingController _passwordController;
 
-  bool _loginfailure = false;
+  BackendError? _backendError;
 
   bool _passwordVisible = false;
+  bool _sendDisabled = false;
 
   static const double _sponsorLogoPadding = 30;
 
   Future<void> _submitHandler(
-    String login,
+    String username,
     String password,
     BuildContext con,
   ) async {
-    Backend();
-    bool res = await Backend.login(login, password);
-    String route = await Backend.getRole();
+    setState(() {
+      _sendDisabled = true;
+    });
 
-    // This belongs here, because of context usage in async
-    if (!mounted) return;
-    if (res) {
+    BackendError? login = await Backend.login(username, password);
+
+    if (login == null) {
+      String route = await Backend.getRole();
+      // This belongs here, because of context usage in async
+      if (!mounted) return;
       Navigator.of(con).pushReplacementNamed(route);
-    } else {
-      setState(() {
-        _loginfailure = true;
-      });
+      return;
     }
+
+    setState(() {
+      _backendError = login;
+      _sendDisabled = false;
+    });
   }
 
   @override
   void initState() {
     super.initState();
+    Backend();
     _loginController = TextEditingController(text: '');
     _passwordController = TextEditingController(text: '');
     _passwordVisible = false;
@@ -120,6 +119,15 @@ class _LoginScreenState extends State<LoginScreen>
               const SizedBox(
                 height: 15,
               ),
+              _backendError != null
+                  ? Text(
+                      _backendError!.getMessage(context),
+                      style: const TextStyle(color: Color(0xFFe63329)),
+                    )
+                  : const Text(''),
+              const SizedBox(
+                height: 15,
+              ),
               SizedBox(
                 width: 200,
                 child: PicosTextField(
@@ -152,6 +160,7 @@ class _LoginScreenState extends State<LoginScreen>
               SizedBox(
                 width: 200,
                 child: PicosInkWellButton(
+                  disabled: _sendDisabled,
                   onTap: () => _submitHandler(
                     _loginController.text,
                     _passwordController.text,
@@ -160,9 +169,6 @@ class _LoginScreenState extends State<LoginScreen>
                   text: AppLocalizations.of(context)!.submit,
                 ),
               ),
-              _loginfailure
-                  ? Text(AppLocalizations.of(context)!.wrongCredentials)
-                  : const Text(''),
               const Padding(
                 padding: EdgeInsets.all(_sponsorLogoPadding),
                 child: Row(

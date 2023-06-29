@@ -238,5 +238,7 @@
     "yesterday": "Gestern",
     "other": "Andere",
     "noData": "Keine Daten",
-    "checkValue": "Bitte prüfe ob der Eintrag korrekt ist!"
+    "checkValue": "Bitte prüfe ob der Eintrag korrekt ist!",
+    "bruteforceLock": "Der Account ist zur Sicherheit gesperrt. Bitte veruchen Sie es in 5 Minuten erneut.",
+    "connectionError": "Verbindungsfehler"
 }
