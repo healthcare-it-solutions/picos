@@ -1080,5 +1080,13 @@
     "editPatientInformation": "Edit Patient Information",
     "@editPatientInformation": {
         "description": "Edit Patient Information"
+    },
+    "bruteforceLock": "Your account is locked for safety reasons. Please try again in 5 minutes.",
+    "@bruteforceLock": {
+        "description": "Your account is locked for safety reasons. Please try again in 5 minutes."
+    },
+    "connectionError": "Connection error",
+    "@connectionError": {
+        "description": "Connection error"
     }
 }
