@@ -34,16 +34,23 @@ class Overview extends StatefulWidget {
 class _OverviewState extends State<Overview> {
   final ScrollController _scrollController = ScrollController();
   bool _isScrolled = false;
+  double appBarHeight = 0;
+  double statusBarHeight = 0;
 
   @override
   void initState() {
     super.initState();
+
+    /// Execute the callback once after the current frame is drawn on the screen
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      appBarHeight = AppBar().preferredSize.height;
+      statusBarHeight = MediaQuery.of(context).padding.top;
+    });
+
     _scrollController.addListener(_handleScroll);
   }
 
   void _handleScroll() {
-    final double appBarHeight = AppBar().preferredSize.height;
-    final double statusBarHeight = MediaQuery.of(context).padding.top;
     bool isScrolled =
         _scrollController.offset >= (appBarHeight + statusBarHeight);
     setState(() {
