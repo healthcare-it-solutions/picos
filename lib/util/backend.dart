@@ -112,7 +112,7 @@ class Backend {
     // these are thr routes we are going to forward the user to
     Map<String, String> routes = <String, String>{
       'Patient': '/home-screen/home-screen',
-      'Doctor': '/study-nurse-screen/studynursescreen'
+      'Doctor': '/study-nurse-screen/menu-screen/menu-main-screen'
     };
 
     // TODO: maybe refactor for type safety
@@ -162,17 +162,16 @@ class Backend {
   }) async {
     ParseObject parseObject = ParseObject(object.table);
 
-    if (acl == null) {
+    if (object.objectId == null) {
       acl = BackendACL();
       acl.setDefault();
+      parseObject.setACL(acl.acl);
     }
 
     if (object.objectId != null) {
       parseObject.objectId = object.objectId;
     }
-
-    parseObject.setACL(acl.acl);
-
+    
     object.databaseMapping.forEach((String key, dynamic value) {
       parseObject.set(key, value);
     });
