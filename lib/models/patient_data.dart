@@ -25,6 +25,8 @@ class PatientData extends AbstractDatabaseObject {
     required this.patientID,
     required this.caseNumber,
     required this.instKey,
+    required this.patientObjectId,
+    required this.doctorObjectId,
     this.bodyWeight,
     this.ezpICU,
     this.age,
@@ -38,15 +40,13 @@ class PatientData extends AbstractDatabaseObject {
     this.ezpKH,
     this.icd10Codes,
     this.station,
-    this.lgbt70,
+    this.lbgt70,
     this.icuMortality,
     this.khMortality,
     this.icuLengthStay,
     this.khLengthStay,
     this.wdaKH,
     this.weznDisease,
-    this.patientObjectId,
-    this.doctorObjectId,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -86,7 +86,7 @@ class PatientData extends AbstractDatabaseObject {
   final double? khMortality;
 
   /// denotes the LBgt70 value.
-  final bool? lgbt70;
+  final bool? lbgt70;
 
   /// denotes the list of ICD 10 codes.
   final List<String>? icd10Codes;
@@ -125,10 +125,10 @@ class PatientData extends AbstractDatabaseObject {
   final String instKey;
 
   /// denotes the doctor's object ID.
-  final String? doctorObjectId;
+  final String doctorObjectId;
 
   /// denotes the patient's object ID.
-  final String? patientObjectId;
+  final String patientObjectId;
 
   /// The database table the objects are stored in.
   static const String databaseTable = 'patientData';
@@ -157,7 +157,7 @@ class PatientData extends AbstractDatabaseObject {
     DateTime? ezpKH,
     List<String>? icd10Codes,
     String? station,
-    bool? lgbt70,
+    bool? lbgt70,
     double? icuMortality,
     double? khMortality,
     int? icuLengthStay,
@@ -188,7 +188,7 @@ class PatientData extends AbstractDatabaseObject {
       ezpKH: ezpKH ?? this.ezpKH,
       icd10Codes: icd10Codes ?? this.icd10Codes,
       station: station ?? this.station,
-      lgbt70: lgbt70 ?? this.lgbt70,
+      lbgt70: lbgt70 ?? this.lbgt70,
       icuMortality: icuMortality ?? this.icuMortality,
       khMortality: khMortality ?? this.khMortality,
       icuLengthStay: icuLengthStay ?? this.icuLengthStay,
@@ -230,7 +230,7 @@ class PatientData extends AbstractDatabaseObject {
         'EZP_KH': ezpKH,
         'ICD_10_Codes': icd10Codes,
         'Station': station,
-        'LBgt70': lgbt70,
+        'LBgt70': lbgt70,
         'ICU_Mortality': icuMortality,
         'KH_Mortality': khMortality,
         'ICU_LengthStay': icuLengthStay,
@@ -239,12 +239,12 @@ class PatientData extends AbstractDatabaseObject {
         'WEZnDisease': weznDisease,
         'inst_key': instKey,
         'Patient': <String, String>{
-          'objectId': patientObjectId!,
+          'objectId': patientObjectId,
           '__type': 'Pointer',
           'className': '_User'
         },
         'Doctor': <String, String>{
-          'objectId': doctorObjectId!,
+          'objectId': doctorObjectId,
           '__type': 'Pointer',
           'className': '_User'
         },

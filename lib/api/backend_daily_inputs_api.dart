@@ -110,6 +110,7 @@ class BackendDailyInputsApi extends BackendObjectsApi {
             bloodDiastolic: value['daily']['BloodPDiastolic'],
             sleepDuration: value['daily']['SleepDuration'],
             pain: value['daily']['Pain'],
+            bloodSugarMol: value['daily']['BloodSugarMol']?.toDouble(),
             objectId: value['daily']['objectId'],
             createdAt: DateTime.parse(value['daily']['createdAt']),
             updatedAt: DateTime.parse(value['daily']['updatedAt']),

@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:picos/screens/study_nurse_screen/models/institute_key.dart';
 import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_select.dart';
@@ -74,19 +75,7 @@ class _ConfigurationAdditionalEntriesState
           ),
           PicosLabel(AppLocalizations.of(context)!.instituteKey),
           PicosSelect(
-            selection: const <String, String>{
-              '100': '100',
-              '101': '101',
-              '102': '102',
-              '103': '103',
-              '104': '104',
-              '105': '105',
-              '201': '201',
-              '300': '300',
-              '400': '400',
-              '501': '501',
-              '502': '502'
-            },
+            selection: InstituteKey.instituteKey,
             callBackFunction: (String? value) {
               widget.callbackAdditionalEntries('entryInstituteKey', value!);
             },

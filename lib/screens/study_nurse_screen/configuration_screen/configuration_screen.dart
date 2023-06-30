@@ -38,11 +38,12 @@ class ConfigurationScreen extends StatelessWidget {
         title: Text(
           AppLocalizations.of(context)!.configuration,
           style: TextStyle(
-            color: theme.darkGreen3,
+            color: theme.darkGreen2,
             fontWeight: FontWeight.bold,
           ),
         ),
         backgroundColor: Colors.white,
+        leading: BackButton(color: theme.darkGreen2),
       ),
       body: Container(
         color: Colors.white,
@@ -53,7 +54,7 @@ class ConfigurationScreen extends StatelessWidget {
               child: Icon(
                 Icons.settings_applications_outlined,
                 size: 100,
-                color: theme.darkGreen3,
+                color: theme.darkGreen2,
               ),
             ),
             Expanded(
@@ -61,7 +62,7 @@ class ConfigurationScreen extends StatelessWidget {
                 AppLocalizations.of(context)!.startConfiguration,
                 style: TextStyle(
                   fontSize: 25,
-                  color: theme.darkGreen3,
+                  color: theme.darkGreen2,
                   fontWeight: FontWeight.bold,
                 ),
               ),

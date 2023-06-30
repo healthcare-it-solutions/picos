@@ -89,6 +89,9 @@ class QuestionairePageStorage {
   /// The selected blood sugar value.
   int? selectedBloodSugar;
 
+  /// The selected blood sugar value (mmol/l).
+  double? selectedBloodSugarMol;
+
   /// The selected walk distance.
   int? selectedWalkDistance;
 
@@ -165,6 +168,7 @@ class QuestionairePageStorage {
   static int? _bodyHeight;
 
   void _initValues() {
+    selectedBloodSugarMol = dailyInput.daily?.bloodSugarMol;
     selectedBodyWeight = dailyInput.weekly?.bodyWeight;
     selectedBMI = dailyInput.weekly?.bmi;
     selectedHeartFrequency = dailyInput.daily?.heartFrequency;
@@ -273,10 +277,13 @@ class QuestionairePageStorage {
       BloodSugar(
         previousPage: previousPage,
         nextPage: nextPage,
-        onChanged: (String value) {
-          selectedBloodSugar = int.tryParse(value);
+        onChanged: (String? value, String? valueMol) {
+          selectedBloodSugar = value == null ? null : int.tryParse(value);
+          selectedBloodSugarMol =
+              valueMol == null ? null : double.tryParse(valueMol);
         },
         initialValue: selectedBloodSugar,
+        initialValueMol: selectedBloodSugarMol,
       ),
     );
 
