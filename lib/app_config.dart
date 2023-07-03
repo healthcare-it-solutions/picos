@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:picos/screens/login_screen.dart';
@@ -29,8 +30,20 @@ class AppConfig extends StatelessWidget {
   /// AppConfig constructor
   const AppConfig({Key? key}) : super(key: key);
 
+  void _setSystemNavigationBarColor(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        systemNavigationBarColor:
+            Theme.of(context).bottomNavigationBarTheme.backgroundColor ??
+                Theme.of(context).canvasColor,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    _setSystemNavigationBarColor(context);
     const GlobalTheme theme = GlobalTheme();
 
     return Blocs(

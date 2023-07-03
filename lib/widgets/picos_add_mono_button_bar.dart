@@ -37,7 +37,7 @@ class PicosAddMonoButtonBar extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: theme.bottomNavigationBar,
+        color: Theme.of(context).canvasColor,
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Theme.of(context).shadowColor,

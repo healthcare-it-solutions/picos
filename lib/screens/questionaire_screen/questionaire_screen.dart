@@ -223,6 +223,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
                             sleepDuration: _pageStorage!.selectedSleepDuration,
                             heartFrequency:
                                 _pageStorage!.selectedHeartFrequency,
+                            bloodSugarMol: _pageStorage!.selectedBloodSugarMol,
                           )
                         : _dailyInput!.daily!.copyWith(
                             bloodDiastolic: _pageStorage!.selectedDias,
@@ -232,6 +233,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
                             sleepDuration: _pageStorage!.selectedSleepDuration,
                             heartFrequency:
                                 _pageStorage!.selectedHeartFrequency,
+                            bloodSugarMol: _pageStorage!.selectedBloodSugarMol,
                           );
 
                     Weekly? weekly = _createWeekly(date);

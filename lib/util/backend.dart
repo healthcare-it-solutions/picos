@@ -16,12 +16,16 @@
 */
 
 import 'dart:convert';
-import 'dart:io';
+import 'package:file_picker/file_picker.dart';
+import 'package:universal_io/io.dart';
+import 'package:file_saver/file_saver.dart';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:picos/config.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../models/abstract_database_object.dart';
 
@@ -68,21 +72,34 @@ class Backend {
     return true;
   }
 
-  /// Takes [login] and [password] to login a user
-  /// and returns if it was successful as a [bool].
-  static Future<bool> login(String login, String password) async {
+  /// Takes [login] and [password] to login a user.
+  /// Returns [BackendError] when something went wrong.
+  static Future<BackendError?> login(String login, String password) async {
     if (!Parse().hasParseBeenInitialized()) {
       await _initialized;
     }
 
-    // in case the next line throws a null is not int compatible or
-    // something like 'os broken pipe' remember to set the appid,
-    // server url and the client key properly above.
+    if (login.isEmpty || password.isEmpty) {
+      return BackendError.credentials;
+    }
+
     user = ParseUser.createUser(login, password);
 
-    ParseResponse res = await user.login();
+    ParseResponse response = await user.login();
 
-    return res.success;
+    if (response.error == null) {
+      return null;
+    }
+
+    if (response.error!.message.startsWith('Your account is locked')) {
+      return BackendError.bruteforceLock;
+    }
+
+    if (response.statusCode == 101) {
+      return BackendError.credentials;
+    }
+
+    return null;
   }
 
   /// Logs the user out and return if it was successful.
@@ -95,7 +112,7 @@ class Backend {
     // these are thr routes we are going to forward the user to
     Map<String, String> routes = <String, String>{
       'Patient': '/home-screen/home-screen',
-      'Doctor': '/study-nurse-screen/studynursescreen'
+      'Doctor': '/study-nurse-screen/menu-screen/menu-main-screen'
     };
 
     // TODO: maybe refactor for type safety
@@ -121,8 +138,8 @@ class Backend {
       parseCloudFunction.set(key, value);
     });
 
-    ParseResponse parses = await parseCloudFunction
-        .executeObjectFunction<ParseObject>();
+    ParseResponse parses =
+        await parseCloudFunction.executeObjectFunction<ParseObject>();
 
     return _createListResponse(parses);
   }
@@ -145,17 +162,16 @@ class Backend {
   }) async {
     ParseObject parseObject = ParseObject(object.table);
 
-    if (acl == null) {
+    if (object.objectId == null) {
       acl = BackendACL();
       acl.setDefault();
+      parseObject.setACL(acl.acl);
     }
 
     if (object.objectId != null) {
       parseObject.objectId = object.objectId;
     }
-
-    parseObject.setACL(acl.acl);
-
+    
     object.databaseMapping.forEach((String key, dynamic value) {
       parseObject.set(key, value);
     });
@@ -176,11 +192,14 @@ class Backend {
       return (await getApplicationDocumentsDirectory()).path;
     }
 
-    if (!await Directory('/storage/emulated/0/Download').exists()) {
-      return (await getExternalStorageDirectory())?.path;
-    }
+    if (Platform.isAndroid) {
+      if (!await Directory('/storage/emulated/0/Download').exists()) {
+        return (await getExternalStorageDirectory())?.path;
+      }
 
-    return Directory('/storage/emulated/0/Download').path;
+      return Directory('/storage/emulated/0/Download').path;
+    }
+    return null;
   }
 }
 
@@ -214,27 +233,69 @@ class BackendACL {
 /// Allows to interact with the file storage in the cloud.
 class BackendFile {
   /// Creates a new [BackendFile].
-  BackendFile(File file) {
-    _parseFile = ParseFile(file);
+  BackendFile(PlatformFile file) {
+    if (kIsWeb) {
+      _parseFile = ParseWebFile(
+        file.bytes!,
+        name: file.name,
+      );
+    } else {
+      _parseFile = ParseFile(File(file.path!));
+    }
   }
 
   /// Creates a new [BackendFile] by [url] and a [name].
   /// This is usually relevant if you try to recreate a local BackendFile you
   /// already uploaded to the backend.
   BackendFile.byUrl(String name, String url) {
-    _parseFile = ParseFile(null, name: name, url: url);
+    if (kIsWeb) {
+      _parseFile = ParseWebFile(null, name: name, url: url);
+    } else {
+      _parseFile = ParseFile(null, name: name, url: url);
+    }
   }
 
-  late final ParseFile _parseFile;
+  late final ParseFileBase _parseFile;
 
   /// Returns the file.
-  ParseFile get file {
+  ParseFileBase get file {
     return _parseFile;
   }
 
   /// Downloads a file from Parse Server.
-  Future<File> download() async {
-    return (await _parseFile.download()).file!;
+  Future<PlatformFile> download() async {
+    if (kIsWeb) {
+      ParseWebFile parseFile = _parseFile as ParseWebFile;
+
+      await parseFile.download();
+      PlatformFile platformFile = PlatformFile(
+        name: parseFile.name,
+        bytes: parseFile.file,
+        size: parseFile.file?.lengthInBytes as int,
+      );
+      // TODO: maybe save file with location picker in
+      /// "add_document_screen.dart ->
+      /// _AddDocumentScreenState ->
+      /// _createDocumentButtons"
+      // saves file in users download folder
+      FileSaver.instance.saveFile(
+        parseFile.name,
+        parseFile.file!,
+        '',
+        mimeType: MimeType.OTHER,
+      );
+      return platformFile;
+    } else {
+      ParseFile parseFile = _parseFile as ParseFile;
+      // creates/saves file in _getDownloadPath
+      await parseFile.download();
+      PlatformFile platformFile = PlatformFile(
+        path: parseFile.file?.path,
+        name: parseFile.name,
+        size: parseFile.file?.lengthSync() as int,
+      );
+      return platformFile;
+    }
   }
 }
 
@@ -256,6 +317,33 @@ extension BackendRoleExtension on BackendRole {
         return 'role:Doctor';
       case BackendRole.patient:
         return 'role:Patient';
+    }
+  }
+}
+
+/// An enum with different errors.
+enum BackendError {
+  /// Wrong credentials.
+  credentials,
+
+  /// Account temporarily locke for brute force protection.
+  bruteforceLock,
+
+  /// An undefined [BackendError].
+  error,
+}
+
+/// Extends [BackendError].
+extension BackendErrorExtension on BackendError {
+  /// Shows the current error message.
+  String getMessage(BuildContext context) {
+    switch (this) {
+      case BackendError.credentials:
+        return AppLocalizations.of(context)!.wrongCredentials;
+      case BackendError.bruteforceLock:
+        return AppLocalizations.of(context)!.bruteforceLock;
+      default:
+        return AppLocalizations.of(context)!.connectionError;
     }
   }
 }
