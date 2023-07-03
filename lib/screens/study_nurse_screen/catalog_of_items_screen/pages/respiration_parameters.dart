@@ -20,9 +20,9 @@ import 'package:picos/widgets/picos_display_card.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_number_field.dart';
 
-/// Shows a page for the [CatalogOfItemsScreen].
+/// Shows the Respiration Parameters page for the [CatalogOfItemsScreen].
 class RespirationParameters extends StatelessWidget {
-  /// CatalogOfItemsPage constructor.
+  /// Respiration Parameters constructor.
   const RespirationParameters({
     required this.tidalVolumenCallback,
     required this.respiratoryRate1Callback,

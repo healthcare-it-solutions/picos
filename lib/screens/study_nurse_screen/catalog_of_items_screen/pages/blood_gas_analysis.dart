@@ -20,9 +20,9 @@ import 'package:picos/widgets/picos_display_card.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_number_field.dart';
 
-/// Shows a page for the [CatalogOfItemsScreen].
+/// Shows the Blood Gas Analysis page for the [CatalogOfItemsScreen].
 class BloodGasAnalysis extends StatelessWidget {
-  /// CatalogOfItemsPage constructor.
+  /// Blood Gas Analysis constructor.
   const BloodGasAnalysis({
     required this.arterialOxygenSaturationCallback1,
     required this.arterialOxygenSaturationCallback2,
