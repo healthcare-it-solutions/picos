@@ -15,10 +15,11 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/blood_gas_analysis.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/icu_diagnosis.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/inclusion_criteria.dart';
+import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/respiration_parameters.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/vital_data.dart';
 
 import '../../../widgets/picos_form_of_address.dart';
@@ -42,7 +43,6 @@ class CatalogOfItemsPageStorage {
     const String pgml = 'pg/mL';
     const String qdl = 'q/dL';
     const String ul = 'U/L';
-
 
     //TODO: Create further pages like shown below. The commented out code is
     //TODO: supposed to be used for that.
@@ -136,301 +136,110 @@ class CatalogOfItemsPageStorage {
           initialSap2: systolicArterialPressure2,
         ),
       ),
-
-      // PicosPageViewItem(
-      //   child: CatalogOfItemsPage(
-      //       title: 'Atmungsparameter (letzte Werte vor discharge)',
-      //       children: <Widget>[
-      //         Row(
-      //           children: [
-      //             Expanded(
-      //                 child: PicosLabel(
-      //                   'Letztes',
-      //                   fontSize: fontSize,
-      //                   fontWeight: FontWeight.normal,
-      //                 )),
-      //             Expanded(
-      //                 child: PicosLabel(
-      //                   'Vorletztes',
-      //                   fontSize: fontSize,
-      //                   fontWeight: FontWeight.normal,
-      //                 )),
-      //           ],
-      //         ),
-      //         PicosLabel('Vt spontan', fontSize: fontSize),
-      //         PicosNumberField(hint: 'mL'),
-      //         Row(
-      //           children: [
-      //             Expanded(
-      //               child: Column(
-      //                 children: [
-      //                   PicosLabel('SpO2', fontSize: fontSize),
-      //                   PicosNumberField(
-      //                       hint: '%'),
-      //                 ],
-      //               ),
-      //             ),
-      //             Expanded(
-      //               child: Column(
-      //                 children: [
-      //                   PicosLabel('SpO2', fontSize: fontSize),
-      //                   PicosNumberField(
-      //                       hint: '%'),
-      //                 ],
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //         Row(
-      //           children: [
-      //             Expanded(
-      //               child: Column(
-      //                 children: [
-      //                   PicosLabel('AF', fontSize: fontSize),
-      //                   PicosNumberField(
-      //                       hint: min),
-      //                 ],
-      //               ),
-      //             ),
-      //             Expanded(
-      //               child: Column(
-      //                 children: [
-      //                   PicosLabel('AF', fontSize: fontSize),
-      //                   PicosNumberField(
-      //                       hint: min),
-      //                 ],
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //       ]),
-      // ),
-      // PicosPageViewItem(
-      //   child: CatalogOfItemsPage(
-      //       title: 'Blutgasanalyse (letzte Werte vor discharge)',
-      //       children: <Widget>[
-      //         Row(
-      //           children: [
-      //             Expanded(
-      //                 child: PicosLabel(
-      //                   'Letztes',
-      //                   fontSize: fontSize,
-      //                   fontWeight: FontWeight.normal,
-      //                 )),
-      //             Expanded(
-      //                 child: PicosLabel(
-      //                   'Vorletztes',
-      //                   fontSize: fontSize,
-      //                   fontWeight: FontWeight.normal,
-      //                 )),
-      //           ],
-      //         ),
-      //         Row(
-      //           children: [
-      //             Expanded(
-      //               child: Column(
-      //                 children: [
-      //                   PicosLabel('paO2 (ohne Temp-Korrektur)',
-      //                       fontSize: fontSize),
-      //                   PicosNumberField(
-      //                       hint: mmHg),
-      //                 ],
-      //               ),
-      //             ),
-      //             Expanded(
-      //               child: Column(
-      //                 children: [
-      //                   PicosLabel('paO2 (ohne Temp-Korrektur)',
-      //                       fontSize: fontSize),
-      //                   PicosNumberField(
-      //                       hint: mmHg),
-      //                 ],
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //         Row(
-      //           children: [
-      //             Expanded(
-      //               child: Column(
-      //                 children: [
-      //                   PicosLabel('paCO2 (ohne Temp-Korrektur)',
-      //                       fontSize: fontSize),
-      //                   PicosNumberField(
-      //                       hint: mmHg),
-      //                 ],
-      //               ),
-      //             ),
-      //             Expanded(
-      //               child: Column(
-      //                 children: [
-      //                   PicosLabel('paCO2 (ohne Temp-Korrektur)',
-      //                       fontSize: fontSize),
-      //                   PicosNumberField(
-      //                       hint: mmHg),
-      //                 ],
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //         Row(
-      //           children: [
-      //             Expanded(
-      //               child: Column(
-      //                 children: [
-      //                   PicosLabel('pH arteriell', fontSize: fontSize),
-      //                   PicosNumberField(
-      //                       hint: '[pH]'),
-      //                 ],
-      //               ),
-      //             ),
-      //             Expanded(
-      //               child: Column(
-      //                 children: [
-      //                   PicosLabel('pH arteriell', fontSize: fontSize),
-      //                   PicosNumberField(
-      //                       hint: '[pH]'),
-      //                 ],
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //         Row(
-      //           children: [
-      //             Expanded(
-      //               child: Column(
-      //                 children: [
-      //                   PicosLabel('SaO2', fontSize: fontSize),
-      //                   PicosNumberField(
-      //                       hint: '%'),
-      //                 ],
-      //               ),
-      //             ),
-      //             Expanded(
-      //               child: Column(
-      //                 children: [
-      //                   PicosLabel('SaO2', fontSize: fontSize),
-      //                   PicosNumberField(
-      //                       hint: '%'),
-      //                 ],
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //         Row(
-      //           children: [
-      //             Expanded(
-      //               child: Column(
-      //                 children: [
-      //                   PicosLabel('Laktat arteriell', fontSize: fontSize),
-      //                   PicosNumberField(
-      //                       hint: mmoll),
-      //                 ],
-      //               ),
-      //             ),
-      //             Expanded(
-      //               child: Column(
-      //                 children: [
-      //                   PicosLabel('Laktat arteriell', fontSize: fontSize),
-      //                   PicosNumberField(
-      //                       hint: mmoll),
-      //                 ],
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //         Row(
-      //           children: [
-      //             Expanded(
-      //               child: Column(
-      //                 children: [
-      //                   PicosLabel('Bicarbonat arteriell',
-      //                       fontSize: fontSize),
-      //                   PicosNumberField(
-      //                       hint: mmoll),
-      //                 ],
-      //               ),
-      //             ),
-      //             Expanded(
-      //               child: Column(
-      //                 children: [
-      //                   PicosLabel('Bicarbonat arteriell',
-      //                       fontSize: fontSize),
-      //                   PicosNumberField(
-      //                       hint: mmoll),
-      //                 ],
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //         Row(
-      //           children: [
-      //             Expanded(
-      //               child: Column(
-      //                 children: [
-      //                   PicosLabel('SzvO2', fontSize: fontSize),
-      //                   PicosNumberField(
-      //                       hint: '%'),
-      //                 ],
-      //               ),
-      //             ),
-      //             Expanded(
-      //               child: Column(
-      //                 children: [
-      //                   PicosLabel('SzvO2', fontSize: fontSize),
-      //                   PicosNumberField(
-      //                       hint: '%'),
-      //                 ],
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //         Row(
-      //           children: [
-      //             Expanded(
-      //               child: Column(
-      //                 children: [
-      //                   PicosLabel('BE arteriell', fontSize: fontSize),
-      //                   PicosNumberField(
-      //                       hint: mmoll),
-      //                 ],
-      //               ),
-      //             ),
-      //             Expanded(
-      //               child: Column(
-      //                 children: [
-      //                   PicosLabel('BE arteriell', fontSize: fontSize),
-      //                   PicosNumberField(
-      //                       hint: mmoll),
-      //                 ],
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //         Row(
-      //           children: [
-      //             Expanded(
-      //               child: Column(
-      //                 children: [
-      //                   PicosLabel('Blutzucker', fontSize: fontSize),
-      //                   PicosNumberField(
-      //                       hint: mgdl),
-      //                 ],
-      //               ),
-      //             ),
-      //             Expanded(
-      //               child: Column(
-      //                 children: [
-      //                   PicosLabel('Blutzucker', fontSize: fontSize),
-      //                   PicosNumberField(
-      //                       hint: mgdl),
-      //                 ],
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //       ]),
-      // ),
+      PicosPageViewItem(
+        child: RespirationParameters(
+          initialTidalVolume: tidalVolume,
+          initialRespiratoryRate1: respiratoryRate1,
+          initialRespiratoryRate2: respiratoryRate2,
+          initialOxygenSaturation1: oxygenSaturation1,
+          initialOxygenSaturation2: oxygenSaturation2,
+          tidalVolumenCallback: (double? value) {
+            tidalVolume = value;
+          },
+          respiratoryRate1Callback: (double? value) {
+            respiratoryRate1 = value;
+          },
+          respiratoryRate2Callback: (double? value) {
+            respiratoryRate2 = value;
+          },
+          oxygenSaturation1Callback: (double? value) {
+            oxygenSaturation1 = value;
+          },
+          oxygenSaturation2Callback: (double? value) {
+            oxygenSaturation2 = value;
+          },
+        ),
+      ),
+      PicosPageViewItem(
+        child: BloodGasAnalysis(
+          initialArterialOxygenSaturation1: arterialOxygenSaturation1,
+          initialArterialOxygenSaturation2: arterialOxygenSaturation2,
+          initialCentralVenousOxygenSaturation1: centralVenousOxygenSaturation1,
+          initialCentralVenousOxygenSaturation2: centralVenousOxygenSaturation2,
+          initialPartialPressureOfOxygen1: partialPressureOfOxygen1,
+          initialPartialPressureOfOxygen2: partialPressureOfOxygen2,
+          initialPartialPressureOfCarbonDioxide1:
+              partialPressureOfCarbonDioxide1,
+          initialPartialPressureOfCarbonDioxide2:
+              partialPressureOfCarbonDioxide2,
+          initialarterialBaseExcess1: arterialBaseExcess1,
+          initialarterialBaseExcess2: arterialBaseExcess2,
+          initialarterialPH1: arterialPH1,
+          initialarterialPH2: arterialPH2,
+          initialArterialSerumBicarbonateConcentration1:
+              arterialSerumBicarbonateConcentration1,
+          initialArterialSerumBicarbonateConcentration2:
+              arterialSerumBicarbonateConcentration2,
+          initialArterialLactate1: arterialLactate1,
+          initialArterialLacatate2: arterialLactate2,
+          initialBloodGlucoseLevel1: bloodGlucoseLevel1,
+          initialBloodGlucoseLevel2: bloodGlucoseLevel2,
+          arterialOxygenSaturationCallback1: (double? value) {
+            arterialOxygenSaturation1 = value;
+          },
+          arterialOxygenSaturationCallback2: (double? value) {
+            arterialOxygenSaturation2 = value;
+          },
+          centralVenousOxygenSaturationCallback1: (double? value) {
+            centralVenousOxygenSaturation1 = value;
+          },
+          centralVenousOxygenSaturationCallback2: (double? value) {
+            centralVenousOxygenSaturation2 = value;
+          },
+          partialPressureOfOxygenCallback1: (double? value) {
+            partialPressureOfOxygen1 = value;
+          },
+          partialPressureOfOxygenCallback2: (double? value) {
+            partialPressureOfOxygen2 = value;
+          },
+          partialPressureOfCarbonDioxideCallback1: (double? value) {
+            partialPressureOfCarbonDioxide1 = value;
+          },
+          partialPressureOfCarbonDioxideCallback2: (double? value) {
+            partialPressureOfCarbonDioxide2 = value;
+          },
+          arterialBaseExcessCallback1: (double? value) {
+            arterialBaseExcess1 = value;
+          },
+          arterialBaseExcessCallback2: (double? value) {
+            arterialBaseExcess2 = value;
+          },
+          arterialPHCallback1: (double? value) {
+            arterialPH1 = value;
+          },
+          arterialPHCallback2: (double? value) {
+            arterialPH2 = value;
+          },
+          arterialSerumBicarbonateConcentrationCallback1: (double? value) {
+            arterialSerumBicarbonateConcentration1 = value;
+          },
+          arterialSerumBicarbonateConcentrationCallback2: (double? value) {
+            arterialSerumBicarbonateConcentration2 = value;
+          },
+          arterialLactateCallback1: (double? value) {
+            arterialLactate1 = value;
+          },
+          arterialLactateCallback2: (double? value) {
+            arterialLactate2 = value;
+          },
+          bloodGlucoseLevelCallback1: (double? value) {
+            bloodGlucoseLevel1 = value;
+          },
+          bloodGlucoseLevelCallback2: (double? value) {
+            bloodGlucoseLevel2 = value;
+          },
+        ),
+      ),
       // PicosPageViewItem(
       //   child: CatalogOfItemsPage(
       //       title: 'Laborwerte (letzte Werte vor discharge)',
