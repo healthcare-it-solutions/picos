@@ -1161,5 +1161,89 @@
     "preLast": "Pre-Last",
     "@preLast": {
         "description": "Pre-Last"
+    },
+    "respirationParameters": "Respiration Parameters (last values before discharge)",
+    "@respirationParameters": {
+        "description": "Respiration Parameters (last values before discharge)"
+    },
+    "vtSpontanous": "VT spontanous",
+    "@vtSpontanous": {
+        "description": "VT spontanous"
+    },
+    "o2sat": "O2 sat",
+    "@o2sat": {
+        "description": "02 sat"
+    },
+    "medicaments": "Medicaments (last values before discharge)",
+    "@medicaments": {
+        "description": "Medicaments (last values before discharge)"
+    },
+    "thrombosisAggregation": "Thrombosis Aggreagtion",
+    "@thrombosisAggregation": {
+        "description": "Thrombosis Aggregation"
+    },
+    "noac": "NOAC",
+    "@noac": {
+        "description": "NOAC"
+    },
+    "thrombosisProphylaxis": "Thrombosis Prophylaxis",
+    "@thrombosisProphylaxis": {
+        "description": "Thrombosis Prophylaxis"
+    },
+    "antihypertensives": "Antihypertensives",
+    "@antihypertensives": {
+        "description": "Antihypertensives"
+    },
+    "antiarrythmics": "Antiarrythmics",
+    "@antiarrythmics": {
+        "description": "Antiarrythmics"
+    },
+    "antidiabetics": "Antidiabetics",
+    "@antidiabetics": {
+        "description": "Antidiabetics"
+    },
+    "antiinfectives": "Antiinfectives",
+    "@antiinfectives": {
+        "description": "Antiinfectives"
+    },
+    "stereoids": "Steroids",
+    "@stereoids": {
+        "description": "Steroids"
+    },
+    "inhalatives": "Inhalatives",
+    "@inhalatives": {
+        "description": "Inhalatives"
+    },
+    "analgesics": "Analgesics",
+    "@analgesics": {
+        "description": "Analgesics"
+    },
+    "bloodGasAnalysis": "Blood Gas Analysis",
+    "@bloodGasAnalysis": {
+        "description": "Blood Gas Analysis"
+    },
+    "paO2": "paO2 (without Temp-correcion)",
+    "@paO2": {
+        "description": "paO2 (without Temp-correcion)"
+    },
+    "paCO2": "paCO2 (without Temp-correction)",
+    "@paCO2": {
+        "description": "paCO2 (without Temp-correction)"
+    },
+    "arterialPH": "arterial PH",
+    "@arterialPH": {
+        "description": "arterial PH"
+    },
+    "arterialLactate": "Arterial Lactate",
+    "@arterialLactate": {
+        "description": "Arterial Lactate"
+    },
+    "arterialBicarbonate": "Aterial Serum Bicarbonate Concentration",
+    "@arterialBicarbonate": {
+        "description": "Aterial Serum Bicarbonate Concentration"
+    },
+    "arterialBaseExcess": "Arterial Base Excess",
+    "@arterialBaseExcess": {
+        "description": "arterial base excess"
     }
 }
