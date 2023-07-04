@@ -46,6 +46,7 @@ class DoctorCard extends StatelessWidget {
     // Class init.
     if (_label == null) {
       switch (Platform.localeName) {
+        case 'de-DE':
         case 'de_DE':
           _label = Text.rich(
             TextSpan(
