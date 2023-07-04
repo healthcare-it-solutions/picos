@@ -144,7 +144,7 @@ class VitalData extends StatelessWidget {
               ),
               PicosNumberField(
                 hint: min,
-                initialValue: initialHeartRate1.toString(),
+                initialValue: initialHeartRate1?.toString(),
                 onChanged: (String value) {
                   heartRateCallback1(double.tryParse(value));
                 },
@@ -158,7 +158,7 @@ class VitalData extends StatelessWidget {
               ),
               PicosNumberField(
                 hint: min,
-                initialValue: initialHeartRate2.toString(),
+                initialValue: initialHeartRate2?.toString(),
                 onChanged: (String value) {
                   heartRateCallback2(double.tryParse(value));
                 },
@@ -174,7 +174,7 @@ class VitalData extends StatelessWidget {
               ),
               PicosNumberField(
                 hint: mmHg,
-                initialValue: initialSap1.toString(),
+                initialValue: initialSap1?.toString(),
                 onChanged: (String value) {
                   sapCallback1(double.tryParse(value));
                 },
@@ -188,7 +188,7 @@ class VitalData extends StatelessWidget {
               ),
               PicosNumberField(
                 hint: mmHg,
-                initialValue: initialSap2.toString(),
+                initialValue: initialSap2?.toString(),
                 onChanged: (String value) {
                   sapCallback2(double.tryParse(value));
                 },
@@ -204,7 +204,7 @@ class VitalData extends StatelessWidget {
               ),
               PicosNumberField(
                 hint: mmHg,
-                initialValue: initialMap1.toString(),
+                initialValue: initialMap1?.toString(),
                 onChanged: (String value) {
                   mapCallback1(double.tryParse(value));
                 },
@@ -218,7 +218,7 @@ class VitalData extends StatelessWidget {
               ),
               PicosNumberField(
                 hint: mmHg,
-                initialValue: initialMap2.toString(),
+                initialValue: initialMap2?.toString(),
                 onChanged: (String value) {
                   mapCallback2(double.tryParse(value));
                 },
@@ -234,7 +234,7 @@ class VitalData extends StatelessWidget {
               ),
               PicosNumberField(
                 hint: mmHg,
-                initialValue: initialDap1.toString(),
+                initialValue: initialDap1?.toString(),
                 onChanged: (String value) {
                   dapCallback1(double.tryParse(value));
                 },
@@ -248,7 +248,7 @@ class VitalData extends StatelessWidget {
               ),
               PicosNumberField(
                 hint: mmHg,
-                initialValue: initialDap2.toString(),
+                initialValue: initialDap2?.toString(),
                 onChanged: (String value) {
                   dapCallback2(double.tryParse(value));
                 },
@@ -264,7 +264,7 @@ class VitalData extends StatelessWidget {
               ),
               PicosNumberField(
                 hint: mmHg,
-                initialValue: initialCentralVenousPressure1.toString(),
+                initialValue: initialCentralVenousPressure1?.toString(),
                 onChanged: (String value) {
                   centralVenousPressureCallback1(double.tryParse(value));
                 },
@@ -278,7 +278,7 @@ class VitalData extends StatelessWidget {
               ),
               PicosNumberField(
                 hint: mmHg,
-                initialValue: initialCentralVenousPressure2.toString(),
+                initialValue: initialCentralVenousPressure2?.toString(),
                 onChanged: (String value) {
                   centralVenousPressureCallback2(double.tryParse(value));
                 },

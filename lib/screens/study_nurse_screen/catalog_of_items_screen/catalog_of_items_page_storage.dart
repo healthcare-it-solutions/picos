@@ -19,12 +19,16 @@ import 'package:flutter/material.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/blood_gas_analysis.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/icu_diagnosis.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/inclusion_criteria.dart';
+import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/laboratory_values.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/medicaments.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/respiration_parameters.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/vital_data.dart';
 
 import '../../../widgets/picos_form_of_address.dart';
+import '../../../widgets/picos_label.dart';
+import '../../../widgets/picos_number_field.dart';
 import '../../../widgets/picos_page_view_item.dart';
+import 'catalog_of_items_page.dart';
 
 /// Manages the state of the Catalog of items pages.
 class CatalogOfItemsPageStorage {
@@ -32,18 +36,12 @@ class CatalogOfItemsPageStorage {
   CatalogOfItemsPageStorage(BuildContext context) {
     //TODO: You can use these consts within the pages and remove from here.
     const double fontSize = 15;
-    const int textAreaLines = 3;
-    const Border border = Border(
-      bottom: BorderSide(color: Colors.grey, width: 0),
-    );
-    const String min = '/min';
-    const String mmHg = 'mmHg';
-    const String mmoll = 'mmol/L';
-    const String mgdl = 'mg/dL';
-    const String tenUl = '10*3/µL';
-    const String pgml = 'pg/mL';
-    const String qdl = 'q/dL';
-    const String ul = 'U/L';
+    //const int textAreaLines = 3;
+    //const Border border = Border(
+    //  bottom: BorderSide(color: Colors.grey, width: 0),
+    //);
+    //const String min = '/min';
+    //const String mmHg = 'mmHg';
 
     //TODO: Create further pages like shown below. The commented out code is
     //TODO: supposed to be used for that.
@@ -241,70 +239,88 @@ class CatalogOfItemsPageStorage {
           },
         ),
       ),
-
-      // PicosPageViewItem(
-      //   child: CatalogOfItemsPage(
-      //       title: 'Laborwerte (letzte Werte vor discharge)',
-      //       children: <Widget>[
-      //         PicosLabel('Leukozyten', fontSize: fontSize),
-      //         PicosNumberField(hint: tenUl),
-      //         PicosLabel('Lymphozyten absolut', fontSize: fontSize),
-      //         PicosNumberField(hint: tenUl),
-      //         PicosLabel('Lymphozyten prozentual', fontSize: fontSize),
-      //         PicosNumberField(hint: '%'),
-      //         PicosLabel('Trombozyten', fontSize: fontSize),
-      //         PicosNumberField(hint: tenUl),
-      //         PicosLabel('CRP', fontSize: fontSize),
-      //         PicosNumberField(
-      //             hint: 'nmol/L'),
-      //         PicosLabel('PCT', fontSize: fontSize),
-      //         PicosNumberField(hint: mmoll),
-      //         PicosLabel('IL-6', fontSize: fontSize),
-      //         PicosNumberField(
-      //             hint: 'µmol/L'),
-      //         PicosLabel('Harnstoff', fontSize: fontSize),
-      //         PicosNumberField(
-      //             hint: 'pmol/L'),
-      //         PicosLabel('Kreatinin', fontSize: fontSize),
-      //         PicosNumberField(hint: mgdl),
-      //         PicosLabel('BNP', fontSize: fontSize),
-      //         PicosNumberField(hint: pgml),
-      //         PicosLabel('NT-pro BNP', fontSize: fontSize),
-      //         PicosNumberField(hint: pgml),
-      //         PicosLabel('Bilirubin ges.', fontSize: fontSize),
-      //         PicosNumberField(hint: mgdl),
-      //         PicosLabel('Hämoglobin', fontSize: fontSize),
-      //         PicosNumberField(hint: qdl),
-      //         PicosLabel('Hämatokrit', fontSize: fontSize),
-      //         PicosNumberField(hint: '%'),
-      //         PicosLabel('Albumin', fontSize: fontSize),
-      //         PicosNumberField(hint: qdl),
-      //         PicosLabel('GOT', fontSize: fontSize),
-      //         PicosNumberField(hint: ul),
-      //         PicosLabel('GPT', fontSize: fontSize),
-      //         PicosNumberField(hint: ul),
-      //         PicosLabel('Troponin', fontSize: fontSize),
-      //         PicosNumberField(
-      //             hint: 'ug/L'),
-      //         PicosLabel('CK', fontSize: fontSize),
-      //         PicosNumberField(hint: ul),
-      //         PicosLabel('CK-MB', fontSize: fontSize),
-      //         PicosNumberField(hint: ul),
-      //         PicosLabel('LDH', fontSize: fontSize),
-      //         PicosNumberField(hint: ul),
-      //         PicosLabel('Amylase', fontSize: fontSize),
-      //         PicosNumberField(hint: ul),
-      //         PicosLabel('Lipase', fontSize: fontSize),
-      //         PicosNumberField(hint: ul),
-      //         PicosLabel('D-Dimere', fontSize: fontSize),
-      //         PicosNumberField(
-      //             hint: 'ng/mL'),
-      //         PicosLabel('INR', fontSize: fontSize),
-      //         PicosNumberField(),
-      //         PicosLabel('pTT', fontSize: fontSize),
-      //         PicosNumberField(hint: 's'),
-      //       ]),
-      // ),
+      PicosPageViewItem(
+        child: LaboratoryValues(
+          leukocyteCountCallback: (double? value) {
+            leukocyteCount = value;
+          },
+          lymphocyteCountCallback: (double? value) {
+            lymphocyteCount = value;
+          },
+          lymphocytePercentageCallback: (double? value) {
+            lymphocytePercentage = value;
+          },
+          plateletCountCallback: (double? value) {
+            plateletCount = value;
+          },
+          cReactiveProteinLevelCallback: (double? value) {
+            cReactiveProteinLevel = value;
+          },
+          procalcitoninLevelCallback: (double? value) {
+            procalcitoninLevel = value;
+          },
+          interleukinCallback: (double? value) {
+            interleukin = value;
+          },
+          bloodUreaNitrogenCallback: (double? value) {
+            bloodUreaNitrogen = value;
+          },
+          creatinineCallback: (double? value) {
+            creatinine = value;
+          },
+          heartFailureMarkerCallback: (double? value) {
+            heartFailureMarker = value;
+          },
+          heartFailureMarkerNTProBNPCallback: (double? value) {
+            heartFailureMarkerNTProBNP = value;
+          },
+          bilirubinTotalCallback: (double? value) {
+            bilirubinTotal = value;
+          },
+          hemoglobinCallback: (double? value) {
+            hemoglobin = value;
+          },
+          hematocritCallback: (double? value) {
+            hematocrit = value;
+          },
+          albuminCallback: (double? value) {
+            albumin = value;
+          },
+          gotASATCallback: (double? value) {
+            gotASAT = value;
+          },
+          gptALATCallback: (double? value) {
+            gptALAT = value;
+          },
+          troponinCallback: (double? value) {
+            troponin = value;
+          },
+          creatineKinaseCallback: (double? value) {
+            creatineKinase = value;
+          },
+          myocardialInfarctionMarkerCKMBCallback: (double? value) {
+            myocardialInfarctionMarkerCKMB = value;
+          },
+          lactateDehydrogenaseLevelCallback: (double? value) {
+            lactateDehydrogenaseLevel = value;
+          },
+          amylaseLevelCallback: (double? value) {
+            amylaseLevel = value;
+          },
+          lipaseLevelCallback: (double? value) {
+            lipaseLevel = value;
+          },
+          dDimerCallback: (double? value) {
+            dDimer = value;
+          },
+          internationalNormalizedRatioCallback: (double? value) {
+            internationalNormalizedRatio = value;
+          },
+          partialThromboplastinTimeCallback: (double? value) {
+            partialThromboplastinTime = value;
+          },
+        ),
+      ),
       PicosPageViewItem(
         child: Medicaments(
           plateletAggregationCallback: (String? value) {
@@ -575,15 +591,15 @@ class CatalogOfItemsPageStorage {
   double? hemoglobin;
   double? hematocrit;
   double? albumin;
-  double? GOTASAT;
-  double? GPTALAT;
+  double? gotASAT;
+  double? gptALAT;
   double? troponin;
   double? creatineKinase;
   double? myocardialInfarctionMarkerCKMB;
   double? lactateDehydrogenaseLevel;
   double? amylaseLevel;
   double? lipaseLevel;
-  double? DDimer;
+  double? dDimer;
   double? internationalNormalizedRatio;
   double? partialThromboplastinTime;
 
