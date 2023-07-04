@@ -25,17 +25,14 @@ import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/r
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/vital_data.dart';
 
 import '../../../widgets/picos_form_of_address.dart';
-import '../../../widgets/picos_label.dart';
-import '../../../widgets/picos_number_field.dart';
 import '../../../widgets/picos_page_view_item.dart';
-import 'catalog_of_items_page.dart';
 
 /// Manages the state of the Catalog of items pages.
 class CatalogOfItemsPageStorage {
   /// Creates CatalogOfItemsPageStorage.
   CatalogOfItemsPageStorage(BuildContext context) {
     //TODO: You can use these consts within the pages and remove from here.
-    const double fontSize = 15;
+    //const double fontSize = 15;
     //const int textAreaLines = 3;
     //const Border border = Border(
     //  bottom: BorderSide(color: Colors.grey, width: 0),
