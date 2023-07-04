@@ -534,6 +534,7 @@ class CatalogOfItemsPageStorage {
   /// Pre last central venous pressure.
   double? centralVenousPressure2;
 
+  /// Tidal Volume
   double? tidalVolume;
   double? respiratoryRate1;
   double? respiratoryRate2;
