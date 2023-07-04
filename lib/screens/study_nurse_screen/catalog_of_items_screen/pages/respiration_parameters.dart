@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:picos/widgets/picos_display_card.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_number_field.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// Shows the Respiration Parameters page for the [CatalogOfItemsScreen].
 class RespirationParameters extends StatelessWidget {
@@ -75,52 +76,61 @@ class RespirationParameters extends StatelessWidget {
 
     return PicosDisplayCard(
       padding: const EdgeInsets.all(15),
-      child: const Column(
+      child: Column(
         children: <Widget>[
-          PicosLabel('Atmungsparameter (letzte Werte vor discharge)'),
+          PicosLabel(AppLocalizations.of(context)!.respirationParameters),
           Column(
             children: <Widget>[
               Row(
                 children: <Expanded>[
                   Expanded(
                     child: PicosLabel(
-                      'Letztes',
+                      AppLocalizations.of(context)!.last,
                       fontSize: fontSize,
                       fontWeight: FontWeight.normal,
                     ),
                   ),
                   Expanded(
                     child: PicosLabel(
-                      'Vorletztes',
+                      AppLocalizations.of(context)!.preLast,
                       fontSize: fontSize,
                       fontWeight: FontWeight.normal,
                     ),
                   ),
                 ],
               ),
-              PicosLabel('Vt spontan', fontSize: fontSize),
-              PicosNumberField(hint: 'mL'),
+              PicosLabel(
+                AppLocalizations.of(context)!.vtSpontanous,
+                fontSize: fontSize,
+              ),
+              const PicosNumberField(hint: 'mL'),
               Row(
                 children: <Expanded>[
                   Expanded(
                     child: Column(
                       children: <Widget>[
-                        PicosLabel('SpO2', fontSize: fontSize),
-                        PicosNumberField(hint: '%'),
+                        PicosLabel(
+                          AppLocalizations.of(context)!.o2sat,
+                          fontSize: fontSize,
+                        ),
+                        const PicosNumberField(hint: '%'),
                       ],
                     ),
                   ),
                   Expanded(
                     child: Column(
                       children: <Widget>[
-                        PicosLabel('SpO2', fontSize: fontSize),
-                        PicosNumberField(hint: '%'),
+                        PicosLabel(
+                          AppLocalizations.of(context)!.o2sat,
+                          fontSize: fontSize,
+                        ),
+                        const PicosNumberField(hint: '%'),
                       ],
                     ),
                   ),
                 ],
               ),
-              Row(
+              const Row(
                 children: <Expanded>[
                   Expanded(
                     child: Column(

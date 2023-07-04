@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:picos/widgets/picos_display_card.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_text_area.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// Shows the Medicaments page for the [CatalogOfItemsScreen].
 class Medicaments extends StatelessWidget {
@@ -117,53 +118,53 @@ class Medicaments extends StatelessWidget {
       padding: const EdgeInsets.all(15),
       child: Column(
         children: <Widget>[
-          const PicosLabel('Atmungsparameter (letzte Werte vor discharge)'),
-          const PicosLabel('Thrombozytenaggregation', fontSize: fontSize),
+          PicosLabel(AppLocalizations.of(context)!.medicaments),
+          PicosLabel(AppLocalizations.of(context)!.thrombosisAggregation, fontSize: fontSize),
           PicosTextArea(
             maxLines: textAreaLines,
             initialValue: initialPlateletAggregation,
           ),
-          const PicosLabel('NOAK', fontSize: fontSize),
+          PicosLabel(AppLocalizations.of(context)!.noac, fontSize: fontSize),
           PicosTextArea(
             maxLines: textAreaLines,
             initialValue: initialNoak,
           ),
-          const PicosLabel('Thrombosenprophylaxe', fontSize: fontSize),
+          PicosLabel(AppLocalizations.of(context)!.thrombosisProphylaxis, fontSize: fontSize),
           PicosTextArea(
             maxLines: textAreaLines,
             initialValue: initialThrombosisProphylaxis,
           ),
-          const PicosLabel('Antihypertensiva', fontSize: fontSize),
+          PicosLabel(AppLocalizations.of(context)!.antihypertensives, fontSize: fontSize),
           PicosTextArea(
             maxLines: textAreaLines,
             initialValue: initialAntihypertensives,
           ),
-          const PicosLabel('Antiarrhythmika', fontSize: fontSize),
+          PicosLabel(AppLocalizations.of(context)!.antiarrythmics, fontSize: fontSize),
           PicosTextArea(
             maxLines: textAreaLines,
             initialValue: initialAntiarrhythmics,
           ),
-          const PicosLabel('Antidiabetika', fontSize: fontSize),
+          PicosLabel(AppLocalizations.of(context)!.antidiabetics, fontSize: fontSize),
           PicosTextArea(
             maxLines: textAreaLines,
             initialValue: initialAntidiabetics,
           ),
-          const PicosLabel('Antiinfektiva', fontSize: fontSize),
+          PicosLabel(AppLocalizations.of(context)!.antiinfectives, fontSize: fontSize),
           PicosTextArea(
             maxLines: textAreaLines,
             initialValue: initialAntiInfectives,
           ),
-          const PicosLabel('Steroide', fontSize: fontSize),
+          PicosLabel(AppLocalizations.of(context)!.stereoids, fontSize: fontSize),
           PicosTextArea(
             maxLines: textAreaLines,
             initialValue: initialSteroids,
           ),
-          const PicosLabel('Inhalativa', fontSize: fontSize),
+          PicosLabel(AppLocalizations.of(context)!.inhalatives, fontSize: fontSize),
           PicosTextArea(
             maxLines: textAreaLines,
             initialValue: initialInhalatives,
           ),
-          const PicosLabel('Analgetika', fontSize: fontSize),
+          PicosLabel(AppLocalizations.of(context)!.analgesics, fontSize: fontSize),
           PicosTextArea(
             maxLines: textAreaLines,
             initialValue: initialAnalgesics,
