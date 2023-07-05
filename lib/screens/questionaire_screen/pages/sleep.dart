@@ -22,9 +22,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../widgets/questionaire_page.dart';
 import '../widgets/text_field_card.dart';
 
-/// Questionnaire Weight page.
+/// Questionnaire Sleep page.
 class Sleep extends StatefulWidget {
-  /// Weight constructor.
+  /// Sleep constructor.
   const Sleep({
     required this.previousPage,
     required this.nextPage,
@@ -40,10 +40,10 @@ class Sleep extends StatefulWidget {
   /// Next page button function.
   final void Function() nextPage;
 
-  /// Callback for body weight.
+  /// Callback for sleep duration.
   final dynamic Function(double? duration) onChangedSleepDuration;
 
-  /// The body height.
+  /// The sleep duration.
   final double? sleepDuration;
 
   /// Populates the field with an initial value.
