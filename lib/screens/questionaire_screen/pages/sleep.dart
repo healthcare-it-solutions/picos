@@ -32,7 +32,6 @@ class Sleep extends StatefulWidget {
     this.sleepDuration,
     Key? key,
     this.initialValue,
-    this.hint,
   }) : super(key: key);
 
   /// Previous page button function.
@@ -50,42 +49,21 @@ class Sleep extends StatefulWidget {
   /// Populates the field with an initial value.
   final double? initialValue;
 
-  /// Populates the BMI field with an initial value.
-  final String? hint;
-
   @override
   State<Sleep> createState() => _SleepState();
 }
 
 class _SleepState extends State<Sleep> {
   static String? _sleepDuration;
-  static String? _unknownDuration;
+
   static String? _isInvalid;
 
-  String _hint = '';
   bool _error = false;
-
-  void _createHint() {
-    if (widget.hint != null && _hint.isEmpty) {
-      _hint = widget.hint.toString();
-      return;
-    }
-
-    if (widget.sleepDuration == null && _hint.isNotEmpty) {
-      return;
-    }
-
-    if (widget.sleepDuration == null) {
-      _hint = _unknownDuration!;
-      return;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     if (_sleepDuration == null) {
       _sleepDuration = AppLocalizations.of(context)!.sleepDuration;
-      _unknownDuration = AppLocalizations.of(context)!.unknownHeight;
       _isInvalid = AppLocalizations.of(context)!.isInvalid;
     }
 
@@ -95,14 +73,10 @@ class _SleepState extends State<Sleep> {
       label = '${_sleepDuration!} ${_isInvalid!}';
     }
 
-    _createHint();
-
     return QuestionairePage(
       backFunction: widget.previousPage,
       nextFunction: widget.nextPage,
-      child: Column(
-        children: <TextFieldCard>[
-          TextFieldCard(
+      child: TextFieldCard(
             decimalValue: true,
             initialValue: widget.initialValue,
             label: label,
@@ -136,8 +110,7 @@ class _SleepState extends State<Sleep> {
               widget.onChangedSleepDuration(duration);
             },
           ),
-        ],
-      ),
+
     );
   }
 }
