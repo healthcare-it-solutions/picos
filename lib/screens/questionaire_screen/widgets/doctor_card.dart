@@ -46,8 +46,28 @@ class DoctorCard extends StatelessWidget {
     // Class init.
     if (_label == null) {
       switch (Platform.localeName) {
-        case 'de-DE':
-        case 'de_DE':
+        case 'en_US':
+        case 'en-US':
+        case 'en_GB':
+        case 'en-GB':
+          _label = Text.rich(
+            TextSpan(
+              style: _labelStyle,
+              text: AppLocalizations.of(context)!.questionaireDoctorVisit1,
+              children: <TextSpan>[
+                TextSpan(
+                  text: AppLocalizations.of(context)!.questionaireDoctorVisit2,
+                ),
+                TextSpan(
+                  text: AppLocalizations.of(context)!
+                      .questionaireDoctorVisitUnscheduled,
+                  style: const TextStyle(decoration: TextDecoration.underline),
+                ),
+              ],
+            ),
+          );
+          break;
+        default:
           _label = Text.rich(
             TextSpan(
               style: _labelStyle,
@@ -65,23 +85,6 @@ class DoctorCard extends StatelessWidget {
             ),
           );
           break;
-        default:
-          _label = Text.rich(
-            TextSpan(
-              style: _labelStyle,
-              text: AppLocalizations.of(context)!.questionaireDoctorVisit1,
-              children: <TextSpan>[
-                TextSpan(
-                  text: AppLocalizations.of(context)!.questionaireDoctorVisit2,
-                ),
-                TextSpan(
-                  text: AppLocalizations.of(context)!
-                      .questionaireDoctorVisitUnscheduled,
-                  style: const TextStyle(decoration: TextDecoration.underline),
-                ),
-              ],
-            ),
-          );
       }
     }
 
