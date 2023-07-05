@@ -55,7 +55,6 @@ class Sleep extends StatefulWidget {
 
 class _SleepState extends State<Sleep> {
   static String? _sleepDuration;
-
   static String? _isInvalid;
 
   bool _error = false;
@@ -77,40 +76,39 @@ class _SleepState extends State<Sleep> {
       backFunction: widget.previousPage,
       nextFunction: widget.nextPage,
       child: TextFieldCard(
-            decimalValue: true,
-            initialValue: widget.initialValue,
-            label: label,
-            hint: AppLocalizations.of(context)!.hrs,
-            onChanged: (String durationString) {
-              if (durationString.isEmpty) {
-                widget.onChangedSleepDuration(null);
-                setState(() {
-                  _error = false;
-                });
-                return;
-              }
-
-              double? duration = double.tryParse(durationString);
-
-              if (duration == null) {
-                widget.onChangedSleepDuration(null);
-                setState(() {
-                  _error = true;
-                });
-                return;
-              }
-
+        decimalValue: true,
+        initialValue: widget.initialValue,
+        label: label,
+        hint: AppLocalizations.of(context)!.hrs,
+        onChanged: (String durationString) {
+          if (durationString.isEmpty) {
+            widget.onChangedSleepDuration(null);
+            setState(() {
               _error = false;
+            });
+            return;
+          }
 
-              if (widget.sleepDuration == null) {
-                widget.onChangedSleepDuration(duration);
-                return;
-              }
+          double? duration = double.tryParse(durationString);
 
-              widget.onChangedSleepDuration(duration);
-            },
-          ),
+          if (duration == null) {
+            widget.onChangedSleepDuration(null);
+            setState(() {
+              _error = true;
+            });
+            return;
+          }
 
+          _error = false;
+
+          if (widget.sleepDuration == null) {
+            widget.onChangedSleepDuration(duration);
+            return;
+          }
+
+          widget.onChangedSleepDuration(duration);
+        },
+      ),
     );
   }
 }

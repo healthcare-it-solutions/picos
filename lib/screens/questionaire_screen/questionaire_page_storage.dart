@@ -319,8 +319,9 @@ class QuestionairePageStorage {
         nextPage: nextPage,
         onChangedSleepDuration: (double? value) {
           selectedSleepDuration = value;
-        }
-      ,),
+        },
+        initialValue: selectedSleepDuration,
+      ),
     );
     titles.add(_activityAndRest!);
     if (dailyInput.weeklyDay) {
