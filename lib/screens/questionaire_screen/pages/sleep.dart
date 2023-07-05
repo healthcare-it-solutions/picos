@@ -99,7 +99,9 @@ class _SleepState extends State<Sleep> {
             return;
           }
 
-          _error = false;
+          setState(() {
+            _error = false;
+          });
 
           if (widget.sleepDuration == null) {
             widget.onChangedSleepDuration(duration);
