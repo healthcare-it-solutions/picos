@@ -84,7 +84,6 @@ class DoctorCard extends StatelessWidget {
               ],
             ),
           );
-          break;
       }
     }
 
