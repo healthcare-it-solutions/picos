@@ -103,11 +103,6 @@ class _SleepState extends State<Sleep> {
             _error = false;
           });
 
-          if (widget.sleepDuration == null) {
-            widget.onChangedSleepDuration(duration);
-            return;
-          }
-
           widget.onChangedSleepDuration(duration);
         },
       ),
