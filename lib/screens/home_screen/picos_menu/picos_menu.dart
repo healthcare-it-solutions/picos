@@ -44,12 +44,6 @@ class PicosMenu extends StatelessWidget {
         ),
       ),
       PicosMenuItem(
-        iconPath: 'assets/Profil.svg',
-        title: AppLocalizations.of(context)!.myProfile,
-        onTap: () => Navigator.of(context)
-            .pushNamed('/my-profile-screen/my-profile'),
-      ),
-      PicosMenuItem(
         iconPath: 'assets/Medikation.svg',
         title: AppLocalizations.of(context)!.medicationScheme,
         onTap: () => Navigator.of(context)
@@ -92,6 +86,12 @@ class PicosMenu extends StatelessWidget {
           AppLocalizations.of(context)!.more,
           fontSize: labelSize,
         ),
+      ),
+      PicosMenuItem(
+        iconPath: 'assets/Profil.svg',
+        title: AppLocalizations.of(context)!.myProfile,
+        onTap: () => Navigator.of(context)
+            .pushNamed('profile-screen/profile'),
       ),
       PicosMenuItem(
         iconPath: 'assets/Impressum.svg',
