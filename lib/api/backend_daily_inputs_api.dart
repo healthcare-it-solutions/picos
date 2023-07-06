@@ -47,9 +47,9 @@ class BackendDailyInputsApi extends BackendObjectsApi {
       weekly = object.weekly!.copyWith(
         objectId: response['objectId'],
         createdAt:
-        DateTime.tryParse(response['createdAt'] ?? '') ?? object.createdAt,
+            DateTime.tryParse(response['createdAt'] ?? '') ?? object.createdAt,
         updatedAt:
-        DateTime.tryParse(response['updatedAt'] ?? '') ?? object.updatedAt,
+            DateTime.tryParse(response['updatedAt'] ?? '') ?? object.updatedAt,
       );
     }
 
@@ -58,9 +58,9 @@ class BackendDailyInputsApi extends BackendObjectsApi {
       phq4 = object.phq4!.copyWith(
         objectId: response['objectId'],
         createdAt:
-        DateTime.tryParse(response['createdAt'] ?? '') ?? object.createdAt,
+            DateTime.tryParse(response['createdAt'] ?? '') ?? object.createdAt,
         updatedAt:
-        DateTime.tryParse(response['updatedAt'] ?? '') ?? object.updatedAt,
+            DateTime.tryParse(response['updatedAt'] ?? '') ?? object.updatedAt,
       );
     }
 
@@ -68,9 +68,9 @@ class BackendDailyInputsApi extends BackendObjectsApi {
     daily = object.daily!.copyWith(
       objectId: response['objectId'],
       createdAt:
-      DateTime.tryParse(response['createdAt'] ?? '') ?? object.createdAt,
+          DateTime.tryParse(response['createdAt'] ?? '') ?? object.createdAt,
       updatedAt:
-      DateTime.tryParse(response['updatedAt'] ?? '') ?? object.updatedAt,
+          DateTime.tryParse(response['updatedAt'] ?? '') ?? object.updatedAt,
     );
 
     object = object.copyWith(
@@ -108,7 +108,7 @@ class BackendDailyInputsApi extends BackendObjectsApi {
             bloodSugar: value['daily']['BloodSugar'],
             bloodSystolic: value['daily']['BloodPSystolic'],
             bloodDiastolic: value['daily']['BloodPDiastolic'],
-            sleepDuration: value['daily']['SleepDuration'],
+            sleepDuration: value['daily']['SleepDuration']?.toDouble(),
             pain: value['daily']['Pain'],
             bloodSugarMol: value['daily']['BloodSugarMol']?.toDouble(),
             objectId: value['daily']['objectId'],

@@ -21,6 +21,7 @@ import 'package:picos/screens/questionaire_screen/pages/blood_pressure.dart';
 import 'package:picos/screens/questionaire_screen/pages/blood_sugar.dart';
 import 'package:picos/screens/questionaire_screen/pages/body_and_mind.dart';
 import 'package:picos/screens/questionaire_screen/pages/heart_frequency.dart';
+import 'package:picos/screens/questionaire_screen/pages/sleep.dart';
 import 'package:picos/screens/questionaire_screen/pages/weight.dart';
 import 'package:picos/screens/questionaire_screen/widgets/cover.dart';
 import 'package:picos/screens/questionaire_screen/widgets/doctor_card.dart';
@@ -96,7 +97,7 @@ class QuestionairePageStorage {
   int? selectedWalkDistance;
 
   /// The selected sleep duration.
-  int? selectedSleepDuration;
+  double? selectedSleepDuration;
 
   /// The selected sleep quality.
   int? selectedSleepQuality;
@@ -153,8 +154,6 @@ class QuestionairePageStorage {
   static String? _medicationAndTherapy;
   static String? _ready;
   static String? _possibleWalkDistance;
-  static String? _sleepDuration;
-  static String? _hrs;
   static String? _sleepQuality7Days;
   static String? _pain;
   static String? _lowInterest;
@@ -187,8 +186,6 @@ class QuestionairePageStorage {
 
   void _initStrings(BuildContext context) {
     _possibleWalkDistance = AppLocalizations.of(context)!.possibleWalkDistance;
-    _sleepDuration = AppLocalizations.of(context)!.sleepDuration;
-    _hrs = AppLocalizations.of(context)!.hrs;
     _ready = AppLocalizations.of(context)!.questionnaireFinished;
     _sleepQuality7Days = AppLocalizations.of(context)!.sleepQuality7Days;
     _pain = AppLocalizations.of(context)!.pain;
@@ -317,17 +314,13 @@ class QuestionairePageStorage {
       titles.add(_activityAndRest!);
     }
     pages.add(
-      QuestionairePage(
-        backFunction: previousPage,
-        nextFunction: nextPage,
-        child: TextFieldCard(
-          initialValue: selectedSleepDuration,
-          label: _sleepDuration!,
-          hint: _hrs!,
-          onChanged: (String value) {
-            selectedSleepDuration = int.tryParse(value);
-          },
-        ),
+      Sleep(
+        previousPage: previousPage,
+        nextPage: nextPage,
+        onChangedSleepDuration: (double? value) {
+          selectedSleepDuration = value;
+        },
+        initialValue: selectedSleepDuration,
       ),
     );
     titles.add(_activityAndRest!);
