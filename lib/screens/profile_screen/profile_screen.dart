@@ -31,7 +31,6 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController oldPassword = TextEditingController();
     TextEditingController newPassword = TextEditingController();
     TextEditingController newPasswordRepeat = TextEditingController();
 
@@ -39,12 +38,6 @@ class ProfileScreen extends StatelessWidget {
       body: PicosBody(
         child: Column(
           children: <Widget>[
-            const PicosLabel('Altes Passwort'),
-            PicosTextField(
-              keyboardType: TextInputType.visiblePassword,
-              obscureText: true,
-              controller: oldPassword,
-            ),
             const PicosLabel('Neues Passwort'),
             PicosTextField(
               keyboardType: TextInputType.visiblePassword,
@@ -61,29 +54,18 @@ class ProfileScreen extends StatelessWidget {
               text: 'Passwort ändern',
               onTap: () async {
                 ParseUser currentUser = Backend.user;
-                ParseUser checkUser = ParseUser(
-                  currentUser.username,
-                  oldPassword.text,
-                  currentUser.emailAddress,
-                );
-
-                ParseResponse checkPassword = await checkUser.login();
-                if (checkPassword.success) {
-                  if (newPassword.text.isNotEmpty &&
-                      newPasswordRepeat.text.isNotEmpty) {
-                    if (newPassword.text != newPasswordRepeat.text) {
-                      print('Neue Passwörter stimmen nicht überein!');
-                    } else {
-                      currentUser.password = newPassword.text;
-                      ParseResponse responseSaveNewPassword =
-                          await currentUser.save();
-                      if (responseSaveNewPassword.success) {
-                        print('Neues Passwort erfolgreich gespeichert!');
-                      }
+                if (newPassword.text.isNotEmpty &&
+                    newPasswordRepeat.text.isNotEmpty) {
+                  if (newPassword.text != newPasswordRepeat.text) {
+                    print('Neue Passwörter stimmen nicht überein!');
+                  } else {
+                    currentUser.password = newPassword.text;
+                    ParseResponse responseSaveNewPassword =
+                        await currentUser.save();
+                    if (responseSaveNewPassword.success) {
+                      print('Neues Passwort erfolgreich gespeichert!');
                     }
                   }
-                } else {
-                  print('Altes Passwort stimmt nicht überein!');
                 }
               },
             )
