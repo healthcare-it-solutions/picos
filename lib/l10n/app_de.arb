@@ -242,5 +242,6 @@
     "myPatients": "Meine Patienten",
     "editPatientInformation": "Bearbeite Informationen",
     "bruteforceLock": "Der Account ist zur Sicherheit gesperrt. Bitte versuchen Sie es in 5 Minuten erneut.",
-    "connectionError": "Verbindungsfehler"
+    "connectionError": "Verbindungsfehler",
+    "myProfile": "Mein Profil"
 }

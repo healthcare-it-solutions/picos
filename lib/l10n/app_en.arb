@@ -1088,5 +1088,9 @@
     "connectionError": "Connection error",
     "@connectionError": {
         "description": "Connection error"
+    },
+    "myProfile": "My profile",
+    "@myProfile": {
+        "description": "My profile"
     }
 }
