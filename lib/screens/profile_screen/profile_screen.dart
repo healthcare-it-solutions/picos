@@ -15,6 +15,8 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+//TODO: Localizations
+
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:picos/util/backend.dart';
@@ -25,16 +27,25 @@ import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:picos/widgets/picos_text_field.dart';
 
 /// This is the screen for the user's profile information.
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   /// Constructor for Profile Screen.
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    TextEditingController newPassword = TextEditingController();
-    TextEditingController newPasswordRepeat = TextEditingController();
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
 
+class _ProfileScreenState extends State<ProfileScreen> {
+  bool error = false;
+  bool success = false;
+
+  TextEditingController newPassword = TextEditingController();
+  TextEditingController newPasswordRepeat = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
     return PicosScreenFrame(
+      title: 'Profil',
       body: PicosBody(
         child: Column(
           children: <Widget>[
@@ -57,18 +68,34 @@ class ProfileScreen extends StatelessWidget {
                 if (newPassword.text.isNotEmpty &&
                     newPasswordRepeat.text.isNotEmpty) {
                   if (newPassword.text != newPasswordRepeat.text) {
-                    print('Neue Passwörter stimmen nicht überein!');
+                    setState(() {
+                      error = true;
+                    });
                   } else {
                     currentUser.password = newPassword.text;
                     ParseResponse responseSaveNewPassword =
                         await currentUser.save();
                     if (responseSaveNewPassword.success) {
-                      print('Neues Passwort erfolgreich gespeichert!');
+                      setState(() {
+                        error = false;
+                        success = !error;
+                      });
                     }
                   }
                 }
               },
-            )
+            ),
+            error
+                ? const Text(
+                    'Neue Passwörter stimmen nicht überein!',
+                    style: TextStyle(color: Color(0xFFe63329)),
+                  )
+                : success
+                    ? const Text(
+                        'Neues Passwort wurde erfolgreich gespeichert!',
+                        style: TextStyle(color: Colors.lightGreen),
+                      )
+                    : const Text(' '),
           ],
         ),
       ),
