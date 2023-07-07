@@ -36,11 +36,31 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  bool error = false;
-  bool success = false;
+  String errorMessage = '';
+  String successMessage = '';
 
   TextEditingController newPassword = TextEditingController();
   TextEditingController newPasswordRepeat = TextEditingController();
+
+  bool isStrongPassword(String password) {
+    if (password.length < 8) {
+      return false;
+    }
+    if (!password.contains(RegExp(r'[a-z]'))) {
+      return false;
+    }
+    if (!password.contains(RegExp(r'[A-Z]'))) {
+      return false;
+    }
+    if (!password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      return false;
+    }
+    if (!password.contains(RegExp(r'[0-9]'))) {
+      return false;
+    }
+
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,31 +89,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     newPasswordRepeat.text.isNotEmpty) {
                   if (newPassword.text != newPasswordRepeat.text) {
                     setState(() {
-                      error = true;
+                      errorMessage = 'Neue Passwörter stimmen nicht überein!';
+                      successMessage = '';
                     });
                   } else {
+                    if (!isStrongPassword(newPassword.text)) {
+                      setState(() {
+                        errorMessage =
+                            'Ihr Passwort muss aus Groß-, Kleinbuchstaben, '
+                            'Sonderzeichen, Zahlen und insgesamt aus mindestens'
+                            '8 Zeichen bestehen!';
+                        successMessage = '';
+                      });
+                      return;
+                    }
                     currentUser.password = newPassword.text;
                     ParseResponse responseSaveNewPassword =
                         await currentUser.save();
                     if (responseSaveNewPassword.success) {
                       setState(() {
-                        error = false;
-                        success = !error;
+                        errorMessage = '';
+                        successMessage =
+                            'Neues Passwort wurde erfolgreich gespeichert!';
                       });
                     }
                   }
                 }
               },
             ),
-            error
-                ? const Text(
-                    'Neue Passwörter stimmen nicht überein!',
-                    style: TextStyle(color: Color(0xFFe63329)),
+            errorMessage != ''
+                ? Text(
+                    errorMessage,
+                    style: const TextStyle(color: Color(0xFFe63329)),
                   )
-                : success
-                    ? const Text(
-                        'Neues Passwort wurde erfolgreich gespeichert!',
-                        style: TextStyle(color: Colors.lightGreen),
+                : successMessage != ''
+                    ? Text(
+                        successMessage,
+                        style: const TextStyle(color: Colors.lightGreen),
                       )
                     : const Text(' '),
           ],
