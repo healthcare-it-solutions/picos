@@ -767,7 +767,7 @@
     },
     "drinkEnough": "Your body consists mainly of water. Therefore, sufficient water intake is important for optimal bodily function.",
     "@drinkEnough": {
-        "description": "Drink enough: Drink at least 2 liters of water per day. The human body consists of two-thirds water. The substance serves, among other things, as a means of transport for urine and blood and as a solvent."
+        "description": "Your body consists mainly of water. Therefore, sufficient water intake is important for optimal bodily function."
     },
     "welcomeToPICOS": "Welcome to PICOS",
     "@welcomeToPICOS": {
