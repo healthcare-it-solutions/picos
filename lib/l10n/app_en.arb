@@ -765,9 +765,9 @@
     "@tips": {
         "description": "Tips for a healthy everyday life"
     },
-    "drinkEnough": "Drink enough: Drink at least 2 liters of water per day. The human body consists of two-thirds water. The substance serves, among other things, as a means of transport for urine and blood and as a solvent.",
+    "drinkEnough": "Your body consists mainly of water. Therefore, sufficient water intake is important for optimal bodily function.",
     "@drinkEnough": {
-        "description": "Drink enough: Drink at least 2 liters of water per day. The human body consists of two-thirds water. The substance serves, among other things, as a means of transport for urine and blood and as a solvent."
+        "description": "Your body consists mainly of water. Therefore, sufficient water intake is important for optimal bodily function."
     },
     "welcomeToPICOS": "Welcome to PICOS",
     "@welcomeToPICOS": {
@@ -1074,7 +1074,7 @@
         "description": "Please check whether your entry is correct!"
     },
     "myPatients": "My Patients",
-    "@checkValue": {
+    "@myPatients": {
         "description": "My Patients"
     },
     "editPatientInformation": "Edit Patient Information",
