@@ -39,8 +39,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String errorMessage = '';
   String successMessage = '';
 
-  TextEditingController newPassword = TextEditingController();
-  TextEditingController newPasswordRepeat = TextEditingController();
+  TextEditingController newPassword = TextEditingController(text: '');
+  TextEditingController newPasswordRepeat = TextEditingController(text: '');
+
+  bool disabled = false;
 
   bool isStrongPassword(String password) {
     if (password.length < 8) {
@@ -83,6 +85,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             PicosInkWellButton(
               text: 'Passwort ändern',
+              disabled: disabled,
               onTap: () async {
                 ParseUser currentUser = Backend.user;
                 if (newPassword.text.isNotEmpty &&
@@ -91,6 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     setState(() {
                       errorMessage = 'Neue Passwörter stimmen nicht überein!';
                       successMessage = '';
+                      disabled = false;
                     });
                   } else {
                     if (!isStrongPassword(newPassword.text)) {
@@ -98,22 +102,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         errorMessage =
                             'Ihr Passwort muss aus Groß-, Kleinbuchstaben, '
                             'Sonderzeichen, Zahlen und insgesamt aus mindestens'
-                            '8 Zeichen bestehen!';
+                            ' 8 Zeichen bestehen!';
                         successMessage = '';
+                        disabled = false;
                       });
-                      return;
-                    }
-                    currentUser.password = newPassword.text;
-                    ParseResponse responseSaveNewPassword =
-                        await currentUser.save();
-                    if (responseSaveNewPassword.success) {
+                    } else {
+                      currentUser.password = newPassword.text;
+
                       setState(() {
-                        errorMessage = '';
-                        successMessage =
-                            'Neues Passwort wurde erfolgreich gespeichert!';
+                        disabled = true;
                       });
+
+                      ParseResponse responseSaveNewPassword =
+                          await currentUser.save();
+                      if (responseSaveNewPassword.success) {
+                        setState(() {
+                          errorMessage = '';
+                          successMessage =
+                              'Neues Passwort wurde erfolgreich gespeichert!';
+                          disabled = false;
+                        });
+                      } else {
+                        setState(() {
+                          errorMessage = 'Neues Passwort konnte nicht'
+                            ' gespeichert werden!';
+                          successMessage = '';
+                          disabled = false;
+                        });
+                      }
                     }
                   }
+                } else {
+                  setState(() {
+                    errorMessage = 'Alle Felder müssen ausgefüllt sein!';
+                    successMessage = '';
+                    disabled = false;
+                  });
                 }
               },
             ),
