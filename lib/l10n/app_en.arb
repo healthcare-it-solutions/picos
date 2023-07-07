@@ -1074,7 +1074,7 @@
         "description": "Please check whether your entry is correct!"
     },
     "myPatients": "My Patients",
-    "@checkValue": {
+    "@myPatients": {
         "description": "My Patients"
     },
     "editPatientInformation": "Edit Patient Information",
@@ -1092,5 +1092,37 @@
     "myProfile": "My profile",
     "@myProfile": {
         "description": "My profile"
+    },
+    "newPassword": "New Password",
+    "@newPassword": {
+        "description": "New Password"
+    },
+    "newPasswordRepeat": "Repeat new Password",
+    "@newPasswordRepeat": {
+        "description": "Repeat new Password"
+    },
+    "changePassword": "Change Password",
+    "@changePassword": {
+        "description": "Change Password"
+    },
+    "passwordSavedSuccessMessage": "The new password has been successfully saved!",
+    "@passwordSavedSuccessMessage": {
+        "description": "The new password has been successfully saved!"
+    },
+    "passwordMismatchErrorMessage": "The new passwords do not match!",
+    "@passwordMismatchErrorMessage": {
+        "description": "The new passwords do not match!"
+    },
+    "strongPassword": "The new password must consist of lowercases, uppercases, special characters and at least 8 characters!",
+    "@strongPassword": {
+        "description": "The new password must consist of lowercases, uppercases, special characters and at least 8 characters!"
+    },
+    "passwordSavedFailureMessage": "New password could not be saved!",
+    "@passwordSavedFailureMessage": {
+        "description": "New password could not be saved!"
+    },
+    "allFieldsMustbeFilled": "All fields must be filled!",
+    "@allFieldsMustbeFilled": {
+        "description": "All fields must be filled!"
     }
 }

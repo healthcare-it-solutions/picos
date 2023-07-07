@@ -25,6 +25,7 @@ import 'package:picos/widgets/picos_ink_well_button.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:picos/widgets/picos_text_field.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// This is the screen for the user's profile information.
 class ProfileScreen extends StatefulWidget {
@@ -67,24 +68,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return PicosScreenFrame(
-      title: 'Profil',
+      title: AppLocalizations.of(context)!.myProfile,
       body: PicosBody(
         child: Column(
           children: <Widget>[
-            const PicosLabel('Neues Passwort'),
+            PicosLabel(AppLocalizations.of(context)!.newPassword),
             PicosTextField(
               keyboardType: TextInputType.visiblePassword,
               obscureText: true,
               controller: newPassword,
             ),
-            const PicosLabel('Neues Passwort wiederholen'),
+            PicosLabel(AppLocalizations.of(context)!.newPasswordRepeat),
             PicosTextField(
               keyboardType: TextInputType.visiblePassword,
               obscureText: true,
               controller: newPasswordRepeat,
             ),
             PicosInkWellButton(
-              text: 'Passwort ändern',
+              text: AppLocalizations.of(context)!.changePassword,
               disabled: disabled,
               onTap: () async {
                 ParseUser currentUser = Backend.user;
@@ -92,7 +93,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     newPasswordRepeat.text.isNotEmpty) {
                   if (newPassword.text != newPasswordRepeat.text) {
                     setState(() {
-                      errorMessage = 'Neue Passwörter stimmen nicht überein!';
+                      errorMessage = AppLocalizations.of(context)!
+                          .passwordMismatchErrorMessage;
                       successMessage = '';
                       disabled = false;
                     });
@@ -100,9 +102,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     if (!isStrongPassword(newPassword.text)) {
                       setState(() {
                         errorMessage =
-                            'Ihr Passwort muss aus Groß-, Kleinbuchstaben, '
-                            'Sonderzeichen, Zahlen und insgesamt aus mindestens'
-                            ' 8 Zeichen bestehen!';
+                            AppLocalizations.of(context)!.strongPassword;
                         successMessage = '';
                         disabled = false;
                       });
@@ -116,16 +116,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ParseResponse responseSaveNewPassword =
                           await currentUser.save();
                       if (responseSaveNewPassword.success) {
+                        Backend.logout();
                         setState(() {
                           errorMessage = '';
-                          successMessage =
-                              'Neues Passwort wurde erfolgreich gespeichert!';
+                          successMessage = AppLocalizations.of(context)!
+                              .passwordSavedSuccessMessage;
                           disabled = false;
                         });
                       } else {
                         setState(() {
-                          errorMessage = 'Neues Passwort konnte nicht'
-                            ' gespeichert werden!';
+                          errorMessage = AppLocalizations.of(context)!
+                              .passwordSavedFailureMessage;
                           successMessage = '';
                           disabled = false;
                         });
@@ -134,7 +135,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   }
                 } else {
                   setState(() {
-                    errorMessage = 'Alle Felder müssen ausgefüllt sein!';
+                    errorMessage =
+                        AppLocalizations.of(context)!.allFieldsMustbeFilled;
                     successMessage = '';
                     disabled = false;
                   });
