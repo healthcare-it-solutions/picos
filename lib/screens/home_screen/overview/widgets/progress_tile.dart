@@ -90,7 +90,9 @@ class ProgressTile extends StatelessWidget {
         title = AppLocalizations.of(context)!.yesterday;
         break;
       case 2:
-        if (Platform.localeName == 'de_DE') {
+        if (Platform.localeName == 'de_DE' ||
+            Platform.localeName == 'de-DE' ||
+            Platform.localeName == 'de') {
           title = 'Vorgestern';
           break;
         }
