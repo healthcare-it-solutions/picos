@@ -56,29 +56,29 @@ class MovementData extends StatefulWidget {
     required this.hospitalReadmissionCallback,
     required this.daysUntilWorkReuptakeCallback,
     Key? key,
-    this.age,
-    this.gender,
-    this.bodyWeight,
-    this.height,
-    this.bodyMassIndex,
-    this.idealBodyWeight,
-    this.patientIDs,
-    this.caseNumber,
-    this.reasonForDischarge,
-    this.admissionTime,
-    this.dischargeTime,
-    this.ventilationDays,
-    this.admissionTimeToTheHospital,
-    this.dischargeTimeFromTheHospital,
-    this.icd10Codes,
-    this.patientLocation,
-    this.icuMortality,
-    this.hospitalMortality,
-    this.hospitaalLengthOfStay,
-    this.icuLengthOfStay,
-    this.readmissionRateToTheICU,
-    this.hospitalReadmission,
-    this.daysUntilWorkReuptake,
+    this.initialAge,
+    this.initialGender,
+    this.initialBodyWeight,
+    this.initialHeight,
+    this.initialBodyMassIndex,
+    this.initialIdealBodyWeight,
+    this.initialPatientID,
+    this.initialCaseNumber,
+    this.initialReasonForDischarge,
+    this.initialAdmissionTime,
+    this.initialDischargeTime,
+    this.initialVentilationDays,
+    this.initialAdmissionTimeToTheHospital,
+    this.initialDischargeTimeFromTheHospital,
+    this.initialICD10Codes,
+    this.initialPatientLocation,
+    this.initialICUMortality,
+    this.initialHospitalMortality,
+    this.initialHospitaalLengthOfStay,
+    this.initialICULengthOfStay,
+    this.initialReadmissionRateToTheICU,
+    this.initialHospitalReadmission,
+    this.initialDaysUntilWorkReuptake,
   }) : super(key: key);
 
   /// Main diagnosis callback.
@@ -96,89 +96,131 @@ class MovementData extends StatefulWidget {
   /// Co-morbidity callback.
   final void Function(double? value) bodyMassIndexCallback;
 
+  /// Ideal Body Weight callback.
   final void Function(double? value) idealBodyWeightCallback;
 
+  /// Patient ID callback.
   final void Function(String? value) patientIDCallback;
 
+  /// Case Number callback.
   final void Function(String? value) caseNumberCallback;
 
+  /// Reason for Discharge callback.
   final void Function(String? value) reasonForDischargeCallback;
 
+  /// Admission Time for ICU callback.
   final void Function(DateTime? value) admissionTimeICUCallback;
 
+  /// Discharge Time for ICU callback.
   final void Function(DateTime? value) dischargeTimeICUCallback;
 
+  /// Ventilation Days in ICU callback.
   final void Function(int? value) ventilationDaysICUCallback;
 
+  /// Admission Time for Hospital callback.
   final void Function(DateTime? value) admissionTimeHospitalCallback;
 
+  /// Discharge Time for Hospital callback.
   final void Function(DateTime? value) dischargeTimeHospitalCallback;
 
+  /// ICD-10 Codes callback.
   final void Function(String? value) icd10COdesCallback;
 
+  /// Patient Location callback.
   final void Function(String? value) patientLocationCallback;
 
+  /// Lung Protective Ventilation > 70 % callback.
   final void Function(bool? value) lungProtectiveVentilationGt70pCallback;
 
+  /// ICU Mortality callback.
   final void Function(double? value) icuMortalityCallback;
 
+  /// Hospital Mortality callback.
   final void Function(double? value) hospitalMortalityCallback;
 
+  /// Hospital Length of Stay Callback.
   final void Function(int? value) hospitalLengthOfStayCallback;
 
+  /// ICU Length of Stay Callback.
   final void Function(int? value) icuLengthOfStayCallback;
 
+  /// Readmission Rate of ICU callback.
   final void Function(double? value) readmissionRateICUCallback;
 
+  /// Hospital Readmission callback.
   final void Function(double? value) hospitalReadmissionCallback;
 
+  /// Days until Work Reuptake callback.
   final void Function(int? value) daysUntilWorkReuptakeCallback;
 
-  final int? age;
+  /// Starting value for Age.
+  final int? initialAge;
 
-  final FormOfAddress? gender;
+  /// Starting value for Gender.
+  final FormOfAddress? initialGender;
 
-  final double? bodyWeight;
+  /// Starting value for Body Weight.
+  final double? initialBodyWeight;
 
-  final double? height;
+  /// Starting value for Height.
+  final double? initialHeight;
 
-  final double? bodyMassIndex;
+  /// Starting value for Body Mass Index.
+  final double? initialBodyMassIndex;
 
-  final double? idealBodyWeight;
+  /// Starting value for idealBodyWeight.
+  final double? initialIdealBodyWeight;
 
-  final String? patientIDs;
+  /// Starting value for Patient ID
+  final String? initialPatientID;
 
-  final String? caseNumber;
+  /// Starting value for Case Number.
+  final String? initialCaseNumber;
 
-  final String? reasonForDischarge;
+  /// Starting value for Reason for Discharge.
+  final String? initialReasonForDischarge;
 
-  final DateTime? admissionTime;
+  /// Starting value for Admission Time.
+  final DateTime? initialAdmissionTime;
 
-  final DateTime? dischargeTime;
+  /// Starting value for Discharge Time.
+  final DateTime? initialDischargeTime;
 
-  final double? ventilationDays;
+  /// Starting value for Ventilation Days.
+  final double? initialVentilationDays;
 
-  final DateTime? admissionTimeToTheHospital;
+  /// Starting value for Admission Time to the Hospital.
+  final DateTime? initialAdmissionTimeToTheHospital;
 
-  final DateTime? dischargeTimeFromTheHospital;
+  /// Starting value for Discharge Time from the Hospital.
+  final DateTime? initialDischargeTimeFromTheHospital;
 
-  final String? icd10Codes;
+  /// Starting value for ICD-10 Codes.
+  final String? initialICD10Codes;
 
-  final String? patientLocation;
+  /// Starting value for Patient Location.
+  final String? initialPatientLocation;
 
-  final double? icuMortality;
+  /// Starting value for ICU Mortality.
+  final double? initialICUMortality;
 
-  final double? hospitalMortality;
+  /// Starting value for Hospital Mortality.
+  final double? initialHospitalMortality;
 
-  final double? hospitaalLengthOfStay;
+  /// Starting value for Hospital Length of Stay.
+  final double? initialHospitaalLengthOfStay;
 
-  final double? icuLengthOfStay;
+  /// Starting value for ICU Length of Stay.
+  final double? initialICULengthOfStay;
 
-  final double? readmissionRateToTheICU;
+  /// Starting value for Readmission Rate to the ICU.
+  final double? initialReadmissionRateToTheICU;
 
-  final int? hospitalReadmission;
+  /// Starting value for Hospital Readmission.
+  final int? initialHospitalReadmission;
 
-  final double? daysUntilWorkReuptake;
+  /// Starting value for Days until Work Reuptake.
+  final double? initialDaysUntilWorkReuptake;
 
   @override
   State<MovementData> createState() => _MovementDataState();
@@ -204,7 +246,7 @@ class _MovementDataState extends State<MovementData> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
-            children: [
+            children: <Widget>[
               CatalogOfItemsLabel(
                 AppLocalizations.of(context)!.age,
               ),
@@ -350,7 +392,7 @@ class _MovementDataState extends State<MovementData> {
         Padding(
           padding: const EdgeInsets.all(15.0),
           child: Column(
-            children: [
+            children: <Widget>[
               CatalogOfItemsLabel(AppLocalizations.of(context)!.icuMortality),
               PicosNumberField(
                 hint: percent,

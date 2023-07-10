@@ -32,22 +32,6 @@ import '../../../widgets/picos_page_view_item.dart';
 class CatalogOfItemsPageStorage {
   /// Creates CatalogOfItemsPageStorage.
   CatalogOfItemsPageStorage(BuildContext context) {
-    //TODO: You can use these consts within the pages and remove from here.
-    //const double fontSize = 15;
-    //const int textAreaLines = 3;
-    //const Border border = Border(
-    //  bottom: BorderSide(color: Colors.grey, width: 0),
-    //);
-    //const String min = '/min';
-    //const String mmHg = 'mmHg';
-
-    //TODO: Create further pages like shown below. The commented out code is
-    //TODO: supposed to be used for that.
-
-    //TODO: Attribute comments.
-
-    //TODO: init values function, so the forms get pre filled with values.
-
     pages = <PicosPageViewItem>[
       PicosPageViewItem(
         child: InclusionCriteria(
@@ -408,7 +392,7 @@ class CatalogOfItemsPageStorage {
             dischargeTimeFromTheHospital = value;
           },
           icd10COdesCallback: (String? value) {
-            ICD10Codes = value;
+            icd10Codes = value;
           },
           patientLocationCallback: (String? value) {
             patientLocation = value;
@@ -417,7 +401,7 @@ class CatalogOfItemsPageStorage {
             lungProtectiveVentilation70 = value!;
           },
           icuMortalityCallback: (double? value) {
-            ICUMortality = value;
+            icuMortality = value;
           },
           hospitalMortalityCallback: (double? value) {
             hospitalMortality = value;
@@ -426,7 +410,7 @@ class CatalogOfItemsPageStorage {
             hospitalLengthOfStay = value;
           },
           icuLengthOfStayCallback: (int? value) {
-            ICULengthOfStay = value;
+            icuLengthOfStay = value;
           },
           readmissionRateICUCallback: (double? value) {
             readmissionRateToTheICU = value;
@@ -574,13 +558,13 @@ class CatalogOfItemsPageStorage {
   int? ventilationDays;
   DateTime? admissionTimeToTheHospital;
   DateTime? dischargeTimeFromTheHospital;
-  String? ICD10Codes;
+  String? icd10Codes;
   String? patientLocation;
   bool lungProtectiveVentilation70 = false;
-  double? ICUMortality;
+  double? icuMortality;
   double? hospitalMortality;
   int? hospitalLengthOfStay;
-  int? ICULengthOfStay;
+  int? icuLengthOfStay;
   double? readmissionRateToTheICU;
   double? hospitalReadmission;
   int? daysUntilWorkReuptake;
