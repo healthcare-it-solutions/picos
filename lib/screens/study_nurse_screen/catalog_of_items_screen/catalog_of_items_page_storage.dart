@@ -21,6 +21,7 @@ import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/i
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/inclusion_criteria.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/laboratory_values.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/medicaments.dart';
+import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/movement_data.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/respiration_parameters.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/vital_data.dart';
 
@@ -363,134 +364,82 @@ class CatalogOfItemsPageStorage {
         ),
       ),
     ];
-    // PicosPageViewItem(
-    //   child: CatalogOfItemsPage(
-    //       padding: EdgeInsets.zero,
-    //       title: 'Patienten Bewegungsdaten',
-    //       children: <Widget>[
-    //         Padding(
-    //           padding: const EdgeInsets.symmetric(horizontal: 15.0),
-    //           child: Column(children: [
-    //             PicosLabel('Alter', fontSize: fontSize),
-    //             PicosNumberField(
-    //               hint: 'Jahre',
-    //               digitsOnly: true,
-    //             ),
-    //             PicosLabel('Geschlecht', fontSize: fontSize),
-    //             PicosFormOfAddress(
-    //               callBackFunction: (value) {},
-    //             ),
-    //             PicosLabel('Körpergewicht', fontSize: fontSize),
-    //             PicosNumberField(hint: 'kg'),
-    //             PicosLabel('Körpergröße', fontSize: fontSize),
-    //             PicosNumberField(
-    //               hint: 'cm',
-    //               digitsOnly: true,
-    //             ),
-    //             PicosLabel('BMI', fontSize: fontSize),
-    //             PicosNumberField(
-    //               hint: 'kg/m2',
-    //             ),
-    //             PicosLabel('ideales Körpergewicht', fontSize: fontSize),
-    //             PicosNumberField(
-    //               hint: 'kg',
-    //             ),
-    //             PicosLabel('Patienten-ID(s)', fontSize: fontSize),
-    //             PicosTextArea(maxLines: textAreaLines),
-    //             PicosLabel('Fallnummer', fontSize: fontSize),
-    //             PicosTextArea(maxLines: textAreaLines),
-    //             PicosLabel(
-    //                 'Entlassungsgrund (verlegt intern, verlegt extern, verstorben)',
-    //                 fontSize: fontSize),
-    //             PicosTextArea(maxLines: textAreaLines),
-    //             PicosLabel('Aufnahmezeitpunkt ICU', fontSize: fontSize),
-    //             PicosDatePicker(
-    //               callBackFunction: (DateTime value) {},
-    //             ),
-    //             PicosLabel('Entlassungszeitpunkt ICU', fontSize: fontSize),
-    //             PicosDatePicker(
-    //               callBackFunction: (DateTime value) {},
-    //             ),
-    //             PicosLabel('Beatmungstage ICU', fontSize: fontSize),
-    //             PicosNumberField(
-    //               hint: 'Tage',
-    //             ),
-    //             PicosLabel('Aufnahmezeitpunkt KRH', fontSize: fontSize),
-    //             PicosDatePicker(
-    //               callBackFunction: (DateTime value) {},
-    //             ),
-    //             PicosLabel('Entlassungszeitpunkt KRH', fontSize: fontSize),
-    //             PicosDatePicker(
-    //               callBackFunction: (DateTime value) {},
-    //             ),
-    //             PicosLabel('ICD-10 Codes', fontSize: fontSize),
-    //             PicosTextField(),
-    //             PicosLabel('Patientenaufenthaltsort/Station',
-    //                 fontSize: fontSize),
-    //             PicosTextArea(maxLines: textAreaLines),
-    //           ]),
-    //         ),
-    //         SwitchListTile(
-    //           value: false,
-    //           onChanged: (bool value) {
-    //             // setState(() {
-    //             //   widget.callbackActivityAndRest(
-    //             //     'entrySleepDurationEnabled',
-    //             //     value,
-    //             //   );
-    //             //   _entrySleepDurationEnabled = value;
-    //             // });
-    //           },
-    //           title: Padding(
-    //             padding: switchTitlePadding,
-    //             child: Text(
-    //               'Lungenprotektive Beatmung >70%',
-    //               style: textStyle,
-    //             ),
-    //           ),
-    //           shape: border,
-    //         ),
-    //         Padding(
-    //           padding: const EdgeInsets.all(15.0),
-    //           child: Column(
-    //             children: [
-    //               PicosLabel('ICU Sterblichkeit', fontSize: fontSize),
-    //               PicosNumberField(
-    //                 hint: '%',
-    //               ),
-    //               PicosLabel('KH Sterblichkeit', fontSize: fontSize),
-    //               PicosNumberField(
-    //                 hint: '%',
-    //               ),
-    //               PicosLabel('KH Aufenthaltsdauer', fontSize: fontSize),
-    //               PicosNumberField(
-    //                 hint: 'Tage',
-    //               ),
-    //               PicosLabel('ICU Aufenthaltsdauer', fontSize: fontSize),
-    //               PicosNumberField(
-    //                 hint: 'Tage',
-    //               ),
-    //               PicosLabel('Wiederaufnahmen ICU in %',
-    //                   fontSize: fontSize),
-    //               PicosNumberField(
-    //                 hint: '%',
-    //               ),
-    //               PicosLabel('Wiederaufnahmen Krankenhaus (x/Jahr)',
-    //                   fontSize: fontSize),
-    //               PicosNumberField(
-    //                 hint: 'n/Jahr',
-    //               ),
-    //               PicosLabel(
-    //                   'Wiedereingliederungszeit nach Krankheit (Tage bis reuptake work)',
-    //                   fontSize: fontSize),
-    //               PicosNumberField(
-    //                 hint: 'Tage',
-    //               ),
-    //             ],
-    //           ),
-    //         )
-    //       ]),
-    // ),
+    PicosPageViewItem(
+      child: MovementData(
+        ageCallback: (int? value) {
+          age = value;
+        },
+        genderCallback: (FormOfAddress? value) {
+          gender = value;
+        },
+        bodyWeightCallback: (double? value) {
+          bodyWeight = value;
+        },
+        heightCallback: (double? value) {
+          height = value;
+        },
+        bodyMassIndexCallback: (double? value) {
+          bodyMassIndex = value;
+        },
+        idealBodyWeightCallback: (double? value) {
+          idealBodyWeight = value;
+        },
+        patientIDCallback: (String? value) {
+          patientID = value;
+        },
+        caseNumberCallback: (String? value) {
+          caseNumber = value;
+        },
+        reasonForDischargeCallback: (String? value) {
+          reasonForDischarge = value;
+        },
+        admissionTimeICUCallback: (DateTime? value) {
+          admissionTime = value;
+        },
+        dischargeTimeICUCallback: (DateTime? value) {
+          dischargeTime = value;
+        },
+        ventilationDaysICUCallback: (int? value) {
+          ventilationDays = value;
+        },
+        admissionTimeHospitalCallback: (DateTime? value) {
+          admissionTimeToTheHospital = value;
+        },
+        dischargeTimeHospitalCallback: (DateTime? value) {
+          dischargeTimeFromTheHospital = value;
+        },
+        icd10COdesCallback: (String? value) {
+          ICD10Codes = value;
+        },
+        patientLocationCallback: (String? value) {
+          patientLocation = value;
+        },
+        lungProtectiveVentilationGt70pCallback: (bool? value) {
+          lungProtectiveVentilation70 = value!;
+        },
+        icuMortalityCallback: (double? value) {
+          ICUMortality = value;
+        },
+        hospitalMortalityCallback: (double? value) {
+          hospitalMortality = value;
+        },
+        hospitalLengthOfStayCallback: (int? value) {
+          hospitalLengthOfStay = value;
+        },
+        icuLengthOfStayCallback: (int? value) {
+          ICULengthOfStay = value;
+        },
+        readmissionRateICUCallback: (double? value) {
+          readmissionRateToTheICU = value;
+        },
+        hospitalReadmissionCallback: (double? value) {
+          hospitalReadmission = value;
+        },
+        daysUntilWorkReuptakeCallback: (int? value) {
+          daysUntilWorkReuptake = value;
+        },
+      ),
+    );
   }
 
   /// If the patient had 24h mechanical ventilation.
@@ -617,12 +566,12 @@ class CatalogOfItemsPageStorage {
   double? height;
   double? bodyMassIndex;
   double? idealBodyWeight;
-  String? patientIDs;
+  String? patientID;
   String? caseNumber;
   String? reasonForDischarge;
   DateTime? admissionTime;
   DateTime? dischargeTime;
-  double? ventilationDays;
+  int? ventilationDays;
   DateTime? admissionTimeToTheHospital;
   DateTime? dischargeTimeFromTheHospital;
   String? ICD10Codes;
@@ -630,11 +579,11 @@ class CatalogOfItemsPageStorage {
   bool lungProtectiveVentilation70 = false;
   double? ICUMortality;
   double? hospitalMortality;
-  double? hospitaalLengthOfStay;
-  double? ICULengthOfStay;
+  int? hospitalLengthOfStay;
+  int? ICULengthOfStay;
   double? readmissionRateToTheICU;
-  int? hospitalReadmission;
-  double? daysUntilWorkReuptake;
+  double? hospitalReadmission;
+  int? daysUntilWorkReuptake;
 
   /// The loaded pages.
   late List<PicosPageViewItem> pages;
