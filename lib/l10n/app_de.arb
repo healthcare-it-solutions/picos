@@ -330,5 +330,6 @@
     "patientsMovementData": "Patienten Bewegungsdaten",
     "sa02" : "arterielle Sauerstoffsättigung",
     "svO2": "zentralvenöse Sauerstoffsättigung",
-    "af": "Atemfrequenz"
+    "af": "Atemfrequenz",
+    "lungProtectiveVentilation70p": "Lungenprotektivve Beatmung > 70%"
 }
