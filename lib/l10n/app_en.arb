@@ -1238,6 +1238,78 @@
   "arterialBaseExcess": "Arterial Base Excess",
   "@arterialBaseExcess": {
     "description": "arterial base excess"
+  },
+  "gender": "Gender",
+  "@gender": {
+    "description": "Gender"
+  },
+  "bmi": "BMI",
+  "@bmi": {
+    "description": "BMI"
+  },
+  "idealBodyWeight": "Ideal Body Weight",
+  "@idealBodyWeight": {
+    "description": "Ideal Body Weight"
+  },
+  "reasonForDischarge": "Reason for Discharge",
+  "@reasonForDischarge": {
+    "description": "Reason for Discharge"
+  },
+  "admissionTimeICU": "Admission Time ICU",
+  "@admissionTimeICU": {
+    "description": "Admission Time ICU"
+  },
+  "dischargeTimeICU": "Discharge Time ICU",
+  "@dischargeTimeICU": {
+    "description": "Discharge Time ICU"
+  },
+  "ventilationDaysICU": "Ventilation Days ICU",
+  "@ventilationDaysICU": {
+    "description": "Ventilation Days ICU"
+  },
+  "admissionTimeHospital": "Admission Time to the Hospital",
+  "@admissionTimeHospital": {
+    "description": "Admission Time to the Hospital"
+  },
+  "dischargeTimeHospital": "Discharge Time from the Hospital",
+  "@dischargeTimeHospital": {
+    "description": "Discharge Time from the Hospital"
+  },
+  "icd10Codes": "ICD-10 Codes",
+  "@icd10Codes": {
+    "description": "ICD-10 Codes"
+  },
+  "patientLocation": "Patient Location",
+  "@patientLocation": {
+    "description": "Patient Location"
+  },
+  "icuMortality": "ICU Mortality",
+  "@icuMortality": {
+    "description": "ICU Mortality"
+  },
+  "hospitalMortality": "Hospital Mortality",
+  "@hospitalMortality": {
+    "description": "Hospital Mortality"
+  },
+  "hospitalLengthOfStay": "Hospital Length of Stay",
+  "@hospitaalLengthOfStay": {
+    "description": "hospitalLengthOfStay"
+  },
+  "icuLengthOfStay": "ICU Length of Stay",
+  "@icuLengthOfStay": {
+    "description": "ICU Length of Stay"
+  },
+  "readmissionRateICU": "Readmission Rate to the ICU",
+  "@readmissionRateICU": {
+    "description": "Readmission Rate to the ICU"
+  },
+  "hospitalReadmission": "Hospital Readmission",
+  "@hospitalReadmission": {
+    "description": "Hospital Readmission"
+  },
+  "daysUntilWorkReuptake": "Days until Work Reupdake",
+  "@daysUntilWorkReuptake": {
+    "description": "Days until Work Reupdake"
   }
 }
 
