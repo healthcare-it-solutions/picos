@@ -18,7 +18,6 @@
 import 'package:flutter/material.dart';
 import 'package:picos/widgets/picos_date_picker.dart';
 import 'package:picos/widgets/picos_form_of_address.dart';
-import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_number_field.dart';
 import 'package:picos/widgets/picos_switch.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -190,40 +189,52 @@ class _MovementDataState extends State<MovementData> {
 
   @override
   Widget build(BuildContext context) {
-    const double fontSize = 15;
     const int textAreaLines = 3;
+
+    const String cm = 'cm';
+    const String kgm2 = 'kg/m2';
+    const String kg = 'kg';
+    const String percent = '%';
+    String nYear = 'n/${AppLocalizations.of(context)!.year}';
+    
     return CatalogOfItemsPage(
       padding: EdgeInsets.zero,
-      title: 'Patienten Bewegungsdaten',
+      title: AppLocalizations.of(context)!.patientsMovementData,
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             children: [
-              CatalogOfItemsLabel(AppLocalizations.of(context)!.age),
+              CatalogOfItemsLabel(
+                AppLocalizations.of(context)!.age,
+              ),
               PicosNumberField(
-                hint: 'Jahre',
+                hint: AppLocalizations.of(context)!.years,
                 digitsOnly: true,
                 onChanged: (String value) {
                   widget.ageCallback(int.tryParse(value));
                 },
               ),
-              CatalogOfItemsLabel(AppLocalizations.of(context)!.gender),
+              CatalogOfItemsLabel(
+                AppLocalizations.of(context)!.gender,
+              ),
               PicosFormOfAddress(
                 callBackFunction: (FormOfAddress value) {
                   widget.genderCallback(value);
                 },
               ),
-              CatalogOfItemsLabel(AppLocalizations.of(context)!.weight),
+              CatalogOfItemsLabel(
+                AppLocalizations.of(context)!.weight,
+              ),
               PicosNumberField(
-                hint: 'kg',
+                hint: kg,
                 onChanged: (String value) {
                   widget.bodyWeightCallback(double.tryParse(value));
                 },
               ),
               CatalogOfItemsLabel(AppLocalizations.of(context)!.height),
               PicosNumberField(
-                hint: 'cm',
+                hint: cm,
                 digitsOnly: true,
                 onChanged: (String value) {
                   widget.heightCallback(double.tryParse(value));
@@ -231,14 +242,16 @@ class _MovementDataState extends State<MovementData> {
               ),
               CatalogOfItemsLabel(AppLocalizations.of(context)!.bmi),
               PicosNumberField(
-                hint: 'kg/m2',
+                hint: kgm2,
                 onChanged: (String value) {
                   widget.bodyMassIndexCallback(double.tryParse(value));
                 },
               ),
-              CatalogOfItemsLabel(AppLocalizations.of(context)!.idealBodyWeight),
+              CatalogOfItemsLabel(
+                AppLocalizations.of(context)!.idealBodyWeight,
+              ),
               PicosNumberField(
-                hint: 'kg',
+                hint: kg,
                 onChanged: (String value) {
                   widget.idealBodyWeightCallback(double.tryParse(value));
                 },
@@ -257,48 +270,62 @@ class _MovementDataState extends State<MovementData> {
                   widget.caseNumberCallback(value);
                 },
               ),
-              CatalogOfItemsLabel(AppLocalizations.of(context)!.reasonForDischarge),
+              CatalogOfItemsLabel(
+                AppLocalizations.of(context)!.reasonForDischarge,
+              ),
               PicosTextArea(
                 maxLines: textAreaLines,
                 onChanged: (String value) {
                   widget.reasonForDischargeCallback(value);
                 },
               ),
-              CatalogOfItemsLabel(AppLocalizations.of(context)!.admissionTimeICU),
+              CatalogOfItemsLabel(
+                AppLocalizations.of(context)!.admissionTimeICU,
+              ),
               PicosDatePicker(
                 callBackFunction: (DateTime value) {
                   widget.admissionTimeICUCallback(value);
                 },
               ),
-              CatalogOfItemsLabel(AppLocalizations.of(context)!.dischargeTimeICU),
+              CatalogOfItemsLabel(
+                AppLocalizations.of(context)!.dischargeTimeICU,
+              ),
               PicosDatePicker(
                 callBackFunction: (DateTime value) {
                   widget.dischargeTimeICUCallback(value);
                 },
               ),
-              CatalogOfItemsLabel(AppLocalizations.of(context)!.ventilationDaysICU),
+              CatalogOfItemsLabel(
+                AppLocalizations.of(context)!.ventilationDaysICU,
+              ),
               PicosNumberField(
-                hint: 'Tage',
+                hint: AppLocalizations.of(context)!.days,
                 onChanged: (String value) {
                   widget.ventilationDaysICUCallback(int.tryParse(value));
                 },
               ),
-              CatalogOfItemsLabel(AppLocalizations.of(context)!.admissionTimeHospital),
+              CatalogOfItemsLabel(
+                AppLocalizations.of(context)!.admissionTimeHospital,
+              ),
               PicosDatePicker(
                 callBackFunction: (DateTime value) {},
               ),
-              CatalogOfItemsLabel(AppLocalizations.of(context)!.dischargeTimeHospital),
+              CatalogOfItemsLabel(
+                AppLocalizations.of(context)!.dischargeTimeHospital,
+              ),
               PicosDatePicker(
                 callBackFunction: (DateTime value) {},
               ),
               CatalogOfItemsLabel(AppLocalizations.of(context)!.icd10Codes),
               PicosTextField(
-                hint: widget.icd10Codes!,
+                hint: 'ICD-10 Codes',
                 onChanged: (String value) {
                   widget.icd10COdesCallback(value);
                 },
               ),
-              CatalogOfItemsLabel(AppLocalizations.of(context)!.patientLocation),
+              CatalogOfItemsLabel(
+                AppLocalizations.of(context)!.patientLocation,
+              ),
               PicosTextArea(
                 maxLines: textAreaLines,
                 onChanged: (String value) {
@@ -326,49 +353,61 @@ class _MovementDataState extends State<MovementData> {
             children: [
               CatalogOfItemsLabel(AppLocalizations.of(context)!.icuMortality),
               PicosNumberField(
-                hint: '%',
+                hint: percent,
                 onChanged: (String value) {
                   widget.icuMortalityCallback(double.tryParse(value));
                 },
               ),
-              CatalogOfItemsLabel(AppLocalizations.of(context)!.hospitalMortality),
+              CatalogOfItemsLabel(
+                AppLocalizations.of(context)!.hospitalMortality,
+              ),
               PicosNumberField(
-                hint: '%',
+                hint: percent,
                 onChanged: (String value) {
                   widget.hospitalMortalityCallback(double.tryParse(value));
                 },
               ),
-              CatalogOfItemsLabel(AppLocalizations.of(context)!.hospitalLengthOfStay),
+              CatalogOfItemsLabel(
+                AppLocalizations.of(context)!.hospitalLengthOfStay,
+              ),
               PicosNumberField(
-                hint: 'Tage',
+                hint: AppLocalizations.of(context)!.days,
                 onChanged: (String value) {
                   widget.hospitalLengthOfStayCallback(int.tryParse(value));
                 },
               ),
-              CatalogOfItemsLabel(AppLocalizations.of(context)!.icuLengthOfStay),
+              CatalogOfItemsLabel(
+                AppLocalizations.of(context)!.icuLengthOfStay,
+              ),
               PicosNumberField(
-                hint: 'Tage',
+                hint: AppLocalizations.of(context)!.days,
                 onChanged: (String value) {
                   widget.icuLengthOfStayCallback(int.tryParse(value));
                 },
               ),
-              CatalogOfItemsLabel(AppLocalizations.of(context)!.readmissionRateICU),
+              CatalogOfItemsLabel(
+                AppLocalizations.of(context)!.readmissionRateICU,
+              ),
               PicosNumberField(
-                hint: '%',
+                hint: percent,
                 onChanged: (String value) {
                   widget.readmissionRateICUCallback(double.tryParse(value));
                 },
               ),
-              CatalogOfItemsLabel(AppLocalizations.of(context)!.hospitalReadmission),
+              CatalogOfItemsLabel(
+                AppLocalizations.of(context)!.hospitalReadmission,
+              ),
               PicosNumberField(
-                hint: 'n/Jahr',
+                hint: nYear,
                 onChanged: (String value) {
                   widget.readmissionRateICUCallback(double.tryParse(value));
                 },
               ),
-              CatalogOfItemsLabel(AppLocalizations.of(context)!.daysUntilWorkReuptake),
+              CatalogOfItemsLabel(
+                AppLocalizations.of(context)!.daysUntilWorkReuptake,
+              ),
               PicosNumberField(
-                hint: 'Tage',
+                hint: AppLocalizations.of(context)!.days,
                 onChanged: (String value) {
                   widget.daysUntilWorkReuptakeCallback(int.tryParse(value));
                 },
