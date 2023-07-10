@@ -326,5 +326,6 @@
     "icuLengthOfStay": "ICU Aufenthaltsdauer",
     "readmissionRateICU": "Wiederaufnahmen ICU",
     "hospitalReadmission": "Wiederaufnahmen Krankenhaus",
-    "daysUntilWorkReuptake": "Wiedereingliederungszeit nach Krankheit"
+    "daysUntilWorkReuptake": "Wiedereingliederungszeit nach Krankheit",
+    "patientsMovementData": "Patienten Bewegungsdaten"
 }

@@ -1310,5 +1310,9 @@
   "daysUntilWorkReuptake": "Days until Work Reupdake",
   "@daysUntilWorkReuptake": {
     "description": "Days until Work Reupdake"
+  },
+  "patientsMovementData": "Patients Movement Data",
+  "@patientsMovementData": {
+    "description": "Patients Movement Data"
   }
 }
