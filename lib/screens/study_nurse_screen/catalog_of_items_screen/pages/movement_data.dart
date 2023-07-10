@@ -377,17 +377,32 @@ class _MovementDataState extends State<MovementData> {
             ],
           ),
         ),
-        PicosSwitch(
-          initialValue: lungProtectiveVentilation70p,
-          onChanged: (bool value) {
-            setState(
-              () {
-                widget.lungProtectiveVentilationGt70pCallback(
-                  value,
-                );
-              },
-            );
-          },
+        Row(
+          children: <Expanded>[
+            Expanded(
+              flex: 3,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: CatalogOfItemsLabel(
+                  AppLocalizations.of(context)!.lungProtectiveVentilation70p,
+                ),
+              ),
+            ),
+            Expanded(
+              child: PicosSwitch(
+                initialValue: lungProtectiveVentilation70p,
+                onChanged: (bool value) {
+                  setState(
+                    () {
+                      widget.lungProtectiveVentilationGt70pCallback(
+                        value,
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
         ),
         Padding(
           padding: const EdgeInsets.all(15.0),
