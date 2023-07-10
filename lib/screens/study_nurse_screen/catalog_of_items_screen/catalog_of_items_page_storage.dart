@@ -325,7 +325,7 @@ class CatalogOfItemsPageStorage {
             plateletAggregation = value;
           },
           noakCallback: (String? value) {
-            NOAK = value;
+            noak = value;
           },
           thrombosisprophylaxisCallback: (String? value) {
             thrombosisProphylaxis = value;
@@ -352,7 +352,7 @@ class CatalogOfItemsPageStorage {
             analgesics = value;
           },
           initialPlateletAggregation: plateletAggregation,
-          initialNoak: NOAK,
+          initialNoak: noak,
           initialThrombosisProphylaxis: thrombosisProphylaxis,
           initialAntihypertensives: antihypertensives,
           initialAntiarrhythmics: antiarrhythmics,
@@ -363,83 +363,83 @@ class CatalogOfItemsPageStorage {
           initialAnalgesics: analgesics,
         ),
       ),
-    ];
-    PicosPageViewItem(
-      child: MovementData(
-        ageCallback: (int? value) {
-          age = value;
-        },
-        genderCallback: (FormOfAddress? value) {
-          gender = value;
-        },
-        bodyWeightCallback: (double? value) {
-          bodyWeight = value;
-        },
-        heightCallback: (double? value) {
-          height = value;
-        },
-        bodyMassIndexCallback: (double? value) {
-          bodyMassIndex = value;
-        },
-        idealBodyWeightCallback: (double? value) {
-          idealBodyWeight = value;
-        },
-        patientIDCallback: (String? value) {
-          patientID = value;
-        },
-        caseNumberCallback: (String? value) {
-          caseNumber = value;
-        },
-        reasonForDischargeCallback: (String? value) {
-          reasonForDischarge = value;
-        },
-        admissionTimeICUCallback: (DateTime? value) {
-          admissionTime = value;
-        },
-        dischargeTimeICUCallback: (DateTime? value) {
-          dischargeTime = value;
-        },
-        ventilationDaysICUCallback: (int? value) {
-          ventilationDays = value;
-        },
-        admissionTimeHospitalCallback: (DateTime? value) {
-          admissionTimeToTheHospital = value;
-        },
-        dischargeTimeHospitalCallback: (DateTime? value) {
-          dischargeTimeFromTheHospital = value;
-        },
-        icd10COdesCallback: (String? value) {
-          ICD10Codes = value;
-        },
-        patientLocationCallback: (String? value) {
-          patientLocation = value;
-        },
-        lungProtectiveVentilationGt70pCallback: (bool? value) {
-          lungProtectiveVentilation70 = value!;
-        },
-        icuMortalityCallback: (double? value) {
-          ICUMortality = value;
-        },
-        hospitalMortalityCallback: (double? value) {
-          hospitalMortality = value;
-        },
-        hospitalLengthOfStayCallback: (int? value) {
-          hospitalLengthOfStay = value;
-        },
-        icuLengthOfStayCallback: (int? value) {
-          ICULengthOfStay = value;
-        },
-        readmissionRateICUCallback: (double? value) {
-          readmissionRateToTheICU = value;
-        },
-        hospitalReadmissionCallback: (double? value) {
-          hospitalReadmission = value;
-        },
-        daysUntilWorkReuptakeCallback: (int? value) {
-          daysUntilWorkReuptake = value;
-        },
+      PicosPageViewItem(
+        child: MovementData(
+          ageCallback: (int? value) {
+            age = value;
+          },
+          genderCallback: (FormOfAddress? value) {
+            gender = value;
+          },
+          bodyWeightCallback: (double? value) {
+            bodyWeight = value;
+          },
+          heightCallback: (double? value) {
+            height = value;
+          },
+          bodyMassIndexCallback: (double? value) {
+            bodyMassIndex = value;
+          },
+          idealBodyWeightCallback: (double? value) {
+            idealBodyWeight = value;
+          },
+          patientIDCallback: (String? value) {
+            patientID = value;
+          },
+          caseNumberCallback: (String? value) {
+            caseNumber = value;
+          },
+          reasonForDischargeCallback: (String? value) {
+            reasonForDischarge = value;
+          },
+          admissionTimeICUCallback: (DateTime? value) {
+            admissionTime = value;
+          },
+          dischargeTimeICUCallback: (DateTime? value) {
+            dischargeTime = value;
+          },
+          ventilationDaysICUCallback: (int? value) {
+            ventilationDays = value;
+          },
+          admissionTimeHospitalCallback: (DateTime? value) {
+            admissionTimeToTheHospital = value;
+          },
+          dischargeTimeHospitalCallback: (DateTime? value) {
+            dischargeTimeFromTheHospital = value;
+          },
+          icd10COdesCallback: (String? value) {
+            ICD10Codes = value;
+          },
+          patientLocationCallback: (String? value) {
+            patientLocation = value;
+          },
+          lungProtectiveVentilationGt70pCallback: (bool? value) {
+            lungProtectiveVentilation70 = value!;
+          },
+          icuMortalityCallback: (double? value) {
+            ICUMortality = value;
+          },
+          hospitalMortalityCallback: (double? value) {
+            hospitalMortality = value;
+          },
+          hospitalLengthOfStayCallback: (int? value) {
+            hospitalLengthOfStay = value;
+          },
+          icuLengthOfStayCallback: (int? value) {
+            ICULengthOfStay = value;
+          },
+          readmissionRateICUCallback: (double? value) {
+            readmissionRateToTheICU = value;
+          },
+          hospitalReadmissionCallback: (double? value) {
+            hospitalReadmission = value;
+          },
+          daysUntilWorkReuptakeCallback: (int? value) {
+            daysUntilWorkReuptake = value;
+          },
+        ),
       ),
-    );
+    ];
   }
 
   /// If the patient had 24h mechanical ventilation.
@@ -550,7 +550,7 @@ class CatalogOfItemsPageStorage {
   double? partialThromboplastinTime;
 
   String? plateletAggregation;
-  String? NOAK;
+  String? noak;
   String? thrombosisProphylaxis;
   String? antihypertensives;
   String? antiarrhythmics;
