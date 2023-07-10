@@ -196,7 +196,7 @@ class _MovementDataState extends State<MovementData> {
     const String kg = 'kg';
     const String percent = '%';
     String nYear = 'n/${AppLocalizations.of(context)!.year}';
-    
+
     return CatalogOfItemsPage(
       padding: EdgeInsets.zero,
       title: AppLocalizations.of(context)!.patientsMovementData,

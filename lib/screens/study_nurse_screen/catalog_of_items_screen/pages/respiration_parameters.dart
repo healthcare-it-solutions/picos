@@ -17,9 +17,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:picos/widgets/picos_display_card.dart';
-import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_number_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../widgets/catalog_of_items_label.dart';
 
 /// Shows the Respiration Parameters page for the [CatalogOfItemsScreen].
 class RespirationParameters extends StatelessWidget {
@@ -70,81 +71,109 @@ class RespirationParameters extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double fontSize = 15;
-
     const String min = '/min';
-
+    const String percent = '%';
     return PicosDisplayCard(
       padding: const EdgeInsets.all(15),
       child: Column(
         children: <Widget>[
-          PicosLabel(AppLocalizations.of(context)!.respirationParameters),
+          CatalogOfItemsLabel(
+            AppLocalizations.of(context)!.respirationParameters,
+          ),
           Column(
             children: <Widget>[
               Row(
                 children: <Expanded>[
                   Expanded(
-                    child: PicosLabel(
+                    child: CatalogOfItemsLabel(
                       AppLocalizations.of(context)!.last,
-                      fontSize: fontSize,
-                      fontWeight: FontWeight.normal,
                     ),
                   ),
                   Expanded(
-                    child: PicosLabel(
+                    child: CatalogOfItemsLabel(
                       AppLocalizations.of(context)!.preLast,
-                      fontSize: fontSize,
-                      fontWeight: FontWeight.normal,
                     ),
                   ),
                 ],
               ),
-              PicosLabel(
+              CatalogOfItemsLabel(
                 AppLocalizations.of(context)!.vtSpontanous,
-                fontSize: fontSize,
               ),
-              const PicosNumberField(hint: 'mL'),
+              PicosNumberField(
+                hint: 'mL',
+                onChanged: (String value) {
+                  tidalVolumenCallback(
+                    double.tryParse(value),
+                  );
+                },
+              ),
               Row(
                 children: <Expanded>[
                   Expanded(
                     child: Column(
                       children: <Widget>[
-                        PicosLabel(
+                        CatalogOfItemsLabel(
                           AppLocalizations.of(context)!.o2sat,
-                          fontSize: fontSize,
                         ),
-                        const PicosNumberField(hint: '%'),
+                        PicosNumberField(
+                          hint: percent,
+                          onChanged: (String value) {
+                            oxygenSaturation1Callback(
+                              double.tryParse(value),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ),
                   Expanded(
                     child: Column(
                       children: <Widget>[
-                        PicosLabel(
+                        CatalogOfItemsLabel(
                           AppLocalizations.of(context)!.o2sat,
-                          fontSize: fontSize,
                         ),
-                        const PicosNumberField(hint: '%'),
+                        PicosNumberField(
+                          hint: percent,
+                          onChanged: (String value) {
+                            oxygenSaturation2Callback(
+                              double.tryParse(value),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ),
                 ],
               ),
-              const Row(
+              Row(
                 children: <Expanded>[
                   Expanded(
                     child: Column(
                       children: <Widget>[
-                        PicosLabel('AF', fontSize: fontSize),
-                        PicosNumberField(hint: min),
+                        CatalogOfItemsLabel(AppLocalizations.of(context)!.af),
+                        PicosNumberField(
+                          hint: min,
+                          onChanged: (String value) {
+                            respiratoryRate1Callback(
+                              double.tryParse(value),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ),
                   Expanded(
                     child: Column(
                       children: <Widget>[
-                        PicosLabel('AF', fontSize: fontSize),
-                        PicosNumberField(hint: min),
+                        CatalogOfItemsLabel(AppLocalizations.of(context)!.af),
+                        PicosNumberField(
+                          hint: min,
+                          onChanged: (String value) {
+                            respiratoryRate2Callback(
+                              double.tryParse(value),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ),

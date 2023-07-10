@@ -327,5 +327,8 @@
     "readmissionRateICU": "Wiederaufnahmen ICU",
     "hospitalReadmission": "Wiederaufnahmen Krankenhaus",
     "daysUntilWorkReuptake": "Wiedereingliederungszeit nach Krankheit",
-    "patientsMovementData": "Patienten Bewegungsdaten"
+    "patientsMovementData": "Patienten Bewegungsdaten",
+    "sa02" : "arterielle Sauerstoffsättigung",
+    "svO2": "zentralvenöse Sauerstoffsättigung",
+    "af": "Atemfrequenz"
 }

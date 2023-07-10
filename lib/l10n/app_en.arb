@@ -1314,5 +1314,17 @@
   "patientsMovementData": "Patients Movement Data",
   "@patientsMovementData": {
     "description": "Patients Movement Data"
+  },
+  "saO2": "arterial oxygen saturation",
+  "@saO2": {
+    "description": "arterial oxygen saturation"
+  },
+  "svO2": "central venous oxygen saturation",
+  "@svO2": {
+    "description": "central venous oxygen saturation"
+  },
+  "af": "respiratory rate",
+  "@af": {
+    "description": "respiratory rate"
   }
 }

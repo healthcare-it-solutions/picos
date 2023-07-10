@@ -17,9 +17,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:picos/widgets/picos_display_card.dart';
-import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_number_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../widgets/catalog_of_items_label.dart';
 
 /// Shows the Blood Gas Analysis page for the [CatalogOfItemsScreen].
 class BloodGasAnalysis extends StatelessWidget {
@@ -174,35 +175,28 @@ class BloodGasAnalysis extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double fontSize = 15;
-
     const String mmHg = 'mmHg';
-
     const String mmoll = 'mmol/L';
-
     const String mgdl = 'mg/dL';
+    const String percent = '%';
 
     return PicosDisplayCard(
       padding: const EdgeInsets.all(15),
       child: Column(
         children: <Widget>[
-          PicosLabel(AppLocalizations.of(context)!.bloodGasAnalysis),
+          CatalogOfItemsLabel(AppLocalizations.of(context)!.bloodGasAnalysis),
           Column(
             children: <Widget>[
               Row(
                 children: <Expanded>[
                   Expanded(
-                    child: PicosLabel(
+                    child: CatalogOfItemsLabel(
                       AppLocalizations.of(context)!.last,
-                      fontSize: fontSize,
-                      fontWeight: FontWeight.normal,
                     ),
                   ),
                   Expanded(
-                    child: PicosLabel(
+                    child: CatalogOfItemsLabel(
                       AppLocalizations.of(context)!.preLast,
-                      fontSize: fontSize,
-                      fontWeight: FontWeight.normal,
                     ),
                   ),
                 ],
@@ -212,12 +206,16 @@ class BloodGasAnalysis extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: <Widget>[
-                        PicosLabel(
+                        CatalogOfItemsLabel(
                           AppLocalizations.of(context)!.paO2,
-                          fontSize: fontSize,
                         ),
-                        const PicosNumberField(
+                        PicosNumberField(
                           hint: mmHg,
+                          onChanged: (String value) {
+                            partialPressureOfOxygenCallback1(
+                              double.tryParse(value),
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -225,12 +223,16 @@ class BloodGasAnalysis extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: <Widget>[
-                        PicosLabel(
+                        CatalogOfItemsLabel(
                           AppLocalizations.of(context)!.paO2,
-                          fontSize: fontSize,
                         ),
-                        const PicosNumberField(
+                        PicosNumberField(
                           hint: mmHg,
+                          onChanged: (String value) {
+                            partialPressureOfOxygenCallback2(
+                              double.tryParse(value),
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -242,12 +244,16 @@ class BloodGasAnalysis extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: <Widget>[
-                        PicosLabel(
+                        CatalogOfItemsLabel(
                           AppLocalizations.of(context)!.paCO2,
-                          fontSize: fontSize,
                         ),
-                        const PicosNumberField(
+                        PicosNumberField(
                           hint: mmHg,
+                          onChanged: (String value) {
+                            partialPressureOfCarbonDioxideCallback1(
+                              double.tryParse(value),
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -255,12 +261,16 @@ class BloodGasAnalysis extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: <Widget>[
-                        PicosLabel(
+                        CatalogOfItemsLabel(
                           AppLocalizations.of(context)!.paCO2,
-                          fontSize: fontSize,
                         ),
-                        const PicosNumberField(
+                        PicosNumberField(
                           hint: mmHg,
+                          onChanged: (String value) {
+                            partialPressureOfCarbonDioxideCallback2(
+                              double.tryParse(value),
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -272,12 +282,14 @@ class BloodGasAnalysis extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: <Widget>[
-                        PicosLabel(
+                        CatalogOfItemsLabel(
                           AppLocalizations.of(context)!.arterialPH,
-                          fontSize: fontSize,
                         ),
-                        const PicosNumberField(
+                        PicosNumberField(
                           hint: '[pH]',
+                          onChanged: (String value) {
+                            arterialPHCallback1(double.tryParse(value));
+                          },
                         ),
                       ],
                     ),
@@ -285,42 +297,14 @@ class BloodGasAnalysis extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: <Widget>[
-                        PicosLabel(
+                        CatalogOfItemsLabel(
                           AppLocalizations.of(context)!.arterialPH,
-                          fontSize: fontSize,
                         ),
-                        const PicosNumberField(
+                        PicosNumberField(
                           hint: '[pH]',
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const Row(
-                children: <Expanded>[
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        PicosLabel(
-                          'SaO2',
-                          fontSize: fontSize,
-                        ),
-                        PicosNumberField(
-                          hint: '%',
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        PicosLabel(
-                          'SaO2',
-                          fontSize: fontSize,
-                        ),
-                        PicosNumberField(
-                          hint: '%',
+                          onChanged: (String value) {
+                            arterialPHCallback2(double.tryParse(value));
+                          },
                         ),
                       ],
                     ),
@@ -332,12 +316,54 @@ class BloodGasAnalysis extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: <Widget>[
-                        PicosLabel(
+                        CatalogOfItemsLabel(
+                          AppLocalizations.of(context)!.saO2,
+                        ),
+                        PicosNumberField(
+                          hint: percent,
+                          onChanged: (String value) {
+                            arterialBaseExcessCallback1(
+                              double.tryParse(value),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: <Widget>[
+                        CatalogOfItemsLabel(
+                          AppLocalizations.of(context)!.saO2,
+                        ),
+                        PicosNumberField(
+                          hint: percent,
+                          onChanged: (String value) {
+                            arterialBaseExcessCallback2(
+                              double.tryParse(value),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: <Expanded>[
+                  Expanded(
+                    child: Column(
+                      children: <Widget>[
+                        CatalogOfItemsLabel(
                           AppLocalizations.of(context)!.arterialLactate,
-                          fontSize: fontSize,
                         ),
-                        const PicosNumberField(
+                        PicosNumberField(
                           hint: mmoll,
+                          onChanged: (String value) {
+                            arterialLactateCallback1(
+                              double.tryParse(value),
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -345,66 +371,54 @@ class BloodGasAnalysis extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: <Widget>[
-                        PicosLabel(
+                        CatalogOfItemsLabel(
                           AppLocalizations.of(context)!.arterialLactate,
-                          fontSize: fontSize,
                         ),
-                        const PicosNumberField(
-                          hint: mmoll,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: <Expanded>[
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        PicosLabel(
-                          AppLocalizations.of(context)!.arterialBicarbonate,
-                          fontSize: fontSize,
-                        ),
-                        const PicosNumberField(
-                          hint: mmoll,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        PicosLabel(
-                          AppLocalizations.of(context)!.arterialBicarbonate,
-                          fontSize: fontSize,
-                        ),
-                        const PicosNumberField(
-                          hint: mmoll,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const Row(
-                children: <Expanded>[
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        PicosLabel('SzvO2', fontSize: fontSize),
                         PicosNumberField(
-                          hint: '%',
+                          hint: mmoll,
+                          onChanged: (String value) {
+                            arterialLactateCallback2(
+                              double.tryParse(value),
+                            );
+                          },
                         ),
                       ],
                     ),
                   ),
+                ],
+              ),
+              Row(
+                children: <Expanded>[
                   Expanded(
                     child: Column(
                       children: <Widget>[
-                        PicosLabel('SzvO2', fontSize: fontSize),
+                        CatalogOfItemsLabel(
+                          AppLocalizations.of(context)!.arterialBicarbonate,
+                        ),
                         PicosNumberField(
-                          hint: '%',
+                          hint: mmoll,
+                          onChanged: (String value) {
+                            arterialSerumBicarbonateConcentrationCallback1(
+                              double.tryParse(value),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: <Widget>[
+                        CatalogOfItemsLabel(
+                          AppLocalizations.of(context)!.arterialBicarbonate,
+                        ),
+                        PicosNumberField(
+                          hint: mmoll,
+                          onChanged: (String value) {
+                            arterialSerumBicarbonateConcentrationCallback2(
+                              double.tryParse(value),
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -416,12 +430,16 @@ class BloodGasAnalysis extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: <Widget>[
-                        PicosLabel(
-                          AppLocalizations.of(context)!.arterialBaseExcess,
-                          fontSize: fontSize,
+                        CatalogOfItemsLabel(
+                          AppLocalizations.of(context)!.svO2,
                         ),
-                        const PicosNumberField(
-                          hint: mmoll,
+                        PicosNumberField(
+                          hint: percent,
+                          onChanged: (String value) {
+                            centralVenousOxygenSaturationCallback1(
+                              double.tryParse(value),
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -429,12 +447,16 @@ class BloodGasAnalysis extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: <Widget>[
-                        PicosLabel(
-                          AppLocalizations.of(context)!.arterialBaseExcess,
-                          fontSize: fontSize,
+                        CatalogOfItemsLabel(
+                          AppLocalizations.of(context)!.svO2,
                         ),
-                        const PicosNumberField(
-                          hint: mmoll,
+                        PicosNumberField(
+                          hint: percent,
+                          onChanged: (String value) {
+                            centralVenousOxygenSaturationCallback2(
+                              double.tryParse(value),
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -446,12 +468,16 @@ class BloodGasAnalysis extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: <Widget>[
-                        PicosLabel(
-                          AppLocalizations.of(context)!.bloodSugar,
-                          fontSize: fontSize,
+                        CatalogOfItemsLabel(
+                          AppLocalizations.of(context)!.arterialBaseExcess,
                         ),
-                        const PicosNumberField(
-                          hint: mgdl,
+                        PicosNumberField(
+                          hint: mmoll,
+                          onChanged: (String value) {
+                            arterialBaseExcessCallback1(
+                              double.tryParse(value),
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -459,12 +485,54 @@ class BloodGasAnalysis extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: <Widget>[
-                        PicosLabel(
-                          AppLocalizations.of(context)!.bloodSugar,
-                          fontSize: fontSize,
+                        CatalogOfItemsLabel(
+                          AppLocalizations.of(context)!.arterialBaseExcess,
                         ),
-                        const PicosNumberField(
+                        PicosNumberField(
+                          hint: mmoll,
+                          onChanged: (String value) {
+                            arterialBaseExcessCallback2(
+                              double.tryParse(value),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: <Expanded>[
+                  Expanded(
+                    child: Column(
+                      children: <Widget>[
+                        CatalogOfItemsLabel(
+                          AppLocalizations.of(context)!.bloodSugar,
+                        ),
+                        PicosNumberField(
                           hint: mgdl,
+                          onChanged: (String value) {
+                            bloodGlucoseLevelCallback1(
+                              double.tryParse(value),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: <Widget>[
+                        CatalogOfItemsLabel(
+                          AppLocalizations.of(context)!.bloodSugar,
+                        ),
+                        PicosNumberField(
+                          hint: mgdl,
+                          onChanged: (String value) {
+                            bloodGlucoseLevelCallback2(
+                              double.tryParse(value),
+                            );
+                          },
                         ),
                       ],
                     ),

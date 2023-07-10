@@ -17,9 +17,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:picos/widgets/picos_display_card.dart';
-import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_text_area.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../widgets/catalog_of_items_label.dart';
 
 /// Shows the Medicaments page for the [CatalogOfItemsScreen].
 class Medicaments extends StatelessWidget {
@@ -110,64 +111,132 @@ class Medicaments extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double fontSize = 15;
-
     const int textAreaLines = 3;
 
     return PicosDisplayCard(
       padding: const EdgeInsets.all(15),
       child: Column(
         children: <Widget>[
-          PicosLabel(AppLocalizations.of(context)!.medicaments),
-          PicosLabel(AppLocalizations.of(context)!.thrombosisAggregation, fontSize: fontSize),
+          CatalogOfItemsLabel(AppLocalizations.of(context)!.medicaments),
+          CatalogOfItemsLabel(
+            AppLocalizations.of(context)!.thrombosisAggregation,
+          ),
           PicosTextArea(
             maxLines: textAreaLines,
             initialValue: initialPlateletAggregation,
+            onChanged: (String value) {
+              plateletAggregationCallback(
+                value,
+              );
+            },
           ),
-          PicosLabel(AppLocalizations.of(context)!.noac, fontSize: fontSize),
+          CatalogOfItemsLabel(
+            AppLocalizations.of(context)!.noac,
+          ),
           PicosTextArea(
             maxLines: textAreaLines,
             initialValue: initialNoak,
+            onChanged: (String value) {
+              noakCallback(
+                value,
+              );
+            },
           ),
-          PicosLabel(AppLocalizations.of(context)!.thrombosisProphylaxis, fontSize: fontSize),
+          CatalogOfItemsLabel(
+            AppLocalizations.of(context)!.thrombosisProphylaxis,
+          ),
           PicosTextArea(
             maxLines: textAreaLines,
             initialValue: initialThrombosisProphylaxis,
+            onChanged: (String value) {
+              thrombosisprophylaxisCallback(
+                value,
+              );
+            },
           ),
-          PicosLabel(AppLocalizations.of(context)!.antihypertensives, fontSize: fontSize),
+          CatalogOfItemsLabel(
+            AppLocalizations.of(context)!.antihypertensives,
+          ),
           PicosTextArea(
             maxLines: textAreaLines,
             initialValue: initialAntihypertensives,
+            onChanged: (String value) {
+              antiarrythmicsCallback(
+                value,
+              );
+            },
           ),
-          PicosLabel(AppLocalizations.of(context)!.antiarrythmics, fontSize: fontSize),
+          CatalogOfItemsLabel(
+            AppLocalizations.of(context)!.antiarrythmics,
+          ),
           PicosTextArea(
             maxLines: textAreaLines,
             initialValue: initialAntiarrhythmics,
+            onChanged: (String value) {
+              analgesicsCallback(
+                value,
+              );
+            },
           ),
-          PicosLabel(AppLocalizations.of(context)!.antidiabetics, fontSize: fontSize),
+          CatalogOfItemsLabel(
+            AppLocalizations.of(context)!.antidiabetics,
+          ),
           PicosTextArea(
             maxLines: textAreaLines,
             initialValue: initialAntidiabetics,
+            onChanged: (String value) {
+              antidiabeticsCallback(
+                value,
+              );
+            },
           ),
-          PicosLabel(AppLocalizations.of(context)!.antiinfectives, fontSize: fontSize),
+          CatalogOfItemsLabel(
+            AppLocalizations.of(context)!.antiinfectives,
+          ),
           PicosTextArea(
             maxLines: textAreaLines,
             initialValue: initialAntiInfectives,
+            onChanged: (String value) {
+              antiinfectivesCallback(
+                value,
+              );
+            },
           ),
-          PicosLabel(AppLocalizations.of(context)!.stereoids, fontSize: fontSize),
+          CatalogOfItemsLabel(
+            AppLocalizations.of(context)!.stereoids,
+          ),
           PicosTextArea(
             maxLines: textAreaLines,
             initialValue: initialSteroids,
+            onChanged: (String value) {
+              steroidsCallback(
+                value,
+              );
+            },
           ),
-          PicosLabel(AppLocalizations.of(context)!.inhalatives, fontSize: fontSize),
+          CatalogOfItemsLabel(
+            AppLocalizations.of(context)!.inhalatives,
+          ),
           PicosTextArea(
             maxLines: textAreaLines,
             initialValue: initialInhalatives,
+            onChanged: (String value) {
+              inhalativesCallback(
+                value,
+              );
+            },
           ),
-          PicosLabel(AppLocalizations.of(context)!.analgesics, fontSize: fontSize),
+          CatalogOfItemsLabel(
+            AppLocalizations.of(context)!.analgesics,
+          ),
           PicosTextArea(
             maxLines: textAreaLines,
             initialValue: initialAnalgesics,
+            onChanged: (String value) {
+              analgesicsCallback(
+                value,
+              );
+            },
           ),
         ],
       ),
