@@ -65,7 +65,7 @@ class PicosTextArea extends StatelessWidget {
   Widget build(BuildContext context) {
     return PicosTextField(
       maxLines: maxLines,
-      height: maxLines * 24 + 31,
+      height: maxLines * 24,
       readOnly: readOnly,
       onTap: onTap,
       validator: validator,
