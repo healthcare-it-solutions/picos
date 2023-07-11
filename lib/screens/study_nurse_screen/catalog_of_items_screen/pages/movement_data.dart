@@ -380,7 +380,6 @@ class _MovementDataState extends State<MovementData> {
         Row(
           children: <Expanded>[
             Expanded(
-              flex: 3,
               child: Padding(
                 padding: const EdgeInsets.only(left: 15),
                 child: CatalogOfItemsLabel(
