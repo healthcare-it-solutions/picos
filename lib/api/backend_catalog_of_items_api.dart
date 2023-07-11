@@ -19,43 +19,127 @@ import 'dart:async';
 
 import 'package:picos/api/backend_objects_api.dart';
 import 'package:picos/models/abstract_database_object.dart';
+import 'package:picos/models/blood_gas_analysis_object.dart';
+import 'package:picos/models/catalog_of_items_element.dart';
+import 'package:picos/models/icu_diagnosis.dart';
+import 'package:picos/models/labor_parameters.dart';
+import 'package:picos/models/medicaments.dart';
 import 'package:picos/models/patient.dart';
 import 'package:picos/models/patient_data.dart';
 import 'package:picos/models/patients_list_element.dart';
 import 'package:picos/models/patient_profile.dart';
 import 'package:collection/collection.dart';
+import 'package:picos/models/respiratory_parameters_object.dart';
+import 'package:picos/models/vital_signs_object.dart';
 import 'package:picos/util/backend.dart';
 
-/// API for calling the corresponding tables for the patient list.
-class BackendPatientsListApi extends BackendObjectsApi {
+/// API for calling the corresponding tables for the Catalog of Items.
+class BackendCatalogOfItemsApi extends BackendObjectsApi {
   @override
   Future<void> saveObject(AbstractDatabaseObject object) async {
     try {
-      dynamic responsePatientData =
-          await Backend.saveObject((object as PatientsListElement).patientData);
-      PatientData patientData = object.patientData.copyWith(
-        objectId: responsePatientData['objectId'],
-        createdAt: DateTime.tryParse(responsePatientData['createdAt'] ?? '') ??
-            object.patientData.createdAt,
-        updatedAt: DateTime.tryParse(responsePatientData['updatedAt'] ?? '') ??
-            object.patientData.updatedAt,
+      dynamic responseICUDiagnosis = await Backend.saveObject(
+        (object as CatalogOfItemsElement).icuDiagnosis,
       );
 
-      dynamic responsePatientProfile =
-          await Backend.saveObject(object.patientProfile);
-      PatientProfile patientProfile = object.patientProfile.copyWith(
-        objectId: responsePatientProfile['objectId'],
+      ICUDiagnosis icuDiagnosis = object.icuDiagnosis.copyWith(
+        objectId: responseICUDiagnosis['objectId'],
+        createdAt: DateTime.tryParse(responseICUDiagnosis['createdAt'] ?? '') ??
+            object.icuDiagnosis.createdAt,
+        updatedAt: DateTime.tryParse(responseICUDiagnosis['updatedAt'] ?? '') ??
+            object.icuDiagnosis.updatedAt,
+      );
+
+      dynamic responseVitalSignsObject = await Backend.saveObject(
+        object.vitalSigns,
+      );
+
+      VitalSignsObject vitalSignsObject = object.vitalSigns.copyWith(
+        objectId: responseVitalSignsObject['objectId'],
         createdAt:
-            DateTime.tryParse(responsePatientProfile['createdAt'] ?? '') ??
-                object.patientProfile.createdAt,
+            DateTime.tryParse(responseVitalSignsObject['createdAt'] ?? '') ??
+                object.vitalSigns.createdAt,
         updatedAt:
-            DateTime.tryParse(responsePatientProfile['updatedAt'] ?? '') ??
-                object.patientProfile.updatedAt,
+            DateTime.tryParse(responseVitalSignsObject['updatedAt'] ?? '') ??
+                object.vitalSigns.updatedAt,
+      );
+
+      dynamic responseRespiratoryParametersObject = await Backend.saveObject(
+        object.respiratoryParameters,
+      );
+
+      RespiratoryParametersObject respiratoryParametersObject =
+          object.respiratoryParameters.copyWith(
+        objectId: responseRespiratoryParametersObject['objectId'],
+        createdAt: DateTime.tryParse(
+                responseRespiratoryParametersObject['createdAt'] ?? '') ??
+            object.respiratoryParameters.createdAt,
+        updatedAt: DateTime.tryParse(
+                responseRespiratoryParametersObject['updatedAt'] ?? '') ??
+            object.respiratoryParameters.updatedAt,
+      );
+
+      dynamic responseBloodGasAnalysisObject = await Backend.saveObject(
+        object.bloodGasAnalysis,
+      );
+
+      BloodGasAnalysisObject bloodGasAnalysisObject =
+          object.bloodGasAnalysis.copyWith(
+        objectId: responseBloodGasAnalysisObject['objectId'],
+        createdAt: DateTime.tryParse(
+                responseBloodGasAnalysisObject['createdAt'] ?? '') ??
+            object.bloodGasAnalysis.createdAt,
+        updatedAt: DateTime.tryParse(
+                responseBloodGasAnalysisObject['updatedAt'] ?? '') ??
+            object.bloodGasAnalysis.updatedAt,
+      );
+
+      dynamic responseLaborParameters = await Backend.saveObject(
+        object.laborParameters,
+      );
+
+      LaborParameters laborParameters = object.laborParameters.copyWith(
+        objectId: responseLaborParameters['objectId'],
+        createdAt:
+            DateTime.tryParse(responseLaborParameters['createdAt'] ?? '') ??
+                object.laborParameters.createdAt,
+        updatedAt:
+            DateTime.tryParse(responseLaborParameters['updatedAt'] ?? '') ??
+                object.laborParameters.updatedAt,
+      );
+
+      dynamic responseMedicaments = await Backend.saveObject(
+        object.medicaments,
+      );
+
+      Medicaments medicaments = object.medicaments.copyWith(
+        objectId: responseMedicaments['objectId'],
+        createdAt: DateTime.tryParse(responseMedicaments['createdAt'] ?? '') ??
+            object.medicaments.createdAt,
+        updatedAt: DateTime.tryParse(responseMedicaments['updatedAt'] ?? '') ??
+            object.medicaments.updatedAt,
+      );
+
+      dynamic responseMovementData = await Backend.saveObject(
+        object.movementData,
+      );
+
+      PatientData movementData = object.movementData.copyWith(
+        objectId: responseMovementData['objectId'],
+        createdAt: DateTime.tryParse(responseMovementData['createdAt'] ?? '') ??
+            object.movementData.createdAt,
+        updatedAt: DateTime.tryParse(responseMovementData['updatedAt'] ?? '') ??
+            object.movementData.updatedAt,
       );
 
       object = object.copyWith(
-        patientData: patientData,
-        patientProfile: patientProfile,
+        icuDiagnosis: icuDiagnosis,
+        vitalSigns: vitalSignsObject,
+        respiratoryParameters: respiratoryParametersObject,
+        bloodGasAnalysis: bloodGasAnalysisObject,
+        laborParameters: laborParameters,
+        medicaments: medicaments,
+        movementData: movementData,
       );
 
       int index = getIndex(object);
