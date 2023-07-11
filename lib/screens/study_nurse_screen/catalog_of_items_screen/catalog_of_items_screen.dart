@@ -16,7 +16,10 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:picos/api/backend_patients_list_api.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/catalog_of_items_page_storage.dart';
+import 'package:picos/state/objects_list_bloc.dart';
 import 'package:picos/util/page_view_navigation.dart';
 import 'package:picos/widgets/picos_page_view_button_bar.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
@@ -53,18 +56,22 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
       pages = pageStorage!.pages;
     }
 
-    return PicosScreenFrame(
-      title: 'Catalog of items',
-      body: PageView(
-        controller: controller,
-        children: pages,
-      ),
-      bottomNavigationBar: PicosPageViewButtonBar(
-        nextPage: nextPage,
-        previousPage: previousPage,
-        nextTitle: _next,
-        previousTitle: _back,
-      ),
-    );
+    return BlocBuilder<ObjectsListBloc<BackendPatientsListApi>,
+            ObjectsListState>(
+        builder: (BuildContext context, ObjectsListState state) {
+      return PicosScreenFrame(
+        title: 'Catalog of items',
+        body: PageView(
+          controller: controller,
+          children: pages,
+        ),
+        bottomNavigationBar: PicosPageViewButtonBar(
+          nextPage: nextPage,
+          previousPage: previousPage,
+          nextTitle: _next,
+          previousTitle: _back,
+        ),
+      );
+    },);
   }
 }
