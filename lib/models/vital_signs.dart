@@ -21,11 +21,11 @@ import 'package:picos/models/abstract_database_object.dart';
 class VitalSigns extends AbstractDatabaseObject {
   /// Creates a Vital Sign object.
   const VitalSigns({
-    required this.heartRate,
-    required this.systolicArterialPressure,
-    required this.meanArterialPressure,
-    required this.diastolicArterialPressure,
-    required this.centralVenousPressure,
+    this.heartRate,
+    this.systolicArterialPressure,
+    this.meanArterialPressure,
+    this.diastolicArterialPressure,
+    this.centralVenousPressure,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -35,19 +35,19 @@ class VitalSigns extends AbstractDatabaseObject {
   static const String databaseTable = 'VitalSigns_obj';
 
   /// Heart rate.
-  final double heartRate;
+  final double? heartRate;
 
   /// Systolic arterial pressure.
-  final double systolicArterialPressure;
+  final double? systolicArterialPressure;
 
   /// Mean arterial pressure.
-  final double meanArterialPressure;
+  final double? meanArterialPressure;
 
   /// Diastolic arterial pressure.
-  final double diastolicArterialPressure;
+  final double? diastolicArterialPressure;
 
   /// Central venous pressure.
-  final double centralVenousPressure;
+  final double? centralVenousPressure;
 
   @override
   get table {
@@ -82,11 +82,11 @@ class VitalSigns extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-        heartRate,
-        systolicArterialPressure,
-        meanArterialPressure,
-        diastolicArterialPressure,
-        centralVenousPressure,
+        heartRate!,
+        systolicArterialPressure!,
+        meanArterialPressure!,
+        diastolicArterialPressure!,
+        centralVenousPressure!,
       ];
 
   @override

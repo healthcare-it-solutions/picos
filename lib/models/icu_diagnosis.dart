@@ -21,11 +21,11 @@ import 'package:picos/models/abstract_database_object.dart';
 class ICUDiagnosis extends AbstractDatabaseObject {
   /// Creates an ICU Diagnosis object.
   const ICUDiagnosis({
-    required this.mainDiagnosis,
-    required this.progressDiagnosis,
-    required this.coMorbidity,
-    required this.intensiveCareUnitAcquiredWeakness,
-    required this.postIntensiveCareSyndrome,
+    this.mainDiagnosis,
+    this.progressDiagnosis,
+    this.coMorbidity,
+    this.intensiveCareUnitAcquiredWeakness,
+    this.postIntensiveCareSyndrome,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -35,19 +35,19 @@ class ICUDiagnosis extends AbstractDatabaseObject {
   static const String databaseTable = 'ICU_Diagnoses';
 
   /// The ICU main diagnosis.
-  final String mainDiagnosis;
+  final String? mainDiagnosis;
 
   /// The ICU progress diagnosis.
-  final String progressDiagnosis;
+  final String? progressDiagnosis;
 
   /// The co-morbidity.
-  final String coMorbidity;
+  final String? coMorbidity;
 
   /// If the patient has ICUAW.
-  final bool intensiveCareUnitAcquiredWeakness;
+  final bool? intensiveCareUnitAcquiredWeakness;
 
   /// If the patient has PICS.
-  final bool postIntensiveCareSyndrome;
+  final bool? postIntensiveCareSyndrome;
 
   @override
   get table {
@@ -81,11 +81,11 @@ class ICUDiagnosis extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-        mainDiagnosis,
-        progressDiagnosis,
-        coMorbidity,
-        intensiveCareUnitAcquiredWeakness,
-        postIntensiveCareSyndrome,
+        mainDiagnosis!,
+        progressDiagnosis!,
+        coMorbidity!,
+        intensiveCareUnitAcquiredWeakness!,
+        postIntensiveCareSyndrome!,
       ];
 
   @override
