@@ -18,9 +18,9 @@
 import 'package:picos/models/abstract_database_object.dart';
 
 /// Class with Laborparameter.
-class Laborparameter extends AbstractDatabaseObject {
+class LaborParameters extends AbstractDatabaseObject {
   /// Creates a Laborparameter object.
-  const Laborparameter({
+  const LaborParameters({
     this.leukocyteCount,
     this.lymphocyteCount,
     this.lymphocytePercentage,
@@ -139,7 +139,7 @@ class Laborparameter extends AbstractDatabaseObject {
   }
 
   @override
-  Laborparameter copyWith({
+  LaborParameters copyWith({
     double? leukocyteCount,
     double? lymphocyteCount,
     double? lymphocytePercentage,
@@ -170,7 +170,7 @@ class Laborparameter extends AbstractDatabaseObject {
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
-    return Laborparameter(
+    return LaborParameters(
       leukocyteCount: leukocyteCount ?? this.leukocyteCount,
       lymphocyteCount: lymphocyteCount ?? this.lymphocyteCount,
       lymphocytePercentage: lymphocytePercentage ?? this.lymphocytePercentage,

@@ -18,7 +18,6 @@
 import 'package:flutter/material.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/blood_gas_analysis.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/icu_diagnosis.dart';
-import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/inclusion_criteria.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/laboratory_values.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/medicaments.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/movement_data.dart';
@@ -33,22 +32,6 @@ class CatalogOfItemsPageStorage {
   /// Creates CatalogOfItemsPageStorage.
   CatalogOfItemsPageStorage(BuildContext context) {
     pages = <PicosPageViewItem>[
-      PicosPageViewItem(
-        child: InclusionCriteria(
-          initialAge18Years: age18Years,
-          initialIcuStay72h: icuStay72h,
-          initialMechanicalVentilation24h: mechanicalVentilation24h,
-          mechanicalVentilation24hCallback: (bool value) {
-            mechanicalVentilation24h = value;
-          },
-          icuStay72hCallback: (bool value) {
-            icuStay72h = value;
-          },
-          age18YearsCallback: (bool value) {
-            age18Years = value;
-          },
-        ),
-      ),
       PicosPageViewItem(
         child: IcuDiagnosis(
           initialCoMorbidity: coMorbidity,

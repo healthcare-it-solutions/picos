@@ -19,35 +19,31 @@ import 'package:picos/models/abstract_database_object.dart';
 
 /// Class with Vital Signs.
 class VitalSigns extends AbstractDatabaseObject {
-  /// Creates a Vital Sign object.
+  /// Creates a Vital Signs object.
   const VitalSigns({
-    this.heartRate,
-    this.systolicArterialPressure,
-    this.meanArterialPressure,
-    this.diastolicArterialPressure,
-    this.centralVenousPressure,
+    required this.doctorObjectId,
+    required this.value1,
+    required this.value2,
+    required this.patientObjectId,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt);
 
   /// The database table the objects are stored in.
-  static const String databaseTable = 'VitalSigns_obj';
+  static const String databaseTable = 'VitalSigns';
 
-  /// Heart rate.
-  final double? heartRate;
+  /// Doctor Object Id.
+  final String doctorObjectId;
 
-  /// Systolic arterial pressure.
-  final double? systolicArterialPressure;
+  /// Last value.
+  final String value1;
 
-  /// Mean arterial pressure.
-  final double? meanArterialPressure;
+  /// Pre-last value.
+  final String value2;
 
-  /// Diastolic arterial pressure.
-  final double? diastolicArterialPressure;
-
-  /// Central venous pressure.
-  final double? centralVenousPressure;
+  /// Patient Object Id.
+  final String patientObjectId;
 
   @override
   get table {
@@ -56,24 +52,19 @@ class VitalSigns extends AbstractDatabaseObject {
 
   @override
   VitalSigns copyWith({
-    double? heartRate,
-    double? systolicArterialPressure,
-    double? meanArterialPressure,
-    double? diastolicArterialPressure,
-    double? centralVenousPressure,
+    String? doctorObjectId,
+    String? value1,
+    String? value2,
+    String? patientObjectId,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
     return VitalSigns(
-      heartRate: heartRate ?? this.heartRate,
-      systolicArterialPressure:
-          systolicArterialPressure ?? this.systolicArterialPressure,
-      meanArterialPressure: meanArterialPressure ?? this.meanArterialPressure,
-      diastolicArterialPressure:
-          diastolicArterialPressure ?? this.diastolicArterialPressure,
-      centralVenousPressure:
-          centralVenousPressure ?? this.centralVenousPressure,
+      doctorObjectId: doctorObjectId ?? this.doctorObjectId,
+      value1: value1 ?? this.value1,
+      value2: value2 ?? this.value2,
+      patientObjectId: patientObjectId ?? this.patientObjectId,
       objectId: objectId ?? this.objectId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -82,19 +73,33 @@ class VitalSigns extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-        heartRate!,
-        systolicArterialPressure!,
-        meanArterialPressure!,
-        diastolicArterialPressure!,
-        centralVenousPressure!,
+        doctorObjectId,
+        value1,
+        value2,
+        patientObjectId,
       ];
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
-        'HeartRate': heartRate,
-        'SAP': systolicArterialPressure,
-        'ZVD': centralVenousPressure,
-        'DAP': diastolicArterialPressure,
-        'MAP': meanArterialPressure,
+        'Doctor': <String, String>{
+          'objectId': doctorObjectId,
+          '__type': 'Pointer',
+          'className': '_User'
+        },
+        'value1': <String, String>{
+          'objectId': value1,
+          '__type': 'Pointer',
+          'className': 'VitalSigns_obj'
+        },
+        'value2': <String, String>{
+          'objectId': value2,
+          '__type': 'Pointer',
+          'className': 'VitalSigns_obj'
+        },
+        'Patient': <String, String>{
+          'objectId': patientObjectId,
+          '__type': 'Pointer',
+          'className': '_User'
+        },
       };
 }

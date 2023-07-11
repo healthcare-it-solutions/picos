@@ -17,29 +17,33 @@
 
 import 'package:picos/models/abstract_database_object.dart';
 
-/// Class with Respiratory Parameters.
+/// Class with Respiratory Parameters object.
 class RespiratoryParameters extends AbstractDatabaseObject {
   /// Creates a Respiratory Parameters object.
   const RespiratoryParameters({
-    this.tidalVolume,
-    this.respiratoryRate,
-    this.oxygenSaturation,
+    required this.doctorObjectId,
+    required this.value1,
+    required this.value2,
+    required this.patientObjectId,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt);
 
   /// The database table the objects are stored in.
-  static const String databaseTable = 'RespiratoryParas_obj';
+  static const String databaseTable = 'RespiratoryParas';
 
-  /// Tidal Volume.
-  final double? tidalVolume;
+  /// Doctor Object Id.
+  final String doctorObjectId;
 
-  /// Respiratory Rate.
-  final double? respiratoryRate;
-  
-  /// Oxygen SAturation.
-  final double? oxygenSaturation;
+  /// Last value.
+  final String value1;
+
+  /// Pre-last value.
+  final String value2;
+
+  /// Patient Object Id.
+  final String patientObjectId;
 
   @override
   get table {
@@ -48,17 +52,19 @@ class RespiratoryParameters extends AbstractDatabaseObject {
 
   @override
   RespiratoryParameters copyWith({
-    double? tidalVolume,
-    double? respiratoryRate,
-    double? oxygenSaturation,
+    String? doctorObjectId,
+    String? value1,
+    String? value2,
+    String? patientObjectId,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
     return RespiratoryParameters(
-      tidalVolume: tidalVolume ?? this.tidalVolume,
-      respiratoryRate: respiratoryRate ?? this.respiratoryRate,
-      oxygenSaturation: oxygenSaturation ?? this.oxygenSaturation,
+      doctorObjectId: doctorObjectId ?? this.doctorObjectId,
+      value1: value1 ?? this.value1,
+      value2: value2 ?? this.value2,
+      patientObjectId: patientObjectId ?? this.patientObjectId,
       objectId: objectId ?? this.objectId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -67,15 +73,33 @@ class RespiratoryParameters extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-        tidalVolume!,
-        respiratoryRate!,
-        oxygenSaturation!,
+        doctorObjectId,
+        value1,
+        value2,
+        patientObjectId,
       ];
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
-        'AF': respiratoryRate,
-        'VT': tidalVolume,
-        'SpO2': oxygenSaturation,
+        'Doctor': <String, String>{
+          'objectId': doctorObjectId,
+          '__type': 'Pointer',
+          'className': '_User'
+        },
+        'value1': <String, String>{
+          'objectId': value1,
+          '__type': 'Pointer',
+          'className': 'RespiratoryParas_obj'
+        },
+        'value2': <String, String>{
+          'objectId': value2,
+          '__type': 'Pointer',
+          'className': 'RespiratoryParas_obj'
+        },
+        'Patient': <String, String>{
+          'objectId': patientObjectId,
+          '__type': 'Pointer',
+          'className': '_User'
+        },
       };
 }

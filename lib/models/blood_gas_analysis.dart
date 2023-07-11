@@ -21,49 +21,29 @@ import 'package:picos/models/abstract_database_object.dart';
 class BloodGasAnalysis extends AbstractDatabaseObject {
   /// Creates a Blood Gas Analysis object.
   const BloodGasAnalysis({
-    this.arterialOxygenSaturation,
-    this.centralVenousOxygenSaturation,
-    this.partialPressureOfOxygen,
-    this.partialPressureOfCarbonDioxide,
-    this.arterialBaseExcess,
-    this.arterialPH,
-    this.arterialSerumBicarbonateConcentration,
-    this.arterialLactate,
-    this.bloodGlucoseLevel,
+    required this.doctorObjectId,
+    required this.value1,
+    required this.value2,
+    required this.patientObjectId,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt);
 
   /// The database table the objects are stored in.
-  static const String databaseTable = 'BloodGasAnalysis_obj';
+  static const String databaseTable = 'BloodGasAnalysis';
 
-  /// Arterial Oxygen Saturation.
-  final double? arterialOxygenSaturation;
+  /// Doctor Object Id.
+  final String doctorObjectId;
 
-  /// Central Venous Oxygen Saturation.
-  final double? centralVenousOxygenSaturation;
+  /// Last value.
+  final String value1;
 
-  /// Partial Pressure of Oxygen.
-  final double? partialPressureOfOxygen;
+  /// Pre-last value.
+  final String value2;
 
-  /// Partial Pressure of Carbon Dioxide.
-  final double? partialPressureOfCarbonDioxide;
-
-  /// Arterial Base Excess.
-  final double? arterialBaseExcess;
-
-  /// Arterial PH.
-  final double? arterialPH;
-
-  /// Arterial Serum Bicarbonate Concentration.
-  final double? arterialSerumBicarbonateConcentration;
-
-  /// Arterial Lactate.
-  final double? arterialLactate;
-
-  /// Blood Glucose Level.
-  final double? bloodGlucoseLevel;
+  /// Patient Object Id.
+  final String patientObjectId;
 
   @override
   get table {
@@ -72,35 +52,19 @@ class BloodGasAnalysis extends AbstractDatabaseObject {
 
   @override
   BloodGasAnalysis copyWith({
-    double? arterialOxygenSaturation,
-    double? centralVenousOxygenSaturation,
-    double? partialPressureOfOxygen,
-    double? partialPressureOfCarbonDioxide,
-    double? arterialBaseExcess,
-    double? arterialPH,
-    double? arterialSerumBicarbonateConcentration,
-    double? arterialLactate,
-    double? bloodGlucoseLevel,
+    String? doctorObjectId,
+    String? value1,
+    String? value2,
+    String? patientObjectId,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
     return BloodGasAnalysis(
-      arterialOxygenSaturation:
-          arterialOxygenSaturation ?? this.arterialOxygenSaturation,
-      centralVenousOxygenSaturation:
-          centralVenousOxygenSaturation ?? this.centralVenousOxygenSaturation,
-      partialPressureOfOxygen:
-          partialPressureOfOxygen ?? this.partialPressureOfOxygen,
-      partialPressureOfCarbonDioxide:
-          partialPressureOfCarbonDioxide ?? this.partialPressureOfCarbonDioxide,
-      arterialBaseExcess: arterialBaseExcess ?? this.arterialBaseExcess,
-      arterialPH: arterialPH ?? this.arterialPH,
-      arterialSerumBicarbonateConcentration:
-          arterialSerumBicarbonateConcentration ??
-              this.arterialSerumBicarbonateConcentration,
-      arterialLactate: arterialLactate ?? this.arterialLactate,
-      bloodGlucoseLevel: bloodGlucoseLevel ?? this.bloodGlucoseLevel,
+      doctorObjectId: doctorObjectId ?? this.doctorObjectId,
+      value1: value1 ?? this.value1,
+      value2: value2 ?? this.value2,
+      patientObjectId: patientObjectId ?? this.patientObjectId,
       objectId: objectId ?? this.objectId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -109,27 +73,33 @@ class BloodGasAnalysis extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-        arterialOxygenSaturation!,
-        centralVenousOxygenSaturation!,
-        partialPressureOfOxygen!,
-        partialPressureOfCarbonDioxide!,
-        arterialBaseExcess!,
-        arterialPH!,
-        arterialSerumBicarbonateConcentration!,
-        arterialLactate!,
-        bloodGlucoseLevel!
+        doctorObjectId,
+        value1,
+        value2,
+        patientObjectId,
       ];
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
-        'PaCO2_wTemp': partialPressureOfOxygen,
-        'BE': arterialBaseExcess,
-        'Bicarbonat': arterialSerumBicarbonateConcentration,
-        'SaO2': arterialOxygenSaturation,
-        'Laktat': arterialLactate,
-        'SzVO2': centralVenousOxygenSaturation,
-        'PaCO2_woTemp': partialPressureOfCarbonDioxide,
-        'pH': arterialPH,
-        'BloodSugar': bloodGlucoseLevel,
+        'Doctor': <String, String>{
+          'objectId': doctorObjectId,
+          '__type': 'Pointer',
+          'className': '_User'
+        },
+        'value1': <String, String>{
+          'objectId': value1,
+          '__type': 'Pointer',
+          'className': 'BloodGasAnalysis_obj'
+        },
+        'value2': <String, String>{
+          'objectId': value2,
+          '__type': 'Pointer',
+          'className': 'BloodGasAnalysis_obj'
+        },
+        'Patient': <String, String>{
+          'objectId': patientObjectId,
+          '__type': 'Pointer',
+          'className': '_User'
+        },
       };
 }
