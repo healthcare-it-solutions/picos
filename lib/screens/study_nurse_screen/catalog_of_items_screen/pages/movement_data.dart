@@ -34,7 +34,7 @@ class MovementData extends StatefulWidget {
     required this.ageCallback,
     required this.genderCallback,
     required this.bodyWeightCallback,
-    required this.heightCallback,
+    required this.bodyHeightCallback,
     required this.bodyMassIndexCallback,
     required this.idealBodyWeightCallback,
     required this.patientIDCallback,
@@ -59,7 +59,7 @@ class MovementData extends StatefulWidget {
     this.initialAge,
     this.initialGender,
     this.initialBodyWeight,
-    this.initialHeight,
+    this.initialBodyHeight,
     this.initialBodyMassIndex,
     this.initialIdealBodyWeight,
     this.initialPatientID,
@@ -91,7 +91,7 @@ class MovementData extends StatefulWidget {
   final void Function(double? value) bodyWeightCallback;
 
   /// PICS callback.
-  final void Function(double? value) heightCallback;
+  final void Function(double? value) bodyHeightCallback;
 
   /// Co-morbidity callback.
   final void Function(double? value) bodyMassIndexCallback;
@@ -163,7 +163,7 @@ class MovementData extends StatefulWidget {
   final double? initialBodyWeight;
 
   /// Starting value for Height.
-  final double? initialHeight;
+  final double? initialBodyHeight;
 
   /// Starting value for Body Mass Index.
   final double? initialBodyMassIndex;
@@ -279,7 +279,7 @@ class _MovementDataState extends State<MovementData> {
                 hint: cm,
                 digitsOnly: true,
                 onChanged: (String value) {
-                  widget.heightCallback(double.tryParse(value));
+                  widget.bodyHeightCallback(double.tryParse(value));
                 },
               ),
               CatalogOfItemsLabel(AppLocalizations.of(context)!.bmi),

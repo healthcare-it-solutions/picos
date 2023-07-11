@@ -358,7 +358,7 @@ class CatalogOfItemsPageStorage {
           bodyWeightCallback: (double? value) {
             bodyWeight = value;
           },
-          heightCallback: (double? value) {
+          bodyHeightCallback: (double? value) {
             height = value;
           },
           bodyMassIndexCallback: (double? value) {
