@@ -26,6 +26,8 @@ class ICUDiagnosis extends AbstractDatabaseObject {
     this.coMorbidity,
     this.intensiveCareUnitAcquiredWeakness,
     this.postIntensiveCareSyndrome,
+    this.patientObjectId,
+    this.doctorObjectId,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -49,6 +51,12 @@ class ICUDiagnosis extends AbstractDatabaseObject {
   /// If the patient has PICS.
   final bool? postIntensiveCareSyndrome;
 
+  /// Patient ObjectId
+  final String? patientObjectId;
+
+  /// Doctor ObjectId
+  final String? doctorObjectId;
+
   @override
   get table {
     return databaseTable;
@@ -61,6 +69,8 @@ class ICUDiagnosis extends AbstractDatabaseObject {
     String? coMorbidity,
     bool? intensiveCareUnitAcquiredWeakness,
     bool? postIntensiveCareSyndrome,
+    String? patientObjectId,
+    String? doctorObjectId,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -73,6 +83,8 @@ class ICUDiagnosis extends AbstractDatabaseObject {
           this.intensiveCareUnitAcquiredWeakness,
       postIntensiveCareSyndrome:
           postIntensiveCareSyndrome ?? this.postIntensiveCareSyndrome,
+      patientObjectId: patientObjectId ?? this.patientObjectId,
+      doctorObjectId: doctorObjectId ?? this.doctorObjectId,
       objectId: objectId ?? this.objectId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -95,5 +107,15 @@ class ICUDiagnosis extends AbstractDatabaseObject {
         'CO_Morb': coMorbidity,
         'ICU_AW': intensiveCareUnitAcquiredWeakness,
         'PICS': postIntensiveCareSyndrome,
+        'Patient': <String, String>{
+          'objectId': patientObjectId!,
+          '__type': 'Pointer',
+          'className': '_User'
+        },
+        'Doctor': <String, String>{
+          'objectId': doctorObjectId!,
+          '__type': 'Pointer',
+          'className': '_User'
+        },
       };
 }
