@@ -26,6 +26,7 @@ import 'package:picos/screens/study_nurse_screen/models/institute_key.dart';
 import 'package:picos/state/objects_list_bloc.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
 import 'package:picos/widgets/picos_body.dart';
+import 'package:picos/widgets/picos_ink_well_button.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:picos/widgets/picos_select.dart';
@@ -413,6 +414,16 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                     return null;
                   },
                 ),
+                PicosInkWellButton(
+                  text: 'Zum Catalog of Items',
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      '/study-nurse-screen/catalog-of-items',
+                      arguments: _patientsListElement,
+                    );
+                  },
+                )
               ],
             ),
           ),

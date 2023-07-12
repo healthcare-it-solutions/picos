@@ -207,6 +207,7 @@ class PatientData extends AbstractDatabaseObject {
   @override
   List<Object> get props => <Object>[
         bodyHeight,
+        bodyWeight!,
         patientID,
         caseNumber,
         instKey,
