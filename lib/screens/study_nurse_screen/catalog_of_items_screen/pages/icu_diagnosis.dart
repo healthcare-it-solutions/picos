@@ -74,37 +74,33 @@ class IcuDiagnosis extends StatelessWidget {
   Widget build(BuildContext context) {
     return CatalogOfItemsPage(
       title: AppLocalizations.of(context)!.icuDiagnosis,
-      padding: EdgeInsets.zero,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            children: <Widget>[
-              CatalogOfItemsLabel(AppLocalizations.of(context)!.mainDiagnosis),
-              PicosTextField(
-                initialValue: initialMainDiagnosis,
-                onChanged: (String value) {
-                  mainDiagnosisCallback(value);
-                },
-              ),
-              CatalogOfItemsLabel(
-                AppLocalizations.of(context)!.progressDiagnosis,
-              ),
-              PicosTextField(
-                initialValue: initialProgressDiagnosis,
-                onChanged: (String value) {
-                  progressDiagnosisCallback(value);
-                },
-              ),
-              CatalogOfItemsLabel(AppLocalizations.of(context)!.coMorbidity),
-              PicosTextField(
-                initialValue: initialCoMorbidity,
-                onChanged: (String value) {
-                  coMorbidityCallback(value);
-                },
-              ),
-            ],
-          ),
+        Column(
+          children: <Widget>[
+            CatalogOfItemsLabel(AppLocalizations.of(context)!.mainDiagnosis),
+            PicosTextField(
+              initialValue: initialMainDiagnosis,
+              onChanged: (String value) {
+                mainDiagnosisCallback(value);
+              },
+            ),
+            CatalogOfItemsLabel(
+              AppLocalizations.of(context)!.progressDiagnosis,
+            ),
+            PicosTextField(
+              initialValue: initialProgressDiagnosis,
+              onChanged: (String value) {
+                progressDiagnosisCallback(value);
+              },
+            ),
+            CatalogOfItemsLabel(AppLocalizations.of(context)!.coMorbidity),
+            PicosTextField(
+              initialValue: initialCoMorbidity,
+              onChanged: (String value) {
+                coMorbidityCallback(value);
+              },
+            ),
+          ],
         ),
         PicosSwitch(
           onChanged: (bool value) {

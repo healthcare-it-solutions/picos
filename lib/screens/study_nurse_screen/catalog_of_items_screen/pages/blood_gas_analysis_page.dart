@@ -16,7 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/widgets/picos_display_card.dart';
+import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/catalog_of_items_page.dart';
 import 'package:picos/widgets/picos_number_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -180,369 +180,366 @@ class BloodGasAnalysisPage extends StatelessWidget {
     const String mgdl = 'mg/dL';
     const String percent = '%';
 
-    return PicosDisplayCard(
-      padding: const EdgeInsets.all(15),
-      child: Column(
-        children: <Widget>[
-          CatalogOfItemsLabel(AppLocalizations.of(context)!.bloodGasAnalysis),
-          Column(
-            children: <Widget>[
-              Row(
-                children: <Expanded>[
-                  Expanded(
-                    child: CatalogOfItemsLabel(
-                      AppLocalizations.of(context)!.last,
-                    ),
+    return CatalogOfItemsPage(
+      title: AppLocalizations.of(context)!.bloodGasAnalysis,
+      children: <Widget>[
+        Column(
+          children: <Widget>[
+            Row(
+              children: <Expanded>[
+                Expanded(
+                  child: CatalogOfItemsLabel(
+                    AppLocalizations.of(context)!.last,
                   ),
-                  Expanded(
-                    child: CatalogOfItemsLabel(
-                      AppLocalizations.of(context)!.preLast,
-                    ),
+                ),
+                Expanded(
+                  child: CatalogOfItemsLabel(
+                    AppLocalizations.of(context)!.preLast,
                   ),
-                ],
-              ),
-              Row(
-                children: <Expanded>[
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        CatalogOfItemsLabel(
-                          AppLocalizations.of(context)!.paO2,
-                        ),
-                        PicosNumberField(
-                          hint: mmHg,
-                          onChanged: (String value) {
-                            partialPressureOfOxygenCallback1(
-                              double.tryParse(value),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Expanded>[
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      CatalogOfItemsLabel(
+                        AppLocalizations.of(context)!.paO2,
+                      ),
+                      PicosNumberField(
+                        hint: mmHg,
+                        onChanged: (String value) {
+                          partialPressureOfOxygenCallback1(
+                            double.tryParse(value),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        CatalogOfItemsLabel(
-                          AppLocalizations.of(context)!.paO2,
-                        ),
-                        PicosNumberField(
-                          hint: mmHg,
-                          onChanged: (String value) {
-                            partialPressureOfOxygenCallback2(
-                              double.tryParse(value),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      CatalogOfItemsLabel(
+                        AppLocalizations.of(context)!.paO2,
+                      ),
+                      PicosNumberField(
+                        hint: mmHg,
+                        onChanged: (String value) {
+                          partialPressureOfOxygenCallback2(
+                            double.tryParse(value),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              Row(
-                children: <Expanded>[
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        CatalogOfItemsLabel(
-                          AppLocalizations.of(context)!.paCO2,
-                        ),
-                        PicosNumberField(
-                          hint: mmHg,
-                          onChanged: (String value) {
-                            partialPressureOfCarbonDioxideCallback1(
-                              double.tryParse(value),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Expanded>[
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      CatalogOfItemsLabel(
+                        AppLocalizations.of(context)!.paCO2,
+                      ),
+                      PicosNumberField(
+                        hint: mmHg,
+                        onChanged: (String value) {
+                          partialPressureOfCarbonDioxideCallback1(
+                            double.tryParse(value),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        CatalogOfItemsLabel(
-                          AppLocalizations.of(context)!.paCO2,
-                        ),
-                        PicosNumberField(
-                          hint: mmHg,
-                          onChanged: (String value) {
-                            partialPressureOfCarbonDioxideCallback2(
-                              double.tryParse(value),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      CatalogOfItemsLabel(
+                        AppLocalizations.of(context)!.paCO2,
+                      ),
+                      PicosNumberField(
+                        hint: mmHg,
+                        onChanged: (String value) {
+                          partialPressureOfCarbonDioxideCallback2(
+                            double.tryParse(value),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              Row(
-                children: <Expanded>[
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        CatalogOfItemsLabel(
-                          AppLocalizations.of(context)!.arterialPH,
-                        ),
-                        PicosNumberField(
-                          hint: '[pH]',
-                          onChanged: (String value) {
-                            arterialPHCallback1(double.tryParse(value));
-                          },
-                        ),
-                      ],
-                    ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Expanded>[
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      CatalogOfItemsLabel(
+                        AppLocalizations.of(context)!.arterialPH,
+                      ),
+                      PicosNumberField(
+                        hint: '[pH]',
+                        onChanged: (String value) {
+                          arterialPHCallback1(double.tryParse(value));
+                        },
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        CatalogOfItemsLabel(
-                          AppLocalizations.of(context)!.arterialPH,
-                        ),
-                        PicosNumberField(
-                          hint: '[pH]',
-                          onChanged: (String value) {
-                            arterialPHCallback2(double.tryParse(value));
-                          },
-                        ),
-                      ],
-                    ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      CatalogOfItemsLabel(
+                        AppLocalizations.of(context)!.arterialPH,
+                      ),
+                      PicosNumberField(
+                        hint: '[pH]',
+                        onChanged: (String value) {
+                          arterialPHCallback2(double.tryParse(value));
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              Row(
-                children: <Expanded>[
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        CatalogOfItemsLabel(
-                          AppLocalizations.of(context)!.saO2,
-                        ),
-                        PicosNumberField(
-                          hint: percent,
-                          onChanged: (String value) {
-                            arterialBaseExcessCallback1(
-                              double.tryParse(value),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Expanded>[
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      CatalogOfItemsLabel(
+                        AppLocalizations.of(context)!.saO2,
+                      ),
+                      PicosNumberField(
+                        hint: percent,
+                        onChanged: (String value) {
+                          arterialBaseExcessCallback1(
+                            double.tryParse(value),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        CatalogOfItemsLabel(
-                          AppLocalizations.of(context)!.saO2,
-                        ),
-                        PicosNumberField(
-                          hint: percent,
-                          onChanged: (String value) {
-                            arterialBaseExcessCallback2(
-                              double.tryParse(value),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      CatalogOfItemsLabel(
+                        AppLocalizations.of(context)!.saO2,
+                      ),
+                      PicosNumberField(
+                        hint: percent,
+                        onChanged: (String value) {
+                          arterialBaseExcessCallback2(
+                            double.tryParse(value),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              Row(
-                children: <Expanded>[
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        CatalogOfItemsLabel(
-                          AppLocalizations.of(context)!.arterialLactate,
-                        ),
-                        PicosNumberField(
-                          hint: mmoll,
-                          onChanged: (String value) {
-                            arterialLactateCallback1(
-                              double.tryParse(value),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Expanded>[
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      CatalogOfItemsLabel(
+                        AppLocalizations.of(context)!.arterialLactate,
+                      ),
+                      PicosNumberField(
+                        hint: mmoll,
+                        onChanged: (String value) {
+                          arterialLactateCallback1(
+                            double.tryParse(value),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        CatalogOfItemsLabel(
-                          AppLocalizations.of(context)!.arterialLactate,
-                        ),
-                        PicosNumberField(
-                          hint: mmoll,
-                          onChanged: (String value) {
-                            arterialLactateCallback2(
-                              double.tryParse(value),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      CatalogOfItemsLabel(
+                        AppLocalizations.of(context)!.arterialLactate,
+                      ),
+                      PicosNumberField(
+                        hint: mmoll,
+                        onChanged: (String value) {
+                          arterialLactateCallback2(
+                            double.tryParse(value),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              Row(
-                children: <Expanded>[
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        CatalogOfItemsLabel(
-                          AppLocalizations.of(context)!.arterialBicarbonate,
-                        ),
-                        PicosNumberField(
-                          hint: mmoll,
-                          onChanged: (String value) {
-                            arterialSerumBicarbonateConcentrationCallback1(
-                              double.tryParse(value),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Expanded>[
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      CatalogOfItemsLabel(
+                        AppLocalizations.of(context)!.arterialBicarbonate,
+                      ),
+                      PicosNumberField(
+                        hint: mmoll,
+                        onChanged: (String value) {
+                          arterialSerumBicarbonateConcentrationCallback1(
+                            double.tryParse(value),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        CatalogOfItemsLabel(
-                          AppLocalizations.of(context)!.arterialBicarbonate,
-                        ),
-                        PicosNumberField(
-                          hint: mmoll,
-                          onChanged: (String value) {
-                            arterialSerumBicarbonateConcentrationCallback2(
-                              double.tryParse(value),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      CatalogOfItemsLabel(
+                        AppLocalizations.of(context)!.arterialBicarbonate,
+                      ),
+                      PicosNumberField(
+                        hint: mmoll,
+                        onChanged: (String value) {
+                          arterialSerumBicarbonateConcentrationCallback2(
+                            double.tryParse(value),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              Row(
-                children: <Expanded>[
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        CatalogOfItemsLabel(
-                          AppLocalizations.of(context)!.svO2,
-                        ),
-                        PicosNumberField(
-                          hint: percent,
-                          onChanged: (String value) {
-                            centralVenousOxygenSaturationCallback1(
-                              double.tryParse(value),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Expanded>[
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      CatalogOfItemsLabel(
+                        AppLocalizations.of(context)!.svO2,
+                      ),
+                      PicosNumberField(
+                        hint: percent,
+                        onChanged: (String value) {
+                          centralVenousOxygenSaturationCallback1(
+                            double.tryParse(value),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        CatalogOfItemsLabel(
-                          AppLocalizations.of(context)!.svO2,
-                        ),
-                        PicosNumberField(
-                          hint: percent,
-                          onChanged: (String value) {
-                            centralVenousOxygenSaturationCallback2(
-                              double.tryParse(value),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      CatalogOfItemsLabel(
+                        AppLocalizations.of(context)!.svO2,
+                      ),
+                      PicosNumberField(
+                        hint: percent,
+                        onChanged: (String value) {
+                          centralVenousOxygenSaturationCallback2(
+                            double.tryParse(value),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              Row(
-                children: <Expanded>[
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        CatalogOfItemsLabel(
-                          AppLocalizations.of(context)!.arterialBaseExcess,
-                        ),
-                        PicosNumberField(
-                          hint: mmoll,
-                          onChanged: (String value) {
-                            arterialBaseExcessCallback1(
-                              double.tryParse(value),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Expanded>[
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      CatalogOfItemsLabel(
+                        AppLocalizations.of(context)!.arterialBaseExcess,
+                      ),
+                      PicosNumberField(
+                        hint: mmoll,
+                        onChanged: (String value) {
+                          arterialBaseExcessCallback1(
+                            double.tryParse(value),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        CatalogOfItemsLabel(
-                          AppLocalizations.of(context)!.arterialBaseExcess,
-                        ),
-                        PicosNumberField(
-                          hint: mmoll,
-                          onChanged: (String value) {
-                            arterialBaseExcessCallback2(
-                              double.tryParse(value),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      CatalogOfItemsLabel(
+                        AppLocalizations.of(context)!.arterialBaseExcess,
+                      ),
+                      PicosNumberField(
+                        hint: mmoll,
+                        onChanged: (String value) {
+                          arterialBaseExcessCallback2(
+                            double.tryParse(value),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              Row(
-                children: <Expanded>[
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        CatalogOfItemsLabel(
-                          AppLocalizations.of(context)!.bloodSugar,
-                        ),
-                        PicosNumberField(
-                          hint: mgdl,
-                          onChanged: (String value) {
-                            bloodGlucoseLevelCallback1(
-                              double.tryParse(value),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Expanded>[
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      CatalogOfItemsLabel(
+                        AppLocalizations.of(context)!.bloodSugar,
+                      ),
+                      PicosNumberField(
+                        hint: mgdl,
+                        onChanged: (String value) {
+                          bloodGlucoseLevelCallback1(
+                            double.tryParse(value),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        CatalogOfItemsLabel(
-                          AppLocalizations.of(context)!.bloodSugar,
-                        ),
-                        PicosNumberField(
-                          hint: mgdl,
-                          onChanged: (String value) {
-                            bloodGlucoseLevelCallback2(
-                              double.tryParse(value),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      CatalogOfItemsLabel(
+                        AppLocalizations.of(context)!.bloodSugar,
+                      ),
+                      PicosNumberField(
+                        hint: mgdl,
+                        onChanged: (String value) {
+                          bloodGlucoseLevelCallback2(
+                            double.tryParse(value),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ],
-          )
-        ],
-      ),
+                ),
+              ],
+            ),
+          ],
+        )
+      ],
     );
   }
 }

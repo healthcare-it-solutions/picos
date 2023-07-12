@@ -129,11 +129,9 @@ class VitalData extends StatelessWidget {
         _createRow(
           CatalogOfItemsLabel(
             AppLocalizations.of(context)!.last,
-            fontWeight: FontWeight.normal,
           ),
           CatalogOfItemsLabel(
             AppLocalizations.of(context)!.preLast,
-            fontWeight: FontWeight.normal,
           ),
         ),
         _createRow(

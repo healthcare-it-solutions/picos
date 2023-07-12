@@ -16,7 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/widgets/picos_display_card.dart';
+import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/catalog_of_items_page.dart';
 import 'package:picos/widgets/picos_number_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -73,116 +73,112 @@ class RespirationParameters extends StatelessWidget {
   Widget build(BuildContext context) {
     const String min = '/min';
     const String percent = '%';
-    return PicosDisplayCard(
-      padding: const EdgeInsets.all(15),
-      child: Column(
-        children: <Widget>[
-          CatalogOfItemsLabel(
-            AppLocalizations.of(context)!.respirationParameters,
-          ),
-          Column(
-            children: <Widget>[
-              Row(
-                children: <Expanded>[
-                  Expanded(
-                    child: CatalogOfItemsLabel(
-                      AppLocalizations.of(context)!.last,
-                    ),
+
+    return CatalogOfItemsPage(
+      title: AppLocalizations.of(context)!.respirationParameters,
+      children: <Widget>[
+        Column(
+          children: <Widget>[
+            CatalogOfItemsLabel(
+              AppLocalizations.of(context)!.vtSpontanous,
+            ),
+            PicosNumberField(
+              hint: 'mL',
+              onChanged: (String value) {
+                tidalVolumenCallback(
+                  double.tryParse(value),
+                );
+              },
+            ),
+            Row(
+              children: <Expanded>[
+                Expanded(
+                  child: CatalogOfItemsLabel(
+                    AppLocalizations.of(context)!.last,
                   ),
-                  Expanded(
-                    child: CatalogOfItemsLabel(
-                      AppLocalizations.of(context)!.preLast,
-                    ),
+                ),
+                Expanded(
+                  child: CatalogOfItemsLabel(
+                    AppLocalizations.of(context)!.preLast,
                   ),
-                ],
-              ),
-              CatalogOfItemsLabel(
-                AppLocalizations.of(context)!.vtSpontanous,
-              ),
-              PicosNumberField(
-                hint: 'mL',
-                onChanged: (String value) {
-                  tidalVolumenCallback(
-                    double.tryParse(value),
-                  );
-                },
-              ),
-              Row(
-                children: <Expanded>[
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        CatalogOfItemsLabel(
-                          AppLocalizations.of(context)!.o2sat,
-                        ),
-                        PicosNumberField(
-                          hint: percent,
-                          onChanged: (String value) {
-                            oxygenSaturation1Callback(
-                              double.tryParse(value),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Expanded>[
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      CatalogOfItemsLabel(
+                        AppLocalizations.of(context)!.o2sat,
+                      ),
+                      PicosNumberField(
+                        hint: percent,
+                        onChanged: (String value) {
+                          oxygenSaturation1Callback(
+                            double.tryParse(value),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        CatalogOfItemsLabel(
-                          AppLocalizations.of(context)!.o2sat,
-                        ),
-                        PicosNumberField(
-                          hint: percent,
-                          onChanged: (String value) {
-                            oxygenSaturation2Callback(
-                              double.tryParse(value),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      CatalogOfItemsLabel(
+                        AppLocalizations.of(context)!.o2sat,
+                      ),
+                      PicosNumberField(
+                        hint: percent,
+                        onChanged: (String value) {
+                          oxygenSaturation2Callback(
+                            double.tryParse(value),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              Row(
-                children: <Expanded>[
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        CatalogOfItemsLabel(AppLocalizations.of(context)!.af),
-                        PicosNumberField(
-                          hint: min,
-                          onChanged: (String value) {
-                            respiratoryRate1Callback(
-                              double.tryParse(value),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Expanded>[
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      CatalogOfItemsLabel(AppLocalizations.of(context)!.af),
+                      PicosNumberField(
+                        hint: min,
+                        onChanged: (String value) {
+                          respiratoryRate1Callback(
+                            double.tryParse(value),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        CatalogOfItemsLabel(AppLocalizations.of(context)!.af),
-                        PicosNumberField(
-                          hint: min,
-                          onChanged: (String value) {
-                            respiratoryRate2Callback(
-                              double.tryParse(value),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      CatalogOfItemsLabel(AppLocalizations.of(context)!.af),
+                      PicosNumberField(
+                        hint: min,
+                        onChanged: (String value) {
+                          respiratoryRate2Callback(
+                            double.tryParse(value),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
