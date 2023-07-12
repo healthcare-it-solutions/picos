@@ -16,6 +16,7 @@
 */
 
 import 'package:picos/models/abstract_database_object.dart';
+import 'package:picos/models/vital_signs_object.dart';
 
 /// Class with Vital Signs.
 class VitalSigns extends AbstractDatabaseObject {
@@ -37,10 +38,10 @@ class VitalSigns extends AbstractDatabaseObject {
   final String doctorObjectId;
 
   /// Last value.
-  final String value1;
+  final VitalSignsObject value1;
 
   /// Pre-last value.
-  final String value2;
+  final VitalSignsObject value2;
 
   /// Patient Object Id.
   final String patientObjectId;
@@ -53,8 +54,8 @@ class VitalSigns extends AbstractDatabaseObject {
   @override
   VitalSigns copyWith({
     String? doctorObjectId,
-    String? value1,
-    String? value2,
+    VitalSignsObject? value1,
+    VitalSignsObject? value2,
     String? patientObjectId,
     String? objectId,
     DateTime? createdAt,
@@ -85,12 +86,12 @@ class VitalSigns extends AbstractDatabaseObject {
           'className': '_User'
         },
         'value1': <String, String>{
-          'objectId': value1,
+          'objectId': value1.objectId!,
           '__type': 'Pointer',
           'className': 'VitalSigns_obj'
         },
         'value2': <String, String>{
-          'objectId': value2,
+          'objectId': value2.objectId!,
           '__type': 'Pointer',
           'className': 'VitalSigns_obj'
         },

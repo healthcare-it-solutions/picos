@@ -16,6 +16,7 @@
 */
 
 import 'package:picos/models/abstract_database_object.dart';
+import 'package:picos/models/blood_gas_analysis_object.dart';
 
 /// Class with Blood Gas Analysis information.
 class BloodGasAnalysis extends AbstractDatabaseObject {
@@ -37,10 +38,10 @@ class BloodGasAnalysis extends AbstractDatabaseObject {
   final String doctorObjectId;
 
   /// Last value.
-  final String value1;
+  final BloodGasAnalysisObject value1;
 
   /// Pre-last value.
-  final String value2;
+  final BloodGasAnalysisObject value2;
 
   /// Patient Object Id.
   final String patientObjectId;
@@ -53,8 +54,8 @@ class BloodGasAnalysis extends AbstractDatabaseObject {
   @override
   BloodGasAnalysis copyWith({
     String? doctorObjectId,
-    String? value1,
-    String? value2,
+    BloodGasAnalysisObject? value1,
+    BloodGasAnalysisObject? value2,
     String? patientObjectId,
     String? objectId,
     DateTime? createdAt,
@@ -85,12 +86,12 @@ class BloodGasAnalysis extends AbstractDatabaseObject {
           'className': '_User'
         },
         'value1': <String, String>{
-          'objectId': value1,
+          'objectId': value1.objectId!,
           '__type': 'Pointer',
           'className': 'BloodGasAnalysis_obj'
         },
         'value2': <String, String>{
-          'objectId': value2,
+          'objectId': value2.objectId!,
           '__type': 'Pointer',
           'className': 'BloodGasAnalysis_obj'
         },

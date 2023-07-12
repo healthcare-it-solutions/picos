@@ -21,6 +21,8 @@ import 'package:picos/models/abstract_database_object.dart';
 class Medicaments extends AbstractDatabaseObject {
   /// Creates a Medicaments object.
   const Medicaments({
+    required this.patientObjectId,
+    required this.doctorObjectId,
     this.plateletAggregation,
     this.noak,
     this.thrombosisProphylaxis,
@@ -31,8 +33,6 @@ class Medicaments extends AbstractDatabaseObject {
     this.steroids,
     this.inhalatives,
     this.analgesics,
-    this.patientObjectId,
-    this.doctorObjectId,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -72,10 +72,10 @@ class Medicaments extends AbstractDatabaseObject {
   final String? analgesics;
 
   /// Patient ObjectId.
-  final String? patientObjectId;
+  final String patientObjectId;
 
   /// Doctor ObjectId.
-  final String? doctorObjectId;
+  final String doctorObjectId;
 
   @override
   get table {
@@ -147,12 +147,12 @@ class Medicaments extends AbstractDatabaseObject {
         'Inhalativa': inhalatives,
         'Analgetika': analgesics,
         'Patient': <String, String>{
-          'objectId': patientObjectId!,
+          'objectId': patientObjectId,
           '__type': 'Pointer',
           'className': '_User'
         },
         'Doctor': <String, String>{
-          'objectId': doctorObjectId!,
+          'objectId': doctorObjectId,
           '__type': 'Pointer',
           'className': '_User'
         },

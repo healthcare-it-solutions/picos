@@ -16,6 +16,7 @@
 */
 
 import 'package:picos/models/abstract_database_object.dart';
+import 'package:picos/models/respiratory_parameters_object.dart';
 
 /// Class with Respiratory Parameters object.
 class RespiratoryParameters extends AbstractDatabaseObject {
@@ -37,10 +38,10 @@ class RespiratoryParameters extends AbstractDatabaseObject {
   final String doctorObjectId;
 
   /// Last value.
-  final String value1;
+  final RespiratoryParametersObject value1;
 
   /// Pre-last value.
-  final String value2;
+  final RespiratoryParametersObject value2;
 
   /// Patient Object Id.
   final String patientObjectId;
@@ -53,8 +54,8 @@ class RespiratoryParameters extends AbstractDatabaseObject {
   @override
   RespiratoryParameters copyWith({
     String? doctorObjectId,
-    String? value1,
-    String? value2,
+    RespiratoryParametersObject? value1,
+    RespiratoryParametersObject? value2,
     String? patientObjectId,
     String? objectId,
     DateTime? createdAt,
@@ -85,12 +86,12 @@ class RespiratoryParameters extends AbstractDatabaseObject {
           'className': '_User'
         },
         'value1': <String, String>{
-          'objectId': value1,
+          'objectId': value1.objectId!,
           '__type': 'Pointer',
           'className': 'RespiratoryParas_obj'
         },
         'value2': <String, String>{
-          'objectId': value2,
+          'objectId': value2.objectId!,
           '__type': 'Pointer',
           'className': 'RespiratoryParas_obj'
         },
