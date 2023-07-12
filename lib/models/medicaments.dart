@@ -31,6 +31,8 @@ class Medicaments extends AbstractDatabaseObject {
     this.steroids,
     this.inhalatives,
     this.analgesics,
+    this.patientObjectId,
+    this.doctorObjectId,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -39,35 +41,41 @@ class Medicaments extends AbstractDatabaseObject {
   /// The database table the objects are stored in.
   static const String databaseTable = 'medication';
 
-  /// Platelet Aggregation
+  /// Platelet Aggregation.
   final String? plateletAggregation;
 
-  /// NOAC
+  /// NOAC.
   final String? noak;
 
-  /// Thrombosis Prophylaxis
+  /// Thrombosis Prophylaxis.
   final String? thrombosisProphylaxis;
 
-  /// Antihypertensives
+  /// Antihypertensives.
   final String? antihypertensives;
 
-  /// Antiarrythmics
+  /// Antiarrythmics.
   final String? antiarrhythmics;
 
-  /// Antidiabetics
+  /// Antidiabetics.
   final String? antidiabetics;
 
-  /// Antiinfectives
+  /// Antiinfectives.
   final String? antiInfectives;
 
-  /// Steroids
+  /// Steroids.
   final String? steroids;
 
-  /// Inhalatives
+  /// Inhalatives.
   final String? inhalatives;
 
-  /// Analgesics
+  /// Analgesics.
   final String? analgesics;
+
+  /// Patient ObjectId.
+  final String? patientObjectId;
+
+  /// Doctor ObjectId.
+  final String? doctorObjectId;
 
   @override
   get table {
@@ -86,6 +94,8 @@ class Medicaments extends AbstractDatabaseObject {
     String? steroids,
     String? inhalatives,
     String? analgesics,
+    String? patientObjectId,
+    String? doctorObjectId,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -102,6 +112,8 @@ class Medicaments extends AbstractDatabaseObject {
       steroids: steroids ?? this.steroids,
       inhalatives: inhalatives ?? this.inhalatives,
       analgesics: analgesics ?? this.analgesics,
+      patientObjectId: patientObjectId ?? this.patientObjectId,
+      doctorObjectId: doctorObjectId ?? this.doctorObjectId,
       objectId: objectId ?? this.objectId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -134,5 +146,15 @@ class Medicaments extends AbstractDatabaseObject {
         'Thromboseprophylaxe': thrombosisProphylaxis,
         'Inhalativa': inhalatives,
         'Analgetika': analgesics,
+        'Patient': <String, String>{
+          'objectId': patientObjectId!,
+          '__type': 'Pointer',
+          'className': '_User'
+        },
+        'Doctor': <String, String>{
+          'objectId': doctorObjectId!,
+          '__type': 'Pointer',
+          'className': '_User'
+        },
       };
 }
