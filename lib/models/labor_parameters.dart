@@ -21,6 +21,8 @@ import 'package:picos/models/abstract_database_object.dart';
 class LaborParameters extends AbstractDatabaseObject {
   /// Creates a Laborparameter object.
   const LaborParameters({
+    required this.patientObjectId,
+    required this.doctorObjectId,
     this.leukocyteCount,
     this.lymphocyteCount,
     this.lymphocytePercentage,
@@ -133,6 +135,12 @@ class LaborParameters extends AbstractDatabaseObject {
   /// partial thromboplastin time.
   final double? partialThromboplastinTime;
 
+  /// denotes the doctor's object ID.
+  final String doctorObjectId;
+
+  /// denotes the patient's object ID.
+  final String patientObjectId;
+
   @override
   get table {
     return databaseTable;
@@ -166,6 +174,8 @@ class LaborParameters extends AbstractDatabaseObject {
     double? dDimer,
     double? internationalNormalizedRatio,
     double? partialThromboplastinTime,
+    String? patientObjectId,
+    String? doctorObjectId,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -203,6 +213,8 @@ class LaborParameters extends AbstractDatabaseObject {
           internationalNormalizedRatio ?? this.internationalNormalizedRatio,
       partialThromboplastinTime:
           partialThromboplastinTime ?? this.partialThromboplastinTime,
+      doctorObjectId: doctorObjectId ?? this.doctorObjectId,
+      patientObjectId: patientObjectId ?? this.patientObjectId,
       objectId: objectId ?? this.objectId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -267,5 +279,15 @@ class LaborParameters extends AbstractDatabaseObject {
         'D_Dimere': dDimer,
         'INR': internationalNormalizedRatio,
         'pTT': partialThromboplastinTime,
+        'Patient': <String, String>{
+          'objectId': patientObjectId,
+          '__type': 'Pointer',
+          'className': '_User'
+        },
+        'Doctor': <String, String>{
+          'objectId': doctorObjectId,
+          '__type': 'Pointer',
+          'className': '_User'
+        },
       };
 }

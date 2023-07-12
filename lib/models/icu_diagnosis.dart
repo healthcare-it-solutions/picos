@@ -91,9 +91,9 @@ class ICUDiagnosis extends AbstractDatabaseObject {
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
         'ICU_Hd': mainDiagnosis,
-        'PICS': postIntensiveCareSyndrome,
         'ICU_Vd': progressDiagnosis,
-        'ICU_AW': intensiveCareUnitAcquiredWeakness,
         'CO_Morb': coMorbidity,
+        'ICU_AW': intensiveCareUnitAcquiredWeakness,
+        'PICS': postIntensiveCareSyndrome,
       };
 }

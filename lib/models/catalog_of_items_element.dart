@@ -30,9 +30,12 @@ class CatalogOfItemsElement extends AbstractDatabaseObject {
   /// Creates a Catalog of Items object.
   const CatalogOfItemsElement({
     required this.icuDiagnosis,
-    required this.vitalSigns,
-    required this.respiratoryParameters,
-    required this.bloodGasAnalysis,
+    required this.vitalSignsObject1,
+    required this.vitalSignsObject2,
+    required this.respiratoryParametersObject1,
+    required this.respiratoryParametersObject2,
+    required this.bloodGasAnalysisObject1,
+    required this.bloodGasAnalysisObject2,
     required this.laborParameters,
     required this.medicaments,
     required this.movementData,
@@ -46,11 +49,17 @@ class CatalogOfItemsElement extends AbstractDatabaseObject {
 
   final ICUDiagnosis icuDiagnosis;
 
-  final VitalSignsObject vitalSigns;
+  final VitalSignsObject vitalSignsObject1;
 
-  final RespiratoryParametersObject respiratoryParameters;
+  final VitalSignsObject vitalSignsObject2;
 
-  final BloodGasAnalysisObject bloodGasAnalysis;
+  final RespiratoryParametersObject respiratoryParametersObject1;
+
+  final RespiratoryParametersObject respiratoryParametersObject2;
+
+  final BloodGasAnalysisObject bloodGasAnalysisObject1;
+
+  final BloodGasAnalysisObject bloodGasAnalysisObject2;
 
   final LaborParameters laborParameters;
 
@@ -61,9 +70,12 @@ class CatalogOfItemsElement extends AbstractDatabaseObject {
   @override
   CatalogOfItemsElement copyWith({
     ICUDiagnosis? icuDiagnosis,
-    VitalSignsObject? vitalSigns,
-    RespiratoryParametersObject? respiratoryParameters,
-    BloodGasAnalysisObject? bloodGasAnalysis,
+    VitalSignsObject? vitalSignsObject1,
+    VitalSignsObject? vitalSignsObject2,
+    RespiratoryParametersObject? respiratoryParametersObject1,
+    RespiratoryParametersObject? respiratoryParametersObject2,
+    BloodGasAnalysisObject? bloodGasAnalysisObject1,
+    BloodGasAnalysisObject? bloodGasAnalysisObject2,
     LaborParameters? laborParameters,
     Medicaments? medicaments,
     PatientData? movementData,
@@ -73,10 +85,16 @@ class CatalogOfItemsElement extends AbstractDatabaseObject {
   }) {
     return CatalogOfItemsElement(
       icuDiagnosis: icuDiagnosis ?? this.icuDiagnosis,
-      vitalSigns: vitalSigns ?? this.vitalSigns,
-      respiratoryParameters:
-          respiratoryParameters ?? this.respiratoryParameters,
-      bloodGasAnalysis: bloodGasAnalysis ?? this.bloodGasAnalysis,
+      vitalSignsObject1: vitalSignsObject1 ?? this.vitalSignsObject1,
+      vitalSignsObject2: vitalSignsObject2 ?? this.vitalSignsObject2,
+      respiratoryParametersObject1:
+          respiratoryParametersObject1 ?? this.respiratoryParametersObject1,
+      respiratoryParametersObject2:
+          respiratoryParametersObject2 ?? this.respiratoryParametersObject2,
+      bloodGasAnalysisObject1:
+          bloodGasAnalysisObject1 ?? this.bloodGasAnalysisObject1,
+      bloodGasAnalysisObject2:
+          bloodGasAnalysisObject2 ?? this.bloodGasAnalysisObject2,
       laborParameters: laborParameters ?? this.laborParameters,
       medicaments: medicaments ?? this.medicaments,
       movementData: movementData ?? this.movementData,
@@ -92,9 +110,12 @@ class CatalogOfItemsElement extends AbstractDatabaseObject {
   @override
   List<Object> get props => <Object>[
         icuDiagnosis,
-        vitalSigns,
-        respiratoryParameters,
-        bloodGasAnalysis,
+        vitalSignsObject1,
+        vitalSignsObject2,
+        respiratoryParametersObject1,
+        respiratoryParametersObject2,
+        bloodGasAnalysisObject1,
+        bloodGasAnalysisObject2,
         laborParameters,
         medicaments,
         movementData
