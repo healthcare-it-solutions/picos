@@ -23,9 +23,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../widgets/catalog_of_items_label.dart';
 
 /// Shows the Blood Gas Analysis page for the [CatalogOfItemsScreen].
-class BloodGasAnalysis extends StatelessWidget {
+class BloodGasAnalysisPage extends StatelessWidget {
   /// Blood Gas Analysis constructor.
-  const BloodGasAnalysis({
+  const BloodGasAnalysisPage({
     required this.arterialOxygenSaturationCallback1,
     required this.arterialOxygenSaturationCallback2,
     required this.centralVenousOxygenSaturationCallback1,

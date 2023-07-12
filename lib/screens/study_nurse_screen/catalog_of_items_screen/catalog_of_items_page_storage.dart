@@ -16,7 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/blood_gas_analysis.dart';
+import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/blood_gas_analysis_page.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/icu_diagnosis.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/laboratory_values.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/medicaments.dart';
@@ -125,7 +125,7 @@ class CatalogOfItemsPageStorage {
         ),
       ),
       PicosPageViewItem(
-        child: BloodGasAnalysis(
+        child: BloodGasAnalysisPage(
           initialArterialOxygenSaturation1: arterialOxygenSaturation1,
           initialArterialOxygenSaturation2: arterialOxygenSaturation2,
           initialCentralVenousOxygenSaturation1: centralVenousOxygenSaturation1,

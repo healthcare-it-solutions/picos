@@ -20,9 +20,12 @@ import 'package:picos/models/icu_diagnosis.dart';
 import 'package:picos/models/labor_parameters.dart';
 import 'package:picos/models/medicaments.dart';
 import 'package:picos/models/patient_data.dart';
+import 'package:picos/models/respiratory_parameters.dart';
 import 'package:picos/models/respiratory_parameters_object.dart';
+import 'package:picos/models/vital_signs.dart';
 import 'package:picos/models/vital_signs_object.dart';
 
+import 'blood_gas_analysis.dart';
 import 'blood_gas_analysis_object.dart';
 
 /// Class with Catalog of Items information.
@@ -32,10 +35,13 @@ class CatalogOfItemsElement extends AbstractDatabaseObject {
     required this.icuDiagnosis,
     required this.vitalSignsObject1,
     required this.vitalSignsObject2,
+    required this.vitalSigns,
     required this.respiratoryParametersObject1,
     required this.respiratoryParametersObject2,
+    required this.respiratoryParameters,
     required this.bloodGasAnalysisObject1,
     required this.bloodGasAnalysisObject2,
+    required this.bloodGasAnalysis,
     required this.laborParameters,
     required this.medicaments,
     required this.movementData,
@@ -53,13 +59,19 @@ class CatalogOfItemsElement extends AbstractDatabaseObject {
 
   final VitalSignsObject vitalSignsObject2;
 
+  final VitalSigns vitalSigns;
+
   final RespiratoryParametersObject respiratoryParametersObject1;
 
   final RespiratoryParametersObject respiratoryParametersObject2;
 
+  final RespiratoryParameters respiratoryParameters;
+
   final BloodGasAnalysisObject bloodGasAnalysisObject1;
 
   final BloodGasAnalysisObject bloodGasAnalysisObject2;
+
+  final BloodGasAnalysis bloodGasAnalysis;
 
   final LaborParameters laborParameters;
 
@@ -72,10 +84,13 @@ class CatalogOfItemsElement extends AbstractDatabaseObject {
     ICUDiagnosis? icuDiagnosis,
     VitalSignsObject? vitalSignsObject1,
     VitalSignsObject? vitalSignsObject2,
+    VitalSigns? vitalSigns,
     RespiratoryParametersObject? respiratoryParametersObject1,
     RespiratoryParametersObject? respiratoryParametersObject2,
+    RespiratoryParameters? respiratoryParameters,
     BloodGasAnalysisObject? bloodGasAnalysisObject1,
     BloodGasAnalysisObject? bloodGasAnalysisObject2,
+    BloodGasAnalysis? bloodGasAnalysis,
     LaborParameters? laborParameters,
     Medicaments? medicaments,
     PatientData? movementData,
@@ -87,14 +102,18 @@ class CatalogOfItemsElement extends AbstractDatabaseObject {
       icuDiagnosis: icuDiagnosis ?? this.icuDiagnosis,
       vitalSignsObject1: vitalSignsObject1 ?? this.vitalSignsObject1,
       vitalSignsObject2: vitalSignsObject2 ?? this.vitalSignsObject2,
+      vitalSigns: vitalSigns ?? this.vitalSigns,
       respiratoryParametersObject1:
           respiratoryParametersObject1 ?? this.respiratoryParametersObject1,
       respiratoryParametersObject2:
           respiratoryParametersObject2 ?? this.respiratoryParametersObject2,
+      respiratoryParameters:
+          respiratoryParameters ?? this.respiratoryParameters,
       bloodGasAnalysisObject1:
           bloodGasAnalysisObject1 ?? this.bloodGasAnalysisObject1,
       bloodGasAnalysisObject2:
           bloodGasAnalysisObject2 ?? this.bloodGasAnalysisObject2,
+      bloodGasAnalysis: bloodGasAnalysis ?? this.bloodGasAnalysis,
       laborParameters: laborParameters ?? this.laborParameters,
       medicaments: medicaments ?? this.medicaments,
       movementData: movementData ?? this.movementData,
@@ -112,10 +131,13 @@ class CatalogOfItemsElement extends AbstractDatabaseObject {
         icuDiagnosis,
         vitalSignsObject1,
         vitalSignsObject2,
+        vitalSigns,
         respiratoryParametersObject1,
         respiratoryParametersObject2,
+        respiratoryParameters,
         bloodGasAnalysisObject1,
         bloodGasAnalysisObject2,
+        bloodGasAnalysis,
         laborParameters,
         medicaments,
         movementData
