@@ -24,7 +24,6 @@ import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/m
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/respiration_parameters.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/vital_data.dart';
 
-import '../../../widgets/picos_form_of_address.dart';
 import '../../../widgets/picos_page_view_item.dart';
 
 /// Manages the state of the Catalog of items pages.
@@ -335,14 +334,14 @@ class CatalogOfItemsPageStorage {
           ageCallback: (int? value) {
             age = value;
           },
-          genderCallback: (FormOfAddress? value) {
+          genderCallback: (String? value) {
             gender = value;
           },
           bodyWeightCallback: (double? value) {
             bodyWeight = value;
           },
           bodyHeightCallback: (double? value) {
-            height = value;
+            bodyHeight = value;
           },
           bodyMassIndexCallback: (double? value) {
             bodyMassIndex = value;
@@ -374,7 +373,7 @@ class CatalogOfItemsPageStorage {
           dischargeTimeHospitalCallback: (DateTime? value) {
             dischargeTimeFromTheHospital = value;
           },
-          icd10COdesCallback: (String? value) {
+          icd10COdesCallback: (List<String>? value) {
             icd10Codes = value;
           },
           patientLocationCallback: (String? value) {
@@ -401,8 +400,11 @@ class CatalogOfItemsPageStorage {
           hospitalReadmissionCallback: (double? value) {
             hospitalReadmission = value;
           },
-          daysUntilWorkReuptakeCallback: (int? value) {
+          daysUntilWorkReuptakeCallback: (double? value) {
             daysUntilWorkReuptake = value;
+          },
+          instKeyCallback: (String? value) {
+            instKey = value!;
           },
         ),
       ),
@@ -528,9 +530,9 @@ class CatalogOfItemsPageStorage {
   String? analgesics;
 
   int? age;
-  FormOfAddress? gender;
+  String? gender;
   double? bodyWeight;
-  double? height;
+  double? bodyHeight;
   double? bodyMassIndex;
   double? idealBodyWeight;
   String? patientID;
@@ -541,7 +543,7 @@ class CatalogOfItemsPageStorage {
   int? ventilationDays;
   DateTime? admissionTimeToTheHospital;
   DateTime? dischargeTimeFromTheHospital;
-  String? icd10Codes;
+  List<String>? icd10Codes;
   String? patientLocation;
   bool lungProtectiveVentilation70 = false;
   double? icuMortality;
@@ -550,7 +552,8 @@ class CatalogOfItemsPageStorage {
   int? icuLengthOfStay;
   double? readmissionRateToTheICU;
   double? hospitalReadmission;
-  int? daysUntilWorkReuptake;
+  double? daysUntilWorkReuptake;
+  String? instKey;
 
   /// The loaded pages.
   late List<PicosPageViewItem> pages;

@@ -55,6 +55,7 @@ class MovementData extends StatefulWidget {
     required this.readmissionRateICUCallback,
     required this.hospitalReadmissionCallback,
     required this.daysUntilWorkReuptakeCallback,
+    required this.instKeyCallback,
     Key? key,
     this.initialAge,
     this.initialGender,
@@ -79,13 +80,14 @@ class MovementData extends StatefulWidget {
     this.initialReadmissionRateToTheICU,
     this.initialHospitalReadmission,
     this.initialDaysUntilWorkReuptake,
+    this.initialInstKey,
   }) : super(key: key);
 
   /// Main diagnosis callback.
   final void Function(int? value) ageCallback;
 
   /// Progress diagnosis callback.
-  final void Function(FormOfAddress? value) genderCallback;
+  final void Function(String? value) genderCallback;
 
   /// ICUAW callback.
   final void Function(double? value) bodyWeightCallback;
@@ -124,7 +126,7 @@ class MovementData extends StatefulWidget {
   final void Function(DateTime? value) dischargeTimeHospitalCallback;
 
   /// ICD-10 Codes callback.
-  final void Function(String? value) icd10COdesCallback;
+  final void Function(List<String>? value) icd10COdesCallback;
 
   /// Patient Location callback.
   final void Function(String? value) patientLocationCallback;
@@ -151,7 +153,10 @@ class MovementData extends StatefulWidget {
   final void Function(double? value) hospitalReadmissionCallback;
 
   /// Days until Work Reuptake callback.
-  final void Function(int? value) daysUntilWorkReuptakeCallback;
+  final void Function(double? value) daysUntilWorkReuptakeCallback;
+
+  /// InstKey callback.
+  final void Function(String? value) instKeyCallback;
 
   /// Starting value for Age.
   final int? initialAge;
@@ -222,6 +227,9 @@ class MovementData extends StatefulWidget {
   /// Starting value for Days until Work Reuptake.
   final double? initialDaysUntilWorkReuptake;
 
+  /// Starting value for InstKey.
+  final double? initialInstKey;
+
   @override
   State<MovementData> createState() => _MovementDataState();
 }
@@ -257,8 +265,8 @@ class _MovementDataState extends State<MovementData> {
             CatalogOfItemsLabel(
               AppLocalizations.of(context)!.gender,
             ),
-            PicosFormOfAddress(
-              callBackFunction: (FormOfAddress value) {
+            PicosNumberField(
+              onChanged: (String value) {
                 widget.genderCallback(value);
               },
             ),
@@ -359,7 +367,7 @@ class _MovementDataState extends State<MovementData> {
             PicosTextField(
               hint: 'ICD-10 Codes',
               onChanged: (String value) {
-                widget.icd10COdesCallback(value);
+                widget.icd10COdesCallback(value as List<String>?);
               },
             ),
             CatalogOfItemsLabel(
@@ -459,7 +467,7 @@ class _MovementDataState extends State<MovementData> {
             PicosNumberField(
               hint: AppLocalizations.of(context)!.days,
               onChanged: (String value) {
-                widget.daysUntilWorkReuptakeCallback(int.tryParse(value));
+                widget.daysUntilWorkReuptakeCallback(double.tryParse(value));
               },
             ),
           ],
