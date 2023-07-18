@@ -132,20 +132,24 @@ class Medicaments extends AbstractDatabaseObject {
         steroids!,
         inhalatives!,
         analgesics!,
+        doctorObjectId,
+        patientObjectId,
       ];
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
-        'Antiarrythmika': antiarrhythmics,
-        'Antiinfektiva': antiInfectives,
-        'Antihypertensiva': antihypertensives,
-        'Antidiabetika': antidiabetics,
-        'Steroide': steroids,
-        'NOAK': noak,
-        'Thrombozytenaggregation': plateletAggregation,
-        'Thromboseprophylaxe': thrombosisProphylaxis,
-        'Inhalativa': inhalatives,
-        'Analgetika': analgesics,
+        if (antiarrhythmics != null) 'Antiarrythmika': antiarrhythmics,
+        if (antiInfectives != null) 'Antiinfektiva': antiInfectives,
+        if (antihypertensives != null) 'Antihypertensiva': antihypertensives,
+        if (antidiabetics != null) 'Antidiabetika': antidiabetics,
+        if (steroids != null) 'Steroide': steroids,
+        if (noak != null) 'NOAK': noak,
+        if (plateletAggregation != null)
+          'Thrombozytenaggregation': plateletAggregation,
+        if (thrombosisProphylaxis != null)
+          'Thromboseprophylaxe': thrombosisProphylaxis,
+        if (inhalatives != null) 'Inhalativa': inhalatives,
+        if (analgesics != null) 'Analgetika': analgesics,
         'Patient': <String, String>{
           'objectId': patientObjectId,
           '__type': 'Pointer',
