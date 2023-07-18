@@ -397,39 +397,84 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       for (dynamic element in responseLaborParameters) {
         laborParametersResults.add(
           LaborParameters(
-            leukocyteCount: element['Leukozyten']['estimateNumber'].toDouble(),
-            lymphocyteCount:
-                element['lymphozyten_abs']['estimateNumber'].toDouble(),
-            lymphocytePercentage:
-                element['lymphozyten_proz']['estimateNumber'].toDouble(),
-            plateletCount: element['Thrombozyten']['estimateNumber'].toDouble(),
-            cReactiveProteinLevel: element['CRP']['estimateNumber'].toDouble(),
-            procalcitoninLevel: element['PCT']['estimateNumber'].toDouble(),
-            interleukin: element['IL_6']['estimateNumber'].toDouble(),
-            bloodUreaNitrogen: element['Urea']['estimateNumber'].toDouble(),
-            creatinine: element['Kreatinin']['estimateNumber'].toDouble(),
-            heartFailureMarker: element['BNP']['estimateNumber'].toDouble(),
-            heartFailureMarkerNTProBNP:
-                element['NT_Pro_BNP']['estimateNumber'].toDouble(),
-            bilirubinTotal: element['Bilirubin']['estimateNumber'].toDouble(),
-            hemoglobin: element['Haemoglobin']['estimateNumber'].toDouble(),
-            hematocrit: element['Haematokrit']['estimateNumber'].toDouble(),
-            albumin: element['Albumin']['estimateNumber'].toDouble(),
-            gotASAT: element['GOT']['estimateNumber'].toDouble(),
-            gptALAT: element['GPT']['estimateNumber'].toDouble(),
-            troponin: element['Troponin']['estimateNumber'].toDouble(),
-            creatineKinase: element['CK']['estimateNumber'].toDouble(),
-            myocardialInfarctionMarkerCKMB:
-                element['CK_MB']['estimateNumber'].toDouble(),
-            lactateDehydrogenaseLevel:
-                element['LDH']['estimateNumber'].toDouble(),
-            amylaseLevel: element['Amylase']['estimateNumber'].toDouble(),
-            lipaseLevel: element['Lipase']['estimateNumber'].toDouble(),
-            dDimer: element['D_Dimere']['estimateNumber'].toDouble(),
-            internationalNormalizedRatio:
-                element['INR']['estimateNumber'].toDouble(),
-            partialThromboplastinTime:
-                element['pTT']['estimateNumber'].toDouble(),
+            leukocyteCount: element['Leukozyten'] != null
+                ? element['Leukozyten']['estimateNumber'].toDouble()
+                : null,
+            lymphocyteCount: element['lymphozyten_abs'] != null
+                ? element['lymphozyten_abs']['estimateNumber'].toDouble()
+                : null,
+            lymphocytePercentage: element['lymphozyten_proz'] != null
+                ? element['lymphozyten_proz']['estimateNumber'].toDouble()
+                : null,
+            plateletCount: element['Thrombozyten'] != null
+                ? element['Thrombozyten']['estimateNumber'].toDouble()
+                : null,
+            cReactiveProteinLevel: element['CRP'] != null
+                ? element['CRP']['estimateNumber'].toDouble()
+                : null,
+            procalcitoninLevel: element['PCT'] != null
+                ? element['PCT']['estimateNumber'].toDouble()
+                : null,
+            interleukin: element['IL_6'] != null
+                ? element['IL_6']['estimateNumber'].toDouble()
+                : null,
+            bloodUreaNitrogen: element['Urea'] != null
+                ? element['Urea']['estimateNumber'].toDouble()
+                : null,
+            creatinine: element['Kreatinin'] != null
+                ? element['Kreatinin']['estimateNumber'].toDouble()
+                : null,
+            heartFailureMarker: element['BNP'] != null
+                ? element['BNP']['estimateNumber'].toDouble()
+                : null,
+            heartFailureMarkerNTProBNP: element['NT_Pro_BNP'] != null
+                ? element['NT_Pro_BNP']['estimateNumber'].toDouble()
+                : null,
+            bilirubinTotal: element['Bilirubin'] != null
+                ? element['Bilirubin']['estimateNumber'].toDouble()
+                : null,
+            hemoglobin: element['Haemoglobin'] != null
+                ? element['Haemoglobin']['estimateNumber'].toDouble()
+                : null,
+            hematocrit: element['Haematokrit'] != null
+                ? element['Haematokrit']['estimateNumber'].toDouble()
+                : null,
+            albumin: element['Albumin'] != null
+                ? element['Albumin']['estimateNumber'].toDouble()
+                : null,
+            gotASAT: element['GOT'] != null
+                ? element['GOT']['estimateNumber'].toDouble()
+                : null,
+            gptALAT: element['GPT'] != null
+                ? element['GPT']['estimateNumber'].toDouble()
+                : null,
+            troponin: element['Troponin'] != null
+                ? element['Troponin']['estimateNumber'].toDouble()
+                : null,
+            creatineKinase: element['CK'] != null
+                ? element['CK']['estimateNumber'].toDouble()
+                : null,
+            myocardialInfarctionMarkerCKMB: element['CK_MB'] != null
+                ? element['CK_MB']['estimateNumber'].toDouble()
+                : null,
+            lactateDehydrogenaseLevel: element['LDH'] != null
+                ? element['LDH']['estimateNumber'].toDouble()
+                : null,
+            amylaseLevel: element['Amylase'] != null
+                ? element['Amylase']['estimateNumber'].toDouble()
+                : null,
+            lipaseLevel: element['Lipase'] != null
+                ? element['Lipase']['estimateNumber'].toDouble()
+                : null,
+            dDimer: element['D_Dimere'] != null
+                ? element['D_Dimere']['estimateNumber'].toDouble()
+                : null,
+            internationalNormalizedRatio: element['INR'] != null
+                ? element['INR']['estimateNumber'].toDouble()
+                : null,
+            partialThromboplastinTime: element['pTT'] != null
+                ? element['pTT']['estimateNumber'].toDouble()
+                : null,
             patientObjectId: element['Patient']['objectId'],
             doctorObjectId: element['Doctor']['objectId'],
             objectId: element['objectId'],
@@ -468,26 +513,50 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
             patientID: element['ID'],
             caseNumber: element['CaseNumber'],
             instKey: element['inst_key'],
-            bodyWeight: element['BodyWeight']['estimateNumber'].toDouble(),
-            ezpICU: DateTime.parse(element['EZP_ICU']),
+            bodyWeight: element['BodyWeight'] != null
+                ? element['BodyWeight']['estimateNumber'].toDouble()
+                : null,
+            ezpICU: element['EZP_ICU'] != null
+                ? DateTime.parse(element['EZP_ICU'])
+                : null,
             age: element['Age'],
             gender: element['Gender'] ?? '',
-            bmi: element['BMI']['estimateNumber'].toDouble(),
-            idealBMI: element['IdealBMI']['estimateNumber'].toDouble(),
+            bmi: element['BMI'] != null
+                ? element['BMI']['estimateNumber'].toDouble()
+                : null,
+            idealBMI: element['IdealBMI'] != null
+                ? element['IdealBMI']['estimateNumber'].toDouble()
+                : null,
             dischargeReason: element['DischargeReason'] ?? '',
-            azpICU: DateTime.parse(element['AZP_ICU']),
+            azpICU: element['AZP_ICU'] != null
+                ? DateTime.parse(element['AZP_ICU'])
+                : null,
             ventilationDays: element['VentilationDays'],
-            azpKH: DateTime.parse(element['AZP_KH']),
-            ezpKH: DateTime.parse(element['EZP_ICU']),
-            icd10Codes: element['ICD_10_Codes'] ?? '',
+            azpKH: element['AZP_KH'] != null
+                ? DateTime.parse(element['AZP_KH'])
+                : null,
+            ezpKH: element['EZP_ICU'] != null
+                ? DateTime.parse(element['EZP_ICU'])
+                : null,
+            icd10Codes: element['ICD_10_Codes'] != null
+                ? <String>[element['ICD_10_Codes']]
+                : <String>[],
             station: element['Station'] ?? '',
             lbgt70: element['LBgt70'],
-            icuMortality: element['ICU_Mortality']['estimateNumber'].toDouble(),
-            khMortality: element['KH_Mortality']['estimateNumber'].toDouble(),
+            icuMortality: element['ICU_Mortality'] != null
+                ? element['ICU_Mortality']['estimateNumber'].toDouble()
+                : null,
+            khMortality: element['KH_Mortality'] != null
+                ? element['KH_Mortality']['estimateNumber'].toDouble()
+                : null,
             icuLengthStay: element['ICU_LengthStay'],
             khLengthStay: element['KH_LengthStay'],
-            wdaKH: element['WdaKH']['estimateNumber'].toDouble(),
-            weznDisease: element['WEznDisease']['estimateNumber'].toDouble(),
+            wdaKH: element['WdaKH'] != null
+                ? element['WdaKH']['estimateNumber'].toDouble()
+                : null,
+            weznDisease: element['WEznDisease'] != null
+                ? element['WEznDisease']['estimateNumber'].toDouble()
+                : null,
             objectId: element['objectId'],
             patientObjectId: element['Patient']['objectId'],
             doctorObjectId: element['Doctor']['objectId'],
