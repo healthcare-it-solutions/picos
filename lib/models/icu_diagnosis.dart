@@ -103,41 +103,23 @@ class ICUDiagnosis extends AbstractDatabaseObject {
       ];
 
   @override
-  Map<String, dynamic> get databaseMapping {
-    final Map<String, dynamic> map = <String, dynamic>{
-      'Patient': <String, String>{
-        'objectId': patientObjectId!,
-        '__type': 'Pointer',
-        'className': '_User'
-      },
-      'Doctor': <String, String>{
-        'objectId': doctorObjectId!,
-        '__type': 'Pointer',
-        'className': '_User'
-      },
-    };
-
-    if (mainDiagnosis != null) {
-      map['ICU_Hd'] = mainDiagnosis;
-    }
-
-    if (progressDiagnosis != null) {
-      map['ICU_Vd'] = progressDiagnosis;
-    }
-
-    if (coMorbidity != null) {
-      map['CO_Morb'] = coMorbidity;
-    }
-
-    if (intensiveCareUnitAcquiredWeakness != null) {
-      map['ICU_AW'] = intensiveCareUnitAcquiredWeakness;
-    }
-
-    if (postIntensiveCareSyndrome != null) {
-      map['PICS'] = postIntensiveCareSyndrome;
-    }
-
-    return map;
-  }
-
+  Map<String, dynamic> get databaseMapping => <String, dynamic>{
+        'Patient': <String, String>{
+          'objectId': patientObjectId!,
+          '__type': 'Pointer',
+          'className': '_User'
+        },
+        'Doctor': <String, String>{
+          'objectId': doctorObjectId!,
+          '__type': 'Pointer',
+          'className': '_User'
+        },
+        if (mainDiagnosis != null) 'ICU_Hd': mainDiagnosis,
+        if (progressDiagnosis != null) 'ICU_Vd': progressDiagnosis,
+        if (coMorbidity != null) 'CO_Morb': coMorbidity,
+        if (intensiveCareUnitAcquiredWeakness != null)
+          'ICU_AW': intensiveCareUnitAcquiredWeakness,
+        if (postIntensiveCareSyndrome != null)
+          'PICS': postIntensiveCareSyndrome,
+      };
 }
