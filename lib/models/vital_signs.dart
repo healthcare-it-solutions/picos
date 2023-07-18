@@ -79,33 +79,28 @@ class VitalSigns extends AbstractDatabaseObject {
       ];
 
   @override
-  Map<String, dynamic> get databaseMapping {
-    final Map<String, dynamic> map = <String, dynamic>{
-      'Patient': <String, String>{
-        'objectId': patientObjectId,
-        '__type': 'Pointer',
-        'className': '_User'
-      },
-      'Doctor': <String, String>{
-        'objectId': doctorObjectId,
-        '__type': 'Pointer',
-        'className': '_User'
-      },
-    };
-    if (value1 != null && value1?.objectId != null) {
-      map['value1'] = <String, dynamic>{
-        'objectId': value1?.objectId,
-        '__type': 'Pointer',
-        'className': 'VitalSigns_obj'
+  Map<String, dynamic> get databaseMapping => <String, dynamic>{
+        'Patient': <String, String>{
+          'objectId': patientObjectId,
+          '__type': 'Pointer',
+          'className': '_User'
+        },
+        'Doctor': <String, String>{
+          'objectId': doctorObjectId,
+          '__type': 'Pointer',
+          'className': '_User'
+        },
+        if (value1 != null && value1?.objectId != null)
+          'value1': <String, dynamic>{
+            'objectId': value1?.objectId,
+            '__type': 'Pointer',
+            'className': 'VitalSigns_obj'
+          },
+        if (value2 != null && value2?.objectId != null)
+          'value2': <String, dynamic>{
+            'objectId': value2?.objectId,
+            '__type': 'Pointer',
+            'className': 'VitalSigns_obj'
+          },
       };
-    }
-    if (value2 != null && value2?.objectId != null) {
-      map['value2'] = <String, dynamic>{
-        'objectId': value2?.objectId,
-        '__type': 'Pointer',
-        'className': 'VitalSigns_obj'
-      };
-    }
-    return map;
-  }
 }
