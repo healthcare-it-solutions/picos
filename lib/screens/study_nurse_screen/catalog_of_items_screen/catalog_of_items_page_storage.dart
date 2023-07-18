@@ -340,20 +340,11 @@ class CatalogOfItemsPageStorage {
           bodyWeightCallback: (double? value) {
             bodyWeight = value;
           },
-          bodyHeightCallback: (double? value) {
-            bodyHeight = value;
-          },
           bodyMassIndexCallback: (double? value) {
             bodyMassIndex = value;
           },
           idealBodyWeightCallback: (double? value) {
             idealBodyWeight = value;
-          },
-          patientIDCallback: (String? value) {
-            patientID = value;
-          },
-          caseNumberCallback: (String? value) {
-            caseNumber = value;
           },
           reasonForDischargeCallback: (String? value) {
             reasonForDischarge = value;
@@ -402,9 +393,6 @@ class CatalogOfItemsPageStorage {
           },
           daysUntilWorkReuptakeCallback: (double? value) {
             daysUntilWorkReuptake = value;
-          },
-          instKeyCallback: (String? value) {
-            instKey = value!;
           },
         ),
       ),

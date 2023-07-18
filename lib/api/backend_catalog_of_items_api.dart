@@ -40,6 +40,8 @@ import '../models/patient.dart';
 class BackendCatalogOfItemsApi extends BackendObjectsApi {
   @override
   Future<void> saveObject(AbstractDatabaseObject object) async {
+    VitalSignsObject? vitalSignsObject1;
+    VitalSignsObject? vitalSignsObject2;
     try {
       /// ICUDiagnosis
       dynamic responseICUDiagnosis = await Backend.saveObject(
@@ -54,35 +56,42 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
             object.icuDiagnosis.updatedAt,
       );
 
-      /// VitalSigns value 1
-      dynamic responseVitalSignsObject1 = await Backend.saveObject(
-        object.vitalSignsObject1,
-      );
-
-      VitalSignsObject vitalSignsObject1 = object.vitalSignsObject1.copyWith(
-        objectId: responseVitalSignsObject1['objectId'],
-        createdAt:
-            DateTime.tryParse(responseVitalSignsObject1['createdAt'] ?? '') ??
+      try {
+        if (object.vitalSignsObject1.objectId == null) {
+          /// VitalSigns value 1
+          dynamic responseVitalSignsObject1 = await Backend.saveObject(
+            object.vitalSignsObject1,
+          );
+          vitalSignsObject1 = object.vitalSignsObject1.copyWith(
+            objectId: responseVitalSignsObject1['objectId'],
+            createdAt: DateTime.tryParse(
+                    responseVitalSignsObject1['createdAt'] ?? '') ??
                 object.vitalSignsObject1.createdAt,
-        updatedAt:
-            DateTime.tryParse(responseVitalSignsObject1['updatedAt'] ?? '') ??
+            updatedAt: DateTime.tryParse(
+                    responseVitalSignsObject1['updatedAt'] ?? '') ??
                 object.vitalSignsObject1.updatedAt,
-      );
+          );
+        }
+        if (object.vitalSignsObject2.objectId == null) {
+          /// VitalSigns value 2
+          dynamic responseVitalSignsObject2 = await Backend.saveObject(
+            object.vitalSignsObject2,
+          );
 
-      /// VitalSigns value 2
-      dynamic responseVitalSignsObject2 = await Backend.saveObject(
-        object.vitalSignsObject1,
-      );
-
-      VitalSignsObject vitalSignsObject2 = object.vitalSignsObject1.copyWith(
-        objectId: responseVitalSignsObject2['objectId'],
-        createdAt:
-            DateTime.tryParse(responseVitalSignsObject2['createdAt'] ?? '') ??
-                object.vitalSignsObject1.createdAt,
-        updatedAt:
-            DateTime.tryParse(responseVitalSignsObject2['updatedAt'] ?? '') ??
-                object.vitalSignsObject1.updatedAt,
-      );
+          vitalSignsObject2 = object.vitalSignsObject2.copyWith(
+            objectId: responseVitalSignsObject2['objectId'],
+            createdAt: DateTime.tryParse(
+                    responseVitalSignsObject2['createdAt'] ?? '') ??
+                object.vitalSignsObject2.createdAt,
+            updatedAt: DateTime.tryParse(
+                    responseVitalSignsObject2['updatedAt'] ?? '') ??
+                object.vitalSignsObject2.updatedAt,
+          );
+        }
+        dispatch();
+      } catch (e) {
+        Stream<List<CatalogOfItemsElement>>.error(e);
+      }
 
       /// VitalSigns
       dynamic responseVitalSigns = await Backend.saveObject(
@@ -330,6 +339,8 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
             coMorbidity: element['CO_Morb'] ?? '',
             intensiveCareUnitAcquiredWeakness: element['ICU_AW'] ?? '',
             postIntensiveCareSyndrome: element['PICS'] ?? '',
+            patientObjectId: element['Patient']['objectId'],
+            doctorObjectId: element['Doctor']['objectId'],
             objectId: element['objectId'],
             createdAt: DateTime.parse(element['createdAt']),
             updatedAt: DateTime.parse(element['updatedAt']),
@@ -453,12 +464,12 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
             patientID: element['ID'],
             caseNumber: element['CaseNumber'],
             instKey: element['inst_key'],
-            bodyWeight: element['BodyWeight']['estimateNumber'].toDouble() ?? 0,
+            bodyWeight: element['BodyWeight']['estimateNumber'].toDouble(),
             ezpICU: DateTime.parse(element['EZP_ICU']),
             age: element['Age'],
             gender: element['Gender'] ?? '',
-            bmi: element['BMI']['estimateNumber'].toDouble() ?? 0,
-            idealBMI: element['IdealBMI']['estimateNumber'].toDouble() ?? 0,
+            bmi: element['BMI']['estimateNumber'].toDouble(),
+            idealBMI: element['IdealBMI']['estimateNumber'].toDouble(),
             dischargeReason: element['DischargeReason'] ?? '',
             azpICU: DateTime.parse(element['AZP_ICU']),
             ventilationDays: element['VentilationDays'],
@@ -467,12 +478,12 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
             icd10Codes: element['ICD_10_Codes'] ?? '',
             station: element['Station'] ?? '',
             lbgt70: element['LBgt70'],
-            icuMortality: element['ICU_Mortality']['estimateNumber'].toDouble() ?? 0,
-            khMortality: element['KH_Mortality']['estimateNumber'].toDouble() ?? 0,
+            icuMortality: element['ICU_Mortality']['estimateNumber'].toDouble(),
+            khMortality: element['KH_Mortality']['estimateNumber'].toDouble(),
             icuLengthStay: element['ICU_LengthStay'],
             khLengthStay: element['KH_LengthStay'],
-            wdaKH: element['WdaKH']['estimateNumber'].toDouble() ?? 0,
-            weznDisease: element['WEznDisease']['estimateNumber'].toDouble() ?? 0,
+            wdaKH: element['WdaKH']['estimateNumber'].toDouble(),
+            weznDisease: element['WEznDisease']['estimateNumber'].toDouble(),
             objectId: element['objectId'],
             patientObjectId: element['Patient']['objectId'],
             doctorObjectId: element['Doctor']['objectId'],

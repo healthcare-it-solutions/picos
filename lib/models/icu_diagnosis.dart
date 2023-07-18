@@ -21,13 +21,13 @@ import 'package:picos/models/abstract_database_object.dart';
 class ICUDiagnosis extends AbstractDatabaseObject {
   /// Creates an ICU Diagnosis object.
   const ICUDiagnosis({
+    required this.patientObjectId,
+    required this.doctorObjectId,
     this.mainDiagnosis,
     this.progressDiagnosis,
     this.coMorbidity,
     this.intensiveCareUnitAcquiredWeakness,
     this.postIntensiveCareSyndrome,
-    this.patientObjectId,
-    this.doctorObjectId,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -98,24 +98,46 @@ class ICUDiagnosis extends AbstractDatabaseObject {
         coMorbidity!,
         intensiveCareUnitAcquiredWeakness!,
         postIntensiveCareSyndrome!,
+        doctorObjectId!,
+        patientObjectId!,
       ];
 
   @override
-  Map<String, dynamic> get databaseMapping => <String, dynamic>{
-        'ICU_Hd': mainDiagnosis,
-        'ICU_Vd': progressDiagnosis,
-        'CO_Morb': coMorbidity,
-        'ICU_AW': intensiveCareUnitAcquiredWeakness,
-        'PICS': postIntensiveCareSyndrome,
-        'Patient': <String, String>{
-          'objectId': patientObjectId!,
-          '__type': 'Pointer',
-          'className': '_User'
-        },
-        'Doctor': <String, String>{
-          'objectId': doctorObjectId!,
-          '__type': 'Pointer',
-          'className': '_User'
-        },
-      };
+  Map<String, dynamic> get databaseMapping {
+    final Map<String, dynamic> map = <String, dynamic>{
+      'Patient': <String, String>{
+        'objectId': patientObjectId!,
+        '__type': 'Pointer',
+        'className': '_User'
+      },
+      'Doctor': <String, String>{
+        'objectId': doctorObjectId!,
+        '__type': 'Pointer',
+        'className': '_User'
+      },
+    };
+
+    if (mainDiagnosis != null) {
+      map['ICU_Hd'] = mainDiagnosis;
+    }
+
+    if (progressDiagnosis != null) {
+      map['ICU_Vd'] = progressDiagnosis;
+    }
+
+    if (coMorbidity != null) {
+      map['CO_Morb'] = coMorbidity;
+    }
+
+    if (intensiveCareUnitAcquiredWeakness != null) {
+      map['ICU_AW'] = intensiveCareUnitAcquiredWeakness;
+    }
+
+    if (postIntensiveCareSyndrome != null) {
+      map['PICS'] = postIntensiveCareSyndrome;
+    }
+
+    return map;
+  }
+
 }

@@ -47,11 +47,14 @@ import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/catalog
 import 'package:picos/state/objects_list_bloc.dart';
 import 'package:picos/util/backend.dart';
 import 'package:picos/util/page_view_navigation.dart';
-import 'package:picos/widgets/picos_page_view_button_bar.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../models/labor_parameters.dart';
+import '../../../themes/global_theme.dart';
+import '../../../widgets/picos_add_button_bar.dart';
+import '../../../widgets/picos_ink_well_button.dart';
+import '../menu_screen/edit_patient_screen.dart';
 
 /// A catalog of items containing patient data as a form.
 
@@ -68,13 +71,18 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
     with PageViewNavigation {
   static String? _back;
   static String? _next;
+  static String? _save;
+
+  static GlobalTheme? _theme;
+
+  String _rightButtonTitle = '';
 
   // All values can be accessed here.
   CatalogOfItemsPageStorage? pageStorage;
 
   //TODO: Create next page callback for saving the values inside pages.
 
-  void _nextPageCallback(var patientObjectId) {
+  void _nextPageCallback() {
     int currentPage = page.toInt() + 1;
 
     if (currentPage == pages.length) {
@@ -142,20 +150,23 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
             SaveObject(
               CatalogOfItemsElement(
                 icuDiagnosis: ICUDiagnosis(
-                    mainDiagnosis: pageStorage?.mainDiagnosis,
-                    progressDiagnosis: pageStorage?.progressDiagnosis,
-                    coMorbidity: pageStorage?.coMorbidity,
-                    intensiveCareUnitAcquiredWeakness:
-                        pageStorage?.intensiveCareUnitAcquiredWeakness,
-                    postIntensiveCareSyndrome:
-                        pageStorage?.postIntensiveCareSyndrome),
+                  mainDiagnosis: pageStorage?.mainDiagnosis,
+                  progressDiagnosis: pageStorage?.progressDiagnosis,
+                  coMorbidity: pageStorage?.coMorbidity,
+                  intensiveCareUnitAcquiredWeakness:
+                      pageStorage?.intensiveCareUnitAcquiredWeakness,
+                  postIntensiveCareSyndrome:
+                      pageStorage?.postIntensiveCareSyndrome,
+                  doctorObjectId: Backend.user.objectId!,
+                  patientObjectId: EditPatientScreen.patientObjectId!,
+                ),
                 vitalSignsObject1: vitalSignsObject1,
                 vitalSignsObject2: vitalSignsObject2,
                 vitalSigns: VitalSigns(
                   doctorObjectId: Backend.user.objectId!,
                   value1: vitalSignsObject1,
                   value2: vitalSignsObject2,
-                  patientObjectId: patientObjectId,
+                  patientObjectId: EditPatientScreen.patientObjectId!,
                 ),
                 respiratoryParametersObject1: respiratoryParametersObject1,
                 respiratoryParametersObject2: respiratoryParametersObject2,
@@ -163,7 +174,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
                   doctorObjectId: Backend.user.objectId!,
                   value1: respiratoryParametersObject1,
                   value2: respiratoryParametersObject2,
-                  patientObjectId: patientObjectId,
+                  patientObjectId: EditPatientScreen.patientObjectId!,
                 ),
                 bloodGasAnalysisObject1: bloodGasAnalysisObject1,
                 bloodGasAnalysisObject2: bloodGasAnalysisObject2,
@@ -171,10 +182,10 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
                   doctorObjectId: Backend.user.objectId!,
                   value1: bloodGasAnalysisObject1,
                   value2: bloodGasAnalysisObject2,
-                  patientObjectId: patientObjectId,
+                  patientObjectId: EditPatientScreen.patientObjectId!,
                 ),
                 laborParameters: LaborParameters(
-                  patientObjectId: patientObjectId,
+                  patientObjectId: EditPatientScreen.patientObjectId!,
                   doctorObjectId: Backend.user.objectId!,
                   leukocyteCount: pageStorage?.leukocyteCount,
                   lymphocyteCount: pageStorage?.lymphocyteCount,
@@ -209,7 +220,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
                       pageStorage?.partialThromboplastinTime,
                 ),
                 medicaments: Medicaments(
-                  patientObjectId: patientObjectId,
+                  patientObjectId: EditPatientScreen.patientObjectId!,
                   doctorObjectId: Backend.user.objectId!,
                   plateletAggregation: pageStorage?.plateletAggregation,
                   noak: pageStorage?.noak,
@@ -223,11 +234,11 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
                   analgesics: pageStorage?.analgesics,
                 ),
                 movementData: PatientData(
-                  bodyHeight: pageStorage!.bodyHeight!,
-                  patientID: pageStorage!.patientID!,
-                  caseNumber: pageStorage!.caseNumber!,
-                  instKey: pageStorage!.instKey!,
-                  patientObjectId: patientObjectId,
+                  bodyHeight: EditPatientScreen.bodyHeight!,
+                  patientID: EditPatientScreen.patientID!,
+                  caseNumber: EditPatientScreen.caseNumber!,
+                  instKey: EditPatientScreen.instituteKey!,
+                  patientObjectId: EditPatientScreen.patientObjectId!,
                   doctorObjectId: Backend.user.objectId!,
                   bodyWeight: pageStorage?.bodyWeight,
                   ezpICU: pageStorage?.dischargeTime,
@@ -256,25 +267,28 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
       return;
     }
 
-    ///if (_unplanned == VisitOptions.hospital) {
-    ///  _disabledNextPages[1] = !_checkHospitalDates();
-    ///}
-    ///
-    ///if (_unplanned == VisitOptions.physician && _record != null) {
-    ///  _disabledNextPages[1] = false;
-    ///}
-    ///
-    ///setState(() {
-    ///  _nextDisabled = _disabledNextPages[currentPage];
-    ///
-    ///  if (currentPage == pages.length - 1) {
-    ///    _rightButtonTitle = _save!;
-    ///  }
-    ///});
+    setState(() {
+      if (currentPage == pages.length - 1) {
+        _rightButtonTitle = _save!;
+      }
+    });
+  }
+
+  void _previousPageCallback() {
+    setState(() {
+      if (_rightButtonTitle != _next) {
+        _rightButtonTitle = _next!;
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_theme == null) {
+      _theme = Theme.of(context).extension<GlobalTheme>()!;
+      _save = AppLocalizations.of(context)!.save;
+    }
+
     if (pages.isEmpty) {
       buildContext = context;
       _back = AppLocalizations.of(context)!.back;
@@ -282,7 +296,8 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
       pageStorage = CatalogOfItemsPageStorage(context);
       pages = pageStorage!.pages;
 
-      //nextPageCallback = _nextPageCallback();
+      nextPageCallback = _nextPageCallback;
+      previousPageCallback = _previousPageCallback;
     }
 
     return BlocBuilder<ObjectsListBloc<BackendCatalogOfItemsApi>,
@@ -294,12 +309,25 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
             controller: controller,
             children: pages,
           ),
-          bottomNavigationBar: PicosPageViewButtonBar(
-            nextPage: nextPage,
-            previousPage: previousPage,
-            nextTitle: _next,
-            previousTitle: _back,
+          bottomNavigationBar: PicosAddButtonBar(
+            leftButton: PicosInkWellButton(
+              text: _back!,
+              onTap: previousPage,
+              buttonColor1: _theme!.grey3,
+              buttonColor2: _theme!.grey1,
+            ),
+            rightButton: PicosInkWellButton(
+              text: _next!,
+              onTap: nextPage,
+            ),
           ),
+
+          ///PicosPageViewButtonBar(
+          ///  nextPage: nextPage,
+          ///  previousPage: previousPage,
+          ///  nextTitle: _next,
+          ///  previousTitle: _back,
+          ///),
         );
       },
     );

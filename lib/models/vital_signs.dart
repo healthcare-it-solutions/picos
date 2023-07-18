@@ -74,8 +74,8 @@ class VitalSigns extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-        value1,
-        value2,
+        doctorObjectId,
+        patientObjectId,
       ];
 
   @override
@@ -86,12 +86,12 @@ class VitalSigns extends AbstractDatabaseObject {
           'className': '_User'
         },
         'value1': <String, String>{
-          'objectId': value1.objectId!,
+          'objectId': value1.objectId != null ? value1.objectId! : '',
           '__type': 'Pointer',
           'className': 'VitalSigns_obj'
         },
         'value2': <String, String>{
-          'objectId': value2.objectId!,
+          'objectId': value2.objectId != null ? value2.objectId! : '',
           '__type': 'Pointer',
           'className': 'VitalSigns_obj'
         },
