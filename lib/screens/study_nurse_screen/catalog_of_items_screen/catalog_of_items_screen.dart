@@ -56,11 +56,8 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
     with PageViewNavigation {
   static String? _back;
   static String? _next;
-  static String? _save;
 
   static GlobalTheme? _theme;
-
-  String _rightButtonTitle = '';
 
   // All values can be accessed here.
   CatalogOfItemsPageStorage? pageStorage;
@@ -246,28 +243,11 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
           );
       Navigator.of(context).pop();
     }
-
-    setState(() {
-      if (currentPage == pages.length - 1) {
-        _rightButtonTitle = _save!;
-      }
-    });
-  }
-
-  void _previousPageCallback() {
-    setState(() {
-      if (_rightButtonTitle != _next) {
-        _rightButtonTitle = _next!;
-      }
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_theme == null) {
-      _theme = Theme.of(context).extension<GlobalTheme>()!;
-      _save = AppLocalizations.of(context)!.save;
-    }
+    _theme ??= Theme.of(context).extension<GlobalTheme>()!;
 
     if (pages.isEmpty) {
       buildContext = context;
@@ -277,7 +257,6 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
       pages = pageStorage!.pages;
 
       nextPageCallback = _nextPageCallback;
-      previousPageCallback = _previousPageCallback;
     }
 
     return BlocBuilder<ObjectsListBloc<BackendCatalogOfItemsApi>,
@@ -301,13 +280,6 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
               onTap: nextPage,
             ),
           ),
-
-          ///PicosPageViewButtonBar(
-          ///  nextPage: nextPage,
-          ///  previousPage: previousPage,
-          ///  nextTitle: _next,
-          ///  previousTitle: _back,
-          ///),
         );
       },
     );
