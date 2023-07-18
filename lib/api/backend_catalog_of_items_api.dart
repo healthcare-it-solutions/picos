@@ -553,12 +553,12 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
               vitalSignsObject2: matchingVitalSigns.value2!,
               vitalSigns: matchingVitalSigns,
               respiratoryParametersObject1:
-                  matchingRespiratoryParameters.value1,
+                  matchingRespiratoryParameters.value1!,
               respiratoryParametersObject2:
-                  matchingRespiratoryParameters.value2,
+                  matchingRespiratoryParameters.value2!,
               respiratoryParameters: matchingRespiratoryParameters,
-              bloodGasAnalysisObject1: matchingBloodGasAnalysis.value1,
-              bloodGasAnalysisObject2: matchingBloodGasAnalysis.value2,
+              bloodGasAnalysisObject1: matchingBloodGasAnalysis.value1!,
+              bloodGasAnalysisObject2: matchingBloodGasAnalysis.value2!,
               bloodGasAnalysis: matchingBloodGasAnalysis,
               laborParameters: matchingLaborParameters,
               medicaments: matchingMedicaments,
