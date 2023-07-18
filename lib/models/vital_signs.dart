@@ -23,9 +23,9 @@ class VitalSigns extends AbstractDatabaseObject {
   /// Creates a Vital Signs object.
   const VitalSigns({
     required this.doctorObjectId,
-    required this.value1,
-    required this.value2,
     required this.patientObjectId,
+    this.value1,
+    this.value2,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -38,10 +38,10 @@ class VitalSigns extends AbstractDatabaseObject {
   final String doctorObjectId;
 
   /// Last value.
-  final VitalSignsObject value1;
+  final VitalSignsObject? value1;
 
   /// Pre-last value.
-  final VitalSignsObject value2;
+  final VitalSignsObject? value2;
 
   /// Patient Object Id.
   final String patientObjectId;
@@ -79,26 +79,33 @@ class VitalSigns extends AbstractDatabaseObject {
       ];
 
   @override
-  Map<String, dynamic> get databaseMapping => <String, dynamic>{
-        'Doctor': <String, String>{
-          'objectId': doctorObjectId,
-          '__type': 'Pointer',
-          'className': '_User'
-        },
-        'value1': <String, String>{
-          'objectId': value1.objectId != null ? value1.objectId! : '',
-          '__type': 'Pointer',
-          'className': 'VitalSigns_obj'
-        },
-        'value2': <String, String>{
-          'objectId': value2.objectId != null ? value2.objectId! : '',
-          '__type': 'Pointer',
-          'className': 'VitalSigns_obj'
-        },
-        'Patient': <String, String>{
-          'objectId': patientObjectId,
-          '__type': 'Pointer',
-          'className': '_User'
-        },
+  Map<String, dynamic> get databaseMapping {
+    final Map<String, dynamic> map = <String, dynamic>{
+      'Patient': <String, String>{
+        'objectId': patientObjectId,
+        '__type': 'Pointer',
+        'className': '_User'
+      },
+      'Doctor': <String, String>{
+        'objectId': doctorObjectId,
+        '__type': 'Pointer',
+        'className': '_User'
+      },
+    };
+    if (value1 != null && value1?.objectId != null) {
+      map['value1'] = <String, dynamic>{
+        'objectId': value1?.objectId,
+        '__type': 'Pointer',
+        'className': 'VitalSigns_obj'
       };
+    }
+    if (value2 != null && value2?.objectId != null) {
+      map['value2'] = <String, dynamic>{
+        'objectId': value2?.objectId,
+        '__type': 'Pointer',
+        'className': 'VitalSigns_obj'
+      };
+    }
+    return map;
+  }
 }

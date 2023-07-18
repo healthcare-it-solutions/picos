@@ -65,10 +65,12 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
           vitalSignsObject1 = object.vitalSignsObject1.copyWith(
             objectId: responseVitalSignsObject1['objectId'],
             createdAt: DateTime.tryParse(
-                    responseVitalSignsObject1['createdAt'] ?? '') ??
+                  responseVitalSignsObject1['createdAt'] ?? '',
+                ) ??
                 object.vitalSignsObject1.createdAt,
             updatedAt: DateTime.tryParse(
-                    responseVitalSignsObject1['updatedAt'] ?? '') ??
+                  responseVitalSignsObject1['updatedAt'] ?? '',
+                ) ??
                 object.vitalSignsObject1.updatedAt,
           );
         }
@@ -81,10 +83,12 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
           vitalSignsObject2 = object.vitalSignsObject2.copyWith(
             objectId: responseVitalSignsObject2['objectId'],
             createdAt: DateTime.tryParse(
-                    responseVitalSignsObject2['createdAt'] ?? '') ??
+                  responseVitalSignsObject2['createdAt'] ?? '',
+                ) ??
                 object.vitalSignsObject2.createdAt,
             updatedAt: DateTime.tryParse(
-                    responseVitalSignsObject2['updatedAt'] ?? '') ??
+                  responseVitalSignsObject2['updatedAt'] ?? '',
+                ) ??
                 object.vitalSignsObject2.updatedAt,
           );
         }
@@ -545,8 +549,8 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
           objectList.add(
             CatalogOfItemsElement(
               icuDiagnosis: matchingICUDiagnosis,
-              vitalSignsObject1: matchingVitalSigns.value1,
-              vitalSignsObject2: matchingVitalSigns.value2,
+              vitalSignsObject1: matchingVitalSigns.value1!,
+              vitalSignsObject2: matchingVitalSigns.value2!,
               vitalSigns: matchingVitalSigns,
               respiratoryParametersObject1:
                   matchingRespiratoryParameters.value1,

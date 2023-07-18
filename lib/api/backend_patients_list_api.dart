@@ -109,7 +109,6 @@ class BackendPatientsListApi extends BackendObjectsApi {
             bodyHeight: element['BodyHeight']['estimateNumber'].toDouble(),
             patientID: element['ID'],
             caseNumber: element['CaseNumber'],
-            bodyWeight: element['BodyWeight']['estimateNumber'].toDouble(),
             instKey: element['inst_key'],
             objectId: element['objectId'],
             patientObjectId: element['Patient']['objectId'],
