@@ -82,11 +82,7 @@ class VitalSignsObject extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-        heartRate!,
-        systolicArterialPressure!,
-        meanArterialPressure!,
-        diastolicArterialPressure!,
-        centralVenousPressure!,
+      
       ];
 
   @override

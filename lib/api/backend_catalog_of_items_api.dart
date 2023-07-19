@@ -57,39 +57,39 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       );
 
       try {
-        if (object.vitalSignsObject1.objectId == null) {
+        if (object.vitalSignsObject1!.objectId == null) {
           /// VitalSigns value 1
           dynamic responseVitalSignsObject1 = await Backend.saveObject(
-            object.vitalSignsObject1,
+            object.vitalSignsObject1!,
           );
-          vitalSignsObject1 = object.vitalSignsObject1.copyWith(
+          vitalSignsObject1 = object.vitalSignsObject1!.copyWith(
             objectId: responseVitalSignsObject1['objectId'],
             createdAt: DateTime.tryParse(
                   responseVitalSignsObject1['createdAt'] ?? '',
                 ) ??
-                object.vitalSignsObject1.createdAt,
+                object.vitalSignsObject1!.createdAt,
             updatedAt: DateTime.tryParse(
                   responseVitalSignsObject1['updatedAt'] ?? '',
                 ) ??
-                object.vitalSignsObject1.updatedAt,
+                object.vitalSignsObject1!.updatedAt,
           );
         }
-        if (object.vitalSignsObject2.objectId == null) {
+        if (object.vitalSignsObject2!.objectId == null) {
           /// VitalSigns value 2
           dynamic responseVitalSignsObject2 = await Backend.saveObject(
-            object.vitalSignsObject2,
+            object.vitalSignsObject2!,
           );
 
-          vitalSignsObject2 = object.vitalSignsObject2.copyWith(
+          vitalSignsObject2 = object.vitalSignsObject2!.copyWith(
             objectId: responseVitalSignsObject2['objectId'],
             createdAt: DateTime.tryParse(
                   responseVitalSignsObject2['createdAt'] ?? '',
                 ) ??
-                object.vitalSignsObject2.createdAt,
+                object.vitalSignsObject2!.createdAt,
             updatedAt: DateTime.tryParse(
                   responseVitalSignsObject2['updatedAt'] ?? '',
                 ) ??
-                object.vitalSignsObject2.updatedAt,
+                object.vitalSignsObject2!.updatedAt,
           );
         }
         dispatch();
@@ -112,38 +112,38 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
 
       /// Respiratory parameters value 1
       dynamic responseRespiratoryParametersObject1 = await Backend.saveObject(
-        object.respiratoryParametersObject1,
+        object.respiratoryParametersObject1!,
       );
 
       RespiratoryParametersObject respiratoryParametersObject1 =
-          object.respiratoryParametersObject1.copyWith(
+          object.respiratoryParametersObject1!.copyWith(
         objectId: responseRespiratoryParametersObject1['objectId'],
         createdAt: DateTime.tryParse(
               responseRespiratoryParametersObject1['createdAt'] ?? '',
             ) ??
-            object.respiratoryParametersObject1.createdAt,
+            object.respiratoryParametersObject1!.createdAt,
         updatedAt: DateTime.tryParse(
               responseRespiratoryParametersObject1['updatedAt'] ?? '',
             ) ??
-            object.respiratoryParametersObject1.updatedAt,
+            object.respiratoryParametersObject1!.updatedAt,
       );
 
       /// Respiratory parameters value 2
       dynamic responseRespiratoryParametersObject2 = await Backend.saveObject(
-        object.respiratoryParametersObject2,
+        object.respiratoryParametersObject2!,
       );
 
       RespiratoryParametersObject respiratoryParametersObject2 =
-          object.respiratoryParametersObject2.copyWith(
+          object.respiratoryParametersObject2!.copyWith(
         objectId: responseRespiratoryParametersObject2['objectId'],
         createdAt: DateTime.tryParse(
               responseRespiratoryParametersObject2['createdAt'] ?? '',
             ) ??
-            object.respiratoryParametersObject2.createdAt,
+            object.respiratoryParametersObject2!.createdAt,
         updatedAt: DateTime.tryParse(
               responseRespiratoryParametersObject2['updatedAt'] ?? '',
             ) ??
-            object.respiratoryParametersObject2.updatedAt,
+            object.respiratoryParametersObject2!.updatedAt,
       );
 
       /// Respiratory parameters
@@ -166,38 +166,38 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
 
       /// Blood gas analysis value 1
       dynamic responseBloodGasAnalysisObject1 = await Backend.saveObject(
-        object.bloodGasAnalysisObject1,
+        object.bloodGasAnalysisObject1!,
       );
 
       BloodGasAnalysisObject bloodGasAnalysisObject1 =
-          object.bloodGasAnalysisObject1.copyWith(
+          object.bloodGasAnalysisObject1!.copyWith(
         objectId: responseBloodGasAnalysisObject1['objectId'],
         createdAt: DateTime.tryParse(
               responseBloodGasAnalysisObject1['createdAt'] ?? '',
             ) ??
-            object.bloodGasAnalysisObject1.createdAt,
+            object.bloodGasAnalysisObject1!.createdAt,
         updatedAt: DateTime.tryParse(
               responseBloodGasAnalysisObject1['updatedAt'] ?? '',
             ) ??
-            object.bloodGasAnalysisObject1.updatedAt,
+            object.bloodGasAnalysisObject1!.updatedAt,
       );
 
       /// Blood gas analysis value 2
       dynamic responseBloodGasAnalysisObject2 = await Backend.saveObject(
-        object.bloodGasAnalysisObject2,
+        object.bloodGasAnalysisObject2!,
       );
 
       BloodGasAnalysisObject bloodGasAnalysisObject2 =
-          object.bloodGasAnalysisObject2.copyWith(
+          object.bloodGasAnalysisObject2!.copyWith(
         objectId: responseBloodGasAnalysisObject2['objectId'],
         createdAt: DateTime.tryParse(
               responseBloodGasAnalysisObject2['createdAt'] ?? '',
             ) ??
-            object.bloodGasAnalysisObject2.createdAt,
+            object.bloodGasAnalysisObject2!.createdAt,
         updatedAt: DateTime.tryParse(
               responseBloodGasAnalysisObject2['updatedAt'] ?? '',
             ) ??
-            object.bloodGasAnalysisObject2.updatedAt,
+            object.bloodGasAnalysisObject2!.updatedAt,
       );
 
       /// Blood gas analysis
@@ -355,8 +355,8 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       for (dynamic element in responseVitalSigns) {
         vitalSignsResults.add(
           VitalSigns(
-            value1: element['VitalSignsObject']['objectId'],
-            value2: element['VitalSignsObject']['objectId'],
+            value1: element['VitalSignsObject'] != null ? element['VitalSignsObject']['objectId'] : null,
+            value2: element['VitalSignsObject'] != null ? element['VitalSignsObject']['objectId'] : null,
             objectId: element['objectId'],
             patientObjectId: element['Patient']['objectId'],
             doctorObjectId: element['Doctor']['objectId'],
@@ -369,8 +369,8 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       for (dynamic element in responseRespiratoryParameters) {
         respiratoryParametersResults.add(
           RespiratoryParameters(
-            value1: element['RespiratoryParametersObject']['objectId'],
-            value2: element['RespiratoryParametersObject']['objectId'],
+            value1: element['RespiratoryParametersObject'] != null ? element['RespiratoryParametersObject']['objectId'] : null,
+            value2: element['RespiratoryParametersObject'] != null ? element['RespiratoryParametersObject']['objectId'] : null,
             patientObjectId: element['Patient']['objectId'],
             doctorObjectId: element['Doctor']['objectId'],
             objectId: element['objectId'],
@@ -383,8 +383,8 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       for (dynamic element in responseBloodGasAnalysis) {
         bloodGasAnalysisResults.add(
           BloodGasAnalysis(
-            value1: element['BloodGasAnalysisObject']['objectId'],
-            value2: element['BloodGasAnalysisObject']['objectId'],
+            value1: element['BloodGasAnalysisObject'] != null ? element['BloodGasAnalysisObject']['objectId'] : null,
+            value2: element['BloodGasAnalysisObject'] != null ? element['BloodGasAnalysisObject']['objectId'] : null,
             patientObjectId: element['Patient']['objectId'],
             doctorObjectId: element['Doctor']['objectId'],
             objectId: element['objectId'],
@@ -618,16 +618,8 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
           objectList.add(
             CatalogOfItemsElement(
               icuDiagnosis: matchingICUDiagnosis,
-              vitalSignsObject1: matchingVitalSigns.value1!,
-              vitalSignsObject2: matchingVitalSigns.value2!,
               vitalSigns: matchingVitalSigns,
-              respiratoryParametersObject1:
-                  matchingRespiratoryParameters.value1!,
-              respiratoryParametersObject2:
-                  matchingRespiratoryParameters.value2!,
               respiratoryParameters: matchingRespiratoryParameters,
-              bloodGasAnalysisObject1: matchingBloodGasAnalysis.value1!,
-              bloodGasAnalysisObject2: matchingBloodGasAnalysis.value2!,
               bloodGasAnalysis: matchingBloodGasAnalysis,
               laborParameters: matchingLaborParameters,
               medicaments: matchingMedicaments,
