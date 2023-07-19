@@ -79,7 +79,7 @@ class MovementData extends StatefulWidget {
   final void Function(int? value) ageCallback;
 
   /// Progress diagnosis callback.
-  final void Function(String? value) genderCallback;
+  final void Function(FormOfAddress? value) genderCallback;
 
   /// ICUAW callback.
   final void Function(double? value) bodyWeightCallback;
@@ -231,8 +231,8 @@ class _MovementDataState extends State<MovementData> {
             CatalogOfItemsLabel(
               AppLocalizations.of(context)!.gender,
             ),
-            PicosNumberField(
-              onChanged: (String value) {
+            PicosFormOfAddress(
+              callBackFunction: (FormOfAddress value) {
                 widget.genderCallback(value);
               },
             ),
@@ -261,7 +261,6 @@ class _MovementDataState extends State<MovementData> {
                 widget.idealBodyWeightCallback(double.tryParse(value));
               },
             ),
-
             CatalogOfItemsLabel(
               AppLocalizations.of(context)!.reasonForDischarge,
             ),

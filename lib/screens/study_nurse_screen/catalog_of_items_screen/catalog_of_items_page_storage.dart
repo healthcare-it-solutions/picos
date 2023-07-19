@@ -24,6 +24,7 @@ import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/m
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/respiration_parameters.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/vital_data.dart';
 
+import '../../../widgets/picos_form_of_address.dart';
 import '../../../widgets/picos_page_view_item.dart';
 
 /// Manages the state of the Catalog of items pages.
@@ -334,7 +335,7 @@ class CatalogOfItemsPageStorage {
           ageCallback: (int? value) {
             age = value;
           },
-          genderCallback: (String? value) {
+          genderCallback: (FormOfAddress? value) {
             gender = value;
           },
           bodyWeightCallback: (double? value) {
@@ -518,7 +519,7 @@ class CatalogOfItemsPageStorage {
   String? analgesics;
 
   int? age;
-  String? gender;
+  FormOfAddress? gender;
   double? bodyWeight;
   double? bodyHeight;
   double? bodyMassIndex;
