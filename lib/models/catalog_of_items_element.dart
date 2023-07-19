@@ -33,14 +33,14 @@ class CatalogOfItemsElement extends AbstractDatabaseObject {
   /// Creates a Catalog of Items object.
   const CatalogOfItemsElement({
     required this.icuDiagnosis,
-    required this.vitalSignsObject1,
-    required this.vitalSignsObject2,
+    this.vitalSignsObject1,
+    this.vitalSignsObject2,
     required this.vitalSigns,
-    required this.respiratoryParametersObject1,
-    required this.respiratoryParametersObject2,
+    this.respiratoryParametersObject1,
+    this.respiratoryParametersObject2,
     required this.respiratoryParameters,
-    required this.bloodGasAnalysisObject1,
-    required this.bloodGasAnalysisObject2,
+    this.bloodGasAnalysisObject1,
+    this.bloodGasAnalysisObject2,
     required this.bloodGasAnalysis,
     required this.laborParameters,
     required this.medicaments,
@@ -55,21 +55,21 @@ class CatalogOfItemsElement extends AbstractDatabaseObject {
 
   final ICUDiagnosis icuDiagnosis;
 
-  final VitalSignsObject vitalSignsObject1;
+  final VitalSignsObject? vitalSignsObject1;
 
-  final VitalSignsObject vitalSignsObject2;
+  final VitalSignsObject? vitalSignsObject2;
 
   final VitalSigns vitalSigns;
 
-  final RespiratoryParametersObject respiratoryParametersObject1;
+  final RespiratoryParametersObject? respiratoryParametersObject1;
 
-  final RespiratoryParametersObject respiratoryParametersObject2;
+  final RespiratoryParametersObject? respiratoryParametersObject2;
 
   final RespiratoryParameters respiratoryParameters;
 
-  final BloodGasAnalysisObject bloodGasAnalysisObject1;
+  final BloodGasAnalysisObject? bloodGasAnalysisObject1;
 
-  final BloodGasAnalysisObject bloodGasAnalysisObject2;
+  final BloodGasAnalysisObject? bloodGasAnalysisObject2;
 
   final BloodGasAnalysis bloodGasAnalysis;
 
@@ -129,14 +129,8 @@ class CatalogOfItemsElement extends AbstractDatabaseObject {
   @override
   List<Object> get props => <Object>[
         icuDiagnosis,
-        vitalSignsObject1,
-        vitalSignsObject2,
         vitalSigns,
-        respiratoryParametersObject1,
-        respiratoryParametersObject2,
         respiratoryParameters,
-        bloodGasAnalysisObject1,
-        bloodGasAnalysisObject2,
         bloodGasAnalysis,
         laborParameters,
         medicaments,

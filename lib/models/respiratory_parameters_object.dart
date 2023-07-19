@@ -67,9 +67,7 @@ class RespiratoryParametersObject extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-        tidalVolume!,
-        respiratoryRate!,
-        oxygenSaturation!,
+
       ];
 
   @override

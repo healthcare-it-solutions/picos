@@ -109,15 +109,7 @@ class BloodGasAnalysisObject extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-        arterialOxygenSaturation!,
-        centralVenousOxygenSaturation!,
-        partialPressureOfOxygen!,
-        partialPressureOfCarbonDioxide!,
-        arterialBaseExcess!,
-        arterialPH!,
-        arterialSerumBicarbonateConcentration!,
-        arterialLactate!,
-        bloodGlucoseLevel!
+    
       ];
 
   @override

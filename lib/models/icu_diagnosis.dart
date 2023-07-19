@@ -93,13 +93,7 @@ class ICUDiagnosis extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-        mainDiagnosis!,
-        progressDiagnosis!,
-        coMorbidity!,
-        intensiveCareUnitAcquiredWeakness!,
-        postIntensiveCareSyndrome!,
-        doctorObjectId!,
-        patientObjectId!,
+
       ];
 
   @override
