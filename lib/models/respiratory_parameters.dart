@@ -23,9 +23,9 @@ class RespiratoryParameters extends AbstractDatabaseObject {
   /// Creates a Respiratory Parameters object.
   const RespiratoryParameters({
     required this.doctorObjectId,
-    required this.value1,
-    required this.value2,
     required this.patientObjectId,
+    this.value1,
+    this.value2,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -38,10 +38,10 @@ class RespiratoryParameters extends AbstractDatabaseObject {
   final String doctorObjectId;
 
   /// Last value.
-  final RespiratoryParametersObject value1;
+  final RespiratoryParametersObject? value1;
 
   /// Pre-last value.
-  final RespiratoryParametersObject value2;
+  final RespiratoryParametersObject? value2;
 
   /// Patient Object Id.
   final String patientObjectId;
@@ -74,31 +74,39 @@ class RespiratoryParameters extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-        value1,
-        value2,
+        doctorObjectId,
+        patientObjectId,
       ];
 
   @override
-  Map<String, dynamic> get databaseMapping => <String, dynamic>{
-        'Doctor': <String, String>{
-          'objectId': doctorObjectId,
-          '__type': 'Pointer',
-          'className': '_User'
-        },
-        'value1': <String, String>{
-          'objectId': value1.objectId!,
-          '__type': 'Pointer',
-          'className': 'RespiratoryParas_obj'
-        },
-        'value2': <String, String>{
-          'objectId': value2.objectId!,
-          '__type': 'Pointer',
-          'className': 'RespiratoryParas_obj'
-        },
-        'Patient': <String, String>{
-          'objectId': patientObjectId,
-          '__type': 'Pointer',
-          'className': '_User'
-        },
+  Map<String, dynamic> get databaseMapping {
+    final Map<String, dynamic> map = <String, dynamic>{
+      'Patient': <String, String>{
+        'objectId': patientObjectId,
+        '__type': 'Pointer',
+        'className': '_User'
+      },
+      'Doctor': <String, String>{
+        'objectId': doctorObjectId,
+        '__type': 'Pointer',
+        'className': '_User'
+      },
+    };
+
+    if (value1 != null && value1?.objectId != null) {
+      map['value1'] = <String, dynamic>{
+        'objectId': value1?.objectId,
+        '__type': 'Pointer',
+        'className': 'RespiratoryParas_obj'
       };
+    }
+    if (value2 != null && value2?.objectId != null) {
+      map['value2'] = <String, dynamic>{
+        'objectId': value2?.objectId,
+        '__type': 'Pointer',
+        'className': 'RespiratoryParas_obj'
+      };
+    }
+    return map;
+  }
 }

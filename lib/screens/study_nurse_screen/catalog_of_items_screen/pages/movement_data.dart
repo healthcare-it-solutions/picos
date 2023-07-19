@@ -124,7 +124,7 @@ class MovementData extends StatefulWidget {
   final void Function(DateTime? value) dischargeTimeHospitalCallback;
 
   /// ICD-10 Codes callback.
-  final void Function(String? value) icd10COdesCallback;
+  final void Function(List<String>? value) icd10COdesCallback;
 
   /// Patient Location callback.
   final void Function(String? value) patientLocationCallback;
@@ -151,7 +151,7 @@ class MovementData extends StatefulWidget {
   final void Function(double? value) hospitalReadmissionCallback;
 
   /// Days until Work Reuptake callback.
-  final void Function(int? value) daysUntilWorkReuptakeCallback;
+  final void Function(double? value) daysUntilWorkReuptakeCallback;
 
   /// Starting value for Age.
   final int? initialAge;
@@ -231,9 +231,8 @@ class _MovementDataState extends State<MovementData> {
 
   @override
   Widget build(BuildContext context) {
-    const int textAreaLines = 3;
-
     const String cm = 'cm';
+    const int textAreaLines = 3;
     const String kgm2 = 'kg/m2';
     const String kg = 'kg';
     const String percent = '%';
@@ -279,6 +278,20 @@ class _MovementDataState extends State<MovementData> {
                 widget.bodyHeightCallback(double.tryParse(value));
               },
             ),
+            CatalogOfItemsLabel(AppLocalizations.of(context)!.patientID),
+            PicosTextArea(
+              maxLines: textAreaLines,
+              onChanged: (String value) {
+                widget.patientIDCallback(value);
+              },
+            ),
+            CatalogOfItemsLabel(AppLocalizations.of(context)!.caseNumber),
+            PicosTextArea(
+              maxLines: textAreaLines,
+              onChanged: (String value) {
+                widget.caseNumberCallback(value);
+              },
+            ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.bmi),
             PicosNumberField(
               hint: kgm2,
@@ -293,20 +306,6 @@ class _MovementDataState extends State<MovementData> {
               hint: kg,
               onChanged: (String value) {
                 widget.idealBodyWeightCallback(double.tryParse(value));
-              },
-            ),
-            CatalogOfItemsLabel(AppLocalizations.of(context)!.patientID),
-            PicosTextArea(
-              maxLines: textAreaLines,
-              onChanged: (String value) {
-                widget.patientIDCallback(value);
-              },
-            ),
-            CatalogOfItemsLabel(AppLocalizations.of(context)!.caseNumber),
-            PicosTextArea(
-              maxLines: textAreaLines,
-              onChanged: (String value) {
-                widget.caseNumberCallback(value);
               },
             ),
             CatalogOfItemsLabel(
@@ -359,7 +358,7 @@ class _MovementDataState extends State<MovementData> {
             PicosTextField(
               hint: 'ICD-10 Codes',
               onChanged: (String value) {
-                widget.icd10COdesCallback(value);
+                widget.icd10COdesCallback(value as List<String>?);
               },
             ),
             CatalogOfItemsLabel(
@@ -459,7 +458,7 @@ class _MovementDataState extends State<MovementData> {
             PicosNumberField(
               hint: AppLocalizations.of(context)!.days,
               onChanged: (String value) {
-                widget.daysUntilWorkReuptakeCallback(int.tryParse(value));
+                widget.daysUntilWorkReuptakeCallback(double.tryParse(value));
               },
             ),
           ],

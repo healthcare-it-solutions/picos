@@ -342,7 +342,7 @@ class CatalogOfItemsPageStorage {
             bodyWeight = value;
           },
           bodyHeightCallback: (double? value) {
-            height = value;
+            bodyHeight = value;
           },
           bodyMassIndexCallback: (double? value) {
             bodyMassIndex = value;
@@ -374,7 +374,7 @@ class CatalogOfItemsPageStorage {
           dischargeTimeHospitalCallback: (DateTime? value) {
             dischargeTimeFromTheHospital = value;
           },
-          icd10COdesCallback: (String? value) {
+          icd10COdesCallback: (List<String>? value) {
             icd10Codes = value;
           },
           patientLocationCallback: (String? value) {
@@ -401,7 +401,7 @@ class CatalogOfItemsPageStorage {
           hospitalReadmissionCallback: (double? value) {
             hospitalReadmission = value;
           },
-          daysUntilWorkReuptakeCallback: (int? value) {
+          daysUntilWorkReuptakeCallback: (double? value) {
             daysUntilWorkReuptake = value;
           },
         ),
@@ -530,7 +530,7 @@ class CatalogOfItemsPageStorage {
   int? age;
   FormOfAddress? gender;
   double? bodyWeight;
-  double? height;
+  double? bodyHeight;
   double? bodyMassIndex;
   double? idealBodyWeight;
   String? patientID;
@@ -541,7 +541,7 @@ class CatalogOfItemsPageStorage {
   int? ventilationDays;
   DateTime? admissionTimeToTheHospital;
   DateTime? dischargeTimeFromTheHospital;
-  String? icd10Codes;
+  List<String>? icd10Codes;
   String? patientLocation;
   bool lungProtectiveVentilation70 = false;
   double? icuMortality;
@@ -550,7 +550,8 @@ class CatalogOfItemsPageStorage {
   int? icuLengthOfStay;
   double? readmissionRateToTheICU;
   double? hospitalReadmission;
-  int? daysUntilWorkReuptake;
+  double? daysUntilWorkReuptake;
+  String? instKey;
 
   /// The loaded pages.
   late List<PicosPageViewItem> pages;
