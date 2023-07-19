@@ -219,7 +219,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
           bodyWeight: pageStorage?.bodyWeight,
           ezpICU: pageStorage?.dischargeTime,
           age: pageStorage?.age,
-          gender: pageStorage?.gender,
+          gender: pageStorage?.gender as String?,
           bmi: pageStorage?.bodyMassIndex,
           idealBMI: pageStorage?.idealBodyWeight,
           dischargeReason: pageStorage?.reasonForDischarge,
