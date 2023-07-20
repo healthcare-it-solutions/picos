@@ -298,10 +298,16 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
           await Backend.getAll(ICUDiagnosis.databaseTable);
       List<dynamic> responseVitalSigns =
           await Backend.getAll(VitalSigns.databaseTable);
+      List<dynamic> responseVitalSignsObject =
+          await Backend.getAll(VitalSignsObject.databaseTable);
       List<dynamic> responseRespiratoryParameters =
           await Backend.getAll(RespiratoryParameters.databaseTable);
+      List<dynamic> responseRespiratoryParametersObject =
+          await Backend.getAll(RespiratoryParametersObject.databaseTable);
       List<dynamic> responseBloodGasAnalysis =
           await Backend.getAll(BloodGasAnalysis.databaseTable);
+      List<dynamic> responseBloodGasAnalysisObject =
+          await Backend.getAll(BloodGasAnalysisObject.databaseTable);
       List<dynamic> responseLaborParameters =
           await Backend.getAll(LaborParameters.databaseTable);
       List<dynamic> responseMedicaments =
@@ -312,9 +318,14 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       List<Patient> patientResults = <Patient>[];
       List<ICUDiagnosis> icuDiagnosisResults = <ICUDiagnosis>[];
       List<VitalSigns> vitalSignsResults = <VitalSigns>[];
+      List<VitalSignsObject> vitalSignsObjectResults = <VitalSignsObject>[];
       List<RespiratoryParameters> respiratoryParametersResults =
           <RespiratoryParameters>[];
+      List<RespiratoryParametersObject> respiratoryParametersObjectResults =
+          <RespiratoryParametersObject>[];
       List<BloodGasAnalysis> bloodGasAnalysisResults = <BloodGasAnalysis>[];
+      List<BloodGasAnalysisObject> bloodGasAnalysisObjectResults =
+          <BloodGasAnalysisObject>[];
       List<LaborParameters> laborParametersResults = <LaborParameters>[];
       List<Medicaments> medicamentsResults = <Medicaments>[];
       List<PatientData> movementDataResults = <PatientData>[];
@@ -355,8 +366,12 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       for (dynamic element in responseVitalSigns) {
         vitalSignsResults.add(
           VitalSigns(
-            value1: element['VitalSignsObject'] != null ? element['VitalSignsObject']['objectId'] : null,
-            value2: element['VitalSignsObject'] != null ? element['VitalSignsObject']['objectId'] : null,
+            value1: element['VitalSignsObject'] != null
+                ? element['VitalSignsObject']['objectId']
+                : null,
+            value2: element['VitalSignsObject'] != null
+                ? element['VitalSignsObject']['objectId']
+                : null,
             objectId: element['objectId'],
             patientObjectId: element['Patient']['objectId'],
             doctorObjectId: element['Doctor']['objectId'],
@@ -366,13 +381,37 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         );
       }
 
+      for (dynamic element in responseVitalSignsObject) {
+        vitalSignsObjectResults.add(
+          VitalSignsObject(
+            objectId: element['objectId'],
+            createdAt: DateTime.parse(element['createdAt']),
+            updatedAt: DateTime.parse(element['updatedAt']),
+          ),
+        );
+      }
+
       for (dynamic element in responseRespiratoryParameters) {
         respiratoryParametersResults.add(
           RespiratoryParameters(
-            value1: element['RespiratoryParametersObject'] != null ? element['RespiratoryParametersObject']['objectId'] : null,
-            value2: element['RespiratoryParametersObject'] != null ? element['RespiratoryParametersObject']['objectId'] : null,
+            value1: element['RespiratoryParametersObject'] != null
+                ? element['RespiratoryParametersObject']['objectId']
+                : null,
+            value2: element['RespiratoryParametersObject'] != null
+                ? element['RespiratoryParametersObject']['objectId']
+                : null,
             patientObjectId: element['Patient']['objectId'],
             doctorObjectId: element['Doctor']['objectId'],
+            objectId: element['objectId'],
+            createdAt: DateTime.parse(element['createdAt']),
+            updatedAt: DateTime.parse(element['updatedAt']),
+          ),
+        );
+      }
+
+      for (dynamic element in responseRespiratoryParametersObject) {
+        respiratoryParametersObjectResults.add(
+          RespiratoryParametersObject(
             objectId: element['objectId'],
             createdAt: DateTime.parse(element['createdAt']),
             updatedAt: DateTime.parse(element['updatedAt']),
@@ -383,10 +422,24 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       for (dynamic element in responseBloodGasAnalysis) {
         bloodGasAnalysisResults.add(
           BloodGasAnalysis(
-            value1: element['BloodGasAnalysisObject'] != null ? element['BloodGasAnalysisObject']['objectId'] : null,
-            value2: element['BloodGasAnalysisObject'] != null ? element['BloodGasAnalysisObject']['objectId'] : null,
+            value1: element['BloodGasAnalysisObject'] != null
+                ? element['BloodGasAnalysisObject']['objectId']
+                : null,
+            value2: element['BloodGasAnalysisObject'] != null
+                ? element['BloodGasAnalysisObject']['objectId']
+                : null,
             patientObjectId: element['Patient']['objectId'],
             doctorObjectId: element['Doctor']['objectId'],
+            objectId: element['objectId'],
+            createdAt: DateTime.parse(element['createdAt']),
+            updatedAt: DateTime.parse(element['updatedAt']),
+          ),
+        );
+      }
+
+      for (dynamic element in responseBloodGasAnalysisObject) {
+        bloodGasAnalysisObjectResults.add(
+          BloodGasAnalysisObject(
             objectId: element['objectId'],
             createdAt: DateTime.parse(element['createdAt']),
             updatedAt: DateTime.parse(element['updatedAt']),
@@ -619,8 +672,16 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
             CatalogOfItemsElement(
               icuDiagnosis: matchingICUDiagnosis,
               vitalSigns: matchingVitalSigns,
+              vitalSignsObject1: matchingVitalSigns.value1,
+              vitalSignsObject2: matchingVitalSigns.value2,
               respiratoryParameters: matchingRespiratoryParameters,
+              respiratoryParametersObject1:
+                  matchingRespiratoryParameters.value1,
+              respiratoryParametersObject2:
+                  matchingRespiratoryParameters.value2,
               bloodGasAnalysis: matchingBloodGasAnalysis,
+              bloodGasAnalysisObject1: matchingBloodGasAnalysis.value1,
+              bloodGasAnalysisObject2: matchingBloodGasAnalysis.value2,
               laborParameters: matchingLaborParameters,
               medicaments: matchingMedicaments,
               movementData: matchingMovementData,
