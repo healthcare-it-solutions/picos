@@ -93,12 +93,12 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       }
 
       /// VitalSigns
+      object.vitalSigns.value1 = vitalSignsObject1;
+      object.vitalSigns.value2 = vitalSignsObject2;
       dynamic responseVitalSigns = await Backend.saveObject(
         object.vitalSigns,
       );
       VitalSigns vitalSigns = object.vitalSigns.copyWith(
-        value1: responseVitalSigns['value1'] ?? vitalSignsObject1,
-        value2: responseVitalSigns['value2'] ?? vitalSignsObject2,
         objectId: responseVitalSigns['objectId'],
         createdAt: DateTime.tryParse(responseVitalSigns['createdAt'] ?? '') ??
             object.vitalSigns.createdAt,
@@ -143,11 +143,11 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       );
 
       /// Respiratory parameters
+      object.respiratoryParameters.value1 = respiratoryParametersObject1;
+      object.respiratoryParameters.value2 = respiratoryParametersObject2;
       dynamic responseRespiratoryParameters = await Backend.saveObject(
         object.respiratoryParameters,
       );
-      object.respiratoryParameters.value1 = respiratoryParametersObject1;
-      object.respiratoryParameters.value2 = respiratoryParametersObject2;
       RespiratoryParameters respiratoryParameters =
           object.respiratoryParameters.copyWith(
         objectId: responseRespiratoryParameters['objectId'],
@@ -198,11 +198,12 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       );
 
       /// Blood gas analysis
+      object.bloodGasAnalysis.value1 = bloodGasAnalysisObject1;
+      object.bloodGasAnalysis.value2 = bloodGasAnalysisObject2;
       dynamic responseBloodGasAnalysis = await Backend.saveObject(
         object.bloodGasAnalysis,
       );
-      object.bloodGasAnalysis.value1 = bloodGasAnalysisObject1;
-      object.bloodGasAnalysis.value2 = bloodGasAnalysisObject2;
+
       BloodGasAnalysis bloodGasAnalysis = object.bloodGasAnalysis.copyWith(
         objectId: responseBloodGasAnalysis['objectId'],
         createdAt: DateTime.tryParse(
