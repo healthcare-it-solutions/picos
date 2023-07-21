@@ -21,11 +21,13 @@ import 'package:picos/models/vital_signs_object.dart';
 /// Class with Vital Signs.
 class VitalSigns extends AbstractDatabaseObject {
   /// Creates a Vital Signs object.
-  const VitalSigns({
+  VitalSigns({
     required this.doctorObjectId,
     required this.patientObjectId,
     this.value1,
     this.value2,
+    this.valueObjectId1,
+    this.valueObjectId2,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -38,10 +40,16 @@ class VitalSigns extends AbstractDatabaseObject {
   final String doctorObjectId;
 
   /// Last value.
-  final VitalSignsObject? value1;
+  late VitalSignsObject? value1;
 
   /// Pre-last value.
-  final VitalSignsObject? value2;
+  late VitalSignsObject? value2;
+
+  /// Last value objectId.
+  late String? valueObjectId1;
+
+  /// Pre-last value objectId.
+  late String? valueObjectId2;
 
   /// Patient Object Id.
   final String patientObjectId;
@@ -56,6 +64,8 @@ class VitalSigns extends AbstractDatabaseObject {
     String? doctorObjectId,
     VitalSignsObject? value1,
     VitalSignsObject? value2,
+    String? valueObjectId1,
+    String? valueObjectId2,
     String? patientObjectId,
     String? objectId,
     DateTime? createdAt,
@@ -65,6 +75,8 @@ class VitalSigns extends AbstractDatabaseObject {
       doctorObjectId: doctorObjectId ?? this.doctorObjectId,
       value1: value1 ?? this.value1,
       value2: value2 ?? this.value2,
+      valueObjectId1: valueObjectId1 ?? this.valueObjectId1,
+      valueObjectId2: valueObjectId2 ?? this.valueObjectId2,
       patientObjectId: patientObjectId ?? this.patientObjectId,
       objectId: objectId ?? this.objectId,
       createdAt: createdAt ?? this.createdAt,
