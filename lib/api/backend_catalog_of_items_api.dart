@@ -663,12 +663,15 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
             matchingLaborParameters != null &&
             matchingMedicaments != null &&
             matchingMovementData != null) {
+          List<VitalSignsObject> foundObjects =
+              _findMatchingObjects(matchingVitalSigns, vitalSignsObjectResults);
+
           objectList.add(
             CatalogOfItemsElement(
               icuDiagnosis: matchingICUDiagnosis,
               vitalSigns: matchingVitalSigns,
-              vitalSignsObject1: matchingVitalSigns.value1!,
-              vitalSignsObject2: matchingVitalSigns.value2!,
+              vitalSignsObject1: foundObjects[0],
+              vitalSignsObject2: foundObjects[1],
               respiratoryParameters: matchingRespiratoryParameters,
               respiratoryParametersObject1:
                   matchingRespiratoryParameters.value1!,
@@ -690,5 +693,37 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
     } catch (e) {
       return Stream<List<CatalogOfItemsElement>>.error(e);
     }
+  }
+
+  ///Help method
+  List<VitalSignsObject> _findMatchingObjects(
+    VitalSigns matchingVitalSigns,
+    List<VitalSignsObject> vitalSignsObjectResults,
+  ) {
+    List<VitalSignsObject> matchingObjects = <VitalSignsObject>[];
+
+    if (vitalSignsObjectResults.any(
+          (VitalSignsObject obj) =>
+              obj.objectId == matchingVitalSigns.valueObjectId1,
+        ) &&
+        vitalSignsObjectResults.any(
+          (VitalSignsObject obj) =>
+              obj.objectId == matchingVitalSigns.valueObjectId2,
+        )) {
+      matchingObjects.add(
+        vitalSignsObjectResults.firstWhere(
+          (VitalSignsObject obj) =>
+              obj.objectId == matchingVitalSigns.valueObjectId1,
+        ),
+      );
+      matchingObjects.add(
+        vitalSignsObjectResults.firstWhere(
+          (VitalSignsObject obj) =>
+              obj.objectId == matchingVitalSigns.valueObjectId2,
+        ),
+      );
+    }
+
+    return matchingObjects;
   }
 }
