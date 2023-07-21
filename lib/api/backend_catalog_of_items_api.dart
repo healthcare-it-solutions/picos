@@ -365,12 +365,8 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       for (dynamic element in responseVitalSigns) {
         vitalSignsResults.add(
           VitalSigns(
-            value1: element['VitalSignsObject'] != null
-                ? element['VitalSignsObject']['objectId']
-                : null,
-            value2: element['VitalSignsObject'] != null
-                ? element['VitalSignsObject']['objectId']
-                : null,
+            value1: element['VitalSignsObject']['objectId'],
+            value2: element['VitalSignsObject']['objectId'],
             objectId: element['objectId'],
             patientObjectId: element['Patient']['objectId'],
             doctorObjectId: element['Doctor']['objectId'],
