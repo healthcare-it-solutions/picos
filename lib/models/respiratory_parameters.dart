@@ -21,7 +21,7 @@ import 'package:picos/models/respiratory_parameters_object.dart';
 /// Class with Respiratory Parameters object.
 class RespiratoryParameters extends AbstractDatabaseObject {
   /// Creates a Respiratory Parameters object.
-  const RespiratoryParameters({
+  RespiratoryParameters({
     required this.doctorObjectId,
     required this.patientObjectId,
     this.value1,
@@ -38,10 +38,10 @@ class RespiratoryParameters extends AbstractDatabaseObject {
   final String doctorObjectId;
 
   /// Last value.
-  final RespiratoryParametersObject? value1;
+  late RespiratoryParametersObject? value1;
 
   /// Pre-last value.
-  final RespiratoryParametersObject? value2;
+  late RespiratoryParametersObject? value2;
 
   /// Patient Object Id.
   final String patientObjectId;

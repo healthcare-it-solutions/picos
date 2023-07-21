@@ -21,7 +21,7 @@ import 'package:picos/models/vital_signs_object.dart';
 /// Class with Vital Signs.
 class VitalSigns extends AbstractDatabaseObject {
   /// Creates a Vital Signs object.
-  const VitalSigns({
+   VitalSigns({
     required this.doctorObjectId,
     required this.patientObjectId,
     this.value1,
@@ -38,10 +38,10 @@ class VitalSigns extends AbstractDatabaseObject {
   final String doctorObjectId;
 
   /// Last value.
-  final VitalSignsObject? value1;
+  late VitalSignsObject? value1;
 
   /// Pre-last value.
-  final VitalSignsObject? value2;
+   late VitalSignsObject? value2;
 
   /// Patient Object Id.
   final String patientObjectId;

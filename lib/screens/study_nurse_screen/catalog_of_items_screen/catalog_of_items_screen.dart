@@ -466,11 +466,11 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
             medicaments: medicaments,
             movementData: movementData,
           );
-          context.read<ObjectsListBloc<BackendCatalogOfItemsApi>>().add(
-                SaveObject(catalogOfItemsElement),
-              );
-          Navigator.of(context).pop();
         }
+        context.read<ObjectsListBloc<BackendCatalogOfItemsApi>>().add(
+              SaveObject(catalogOfItemsElement),
+            );
+        Navigator.of(context).pop();
       } catch (e) {
         Stream<List<CatalogOfItemsElement>>.error(e);
       }

@@ -21,7 +21,7 @@ import 'package:picos/models/blood_gas_analysis_object.dart';
 /// Class with Blood Gas Analysis information.
 class BloodGasAnalysis extends AbstractDatabaseObject {
   /// Creates a Blood Gas Analysis object.
-  const BloodGasAnalysis({
+   BloodGasAnalysis({
     required this.doctorObjectId,
     required this.patientObjectId,
     this.value1,
@@ -38,10 +38,10 @@ class BloodGasAnalysis extends AbstractDatabaseObject {
   final String doctorObjectId;
 
   /// Last value.
-  final BloodGasAnalysisObject? value1;
+  late BloodGasAnalysisObject? value1;
 
   /// Pre-last value.
-  final BloodGasAnalysisObject? value2;
+  late BloodGasAnalysisObject? value2;
 
   /// Patient Object Id.
   final String patientObjectId;
