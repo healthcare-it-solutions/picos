@@ -82,7 +82,7 @@ class VitalSignsObject extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-      
+    
       ];
 
   @override
