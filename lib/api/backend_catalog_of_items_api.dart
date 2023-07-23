@@ -389,12 +389,8 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       for (dynamic element in responseRespiratoryParameters) {
         respiratoryParametersResults.add(
           RespiratoryParameters(
-            value1: element['RespiratoryParametersObject'] != null
-                ? element['RespiratoryParametersObject']['objectId']
-                : null,
-            value2: element['RespiratoryParametersObject'] != null
-                ? element['RespiratoryParametersObject']['objectId']
-                : null,
+            valueObjectId1: element['value1']['objectId'],
+            valueObjectId2: element['value2']['objectId'],
             patientObjectId: element['Patient']['objectId'],
             doctorObjectId: element['Doctor']['objectId'],
             objectId: element['objectId'],
@@ -417,12 +413,8 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       for (dynamic element in responseBloodGasAnalysis) {
         bloodGasAnalysisResults.add(
           BloodGasAnalysis(
-            value1: element['BloodGasAnalysisObject'] != null
-                ? element['BloodGasAnalysisObject']['objectId']
-                : null,
-            value2: element['BloodGasAnalysisObject'] != null
-                ? element['BloodGasAnalysisObject']['objectId']
-                : null,
+            valueObjectId1: element['value1']['objectId'],
+            valueObjectId2: element['value2']['objectId'],
             patientObjectId: element['Patient']['objectId'],
             doctorObjectId: element['Doctor']['objectId'],
             objectId: element['objectId'],
@@ -663,23 +655,29 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
             matchingLaborParameters != null &&
             matchingMedicaments != null &&
             matchingMovementData != null) {
-          List<VitalSignsObject> foundObjects =
-              _findMatchingObjects(matchingVitalSigns, vitalSignsObjectResults);
+          List<VitalSignsObject> foundObjectsVitalSigns =
+              _findMatchingObjectsVitalSigns(matchingVitalSigns, vitalSignsObjectResults);
+
+          List<BloodGasAnalysisObject> foundObjectsBloodGasAnalysis =
+          _findMatchingObjectsBloodGasAnalysis(matchingBloodGasAnalysis, bloodGasAnalysisObjectResults);
+          
+          List<RespiratoryParametersObject> foundObjectsRespiratoryParameters =
+          _findMatchingObjectsRespiratoryParameters(matchingRespiratoryParameters, respiratoryParametersObjectResults);
 
           objectList.add(
             CatalogOfItemsElement(
               icuDiagnosis: matchingICUDiagnosis,
               vitalSigns: matchingVitalSigns,
-              vitalSignsObject1: foundObjects[0],
-              vitalSignsObject2: foundObjects[1],
+              vitalSignsObject1: foundObjectsVitalSigns[0],
+              vitalSignsObject2: foundObjectsVitalSigns[1],
               respiratoryParameters: matchingRespiratoryParameters,
               respiratoryParametersObject1:
-                  matchingRespiratoryParameters.value1!,
+                  foundObjectsRespiratoryParameters[0],
               respiratoryParametersObject2:
-                  matchingRespiratoryParameters.value2!,
+                  foundObjectsRespiratoryParameters[1],
               bloodGasAnalysis: matchingBloodGasAnalysis,
-              bloodGasAnalysisObject1: matchingBloodGasAnalysis.value1!,
-              bloodGasAnalysisObject2: matchingBloodGasAnalysis.value2!,
+              bloodGasAnalysisObject1: foundObjectsBloodGasAnalysis[0],
+              bloodGasAnalysisObject2: foundObjectsBloodGasAnalysis[1],
               laborParameters: matchingLaborParameters,
               medicaments: matchingMedicaments,
               movementData: matchingMovementData,
@@ -696,7 +694,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
   }
 
   ///Help method
-  List<VitalSignsObject> _findMatchingObjects(
+  List<VitalSignsObject> _findMatchingObjectsVitalSigns(
     VitalSigns matchingVitalSigns,
     List<VitalSignsObject> vitalSignsObjectResults,
   ) {
@@ -720,6 +718,68 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         vitalSignsObjectResults.firstWhere(
           (VitalSignsObject obj) =>
               obj.objectId == matchingVitalSigns.valueObjectId2,
+        ),
+      );
+    }
+
+    return matchingObjects;
+  }
+
+  List<BloodGasAnalysisObject> _findMatchingObjectsBloodGasAnalysis(
+    BloodGasAnalysis matchingBloodGasAnalysis,
+    List<BloodGasAnalysisObject> bloodGasAnalysisObjectResults,
+  ) {
+    List<BloodGasAnalysisObject> matchingObjects = <BloodGasAnalysisObject>[];
+
+    if (bloodGasAnalysisObjectResults.any(
+          (BloodGasAnalysisObject obj) =>
+              obj.objectId == matchingBloodGasAnalysis.valueObjectId1,
+        ) &&
+        bloodGasAnalysisObjectResults.any(
+          (BloodGasAnalysisObject obj) =>
+              obj.objectId == matchingBloodGasAnalysis.valueObjectId2,
+        )) {
+      matchingObjects.add(
+        bloodGasAnalysisObjectResults.firstWhere(
+          (BloodGasAnalysisObject obj) =>
+              obj.objectId == matchingBloodGasAnalysis.valueObjectId1,
+        ),
+      );
+      matchingObjects.add(
+        bloodGasAnalysisObjectResults.firstWhere(
+          (BloodGasAnalysisObject obj) =>
+              obj.objectId == matchingBloodGasAnalysis.valueObjectId2,
+        ),
+      );
+    }
+
+    return matchingObjects;
+  }
+
+  List<RespiratoryParametersObject> _findMatchingObjectsRespiratoryParameters(
+    RespiratoryParameters matchingRespiratoryParameters,
+    List<RespiratoryParametersObject> respiratoryParametersObjectResults,
+  ) {
+    List<RespiratoryParametersObject> matchingObjects = <RespiratoryParametersObject>[];
+
+    if (respiratoryParametersObjectResults.any(
+          (RespiratoryParametersObject obj) =>
+              obj.objectId == matchingRespiratoryParameters.valueObjectId1,
+        ) &&
+        respiratoryParametersObjectResults.any(
+          (RespiratoryParametersObject obj) =>
+              obj.objectId == matchingRespiratoryParameters.valueObjectId2,
+        )) {
+      matchingObjects.add(
+        respiratoryParametersObjectResults.firstWhere(
+          (RespiratoryParametersObject obj) =>
+              obj.objectId == matchingRespiratoryParameters.valueObjectId1,
+        ),
+      );
+      matchingObjects.add(
+        respiratoryParametersObjectResults.firstWhere(
+          (RespiratoryParametersObject obj) =>
+              obj.objectId == matchingRespiratoryParameters.valueObjectId2,
         ),
       );
     }

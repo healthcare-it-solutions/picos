@@ -26,6 +26,8 @@ class BloodGasAnalysis extends AbstractDatabaseObject {
     required this.patientObjectId,
     this.value1,
     this.value2,
+    this.valueObjectId1,
+    this.valueObjectId2,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -46,6 +48,10 @@ class BloodGasAnalysis extends AbstractDatabaseObject {
   /// Patient Object Id.
   final String patientObjectId;
 
+  late String? valueObjectId1;
+  
+  late String? valueObjectId2;
+
   @override
   get table {
     return databaseTable;
@@ -57,6 +63,8 @@ class BloodGasAnalysis extends AbstractDatabaseObject {
     BloodGasAnalysisObject? value1,
     BloodGasAnalysisObject? value2,
     String? patientObjectId,
+    String? valueObjectId1,
+    String? valueObjectId2,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -66,6 +74,8 @@ class BloodGasAnalysis extends AbstractDatabaseObject {
       value1: value1 ?? this.value1,
       value2: value2 ?? this.value2,
       patientObjectId: patientObjectId ?? this.patientObjectId,
+      valueObjectId1: valueObjectId1 ?? this.valueObjectId1,
+      valueObjectId2: valueObjectId2 ?? this.valueObjectId2,
       objectId: objectId ?? this.objectId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
