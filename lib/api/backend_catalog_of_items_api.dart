@@ -654,16 +654,21 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
             matchingMovementData != null) {
           List<VitalSignsObject> foundObjectsVitalSigns =
               _findMatchingObjectsVitalSigns(
-                  matchingVitalSigns, vitalSignsObjectResults);
+            matchingVitalSigns,
+            vitalSignsObjectResults,
+          );
 
           List<BloodGasAnalysisObject> foundObjectsBloodGasAnalysis =
               _findMatchingObjectsBloodGasAnalysis(
-                  matchingBloodGasAnalysis, bloodGasAnalysisObjectResults);
+            matchingBloodGasAnalysis,
+            bloodGasAnalysisObjectResults,
+          );
 
           List<RespiratoryParametersObject> foundObjectsRespiratoryParameters =
               _findMatchingObjectsRespiratoryParameters(
-                  matchingRespiratoryParameters,
-                  respiratoryParametersObjectResults);
+            matchingRespiratoryParameters,
+            respiratoryParametersObjectResults,
+          );
 
           objectList.add(
             CatalogOfItemsElement(
