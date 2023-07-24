@@ -63,7 +63,7 @@ class BloodGasAnalysisObject extends AbstractDatabaseObject {
   final double? arterialLactate;
 
   /// Blood Glucose Level.
-  final double? bloodGlucoseLevel;
+  final String? bloodGlucoseLevel;
 
   @override
   get table {
@@ -80,7 +80,7 @@ class BloodGasAnalysisObject extends AbstractDatabaseObject {
     double? arterialPH,
     double? arterialSerumBicarbonateConcentration,
     double? arterialLactate,
-    double? bloodGlucoseLevel,
+    String? bloodGlucoseLevel,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -108,19 +108,17 @@ class BloodGasAnalysisObject extends AbstractDatabaseObject {
   }
 
   @override
-  List<Object> get props => <Object>[
-    
-      ];
+  List<Object> get props => <Object>[];
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
-        'PaCO2_wTemp': partialPressureOfOxygen,
         'BE': arterialBaseExcess,
         'Bicarbonat': arterialSerumBicarbonateConcentration,
         'SaO2': arterialOxygenSaturation,
         'Laktat': arterialLactate,
         'SzVO2': centralVenousOxygenSaturation,
         'PaCO2_woTemp': partialPressureOfCarbonDioxide,
+        'PaO2_woTemp': partialPressureOfOxygen,
         'pH': arterialPH,
         'BloodSugar': bloodGlucoseLevel,
       };

@@ -119,18 +119,18 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
 
           BloodGasAnalysisObject bloodGasAnalysisObject2 =
               BloodGasAnalysisObject(
-            arterialOxygenSaturation: pageStorage?.arterialOxygenSaturation1,
+            arterialOxygenSaturation: pageStorage?.arterialOxygenSaturation2,
             centralVenousOxygenSaturation:
-                pageStorage?.centralVenousOxygenSaturation1,
-            partialPressureOfOxygen: pageStorage?.partialPressureOfOxygen1,
+                pageStorage?.centralVenousOxygenSaturation2,
+            partialPressureOfOxygen: pageStorage?.partialPressureOfOxygen2,
             partialPressureOfCarbonDioxide:
-                pageStorage?.partialPressureOfCarbonDioxide1,
-            arterialBaseExcess: pageStorage?.arterialBaseExcess1,
-            arterialPH: pageStorage?.arterialPH1,
+                pageStorage?.partialPressureOfCarbonDioxide2,
+            arterialBaseExcess: pageStorage?.arterialBaseExcess2,
+            arterialPH: pageStorage?.arterialPH2,
             arterialSerumBicarbonateConcentration:
-                pageStorage?.arterialSerumBicarbonateConcentration1,
-            arterialLactate: pageStorage?.arterialLactate1,
-            bloodGlucoseLevel: pageStorage?.bloodGlucoseLevel1,
+                pageStorage?.arterialSerumBicarbonateConcentration2,
+            arterialLactate: pageStorage?.arterialLactate2,
+            bloodGlucoseLevel: pageStorage?.bloodGlucoseLevel2,
           );
 
           catalogOfItemsElement = CatalogOfItemsElement(
@@ -302,7 +302,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
 
           RespiratoryParametersObject? respiratoryParametersObject2 =
               (_objectsList[0] as CatalogOfItemsElement)
-                  .respiratoryParametersObject1
+                  .respiratoryParametersObject2
                   .copyWith(
                     tidalVolume: pageStorage?.tidalVolume,
                     respiratoryRate: pageStorage?.respiratoryRate2,
@@ -343,18 +343,18 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
               .bloodGasAnalysisObject2
               .copyWith(
                 arterialOxygenSaturation:
-                    pageStorage?.arterialOxygenSaturation1,
+                    pageStorage?.arterialOxygenSaturation2,
                 centralVenousOxygenSaturation:
-                    pageStorage?.centralVenousOxygenSaturation1,
-                partialPressureOfOxygen: pageStorage?.partialPressureOfOxygen1,
+                    pageStorage?.centralVenousOxygenSaturation2,
+                partialPressureOfOxygen: pageStorage?.partialPressureOfOxygen2,
                 partialPressureOfCarbonDioxide:
-                    pageStorage?.partialPressureOfCarbonDioxide1,
-                arterialBaseExcess: pageStorage?.arterialBaseExcess1,
-                arterialPH: pageStorage?.arterialPH1,
+                    pageStorage?.partialPressureOfCarbonDioxide2,
+                arterialBaseExcess: pageStorage?.arterialBaseExcess2,
+                arterialPH: pageStorage?.arterialPH2,
                 arterialSerumBicarbonateConcentration:
-                    pageStorage?.arterialSerumBicarbonateConcentration1,
-                arterialLactate: pageStorage?.arterialLactate1,
-                bloodGlucoseLevel: pageStorage?.bloodGlucoseLevel1,
+                    pageStorage?.arterialSerumBicarbonateConcentration2,
+                arterialLactate: pageStorage?.arterialLactate2,
+                bloodGlucoseLevel: pageStorage?.bloodGlucoseLevel2,
               );
 
           BloodGasAnalysis bloodGasAnalysis =

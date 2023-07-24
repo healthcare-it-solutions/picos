@@ -56,41 +56,38 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
             object.icuDiagnosis.updatedAt,
       );
 
-      if (object.vitalSignsObject1.objectId == null) {
-        /// VitalSigns value 1
-        dynamic responseVitalSignsObject1 = await Backend.saveObject(
-          object.vitalSignsObject1,
-        );
-        vitalSignsObject1 = object.vitalSignsObject1.copyWith(
-          objectId: responseVitalSignsObject1['objectId'],
-          createdAt: DateTime.tryParse(
-                responseVitalSignsObject1['createdAt'] ?? '',
-              ) ??
-              object.vitalSignsObject1.createdAt,
-          updatedAt: DateTime.tryParse(
-                responseVitalSignsObject1['updatedAt'] ?? '',
-              ) ??
-              object.vitalSignsObject1.updatedAt,
-        );
-      }
-      if (object.vitalSignsObject2.objectId == null) {
-        /// VitalSigns value 2
-        dynamic responseVitalSignsObject2 = await Backend.saveObject(
-          object.vitalSignsObject2,
-        );
+      /// VitalSigns value 1
+      dynamic responseVitalSignsObject1 = await Backend.saveObject(
+        object.vitalSignsObject1,
+      );
+      vitalSignsObject1 = object.vitalSignsObject1.copyWith(
+        objectId: responseVitalSignsObject1['objectId'],
+        createdAt: DateTime.tryParse(
+              responseVitalSignsObject1['createdAt'] ?? '',
+            ) ??
+            object.vitalSignsObject1.createdAt,
+        updatedAt: DateTime.tryParse(
+              responseVitalSignsObject1['updatedAt'] ?? '',
+            ) ??
+            object.vitalSignsObject1.updatedAt,
+      );
 
-        vitalSignsObject2 = object.vitalSignsObject2.copyWith(
-          objectId: responseVitalSignsObject2['objectId'],
-          createdAt: DateTime.tryParse(
-                responseVitalSignsObject2['createdAt'] ?? '',
-              ) ??
-              object.vitalSignsObject2.createdAt,
-          updatedAt: DateTime.tryParse(
-                responseVitalSignsObject2['updatedAt'] ?? '',
-              ) ??
-              object.vitalSignsObject2.updatedAt,
-        );
-      }
+      /// VitalSigns value 2
+      dynamic responseVitalSignsObject2 = await Backend.saveObject(
+        object.vitalSignsObject2,
+      );
+
+      vitalSignsObject2 = object.vitalSignsObject2.copyWith(
+        objectId: responseVitalSignsObject2['objectId'],
+        createdAt: DateTime.tryParse(
+              responseVitalSignsObject2['createdAt'] ?? '',
+            ) ??
+            object.vitalSignsObject2.createdAt,
+        updatedAt: DateTime.tryParse(
+              responseVitalSignsObject2['updatedAt'] ?? '',
+            ) ??
+            object.vitalSignsObject2.updatedAt,
+      );
 
       /// VitalSigns
       object.vitalSigns.value1 = vitalSignsObject1;
@@ -656,13 +653,17 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
             matchingMedicaments != null &&
             matchingMovementData != null) {
           List<VitalSignsObject> foundObjectsVitalSigns =
-              _findMatchingObjectsVitalSigns(matchingVitalSigns, vitalSignsObjectResults);
+              _findMatchingObjectsVitalSigns(
+                  matchingVitalSigns, vitalSignsObjectResults);
 
           List<BloodGasAnalysisObject> foundObjectsBloodGasAnalysis =
-          _findMatchingObjectsBloodGasAnalysis(matchingBloodGasAnalysis, bloodGasAnalysisObjectResults);
-          
+              _findMatchingObjectsBloodGasAnalysis(
+                  matchingBloodGasAnalysis, bloodGasAnalysisObjectResults);
+
           List<RespiratoryParametersObject> foundObjectsRespiratoryParameters =
-          _findMatchingObjectsRespiratoryParameters(matchingRespiratoryParameters, respiratoryParametersObjectResults);
+              _findMatchingObjectsRespiratoryParameters(
+                  matchingRespiratoryParameters,
+                  respiratoryParametersObjectResults);
 
           objectList.add(
             CatalogOfItemsElement(
@@ -760,7 +761,8 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
     RespiratoryParameters matchingRespiratoryParameters,
     List<RespiratoryParametersObject> respiratoryParametersObjectResults,
   ) {
-    List<RespiratoryParametersObject> matchingObjects = <RespiratoryParametersObject>[];
+    List<RespiratoryParametersObject> matchingObjects =
+        <RespiratoryParametersObject>[];
 
     if (respiratoryParametersObjectResults.any(
           (RespiratoryParametersObject obj) =>

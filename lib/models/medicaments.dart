@@ -122,16 +122,6 @@ class Medicaments extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-        plateletAggregation!,
-        noak!,
-        thrombosisProphylaxis!,
-        antihypertensives!,
-        antiarrhythmics!,
-        antidiabetics!,
-        antiInfectives!,
-        steroids!,
-        inhalatives!,
-        analgesics!,
         doctorObjectId,
         patientObjectId,
       ];

@@ -196,10 +196,10 @@ class CatalogOfItemsPageStorage {
           arterialLactateCallback2: (double? value) {
             arterialLactate2 = value;
           },
-          bloodGlucoseLevelCallback1: (double? value) {
+          bloodGlucoseLevelCallback1: (String? value) {
             bloodGlucoseLevel1 = value;
           },
-          bloodGlucoseLevelCallback2: (double? value) {
+          bloodGlucoseLevelCallback2: (String? value) {
             bloodGlucoseLevel2 = value;
           },
         ),
@@ -486,8 +486,8 @@ class CatalogOfItemsPageStorage {
   double? arterialSerumBicarbonateConcentration2;
   double? arterialLactate1;
   double? arterialLactate2;
-  double? bloodGlucoseLevel1;
-  double? bloodGlucoseLevel2;
+  String? bloodGlucoseLevel1;
+  String? bloodGlucoseLevel2;
 
   double? leukocyteCount;
   double? lymphocyteCount;
