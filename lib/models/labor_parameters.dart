@@ -230,9 +230,9 @@ class LaborParameters extends AbstractDatabaseObject {
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
         if (leukocyteCount != null) 'Leukozyten': leukocyteCount,
-        if (lymphocyteCount != null) 'lymphozyten_abs': lymphocyteCount,
+        if (lymphocyteCount != null) 'Lymphozyten_abs': lymphocyteCount,
         if (lymphocytePercentage != null)
-          'lymphozyten_proz': lymphocytePercentage,
+          'Lymphozyten_proz': lymphocytePercentage,
         if (plateletCount != null) 'Thrombozyten': plateletCount,
         if (cReactiveProteinLevel != null) 'CRP': cReactiveProteinLevel,
         if (procalcitoninLevel != null) 'PCT': procalcitoninLevel,
