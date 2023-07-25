@@ -80,17 +80,39 @@ class VitalSignsObject extends AbstractDatabaseObject {
     );
   }
 
+  // @override
+  // List<Object> get props => <Object>[];
+
+
   @override
-  List<Object> get props => <Object>[
-    
-      ];
+  List<Object> get props {
+    final List<Object> list = <Object>[];
+    if (heartRate != null) {
+      list.add(heartRate!);
+    }
+    if (systolicArterialPressure != null) {
+      list.add(systolicArterialPressure!);
+    }
+    if (centralVenousPressure != null) {
+      list.add(centralVenousPressure!);
+    }
+
+    if (diastolicArterialPressure != null) {
+      list.add(diastolicArterialPressure!);
+    }
+
+    if (meanArterialPressure != null) {
+      list.add(meanArterialPressure!);
+    }
+    return list;
+  }
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
-        'HeartRate': heartRate,
-        'SAP': systolicArterialPressure,
-        'ZVD': centralVenousPressure,
-        'DAP': diastolicArterialPressure,
-        'MAP': meanArterialPressure,
+        if (heartRate != null) 'HeartRate': heartRate,
+        if (systolicArterialPressure != null) 'SAP': systolicArterialPressure,
+        if (centralVenousPressure != null) 'ZVD': centralVenousPressure,
+        if (diastolicArterialPressure != null) 'DAP': diastolicArterialPressure,
+        if (meanArterialPressure != null) 'MAP': meanArterialPressure,
       };
 }

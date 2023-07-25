@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/catalog_of_items_page_storage.dart';
 import 'package:picos/widgets/picos_switch.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_text_field.dart';
@@ -72,14 +73,21 @@ class IcuDiagnosis extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? initialMainDiagnosis1;
+    if (CatalogOfItemsPageStorage.catalogOfItemsElement != null) {
+      initialMainDiagnosis1 = CatalogOfItemsPageStorage
+          .catalogOfItemsElement!.icuDiagnosis.mainDiagnosis;
+    }
     return CatalogOfItemsPage(
       title: AppLocalizations.of(context)!.icuDiagnosis,
       children: <Widget>[
         Column(
           children: <Widget>[
-            CatalogOfItemsLabel(AppLocalizations.of(context)!.mainDiagnosis),
+            CatalogOfItemsLabel(
+              AppLocalizations.of(context)!.mainDiagnosis,
+            ),
             PicosTextField(
-              initialValue: initialMainDiagnosis,
+              initialValue: initialMainDiagnosis1 ?? initialMainDiagnosis,
               onChanged: (String value) {
                 mainDiagnosisCallback(value);
               },

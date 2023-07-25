@@ -23,16 +23,12 @@ class Medicaments extends AbstractDatabaseObject {
   const Medicaments({
     required this.patientObjectId,
     required this.doctorObjectId,
-    this.plateletAggregation,
-    this.noak,
-    this.thrombosisProphylaxis,
-    this.antihypertensives,
-    this.antiarrhythmics,
-    this.antidiabetics,
-    this.antiInfectives,
-    this.steroids,
-    this.inhalatives,
-    this.analgesics,
+    this.morning,
+    this.noon,
+    this.evening,
+    this.atNight,
+    this.unit,
+    this.medicalProduct,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -41,41 +37,29 @@ class Medicaments extends AbstractDatabaseObject {
   /// The database table the objects are stored in.
   static const String databaseTable = 'medication';
 
-  /// Platelet Aggregation.
-  final String? plateletAggregation;
+  /// The amount to take in the morning.
+  final double? morning;
 
-  /// NOAC.
-  final String? noak;
+  /// The amount to take in the noon.
+  final double? noon;
 
-  /// Thrombosis Prophylaxis.
-  final String? thrombosisProphylaxis;
+  /// The amount to take in the evening.
+  final double? evening;
 
-  /// Antihypertensives.
-  final String? antihypertensives;
-
-  /// Antiarrythmics.
-  final String? antiarrhythmics;
-
-  /// Antidiabetics.
-  final String? antidiabetics;
-
-  /// Antiinfectives.
-  final String? antiInfectives;
-
-  /// Steroids.
-  final String? steroids;
-
-  /// Inhalatives.
-  final String? inhalatives;
-
-  /// Analgesics.
-  final String? analgesics;
+  /// The amount to take before night.
+  final double? atNight;
 
   /// Patient ObjectId.
   final String patientObjectId;
 
   /// Doctor ObjectId.
   final String doctorObjectId;
+
+  /// Unit
+  final String? unit;
+
+  /// Medical Product
+  final String? medicalProduct;
 
   @override
   get table {
@@ -84,16 +68,12 @@ class Medicaments extends AbstractDatabaseObject {
 
   @override
   Medicaments copyWith({
-    String? plateletAggregation,
-    String? noak,
-    String? thrombosisProphylaxis,
-    String? antihypertensives,
-    String? antiarrhythmics,
-    String? antidiabetics,
-    String? antiInfectives,
-    String? steroids,
-    String? inhalatives,
-    String? analgesics,
+    double? morning,
+    double? noon,
+    double? evening,
+    double? atNight,
+    String? unit,
+    String? medicalProduct,
     String? patientObjectId,
     String? doctorObjectId,
     String? objectId,
@@ -101,22 +81,17 @@ class Medicaments extends AbstractDatabaseObject {
     DateTime? updatedAt,
   }) {
     return Medicaments(
-      plateletAggregation: plateletAggregation ?? this.plateletAggregation,
-      noak: noak ?? this.noak,
-      thrombosisProphylaxis:
-          thrombosisProphylaxis ?? this.thrombosisProphylaxis,
-      antihypertensives: antihypertensives ?? this.antihypertensives,
-      antiarrhythmics: antiarrhythmics ?? this.antiarrhythmics,
-      antidiabetics: antidiabetics ?? this.antidiabetics,
-      antiInfectives: antiInfectives ?? this.antiInfectives,
-      steroids: steroids ?? this.steroids,
-      inhalatives: inhalatives ?? this.inhalatives,
-      analgesics: analgesics ?? this.analgesics,
-      patientObjectId: patientObjectId ?? this.patientObjectId,
-      doctorObjectId: doctorObjectId ?? this.doctorObjectId,
+      morning: morning ?? this.morning,
+      noon: noon ?? this.noon,
+      evening: evening ?? this.evening,
+      atNight: atNight ?? this.atNight,
+      unit: unit ?? this.unit,
+      medicalProduct: medicalProduct ?? this.medicalProduct,
       objectId: objectId ?? this.objectId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      patientObjectId: patientObjectId ?? this.patientObjectId,
+      doctorObjectId: doctorObjectId ?? this.doctorObjectId,
     );
   }
 
@@ -128,18 +103,12 @@ class Medicaments extends AbstractDatabaseObject {
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
-        if (antiarrhythmics != null) 'Antiarrythmika': antiarrhythmics,
-        if (antiInfectives != null) 'Antiinfektiva': antiInfectives,
-        if (antihypertensives != null) 'Antihypertensiva': antihypertensives,
-        if (antidiabetics != null) 'Antidiabetika': antidiabetics,
-        if (steroids != null) 'Steroide': steroids,
-        if (noak != null) 'NOAK': noak,
-        if (plateletAggregation != null)
-          'Thrombozytenaggregation': plateletAggregation,
-        if (thrombosisProphylaxis != null)
-          'Thromboseprophylaxe': thrombosisProphylaxis,
-        if (inhalatives != null) 'Inhalativa': inhalatives,
-        if (analgesics != null) 'Analgetika': analgesics,
+        if (morning != null) 'Morning': morning,
+        if (noon != null) 'Noon': noon,
+        if (evening != null) 'Evening': evening,
+        if (atNight != null) 'AtNight': atNight,
+        if (unit != null) 'Unit': unit,
+        if (medicalProduct != null) 'MedicalProduct': medicalProduct,
         'Patient': <String, String>{
           'objectId': patientObjectId,
           '__type': 'Pointer',

@@ -24,11 +24,13 @@ import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/m
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/respiration_parameters.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/vital_data.dart';
 
+import '../../../models/catalog_of_items_element.dart';
 import '../../../widgets/picos_form_of_address.dart';
 import '../../../widgets/picos_page_view_item.dart';
 
 /// Manages the state of the Catalog of items pages.
 class CatalogOfItemsPageStorage {
+
   /// Creates CatalogOfItemsPageStorage.
   CatalogOfItemsPageStorage(BuildContext context) {
     pages = <PicosPageViewItem>[
@@ -288,46 +290,30 @@ class CatalogOfItemsPageStorage {
       ),
       PicosPageViewItem(
         child: Medicaments(
-          plateletAggregationCallback: (String? value) {
-            plateletAggregation = value;
+          morningCallback: (double? value) {
+            morning = value;
           },
-          noakCallback: (String? value) {
-            noak = value;
+          noonCallback: (double? value) {
+            noon = value;
           },
-          thrombosisprophylaxisCallback: (String? value) {
-            thrombosisProphylaxis = value;
+          eveningCallback: (double? value) {
+            evening = value;
           },
-          antihypertensivesCallback: (String? value) {
-            antihypertensives = value;
+          atNightCallback: (double? value) {
+            atNight = value;
           },
-          antiarrythmicsCallback: (String? value) {
-            antiarrhythmics = value;
+          unitCallback: (String? value) {
+            unit = value;
           },
-          antidiabeticsCallback: (String? value) {
-            antidiabetics = value;
+          medicalProductCallback: (String? value) {
+            medicalProduct = value;
           },
-          antiinfectivesCallback: (String? value) {
-            antiInfectives = value;
-          },
-          steroidsCallback: (String? value) {
-            steroids = value;
-          },
-          inhalativesCallback: (String? value) {
-            inhalatives = value;
-          },
-          analgesicsCallback: (String? value) {
-            analgesics = value;
-          },
-          initialPlateletAggregation: plateletAggregation,
-          initialNoak: noak,
-          initialThrombosisProphylaxis: thrombosisProphylaxis,
-          initialAntihypertensives: antihypertensives,
-          initialAntiarrhythmics: antiarrhythmics,
-          initialAntidiabetics: antidiabetics,
-          initialAntiInfectives: antiInfectives,
-          initialSteroids: steroids,
-          initialInhalatives: inhalatives,
-          initialAnalgesics: analgesics,
+          initialMorning: morning,
+          initialNoon: noon,
+          initialEvening: evening,
+          initialAtNight: atNight,
+          initialUnit: unit,
+          initialMedicalProduct: medicalProduct,
         ),
       ),
       PicosPageViewItem(
@@ -408,6 +394,7 @@ class CatalogOfItemsPageStorage {
       ),
     ];
   }
+  static CatalogOfItemsElement? catalogOfItemsElement;
 
   /// If the patient had 24h mechanical ventilation.
   bool mechanicalVentilation24h = false;
@@ -516,16 +503,12 @@ class CatalogOfItemsPageStorage {
   double? internationalNormalizedRatio;
   double? partialThromboplastinTime;
 
-  String? plateletAggregation;
-  String? noak;
-  String? thrombosisProphylaxis;
-  String? antihypertensives;
-  String? antiarrhythmics;
-  String? antidiabetics;
-  String? antiInfectives;
-  String? steroids;
-  String? inhalatives;
-  String? analgesics;
+  double? morning;
+  double? noon;
+  double? evening;
+  double? atNight;
+  String? unit;
+  String? medicalProduct;
 
   int? age;
   FormOfAddress? gender;

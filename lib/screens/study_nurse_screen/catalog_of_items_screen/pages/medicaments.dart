@@ -26,88 +26,56 @@ import '../widgets/catalog_of_items_label.dart';
 class Medicaments extends StatelessWidget {
   /// Medicaments constructor.
   const Medicaments({
-    required this.plateletAggregationCallback,
-    required this.noakCallback,
-    required this.thrombosisprophylaxisCallback,
-    required this.antihypertensivesCallback,
-    required this.antiarrythmicsCallback,
-    required this.antidiabeticsCallback,
-    required this.antiinfectivesCallback,
-    required this.steroidsCallback,
-    required this.inhalativesCallback,
-    required this.analgesicsCallback,
+    required this.morningCallback,
+    required this.noonCallback,
+    required this.eveningCallback,
+    required this.atNightCallback,
+    required this.unitCallback,
+    required this.medicalProductCallback,
     Key? key,
-    this.initialPlateletAggregation,
-    this.initialNoak,
-    this.initialThrombosisProphylaxis,
-    this.initialAntihypertensives,
-    this.initialAntiarrhythmics,
-    this.initialAntidiabetics,
-    this.initialAntiInfectives,
-    this.initialSteroids,
-    this.initialInhalatives,
-    this.initialAnalgesics,
+    this.initialMorning,
+    this.initialNoon,
+    this.initialEvening,
+    this.initialAtNight,
+    this.initialUnit,
+    this.initialMedicalProduct,
   }) : super(key: key);
 
-  /// Platelet Aggregation Callback.
-  final void Function(String?) plateletAggregationCallback;
-
   /// NOAK Callback.
-  final void Function(String?) noakCallback;
+  final void Function(double?) morningCallback;
 
   /// Thrombosis Prophylaxis Callback.
-  final void Function(String?) thrombosisprophylaxisCallback;
+  final void Function(double?) noonCallback;
 
   /// Antihypertensives Callback.
-  final void Function(String?) antihypertensivesCallback;
+  final void Function(double?) eveningCallback;
 
   /// Antiarrythmics Callback.
-  final void Function(String?) antiarrythmicsCallback;
+  final void Function(double?) atNightCallback;
 
   /// Antidiabetics Callback.
-  final void Function(String?) antidiabeticsCallback;
+  final void Function(String?) unitCallback;
 
-  /// Antiinfectives Callback.
-  final void Function(String?) antiinfectivesCallback;
-
-  /// Steroids Callback.
-  final void Function(String?) steroidsCallback;
-
-  /// Inhalatives Callback.
-  final void Function(String?) inhalativesCallback;
-
-  /// Analgesics Callback.
-  final void Function(String?) analgesicsCallback;
+  /// Antidiabetics Callback.
+  final void Function(String?) medicalProductCallback;
 
   /// Platelet Aggregation value.
-  final String? initialPlateletAggregation;
+  final double? initialMorning;
 
   /// NOAK value.
-  final String? initialNoak;
+  final double? initialNoon;
 
   /// Thrombosis Prophylaxis value.
-  final String? initialThrombosisProphylaxis;
+  final double? initialEvening;
 
   /// Antihypertensives value.
-  final String? initialAntihypertensives;
+  final double? initialAtNight;
 
   /// Antiarrythmics value.
-  final String? initialAntiarrhythmics;
+  final String? initialUnit;
 
   /// Antidiabetics value.
-  final String? initialAntidiabetics;
-
-  /// Antiinfectives value.
-  final String? initialAntiInfectives;
-
-  /// Steroids value.
-  final String? initialSteroids;
-
-  /// Inhalatives value.
-  final String? initialInhalatives;
-
-  /// Analgetics value
-  final String? initialAnalgesics;
+  final String? initialMedicalProduct;
 
   @override
   Widget build(BuildContext context) {
@@ -119,50 +87,50 @@ class Medicaments extends StatelessWidget {
         Column(
           children: <Widget>[
             CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.thrombosisAggregation,
+              AppLocalizations.of(context)!.inTheMorning,
             ),
             PicosTextArea(
               maxLines: textAreaLines,
-              initialValue: initialPlateletAggregation,
+              initialValue: initialMorning.toString(),
               onChanged: (String value) {
-                plateletAggregationCallback(
-                  value,
+                morningCallback(
+                  double.tryParse(value),
                 );
               },
             ),
             CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.noac,
+              AppLocalizations.of(context)!.noon,
             ),
             PicosTextArea(
               maxLines: textAreaLines,
-              initialValue: initialNoak,
+              initialValue: initialNoon.toString(),
               onChanged: (String value) {
-                noakCallback(
-                  value,
+                noonCallback(
+                  double.tryParse(value),
                 );
               },
             ),
             CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.thrombosisProphylaxis,
+              AppLocalizations.of(context)!.inTheEvening,
             ),
             PicosTextArea(
               maxLines: textAreaLines,
-              initialValue: initialThrombosisProphylaxis,
+              initialValue: initialEvening.toString(),
               onChanged: (String value) {
-                thrombosisprophylaxisCallback(
-                  value,
+                eveningCallback(
+                  double.tryParse(value),
                 );
               },
             ),
             CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.antihypertensives,
+              AppLocalizations.of(context)!.toTheNight,
             ),
             PicosTextArea(
               maxLines: textAreaLines,
-              initialValue: initialAntihypertensives,
+              initialValue: initialAtNight.toString(),
               onChanged: (String value) {
-                antiarrythmicsCallback(
-                  value,
+                atNightCallback(
+                  double.tryParse(value),
                 );
               },
             ),
@@ -171,9 +139,9 @@ class Medicaments extends StatelessWidget {
             ),
             PicosTextArea(
               maxLines: textAreaLines,
-              initialValue: initialAntiarrhythmics,
+              initialValue: initialUnit,
               onChanged: (String value) {
-                analgesicsCallback(
+                unitCallback(
                   value,
                 );
               },
@@ -183,57 +151,9 @@ class Medicaments extends StatelessWidget {
             ),
             PicosTextArea(
               maxLines: textAreaLines,
-              initialValue: initialAntidiabetics,
+              initialValue: initialMedicalProduct,
               onChanged: (String value) {
-                antidiabeticsCallback(
-                  value,
-                );
-              },
-            ),
-            CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.antiinfectives,
-            ),
-            PicosTextArea(
-              maxLines: textAreaLines,
-              initialValue: initialAntiInfectives,
-              onChanged: (String value) {
-                antiinfectivesCallback(
-                  value,
-                );
-              },
-            ),
-            CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.stereoids,
-            ),
-            PicosTextArea(
-              maxLines: textAreaLines,
-              initialValue: initialSteroids,
-              onChanged: (String value) {
-                steroidsCallback(
-                  value,
-                );
-              },
-            ),
-            CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.inhalatives,
-            ),
-            PicosTextArea(
-              maxLines: textAreaLines,
-              initialValue: initialInhalatives,
-              onChanged: (String value) {
-                inhalativesCallback(
-                  value,
-                );
-              },
-            ),
-            CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.analgesics,
-            ),
-            PicosTextArea(
-              maxLines: textAreaLines,
-              initialValue: initialAnalgesics,
-              onChanged: (String value) {
-                analgesicsCallback(
+                medicalProductCallback(
                   value,
                 );
               },

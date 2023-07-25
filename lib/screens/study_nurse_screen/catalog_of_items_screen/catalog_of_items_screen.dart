@@ -62,7 +62,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
 
   // All values can be accessed here.
   CatalogOfItemsPageStorage? pageStorage;
-  CatalogOfItemsElement? _catalogOfItemsElement;
+  static CatalogOfItemsElement? _catalogOfItemsElement;
   List<AbstractDatabaseObject> _objectsList = <AbstractDatabaseObject>[];
 
   void _nextPageCallback() {
@@ -204,16 +204,12 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
             medicaments: Medicaments(
               patientObjectId: EditPatientScreen.patientObjectId!,
               doctorObjectId: Backend.user.objectId!,
-              plateletAggregation: pageStorage?.plateletAggregation,
-              noak: pageStorage?.noak,
-              thrombosisProphylaxis: pageStorage?.thrombosisProphylaxis,
-              antihypertensives: pageStorage?.antihypertensives,
-              antiarrhythmics: pageStorage?.antiarrhythmics,
-              antidiabetics: pageStorage?.antidiabetics,
-              antiInfectives: pageStorage?.antihypertensives,
-              steroids: pageStorage?.steroids,
-              inhalatives: pageStorage?.inhalatives,
-              analgesics: pageStorage?.analgesics,
+              morning: pageStorage?.morning,
+              noon: pageStorage?.noon,
+              evening: pageStorage?.evening,
+              atNight: pageStorage?.atNight,
+              unit: pageStorage?.unit,
+              medicalProduct: pageStorage?.medicalProduct,
             ),
             movementData: PatientData(
               bodyHeight: EditPatientScreen.bodyHeight!,
@@ -410,16 +406,12 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
               (_objectsList[0] as CatalogOfItemsElement).medicaments.copyWith(
                     patientObjectId: EditPatientScreen.patientObjectId!,
                     doctorObjectId: Backend.user.objectId!,
-                    plateletAggregation: pageStorage?.plateletAggregation,
-                    noak: pageStorage?.noak,
-                    thrombosisProphylaxis: pageStorage?.thrombosisProphylaxis,
-                    antihypertensives: pageStorage?.antihypertensives,
-                    antiarrhythmics: pageStorage?.antiarrhythmics,
-                    antidiabetics: pageStorage?.antidiabetics,
-                    antiInfectives: pageStorage?.antihypertensives,
-                    steroids: pageStorage?.steroids,
-                    inhalatives: pageStorage?.inhalatives,
-                    analgesics: pageStorage?.analgesics,
+                    morning: pageStorage?.morning,
+                    noon: pageStorage?.noon,
+                    evening: pageStorage?.evening,
+                    atNight: pageStorage?.atNight,
+                    unit: pageStorage?.unit,
+                    medicalProduct: pageStorage?.medicalProduct,
                   );
           PatientData movementData =
               (_objectsList[0] as CatalogOfItemsElement).movementData.copyWith(
@@ -496,9 +488,8 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
       builder: (BuildContext context, ObjectsListState state) {
         _objectsList = state.objectsList;
         if (_objectsList.isNotEmpty) {
-          _catalogOfItemsElement = _objectsList[0] as CatalogOfItemsElement;
-        }
-
+          CatalogOfItemsPageStorage.catalogOfItemsElement =
+              _objectsList[0] as CatalogOfItemsElement;
         return PicosScreenFrame(
           title: 'Catalog of items',
           body: PageView(
@@ -517,7 +508,8 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
               onTap: nextPage,
             ),
           ),
-        );
+        );}
+        return const CircularProgressIndicator();
       },
     );
   }
