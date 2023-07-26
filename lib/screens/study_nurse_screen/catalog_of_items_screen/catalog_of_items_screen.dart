@@ -221,7 +221,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
               bodyWeight: pageStorage?.bodyWeight,
               ezpICU: pageStorage?.dischargeTime,
               age: pageStorage?.age,
-              gender: pageStorage?.gender as String?,
+              gender: pageStorage?.gender,
               bmi: pageStorage?.bodyMassIndex,
               idealBMI: pageStorage?.idealBodyWeight,
               dischargeReason: pageStorage?.reasonForDischarge,
@@ -477,17 +477,24 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
         ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
         _objectsList = state.objectsList;
-        if (_objectsList.isNotEmpty) {
-          _catalogOfItemsElement = _objectsList[0] as CatalogOfItemsElement;
 
+        if (state.status == ObjectsListStatus.success) {
           if (pages.isEmpty) {
             buildContext = context;
             _back = AppLocalizations.of(context)!.back;
             _next = AppLocalizations.of(context)!.next;
-            pageStorage =
-                CatalogOfItemsPageStorage(context, _catalogOfItemsElement!);
+            if (_objectsList.isNotEmpty) {
+              _catalogOfItemsElement = _objectsList[0] as CatalogOfItemsElement;
+              pageStorage = CatalogOfItemsPageStorage(
+                context: context,
+                catalogOfItemsElement: _catalogOfItemsElement,
+              );
+            }
+            // When the DB is empty
+            else {
+              pageStorage = CatalogOfItemsPageStorage(context: context);
+            }
             pages = pageStorage!.pages;
-
             nextPageCallback = _nextPageCallback;
           }
           return PicosScreenFrame(
@@ -509,8 +516,9 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
               ),
             ),
           );
+        } else {
+          return const CircularProgressIndicator();
         }
-        return const CircularProgressIndicator();
       },
     );
   }

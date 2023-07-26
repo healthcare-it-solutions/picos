@@ -560,7 +560,9 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
             ezpICU: element['EZP_ICU'] != null
                 ? DateTime.parse(element['EZP_ICU'])
                 : null,
-            age: element['Age'],
+            age: element['Age'] != null
+                ? element['Age']['estimateNumber']
+                : null,
             gender: element['Gender'] ?? '',
             bmi: element['BMI'] != null
                 ? element['BMI']['estimateNumber'].toDouble()

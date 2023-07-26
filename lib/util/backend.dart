@@ -127,6 +127,13 @@ class Backend {
     return _createListResponse(parses);
   }
 
+  /*/// Retrieves all possible objects from a [table].
+  static Future<List<dynamic>> getEntryWithText(
+      String table, String text) async {
+    ParseRelation<ParseObject> parses = ParseObject(table).getRelation(text);
+    return _createListResponse(parses);
+  }
+*/
   /// Calls the [endpoint].
   static Future<List<dynamic>> callEndpoint(
     String endpoint, [
@@ -171,7 +178,7 @@ class Backend {
     if (object.objectId != null) {
       parseObject.objectId = object.objectId;
     }
-    
+
     object.databaseMapping.forEach((String key, dynamic value) {
       parseObject.set(key, value);
     });
