@@ -23,9 +23,9 @@ import '../catalog_of_items_page.dart';
 import '../widgets/catalog_of_items_label.dart';
 
 /// Shows the vital data page.
-class VitalData extends StatelessWidget {
+class VitalDataPage extends StatelessWidget {
   /// Creates VitalData.
-  const VitalData({
+  const VitalDataPage({
     required this.heartRateCallback1,
     required this.sapCallback1,
     required this.mapCallback1,

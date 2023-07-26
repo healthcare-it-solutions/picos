@@ -28,9 +28,9 @@ import '../catalog_of_items_page.dart';
 import '../widgets/catalog_of_items_label.dart';
 
 /// Shows the ICU diagnosis page.
-class IcuDiagnosis extends StatelessWidget {
+class IcuDiagnosisPage extends StatelessWidget {
   /// Creates IcuDiagnosis.
-  const IcuDiagnosis({
+  const IcuDiagnosisPage({
     required this.mainDiagnosisCallback,
     required this.progressDiagnosisCallback,
     required this.coMorbidityCallback,

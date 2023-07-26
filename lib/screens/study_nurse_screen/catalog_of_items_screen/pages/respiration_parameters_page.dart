@@ -23,9 +23,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../widgets/catalog_of_items_label.dart';
 
 /// Shows the Respiration Parameters page for the [CatalogOfItemsScreen].
-class RespirationParameters extends StatelessWidget {
+class RespirationParametersPage extends StatelessWidget {
   /// Respiration Parameters constructor.
-  const RespirationParameters({
+  const RespirationParametersPage({
     required this.tidalVolumenCallback,
     required this.respiratoryRate1Callback,
     required this.respiratoryRate2Callback,

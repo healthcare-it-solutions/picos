@@ -28,9 +28,9 @@ import '../catalog_of_items_page.dart';
 import '../widgets/catalog_of_items_label.dart';
 
 /// Shows the patients' movement data.
-class MovementData extends StatefulWidget {
+class MovementDataPage extends StatefulWidget {
   /// Creates MovementData.
-  const MovementData({
+  const MovementDataPage({
     required this.ageCallback,
     required this.genderCallback,
     required this.bodyWeightCallback,
@@ -223,10 +223,10 @@ class MovementData extends StatefulWidget {
   final double? initialDaysUntilWorkReuptake;
 
   @override
-  State<MovementData> createState() => _MovementDataState();
+  State<MovementDataPage> createState() => _MovementDataPageState();
 }
 
-class _MovementDataState extends State<MovementData> {
+class _MovementDataPageState extends State<MovementDataPage> {
   final bool lungProtectiveVentilation70p = false;
 
   @override

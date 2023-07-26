@@ -24,9 +24,9 @@ import '../../../../widgets/picos_text_area.dart';
 import '../widgets/catalog_of_items_label.dart';
 
 /// Shows the Medicaments page for the [CatalogOfItemsScreen].
-class Medicaments extends StatelessWidget {
+class MedicamentsPage extends StatelessWidget {
   /// Medicaments constructor.
-  const Medicaments({
+  const MedicamentsPage({
     required this.morningCallback,
     required this.noonCallback,
     required this.eveningCallback,

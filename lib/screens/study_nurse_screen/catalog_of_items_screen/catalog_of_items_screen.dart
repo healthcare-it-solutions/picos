@@ -484,7 +484,8 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
             buildContext = context;
             _back = AppLocalizations.of(context)!.back;
             _next = AppLocalizations.of(context)!.next;
-            pageStorage = CatalogOfItemsPageStorage(context);
+            pageStorage =
+                CatalogOfItemsPageStorage(context, _catalogOfItemsElement!);
             pages = pageStorage!.pages;
 
             nextPageCallback = _nextPageCallback;
