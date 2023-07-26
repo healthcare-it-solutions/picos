@@ -594,9 +594,10 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
                 : null,
             icuLengthStay: element['ICU_LengthStay'],
             khLengthStay: element['KH_LengthStay'],
-            wdaKH: element['WdaKH'] != null
-                ? element['WdaKH']['estimateNumber'].toDouble()
+            wdaICU: element['WdaICU'] != null
+                ? element['WdaICU']['estimateNumber'].toDouble()
                 : null,
+            wdaKH: element['WdaKH'],
             weznDisease: element['WEznDisease'] != null
                 ? element['WEznDisease']['estimateNumber'].toDouble()
                 : null,

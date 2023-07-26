@@ -17,7 +17,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:picos/widgets/picos_date_picker.dart';
-import 'package:picos/widgets/picos_form_of_address.dart';
 import 'package:picos/widgets/picos_number_field.dart';
 import 'package:picos/widgets/picos_switch.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -85,7 +84,7 @@ class MovementDataPage extends StatefulWidget {
   final void Function(int? value) ageCallback;
 
   /// Progress diagnosis callback.
-  final void Function(FormOfAddress? value) genderCallback;
+  final void Function(String? value) genderCallback;
 
   /// ICUAW callback.
   final void Function(double? value) bodyWeightCallback;
@@ -148,7 +147,7 @@ class MovementDataPage extends StatefulWidget {
   final void Function(double? value) readmissionRateICUCallback;
 
   /// Hospital Readmission callback.
-  final void Function(double? value) hospitalReadmissionCallback;
+  final void Function(int? value) hospitalReadmissionCallback;
 
   /// Days until Work Reuptake callback.
   final void Function(double? value) daysUntilWorkReuptakeCallback;
@@ -157,7 +156,7 @@ class MovementDataPage extends StatefulWidget {
   final int? initialAge;
 
   /// Starting value for Gender.
-  final FormOfAddress? initialGender;
+  final String? initialGender;
 
   /// Starting value for Body Weight.
   final double? initialBodyWeight;
@@ -187,7 +186,7 @@ class MovementDataPage extends StatefulWidget {
   final DateTime? initialDischargeTime;
 
   /// Starting value for Ventilation Days.
-  final double? initialVentilationDays;
+  final int? initialVentilationDays;
 
   /// Starting value for Admission Time to the Hospital.
   final DateTime? initialAdmissionTimeToTheHospital;
@@ -196,7 +195,7 @@ class MovementDataPage extends StatefulWidget {
   final DateTime? initialDischargeTimeFromTheHospital;
 
   /// Starting value for ICD-10 Codes.
-  final String? initialICD10Codes;
+  final List<String>? initialICD10Codes;
 
   /// Starting value for Patient Location.
   final String? initialPatientLocation;
@@ -208,10 +207,10 @@ class MovementDataPage extends StatefulWidget {
   final double? initialHospitalMortality;
 
   /// Starting value for Hospital Length of Stay.
-  final double? initialHospitaalLengthOfStay;
+  final int? initialHospitaalLengthOfStay;
 
   /// Starting value for ICU Length of Stay.
-  final double? initialICULengthOfStay;
+  final int? initialICULengthOfStay;
 
   /// Starting value for Readmission Rate to the ICU.
   final double? initialReadmissionRateToTheICU;
@@ -256,8 +255,9 @@ class _MovementDataPageState extends State<MovementDataPage> {
             CatalogOfItemsLabel(
               AppLocalizations.of(context)!.gender,
             ),
-            PicosFormOfAddress(
-              callBackFunction: (FormOfAddress value) {
+            PicosTextArea(
+              maxLines: textAreaLines,
+              onChanged: (String value) {
                 widget.genderCallback(value);
               },
             ),
