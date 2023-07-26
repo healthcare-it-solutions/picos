@@ -40,19 +40,19 @@ class RespirationParametersPage extends StatelessWidget {
   }) : super(key: key);
 
   /// Tidal Volume (ml) Callback.
-  final void Function(double?) tidalVolumenCallback;
+  final void Function(double? value) tidalVolumenCallback;
 
   /// Respiratory Rate 1 (/min) Callback.
-  final void Function(double?) respiratoryRate1Callback;
+  final void Function(double? value) respiratoryRate1Callback;
 
   /// Respiratory Rate 2 (/min) Callback.
-  final void Function(double?) respiratoryRate2Callback;
+  final void Function(double? value) respiratoryRate2Callback;
 
   /// Oxygen Saturation 1 (%) Callback.
-  final void Function(double?) oxygenSaturation1Callback;
+  final void Function(double? value) oxygenSaturation1Callback;
 
   /// Oxygen Saturation 2 (%) Callback.
-  final void Function(double?) oxygenSaturation2Callback;
+  final void Function(double? value) oxygenSaturation2Callback;
 
   /// Starting value for tidal volume.
   final double? initialTidalVolume;

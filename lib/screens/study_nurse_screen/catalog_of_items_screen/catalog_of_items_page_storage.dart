@@ -139,14 +139,15 @@ class CatalogOfItemsPageStorage {
       ),
       PicosPageViewItem(
         child: RespirationParametersPage(
-          initialTidalVolume: respiratoryParametersObject1?.tidalVolume,
+          initialTidalVolume:
+              tidalVolume ?? respiratoryParametersObject1?.tidalVolume,
           initialRespiratoryRate1:
-              respiratoryParametersObject1?.respiratoryRate,
+              respiratoryRate1 ?? respiratoryParametersObject1?.respiratoryRate,
           initialRespiratoryRate2:
-              respiratoryParametersObject2?.respiratoryRate,
-          initialOxygenSaturation1:
+              respiratoryRate2 ?? respiratoryParametersObject2?.respiratoryRate,
+          initialOxygenSaturation1: oxygenSaturation1 ??
               respiratoryParametersObject1?.oxygenSaturation,
-          initialOxygenSaturation2:
+          initialOxygenSaturation2: oxygenSaturation2 ??
               respiratoryParametersObject2?.oxygenSaturation,
           tidalVolumenCallback: (double? value) {
             tidalVolume = value;
