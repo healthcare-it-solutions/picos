@@ -8,6 +8,8 @@
     "inTheEvening": "Abends",
     "noon": "Mittags",
     "toTheNight": "Zur Nacht",
+    "unit": "Einheit",
+    "medicalProduct": "Medizinprodukt",
     "addMedication": "Medikament hinzufügen",
     "editMedication": "Medikation bearbeiten",
     "addMedicationInfoPart1": "Bitte geben Sie ",

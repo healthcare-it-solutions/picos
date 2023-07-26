@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/blood_gas_analysis_page.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/icu_diagnosis.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/laboratory_values.dart';
@@ -24,15 +25,18 @@ import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/m
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/respiration_parameters.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/vital_data.dart';
 
-import '../../../models/catalog_of_items_element.dart';
+import '../../../models/abstract_database_object.dart';
+import '../../../state/objects_list_bloc.dart';
 import '../../../widgets/picos_form_of_address.dart';
 import '../../../widgets/picos_page_view_item.dart';
 
 /// Manages the state of the Catalog of items pages.
 class CatalogOfItemsPageStorage {
-
   /// Creates CatalogOfItemsPageStorage.
   CatalogOfItemsPageStorage(BuildContext context) {
+    ObjectsListState currentState = context.read<ObjectsListBloc>().state;
+    List<AbstractDatabaseObject> objectsList = currentState.objectsList;
+
     pages = <PicosPageViewItem>[
       PicosPageViewItem(
         child: IcuDiagnosis(
@@ -90,7 +94,7 @@ class CatalogOfItemsPageStorage {
           heartRateCallback2: (double? value) {
             heartRate2 = value;
           },
-          initialCentralVenousPressure1: centralVenousOxygenSaturation1,
+          initialCentralVenousPressure1: centralVenousPressure1,
           initialCentralVenousPressure2: centralVenousPressure2,
           initialDap1: diastolicArterialPressure1,
           initialDap2: diastolicArterialPressure2,
@@ -394,7 +398,6 @@ class CatalogOfItemsPageStorage {
       ),
     ];
   }
-  static CatalogOfItemsElement? catalogOfItemsElement;
 
   /// If the patient had 24h mechanical ventilation.
   bool mechanicalVentilation24h = false;

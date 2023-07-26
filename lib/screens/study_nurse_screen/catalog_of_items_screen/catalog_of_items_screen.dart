@@ -473,42 +473,42 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
   Widget build(BuildContext context) {
     _theme ??= Theme.of(context).extension<GlobalTheme>()!;
 
-    if (pages.isEmpty) {
-      buildContext = context;
-      _back = AppLocalizations.of(context)!.back;
-      _next = AppLocalizations.of(context)!.next;
-      pageStorage = CatalogOfItemsPageStorage(context);
-      pages = pageStorage!.pages;
-
-      nextPageCallback = _nextPageCallback;
-    }
-
     return BlocBuilder<ObjectsListBloc<BackendCatalogOfItemsApi>,
         ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
         _objectsList = state.objectsList;
         if (_objectsList.isNotEmpty) {
-          CatalogOfItemsPageStorage.catalogOfItemsElement =
-              _objectsList[0] as CatalogOfItemsElement;
-        return PicosScreenFrame(
-          title: 'Catalog of items',
-          body: PageView(
-            controller: controller,
-            children: pages,
-          ),
-          bottomNavigationBar: PicosAddButtonBar(
-            leftButton: PicosInkWellButton(
-              text: _back!,
-              onTap: previousPage,
-              buttonColor1: _theme!.grey3,
-              buttonColor2: _theme!.grey1,
+          _catalogOfItemsElement = _objectsList[0] as CatalogOfItemsElement;
+
+          if (pages.isEmpty) {
+            buildContext = context;
+            _back = AppLocalizations.of(context)!.back;
+            _next = AppLocalizations.of(context)!.next;
+            pageStorage = CatalogOfItemsPageStorage(context);
+            pages = pageStorage!.pages;
+
+            nextPageCallback = _nextPageCallback;
+          }
+          return PicosScreenFrame(
+            title: 'Catalog of items',
+            body: PageView(
+              controller: controller,
+              children: pages,
             ),
-            rightButton: PicosInkWellButton(
-              text: _next!,
-              onTap: nextPage,
+            bottomNavigationBar: PicosAddButtonBar(
+              leftButton: PicosInkWellButton(
+                text: _back!,
+                onTap: previousPage,
+                buttonColor1: _theme!.grey3,
+                buttonColor2: _theme!.grey1,
+              ),
+              rightButton: PicosInkWellButton(
+                text: _next!,
+                onTap: nextPage,
+              ),
             ),
-          ),
-        );}
+          );
+        }
         return const CircularProgressIndicator();
       },
     );

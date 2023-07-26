@@ -16,11 +16,14 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/catalog_of_items_page_storage.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/widgets/picos_switch.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_text_field.dart';
 
+import '../../../../api/backend_catalog_of_items_api.dart';
+import '../../../../models/catalog_of_items_element.dart';
+import '../../../../state/objects_list_bloc.dart';
 import '../catalog_of_items_page.dart';
 import '../widgets/catalog_of_items_label.dart';
 
@@ -73,61 +76,62 @@ class IcuDiagnosis extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String? initialMainDiagnosis1;
-    if (CatalogOfItemsPageStorage.catalogOfItemsElement != null) {
-      initialMainDiagnosis1 = CatalogOfItemsPageStorage
-          .catalogOfItemsElement!.icuDiagnosis.mainDiagnosis;
-    }
-    return CatalogOfItemsPage(
-      title: AppLocalizations.of(context)!.icuDiagnosis,
-      children: <Widget>[
-        Column(
-          children: <Widget>[
-            CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.mainDiagnosis,
-            ),
-            PicosTextField(
-              initialValue: initialMainDiagnosis1 ?? initialMainDiagnosis,
-              onChanged: (String value) {
-                mainDiagnosisCallback(value);
-              },
-            ),
-            CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.progressDiagnosis,
-            ),
-            PicosTextField(
-              initialValue: initialProgressDiagnosis,
-              onChanged: (String value) {
-                progressDiagnosisCallback(value);
-              },
-            ),
-            CatalogOfItemsLabel(AppLocalizations.of(context)!.coMorbidity),
-            PicosTextField(
-              initialValue: initialCoMorbidity,
-              onChanged: (String value) {
-                coMorbidityCallback(value);
-              },
-            ),
-          ],
-        ),
-        PicosSwitch(
-          onChanged: (bool value) {
-            icuawCallback(value);
-          },
-          initialValue: initialIcuaw,
-          title: AppLocalizations.of(context)!.icuaw,
-        ),
-        PicosSwitch(
-          onChanged: (bool value) {
-            picsCallback(value);
-          },
-          initialValue: initialPics,
-          title: AppLocalizations.of(context)!.pics,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+    CatalogOfItemsElement? coiElement;
+
+    return BlocBuilder<ObjectsListBloc<BackendCatalogOfItemsApi>,
+            ObjectsListState>(
+        builder: (BuildContext context, ObjectsListState state) {
+      return CatalogOfItemsPage(
+        title: AppLocalizations.of(context)!.icuDiagnosis,
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              CatalogOfItemsLabel(
+                AppLocalizations.of(context)!.mainDiagnosis,
+              ),
+              PicosTextField(
+                initialValue: initialMainDiagnosis,
+                onChanged: (String value) {
+                  mainDiagnosisCallback(value);
+                },
+              ),
+              CatalogOfItemsLabel(
+                AppLocalizations.of(context)!.progressDiagnosis,
+              ),
+              PicosTextField(
+                initialValue: initialProgressDiagnosis,
+                onChanged: (String value) {
+                  progressDiagnosisCallback(value);
+                },
+              ),
+              CatalogOfItemsLabel(AppLocalizations.of(context)!.coMorbidity),
+              PicosTextField(
+                initialValue: initialCoMorbidity,
+                onChanged: (String value) {
+                  coMorbidityCallback(value);
+                },
+              ),
+            ],
           ),
-        ),
-      ],
-    );
+          PicosSwitch(
+            onChanged: (bool value) {
+              icuawCallback(value);
+            },
+            initialValue: initialIcuaw,
+            title: AppLocalizations.of(context)!.icuaw,
+          ),
+          PicosSwitch(
+            onChanged: (bool value) {
+              picsCallback(value);
+            },
+            initialValue: initialPics,
+            title: AppLocalizations.of(context)!.pics,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+            ),
+          ),
+        ],
+      );
+    });
   }
 }

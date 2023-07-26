@@ -17,9 +17,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/catalog_of_items_page.dart';
-import 'package:picos/widgets/picos_text_area.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../widgets/picos_number_field.dart';
+import '../../../../widgets/picos_text_area.dart';
 import '../widgets/catalog_of_items_label.dart';
 
 /// Shows the Medicaments page for the [CatalogOfItemsScreen].
@@ -89,9 +90,8 @@ class Medicaments extends StatelessWidget {
             CatalogOfItemsLabel(
               AppLocalizations.of(context)!.inTheMorning,
             ),
-            PicosTextArea(
-              maxLines: textAreaLines,
-              initialValue: initialMorning.toString(),
+            PicosNumberField(
+              initialValue: initialMorning?.toString(),
               onChanged: (String value) {
                 morningCallback(
                   double.tryParse(value),
@@ -101,9 +101,8 @@ class Medicaments extends StatelessWidget {
             CatalogOfItemsLabel(
               AppLocalizations.of(context)!.noon,
             ),
-            PicosTextArea(
-              maxLines: textAreaLines,
-              initialValue: initialNoon.toString(),
+            PicosNumberField(
+              initialValue: initialNoon?.toString(),
               onChanged: (String value) {
                 noonCallback(
                   double.tryParse(value),
@@ -113,9 +112,8 @@ class Medicaments extends StatelessWidget {
             CatalogOfItemsLabel(
               AppLocalizations.of(context)!.inTheEvening,
             ),
-            PicosTextArea(
-              maxLines: textAreaLines,
-              initialValue: initialEvening.toString(),
+            PicosNumberField(
+              initialValue: initialEvening?.toString(),
               onChanged: (String value) {
                 eveningCallback(
                   double.tryParse(value),
@@ -125,9 +123,8 @@ class Medicaments extends StatelessWidget {
             CatalogOfItemsLabel(
               AppLocalizations.of(context)!.toTheNight,
             ),
-            PicosTextArea(
-              maxLines: textAreaLines,
-              initialValue: initialAtNight.toString(),
+            PicosNumberField(
+              initialValue: initialAtNight?.toString(),
               onChanged: (String value) {
                 atNightCallback(
                   double.tryParse(value),
@@ -135,7 +132,7 @@ class Medicaments extends StatelessWidget {
               },
             ),
             CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.antiarrythmics,
+              AppLocalizations.of(context)!.unit,
             ),
             PicosTextArea(
               maxLines: textAreaLines,
@@ -147,7 +144,7 @@ class Medicaments extends StatelessWidget {
               },
             ),
             CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.antidiabetics,
+              AppLocalizations.of(context)!.medicalProduct,
             ),
             PicosTextArea(
               maxLines: textAreaLines,

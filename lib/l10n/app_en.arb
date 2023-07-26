@@ -35,6 +35,14 @@
   "@toTheNight": {
     "description": "To the night"
   },
+  "unit": "Unit",
+  "@unit": {
+    "description": "Unit"
+  },
+  "medicalProduct": "Unit",
+  "@medicalProduct": {
+    "description": "Unit"
+  },
   "addMedication": "Add medication",
   "@addMedication": {
     "description": "Add medication"

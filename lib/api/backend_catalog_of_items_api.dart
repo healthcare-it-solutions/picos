@@ -580,7 +580,9 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
                 ? DateTime.parse(element['EZP_ICU'])
                 : null,
             icd10Codes: element['ICD_10_Codes'] != null
-                ? <String>[element['ICD_10_Codes']]
+                ? (element['ICD_10_Codes'] is String
+                    ? <String>[element['ICD_10_Codes']]
+                    : <String>[])
                 : <String>[],
             station: element['Station'] ?? '',
             lbgt70: element['LBgt70'],
