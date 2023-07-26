@@ -253,6 +253,37 @@ class CatalogOfItemsPageStorage {
       ),
       PicosPageViewItem(
         child: LaboratoryValuesPage(
+          initialLeukocyteCount: laborParameters.leukocyteCount,
+          initialLymphocyteCount: laborParameters.lymphocyteCount,
+          initialLymphocytePercentage: laborParameters.lymphocytePercentage,
+          initialPlateletCount: laborParameters.plateletCount,
+          initialcReactiveProteinLevel: laborParameters.cReactiveProteinLevel,
+          initialProcalcitoninLevel: laborParameters.procalcitoninLevel,
+          initialInterleukin: laborParameters.interleukin,
+          initialBloodUreaNitrogen: laborParameters.bloodUreaNitrogen,
+          initialCreatinine: laborParameters.creatinine,
+          initialHeartFailureMarker: laborParameters.heartFailureMarker,
+          initialHeartFailureMarkerNTProBNP:
+              laborParameters.heartFailureMarkerNTProBNP,
+          initialBilirubinTotal: laborParameters.bilirubinTotal,
+          initialHemoglobin: laborParameters.hemoglobin,
+          initialHematocrit: laborParameters.hematocrit,
+          initialAlbumin: laborParameters.albumin,
+          initialGOTASAT: laborParameters.gotASAT,
+          initialGPTALAT: laborParameters.gptALAT,
+          initialTroponin: laborParameters.troponin,
+          initialCreatineKinase: laborParameters.creatineKinase,
+          initialMyocardialInfarctionMarkerCKMB:
+              laborParameters.myocardialInfarctionMarkerCKMB,
+          initialLactateDehydrogenaseLevel:
+              laborParameters.lactateDehydrogenaseLevel,
+          initialAmylaseLevel: laborParameters.amylaseLevel,
+          initialLipaseLevel: laborParameters.lipaseLevel,
+          initialDDimer: laborParameters.dDimer,
+          initialInternationalNormalizedRatio:
+              laborParameters.internationalNormalizedRatio,
+          initialPartialThromboplastinTime:
+              laborParameters.partialThromboplastinTime,
           leukocyteCountCallback: (double? value) {
             leukocyteCount = value;
           },
