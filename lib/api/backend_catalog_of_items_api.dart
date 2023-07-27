@@ -376,6 +376,21 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       for (dynamic element in responseVitalSignsObject) {
         vitalSignsObjectResults.add(
           VitalSignsObject(
+            heartRate: element['HeartRate'] != null
+                ? element['HeartRate']['estimateNumber'].toDouble()
+                : null,
+            systolicArterialPressure: element['SAP'] != null
+                ? element['SAP']['estimateNumber'].toDouble()
+                : null,
+            meanArterialPressure: element['MAP'] != null
+                ? element['MAP']['estimateNumber'].toDouble()
+                : null,
+            diastolicArterialPressure: element['DAP'] != null
+                ? element['DAP']['estimateNumber'].toDouble()
+                : null,
+            centralVenousPressure: element['ZVD'] != null
+                ? element['ZVD']['estimateNumber'].toDouble()
+                : null,
             objectId: element['objectId'],
             createdAt: DateTime.parse(element['createdAt']),
             updatedAt: DateTime.parse(element['updatedAt']),
@@ -400,6 +415,15 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       for (dynamic element in responseRespiratoryParametersObject) {
         respiratoryParametersObjectResults.add(
           RespiratoryParametersObject(
+            tidalVolume: element['VT'] != null
+                ? element['VT']['estimateNumber'].toDouble()
+                : null,
+            respiratoryRate: element['AF'] != null
+                ? element['AF']['estimateNumber'].toDouble()
+                : null,
+            oxygenSaturation: element['SpO2'] != null
+                ? element['SpO2']['estimateNumber'].toDouble()
+                : null,
             objectId: element['objectId'],
             createdAt: DateTime.parse(element['createdAt']),
             updatedAt: DateTime.parse(element['updatedAt']),
@@ -424,6 +448,33 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       for (dynamic element in responseBloodGasAnalysisObject) {
         bloodGasAnalysisObjectResults.add(
           BloodGasAnalysisObject(
+            arterialOxygenSaturation: element['SaO2'] != null
+                ? element['SaO2']['estimateNumber'].toDouble()
+                : null,
+            centralVenousOxygenSaturation: element['SzVO2'] != null
+                ? element['SzVO2']['estimateNumber'].toDouble()
+                : null,
+            partialPressureOfOxygen: element['PaO2_woTemp'] != null
+                ? element['PaO2_woTemp']['estimateNumber'].toDouble()
+                : null,
+            partialPressureOfCarbonDioxide: element['PaCO2_woTemp'] != null
+                ? element['PaCO2_woTemp']['estimateNumber'].toDouble()
+                : null,
+            arterialBaseExcess: element['BE'] != null
+                ? element['BE']['estimateNumber'].toDouble()
+                : null,
+            arterialPH: element['pH'] != null
+                ? element['pH']['estimateNumber'].toDouble()
+                : null,
+            arterialSerumBicarbonateConcentration: element['Bicarbonat'] != null
+                ? element['Bicarbonat']['estimateNumber'].toDouble()
+                : null,
+            arterialLactate: element['Laktat'] != null
+                ? element['Laktat']['estimateNumber'].toDouble()
+                : null,
+            bloodGlucoseLevel: element['BloodSugar'] != null
+                ? element['BloodSugar']['estimateNumber'].toDouble()
+                : null,
             objectId: element['objectId'],
             createdAt: DateTime.parse(element['createdAt']),
             updatedAt: DateTime.parse(element['updatedAt']),
@@ -437,11 +488,11 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
             leukocyteCount: element['Leukozyten'] != null
                 ? element['Leukozyten']['estimateNumber'].toDouble()
                 : null,
-            lymphocyteCount: element['lymphozyten_abs'] != null
-                ? element['lymphozyten_abs']['estimateNumber'].toDouble()
+            lymphocyteCount: element['Lymphozyten_abs'] != null
+                ? element['Lymphozyten_abs']['estimateNumber'].toDouble()
                 : null,
-            lymphocytePercentage: element['lymphozyten_proz'] != null
-                ? element['lymphozyten_proz']['estimateNumber'].toDouble()
+            lymphocytePercentage: element['Lymphozyten_proz'] != null
+                ? element['Lymphozyten_proz']['estimateNumber'].toDouble()
                 : null,
             plateletCount: element['Thrombozyten'] != null
                 ? element['Thrombozyten']['estimateNumber'].toDouble()
