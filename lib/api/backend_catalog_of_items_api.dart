@@ -601,7 +601,9 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       for (dynamic element in responseMovementData) {
         movementDataResults.add(
           PatientData(
-            bodyHeight: element['BodyHeight']['estimateNumber'].toDouble(),
+            bodyHeight: element['BodyHeight'] != null
+                ? element['BodyHeight']['estimateNumber'].toDouble()
+                : null,
             patientID: element['ID'],
             caseNumber: element['CaseNumber'],
             instKey: element['inst_key'],
@@ -614,7 +616,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
             age: element['Age'] != null
                 ? element['Age']['estimateNumber']
                 : null,
-            gender: element['Gender'] ?? '',
+            gender: element['Gender'],
             bmi: element['BMI'] != null
                 ? element['BMI']['estimateNumber'].toDouble()
                 : null,
