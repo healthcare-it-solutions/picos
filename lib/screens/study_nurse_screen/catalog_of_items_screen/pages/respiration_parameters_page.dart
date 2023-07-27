@@ -84,6 +84,7 @@ class RespirationParametersPage extends StatelessWidget {
             ),
             PicosNumberField(
               hint: 'mL',
+              initialValue: initialTidalVolume?.toString(),
               onChanged: (String value) {
                 tidalVolumenCallback(
                   double.tryParse(value),
@@ -114,6 +115,7 @@ class RespirationParametersPage extends StatelessWidget {
                       ),
                       PicosNumberField(
                         hint: percent,
+                        initialValue: initialOxygenSaturation1?.toString(),
                         onChanged: (String value) {
                           oxygenSaturation1Callback(
                             double.tryParse(value),
@@ -131,6 +133,7 @@ class RespirationParametersPage extends StatelessWidget {
                       ),
                       PicosNumberField(
                         hint: percent,
+                        initialValue: initialOxygenSaturation2?.toString(),
                         onChanged: (String value) {
                           oxygenSaturation2Callback(
                             double.tryParse(value),
@@ -150,6 +153,7 @@ class RespirationParametersPage extends StatelessWidget {
                       CatalogOfItemsLabel(AppLocalizations.of(context)!.af),
                       PicosNumberField(
                         hint: min,
+                        initialValue: initialRespiratoryRate1?.toString(),
                         onChanged: (String value) {
                           respiratoryRate1Callback(
                             double.tryParse(value),
@@ -165,6 +169,7 @@ class RespirationParametersPage extends StatelessWidget {
                       CatalogOfItemsLabel(AppLocalizations.of(context)!.af),
                       PicosNumberField(
                         hint: min,
+                        initialValue: initialRespiratoryRate2?.toString(),
                         onChanged: (String value) {
                           respiratoryRate2Callback(
                             double.tryParse(value),
