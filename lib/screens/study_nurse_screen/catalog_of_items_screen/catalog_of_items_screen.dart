@@ -62,7 +62,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
 
   // All values can be accessed here.
   CatalogOfItemsPageStorage? pageStorage;
-  static CatalogOfItemsElement? _catalogOfItemsElement;
+  CatalogOfItemsElement? _catalogOfItemsElement;
   List<AbstractDatabaseObject> _objectsList = <AbstractDatabaseObject>[];
 
   void _nextPageCallback() {

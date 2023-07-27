@@ -17,7 +17,6 @@
 
 import 'dart:async';
 
-import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:picos/api/backend_objects_api.dart';
 import 'package:picos/models/abstract_database_object.dart';
 import 'package:picos/models/blood_gas_analysis_object.dart';
@@ -313,6 +312,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       List<dynamic> responseMovementData =
           await Backend.getAll(PatientData.databaseTable);
 
+      /*
       final QueryBuilder<ParseObject> queryBuilder =
           QueryBuilder<ParseObject>(ParseObject(PatientData.databaseTable));
       String string = queryBuilder.buildQuery();
@@ -331,7 +331,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
 
       //parseQueryBuilder.buildQuery();
       //parseQuery.whereContains('objectId', 'eh3r6yyaGL');
-
+*/
       List<Patient> patientResults = <Patient>[];
       List<ICUDiagnosis> icuDiagnosisResults = <ICUDiagnosis>[];
       List<VitalSigns> vitalSignsResults = <VitalSigns>[];
@@ -682,8 +682,8 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         );
       }
 
-      for (Patient patientObject in patientResults) {
-        String? patientObjectId = patientObject.objectId;
+
+        String? patientObjectId = EditPatientScreen.patientObjectId;
 
         ICUDiagnosis? matchingICUDiagnosis =
             icuDiagnosisResults.firstWhereOrNull(
@@ -766,11 +766,11 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
               laborParameters: matchingLaborParameters,
               medicaments: matchingMedicaments,
               movementData: matchingMovementData,
-              objectId: patientObject.objectId,
+              objectId: patientObjectId,
             ),
           );
         }
-      }
+
 
       return getObjectsStream();
     } catch (e) {
