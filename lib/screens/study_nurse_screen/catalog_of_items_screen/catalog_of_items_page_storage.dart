@@ -415,7 +415,7 @@ class CatalogOfItemsPageStorage {
           initialPatientLocation: movementData?.station,
           initialICUMortality: movementData?.icuMortality,
           initialHospitalMortality: movementData?.khMortality,
-          initialHospitaalLengthOfStay: movementData?.khLengthStay,
+          initialHospitalLengthOfStay: movementData?.khLengthStay,
           initialICULengthOfStay: movementData?.icuLengthStay,
           initialReadmissionRateToTheICU: movementData?.wdaICU,
           initialHospitalReadmission: movementData?.wdaKH,
