@@ -17,6 +17,7 @@
 
 import 'dart:async';
 
+import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:picos/api/backend_objects_api.dart';
 import 'package:picos/models/abstract_database_object.dart';
 import 'package:picos/models/blood_gas_analysis_object.dart';
@@ -28,6 +29,7 @@ import 'package:picos/models/patient_data.dart';
 import 'package:collection/collection.dart';
 import 'package:picos/models/respiratory_parameters_object.dart';
 import 'package:picos/models/vital_signs_object.dart';
+import 'package:picos/screens/study_nurse_screen/menu_screen/edit_patient_screen.dart';
 import 'package:picos/util/backend.dart';
 
 import 'package:picos/models/blood_gas_analysis.dart';
@@ -310,6 +312,25 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
           await Backend.getAll(Medicaments.databaseTable);
       List<dynamic> responseMovementData =
           await Backend.getAll(PatientData.databaseTable);
+
+      final QueryBuilder<ParseObject> queryBuilder =
+          QueryBuilder<ParseObject>(ParseObject(PatientData.databaseTable));
+      String string = queryBuilder.buildQuery();
+      queryBuilder.whereEqualTo('Patient', 'XU18ICQHpY');
+      try {
+        final response = await queryBuilder.query();
+
+        if (response.success && response.results != null) {
+          for (var object in response.results!) {}
+        } else {
+          print('Error: ${response.error?.message}');
+        }
+      } catch (e) {
+        print('Exception: $e');
+      }
+
+      //parseQueryBuilder.buildQuery();
+      //parseQuery.whereContains('objectId', 'eh3r6yyaGL');
 
       List<Patient> patientResults = <Patient>[];
       List<ICUDiagnosis> icuDiagnosisResults = <ICUDiagnosis>[];
@@ -634,11 +655,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
             ezpKH: element['EZP_ICU'] != null
                 ? DateTime.parse(element['EZP_ICU'])
                 : null,
-            icd10Codes: element['ICD_10_Codes'] != null
-                ? (element['ICD_10_Codes'] is String
-                    ? <String>[element['ICD_10_Codes']]
-                    : <String>[])
-                : <String>[],
+            icd10Codes: element['ICD_10_Codes'],
             station: element['Station'] ?? '',
             lbgt70: element['LBgt70'],
             icuMortality: element['ICU_Mortality'] != null

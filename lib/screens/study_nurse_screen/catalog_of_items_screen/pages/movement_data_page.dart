@@ -249,7 +249,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
             ),
             PicosNumberField(
               hint: AppLocalizations.of(context)!.years,
-              initialValue: widget.initialAge.toString(),
+              initialValue: widget.initialAge?.toString(),
               digitsOnly: true,
               onChanged: (String value) {
                 widget.ageCallback(int.tryParse(value));
@@ -270,7 +270,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
             ),
             PicosNumberField(
               hint: kg,
-              initialValue: widget.initialBodyWeight.toString(),
+              initialValue: widget.initialBodyWeight?.toString(),
               onChanged: (String value) {
                 widget.bodyWeightCallback(double.tryParse(value));
               },
@@ -278,7 +278,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
             CatalogOfItemsLabel(AppLocalizations.of(context)!.height),
             PicosNumberField(
               hint: cm,
-              initialValue: widget.initialBodyHeight.toString(),
+              initialValue: widget.initialBodyHeight?.toString(),
               digitsOnly: true,
               onChanged: (String value) {
                 widget.bodyHeightCallback(double.tryParse(value));
@@ -303,7 +303,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
             CatalogOfItemsLabel(AppLocalizations.of(context)!.bmi),
             PicosNumberField(
               hint: kgm2,
-              initialValue: widget.initialBodyMassIndex.toString(),
+              initialValue: widget.initialBodyMassIndex?.toString(),
               onChanged: (String value) {
                 widget.bodyMassIndexCallback(double.tryParse(value));
               },
@@ -313,7 +313,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
             ),
             PicosNumberField(
               hint: kg,
-              initialValue: widget.initialIdealBodyWeight.toString(),
+              initialValue: widget.initialIdealBodyWeight?.toString(),
               onChanged: (String value) {
                 widget.idealBodyWeightCallback(double.tryParse(value));
               },
@@ -354,7 +354,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
               onChanged: (String value) {
                 widget.ventilationDaysICUCallback(int.tryParse(value));
               },
-              initialValue: widget.initialVentilationDays.toString(),
+              initialValue: widget.initialVentilationDays?.toString(),
             ),
             CatalogOfItemsLabel(
               AppLocalizations.of(context)!.admissionTimeHospital,
@@ -377,7 +377,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
             CatalogOfItemsLabel(AppLocalizations.of(context)!.icd10Codes),
             PicosTextField(
               hint: 'ICD-10 Codes',
-              initialValue: widget.initialICD10Codes.toString(),
+              initialValue: widget.initialICD10Codes?.toString(),
               onChanged: (String value) {
                 widget.icd10COdesCallback(value as List<String>?);
               },
@@ -425,7 +425,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
             CatalogOfItemsLabel(AppLocalizations.of(context)!.icuMortality),
             PicosNumberField(
               hint: percent,
-              initialValue: widget.initialICUMortality.toString(),
+              initialValue: widget.initialICUMortality?.toString(),
               onChanged: (String value) {
                 widget.icuMortalityCallback(double.tryParse(value));
               },
@@ -435,7 +435,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
             ),
             PicosNumberField(
               hint: percent,
-              initialValue: widget.initialHospitalMortality.toString(),
+              initialValue: widget.initialHospitalMortality?.toString(),
               onChanged: (String value) {
                 widget.hospitalMortalityCallback(double.tryParse(value));
               },
@@ -445,7 +445,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
             ),
             PicosNumberField(
               hint: AppLocalizations.of(context)!.days,
-              initialValue: widget.initialHospitalLengthOfStay.toString(),
+              initialValue: widget.initialHospitalLengthOfStay?.toString(),
               onChanged: (String value) {
                 widget.hospitalLengthOfStayCallback(int.tryParse(value));
               },
@@ -455,7 +455,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
             ),
             PicosNumberField(
               hint: AppLocalizations.of(context)!.days,
-              initialValue: widget.initialICULengthOfStay.toString(),
+              initialValue: widget.initialICULengthOfStay?.toString(),
               onChanged: (String value) {
                 widget.icuLengthOfStayCallback(int.tryParse(value));
               },
@@ -465,7 +465,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
             ),
             PicosNumberField(
               hint: percent,
-              initialValue: widget.initialReadmissionRateToTheICU.toString(),
+              initialValue: widget.initialReadmissionRateToTheICU?.toString(),
               onChanged: (String value) {
                 widget.readmissionRateICUCallback(double.tryParse(value));
               },
@@ -475,7 +475,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
             ),
             PicosNumberField(
               hint: nYear,
-              initialValue: widget.initialHospitalReadmission.toString(),
+              initialValue: widget.initialHospitalReadmission?.toString(),
               onChanged: (String value) {
                 widget.hospitalReadmissionCallback(int.tryParse(value));
               },
@@ -485,7 +485,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
             ),
             PicosNumberField(
               hint: AppLocalizations.of(context)!.days,
-              initialValue: widget.initialDaysUntilWorkReuptake.toString(),
+              initialValue: widget.initialDaysUntilWorkReuptake?.toString(),
               onChanged: (String value) {
                 widget.daysUntilWorkReuptakeCallback(double.tryParse(value));
               },
