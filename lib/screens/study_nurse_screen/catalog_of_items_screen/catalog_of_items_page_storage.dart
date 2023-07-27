@@ -58,7 +58,7 @@ class CatalogOfItemsPageStorage {
       respiratoryParametersObject1 =
           catalogOfItemsElement.respiratoryParametersObject1;
       respiratoryParametersObject2 =
-          catalogOfItemsElement.respiratoryParametersObject1;
+          catalogOfItemsElement.respiratoryParametersObject2;
       bloodGasAnalysisObject1 = catalogOfItemsElement.bloodGasAnalysisObject1;
       bloodGasAnalysisObject2 = catalogOfItemsElement.bloodGasAnalysisObject2;
       laborParameters = catalogOfItemsElement.laborParameters;
@@ -195,7 +195,7 @@ class CatalogOfItemsPageStorage {
           initialArterialSerumBicarbonateConcentration2:
               bloodGasAnalysisObject2?.arterialSerumBicarbonateConcentration,
           initialArterialLactate1: bloodGasAnalysisObject1?.arterialLactate,
-          initialArterialLacatate2: bloodGasAnalysisObject2?.arterialLactate,
+          initialArterialLactate2: bloodGasAnalysisObject2?.arterialLactate,
           initialBloodGlucoseLevel1: bloodGasAnalysisObject1?.bloodGlucoseLevel,
           initialBloodGlucoseLevel2: bloodGasAnalysisObject2?.bloodGlucoseLevel,
           arterialOxygenSaturationCallback1: (double? value) {

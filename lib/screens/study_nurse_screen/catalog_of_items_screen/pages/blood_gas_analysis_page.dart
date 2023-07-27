@@ -60,7 +60,7 @@ class BloodGasAnalysisPage extends StatelessWidget {
     this.initialArterialSerumBicarbonateConcentration1,
     this.initialArterialSerumBicarbonateConcentration2,
     this.initialArterialLactate1,
-    this.initialArterialLacatate2,
+    this.initialArterialLactate2,
     this.initialBloodGlucoseLevel1,
     this.initialBloodGlucoseLevel2,
   }) : super(key: key);
@@ -165,7 +165,7 @@ class BloodGasAnalysisPage extends StatelessWidget {
   final double? initialArterialLactate1;
 
   /// Starting value for arterial lactate 2.
-  final double? initialArterialLacatate2;
+  final double? initialArterialLactate2;
 
   /// Starting value for blood glucose level 1.
   final String? initialBloodGlucoseLevel1;
@@ -209,6 +209,8 @@ class BloodGasAnalysisPage extends StatelessWidget {
                       ),
                       PicosNumberField(
                         hint: mmHg,
+                        initialValue:
+                            initialPartialPressureOfOxygen1?.toString(),
                         onChanged: (String value) {
                           partialPressureOfOxygenCallback1(
                             double.tryParse(value),
@@ -226,6 +228,8 @@ class BloodGasAnalysisPage extends StatelessWidget {
                       ),
                       PicosNumberField(
                         hint: mmHg,
+                        initialValue:
+                            initialPartialPressureOfOxygen2?.toString(),
                         onChanged: (String value) {
                           partialPressureOfOxygenCallback2(
                             double.tryParse(value),
@@ -247,6 +251,8 @@ class BloodGasAnalysisPage extends StatelessWidget {
                       ),
                       PicosNumberField(
                         hint: mmHg,
+                        initialValue:
+                            initialPartialPressureOfCarbonDioxide1?.toString(),
                         onChanged: (String value) {
                           partialPressureOfCarbonDioxideCallback1(
                             double.tryParse(value),
@@ -264,6 +270,8 @@ class BloodGasAnalysisPage extends StatelessWidget {
                       ),
                       PicosNumberField(
                         hint: mmHg,
+                        initialValue:
+                            initialPartialPressureOfCarbonDioxide2?.toString(),
                         onChanged: (String value) {
                           partialPressureOfCarbonDioxideCallback2(
                             double.tryParse(value),
@@ -285,6 +293,7 @@ class BloodGasAnalysisPage extends StatelessWidget {
                       ),
                       PicosNumberField(
                         hint: '[pH]',
+                        initialValue: initialarterialPH1?.toString(),
                         onChanged: (String value) {
                           arterialPHCallback1(double.tryParse(value));
                         },
@@ -300,6 +309,7 @@ class BloodGasAnalysisPage extends StatelessWidget {
                       ),
                       PicosNumberField(
                         hint: '[pH]',
+                        initialValue: initialarterialPH2?.toString(),
                         onChanged: (String value) {
                           arterialPHCallback2(double.tryParse(value));
                         },
@@ -319,6 +329,8 @@ class BloodGasAnalysisPage extends StatelessWidget {
                       ),
                       PicosNumberField(
                         hint: percent,
+                        initialValue:
+                            initialArterialOxygenSaturation1?.toString(),
                         onChanged: (String value) {
                           arterialOxygenSaturationCallback1(
                             double.tryParse(value),
@@ -336,6 +348,8 @@ class BloodGasAnalysisPage extends StatelessWidget {
                       ),
                       PicosNumberField(
                         hint: percent,
+                        initialValue:
+                            initialArterialOxygenSaturation2?.toString(),
                         onChanged: (String value) {
                           arterialOxygenSaturationCallback2(
                             double.tryParse(value),
@@ -357,6 +371,7 @@ class BloodGasAnalysisPage extends StatelessWidget {
                       ),
                       PicosNumberField(
                         hint: mmoll,
+                        initialValue: initialArterialLactate1?.toString(),
                         onChanged: (String value) {
                           arterialLactateCallback1(
                             double.tryParse(value),
@@ -374,6 +389,7 @@ class BloodGasAnalysisPage extends StatelessWidget {
                       ),
                       PicosNumberField(
                         hint: mmoll,
+                        initialValue: initialArterialLactate2?.toString(),
                         onChanged: (String value) {
                           arterialLactateCallback2(
                             double.tryParse(value),
@@ -395,6 +411,9 @@ class BloodGasAnalysisPage extends StatelessWidget {
                       ),
                       PicosNumberField(
                         hint: mmoll,
+                        initialValue:
+                            initialArterialSerumBicarbonateConcentration1
+                                ?.toString(),
                         onChanged: (String value) {
                           arterialSerumBicarbonateConcentrationCallback1(
                             double.tryParse(value),
@@ -412,6 +431,9 @@ class BloodGasAnalysisPage extends StatelessWidget {
                       ),
                       PicosNumberField(
                         hint: mmoll,
+                        initialValue:
+                            initialArterialSerumBicarbonateConcentration2
+                                ?.toString(),
                         onChanged: (String value) {
                           arterialSerumBicarbonateConcentrationCallback2(
                             double.tryParse(value),
@@ -433,6 +455,8 @@ class BloodGasAnalysisPage extends StatelessWidget {
                       ),
                       PicosNumberField(
                         hint: percent,
+                        initialValue:
+                            initialCentralVenousOxygenSaturation1?.toString(),
                         onChanged: (String value) {
                           centralVenousOxygenSaturationCallback1(
                             double.tryParse(value),
@@ -450,6 +474,8 @@ class BloodGasAnalysisPage extends StatelessWidget {
                       ),
                       PicosNumberField(
                         hint: percent,
+                        initialValue:
+                            initialCentralVenousOxygenSaturation2?.toString(),
                         onChanged: (String value) {
                           centralVenousOxygenSaturationCallback2(
                             double.tryParse(value),
@@ -471,6 +497,7 @@ class BloodGasAnalysisPage extends StatelessWidget {
                       ),
                       PicosNumberField(
                         hint: mmoll,
+                        initialValue: initialarterialBaseExcess1?.toString(),
                         onChanged: (String value) {
                           arterialBaseExcessCallback1(
                             double.tryParse(value),
@@ -488,6 +515,7 @@ class BloodGasAnalysisPage extends StatelessWidget {
                       ),
                       PicosNumberField(
                         hint: mmoll,
+                        initialValue: initialarterialBaseExcess2?.toString(),
                         onChanged: (String value) {
                           arterialBaseExcessCallback2(
                             double.tryParse(value),
@@ -509,6 +537,7 @@ class BloodGasAnalysisPage extends StatelessWidget {
                       ),
                       PicosNumberField(
                         hint: mgdl,
+                        initialValue: initialBloodGlucoseLevel1?.toString(),
                         onChanged: (String value) {
                           bloodGlucoseLevelCallback1(
                             value,
@@ -526,6 +555,7 @@ class BloodGasAnalysisPage extends StatelessWidget {
                       ),
                       PicosNumberField(
                         hint: mgdl,
+                        initialValue: initialBloodGlucoseLevel2?.toString(),
                         onChanged: (String value) {
                           bloodGlucoseLevelCallback2(
                             value,
