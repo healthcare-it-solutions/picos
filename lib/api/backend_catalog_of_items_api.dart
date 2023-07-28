@@ -35,8 +35,6 @@ import 'package:picos/models/blood_gas_analysis.dart';
 import 'package:picos/models/respiratory_parameters.dart';
 import 'package:picos/models/vital_signs.dart';
 
-import '../models/patient.dart';
-
 /// API for calling the corresponding tables for the Catalog of Items.
 class BackendCatalogOfItemsApi extends BackendObjectsApi {
   @override
@@ -289,8 +287,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
   @override
   Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
     try {
-      List<dynamic> responsePatient =
-          await Backend.getAll(Patient.databaseTable);
+      String? patientObjectId = EditPatientScreen.patientObjectId;
       List<dynamic> responseICUDiagnosis =
           await Backend.getAll(ICUDiagnosis.databaseTable);
       List<dynamic> responseVitalSigns =
@@ -311,28 +308,27 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
           await Backend.getAll(Medicaments.databaseTable);
       List<dynamic> responseMovementData =
           await Backend.getAll(PatientData.databaseTable);
-
-      /*
-      final QueryBuilder<ParseObject> queryBuilder =
+/*
+      QueryBuilder<ParseObject> queryBuilder =
           QueryBuilder<ParseObject>(ParseObject(PatientData.databaseTable));
-      String string = queryBuilder.buildQuery();
-      queryBuilder.whereEqualTo('Patient', 'XU18ICQHpY');
+      queryBuilder.whereEqualTo('Patient', patientObjectId);
       try {
-        final response = await queryBuilder.query();
+        ParseResponse response = await queryBuilder.query();
 
         if (response.success && response.results != null) {
-          for (var object in response.results!) {}
+          for (dynamic object in response.results!) {}
         } else {
-          print('Error: ${response.error?.message}');
+          if (kDebugMode) {
+            print('Error: ${response.error?.message}');
+          }
         }
       } catch (e) {
-        print('Exception: $e');
+        if (kDebugMode) {
+          print('Exception: $e');
+        }
       }
-
-      //parseQueryBuilder.buildQuery();
-      //parseQuery.whereContains('objectId', 'eh3r6yyaGL');
 */
-      List<Patient> patientResults = <Patient>[];
+
       List<ICUDiagnosis> icuDiagnosisResults = <ICUDiagnosis>[];
       List<VitalSigns> vitalSignsResults = <VitalSigns>[];
       List<VitalSignsObject> vitalSignsObjectResults = <VitalSignsObject>[];
@@ -346,22 +342,6 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       List<LaborParameters> laborParametersResults = <LaborParameters>[];
       List<Medicaments> medicamentsResults = <Medicaments>[];
       List<PatientData> movementDataResults = <PatientData>[];
-
-      for (dynamic element in responsePatient) {
-        patientResults.add(
-          Patient(
-            firstName: element['Firstname'] ?? '',
-            familyName: element['Lastname'] ?? '',
-            email: element['username'] ?? '',
-            number: element['PhoneNo'] ?? '',
-            address: element['Address'] ?? '',
-            formOfAddress: element['Form'] ?? '',
-            objectId: element['objectId'],
-            createdAt: DateTime.parse(element['createdAt']),
-            updatedAt: DateTime.parse(element['updatedAt']),
-          ),
-        );
-      }
 
       for (dynamic element in responseICUDiagnosis) {
         icuDiagnosisResults.add(
@@ -682,95 +662,87 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         );
       }
 
+      ICUDiagnosis? matchingICUDiagnosis = icuDiagnosisResults.firstWhereOrNull(
+        (ICUDiagnosis icuDiagnosisObject) =>
+            icuDiagnosisObject.patientObjectId == patientObjectId,
+      );
 
-        String? patientObjectId = EditPatientScreen.patientObjectId;
+      VitalSigns? matchingVitalSigns = vitalSignsResults.firstWhereOrNull(
+        (VitalSigns vitalSignsObject) =>
+            vitalSignsObject.patientObjectId == patientObjectId,
+      );
 
-        ICUDiagnosis? matchingICUDiagnosis =
-            icuDiagnosisResults.firstWhereOrNull(
-          (ICUDiagnosis icuDiagnosisObject) =>
-              icuDiagnosisObject.patientObjectId == patientObjectId,
+      RespiratoryParameters? matchingRespiratoryParameters =
+          respiratoryParametersResults.firstWhereOrNull(
+        (RespiratoryParameters respiratoryParametersObject) =>
+            respiratoryParametersObject.patientObjectId == patientObjectId,
+      );
+
+      BloodGasAnalysis? matchingBloodGasAnalysis =
+          bloodGasAnalysisResults.firstWhereOrNull(
+        (BloodGasAnalysis bloodGasAnalysisObject) =>
+            bloodGasAnalysisObject.patientObjectId == patientObjectId,
+      );
+
+      LaborParameters? matchingLaborParameters =
+          laborParametersResults.firstWhereOrNull(
+        (LaborParameters laborParametersObject) =>
+            laborParametersObject.patientObjectId == patientObjectId,
+      );
+      Medicaments? matchingMedicaments = medicamentsResults.firstWhereOrNull(
+        (Medicaments medicamentsObject) =>
+            medicamentsObject.patientObjectId == patientObjectId,
+      );
+
+      PatientData? matchingMovementData = movementDataResults.firstWhereOrNull(
+        (PatientData movementDataObject) =>
+            movementDataObject.patientObjectId == patientObjectId,
+      );
+
+      if (matchingICUDiagnosis != null &&
+          matchingVitalSigns != null &&
+          matchingRespiratoryParameters != null &&
+          matchingBloodGasAnalysis != null &&
+          matchingLaborParameters != null &&
+          matchingMedicaments != null &&
+          matchingMovementData != null) {
+        List<VitalSignsObject> foundObjectsVitalSigns =
+            _findMatchingObjectsVitalSigns(
+          matchingVitalSigns,
+          vitalSignsObjectResults,
         );
 
-        VitalSigns? matchingVitalSigns = vitalSignsResults.firstWhereOrNull(
-          (VitalSigns vitalSignsObject) =>
-              vitalSignsObject.patientObjectId == patientObjectId,
+        List<BloodGasAnalysisObject> foundObjectsBloodGasAnalysis =
+            _findMatchingObjectsBloodGasAnalysis(
+          matchingBloodGasAnalysis,
+          bloodGasAnalysisObjectResults,
         );
 
-        RespiratoryParameters? matchingRespiratoryParameters =
-            respiratoryParametersResults.firstWhereOrNull(
-          (RespiratoryParameters respiratoryParametersObject) =>
-              respiratoryParametersObject.patientObjectId == patientObjectId,
+        List<RespiratoryParametersObject> foundObjectsRespiratoryParameters =
+            _findMatchingObjectsRespiratoryParameters(
+          matchingRespiratoryParameters,
+          respiratoryParametersObjectResults,
         );
 
-        BloodGasAnalysis? matchingBloodGasAnalysis =
-            bloodGasAnalysisResults.firstWhereOrNull(
-          (BloodGasAnalysis bloodGasAnalysisObject) =>
-              bloodGasAnalysisObject.patientObjectId == patientObjectId,
+        objectList.add(
+          CatalogOfItemsElement(
+            icuDiagnosis: matchingICUDiagnosis,
+            vitalSigns: matchingVitalSigns,
+            vitalSignsObject1: foundObjectsVitalSigns[0],
+            vitalSignsObject2: foundObjectsVitalSigns[1],
+            respiratoryParameters: matchingRespiratoryParameters,
+            respiratoryParametersObject1: foundObjectsRespiratoryParameters[0],
+            respiratoryParametersObject2: foundObjectsRespiratoryParameters[1],
+            bloodGasAnalysis: matchingBloodGasAnalysis,
+            bloodGasAnalysisObject1: foundObjectsBloodGasAnalysis[0],
+            bloodGasAnalysisObject2: foundObjectsBloodGasAnalysis[1],
+            laborParameters: matchingLaborParameters,
+            medicaments: matchingMedicaments,
+            movementData: matchingMovementData,
+            objectId: patientObjectId,
+          ),
         );
-
-        LaborParameters? matchingLaborParameters =
-            laborParametersResults.firstWhereOrNull(
-          (LaborParameters laborParametersObject) =>
-              laborParametersObject.patientObjectId == patientObjectId,
-        );
-        Medicaments? matchingMedicaments = medicamentsResults.firstWhereOrNull(
-          (Medicaments medicamentsObject) =>
-              medicamentsObject.patientObjectId == patientObjectId,
-        );
-
-        PatientData? matchingMovementData =
-            movementDataResults.firstWhereOrNull(
-          (PatientData movementDataObject) =>
-              movementDataObject.patientObjectId == patientObjectId,
-        );
-
-        if (matchingICUDiagnosis != null &&
-            matchingVitalSigns != null &&
-            matchingRespiratoryParameters != null &&
-            matchingBloodGasAnalysis != null &&
-            matchingLaborParameters != null &&
-            matchingMedicaments != null &&
-            matchingMovementData != null) {
-          List<VitalSignsObject> foundObjectsVitalSigns =
-              _findMatchingObjectsVitalSigns(
-            matchingVitalSigns,
-            vitalSignsObjectResults,
-          );
-
-          List<BloodGasAnalysisObject> foundObjectsBloodGasAnalysis =
-              _findMatchingObjectsBloodGasAnalysis(
-            matchingBloodGasAnalysis,
-            bloodGasAnalysisObjectResults,
-          );
-
-          List<RespiratoryParametersObject> foundObjectsRespiratoryParameters =
-              _findMatchingObjectsRespiratoryParameters(
-            matchingRespiratoryParameters,
-            respiratoryParametersObjectResults,
-          );
-
-          objectList.add(
-            CatalogOfItemsElement(
-              icuDiagnosis: matchingICUDiagnosis,
-              vitalSigns: matchingVitalSigns,
-              vitalSignsObject1: foundObjectsVitalSigns[0],
-              vitalSignsObject2: foundObjectsVitalSigns[1],
-              respiratoryParameters: matchingRespiratoryParameters,
-              respiratoryParametersObject1:
-                  foundObjectsRespiratoryParameters[0],
-              respiratoryParametersObject2:
-                  foundObjectsRespiratoryParameters[1],
-              bloodGasAnalysis: matchingBloodGasAnalysis,
-              bloodGasAnalysisObject1: foundObjectsBloodGasAnalysis[0],
-              bloodGasAnalysisObject2: foundObjectsBloodGasAnalysis[1],
-              laborParameters: matchingLaborParameters,
-              medicaments: matchingMedicaments,
-              movementData: matchingMovementData,
-              objectId: patientObjectId,
-            ),
-          );
-        }
-
+      }
 
       return getObjectsStream();
     } catch (e) {
