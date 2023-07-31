@@ -35,7 +35,6 @@ import 'package:picos/util/page_view_navigation.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../models/abstract_database_object.dart';
 import '../../../models/labor_parameters.dart';
 import '../../../themes/global_theme.dart';
 import '../../../widgets/picos_add_button_bar.dart';
@@ -63,14 +62,13 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
   // All values can be accessed here.
   CatalogOfItemsPageStorage? pageStorage;
   CatalogOfItemsElement? _catalogOfItemsElement;
-  List<AbstractDatabaseObject> _objectsList = <AbstractDatabaseObject>[];
 
   void _nextPageCallback() {
     int currentPage = page.toInt() + 1;
     CatalogOfItemsElement catalogOfItemsElement;
     if (currentPage == pages.length) {
       try {
-        if (_objectsList.isEmpty) {
+        if (_catalogOfItemsElement == null) {
           VitalSignsObject vitalSignsObject1 = VitalSignsObject(
             heartRate: pageStorage?.heartRate1,
             systolicArterialPressure: pageStorage?.systolicArterialPressure1,
@@ -241,207 +239,177 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
             ),
           );
         } else {
-          ICUDiagnosis icud =
-              (_objectsList[0] as CatalogOfItemsElement).icuDiagnosis.copyWith(
-                    mainDiagnosis: pageStorage?.mainDiagnosis,
-                    progressDiagnosis: pageStorage?.progressDiagnosis,
-                    coMorbidity: pageStorage?.coMorbidity,
-                    intensiveCareUnitAcquiredWeakness:
-                        pageStorage?.intensiveCareUnitAcquiredWeakness,
-                    postIntensiveCareSyndrome:
-                        pageStorage?.postIntensiveCareSyndrome,
-                    doctorObjectId: Backend.user.objectId!,
-                    patientObjectId: EditPatientScreen.patientObjectId!,
-                  );
+          ICUDiagnosis icud = _catalogOfItemsElement!.icuDiagnosis.copyWith(
+            mainDiagnosis: pageStorage?.mainDiagnosis,
+            progressDiagnosis: pageStorage?.progressDiagnosis,
+            coMorbidity: pageStorage?.coMorbidity,
+            intensiveCareUnitAcquiredWeakness:
+                pageStorage?.intensiveCareUnitAcquiredWeakness,
+            postIntensiveCareSyndrome: pageStorage?.postIntensiveCareSyndrome,
+            doctorObjectId: Backend.user.objectId!,
+            patientObjectId: EditPatientScreen.patientObjectId!,
+          );
           VitalSignsObject? vitalSignsObject1 =
-              (_objectsList[0] as CatalogOfItemsElement)
-                  .vitalSignsObject1
-                  .copyWith(
-                    heartRate: pageStorage?.heartRate1,
-                    systolicArterialPressure:
-                        pageStorage?.systolicArterialPressure1,
-                    meanArterialPressure: pageStorage?.meanArterialPressure1,
-                    diastolicArterialPressure:
-                        pageStorage?.diastolicArterialPressure1,
-                    centralVenousPressure: pageStorage?.centralVenousPressure1,
-                  );
+              _catalogOfItemsElement!.vitalSignsObject1.copyWith(
+            heartRate: pageStorage?.heartRate1,
+            systolicArterialPressure: pageStorage?.systolicArterialPressure1,
+            meanArterialPressure: pageStorage?.meanArterialPressure1,
+            diastolicArterialPressure: pageStorage?.diastolicArterialPressure1,
+            centralVenousPressure: pageStorage?.centralVenousPressure1,
+          );
 
           VitalSignsObject? vitalSignsObject2 =
-              (_objectsList[0] as CatalogOfItemsElement)
-                  .vitalSignsObject2
-                  .copyWith(
-                    heartRate: pageStorage?.heartRate2,
-                    systolicArterialPressure:
-                        pageStorage?.systolicArterialPressure2,
-                    meanArterialPressure: pageStorage?.meanArterialPressure2,
-                    diastolicArterialPressure:
-                        pageStorage?.diastolicArterialPressure2,
-                    centralVenousPressure: pageStorage?.centralVenousPressure2,
-                  );
+              _catalogOfItemsElement!.vitalSignsObject2.copyWith(
+            heartRate: pageStorage?.heartRate2,
+            systolicArterialPressure: pageStorage?.systolicArterialPressure2,
+            meanArterialPressure: pageStorage?.meanArterialPressure2,
+            diastolicArterialPressure: pageStorage?.diastolicArterialPressure2,
+            centralVenousPressure: pageStorage?.centralVenousPressure2,
+          );
 
-          VitalSigns vitalSigns =
-              (_objectsList[0] as CatalogOfItemsElement).vitalSigns.copyWith(
-                    doctorObjectId: Backend.user.objectId!,
-                    value1: vitalSignsObject1,
-                    value2: vitalSignsObject2,
-                    patientObjectId: EditPatientScreen.patientObjectId!,
-                  );
+          VitalSigns vitalSigns = _catalogOfItemsElement!.vitalSigns.copyWith(
+            doctorObjectId: Backend.user.objectId!,
+            value1: vitalSignsObject1,
+            value2: vitalSignsObject2,
+            patientObjectId: EditPatientScreen.patientObjectId!,
+          );
 
           RespiratoryParametersObject? respiratoryParametersObject1 =
-              (_objectsList[0] as CatalogOfItemsElement)
-                  .respiratoryParametersObject1
-                  .copyWith(
-                    tidalVolume: pageStorage?.tidalVolume,
-                    respiratoryRate: pageStorage?.respiratoryRate1,
-                    oxygenSaturation: pageStorage?.oxygenSaturation1,
-                  );
+              _catalogOfItemsElement!.respiratoryParametersObject1.copyWith(
+            tidalVolume: pageStorage?.tidalVolume,
+            respiratoryRate: pageStorage?.respiratoryRate1,
+            oxygenSaturation: pageStorage?.oxygenSaturation1,
+          );
 
           RespiratoryParametersObject? respiratoryParametersObject2 =
-              (_objectsList[0] as CatalogOfItemsElement)
-                  .respiratoryParametersObject2
-                  .copyWith(
-                    tidalVolume: pageStorage?.tidalVolume,
-                    respiratoryRate: pageStorage?.respiratoryRate2,
-                    oxygenSaturation: pageStorage?.oxygenSaturation2,
-                  );
+              _catalogOfItemsElement!.respiratoryParametersObject2.copyWith(
+            tidalVolume: pageStorage?.tidalVolume,
+            respiratoryRate: pageStorage?.respiratoryRate2,
+            oxygenSaturation: pageStorage?.oxygenSaturation2,
+          );
 
           RespiratoryParameters respiratoryParameters =
-              (_objectsList[0] as CatalogOfItemsElement)
-                  .respiratoryParameters
-                  .copyWith(
-                    doctorObjectId: Backend.user.objectId!,
-                    value1: respiratoryParametersObject1,
-                    value2: respiratoryParametersObject2,
-                    patientObjectId: EditPatientScreen.patientObjectId!,
-                  );
+              _catalogOfItemsElement!.respiratoryParameters.copyWith(
+            doctorObjectId: Backend.user.objectId!,
+            value1: respiratoryParametersObject1,
+            value2: respiratoryParametersObject2,
+            patientObjectId: EditPatientScreen.patientObjectId!,
+          );
 
-          BloodGasAnalysisObject? bloodGasAnalysisObject1 = (_objectsList[0]
-                  as CatalogOfItemsElement)
-              .bloodGasAnalysisObject1
-              .copyWith(
-                arterialOxygenSaturation:
-                    pageStorage?.arterialOxygenSaturation1,
-                centralVenousOxygenSaturation:
-                    pageStorage?.centralVenousOxygenSaturation1,
-                partialPressureOfOxygen: pageStorage?.partialPressureOfOxygen1,
-                partialPressureOfCarbonDioxide:
-                    pageStorage?.partialPressureOfCarbonDioxide1,
-                arterialBaseExcess: pageStorage?.arterialBaseExcess1,
-                arterialPH: pageStorage?.arterialPH1,
-                arterialSerumBicarbonateConcentration:
-                    pageStorage?.arterialSerumBicarbonateConcentration1,
-                arterialLactate: pageStorage?.arterialLactate1,
-                bloodGlucoseLevel: pageStorage?.bloodGlucoseLevel1,
-              );
+          BloodGasAnalysisObject? bloodGasAnalysisObject1 =
+              _catalogOfItemsElement!.bloodGasAnalysisObject1.copyWith(
+            arterialOxygenSaturation: pageStorage?.arterialOxygenSaturation1,
+            centralVenousOxygenSaturation:
+                pageStorage?.centralVenousOxygenSaturation1,
+            partialPressureOfOxygen: pageStorage?.partialPressureOfOxygen1,
+            partialPressureOfCarbonDioxide:
+                pageStorage?.partialPressureOfCarbonDioxide1,
+            arterialBaseExcess: pageStorage?.arterialBaseExcess1,
+            arterialPH: pageStorage?.arterialPH1,
+            arterialSerumBicarbonateConcentration:
+                pageStorage?.arterialSerumBicarbonateConcentration1,
+            arterialLactate: pageStorage?.arterialLactate1,
+            bloodGlucoseLevel: pageStorage?.bloodGlucoseLevel1,
+          );
 
-          BloodGasAnalysisObject? bloodGasAnalysisObject2 = (_objectsList[0]
-                  as CatalogOfItemsElement)
-              .bloodGasAnalysisObject2
-              .copyWith(
-                arterialOxygenSaturation:
-                    pageStorage?.arterialOxygenSaturation2,
-                centralVenousOxygenSaturation:
-                    pageStorage?.centralVenousOxygenSaturation2,
-                partialPressureOfOxygen: pageStorage?.partialPressureOfOxygen2,
-                partialPressureOfCarbonDioxide:
-                    pageStorage?.partialPressureOfCarbonDioxide2,
-                arterialBaseExcess: pageStorage?.arterialBaseExcess2,
-                arterialPH: pageStorage?.arterialPH2,
-                arterialSerumBicarbonateConcentration:
-                    pageStorage?.arterialSerumBicarbonateConcentration2,
-                arterialLactate: pageStorage?.arterialLactate2,
-                bloodGlucoseLevel: pageStorage?.bloodGlucoseLevel2,
-              );
+          BloodGasAnalysisObject? bloodGasAnalysisObject2 =
+              _catalogOfItemsElement!.bloodGasAnalysisObject2.copyWith(
+            arterialOxygenSaturation: pageStorage?.arterialOxygenSaturation2,
+            centralVenousOxygenSaturation:
+                pageStorage?.centralVenousOxygenSaturation2,
+            partialPressureOfOxygen: pageStorage?.partialPressureOfOxygen2,
+            partialPressureOfCarbonDioxide:
+                pageStorage?.partialPressureOfCarbonDioxide2,
+            arterialBaseExcess: pageStorage?.arterialBaseExcess2,
+            arterialPH: pageStorage?.arterialPH2,
+            arterialSerumBicarbonateConcentration:
+                pageStorage?.arterialSerumBicarbonateConcentration2,
+            arterialLactate: pageStorage?.arterialLactate2,
+            bloodGlucoseLevel: pageStorage?.bloodGlucoseLevel2,
+          );
 
           BloodGasAnalysis bloodGasAnalysis =
-              (_objectsList[0] as CatalogOfItemsElement)
-                  .bloodGasAnalysis
-                  .copyWith(
-                    doctorObjectId: Backend.user.objectId!,
-                    value1: bloodGasAnalysisObject1,
-                    value2: bloodGasAnalysisObject2,
-                    patientObjectId: EditPatientScreen.patientObjectId!,
-                  );
+              _catalogOfItemsElement!.bloodGasAnalysis.copyWith(
+            doctorObjectId: Backend.user.objectId!,
+            value1: bloodGasAnalysisObject1,
+            value2: bloodGasAnalysisObject2,
+            patientObjectId: EditPatientScreen.patientObjectId!,
+          );
 
           LaborParameters laborParameters =
-              (_objectsList[0] as CatalogOfItemsElement)
-                  .laborParameters
-                  .copyWith(
-                    patientObjectId: EditPatientScreen.patientObjectId!,
-                    doctorObjectId: Backend.user.objectId!,
-                    leukocyteCount: pageStorage?.leukocyteCount,
-                    lymphocyteCount: pageStorage?.lymphocyteCount,
-                    lymphocytePercentage: pageStorage?.lymphocytePercentage,
-                    plateletCount: pageStorage?.plateletCount,
-                    cReactiveProteinLevel: pageStorage?.cReactiveProteinLevel,
-                    procalcitoninLevel: pageStorage?.procalcitoninLevel,
-                    interleukin: pageStorage?.interleukin,
-                    bloodUreaNitrogen: pageStorage?.bloodUreaNitrogen,
-                    creatinine: pageStorage?.creatinine,
-                    heartFailureMarker: pageStorage?.heartFailureMarker,
-                    heartFailureMarkerNTProBNP:
-                        pageStorage?.heartFailureMarkerNTProBNP,
-                    bilirubinTotal: pageStorage?.bilirubinTotal,
-                    hemoglobin: pageStorage?.hemoglobin,
-                    hematocrit: pageStorage?.hematocrit,
-                    albumin: pageStorage?.albumin,
-                    gotASAT: pageStorage?.gotASAT,
-                    gptALAT: pageStorage?.gptALAT,
-                    troponin: pageStorage?.troponin,
-                    creatineKinase: pageStorage?.creatineKinase,
-                    myocardialInfarctionMarkerCKMB:
-                        pageStorage?.myocardialInfarctionMarkerCKMB,
-                    lactateDehydrogenaseLevel:
-                        pageStorage?.lactateDehydrogenaseLevel,
-                    amylaseLevel: pageStorage?.amylaseLevel,
-                    lipaseLevel: pageStorage?.lipaseLevel,
-                    dDimer: pageStorage?.dDimer,
-                    internationalNormalizedRatio:
-                        pageStorage?.internationalNormalizedRatio,
-                    partialThromboplastinTime:
-                        pageStorage?.partialThromboplastinTime,
-                  );
+              _catalogOfItemsElement!.laborParameters.copyWith(
+            patientObjectId: EditPatientScreen.patientObjectId!,
+            doctorObjectId: Backend.user.objectId!,
+            leukocyteCount: pageStorage?.leukocyteCount,
+            lymphocyteCount: pageStorage?.lymphocyteCount,
+            lymphocytePercentage: pageStorage?.lymphocytePercentage,
+            plateletCount: pageStorage?.plateletCount,
+            cReactiveProteinLevel: pageStorage?.cReactiveProteinLevel,
+            procalcitoninLevel: pageStorage?.procalcitoninLevel,
+            interleukin: pageStorage?.interleukin,
+            bloodUreaNitrogen: pageStorage?.bloodUreaNitrogen,
+            creatinine: pageStorage?.creatinine,
+            heartFailureMarker: pageStorage?.heartFailureMarker,
+            heartFailureMarkerNTProBNP: pageStorage?.heartFailureMarkerNTProBNP,
+            bilirubinTotal: pageStorage?.bilirubinTotal,
+            hemoglobin: pageStorage?.hemoglobin,
+            hematocrit: pageStorage?.hematocrit,
+            albumin: pageStorage?.albumin,
+            gotASAT: pageStorage?.gotASAT,
+            gptALAT: pageStorage?.gptALAT,
+            troponin: pageStorage?.troponin,
+            creatineKinase: pageStorage?.creatineKinase,
+            myocardialInfarctionMarkerCKMB:
+                pageStorage?.myocardialInfarctionMarkerCKMB,
+            lactateDehydrogenaseLevel: pageStorage?.lactateDehydrogenaseLevel,
+            amylaseLevel: pageStorage?.amylaseLevel,
+            lipaseLevel: pageStorage?.lipaseLevel,
+            dDimer: pageStorage?.dDimer,
+            internationalNormalizedRatio:
+                pageStorage?.internationalNormalizedRatio,
+            partialThromboplastinTime: pageStorage?.partialThromboplastinTime,
+          );
 
           Medicaments medicaments =
-              (_objectsList[0] as CatalogOfItemsElement).medicaments.copyWith(
-                    patientObjectId: EditPatientScreen.patientObjectId!,
-                    doctorObjectId: Backend.user.objectId!,
-                    morning: pageStorage?.morning,
-                    noon: pageStorage?.noon,
-                    evening: pageStorage?.evening,
-                    atNight: pageStorage?.atNight,
-                    unit: pageStorage?.unit,
-                    medicalProduct: pageStorage?.medicalProduct,
-                  );
+              _catalogOfItemsElement!.medicaments.copyWith(
+            patientObjectId: EditPatientScreen.patientObjectId!,
+            doctorObjectId: Backend.user.objectId!,
+            morning: pageStorage?.morning,
+            noon: pageStorage?.noon,
+            evening: pageStorage?.evening,
+            atNight: pageStorage?.atNight,
+            unit: pageStorage?.unit,
+            medicalProduct: pageStorage?.medicalProduct,
+          );
           PatientData movementData =
-              (_objectsList[0] as CatalogOfItemsElement).movementData.copyWith(
-                    bodyHeight: EditPatientScreen.bodyHeight!,
-                    patientID: EditPatientScreen.patientID!,
-                    caseNumber: EditPatientScreen.caseNumber!,
-                    instKey: EditPatientScreen.instituteKey!,
-                    patientObjectId: EditPatientScreen.patientObjectId!,
-                    doctorObjectId: Backend.user.objectId!,
-                    bodyWeight: pageStorage?.bodyWeight,
-                    ezpICU: pageStorage?.dischargeTime,
-                    age: pageStorage?.age,
-                    gender: pageStorage?.gender.toString(),
-                    bmi: pageStorage?.bodyMassIndex,
-                    idealBMI: pageStorage?.idealBodyWeight,
-                    dischargeReason: pageStorage?.reasonForDischarge,
-                    azpICU: pageStorage?.admissionTime,
-                    ventilationDays: pageStorage?.ventilationDays,
-                    azpKH: pageStorage?.admissionTimeToTheHospital,
-                    ezpKH: pageStorage?.dischargeTimeFromTheHospital,
-                    icd10Codes: pageStorage?.icd10Codes,
-                    station: pageStorage?.patientLocation,
-                    lbgt70: pageStorage?.lungProtectiveVentilation70,
-                    icuMortality: pageStorage?.icuMortality,
-                    khMortality: pageStorage?.hospitalMortality,
-                    icuLengthStay: pageStorage?.icuLengthOfStay,
-                    khLengthStay: pageStorage?.hospitalLengthOfStay,
-                    wdaKH: pageStorage?.hospitalReadmission,
-                    weznDisease: pageStorage?.daysUntilWorkReuptake,
-                  );
+              _catalogOfItemsElement!.movementData.copyWith(
+            bodyHeight: EditPatientScreen.bodyHeight!,
+            patientID: EditPatientScreen.patientID!,
+            caseNumber: EditPatientScreen.caseNumber!,
+            instKey: EditPatientScreen.instituteKey!,
+            patientObjectId: EditPatientScreen.patientObjectId!,
+            doctorObjectId: Backend.user.objectId!,
+            bodyWeight: pageStorage?.bodyWeight,
+            ezpICU: pageStorage?.dischargeTime,
+            age: pageStorage?.age,
+            gender: pageStorage?.gender.toString(),
+            bmi: pageStorage?.bodyMassIndex,
+            idealBMI: pageStorage?.idealBodyWeight,
+            dischargeReason: pageStorage?.reasonForDischarge,
+            azpICU: pageStorage?.admissionTime,
+            ventilationDays: pageStorage?.ventilationDays,
+            azpKH: pageStorage?.admissionTimeToTheHospital,
+            ezpKH: pageStorage?.dischargeTimeFromTheHospital,
+            icd10Codes: pageStorage?.icd10Codes,
+            station: pageStorage?.patientLocation,
+            lbgt70: pageStorage?.lungProtectiveVentilation70,
+            icuMortality: pageStorage?.icuMortality,
+            khMortality: pageStorage?.hospitalMortality,
+            icuLengthStay: pageStorage?.icuLengthOfStay,
+            khLengthStay: pageStorage?.hospitalLengthOfStay,
+            wdaKH: pageStorage?.hospitalReadmission,
+            weznDisease: pageStorage?.daysUntilWorkReuptake,
+          );
 
           catalogOfItemsElement = _catalogOfItemsElement!.copyWith(
             icuDiagnosis: icud,
@@ -469,6 +437,17 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
     }
   }
 
+  Future<List<CatalogOfItemsElement>> fetchListData() async {
+    CatalogOfItemsElement? catalogOfItemsElement =
+        await BackendCatalogOfItemsApi.getObject();
+    List<CatalogOfItemsElement> results = <CatalogOfItemsElement>[];
+    if (catalogOfItemsElement != null) {
+      results.add(catalogOfItemsElement);
+    }
+
+    return results;
+  }
+
   @override
   Widget build(BuildContext context) {
     _theme ??= Theme.of(context).extension<GlobalTheme>()!;
@@ -476,49 +455,57 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
     return BlocBuilder<ObjectsListBloc<BackendCatalogOfItemsApi>,
         ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
-        _objectsList = state.objectsList;
+        return FutureBuilder<List<CatalogOfItemsElement>>(
+          future: fetchListData(),
+          builder: (
+            BuildContext context,
+            AsyncSnapshot<List<CatalogOfItemsElement>> snapshot,
+          ) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              buildContext = context;
+              _back = AppLocalizations.of(context)!.back;
+              _next = AppLocalizations.of(context)!.next;
+              if (snapshot.data!.isNotEmpty) {
+                _catalogOfItemsElement =
+                    snapshot.data?[0] as CatalogOfItemsElement;
+                pageStorage = CatalogOfItemsPageStorage(
+                  context: context,
+                  catalogOfItemsElement: _catalogOfItemsElement,
+                );
+              }
+              // When the DB is empty
+              else {
+                pageStorage = CatalogOfItemsPageStorage(context: context);
+              }
+              pages = pageStorage!.pages;
+              nextPageCallback = _nextPageCallback;
 
-        if (state.status == ObjectsListStatus.success) {
-          if (pages.isEmpty) {
-            buildContext = context;
-            _back = AppLocalizations.of(context)!.back;
-            _next = AppLocalizations.of(context)!.next;
-            if (_objectsList.isNotEmpty) {
-              _catalogOfItemsElement = _objectsList[0] as CatalogOfItemsElement;
-              pageStorage = CatalogOfItemsPageStorage(
-                context: context,
-                catalogOfItemsElement: _catalogOfItemsElement,
+              return PicosScreenFrame(
+                title: 'Catalog of items',
+                body: PageView(
+                  controller: controller,
+                  children: pages,
+                ),
+                bottomNavigationBar: PicosAddButtonBar(
+                  leftButton: PicosInkWellButton(
+                    text: _back!,
+                    onTap: previousPage,
+                    buttonColor1: _theme!.grey3,
+                    buttonColor2: _theme!.grey1,
+                  ),
+                  rightButton: PicosInkWellButton(
+                    text: _next!,
+                    onTap: nextPage,
+                  ),
+                ),
               );
             }
-            // When the DB is empty
-            else {
-              pageStorage = CatalogOfItemsPageStorage(context: context);
-            }
-            pages = pageStorage!.pages;
-            nextPageCallback = _nextPageCallback;
-          }
-          return PicosScreenFrame(
-            title: 'Catalog of items',
-            body: PageView(
-              controller: controller,
-              children: pages,
-            ),
-            bottomNavigationBar: PicosAddButtonBar(
-              leftButton: PicosInkWellButton(
-                text: _back!,
-                onTap: previousPage,
-                buttonColor1: _theme!.grey3,
-                buttonColor2: _theme!.grey1,
-              ),
-              rightButton: PicosInkWellButton(
-                text: _next!,
-                onTap: nextPage,
-              ),
-            ),
-          );
-        } else {
-          return const CircularProgressIndicator();
-        }
+          },
+        );
       },
     );
   }

@@ -127,6 +127,19 @@ class Backend {
     return _createListResponse(parses);
   }
 
+  /// Retrieves one possible object from a [table].
+  static Future<dynamic> getEntry(
+    String table,
+    String column,
+    String row,
+  ) async {
+    QueryBuilder<ParseObject> queryBuilder =
+        QueryBuilder<ParseObject>(ParseObject(table));
+    queryBuilder.whereEqualTo(column, row);
+    ParseResponse response = await queryBuilder.query();
+    return response;
+  }
+
   /// Calls the [endpoint].
   static Future<List<dynamic>> callEndpoint(
     String endpoint, [

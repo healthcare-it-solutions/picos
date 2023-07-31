@@ -260,7 +260,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
             ),
             PicosTextArea(
               maxLines: textAreaLines,
-              initialValue: widget.initialGender,
+              initialValue: widget.initialGender?.toString(),
               onChanged: (String value) {
                 widget.genderCallback(value);
               },

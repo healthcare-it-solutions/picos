@@ -175,6 +175,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
           _patientsListElement!.patientData.caseNumber;
       EditPatientScreen.instituteKey =
           _patientsListElement!.patientData.instKey;
+
     }
 
     return BlocBuilder<ObjectsListBloc<BackendPatientsListApi>,
