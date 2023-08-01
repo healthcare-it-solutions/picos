@@ -50,10 +50,10 @@ class IcuDiagnosisPage extends StatelessWidget {
   final void Function(String? value) coMorbidityCallback;
 
   /// PICS callback.
-  final void Function(bool value) icuawCallback;
+  final void Function(bool? value) icuawCallback;
 
   /// Co-morbidity callback.
-  final void Function(bool value) picsCallback;
+  final void Function(bool? value) picsCallback;
 
   /// Starting value for main diagnosis.
   final String? initialMainDiagnosis;

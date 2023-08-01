@@ -445,7 +445,7 @@ class LaboratoryValuesPage extends StatelessWidget {
               hint: ul,
               initialValue: initialAmylaseLevel?.toString(),
               onChanged: (String value) {
-                hematocritCallback(double.tryParse(value));
+                amylaseLevelCallback(double.tryParse(value));
               },
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.lipaseLevel),

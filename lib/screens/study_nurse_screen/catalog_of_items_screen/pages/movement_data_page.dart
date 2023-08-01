@@ -47,8 +47,8 @@ class MovementDataPage extends StatefulWidget {
     required this.icd10COdesCallback,
     required this.patientLocationCallback,
     required this.lungProtectiveVentilationGt70pCallback,
-    required this.icuMortalityCallback,
-    required this.hospitalMortalityCallback,
+    //required this.icuMortalityCallback,
+    //required this.hospitalMortalityCallback,
     required this.hospitalLengthOfStayCallback,
     required this.icuLengthOfStayCallback,
     required this.readmissionRateICUCallback,
@@ -132,11 +132,11 @@ class MovementDataPage extends StatefulWidget {
   /// Lung Protective Ventilation > 70 % callback.
   final void Function(bool? value) lungProtectiveVentilationGt70pCallback;
 
-  /// ICU Mortality callback.
-  final void Function(double? value) icuMortalityCallback;
-
-  /// Hospital Mortality callback.
-  final void Function(double? value) hospitalMortalityCallback;
+ // /// ICU Mortality callback.
+ // final void Function(double? value) icuMortalityCallback;
+//
+ // /// Hospital Mortality callback.
+ // final void Function(double? value) hospitalMortalityCallback;
 
   /// Hospital Length of Stay Callback.
   final void Function(int? value) hospitalLengthOfStayCallback;
@@ -379,7 +379,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
               hint: 'ICD-10 Codes',
               initialValue: widget.initialICD10Codes?.toString(),
               onChanged: (String value) {
-                widget.icd10COdesCallback(value as List<String>?);
+                widget.icd10COdesCallback(value as List<String>);
               },
             ),
             CatalogOfItemsLabel(
@@ -407,14 +407,8 @@ class _MovementDataPageState extends State<MovementDataPage> {
             Expanded(
               child: PicosSwitch(
                 initialValue: widget.initialLungProtectiveVentilation70p,
-                onChanged: (bool value) {
-                  setState(
-                    () {
-                      widget.lungProtectiveVentilationGt70pCallback(
-                        value,
-                      );
-                    },
-                  );
+                onChanged: (bool? value) {
+                  widget.lungProtectiveVentilationGt70pCallback(value);
                 },
               ),
             ),
@@ -422,24 +416,24 @@ class _MovementDataPageState extends State<MovementDataPage> {
         ),
         Column(
           children: <Widget>[
-            CatalogOfItemsLabel(AppLocalizations.of(context)!.icuMortality),
-            PicosNumberField(
-              hint: percent,
-              initialValue: widget.initialICUMortality?.toString(),
-              onChanged: (String value) {
-                widget.icuMortalityCallback(double.tryParse(value));
-              },
-            ),
-            CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.hospitalMortality,
-            ),
-            PicosNumberField(
-              hint: percent,
-              initialValue: widget.initialHospitalMortality?.toString(),
-              onChanged: (String value) {
-                widget.hospitalMortalityCallback(double.tryParse(value));
-              },
-            ),
+            //CatalogOfItemsLabel(AppLocalizations.of(context)!.icuMortality),
+            //PicosNumberField(
+            //  hint: percent,
+            //  initialValue: widget.initialICUMortality?.toString(),
+            //  onChanged: (String value) {
+            //    widget.icuMortalityCallback(double.tryParse(value));
+            //  },
+            //),
+            //CatalogOfItemsLabel(
+            //  AppLocalizations.of(context)!.hospitalMortality,
+            //),
+            //PicosNumberField(
+            //  hint: percent,
+            //  initialValue: widget.initialHospitalMortality?.toString(),
+            //  onChanged: (String value) {
+            //    widget.hospitalMortalityCallback(double.tryParse(value));
+            //  },
+            //),
             CatalogOfItemsLabel(
               AppLocalizations.of(context)!.hospitalLengthOfStay,
             ),

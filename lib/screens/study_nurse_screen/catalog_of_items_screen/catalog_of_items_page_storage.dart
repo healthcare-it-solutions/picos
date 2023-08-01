@@ -83,10 +83,10 @@ class CatalogOfItemsPageStorage {
           coMorbidityCallback: (String? value) {
             coMorbidity = value;
           },
-          icuawCallback: (bool value) {
+          icuawCallback: (bool? value) {
             intensiveCareUnitAcquiredWeakness = value;
           },
-          picsCallback: (bool value) {
+          picsCallback: (bool? value) {
             postIntensiveCareSyndrome = value;
           },
         ),
@@ -246,10 +246,10 @@ class CatalogOfItemsPageStorage {
           arterialLactateCallback2: (double? value) {
             arterialLactate2 = value;
           },
-          bloodGlucoseLevelCallback1: (String? value) {
+          bloodGlucoseLevelCallback1: (double? value) {
             bloodGlucoseLevel1 = value;
           },
-          bloodGlucoseLevelCallback2: (String? value) {
+          bloodGlucoseLevelCallback2: (double? value) {
             bloodGlucoseLevel2 = value;
           },
         ),
@@ -413,13 +413,14 @@ class CatalogOfItemsPageStorage {
           initialDischargeTimeFromTheHospital: movementData?.ezpKH,
           initialICD10Codes: movementData?.icd10Codes,
           initialPatientLocation: movementData?.station,
-          initialICUMortality: movementData?.icuMortality,
-          initialHospitalMortality: movementData?.khMortality,
+          //initialICUMortality: movementData?.icuMortality,
+          //initialHospitalMortality: movementData?.khMortality,
           initialHospitalLengthOfStay: movementData?.khLengthStay,
           initialICULengthOfStay: movementData?.icuLengthStay,
           initialReadmissionRateToTheICU: movementData?.wdaICU,
           initialHospitalReadmission: movementData?.wdaKH,
           initialDaysUntilWorkReuptake: movementData?.weznDisease,
+          initialLungProtectiveVentilation70p: movementData?.lbgt70,
           ageCallback: (int? value) {
             age = value;
           },
@@ -469,14 +470,14 @@ class CatalogOfItemsPageStorage {
             patientLocation = value;
           },
           lungProtectiveVentilationGt70pCallback: (bool? value) {
-            lungProtectiveVentilation70 = value!;
+            lungProtectiveVentilation70 = value;
           },
-          icuMortalityCallback: (double? value) {
-            icuMortality = value;
-          },
-          hospitalMortalityCallback: (double? value) {
-            hospitalMortality = value;
-          },
+          //icuMortalityCallback: (double? value) {
+          //  icuMortality = value;
+          //},
+          //hospitalMortalityCallback: (double? value) {
+          //  hospitalMortality = value;
+          //},
           hospitalLengthOfStayCallback: (int? value) {
             hospitalLengthOfStay = value;
           },
@@ -516,10 +517,10 @@ class CatalogOfItemsPageStorage {
   String? coMorbidity;
 
   /// If the patient has ICUAW.
-  bool intensiveCareUnitAcquiredWeakness = false;
+  bool? intensiveCareUnitAcquiredWeakness;
 
   /// If the patient has PICS.
-  bool postIntensiveCareSyndrome = false;
+  bool? postIntensiveCareSyndrome;
 
   /// Last heart rate.
   double? heartRate1;
@@ -574,8 +575,8 @@ class CatalogOfItemsPageStorage {
   double? arterialSerumBicarbonateConcentration2;
   double? arterialLactate1;
   double? arterialLactate2;
-  String? bloodGlucoseLevel1;
-  String? bloodGlucoseLevel2;
+  double? bloodGlucoseLevel1;
+  double? bloodGlucoseLevel2;
 
   double? leukocyteCount;
   double? lymphocyteCount;
@@ -627,7 +628,7 @@ class CatalogOfItemsPageStorage {
   DateTime? dischargeTimeFromTheHospital;
   List<String>? icd10Codes;
   String? patientLocation;
-  bool lungProtectiveVentilation70 = false;
+  bool? lungProtectiveVentilation70;
   double? icuMortality;
   double? hospitalMortality;
   int? hospitalLengthOfStay;
