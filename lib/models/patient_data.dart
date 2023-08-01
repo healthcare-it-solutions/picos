@@ -21,12 +21,12 @@ import 'package:picos/models/abstract_database_object.dart';
 class PatientData extends AbstractDatabaseObject {
   /// Creates a patient data object.
   const PatientData({
-    required this.bodyHeight,
-    required this.patientID,
-    required this.caseNumber,
-    required this.instKey,
-    required this.patientObjectId,
-    required this.doctorObjectId,
+    required this.patientObjectId, 
+    required this.doctorObjectId, 
+    this.bodyHeight,
+    this.patientID,
+    this.caseNumber,
+    this.instKey,
     this.bodyWeight,
     this.ezpICU,
     this.age,
@@ -60,7 +60,7 @@ class PatientData extends AbstractDatabaseObject {
   final String? gender;
 
   /// denotes the body height.
-  final double bodyHeight;
+  final double? bodyHeight;
 
   /// denotes the body weight.
   final double? bodyWeight;
@@ -72,10 +72,10 @@ class PatientData extends AbstractDatabaseObject {
   final double? idealBMI;
 
   /// denotes the patient ID.
-  final String patientID;
+  final String? patientID;
 
   /// denotes the case number.
-  final String caseNumber;
+  final String? caseNumber;
 
   /// denotes the discharge reason.
   final String? dischargeReason;
@@ -126,7 +126,7 @@ class PatientData extends AbstractDatabaseObject {
   final double? weznDisease;
 
   /// denotes the institute key.
-  final String instKey;
+  final String? instKey;
 
   /// denotes the doctor's object ID.
   final String doctorObjectId;
@@ -212,10 +212,6 @@ class PatientData extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-        bodyHeight,
-        patientID,
-        caseNumber,
-        instKey,
         patientObjectId,
         doctorObjectId
       ];

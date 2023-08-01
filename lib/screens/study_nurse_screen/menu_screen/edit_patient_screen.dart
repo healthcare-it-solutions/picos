@@ -162,10 +162,10 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
       _therapy = _patientsListElement!.patientProfile.therapyEnabled;
       _doctorsVisit = _patientsListElement!.patientProfile.doctorsVisitEnabled;
 
-      _bodyHeight = _patientsListElement!.patientData.bodyHeight;
-      _patientID = _patientsListElement!.patientData.patientID;
-      _caseNumber = _patientsListElement!.patientData.caseNumber;
-      _instituteKey = _patientsListElement!.patientData.instKey;
+      _bodyHeight = _patientsListElement!.patientData.bodyHeight!;
+      _patientID = _patientsListElement!.patientData.patientID!;
+      _caseNumber = _patientsListElement!.patientData.caseNumber!;
+      _instituteKey = _patientsListElement!.patientData.instKey!;
       EditPatientScreen.patientObjectId =
           _patientsListElement!.patient.objectId;
       EditPatientScreen.bodyHeight =
