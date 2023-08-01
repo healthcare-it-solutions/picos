@@ -53,31 +53,31 @@ class CatalogOfItemsElement extends AbstractDatabaseObject {
   /// The database table the objects are stored in.
   static const String databaseTable = '';
 
-  final ICUDiagnosis icuDiagnosis;
+  final ICUDiagnosis? icuDiagnosis;
 
-  final VitalSignsObject vitalSignsObject1;
+  final VitalSignsObject? vitalSignsObject1;
 
-  final VitalSignsObject vitalSignsObject2;
+  final VitalSignsObject? vitalSignsObject2;
 
-  final VitalSigns vitalSigns;
+  final VitalSigns? vitalSigns;
 
-  final RespiratoryParametersObject respiratoryParametersObject1;
+  final RespiratoryParametersObject? respiratoryParametersObject1;
 
-  final RespiratoryParametersObject respiratoryParametersObject2;
+  final RespiratoryParametersObject? respiratoryParametersObject2;
 
-  final RespiratoryParameters respiratoryParameters;
+  final RespiratoryParameters? respiratoryParameters;
 
-  final BloodGasAnalysisObject bloodGasAnalysisObject1;
+  final BloodGasAnalysisObject? bloodGasAnalysisObject1;
 
-  final BloodGasAnalysisObject bloodGasAnalysisObject2;
+  final BloodGasAnalysisObject? bloodGasAnalysisObject2;
 
-  final BloodGasAnalysis bloodGasAnalysis;
+  final BloodGasAnalysis? bloodGasAnalysis;
 
-  final LaborParameters laborParameters;
+  final LaborParameters? laborParameters;
 
-  final Medicaments medicaments;
+  final Medicaments? medicaments;
 
-  final PatientData movementData;
+  final PatientData? movementData;
 
   @override
   CatalogOfItemsElement copyWith({
@@ -128,13 +128,13 @@ class CatalogOfItemsElement extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-        icuDiagnosis,
-        vitalSigns,
-        respiratoryParameters,
-        bloodGasAnalysis,
-        laborParameters,
-        medicaments,
-        movementData
+        icuDiagnosis!,
+        vitalSigns!,
+        respiratoryParameters!,
+        bloodGasAnalysis!,
+        laborParameters!,
+        medicaments!,
+        movementData!
       ];
 
   @override

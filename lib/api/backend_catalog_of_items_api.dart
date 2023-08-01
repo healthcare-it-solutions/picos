@@ -47,243 +47,251 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       acl!.setReadAccess(userId: BackendRole.doctor.id);
     }
 
-    VitalSignsObject? vitalSignsObject1;
-    VitalSignsObject? vitalSignsObject2;
     try {
-      /// ICUDiagnosis
-      dynamic responseICUDiagnosis = await Backend.saveObject(
-        (object as CatalogOfItemsElement).icuDiagnosis,
-      );
+      if ((object as CatalogOfItemsElement).icuDiagnosis != null) {
+        /// ICUDiagnosis
+        dynamic responseICUDiagnosis = await Backend.saveObject(
+          object.icuDiagnosis!,
+        );
 
-      ICUDiagnosis icuDiagnosis = object.icuDiagnosis.copyWith(
-        objectId: responseICUDiagnosis['objectId'],
-        createdAt: DateTime.tryParse(responseICUDiagnosis['createdAt'] ?? '') ??
-            object.icuDiagnosis.createdAt,
-        updatedAt: DateTime.tryParse(responseICUDiagnosis['updatedAt'] ?? '') ??
-            object.icuDiagnosis.updatedAt,
-      );
+        object.icuDiagnosis!.copyWith(
+          objectId: responseICUDiagnosis['objectId'],
+          createdAt:
+              DateTime.tryParse(responseICUDiagnosis['createdAt'] ?? '') ??
+                  object.icuDiagnosis!.createdAt,
+          updatedAt:
+              DateTime.tryParse(responseICUDiagnosis['updatedAt'] ?? '') ??
+                  object.icuDiagnosis!.updatedAt,
+        );
+      }
+      VitalSignsObject? vitalSignsObject1;
+      VitalSignsObject? vitalSignsObject2;
+      if (object.vitalSignsObject1 != null) {
+        /// VitalSigns value 1
+        dynamic responseVitalSignsObject1 = await Backend.saveObject(
+          object.vitalSignsObject1!,
+        );
+        vitalSignsObject1 = object.vitalSignsObject1!.copyWith(
+          objectId: responseVitalSignsObject1['objectId'],
+          createdAt: DateTime.tryParse(
+                responseVitalSignsObject1['createdAt'] ?? '',
+              ) ??
+              object.vitalSignsObject1!.createdAt,
+          updatedAt: DateTime.tryParse(
+                responseVitalSignsObject1['updatedAt'] ?? '',
+              ) ??
+              object.vitalSignsObject1!.updatedAt,
+        );
+      }
 
-      /// VitalSigns value 1
-      dynamic responseVitalSignsObject1 = await Backend.saveObject(
-        object.vitalSignsObject1,
-      );
-      vitalSignsObject1 = object.vitalSignsObject1.copyWith(
-        objectId: responseVitalSignsObject1['objectId'],
-        createdAt: DateTime.tryParse(
-              responseVitalSignsObject1['createdAt'] ?? '',
-            ) ??
-            object.vitalSignsObject1.createdAt,
-        updatedAt: DateTime.tryParse(
-              responseVitalSignsObject1['updatedAt'] ?? '',
-            ) ??
-            object.vitalSignsObject1.updatedAt,
-      );
+      if (object.vitalSignsObject2 != null) {
+        /// VitalSigns value 2
+        dynamic responseVitalSignsObject2 = await Backend.saveObject(
+          object.vitalSignsObject2!,
+        );
 
-      /// VitalSigns value 2
-      dynamic responseVitalSignsObject2 = await Backend.saveObject(
-        object.vitalSignsObject2,
-      );
+        vitalSignsObject2 = object.vitalSignsObject2!.copyWith(
+          objectId: responseVitalSignsObject2['objectId'],
+          createdAt: DateTime.tryParse(
+                responseVitalSignsObject2['createdAt'] ?? '',
+              ) ??
+              object.vitalSignsObject2!.createdAt,
+          updatedAt: DateTime.tryParse(
+                responseVitalSignsObject2['updatedAt'] ?? '',
+              ) ??
+              object.vitalSignsObject2!.updatedAt,
+        );
+      }
 
-      vitalSignsObject2 = object.vitalSignsObject2.copyWith(
-        objectId: responseVitalSignsObject2['objectId'],
-        createdAt: DateTime.tryParse(
-              responseVitalSignsObject2['createdAt'] ?? '',
-            ) ??
-            object.vitalSignsObject2.createdAt,
-        updatedAt: DateTime.tryParse(
-              responseVitalSignsObject2['updatedAt'] ?? '',
-            ) ??
-            object.vitalSignsObject2.updatedAt,
-      );
+      if (object.vitalSigns != null) {
+        /// VitalSigns
+        object.vitalSigns!.value1 = vitalSignsObject1;
+        object.vitalSigns!.value2 = vitalSignsObject2;
+        dynamic responseVitalSigns = await Backend.saveObject(
+          object.vitalSigns!,
+        );
+        object.vitalSigns!.copyWith(
+          objectId: responseVitalSigns['objectId'],
+          createdAt: DateTime.tryParse(responseVitalSigns['createdAt'] ?? '') ??
+              object.vitalSigns!.createdAt,
+          updatedAt: DateTime.tryParse(responseVitalSigns['updatedAt'] ?? '') ??
+              object.vitalSigns!.updatedAt,
+        );
+      }
 
-      /// VitalSigns
-      object.vitalSigns.value1 = vitalSignsObject1;
-      object.vitalSigns.value2 = vitalSignsObject2;
-      dynamic responseVitalSigns = await Backend.saveObject(
-        object.vitalSigns,
-      );
-      VitalSigns vitalSigns = object.vitalSigns.copyWith(
-        objectId: responseVitalSigns['objectId'],
-        createdAt: DateTime.tryParse(responseVitalSigns['createdAt'] ?? '') ??
-            object.vitalSigns.createdAt,
-        updatedAt: DateTime.tryParse(responseVitalSigns['updatedAt'] ?? '') ??
-            object.vitalSigns.updatedAt,
-      );
+      RespiratoryParametersObject? respiratoryParametersObject1;
+      RespiratoryParametersObject? respiratoryParametersObject2;
+      if (object.respiratoryParametersObject1 != null) {
+        /// Respiratory parameters value 1
+        dynamic responseRespiratoryParametersObject1 = await Backend.saveObject(
+          object.respiratoryParametersObject1!,
+        );
 
-      /// Respiratory parameters value 1
-      dynamic responseRespiratoryParametersObject1 = await Backend.saveObject(
-        object.respiratoryParametersObject1,
-      );
+        respiratoryParametersObject1 =
+            object.respiratoryParametersObject1!.copyWith(
+          objectId: responseRespiratoryParametersObject1['objectId'],
+          createdAt: DateTime.tryParse(
+                responseRespiratoryParametersObject1['createdAt'] ?? '',
+              ) ??
+              object.respiratoryParametersObject1!.createdAt,
+          updatedAt: DateTime.tryParse(
+                responseRespiratoryParametersObject1['updatedAt'] ?? '',
+              ) ??
+              object.respiratoryParametersObject1!.updatedAt,
+        );
+      }
 
-      RespiratoryParametersObject respiratoryParametersObject1 =
-          object.respiratoryParametersObject1.copyWith(
-        objectId: responseRespiratoryParametersObject1['objectId'],
-        createdAt: DateTime.tryParse(
-              responseRespiratoryParametersObject1['createdAt'] ?? '',
-            ) ??
-            object.respiratoryParametersObject1.createdAt,
-        updatedAt: DateTime.tryParse(
-              responseRespiratoryParametersObject1['updatedAt'] ?? '',
-            ) ??
-            object.respiratoryParametersObject1.updatedAt,
-      );
+      if (object.respiratoryParametersObject2 != null) {
+        /// Respiratory parameters value 2
+        dynamic responseRespiratoryParametersObject2 = await Backend.saveObject(
+          object.respiratoryParametersObject2!,
+        );
 
-      /// Respiratory parameters value 2
-      dynamic responseRespiratoryParametersObject2 = await Backend.saveObject(
-        object.respiratoryParametersObject2,
-      );
+        respiratoryParametersObject2 =
+            object.respiratoryParametersObject2!.copyWith(
+          objectId: responseRespiratoryParametersObject2['objectId'],
+          createdAt: DateTime.tryParse(
+                responseRespiratoryParametersObject2['createdAt'] ?? '',
+              ) ??
+              object.respiratoryParametersObject2!.createdAt,
+          updatedAt: DateTime.tryParse(
+                responseRespiratoryParametersObject2['updatedAt'] ?? '',
+              ) ??
+              object.respiratoryParametersObject2!.updatedAt,
+        );
+      }
 
-      RespiratoryParametersObject respiratoryParametersObject2 =
-          object.respiratoryParametersObject2.copyWith(
-        objectId: responseRespiratoryParametersObject2['objectId'],
-        createdAt: DateTime.tryParse(
-              responseRespiratoryParametersObject2['createdAt'] ?? '',
-            ) ??
-            object.respiratoryParametersObject2.createdAt,
-        updatedAt: DateTime.tryParse(
-              responseRespiratoryParametersObject2['updatedAt'] ?? '',
-            ) ??
-            object.respiratoryParametersObject2.updatedAt,
-      );
+      if (object.respiratoryParameters != null) {
+        /// Respiratory parameters
+        object.respiratoryParameters!.value1 = respiratoryParametersObject1;
+        object.respiratoryParameters!.value2 = respiratoryParametersObject2;
+        dynamic responseRespiratoryParameters = await Backend.saveObject(
+          object.respiratoryParameters!,
+        );
 
-      /// Respiratory parameters
-      object.respiratoryParameters.value1 = respiratoryParametersObject1;
-      object.respiratoryParameters.value2 = respiratoryParametersObject2;
-      dynamic responseRespiratoryParameters = await Backend.saveObject(
-        object.respiratoryParameters,
-      );
-      RespiratoryParameters respiratoryParameters =
-          object.respiratoryParameters.copyWith(
-        objectId: responseRespiratoryParameters['objectId'],
-        createdAt: DateTime.tryParse(
-              responseRespiratoryParameters['createdAt'] ?? '',
-            ) ??
-            object.respiratoryParameters.createdAt,
-        updatedAt: DateTime.tryParse(
-              responseRespiratoryParameters['updatedAt'] ?? '',
-            ) ??
-            object.respiratoryParameters.updatedAt,
-      );
+        object.respiratoryParameters!.copyWith(
+          objectId: responseRespiratoryParameters['objectId'],
+          createdAt: DateTime.tryParse(
+                responseRespiratoryParameters['createdAt'] ?? '',
+              ) ??
+              object.respiratoryParameters!.createdAt,
+          updatedAt: DateTime.tryParse(
+                responseRespiratoryParameters['updatedAt'] ?? '',
+              ) ??
+              object.respiratoryParameters!.updatedAt,
+        );
+      }
 
-      /// Blood gas analysis value 1
-      dynamic responseBloodGasAnalysisObject1 = await Backend.saveObject(
-        object.bloodGasAnalysisObject1,
-      );
+      BloodGasAnalysisObject? bloodGasAnalysisObject1;
+      BloodGasAnalysisObject? bloodGasAnalysisObject2;
+      if (object.bloodGasAnalysisObject1 != null) {
+        /// Blood gas analysis value 1
+        dynamic responseBloodGasAnalysisObject1 = await Backend.saveObject(
+          object.bloodGasAnalysisObject1!,
+        );
 
-      BloodGasAnalysisObject bloodGasAnalysisObject1 =
-          object.bloodGasAnalysisObject1.copyWith(
-        objectId: responseBloodGasAnalysisObject1['objectId'],
-        createdAt: DateTime.tryParse(
-              responseBloodGasAnalysisObject1['createdAt'] ?? '',
-            ) ??
-            object.bloodGasAnalysisObject1.createdAt,
-        updatedAt: DateTime.tryParse(
-              responseBloodGasAnalysisObject1['updatedAt'] ?? '',
-            ) ??
-            object.bloodGasAnalysisObject1.updatedAt,
-      );
+        bloodGasAnalysisObject1 = object.bloodGasAnalysisObject1!.copyWith(
+          objectId: responseBloodGasAnalysisObject1['objectId'],
+          createdAt: DateTime.tryParse(
+                responseBloodGasAnalysisObject1['createdAt'] ?? '',
+              ) ??
+              object.bloodGasAnalysisObject1!.createdAt,
+          updatedAt: DateTime.tryParse(
+                responseBloodGasAnalysisObject1['updatedAt'] ?? '',
+              ) ??
+              object.bloodGasAnalysisObject1!.updatedAt,
+        );
+      }
 
-      /// Blood gas analysis value 2
-      dynamic responseBloodGasAnalysisObject2 = await Backend.saveObject(
-        object.bloodGasAnalysisObject2,
-      );
+      if (object.bloodGasAnalysisObject2 != null) {
+        /// Blood gas analysis value 2
+        dynamic responseBloodGasAnalysisObject2 = await Backend.saveObject(
+          object.bloodGasAnalysisObject2!,
+        );
 
-      BloodGasAnalysisObject bloodGasAnalysisObject2 =
-          object.bloodGasAnalysisObject2.copyWith(
-        objectId: responseBloodGasAnalysisObject2['objectId'],
-        createdAt: DateTime.tryParse(
-              responseBloodGasAnalysisObject2['createdAt'] ?? '',
-            ) ??
-            object.bloodGasAnalysisObject2.createdAt,
-        updatedAt: DateTime.tryParse(
-              responseBloodGasAnalysisObject2['updatedAt'] ?? '',
-            ) ??
-            object.bloodGasAnalysisObject2.updatedAt,
-      );
+        bloodGasAnalysisObject2 = object.bloodGasAnalysisObject2!.copyWith(
+          objectId: responseBloodGasAnalysisObject2['objectId'],
+          createdAt: DateTime.tryParse(
+                responseBloodGasAnalysisObject2['createdAt'] ?? '',
+              ) ??
+              object.bloodGasAnalysisObject2!.createdAt,
+          updatedAt: DateTime.tryParse(
+                responseBloodGasAnalysisObject2['updatedAt'] ?? '',
+              ) ??
+              object.bloodGasAnalysisObject2!.updatedAt,
+        );
+      }
 
-      /// Blood gas analysis
-      object.bloodGasAnalysis.value1 = bloodGasAnalysisObject1;
-      object.bloodGasAnalysis.value2 = bloodGasAnalysisObject2;
-      dynamic responseBloodGasAnalysis = await Backend.saveObject(
-        object.bloodGasAnalysis,
-      );
+      if (object.bloodGasAnalysis != null) {
+        /// Blood gas analysis
+        object.bloodGasAnalysis!.value1 = bloodGasAnalysisObject1;
+        object.bloodGasAnalysis!.value2 = bloodGasAnalysisObject2;
+        dynamic responseBloodGasAnalysis = await Backend.saveObject(
+          object.bloodGasAnalysis!,
+        );
 
-      BloodGasAnalysis bloodGasAnalysis = object.bloodGasAnalysis.copyWith(
-        objectId: responseBloodGasAnalysis['objectId'],
-        createdAt: DateTime.tryParse(
-              responseBloodGasAnalysis['createdAt'] ?? '',
-            ) ??
-            object.bloodGasAnalysis.createdAt,
-        updatedAt: DateTime.tryParse(
-              responseBloodGasAnalysis['updatedAt'] ?? '',
-            ) ??
-            object.bloodGasAnalysis.updatedAt,
-      );
+        object.bloodGasAnalysis!.copyWith(
+          objectId: responseBloodGasAnalysis['objectId'],
+          createdAt: DateTime.tryParse(
+                responseBloodGasAnalysis['createdAt'] ?? '',
+              ) ??
+              object.bloodGasAnalysis!.createdAt,
+          updatedAt: DateTime.tryParse(
+                responseBloodGasAnalysis['updatedAt'] ?? '',
+              ) ??
+              object.bloodGasAnalysis!.updatedAt,
+        );
+      }
 
-      /// Labor parameters
-      dynamic responseLaborParameters = await Backend.saveObject(
-        object.laborParameters,
-      );
+      if (object.laborParameters != null) {
+        /// Labor parameters
+        dynamic responseLaborParameters = await Backend.saveObject(
+          object.laborParameters!,
+        );
 
-      LaborParameters laborParameters = object.laborParameters.copyWith(
-        objectId: responseLaborParameters['objectId'],
-        createdAt:
-            DateTime.tryParse(responseLaborParameters['createdAt'] ?? '') ??
-                object.laborParameters.createdAt,
-        updatedAt:
-            DateTime.tryParse(responseLaborParameters['updatedAt'] ?? '') ??
-                object.laborParameters.updatedAt,
-      );
+        object.laborParameters!.copyWith(
+          objectId: responseLaborParameters['objectId'],
+          createdAt:
+              DateTime.tryParse(responseLaborParameters['createdAt'] ?? '') ??
+                  object.laborParameters!.createdAt,
+          updatedAt:
+              DateTime.tryParse(responseLaborParameters['updatedAt'] ?? '') ??
+                  object.laborParameters!.updatedAt,
+        );
+      }
 
-      /// Medicaments
-      dynamic responseMedicaments = await Backend.saveObject(
-        object.medicaments,
-      );
+      if (object.medicaments != null) {
+        /// Medicaments
+        dynamic responseMedicaments = await Backend.saveObject(
+          object.medicaments!,
+        );
 
-      Medicaments medicaments = object.medicaments.copyWith(
-        objectId: responseMedicaments['objectId'],
-        createdAt: DateTime.tryParse(responseMedicaments['createdAt'] ?? '') ??
-            object.medicaments.createdAt,
-        updatedAt: DateTime.tryParse(responseMedicaments['updatedAt'] ?? '') ??
-            object.medicaments.updatedAt,
-      );
+        object.medicaments!.copyWith(
+          objectId: responseMedicaments['objectId'],
+          createdAt:
+              DateTime.tryParse(responseMedicaments['createdAt'] ?? '') ??
+                  object.medicaments!.createdAt,
+          updatedAt:
+              DateTime.tryParse(responseMedicaments['updatedAt'] ?? '') ??
+                  object.medicaments!.updatedAt,
+        );
+      }
 
-      /// Movement data
-      dynamic responseMovementData = await Backend.saveObject(
-        object.movementData,
-      );
+      if (object.movementData != null) {
+        /// Movement data
+        dynamic responseMovementData = await Backend.saveObject(
+          object.movementData!,
+        );
 
-      PatientData movementData = object.movementData.copyWith(
-        objectId: responseMovementData['objectId'],
-        createdAt: DateTime.tryParse(responseMovementData['createdAt'] ?? '') ??
-            object.movementData.createdAt,
-        updatedAt: DateTime.tryParse(responseMovementData['updatedAt'] ?? '') ??
-            object.movementData.updatedAt,
-      );
-
-      object = object.copyWith(
-        icuDiagnosis: icuDiagnosis,
-        vitalSignsObject1: vitalSignsObject1,
-        vitalSignsObject2: vitalSignsObject2,
-        vitalSigns: vitalSigns,
-        respiratoryParametersObject1: respiratoryParametersObject1,
-        respiratoryParametersObject2: respiratoryParametersObject2,
-        respiratoryParameters: respiratoryParameters,
-        bloodGasAnalysisObject1: bloodGasAnalysisObject1,
-        bloodGasAnalysisObject2: bloodGasAnalysisObject2,
-        bloodGasAnalysis: bloodGasAnalysis,
-        laborParameters: laborParameters,
-        medicaments: medicaments,
-        movementData: movementData,
-      );
-
-      int index = getIndex(object);
-
-      if (index >= 0) {
-        objectList[index] = object;
-        objectList = <AbstractDatabaseObject>[...objectList];
-      } else {
-        objectList = <AbstractDatabaseObject>[...objectList, object];
+        object.movementData!.copyWith(
+          objectId: responseMovementData['objectId'],
+          createdAt:
+              DateTime.tryParse(responseMovementData['createdAt'] ?? '') ??
+                  object.movementData!.createdAt,
+          updatedAt:
+              DateTime.tryParse(responseMovementData['updatedAt'] ?? '') ??
+                  object.movementData!.updatedAt,
+        );
       }
 
       dispatch();
@@ -302,10 +310,13 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
   }
 
   ///Help method
-  static List<VitalSignsObject> _findMatchingObjectsVitalSigns(
-    VitalSigns matchingVitalSigns,
+  static List<VitalSignsObject>? _findMatchingObjectsVitalSigns(
+    VitalSigns? matchingVitalSigns,
     List<VitalSignsObject> vitalSignsObjectResults,
   ) {
+    if (matchingVitalSigns == null) {
+      return null;
+    }
     List<VitalSignsObject> matchingObjects = <VitalSignsObject>[];
 
     if (vitalSignsObjectResults.any(
@@ -333,12 +344,15 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
     return matchingObjects;
   }
 
-  static List<BloodGasAnalysisObject> _findMatchingObjectsBloodGasAnalysis(
-    BloodGasAnalysis matchingBloodGasAnalysis,
+  static List<BloodGasAnalysisObject>? _findMatchingObjectsBloodGasAnalysis(
+    BloodGasAnalysis? matchingBloodGasAnalysis,
     List<BloodGasAnalysisObject> bloodGasAnalysisObjectResults,
   ) {
-    List<BloodGasAnalysisObject> matchingObjects = <BloodGasAnalysisObject>[];
+    if (matchingBloodGasAnalysis == null) {
+      return null;
+    }
 
+    List<BloodGasAnalysisObject> matchingObjects = <BloodGasAnalysisObject>[];
     if (bloodGasAnalysisObjectResults.any(
           (BloodGasAnalysisObject obj) =>
               obj.objectId == matchingBloodGasAnalysis.valueObjectId1,
@@ -364,11 +378,14 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
     return matchingObjects;
   }
 
-  static List<RespiratoryParametersObject>
+  static List<RespiratoryParametersObject>?
       _findMatchingObjectsRespiratoryParameters(
-    RespiratoryParameters matchingRespiratoryParameters,
+    RespiratoryParameters? matchingRespiratoryParameters,
     List<RespiratoryParametersObject> respiratoryParametersObjectResults,
   ) {
+    if (matchingRespiratoryParameters == null) {
+      return null;
+    }
     List<RespiratoryParametersObject> matchingObjects =
         <RespiratoryParametersObject>[];
 
@@ -794,26 +811,26 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       );
 
       CatalogOfItemsElement? result;
-      if (matchingICUDiagnosis != null &&
-          matchingVitalSigns != null &&
-          matchingRespiratoryParameters != null &&
-          matchingBloodGasAnalysis != null &&
-          matchingLaborParameters != null &&
-          matchingMedicaments != null &&
+      if (matchingICUDiagnosis != null ||
+          matchingVitalSigns != null ||
+          matchingRespiratoryParameters != null ||
+          matchingBloodGasAnalysis != null ||
+          matchingLaborParameters != null ||
+          matchingMedicaments != null ||
           matchingMovementData != null) {
-        List<VitalSignsObject> foundObjectsVitalSigns =
+        List<VitalSignsObject>? foundObjectsVitalSigns =
             _findMatchingObjectsVitalSigns(
           matchingVitalSigns,
           vitalSignsObjectResults,
         );
 
-        List<BloodGasAnalysisObject> foundObjectsBloodGasAnalysis =
+        List<BloodGasAnalysisObject>? foundObjectsBloodGasAnalysis =
             _findMatchingObjectsBloodGasAnalysis(
           matchingBloodGasAnalysis,
           bloodGasAnalysisObjectResults,
         );
 
-        List<RespiratoryParametersObject> foundObjectsRespiratoryParameters =
+        List<RespiratoryParametersObject>? foundObjectsRespiratoryParameters =
             _findMatchingObjectsRespiratoryParameters(
           matchingRespiratoryParameters,
           respiratoryParametersObjectResults,
@@ -822,14 +839,14 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         result = CatalogOfItemsElement(
           icuDiagnosis: matchingICUDiagnosis,
           vitalSigns: matchingVitalSigns,
-          vitalSignsObject1: foundObjectsVitalSigns[0],
-          vitalSignsObject2: foundObjectsVitalSigns[1],
+          vitalSignsObject1: foundObjectsVitalSigns?[0],
+          vitalSignsObject2: foundObjectsVitalSigns?[1],
           respiratoryParameters: matchingRespiratoryParameters,
-          respiratoryParametersObject1: foundObjectsRespiratoryParameters[0],
-          respiratoryParametersObject2: foundObjectsRespiratoryParameters[1],
+          respiratoryParametersObject1: foundObjectsRespiratoryParameters?[0],
+          respiratoryParametersObject2: foundObjectsRespiratoryParameters?[1],
           bloodGasAnalysis: matchingBloodGasAnalysis,
-          bloodGasAnalysisObject1: foundObjectsBloodGasAnalysis[0],
-          bloodGasAnalysisObject2: foundObjectsBloodGasAnalysis[1],
+          bloodGasAnalysisObject1: foundObjectsBloodGasAnalysis?[0],
+          bloodGasAnalysisObject2: foundObjectsBloodGasAnalysis?[1],
           laborParameters: matchingLaborParameters,
           medicaments: matchingMedicaments,
           movementData: matchingMovementData,

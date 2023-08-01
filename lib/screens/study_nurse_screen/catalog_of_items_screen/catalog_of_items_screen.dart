@@ -239,177 +239,215 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
             ),
           );
         } else {
-          ICUDiagnosis icud = _catalogOfItemsElement!.icuDiagnosis.copyWith(
-            mainDiagnosis: pageStorage?.mainDiagnosis,
-            progressDiagnosis: pageStorage?.progressDiagnosis,
-            coMorbidity: pageStorage?.coMorbidity,
-            intensiveCareUnitAcquiredWeakness:
-                pageStorage?.intensiveCareUnitAcquiredWeakness,
-            postIntensiveCareSyndrome: pageStorage?.postIntensiveCareSyndrome,
-            doctorObjectId: Backend.user.objectId!,
-            patientObjectId: EditPatientScreen.patientObjectId!,
-          );
-          VitalSignsObject? vitalSignsObject1 =
-              _catalogOfItemsElement!.vitalSignsObject1.copyWith(
-            heartRate: pageStorage?.heartRate1,
-            systolicArterialPressure: pageStorage?.systolicArterialPressure1,
-            meanArterialPressure: pageStorage?.meanArterialPressure1,
-            diastolicArterialPressure: pageStorage?.diastolicArterialPressure1,
-            centralVenousPressure: pageStorage?.centralVenousPressure1,
-          );
+          ICUDiagnosis? icud;
+          VitalSignsObject? vitalSignsObject1;
+          VitalSignsObject? vitalSignsObject2;
+          VitalSigns? vitalSigns;
+          RespiratoryParametersObject? respiratoryParametersObject1;
+          RespiratoryParametersObject? respiratoryParametersObject2;
+          RespiratoryParameters? respiratoryParameters;
+          BloodGasAnalysisObject? bloodGasAnalysisObject1;
+          BloodGasAnalysisObject? bloodGasAnalysisObject2;
+          BloodGasAnalysis? bloodGasAnalysis;
+          LaborParameters? laborParameters;
+          Medicaments? medicaments;
+          PatientData? movementData;
+          if (_catalogOfItemsElement!.icuDiagnosis != null) {
+            icud = _catalogOfItemsElement!.icuDiagnosis!.copyWith(
+              mainDiagnosis: pageStorage?.mainDiagnosis,
+              progressDiagnosis: pageStorage?.progressDiagnosis,
+              coMorbidity: pageStorage?.coMorbidity,
+              intensiveCareUnitAcquiredWeakness:
+                  pageStorage?.intensiveCareUnitAcquiredWeakness,
+              postIntensiveCareSyndrome: pageStorage?.postIntensiveCareSyndrome,
+              doctorObjectId: Backend.user.objectId!,
+              patientObjectId: EditPatientScreen.patientObjectId!,
+            );
+          }
+          if (_catalogOfItemsElement!.vitalSignsObject1 != null) {
+            vitalSignsObject1 =
+                _catalogOfItemsElement!.vitalSignsObject1!.copyWith(
+              heartRate: pageStorage?.heartRate1,
+              systolicArterialPressure: pageStorage?.systolicArterialPressure1,
+              meanArterialPressure: pageStorage?.meanArterialPressure1,
+              diastolicArterialPressure:
+                  pageStorage?.diastolicArterialPressure1,
+              centralVenousPressure: pageStorage?.centralVenousPressure1,
+            );
+          }
+          if (_catalogOfItemsElement!.vitalSignsObject2 != null) {
+            vitalSignsObject2 =
+                _catalogOfItemsElement!.vitalSignsObject2!.copyWith(
+              heartRate: pageStorage?.heartRate2,
+              systolicArterialPressure: pageStorage?.systolicArterialPressure2,
+              meanArterialPressure: pageStorage?.meanArterialPressure2,
+              diastolicArterialPressure:
+                  pageStorage?.diastolicArterialPressure2,
+              centralVenousPressure: pageStorage?.centralVenousPressure2,
+            );
+          }
 
-          VitalSignsObject? vitalSignsObject2 =
-              _catalogOfItemsElement!.vitalSignsObject2.copyWith(
-            heartRate: pageStorage?.heartRate2,
-            systolicArterialPressure: pageStorage?.systolicArterialPressure2,
-            meanArterialPressure: pageStorage?.meanArterialPressure2,
-            diastolicArterialPressure: pageStorage?.diastolicArterialPressure2,
-            centralVenousPressure: pageStorage?.centralVenousPressure2,
-          );
+          if (_catalogOfItemsElement!.vitalSigns != null) {
+            vitalSigns = _catalogOfItemsElement!.vitalSigns!.copyWith(
+              doctorObjectId: Backend.user.objectId!,
+              value1: vitalSignsObject1,
+              value2: vitalSignsObject2,
+              patientObjectId: EditPatientScreen.patientObjectId!,
+            );
+          }
 
-          VitalSigns vitalSigns = _catalogOfItemsElement!.vitalSigns.copyWith(
-            doctorObjectId: Backend.user.objectId!,
-            value1: vitalSignsObject1,
-            value2: vitalSignsObject2,
-            patientObjectId: EditPatientScreen.patientObjectId!,
-          );
+          if (_catalogOfItemsElement!.respiratoryParametersObject1 != null) {
+            respiratoryParametersObject1 =
+                _catalogOfItemsElement!.respiratoryParametersObject1!.copyWith(
+              tidalVolume: pageStorage?.tidalVolume,
+              respiratoryRate: pageStorage?.respiratoryRate1,
+              oxygenSaturation: pageStorage?.oxygenSaturation1,
+            );
+          }
 
-          RespiratoryParametersObject? respiratoryParametersObject1 =
-              _catalogOfItemsElement!.respiratoryParametersObject1.copyWith(
-            tidalVolume: pageStorage?.tidalVolume,
-            respiratoryRate: pageStorage?.respiratoryRate1,
-            oxygenSaturation: pageStorage?.oxygenSaturation1,
-          );
+          if (_catalogOfItemsElement!.respiratoryParametersObject2 != null) {
+            respiratoryParametersObject2 =
+                _catalogOfItemsElement!.respiratoryParametersObject2!.copyWith(
+              tidalVolume: pageStorage?.tidalVolume,
+              respiratoryRate: pageStorage?.respiratoryRate2,
+              oxygenSaturation: pageStorage?.oxygenSaturation2,
+            );
+          }
 
-          RespiratoryParametersObject? respiratoryParametersObject2 =
-              _catalogOfItemsElement!.respiratoryParametersObject2.copyWith(
-            tidalVolume: pageStorage?.tidalVolume,
-            respiratoryRate: pageStorage?.respiratoryRate2,
-            oxygenSaturation: pageStorage?.oxygenSaturation2,
-          );
+          if (_catalogOfItemsElement!.respiratoryParameters != null) {
+            respiratoryParameters =
+                _catalogOfItemsElement!.respiratoryParameters!.copyWith(
+              doctorObjectId: Backend.user.objectId!,
+              value1: respiratoryParametersObject1,
+              value2: respiratoryParametersObject2,
+              patientObjectId: EditPatientScreen.patientObjectId!,
+            );
+          }
 
-          RespiratoryParameters respiratoryParameters =
-              _catalogOfItemsElement!.respiratoryParameters.copyWith(
-            doctorObjectId: Backend.user.objectId!,
-            value1: respiratoryParametersObject1,
-            value2: respiratoryParametersObject2,
-            patientObjectId: EditPatientScreen.patientObjectId!,
-          );
+          if (_catalogOfItemsElement!.bloodGasAnalysisObject1 != null) {
+            bloodGasAnalysisObject1 =
+                _catalogOfItemsElement!.bloodGasAnalysisObject1!.copyWith(
+              arterialOxygenSaturation: pageStorage?.arterialOxygenSaturation1,
+              centralVenousOxygenSaturation:
+                  pageStorage?.centralVenousOxygenSaturation1,
+              partialPressureOfOxygen: pageStorage?.partialPressureOfOxygen1,
+              partialPressureOfCarbonDioxide:
+                  pageStorage?.partialPressureOfCarbonDioxide1,
+              arterialBaseExcess: pageStorage?.arterialBaseExcess1,
+              arterialPH: pageStorage?.arterialPH1,
+              arterialSerumBicarbonateConcentration:
+                  pageStorage?.arterialSerumBicarbonateConcentration1,
+              arterialLactate: pageStorage?.arterialLactate1,
+              bloodGlucoseLevel: pageStorage?.bloodGlucoseLevel1,
+            );
+          }
 
-          BloodGasAnalysisObject? bloodGasAnalysisObject1 =
-              _catalogOfItemsElement!.bloodGasAnalysisObject1.copyWith(
-            arterialOxygenSaturation: pageStorage?.arterialOxygenSaturation1,
-            centralVenousOxygenSaturation:
-                pageStorage?.centralVenousOxygenSaturation1,
-            partialPressureOfOxygen: pageStorage?.partialPressureOfOxygen1,
-            partialPressureOfCarbonDioxide:
-                pageStorage?.partialPressureOfCarbonDioxide1,
-            arterialBaseExcess: pageStorage?.arterialBaseExcess1,
-            arterialPH: pageStorage?.arterialPH1,
-            arterialSerumBicarbonateConcentration:
-                pageStorage?.arterialSerumBicarbonateConcentration1,
-            arterialLactate: pageStorage?.arterialLactate1,
-            bloodGlucoseLevel: pageStorage?.bloodGlucoseLevel1,
-          );
+          if (_catalogOfItemsElement!.bloodGasAnalysisObject2 != null) {
+            bloodGasAnalysisObject2 =
+                _catalogOfItemsElement!.bloodGasAnalysisObject2!.copyWith(
+              arterialOxygenSaturation: pageStorage?.arterialOxygenSaturation2,
+              centralVenousOxygenSaturation:
+                  pageStorage?.centralVenousOxygenSaturation2,
+              partialPressureOfOxygen: pageStorage?.partialPressureOfOxygen2,
+              partialPressureOfCarbonDioxide:
+                  pageStorage?.partialPressureOfCarbonDioxide2,
+              arterialBaseExcess: pageStorage?.arterialBaseExcess2,
+              arterialPH: pageStorage?.arterialPH2,
+              arterialSerumBicarbonateConcentration:
+                  pageStorage?.arterialSerumBicarbonateConcentration2,
+              arterialLactate: pageStorage?.arterialLactate2,
+              bloodGlucoseLevel: pageStorage?.bloodGlucoseLevel2,
+            );
+          }
 
-          BloodGasAnalysisObject? bloodGasAnalysisObject2 =
-              _catalogOfItemsElement!.bloodGasAnalysisObject2.copyWith(
-            arterialOxygenSaturation: pageStorage?.arterialOxygenSaturation2,
-            centralVenousOxygenSaturation:
-                pageStorage?.centralVenousOxygenSaturation2,
-            partialPressureOfOxygen: pageStorage?.partialPressureOfOxygen2,
-            partialPressureOfCarbonDioxide:
-                pageStorage?.partialPressureOfCarbonDioxide2,
-            arterialBaseExcess: pageStorage?.arterialBaseExcess2,
-            arterialPH: pageStorage?.arterialPH2,
-            arterialSerumBicarbonateConcentration:
-                pageStorage?.arterialSerumBicarbonateConcentration2,
-            arterialLactate: pageStorage?.arterialLactate2,
-            bloodGlucoseLevel: pageStorage?.bloodGlucoseLevel2,
-          );
+          if (_catalogOfItemsElement!.bloodGasAnalysis != null) {
+            bloodGasAnalysis =
+                _catalogOfItemsElement!.bloodGasAnalysis!.copyWith(
+              doctorObjectId: Backend.user.objectId!,
+              value1: bloodGasAnalysisObject1,
+              value2: bloodGasAnalysisObject2,
+              patientObjectId: EditPatientScreen.patientObjectId!,
+            );
+          }
 
-          BloodGasAnalysis bloodGasAnalysis =
-              _catalogOfItemsElement!.bloodGasAnalysis.copyWith(
-            doctorObjectId: Backend.user.objectId!,
-            value1: bloodGasAnalysisObject1,
-            value2: bloodGasAnalysisObject2,
-            patientObjectId: EditPatientScreen.patientObjectId!,
-          );
+          if (_catalogOfItemsElement!.laborParameters != null) {
+            laborParameters = _catalogOfItemsElement!.laborParameters!.copyWith(
+              patientObjectId: EditPatientScreen.patientObjectId!,
+              doctorObjectId: Backend.user.objectId!,
+              leukocyteCount: pageStorage?.leukocyteCount,
+              lymphocyteCount: pageStorage?.lymphocyteCount,
+              lymphocytePercentage: pageStorage?.lymphocytePercentage,
+              plateletCount: pageStorage?.plateletCount,
+              cReactiveProteinLevel: pageStorage?.cReactiveProteinLevel,
+              procalcitoninLevel: pageStorage?.procalcitoninLevel,
+              interleukin: pageStorage?.interleukin,
+              bloodUreaNitrogen: pageStorage?.bloodUreaNitrogen,
+              creatinine: pageStorage?.creatinine,
+              heartFailureMarker: pageStorage?.heartFailureMarker,
+              heartFailureMarkerNTProBNP:
+                  pageStorage?.heartFailureMarkerNTProBNP,
+              bilirubinTotal: pageStorage?.bilirubinTotal,
+              hemoglobin: pageStorage?.hemoglobin,
+              hematocrit: pageStorage?.hematocrit,
+              albumin: pageStorage?.albumin,
+              gotASAT: pageStorage?.gotASAT,
+              gptALAT: pageStorage?.gptALAT,
+              troponin: pageStorage?.troponin,
+              creatineKinase: pageStorage?.creatineKinase,
+              myocardialInfarctionMarkerCKMB:
+                  pageStorage?.myocardialInfarctionMarkerCKMB,
+              lactateDehydrogenaseLevel: pageStorage?.lactateDehydrogenaseLevel,
+              amylaseLevel: pageStorage?.amylaseLevel,
+              lipaseLevel: pageStorage?.lipaseLevel,
+              dDimer: pageStorage?.dDimer,
+              internationalNormalizedRatio:
+                  pageStorage?.internationalNormalizedRatio,
+              partialThromboplastinTime: pageStorage?.partialThromboplastinTime,
+            );
+          }
+          if (_catalogOfItemsElement!.medicaments != null) {
+            medicaments = _catalogOfItemsElement!.medicaments!.copyWith(
+              patientObjectId: EditPatientScreen.patientObjectId!,
+              doctorObjectId: Backend.user.objectId!,
+              morning: pageStorage?.morning,
+              noon: pageStorage?.noon,
+              evening: pageStorage?.evening,
+              atNight: pageStorage?.atNight,
+              unit: pageStorage?.unit,
+              medicalProduct: pageStorage?.medicalProduct,
+            );
+          }
 
-          LaborParameters laborParameters =
-              _catalogOfItemsElement!.laborParameters.copyWith(
-            patientObjectId: EditPatientScreen.patientObjectId!,
-            doctorObjectId: Backend.user.objectId!,
-            leukocyteCount: pageStorage?.leukocyteCount,
-            lymphocyteCount: pageStorage?.lymphocyteCount,
-            lymphocytePercentage: pageStorage?.lymphocytePercentage,
-            plateletCount: pageStorage?.plateletCount,
-            cReactiveProteinLevel: pageStorage?.cReactiveProteinLevel,
-            procalcitoninLevel: pageStorage?.procalcitoninLevel,
-            interleukin: pageStorage?.interleukin,
-            bloodUreaNitrogen: pageStorage?.bloodUreaNitrogen,
-            creatinine: pageStorage?.creatinine,
-            heartFailureMarker: pageStorage?.heartFailureMarker,
-            heartFailureMarkerNTProBNP: pageStorage?.heartFailureMarkerNTProBNP,
-            bilirubinTotal: pageStorage?.bilirubinTotal,
-            hemoglobin: pageStorage?.hemoglobin,
-            hematocrit: pageStorage?.hematocrit,
-            albumin: pageStorage?.albumin,
-            gotASAT: pageStorage?.gotASAT,
-            gptALAT: pageStorage?.gptALAT,
-            troponin: pageStorage?.troponin,
-            creatineKinase: pageStorage?.creatineKinase,
-            myocardialInfarctionMarkerCKMB:
-                pageStorage?.myocardialInfarctionMarkerCKMB,
-            lactateDehydrogenaseLevel: pageStorage?.lactateDehydrogenaseLevel,
-            amylaseLevel: pageStorage?.amylaseLevel,
-            lipaseLevel: pageStorage?.lipaseLevel,
-            dDimer: pageStorage?.dDimer,
-            internationalNormalizedRatio:
-                pageStorage?.internationalNormalizedRatio,
-            partialThromboplastinTime: pageStorage?.partialThromboplastinTime,
-          );
-
-          Medicaments medicaments =
-              _catalogOfItemsElement!.medicaments.copyWith(
-            patientObjectId: EditPatientScreen.patientObjectId!,
-            doctorObjectId: Backend.user.objectId!,
-            morning: pageStorage?.morning,
-            noon: pageStorage?.noon,
-            evening: pageStorage?.evening,
-            atNight: pageStorage?.atNight,
-            unit: pageStorage?.unit,
-            medicalProduct: pageStorage?.medicalProduct,
-          );
-          PatientData movementData =
-              _catalogOfItemsElement!.movementData.copyWith(
-            bodyHeight: EditPatientScreen.bodyHeight!,
-            patientID: EditPatientScreen.patientID!,
-            caseNumber: EditPatientScreen.caseNumber!,
-            instKey: EditPatientScreen.instituteKey!,
-            patientObjectId: EditPatientScreen.patientObjectId!,
-            doctorObjectId: Backend.user.objectId!,
-            bodyWeight: pageStorage?.bodyWeight,
-            ezpICU: pageStorage?.dischargeTime,
-            age: pageStorage?.age,
-            gender: pageStorage?.gender.toString(),
-            bmi: pageStorage?.bodyMassIndex,
-            idealBMI: pageStorage?.idealBodyWeight,
-            dischargeReason: pageStorage?.reasonForDischarge,
-            azpICU: pageStorage?.admissionTime,
-            ventilationDays: pageStorage?.ventilationDays,
-            azpKH: pageStorage?.admissionTimeToTheHospital,
-            ezpKH: pageStorage?.dischargeTimeFromTheHospital,
-            icd10Codes: pageStorage?.icd10Codes,
-            station: pageStorage?.patientLocation,
-            lbgt70: pageStorage?.lungProtectiveVentilation70,
-            icuMortality: pageStorage?.icuMortality,
-            khMortality: pageStorage?.hospitalMortality,
-            icuLengthStay: pageStorage?.icuLengthOfStay,
-            khLengthStay: pageStorage?.hospitalLengthOfStay,
-            wdaKH: pageStorage?.hospitalReadmission,
-            weznDisease: pageStorage?.daysUntilWorkReuptake,
-          );
+          if (_catalogOfItemsElement!.movementData != null) {
+            movementData = _catalogOfItemsElement!.movementData!.copyWith(
+              bodyHeight: EditPatientScreen.bodyHeight!,
+              patientID: EditPatientScreen.patientID!,
+              caseNumber: EditPatientScreen.caseNumber!,
+              instKey: EditPatientScreen.instituteKey!,
+              patientObjectId: EditPatientScreen.patientObjectId!,
+              doctorObjectId: Backend.user.objectId!,
+              bodyWeight: pageStorage?.bodyWeight,
+              ezpICU: pageStorage?.dischargeTime,
+              age: pageStorage?.age,
+              gender: pageStorage?.gender.toString(),
+              bmi: pageStorage?.bodyMassIndex,
+              idealBMI: pageStorage?.idealBodyWeight,
+              dischargeReason: pageStorage?.reasonForDischarge,
+              azpICU: pageStorage?.admissionTime,
+              ventilationDays: pageStorage?.ventilationDays,
+              azpKH: pageStorage?.admissionTimeToTheHospital,
+              ezpKH: pageStorage?.dischargeTimeFromTheHospital,
+              icd10Codes: pageStorage?.icd10Codes,
+              station: pageStorage?.patientLocation,
+              lbgt70: pageStorage?.lungProtectiveVentilation70,
+              icuMortality: pageStorage?.icuMortality,
+              khMortality: pageStorage?.hospitalMortality,
+              icuLengthStay: pageStorage?.icuLengthOfStay,
+              khLengthStay: pageStorage?.hospitalLengthOfStay,
+              wdaKH: pageStorage?.hospitalReadmission,
+              weznDisease: pageStorage?.daysUntilWorkReuptake,
+            );
+          }
 
           catalogOfItemsElement = _catalogOfItemsElement!.copyWith(
             icuDiagnosis: icud,
