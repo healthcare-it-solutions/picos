@@ -53,30 +53,43 @@ class CatalogOfItemsElement extends AbstractDatabaseObject {
   /// The database table the objects are stored in.
   static const String databaseTable = '';
 
+  /// ICU Diagnosis.
   final ICUDiagnosis icuDiagnosis;
 
+  /// First Vital Signs Object.
   final VitalSignsObject vitalSignsObject1;
 
+  /// Second Vital Signs Object.
   final VitalSignsObject vitalSignsObject2;
 
+  /// Vital Signs.
   final VitalSigns vitalSigns;
 
+  /// First Respiratory Parameters Object.
   final RespiratoryParametersObject respiratoryParametersObject1;
 
+  /// Second Respiratory Parameters Object.
   final RespiratoryParametersObject respiratoryParametersObject2;
 
+  /// Respiratory Parameters.
   final RespiratoryParameters respiratoryParameters;
 
+  /// First Blood Gas Analysis Object.
   final BloodGasAnalysisObject bloodGasAnalysisObject1;
 
+  /// Second Blood Gas Analysis Object.
   final BloodGasAnalysisObject bloodGasAnalysisObject2;
 
+  /// Blood Gas Analysis.
   final BloodGasAnalysis bloodGasAnalysis;
 
+  /// Labor Parameters.
   final LaborParameters laborParameters;
 
+  /// Medicaments.
   final Medicaments medicaments;
 
+  /// Movement Data.
   final PatientData movementData;
 
   @override

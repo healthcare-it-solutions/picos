@@ -553,88 +553,242 @@ class CatalogOfItemsPageStorage {
 
   /// Tidal Volume
   double? tidalVolume;
+
+  /// Last Respitory Rate.
   double? respiratoryRate1;
+
+  /// Pre last Respitory Rate.
   double? respiratoryRate2;
+
+  /// Last Oxygen Saturation.
   double? oxygenSaturation1;
+
+  /// Pre last Oxygen Saturation.
   double? oxygenSaturation2;
 
+  /// Last Arterial Oxygen Saturation.
   double? arterialOxygenSaturation1;
+
+  /// Pre last Arterial Oxygen Saturation.
   double? arterialOxygenSaturation2;
+
+  /// Last Central Venous Oxygen Saturation.
   double? centralVenousOxygenSaturation1;
+
+  /// Pre last Central Venous Oxygen Saturation.
   double? centralVenousOxygenSaturation2;
+
+  /// Last Partial Pressure of Oxygen.
   double? partialPressureOfOxygen1;
+
+  /// Pre last Partial Pressure of Oxygen.
   double? partialPressureOfOxygen2;
+
+  /// Last Partial Pressure of Carbon Dioxide.
   double? partialPressureOfCarbonDioxide1;
+
+  /// Pre last Partial Pressure of Carbon Dioxide.
   double? partialPressureOfCarbonDioxide2;
+
+  /// Last Arterial Base Excess.
   double? arterialBaseExcess1;
+
+  /// Pre last Arterial Base Excess.
   double? arterialBaseExcess2;
+
+  /// Last Arterial PH.
   double? arterialPH1;
+  
+  /// Pre last Arterial PH.
   double? arterialPH2;
+
+  /// Last Arterial Seum Bicarbonate Concentration.
   double? arterialSerumBicarbonateConcentration1;
+
+  /// Pre last Arterial Serum Bicarbonate Concentration.
   double? arterialSerumBicarbonateConcentration2;
+
+  /// Last Arterial Lactate.
   double? arterialLactate1;
+
+  /// Pre last Arterial Lactate.
   double? arterialLactate2;
+
+  /// Last Blood GLucose Level.
   String? bloodGlucoseLevel1;
+
+  /// Pre last Blood Glucose Level.
   String? bloodGlucoseLevel2;
 
+  /// Leukocyte Count.
   double? leukocyteCount;
+
+  /// Lymphycyte Count.
   double? lymphocyteCount;
+
+  /// Lymphocyte Percentage.
   double? lymphocytePercentage;
+
+  /// Platelet Count.
   double? plateletCount;
+
+  /// cReactive Protein Level.
   double? cReactiveProteinLevel;
+
+  /// Procalcitonin Level.
   double? procalcitoninLevel;
+
+  /// Interleukin.
   double? interleukin;
+
+  /// Blood Urea Nitrogen.
   double? bloodUreaNitrogen;
+
+  /// Creatinine.
   double? creatinine;
+
+  /// Heart Failure Marker.
   double? heartFailureMarker;
+
+  /// Heart Failure Marker NT Pro BNP.
   double? heartFailureMarkerNTProBNP;
+
+  /// Bilirubin Total.
   double? bilirubinTotal;
+
+  /// Hemoglobin.
   double? hemoglobin;
+
+  /// Hematocrit.
   double? hematocrit;
+
+  /// Albumin.
   double? albumin;
+
+  /// gotASAT.
   double? gotASAT;
+
+  /// gptALAT.
   double? gptALAT;
+
+  /// Troponin.
   double? troponin;
+
+  /// Creatine Kinase.
   double? creatineKinase;
+
+  /// Myocardial Infarction Marker CKMB.
   double? myocardialInfarctionMarkerCKMB;
+
+  /// Lactatet Dehydrogenase Level.
   double? lactateDehydrogenaseLevel;
+
+  /// Amylase Level.
   double? amylaseLevel;
+
+  /// Lipase Level.
   double? lipaseLevel;
+
+  /// dDimer.
   double? dDimer;
+
+  /// International Normalized Ratio.
   double? internationalNormalizedRatio;
+
+  /// Partial Thromboplastin Time. 
   double? partialThromboplastinTime;
 
+  /// Intake of medication in the morning.
   double? morning;
+
+  /// Intake of medication in the noon.
   double? noon;
+
+  /// Intake of medication in the evening.
   double? evening;
+  
+  /// Intake of medication at the night.
   double? atNight;
+
+  /// Medication Unit.
   String? unit;
+
+  /// Denotation of the Medical Product.
   String? medicalProduct;
 
+  /// Patient's age.
   int? age;
+
+  /// Patient's gender.
   String? gender;
+
+  /// Patient's body weight.
   double? bodyWeight;
+
+  /// Patient's body height.
   double? bodyHeight;
+
+  /// Patient's body mass index.
   double? bodyMassIndex;
+
+  /// Patient's idead body weight.
   double? idealBodyWeight;
+
+  /// Patient'S ID.
   String? patientID;
+
+  /// Patient's case number.
   String? caseNumber;
+
+  /// Reason for Discharge.
   String? reasonForDischarge;
+
+  /// Admission Time to the ICU
   DateTime? admissionTime;
+
+  /// Discharge Time from the ICU
   DateTime? dischargeTime;
+
+  /// Ventilation Days.
   int? ventilationDays;
+
+  /// Admission Time to the Hospital.
   DateTime? admissionTimeToTheHospital;
+
+  /// Discharge Time from the Hospital.
   DateTime? dischargeTimeFromTheHospital;
+
+  /// ICD 10 Codes.
   List<String>? icd10Codes;
+
+  /// Patient Location.
   String? patientLocation;
+
+  /// Lung protective Ventilation
   bool lungProtectiveVentilation70 = false;
+
+  /// ICU Mortality.
   double? icuMortality;
+
+  /// Hospital Mortality.
   double? hospitalMortality;
+
+  /// Length of Stay in Hospital.
   int? hospitalLengthOfStay;
+
+  /// Length of Stay in ICU.
   int? icuLengthOfStay;
+
+  /// Readmission Rate to the ICU.
   double? readmissionRateToTheICU;
+
+  /// Readmission to the Hospital.
   int? hospitalReadmission;
+
+  /// Days until Work Reuptake.
   double? daysUntilWorkReuptake;
+
+  /// Institute Key.
   String? instKey;
 
   /// The loaded pages.

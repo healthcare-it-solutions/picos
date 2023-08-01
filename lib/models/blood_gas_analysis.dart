@@ -48,8 +48,10 @@ class BloodGasAnalysis extends AbstractDatabaseObject {
   /// Patient Object Id.
   final String patientObjectId;
 
+  /// Value of first Object ID.
   late String? valueObjectId1;
   
+  /// Value of second Object ID.
   late String? valueObjectId2;
 
   @override
