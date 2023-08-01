@@ -189,15 +189,7 @@ class Backend {
       parseObject.set(key, value);
     });
 
-    ParseResponse saveObject = await parseObject.save();
-    if(saveObject.results ==null){
-      print('Results List is Null');
-    }
-    else{
-
-    }
-
-    return jsonDecode(saveObject.results!.first.toString());
+    return jsonDecode((await parseObject.save()).results!.first.toString());
   }
 
   /// Deletes the [object].
