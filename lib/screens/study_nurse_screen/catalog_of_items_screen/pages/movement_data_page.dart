@@ -47,8 +47,6 @@ class MovementDataPage extends StatefulWidget {
     required this.icd10COdesCallback,
     required this.patientLocationCallback,
     required this.lungProtectiveVentilationGt70pCallback,
-    //required this.icuMortalityCallback,
-    //required this.hospitalMortalityCallback,
     required this.hospitalLengthOfStayCallback,
     required this.icuLengthOfStayCallback,
     required this.readmissionRateICUCallback,
@@ -122,7 +120,7 @@ class MovementDataPage extends StatefulWidget {
   final void Function(DateTime? value) dischargeTimeHospitalCallback;
 
   /// ICD-10 Codes callback.
-  final void Function(List<String>? value) icd10COdesCallback;
+  final void Function(List<dynamic>? value) icd10COdesCallback;
 
   /// Patient Location callback.
   final void Function(String? value) patientLocationCallback;
@@ -188,7 +186,7 @@ class MovementDataPage extends StatefulWidget {
   final DateTime? initialDischargeTimeFromTheHospital;
 
   /// Starting value for ICD-10 Codes.
-  final List<String>? initialICD10Codes;
+  final List<dynamic>? initialICD10Codes;
 
   /// Starting value for Patient Location.
   final String? initialPatientLocation;
@@ -363,9 +361,11 @@ class _MovementDataPageState extends State<MovementDataPage> {
             CatalogOfItemsLabel(AppLocalizations.of(context)!.icd10Codes),
             PicosTextField(
               hint: 'ICD-10 Codes',
-              initialValue: widget.initialICD10Codes?.toString(),
+              initialValue: widget.initialICD10Codes?[0].toString(),
               onChanged: (String value) {
-                widget.icd10COdesCallback(value as List<String>);
+                List<dynamic> list = <dynamic>[];
+                list.add(value);
+                widget.icd10COdesCallback(list);
               },
             ),
             CatalogOfItemsLabel(

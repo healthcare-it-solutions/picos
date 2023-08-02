@@ -462,7 +462,7 @@ class CatalogOfItemsPageStorage {
           dischargeTimeHospitalCallback: (DateTime? value) {
             dischargeTimeFromTheHospital = value;
           },
-          icd10COdesCallback: (List<String>? value) {
+          icd10COdesCallback: (List<dynamic>? value) {
             icd10Codes = value;
           },
           patientLocationCallback: (String? value) {
@@ -619,7 +619,7 @@ class CatalogOfItemsPageStorage {
   int? ventilationDays;
   DateTime? admissionTimeToTheHospital;
   DateTime? dischargeTimeFromTheHospital;
-  List<String>? icd10Codes;
+  List<dynamic>? icd10Codes;
   String? patientLocation;
   bool? lungProtectiveVentilation70;
   int? hospitalLengthOfStay;

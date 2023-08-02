@@ -85,7 +85,7 @@ class PatientData extends AbstractDatabaseObject {
   final bool? lbgt70;
 
   /// denotes the list of ICD 10 codes.
-  final List<String>? icd10Codes;
+  final List<dynamic>? icd10Codes;
 
   /// denotes the start time in hospital.
   final DateTime? azpKH;
@@ -151,7 +151,7 @@ class PatientData extends AbstractDatabaseObject {
     int? ventilationDays,
     DateTime? azpKH,
     DateTime? ezpKH,
-    List<String>? icd10Codes,
+    List<dynamic>? icd10Codes,
     String? station,
     bool? lbgt70,
     int? icuLengthStay,
