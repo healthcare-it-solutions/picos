@@ -230,8 +230,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
               icd10Codes: pageStorage?.icd10Codes,
               station: pageStorage?.patientLocation,
               lbgt70: pageStorage?.lungProtectiveVentilation70,
-              //icuMortality: pageStorage?.icuMortality,
-              //khMortality: pageStorage?.hospitalMortality,
+              wdaICU: pageStorage?.readmissionRateToTheICU,
               icuLengthStay: pageStorage?.icuLengthOfStay,
               khLengthStay: pageStorage?.hospitalLengthOfStay,
               wdaKH: pageStorage?.hospitalReadmission,
@@ -577,8 +576,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
               icd10Codes: pageStorage?.icd10Codes,
               station: pageStorage?.patientLocation,
               lbgt70: pageStorage?.lungProtectiveVentilation70,
-              //icuMortality: pageStorage?.icuMortality,
-              //khMortality: pageStorage?.hospitalMortality,
+              wdaICU: pageStorage?.readmissionRateToTheICU,
               icuLengthStay: pageStorage?.icuLengthOfStay,
               khLengthStay: pageStorage?.hospitalLengthOfStay,
               wdaKH: pageStorage?.hospitalReadmission,
@@ -606,8 +604,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
               icd10Codes: pageStorage?.icd10Codes,
               station: pageStorage?.patientLocation,
               lbgt70: pageStorage?.lungProtectiveVentilation70,
-              //icuMortality: pageStorage?.icuMortality,
-              //khMortality: pageStorage?.hospitalMortality,
+              wdaICU: pageStorage?.readmissionRateToTheICU,
               icuLengthStay: pageStorage?.icuLengthOfStay,
               khLengthStay: pageStorage?.hospitalLengthOfStay,
               wdaKH: pageStorage?.hospitalReadmission,
@@ -641,6 +638,14 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
     }
   }
 
+  Future<List<CatalogOfItemsElement>>? _futureList;
+
+  @override
+  void initState() {
+    super.initState();
+    _futureList = fetchListData();
+  }
+
   Future<List<CatalogOfItemsElement>> fetchListData() async {
     CatalogOfItemsElement? catalogOfItemsElement =
         await BackendCatalogOfItemsApi.getObject();
@@ -660,7 +665,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
         ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
         return FutureBuilder<List<CatalogOfItemsElement>>(
-          future: fetchListData(),
+          future: _futureList,
           builder: (
             BuildContext context,
             AsyncSnapshot<List<CatalogOfItemsElement>> snapshot,

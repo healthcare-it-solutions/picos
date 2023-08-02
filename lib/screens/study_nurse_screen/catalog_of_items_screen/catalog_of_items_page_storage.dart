@@ -410,11 +410,10 @@ class CatalogOfItemsPageStorage {
           initialDischargeTime: movementData?.ezpICU,
           initialVentilationDays: movementData?.ventilationDays,
           initialAdmissionTimeToTheHospital: movementData?.azpKH,
-          initialDischargeTimeFromTheHospital: movementData?.ezpKH,
+          initialDischargeTimeFromTheHospital:
+              dischargeTimeFromTheHospital ?? movementData?.ezpKH,
           initialICD10Codes: movementData?.icd10Codes,
           initialPatientLocation: movementData?.station,
-          //initialICUMortality: movementData?.icuMortality,
-          //initialHospitalMortality: movementData?.khMortality,
           initialHospitalLengthOfStay: movementData?.khLengthStay,
           initialICULengthOfStay: movementData?.icuLengthStay,
           initialReadmissionRateToTheICU: movementData?.wdaICU,
@@ -472,12 +471,6 @@ class CatalogOfItemsPageStorage {
           lungProtectiveVentilationGt70pCallback: (bool? value) {
             lungProtectiveVentilation70 = value;
           },
-          //icuMortalityCallback: (double? value) {
-          //  icuMortality = value;
-          //},
-          //hospitalMortalityCallback: (double? value) {
-          //  hospitalMortality = value;
-          //},
           hospitalLengthOfStayCallback: (int? value) {
             hospitalLengthOfStay = value;
           },
@@ -629,8 +622,6 @@ class CatalogOfItemsPageStorage {
   List<String>? icd10Codes;
   String? patientLocation;
   bool? lungProtectiveVentilation70;
-  double? icuMortality;
-  double? hospitalMortality;
   int? hospitalLengthOfStay;
   int? icuLengthOfStay;
   double? readmissionRateToTheICU;

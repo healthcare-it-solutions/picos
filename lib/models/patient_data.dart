@@ -41,8 +41,6 @@ class PatientData extends AbstractDatabaseObject {
     this.icd10Codes,
     this.station,
     this.lbgt70,
-    //this.icuMortality,
-    //this.khMortality,
     this.icuLengthStay,
     this.khLengthStay,
     this.wdaICU,
@@ -83,9 +81,6 @@ class PatientData extends AbstractDatabaseObject {
   /// denotes the start time of ICU stay.
   final DateTime? azpICU;
 
-  ///// denotes the mortality rate within hospital.
-  //final double? khMortality;
-
   /// denotes the LBgt70 value.
   final bool? lbgt70;
 
@@ -106,9 +101,6 @@ class PatientData extends AbstractDatabaseObject {
 
   /// denotes the station.
   final String? station;
-
-  ///// denotes the ICU mortality.
-  //final double? icuMortality;
 
   /// denotes the length of the ICU stay.
   final int? icuLengthStay;
@@ -162,8 +154,6 @@ class PatientData extends AbstractDatabaseObject {
     List<String>? icd10Codes,
     String? station,
     bool? lbgt70,
-    //double? icuMortality,
-    //double? khMortality,
     int? icuLengthStay,
     int? khLengthStay,
     double? wdaICU,
@@ -194,8 +184,6 @@ class PatientData extends AbstractDatabaseObject {
       icd10Codes: icd10Codes ?? this.icd10Codes,
       station: station ?? this.station,
       lbgt70: lbgt70 ?? this.lbgt70,
-      //icuMortality: icuMortality ?? this.icuMortality,
-      //khMortality: khMortality ?? this.khMortality,
       icuLengthStay: icuLengthStay ?? this.icuLengthStay,
       khLengthStay: khLengthStay ?? this.khLengthStay,
       wdaICU: wdaICU ?? this.wdaICU,
@@ -239,8 +227,6 @@ class PatientData extends AbstractDatabaseObject {
         if (icd10Codes != null) 'ICD_10_Codes': icd10Codes,
         if (station != null) 'Station': station,
         if (lbgt70 != null) 'LBgt70': lbgt70,
-        //if (icuMortality != null) 'ICU_Mortality': icuMortality,
-        //if (khMortality != null) 'KH_Mortality': khMortality,
         if (icuLengthStay != null) 'ICU_LengthStay': icuLengthStay,
         if (khLengthStay != null) 'KH_LengthStay': khLengthStay,
         if (wdaICU != null) 'WdaICU': wdaICU,

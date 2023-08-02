@@ -71,8 +71,6 @@ class MovementDataPage extends StatefulWidget {
     this.initialDischargeTimeFromTheHospital,
     this.initialICD10Codes,
     this.initialPatientLocation,
-    this.initialICUMortality,
-    this.initialHospitalMortality,
     this.initialHospitalLengthOfStay,
     this.initialICULengthOfStay,
     this.initialReadmissionRateToTheICU,
@@ -131,12 +129,6 @@ class MovementDataPage extends StatefulWidget {
 
   /// Lung Protective Ventilation > 70 % callback.
   final void Function(bool? value) lungProtectiveVentilationGt70pCallback;
-
- // /// ICU Mortality callback.
- // final void Function(double? value) icuMortalityCallback;
-//
- // /// Hospital Mortality callback.
- // final void Function(double? value) hospitalMortalityCallback;
 
   /// Hospital Length of Stay Callback.
   final void Function(int? value) hospitalLengthOfStayCallback;
@@ -200,12 +192,6 @@ class MovementDataPage extends StatefulWidget {
 
   /// Starting value for Patient Location.
   final String? initialPatientLocation;
-
-  /// Starting value for ICU Mortality.
-  final double? initialICUMortality;
-
-  /// Starting value for Hospital Mortality.
-  final double? initialHospitalMortality;
 
   /// Starting value for Hospital Length of Stay.
   final int? initialHospitalLengthOfStay;
@@ -416,24 +402,6 @@ class _MovementDataPageState extends State<MovementDataPage> {
         ),
         Column(
           children: <Widget>[
-            //CatalogOfItemsLabel(AppLocalizations.of(context)!.icuMortality),
-            //PicosNumberField(
-            //  hint: percent,
-            //  initialValue: widget.initialICUMortality?.toString(),
-            //  onChanged: (String value) {
-            //    widget.icuMortalityCallback(double.tryParse(value));
-            //  },
-            //),
-            //CatalogOfItemsLabel(
-            //  AppLocalizations.of(context)!.hospitalMortality,
-            //),
-            //PicosNumberField(
-            //  hint: percent,
-            //  initialValue: widget.initialHospitalMortality?.toString(),
-            //  onChanged: (String value) {
-            //    widget.hospitalMortalityCallback(double.tryParse(value));
-            //  },
-            //),
             CatalogOfItemsLabel(
               AppLocalizations.of(context)!.hospitalLengthOfStay,
             ),
