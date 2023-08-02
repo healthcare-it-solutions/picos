@@ -22,7 +22,6 @@ import 'package:picos/models/blood_gas_analysis.dart';
 import 'package:picos/models/blood_gas_analysis_object.dart';
 import 'package:picos/models/catalog_of_items_element.dart';
 import 'package:picos/models/icu_diagnosis.dart';
-import 'package:picos/models/medicaments.dart';
 import 'package:picos/models/patient_data.dart';
 import 'package:picos/models/respiratory_parameters.dart';
 import 'package:picos/models/respiratory_parameters_object.dart';
@@ -199,16 +198,6 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
                   pageStorage?.internationalNormalizedRatio,
               partialThromboplastinTime: pageStorage?.partialThromboplastinTime,
             ),
-            medicaments: Medicaments(
-              patientObjectId: EditPatientScreen.patientObjectId!,
-              doctorObjectId: Backend.user.objectId!,
-              morning: pageStorage?.morning,
-              noon: pageStorage?.noon,
-              evening: pageStorage?.evening,
-              atNight: pageStorage?.atNight,
-              unit: pageStorage?.unit,
-              medicalProduct: pageStorage?.medicalProduct,
-            ),
             movementData: PatientData(
               bodyHeight: EditPatientScreen.bodyHeight!,
               patientID: EditPatientScreen.patientID!,
@@ -233,8 +222,6 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
               wdaICU: pageStorage?.readmissionRateToTheICU,
               icuLengthStay: pageStorage?.icuLengthOfStay,
               khLengthStay: pageStorage?.hospitalLengthOfStay,
-              wdaKH: pageStorage?.hospitalReadmission,
-              weznDisease: pageStorage?.daysUntilWorkReuptake,
             ),
           );
         } else {
@@ -249,7 +236,6 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
           BloodGasAnalysisObject? bloodGasAnalysisObject2;
           BloodGasAnalysis? bloodGasAnalysis;
           LaborParameters? laborParameters;
-          Medicaments? medicaments;
           PatientData? movementData;
           if (_catalogOfItemsElement!.icuDiagnosis != null) {
             icud = _catalogOfItemsElement!.icuDiagnosis!.copyWith(
@@ -530,30 +516,6 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
               partialThromboplastinTime: pageStorage?.partialThromboplastinTime,
             );
           }
-          if (_catalogOfItemsElement!.medicaments != null) {
-            medicaments = _catalogOfItemsElement!.medicaments!.copyWith(
-              patientObjectId: EditPatientScreen.patientObjectId!,
-              doctorObjectId: Backend.user.objectId!,
-              morning: pageStorage?.morning,
-              noon: pageStorage?.noon,
-              evening: pageStorage?.evening,
-              atNight: pageStorage?.atNight,
-              unit: pageStorage?.unit,
-              medicalProduct: pageStorage?.medicalProduct,
-            );
-          } else {
-            medicaments = Medicaments(
-              patientObjectId: EditPatientScreen.patientObjectId!,
-              doctorObjectId: Backend.user.objectId!,
-              morning: pageStorage?.morning,
-              noon: pageStorage?.noon,
-              evening: pageStorage?.evening,
-              atNight: pageStorage?.atNight,
-              unit: pageStorage?.unit,
-              medicalProduct: pageStorage?.medicalProduct,
-            );
-          }
-
           if (_catalogOfItemsElement!.movementData != null) {
             movementData = _catalogOfItemsElement!.movementData!.copyWith(
               bodyHeight: EditPatientScreen.bodyHeight!,
@@ -579,8 +541,6 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
               wdaICU: pageStorage?.readmissionRateToTheICU,
               icuLengthStay: pageStorage?.icuLengthOfStay,
               khLengthStay: pageStorage?.hospitalLengthOfStay,
-              wdaKH: pageStorage?.hospitalReadmission,
-              weznDisease: pageStorage?.daysUntilWorkReuptake,
             );
           } else {
             movementData = PatientData(
@@ -607,8 +567,6 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
               wdaICU: pageStorage?.readmissionRateToTheICU,
               icuLengthStay: pageStorage?.icuLengthOfStay,
               khLengthStay: pageStorage?.hospitalLengthOfStay,
-              wdaKH: pageStorage?.hospitalReadmission,
-              weznDisease: pageStorage?.daysUntilWorkReuptake,
             );
           }
 
@@ -624,7 +582,6 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
             bloodGasAnalysisObject2: bloodGasAnalysisObject2,
             bloodGasAnalysis: bloodGasAnalysis,
             laborParameters: laborParameters,
-            medicaments: medicaments,
             movementData: movementData,
           );
         }

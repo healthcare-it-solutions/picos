@@ -19,11 +19,9 @@ import 'package:flutter/material.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/blood_gas_analysis_page.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/icu_diagnosis_page.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/laboratory_values_page.dart';
-import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/medicaments_page.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/movement_data_page.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/respiration_parameters_page.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/vital_data_page.dart';
-
 import '../../../models/blood_gas_analysis_object.dart';
 import '../../../models/catalog_of_items_element.dart';
 import '../../../models/icu_diagnosis.dart';
@@ -31,7 +29,6 @@ import '../../../models/labor_parameters.dart';
 import '../../../models/patient_data.dart';
 import '../../../models/respiratory_parameters_object.dart';
 import '../../../models/vital_signs_object.dart';
-import '../../../models/medicaments.dart';
 import '../../../widgets/picos_page_view_item.dart';
 
 /// Manages the state of the Catalog of items pages.
@@ -49,7 +46,6 @@ class CatalogOfItemsPageStorage {
     BloodGasAnalysisObject? bloodGasAnalysisObject1;
     BloodGasAnalysisObject? bloodGasAnalysisObject2;
     LaborParameters? laborParameters;
-    Medicaments? medicaments;
     PatientData? movementData;
     if (catalogOfItemsElement != null) {
       icuDiagnosis = catalogOfItemsElement.icuDiagnosis;
@@ -62,7 +58,6 @@ class CatalogOfItemsPageStorage {
       bloodGasAnalysisObject1 = catalogOfItemsElement.bloodGasAnalysisObject1;
       bloodGasAnalysisObject2 = catalogOfItemsElement.bloodGasAnalysisObject2;
       laborParameters = catalogOfItemsElement.laborParameters;
-      medicaments = catalogOfItemsElement.medicaments;
       movementData = catalogOfItemsElement.movementData;
     }
 
@@ -368,34 +363,6 @@ class CatalogOfItemsPageStorage {
         ),
       ),
       PicosPageViewItem(
-        child: MedicamentsPage(
-          initialMorning: medicaments?.morning,
-          initialNoon: medicaments?.noon,
-          initialEvening: medicaments?.evening,
-          initialAtNight: medicaments?.atNight,
-          initialUnit: medicaments?.unit,
-          initialMedicalProduct: medicaments?.medicalProduct,
-          morningCallback: (double? value) {
-            morning = value;
-          },
-          noonCallback: (double? value) {
-            noon = value;
-          },
-          eveningCallback: (double? value) {
-            evening = value;
-          },
-          atNightCallback: (double? value) {
-            atNight = value;
-          },
-          unitCallback: (String? value) {
-            unit = value;
-          },
-          medicalProductCallback: (String? value) {
-            medicalProduct = value;
-          },
-        ),
-      ),
-      PicosPageViewItem(
         child: MovementDataPage(
           initialAge: movementData?.age,
           initialGender: movementData?.gender,
@@ -417,8 +384,6 @@ class CatalogOfItemsPageStorage {
           initialHospitalLengthOfStay: movementData?.khLengthStay,
           initialICULengthOfStay: movementData?.icuLengthStay,
           initialReadmissionRateToTheICU: movementData?.wdaICU,
-          initialHospitalReadmission: movementData?.wdaKH,
-          initialDaysUntilWorkReuptake: movementData?.weznDisease,
           initialLungProtectiveVentilation70p: movementData?.lbgt70,
           ageCallback: (int? value) {
             age = value;
@@ -479,12 +444,6 @@ class CatalogOfItemsPageStorage {
           },
           readmissionRateICUCallback: (double? value) {
             readmissionRateToTheICU = value;
-          },
-          hospitalReadmissionCallback: (int? value) {
-            hospitalReadmission = value;
-          },
-          daysUntilWorkReuptakeCallback: (double? value) {
-            daysUntilWorkReuptake = value;
           },
         ),
       ),
@@ -598,13 +557,6 @@ class CatalogOfItemsPageStorage {
   double? internationalNormalizedRatio;
   double? partialThromboplastinTime;
 
-  double? morning;
-  double? noon;
-  double? evening;
-  double? atNight;
-  String? unit;
-  String? medicalProduct;
-
   int? age;
   String? gender;
   double? bodyWeight;
@@ -626,7 +578,6 @@ class CatalogOfItemsPageStorage {
   int? icuLengthOfStay;
   double? readmissionRateToTheICU;
   int? hospitalReadmission;
-  double? daysUntilWorkReuptake;
   String? instKey;
 
   /// The loaded pages.

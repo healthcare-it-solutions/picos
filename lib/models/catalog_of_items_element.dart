@@ -18,7 +18,6 @@
 import 'package:picos/models/abstract_database_object.dart';
 import 'package:picos/models/icu_diagnosis.dart';
 import 'package:picos/models/labor_parameters.dart';
-import 'package:picos/models/medicaments.dart';
 import 'package:picos/models/patient_data.dart';
 import 'package:picos/models/respiratory_parameters.dart';
 import 'package:picos/models/respiratory_parameters_object.dart';
@@ -43,7 +42,6 @@ class CatalogOfItemsElement extends AbstractDatabaseObject {
     required this.bloodGasAnalysisObject2,
     required this.bloodGasAnalysis,
     required this.laborParameters,
-    required this.medicaments,
     required this.movementData,
     String? objectId,
     DateTime? createdAt,
@@ -75,8 +73,6 @@ class CatalogOfItemsElement extends AbstractDatabaseObject {
 
   final LaborParameters? laborParameters;
 
-  final Medicaments? medicaments;
-
   final PatientData? movementData;
 
   @override
@@ -92,7 +88,6 @@ class CatalogOfItemsElement extends AbstractDatabaseObject {
     BloodGasAnalysisObject? bloodGasAnalysisObject2,
     BloodGasAnalysis? bloodGasAnalysis,
     LaborParameters? laborParameters,
-    Medicaments? medicaments,
     PatientData? movementData,
     String? objectId,
     DateTime? createdAt,
@@ -115,7 +110,6 @@ class CatalogOfItemsElement extends AbstractDatabaseObject {
           bloodGasAnalysisObject2 ?? this.bloodGasAnalysisObject2,
       bloodGasAnalysis: bloodGasAnalysis ?? this.bloodGasAnalysis,
       laborParameters: laborParameters ?? this.laborParameters,
-      medicaments: medicaments ?? this.medicaments,
       movementData: movementData ?? this.movementData,
       objectId: objectId ?? this.objectId,
       createdAt: createdAt ?? this.createdAt,
@@ -133,7 +127,6 @@ class CatalogOfItemsElement extends AbstractDatabaseObject {
         respiratoryParameters!,
         bloodGasAnalysis!,
         laborParameters!,
-        medicaments!,
         movementData!
       ];
 

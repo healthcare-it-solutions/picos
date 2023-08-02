@@ -50,8 +50,6 @@ class MovementDataPage extends StatefulWidget {
     required this.hospitalLengthOfStayCallback,
     required this.icuLengthOfStayCallback,
     required this.readmissionRateICUCallback,
-    required this.hospitalReadmissionCallback,
-    required this.daysUntilWorkReuptakeCallback,
     Key? key,
     this.initialAge,
     this.initialGender,
@@ -72,8 +70,6 @@ class MovementDataPage extends StatefulWidget {
     this.initialHospitalLengthOfStay,
     this.initialICULengthOfStay,
     this.initialReadmissionRateToTheICU,
-    this.initialHospitalReadmission,
-    this.initialDaysUntilWorkReuptake,
     this.initialLungProtectiveVentilation70p,
   }) : super(key: key);
 
@@ -137,12 +133,6 @@ class MovementDataPage extends StatefulWidget {
   /// Readmission Rate of ICU callback.
   final void Function(double? value) readmissionRateICUCallback;
 
-  /// Hospital Readmission callback.
-  final void Function(int? value) hospitalReadmissionCallback;
-
-  /// Days until Work Reuptake callback.
-  final void Function(double? value) daysUntilWorkReuptakeCallback;
-
   /// Starting value for Age.
   final int? initialAge;
 
@@ -200,12 +190,6 @@ class MovementDataPage extends StatefulWidget {
   /// Starting value for Readmission Rate to the ICU.
   final double? initialReadmissionRateToTheICU;
 
-  /// Starting value for Hospital Readmission.
-  final int? initialHospitalReadmission;
-
-  /// Starting value for Days until Work Reuptake.
-  final double? initialDaysUntilWorkReuptake;
-
   /// Starting value for Lung Protective Ventilation.
   final bool? initialLungProtectiveVentilation70p;
 
@@ -221,7 +205,6 @@ class _MovementDataPageState extends State<MovementDataPage> {
     const String kgm2 = 'kg/m2';
     const String kg = 'kg';
     const String percent = '%';
-    String nYear = 'n/${AppLocalizations.of(context)!.year}';
 
     return CatalogOfItemsPage(
       title: AppLocalizations.of(context)!.patientsMovementData,
@@ -430,26 +413,6 @@ class _MovementDataPageState extends State<MovementDataPage> {
               initialValue: widget.initialReadmissionRateToTheICU?.toString(),
               onChanged: (String value) {
                 widget.readmissionRateICUCallback(double.tryParse(value));
-              },
-            ),
-            CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.hospitalReadmission,
-            ),
-            PicosNumberField(
-              hint: nYear,
-              initialValue: widget.initialHospitalReadmission?.toString(),
-              onChanged: (String value) {
-                widget.hospitalReadmissionCallback(int.tryParse(value));
-              },
-            ),
-            CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.daysUntilWorkReuptake,
-            ),
-            PicosNumberField(
-              hint: AppLocalizations.of(context)!.days,
-              initialValue: widget.initialDaysUntilWorkReuptake?.toString(),
-              onChanged: (String value) {
-                widget.daysUntilWorkReuptakeCallback(double.tryParse(value));
               },
             ),
           ],

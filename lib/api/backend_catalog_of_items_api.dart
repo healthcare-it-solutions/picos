@@ -25,7 +25,6 @@ import 'package:picos/models/blood_gas_analysis_object.dart';
 import 'package:picos/models/catalog_of_items_element.dart';
 import 'package:picos/models/icu_diagnosis.dart';
 import 'package:picos/models/labor_parameters.dart';
-import 'package:picos/models/medicaments.dart';
 import 'package:picos/models/patient_data.dart';
 import 'package:collection/collection.dart';
 import 'package:picos/models/respiratory_parameters_object.dart';
@@ -260,23 +259,6 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         );
       }
 
-      if (object.medicaments != null) {
-        /// Medicaments
-        dynamic responseMedicaments = await Backend.saveObject(
-          object.medicaments!,
-        );
-
-        object.medicaments!.copyWith(
-          objectId: responseMedicaments['objectId'],
-          createdAt:
-              DateTime.tryParse(responseMedicaments['createdAt'] ?? '') ??
-                  object.medicaments!.createdAt,
-          updatedAt:
-              DateTime.tryParse(responseMedicaments['updatedAt'] ?? '') ??
-                  object.medicaments!.updatedAt,
-        );
-      }
-
       if (object.movementData != null) {
         /// Movement data
         dynamic responseMovementData = await Backend.saveObject(
@@ -430,7 +412,6 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       List<BloodGasAnalysisObject> bloodGasAnalysisObjectResults =
           <BloodGasAnalysisObject>[];
       List<LaborParameters> laborParametersResults = <LaborParameters>[];
-      List<Medicaments> medicamentsResults = <Medicaments>[];
       List<PatientData> movementDataResults = <PatientData>[];
 
       ParseResponse responseICUDiagnosis = await Backend.getEntry(
@@ -662,12 +643,6 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         EditPatientScreen.patientObjectId!,
       );
 
-      ParseResponse responseMedicaments = await Backend.getEntry(
-        Medicaments.databaseTable,
-        'Patient',
-        EditPatientScreen.patientObjectId!,
-      );
-
       ParseResponse responseMovementData = await Backend.getEntry(
         PatientData.databaseTable,
         'Patient',
@@ -707,26 +682,6 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
               patientObjectId: element['Patient']['objectId'],
               doctorObjectId: element['Doctor']['objectId'],
               objectId: element['objectId'],
-              createdAt: element['createdAt'],
-              updatedAt: element['updatedAt'],
-            ),
-          );
-        }
-      }
-
-      if (responseMedicaments.results != null) {
-        for (dynamic element in responseMedicaments.results!) {
-          medicamentsResults.add(
-            Medicaments(
-              morning: element['Morning']?.toDouble(),
-              noon: element['Noon']?.toDouble(),
-              evening: element['Evening']?.toDouble(),
-              atNight: element['AtNight']?.toDouble(),
-              unit: element['Unit'] ?? '',
-              medicalProduct: element['MedicalProduct'] ?? '',
-              objectId: element['objectId'] ?? '',
-              patientObjectId: element['Patient']['objectId'],
-              doctorObjectId: element['Doctor']['objectId'],
               createdAt: element['createdAt'],
               updatedAt: element['updatedAt'],
             ),
@@ -798,10 +753,6 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         (LaborParameters laborParametersObject) =>
             laborParametersObject.patientObjectId == patientObjectId,
       );
-      Medicaments? matchingMedicaments = medicamentsResults.firstWhereOrNull(
-        (Medicaments medicamentsObject) =>
-            medicamentsObject.patientObjectId == patientObjectId,
-      );
 
       PatientData? matchingMovementData = movementDataResults.firstWhereOrNull(
         (PatientData movementDataObject) =>
@@ -814,7 +765,6 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
           matchingRespiratoryParameters != null ||
           matchingBloodGasAnalysis != null ||
           matchingLaborParameters != null ||
-          matchingMedicaments != null ||
           matchingMovementData != null) {
         List<VitalSignsObject>? foundObjectsVitalSigns =
             _findMatchingObjectsVitalSigns(
@@ -846,7 +796,6 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
           bloodGasAnalysisObject1: foundObjectsBloodGasAnalysis?[0],
           bloodGasAnalysisObject2: foundObjectsBloodGasAnalysis?[1],
           laborParameters: matchingLaborParameters,
-          medicaments: matchingMedicaments,
           movementData: matchingMovementData,
           objectId: patientObjectId,
         );
