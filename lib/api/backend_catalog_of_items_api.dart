@@ -18,6 +18,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:picos/api/backend_objects_api.dart';
 import 'package:picos/models/abstract_database_object.dart';
@@ -41,10 +42,11 @@ import 'package:picos/models/vital_signs.dart';
 class BackendCatalogOfItemsApi extends BackendObjectsApi {
   @override
   Future<void> saveObject(AbstractDatabaseObject object) async {
-    if (object.createdAt == null) {
-      acl = BackendACL();
-      acl!.setDefault();
-      acl!.setReadAccess(userId: BackendRole.doctor.id);
+    BackendACL coiACL = BackendACL();
+    if (object.createdAt == null) {  
+      coiACL.setWriteAccess(userId: BackendRole.doctor.id);
+      coiACL.setReadAccess(userId: BackendRole.doctor.id);
+      coiACL.setReadAccess(userId: EditPatientScreen.patientObjectId!);
     }
 
     VitalSignsObject? vitalSignsObject1;
@@ -53,6 +55,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       /// ICUDiagnosis
       dynamic responseICUDiagnosis = await Backend.saveObject(
         (object as CatalogOfItemsElement).icuDiagnosis,
+        acl: coiACL,
       );
 
       ICUDiagnosis icuDiagnosis = object.icuDiagnosis.copyWith(
@@ -66,6 +69,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       /// VitalSigns value 1
       dynamic responseVitalSignsObject1 = await Backend.saveObject(
         object.vitalSignsObject1,
+        acl: coiACL,
       );
       vitalSignsObject1 = object.vitalSignsObject1.copyWith(
         objectId: responseVitalSignsObject1['objectId'],
@@ -82,6 +86,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       /// VitalSigns value 2
       dynamic responseVitalSignsObject2 = await Backend.saveObject(
         object.vitalSignsObject2,
+        acl: coiACL,
       );
 
       vitalSignsObject2 = object.vitalSignsObject2.copyWith(
@@ -101,6 +106,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       object.vitalSigns.value2 = vitalSignsObject2;
       dynamic responseVitalSigns = await Backend.saveObject(
         object.vitalSigns,
+        acl: coiACL,
       );
       VitalSigns vitalSigns = object.vitalSigns.copyWith(
         objectId: responseVitalSigns['objectId'],
@@ -113,6 +119,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       /// Respiratory parameters value 1
       dynamic responseRespiratoryParametersObject1 = await Backend.saveObject(
         object.respiratoryParametersObject1,
+        acl: coiACL,
       );
 
       RespiratoryParametersObject respiratoryParametersObject1 =
@@ -131,6 +138,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       /// Respiratory parameters value 2
       dynamic responseRespiratoryParametersObject2 = await Backend.saveObject(
         object.respiratoryParametersObject2,
+        acl: coiACL,
       );
 
       RespiratoryParametersObject respiratoryParametersObject2 =
@@ -151,6 +159,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       object.respiratoryParameters.value2 = respiratoryParametersObject2;
       dynamic responseRespiratoryParameters = await Backend.saveObject(
         object.respiratoryParameters,
+        acl: coiACL,
       );
       RespiratoryParameters respiratoryParameters =
           object.respiratoryParameters.copyWith(
@@ -168,6 +177,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       /// Blood gas analysis value 1
       dynamic responseBloodGasAnalysisObject1 = await Backend.saveObject(
         object.bloodGasAnalysisObject1,
+        acl: coiACL,
       );
 
       BloodGasAnalysisObject bloodGasAnalysisObject1 =
@@ -186,6 +196,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       /// Blood gas analysis value 2
       dynamic responseBloodGasAnalysisObject2 = await Backend.saveObject(
         object.bloodGasAnalysisObject2,
+        acl: coiACL,
       );
 
       BloodGasAnalysisObject bloodGasAnalysisObject2 =
@@ -206,6 +217,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       object.bloodGasAnalysis.value2 = bloodGasAnalysisObject2;
       dynamic responseBloodGasAnalysis = await Backend.saveObject(
         object.bloodGasAnalysis,
+        acl: coiACL,
       );
 
       BloodGasAnalysis bloodGasAnalysis = object.bloodGasAnalysis.copyWith(
@@ -223,6 +235,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       /// Labor parameters
       dynamic responseLaborParameters = await Backend.saveObject(
         object.laborParameters,
+        acl: coiACL,
       );
 
       LaborParameters laborParameters = object.laborParameters.copyWith(
@@ -238,6 +251,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       /// Medicaments
       dynamic responseMedicaments = await Backend.saveObject(
         object.medicaments,
+        acl: coiACL,
       );
 
       Medicaments medicaments = object.medicaments.copyWith(
@@ -251,6 +265,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       /// Movement data
       dynamic responseMovementData = await Backend.saveObject(
         object.movementData,
+        acl: coiACL,
       );
 
       PatientData movementData = object.movementData.copyWith(

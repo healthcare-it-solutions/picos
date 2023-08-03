@@ -175,12 +175,15 @@ class Backend {
   }) async {
     ParseObject parseObject = ParseObject(object.table);
 
-    if (object.objectId == null) {
+    if (object.objectId == null && acl == null) {
       acl = BackendACL();
-      acl.setDefault();
-      parseObject.setACL(acl.acl);
+      acl.setDefault();  
     }
 
+    if (acl != null) {
+      parseObject.setACL(acl.acl);
+    }
+    
     if (object.objectId != null) {
       parseObject.objectId = object.objectId;
     }
