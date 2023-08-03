@@ -44,8 +44,6 @@ class PatientData extends AbstractDatabaseObject {
     this.icuLengthStay,
     this.khLengthStay,
     this.wdaICU,
-    this.wdaKH,
-    this.weznDisease,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -111,12 +109,6 @@ class PatientData extends AbstractDatabaseObject {
   /// denotes Hospital Readmission ICU
   final double? wdaICU;
 
-  /// denotes the WdaKH value.
-  final int? wdaKH;
-
-  /// denotes the WEZnDisease value.
-  final double? weznDisease;
-
   /// denotes the institute key.
   final String instKey;
 
@@ -158,7 +150,6 @@ class PatientData extends AbstractDatabaseObject {
     int? khLengthStay,
     double? wdaICU,
     int? wdaKH,
-    double? weznDisease,
     String? instKey,
     String? patientObjectId,
     String? doctorObjectId,
@@ -187,8 +178,6 @@ class PatientData extends AbstractDatabaseObject {
       icuLengthStay: icuLengthStay ?? this.icuLengthStay,
       khLengthStay: khLengthStay ?? this.khLengthStay,
       wdaICU: wdaICU ?? this.wdaICU,
-      wdaKH: wdaKH ?? this.wdaKH,
-      weznDisease: weznDisease ?? this.weznDisease,
       instKey: instKey ?? this.instKey,
       patientObjectId: patientObjectId ?? this.patientObjectId,
       doctorObjectId: doctorObjectId ?? this.doctorObjectId,
@@ -230,8 +219,6 @@ class PatientData extends AbstractDatabaseObject {
         if (icuLengthStay != null) 'ICU_LengthStay': icuLengthStay,
         if (khLengthStay != null) 'KH_LengthStay': khLengthStay,
         if (wdaICU != null) 'WdaICU': wdaICU,
-        if (wdaKH != null) 'WdaKH': wdaKH,
-        if (weznDisease != null) 'WEZnDisease': weznDisease,
         if (instKey != null) 'inst_key': instKey,
         'Patient': <String, String>{
           'objectId': patientObjectId,
