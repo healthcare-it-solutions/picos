@@ -105,7 +105,7 @@ class _PicosDatePickerState extends State<PicosDatePicker> {
 
         if (date != null) {
           setState(() {
-            _date = date;
+            _date = date.add(const Duration(hours: 2));
           });
 
           widget.callBackFunction(_date!);
