@@ -198,6 +198,22 @@ class MovementDataPage extends StatefulWidget {
 }
 
 class _MovementDataPageState extends State<MovementDataPage> {
+  DateTime? _selectedAdmissionTime;
+  DateTime? _selectedDischargeTime;
+  DateTime? _selectedAdmissionTimeToTheHospital;
+  DateTime? _selectedDischargeTimeFromTheHospital;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedAdmissionTime = widget.initialAdmissionTime;
+    _selectedDischargeTime = widget.initialDischargeTime;
+    _selectedAdmissionTimeToTheHospital =
+        widget.initialAdmissionTimeToTheHospital;
+    _selectedDischargeTimeFromTheHospital =
+        widget.initialDischargeTimeFromTheHospital;
+  }
+
   @override
   Widget build(BuildContext context) {
     const String cm = 'cm';
@@ -301,8 +317,11 @@ class _MovementDataPageState extends State<MovementDataPage> {
             PicosDatePicker(
               callBackFunction: (DateTime value) {
                 widget.admissionTimeICUCallback(value);
+                setState(() {
+                  _selectedAdmissionTime = value;
+                });
               },
-              initialValue: widget.initialAdmissionTime,
+              initialValue: _selectedAdmissionTime,
             ),
             CatalogOfItemsLabel(
               AppLocalizations.of(context)!.dischargeTimeICU,
@@ -310,8 +329,11 @@ class _MovementDataPageState extends State<MovementDataPage> {
             PicosDatePicker(
               callBackFunction: (DateTime value) {
                 widget.dischargeTimeICUCallback(value);
+                setState(() {
+                  _selectedDischargeTime = value;
+                });
               },
-              initialValue: widget.initialDischargeTime,
+              initialValue: _selectedDischargeTime,
             ),
             CatalogOfItemsLabel(
               AppLocalizations.of(context)!.ventilationDaysICU,
@@ -329,8 +351,11 @@ class _MovementDataPageState extends State<MovementDataPage> {
             PicosDatePicker(
               callBackFunction: (DateTime value) {
                 widget.admissionTimeHospitalCallback(value);
+                setState(() {
+                  _selectedAdmissionTimeToTheHospital = value;
+                });
               },
-              initialValue: widget.initialAdmissionTimeToTheHospital,
+              initialValue: _selectedAdmissionTimeToTheHospital,
             ),
             CatalogOfItemsLabel(
               AppLocalizations.of(context)!.dischargeTimeHospital,
@@ -338,8 +363,11 @@ class _MovementDataPageState extends State<MovementDataPage> {
             PicosDatePicker(
               callBackFunction: (DateTime value) {
                 widget.dischargeTimeHospitalCallback(value);
+                setState(() {
+                  _selectedDischargeTimeFromTheHospital = value;
+                });
               },
-              initialValue: widget.initialDischargeTimeFromTheHospital,
+              initialValue: _selectedDischargeTimeFromTheHospital,
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.icd10Codes),
             PicosTextField(
