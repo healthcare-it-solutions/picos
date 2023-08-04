@@ -241,7 +241,6 @@ class _MovementDataPageState extends State<MovementDataPage> {
   Widget build(BuildContext context) {
     const String cm = 'cm';
     const int textAreaLines = 3;
-    const String kgm2 = 'kg/m2';
     const String kg = 'kg';
     const String percent = '%';
     String nYear = 'n/${AppLocalizations.of(context)!.year}';
