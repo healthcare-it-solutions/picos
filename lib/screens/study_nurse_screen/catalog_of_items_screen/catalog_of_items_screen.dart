@@ -135,6 +135,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
               mainDiagnosis: pageStorage?.mainDiagnosis,
               progressDiagnosis: pageStorage?.progressDiagnosis,
               coMorbidity: pageStorage?.coMorbidity,
+              ancillaryDiagnosis: pageStorage?.ancillaryDiagnosis,
               intensiveCareUnitAcquiredWeakness:
                   pageStorage?.intensiveCareUnitAcquiredWeakness,
               postIntensiveCareSyndrome: pageStorage?.postIntensiveCareSyndrome,
@@ -241,6 +242,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
               mainDiagnosis: pageStorage?.mainDiagnosis,
               progressDiagnosis: pageStorage?.progressDiagnosis,
               coMorbidity: pageStorage?.coMorbidity,
+              ancillaryDiagnosis: pageStorage?.ancillaryDiagnosis,
               intensiveCareUnitAcquiredWeakness:
                   pageStorage?.intensiveCareUnitAcquiredWeakness,
               postIntensiveCareSyndrome: pageStorage?.postIntensiveCareSyndrome,
@@ -252,6 +254,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
               mainDiagnosis: pageStorage?.mainDiagnosis,
               progressDiagnosis: pageStorage?.progressDiagnosis,
               coMorbidity: pageStorage?.coMorbidity,
+              ancillaryDiagnosis: pageStorage?.ancillaryDiagnosis,
               intensiveCareUnitAcquiredWeakness:
                   pageStorage?.intensiveCareUnitAcquiredWeakness,
               postIntensiveCareSyndrome: pageStorage?.postIntensiveCareSyndrome,

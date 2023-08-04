@@ -67,6 +67,7 @@ class CatalogOfItemsPageStorage {
           initialCoMorbidity: icuDiagnosis?.coMorbidity,
           initialIcuaw: icuDiagnosis?.intensiveCareUnitAcquiredWeakness,
           initialMainDiagnosis: icuDiagnosis?.mainDiagnosis,
+          initialAncillaryDiagnosis: icuDiagnosis?.ancillaryDiagnosis,
           initialPics: icuDiagnosis?.postIntensiveCareSyndrome,
           initialProgressDiagnosis: icuDiagnosis?.progressDiagnosis,
           mainDiagnosisCallback: (String? value) {
@@ -77,6 +78,9 @@ class CatalogOfItemsPageStorage {
           },
           coMorbidityCallback: (String? value) {
             coMorbidity = value;
+          },
+          ancillaryDiagnosisCallback: (List<dynamic>? value) {
+            ancillaryDiagnosis = value;
           },
           icuawCallback: (bool? value) {
             intensiveCareUnitAcquiredWeakness = value;
@@ -463,6 +467,9 @@ class CatalogOfItemsPageStorage {
 
   /// The co-morbidity.
   String? coMorbidity;
+
+  /// The ancillary diagnosis.
+  List<dynamic>? ancillaryDiagnosis;
 
   /// If the patient has ICUAW.
   bool? intensiveCareUnitAcquiredWeakness;

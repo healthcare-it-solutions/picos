@@ -426,6 +426,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
               mainDiagnosis: element['ICU_Hd'] ?? '',
               progressDiagnosis: element['ICU_Vd'] ?? '',
               coMorbidity: element['CO_Morb'] ?? '',
+              ancillaryDiagnosis: element['Nebendiagnose'],
               intensiveCareUnitAcquiredWeakness: element['ICU_AW'],
               postIntensiveCareSyndrome: element['PICS'],
               patientObjectId: element['Patient']['objectId'],

@@ -28,6 +28,7 @@ class ICUDiagnosis extends AbstractDatabaseObject {
     this.coMorbidity,
     this.intensiveCareUnitAcquiredWeakness,
     this.postIntensiveCareSyndrome,
+    this.ancillaryDiagnosis,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -51,6 +52,9 @@ class ICUDiagnosis extends AbstractDatabaseObject {
   /// If the patient has PICS.
   final bool? postIntensiveCareSyndrome;
 
+  /// The ancillary Diagnosis
+  final List<dynamic>? ancillaryDiagnosis;
+
   /// Patient ObjectId
   final String? patientObjectId;
 
@@ -69,6 +73,7 @@ class ICUDiagnosis extends AbstractDatabaseObject {
     String? coMorbidity,
     bool? intensiveCareUnitAcquiredWeakness,
     bool? postIntensiveCareSyndrome,
+    List<dynamic>? ancillaryDiagnosis,
     String? patientObjectId,
     String? doctorObjectId,
     String? objectId,
@@ -83,6 +88,7 @@ class ICUDiagnosis extends AbstractDatabaseObject {
           this.intensiveCareUnitAcquiredWeakness,
       postIntensiveCareSyndrome:
           postIntensiveCareSyndrome ?? this.postIntensiveCareSyndrome,
+      ancillaryDiagnosis: ancillaryDiagnosis ?? this.ancillaryDiagnosis,
       patientObjectId: patientObjectId ?? this.patientObjectId,
       doctorObjectId: doctorObjectId ?? this.doctorObjectId,
       objectId: objectId ?? this.objectId,
@@ -98,6 +104,7 @@ class ICUDiagnosis extends AbstractDatabaseObject {
         coMorbidity!,
         intensiveCareUnitAcquiredWeakness!,
         postIntensiveCareSyndrome!,
+        ancillaryDiagnosis!
       ];
 
   @override
@@ -119,5 +126,6 @@ class ICUDiagnosis extends AbstractDatabaseObject {
           'ICU_AW': intensiveCareUnitAcquiredWeakness,
         if (postIntensiveCareSyndrome != null)
           'PICS': postIntensiveCareSyndrome,
+        if (ancillaryDiagnosis != null) 'Nebendiagnose': ancillaryDiagnosis
       };
 }

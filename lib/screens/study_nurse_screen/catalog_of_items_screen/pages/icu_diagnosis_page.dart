@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:picos/widgets/picos_switch.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/widgets/picos_text_area.dart';
 import 'package:picos/widgets/picos_text_field.dart';
 
 import '../catalog_of_items_page.dart';
@@ -30,12 +31,14 @@ class IcuDiagnosisPage extends StatelessWidget {
     required this.mainDiagnosisCallback,
     required this.progressDiagnosisCallback,
     required this.coMorbidityCallback,
+    required this.ancillaryDiagnosisCallback,
     required this.icuawCallback,
     required this.picsCallback,
     Key? key,
     this.initialMainDiagnosis,
     this.initialProgressDiagnosis,
     this.initialCoMorbidity,
+    this.initialAncillaryDiagnosis,
     this.initialIcuaw,
     this.initialPics,
   }) : super(key: key);
@@ -48,6 +51,9 @@ class IcuDiagnosisPage extends StatelessWidget {
 
   /// ICUAW callback.
   final void Function(String? value) coMorbidityCallback;
+
+  /// Ancillary diagnosis callback.
+  final void Function(List<dynamic>? value) ancillaryDiagnosisCallback;
 
   /// PICS callback.
   final void Function(bool? value) icuawCallback;
@@ -63,6 +69,9 @@ class IcuDiagnosisPage extends StatelessWidget {
 
   /// Starting value for co-morbidity.
   final String? initialCoMorbidity;
+
+  /// Starting value for ancillary diagnosis.
+  final List<dynamic>? initialAncillaryDiagnosis;
 
   /// Starting value for ICUAW.
   final bool? initialIcuaw;
@@ -120,6 +129,15 @@ class IcuDiagnosisPage extends StatelessWidget {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
           ),
+        ),
+        CatalogOfItemsLabel(AppLocalizations.of(context)!.ancillaryDiagnosis),
+        PicosTextArea(
+          initialValue: initialAncillaryDiagnosis?[0].toString(),
+          onChanged: (String value) {
+            List<dynamic> list = <dynamic>[];
+            list.add(value);
+            ancillaryDiagnosisCallback(list);
+          },
         ),
       ],
     );
