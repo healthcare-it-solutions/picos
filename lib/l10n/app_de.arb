@@ -314,7 +314,6 @@
     "gender": "Geschlecht",
     "bmi": "BMI",
     "idealBodyWeight": "Ideales Körpergewicht",
-    "reasonForDischarge": "Entlassungsgrund",
     "admissionTimeICU": "Aufnahmezeitpunkt ICU",
     "dischargeTimeICU": "Entlassungszeitpunkt ICU",
     "ventilationDaysICU": "Beatmungstage ICU",

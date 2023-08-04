@@ -1259,10 +1259,6 @@
   "@idealBodyWeight": {
     "description": "Ideal Body Weight"
   },
-  "reasonForDischarge": "Reason for Discharge",
-  "@reasonForDischarge": {
-    "description": "Reason for Discharge"
-  },
   "admissionTimeICU": "Admission Time ICU",
   "@admissionTimeICU": {
     "description": "Admission Time ICU"

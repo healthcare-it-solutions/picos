@@ -372,7 +372,6 @@ class CatalogOfItemsPageStorage {
           initialIdealBodyWeight: movementData?.idealBMI,
           initialPatientID: movementData?.patientID,
           initialCaseNumber: movementData?.caseNumber,
-          initialReasonForDischarge: movementData?.dischargeReason,
           initialAdmissionTime: movementData?.azpICU,
           initialDischargeTime: movementData?.ezpICU,
           initialVentilationDays: movementData?.ventilationDays,
@@ -408,9 +407,6 @@ class CatalogOfItemsPageStorage {
           },
           caseNumberCallback: (String? value) {
             caseNumber = value;
-          },
-          reasonForDischargeCallback: (String? value) {
-            reasonForDischarge = value;
           },
           admissionTimeICUCallback: (DateTime? value) {
             admissionTime = value;
@@ -565,7 +561,6 @@ class CatalogOfItemsPageStorage {
   double? idealBodyWeight;
   String? patientID;
   String? caseNumber;
-  String? reasonForDischarge;
   DateTime? admissionTime;
   DateTime? dischargeTime;
   int? ventilationDays;

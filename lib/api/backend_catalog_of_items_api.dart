@@ -703,7 +703,6 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
               gender: element['Gender'],
               bmi: element['BMI']?.toDouble(),
               idealBMI: element['IdealBodyWeight']?.toDouble(),
-              dischargeReason: element['DischargeReason'] ?? '',
               azpICU: (element['AZP_ICU']),
               ventilationDays: element['VentilationDays'],
               azpKH: element['AZP_KH'],

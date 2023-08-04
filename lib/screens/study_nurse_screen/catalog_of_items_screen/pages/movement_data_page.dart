@@ -38,7 +38,6 @@ class MovementDataPage extends StatefulWidget {
     required this.idealBodyWeightCallback,
     required this.patientIDCallback,
     required this.caseNumberCallback,
-    required this.reasonForDischargeCallback,
     required this.admissionTimeICUCallback,
     required this.dischargeTimeICUCallback,
     required this.ventilationDaysICUCallback,
@@ -59,7 +58,6 @@ class MovementDataPage extends StatefulWidget {
     this.initialIdealBodyWeight,
     this.initialPatientID,
     this.initialCaseNumber,
-    this.initialReasonForDischarge,
     this.initialAdmissionTime,
     this.initialDischargeTime,
     this.initialVentilationDays,
@@ -96,9 +94,6 @@ class MovementDataPage extends StatefulWidget {
 
   /// Case Number callback.
   final void Function(String? value) caseNumberCallback;
-
-  /// Reason for Discharge callback.
-  final void Function(String? value) reasonForDischargeCallback;
 
   /// Admission Time for ICU callback.
   final void Function(DateTime? value) admissionTimeICUCallback;
@@ -156,9 +151,6 @@ class MovementDataPage extends StatefulWidget {
 
   /// Starting value for Case Number.
   final String? initialCaseNumber;
-
-  /// Starting value for Reason for Discharge.
-  final String? initialReasonForDischarge;
 
   /// Starting value for Admission Time.
   final DateTime? initialAdmissionTime;
@@ -299,16 +291,6 @@ class _MovementDataPageState extends State<MovementDataPage> {
               initialValue: widget.initialIdealBodyWeight?.toString(),
               onChanged: (String value) {
                 widget.idealBodyWeightCallback(double.tryParse(value));
-              },
-            ),
-            CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.reasonForDischarge,
-            ),
-            PicosTextArea(
-              maxLines: textAreaLines,
-              initialValue: widget.initialReasonForDischarge,
-              onChanged: (String value) {
-                widget.reasonForDischargeCallback(value);
               },
             ),
             CatalogOfItemsLabel(

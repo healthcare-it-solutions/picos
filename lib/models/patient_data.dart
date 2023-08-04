@@ -33,7 +33,6 @@ class PatientData extends AbstractDatabaseObject {
     this.gender,
     this.bmi,
     this.idealBMI,
-    this.dischargeReason,
     this.azpICU,
     this.ventilationDays,
     this.azpKH,
@@ -72,9 +71,6 @@ class PatientData extends AbstractDatabaseObject {
 
   /// denotes the case number.
   final String caseNumber;
-
-  /// denotes the discharge reason.
-  final String? dischargeReason;
 
   /// denotes the start time of ICU stay.
   final DateTime? azpICU;
@@ -137,7 +133,6 @@ class PatientData extends AbstractDatabaseObject {
     double? idealBMI,
     String? patientID,
     String? caseNumber,
-    String? dischargeReason,
     DateTime? azpICU,
     DateTime? ezpICU,
     int? ventilationDays,
@@ -166,7 +161,6 @@ class PatientData extends AbstractDatabaseObject {
       idealBMI: idealBMI ?? this.idealBMI,
       patientID: patientID ?? this.patientID,
       caseNumber: caseNumber ?? this.caseNumber,
-      dischargeReason: dischargeReason ?? this.dischargeReason,
       azpICU: azpICU ?? this.azpICU,
       ezpICU: ezpICU ?? this.ezpICU,
       ventilationDays: ventilationDays ?? this.ventilationDays,
@@ -207,7 +201,6 @@ class PatientData extends AbstractDatabaseObject {
         if (idealBMI != null) 'IdealBodyWeight': idealBMI,
         if (patientID != null) 'ID': patientID,
         if (caseNumber != null) 'CaseNumber': caseNumber,
-        if (dischargeReason != null) 'DischargeReason': dischargeReason,
         if (azpICU != null) 'AZP_ICU': azpICU,
         if (ezpICU != null) 'EZP_ICU': ezpICU,
         if (ventilationDays != null) 'VentilationDays': ventilationDays,
