@@ -442,7 +442,7 @@ class CatalogOfItemsPageStorage {
           icuLengthOfStayCallback: (int? value) {
             icuLengthOfStay = value;
           },
-          readmissionRateICUCallback: (double? value) {
+          readmissionRateICUCallback: (bool? value) {
             readmissionRateToTheICU = value;
           },
         ),
@@ -578,7 +578,7 @@ class CatalogOfItemsPageStorage {
   bool? lungProtectiveVentilation70;
   int? hospitalLengthOfStay;
   int? icuLengthOfStay;
-  double? readmissionRateToTheICU;
+  bool? readmissionRateToTheICU;
   int? hospitalReadmission;
   String? instKey;
 

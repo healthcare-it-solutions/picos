@@ -713,7 +713,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
               lbgt70: element['LBgt70'],
               icuLengthStay: element['ICU_LengthStay'],
               khLengthStay: element['KH_LengthStay'],
-              wdaICU: element['WdaICU']?.toDouble(),
+              wdaICU: element['WdaICU2'],
               objectId: element['objectId'],
               patientObjectId: element['Patient']['objectId'],
               doctorObjectId: element['Doctor']['objectId'],

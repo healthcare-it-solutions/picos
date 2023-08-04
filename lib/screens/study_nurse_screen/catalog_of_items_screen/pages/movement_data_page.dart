@@ -125,7 +125,7 @@ class MovementDataPage extends StatefulWidget {
   final void Function(int? value) icuLengthOfStayCallback;
 
   /// Readmission Rate of ICU callback.
-  final void Function(double? value) readmissionRateICUCallback;
+  final void Function(bool? value) readmissionRateICUCallback;
 
   /// Starting value for Age.
   final int? initialAge;
@@ -179,7 +179,7 @@ class MovementDataPage extends StatefulWidget {
   final int? initialICULengthOfStay;
 
   /// Starting value for Readmission Rate to the ICU.
-  final double? initialReadmissionRateToTheICU;
+  final bool? initialReadmissionRateToTheICU;
 
   /// Starting value for Lung Protective Ventilation.
   final bool? initialLungProtectiveVentilation70p;
@@ -211,7 +211,6 @@ class _MovementDataPageState extends State<MovementDataPage> {
     const int textAreaLines = 3;
     const String kgm2 = 'kg/m2';
     const String kg = 'kg';
-    const String percent = '%';
 
     return CatalogOfItemsPage(
       title: AppLocalizations.of(context)!.patientsMovementData,
@@ -414,15 +413,12 @@ class _MovementDataPageState extends State<MovementDataPage> {
                 widget.icuLengthOfStayCallback(int.tryParse(value));
               },
             ),
-            CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.readmissionRateICU,
-            ),
-            PicosNumberField(
-              hint: percent,
-              initialValue: widget.initialReadmissionRateToTheICU?.toString(),
-              onChanged: (String value) {
-                widget.readmissionRateICUCallback(double.tryParse(value));
+            PicosSwitch(
+              initialValue: widget.initialReadmissionRateToTheICU,
+              onChanged: (bool? value) {
+                widget.readmissionRateICUCallback(value);
               },
+              title: AppLocalizations.of(context)!.readmissionRateICU,
             ),
           ],
         ),

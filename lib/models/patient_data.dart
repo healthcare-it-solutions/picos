@@ -103,7 +103,7 @@ class PatientData extends AbstractDatabaseObject {
   final int? khLengthStay;
 
   /// denotes Hospital Readmission ICU
-  final double? wdaICU;
+  final bool? wdaICU;
 
   /// denotes the institute key.
   final String instKey;
@@ -143,7 +143,7 @@ class PatientData extends AbstractDatabaseObject {
     bool? lbgt70,
     int? icuLengthStay,
     int? khLengthStay,
-    double? wdaICU,
+    bool? wdaICU,
     int? wdaKH,
     String? instKey,
     String? patientObjectId,
@@ -211,7 +211,7 @@ class PatientData extends AbstractDatabaseObject {
         if (lbgt70 != null) 'LBgt70': lbgt70,
         if (icuLengthStay != null) 'ICU_LengthStay': icuLengthStay,
         if (khLengthStay != null) 'KH_LengthStay': khLengthStay,
-        if (wdaICU != null) 'WdaICU': wdaICU,
+        if (wdaICU != null) 'WdaICU2': wdaICU,
         if (instKey != null) 'inst_key': instKey,
         'Patient': <String, String>{
           'objectId': patientObjectId,
