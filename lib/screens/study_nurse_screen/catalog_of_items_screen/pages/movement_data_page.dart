@@ -21,7 +21,6 @@ import 'package:picos/widgets/picos_number_field.dart';
 import 'package:picos/widgets/picos_switch.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_text_area.dart';
-import 'package:picos/widgets/picos_text_field.dart';
 
 import '../catalog_of_items_page.dart';
 import '../widgets/catalog_of_items_label.dart';
@@ -352,7 +351,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
               initialValue: _selectedDischargeTimeFromTheHospital,
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.icd10Codes),
-            PicosTextField(
+            PicosTextArea(
               hint: 'ICD-10 Codes',
               initialValue: widget.initialICD10Codes?[0].toString(),
               onChanged: (String value) {
