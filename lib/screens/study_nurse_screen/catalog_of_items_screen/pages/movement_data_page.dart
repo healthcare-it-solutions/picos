@@ -15,8 +15,11 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:picos/widgets/picos_date_picker.dart';
+import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_number_field.dart';
 import 'package:picos/widgets/picos_switch.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -230,6 +233,10 @@ class MovementDataPage extends StatefulWidget {
 }
 
 class _MovementDataPageState extends State<MovementDataPage> {
+  double bmi = 0;
+  int bodyHeight = 0;
+  double bodyWeight = 0;
+
   @override
   Widget build(BuildContext context) {
     const String cm = 'cm';
@@ -238,6 +245,10 @@ class _MovementDataPageState extends State<MovementDataPage> {
     const String kg = 'kg';
     const String percent = '%';
     String nYear = 'n/${AppLocalizations.of(context)!.year}';
+
+    double calculateBmi(int height, double bodyWeight) {
+      return (bodyWeight / pow(height / 100, 2));
+    }
 
     return CatalogOfItemsPage(
       title: AppLocalizations.of(context)!.patientsMovementData,
@@ -273,6 +284,14 @@ class _MovementDataPageState extends State<MovementDataPage> {
               initialValue: widget.initialBodyWeight?.toString(),
               onChanged: (String value) {
                 widget.bodyWeightCallback(double.tryParse(value));
+
+                setState(() {
+                  bodyWeight = double.tryParse(value) ?? 0;
+
+                  if (bodyWeight != 0 && bodyHeight != 0) {
+                    bmi = calculateBmi(bodyHeight, bodyWeight);
+                  }
+                });
               },
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.height),
@@ -282,6 +301,14 @@ class _MovementDataPageState extends State<MovementDataPage> {
               digitsOnly: true,
               onChanged: (String value) {
                 widget.bodyHeightCallback(double.tryParse(value));
+
+                setState(() { 
+                  bodyHeight = int.tryParse(value) ?? 0;
+
+                  if (bodyWeight != 0 && bodyHeight != 0) {
+                    bmi = calculateBmi(bodyHeight, bodyWeight);
+                  }
+                });
               },
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.patientID),
@@ -301,13 +328,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
               },
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.bmi),
-            PicosNumberField(
-              hint: kgm2,
-              initialValue: widget.initialBodyMassIndex?.toString(),
-              onChanged: (String value) {
-                widget.bodyMassIndexCallback(double.tryParse(value));
-              },
-            ),
+            PicosLabel(bmi.toString()),
             CatalogOfItemsLabel(
               AppLocalizations.of(context)!.idealBodyWeight,
             ),
