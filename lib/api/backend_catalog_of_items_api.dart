@@ -700,7 +700,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
               instKey: element['inst_key'],
               bodyWeight: element['BodyWeight']?.toDouble(),
               ezpICU: element['EZP_ICU'],
-              age: element['Age'],
+              birthDate: element['Birthdate'],
               gender: element['Gender'],
               bmi: element['BMI']?.toDouble(),
               idealBMI: element['IdealBodyWeight']?.toDouble(),

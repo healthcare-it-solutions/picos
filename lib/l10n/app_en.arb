@@ -999,6 +999,10 @@
   "@age": {
     "description": "age"
   },
+  "birthDate": "birthday",
+  "@birthDate": {
+    "description": "birthday"
+  },
   "years": "years",
   "@years": {
     "description": "years"

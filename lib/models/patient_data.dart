@@ -29,7 +29,7 @@ class PatientData extends AbstractDatabaseObject {
     required this.doctorObjectId,
     this.bodyWeight,
     this.ezpICU,
-    this.age,
+    this.birthDate,
     this.gender,
     this.bmi,
     this.idealBMI,
@@ -48,8 +48,8 @@ class PatientData extends AbstractDatabaseObject {
     DateTime? updatedAt,
   }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt);
 
-  /// denotes the age of the patient.
-  final int? age;
+  /// denotes the birthday of the patient.
+  final DateTime? birthDate;
 
   /// denotes the gender of the patient.
   final String? gender;
@@ -125,7 +125,7 @@ class PatientData extends AbstractDatabaseObject {
   /// Returns a copy of this patient profile with the given values updated.
   @override
   PatientData copyWith({
-    int? age,
+    DateTime? birthDate,
     String? gender,
     double? bodyHeight,
     double? bodyWeight,
@@ -153,7 +153,7 @@ class PatientData extends AbstractDatabaseObject {
     DateTime? updatedAt,
   }) {
     return PatientData(
-      age: age ?? this.age,
+      birthDate: birthDate ?? this.birthDate,
       gender: gender ?? this.gender,
       bodyHeight: bodyHeight ?? this.bodyHeight,
       bodyWeight: bodyWeight ?? this.bodyWeight,
@@ -193,7 +193,7 @@ class PatientData extends AbstractDatabaseObject {
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
-        if (age != null) 'Age': age,
+        if (birthDate != null) 'Birthdate': birthDate,
         if (gender != null) 'Gender': gender,
         if (bodyHeight != null) 'BodyHeight': bodyHeight,
         if (bodyWeight != null) 'BodyWeight': bodyWeight,

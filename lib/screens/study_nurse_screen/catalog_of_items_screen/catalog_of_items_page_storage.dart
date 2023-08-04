@@ -368,7 +368,7 @@ class CatalogOfItemsPageStorage {
       ),
       PicosPageViewItem(
         child: MovementDataPage(
-          initialAge: movementData?.age,
+          initialBirthDate: movementData?.birthDate,
           initialGender: movementData?.gender,
           initialBodyWeight: movementData?.bodyWeight,
           initialBodyHeight: movementData?.bodyHeight,
@@ -388,8 +388,8 @@ class CatalogOfItemsPageStorage {
           initialICULengthOfStay: movementData?.icuLengthStay,
           initialReadmissionRateToTheICU: movementData?.wdaICU,
           initialLungProtectiveVentilation70p: movementData?.lbgt70,
-          ageCallback: (int? value) {
-            age = value;
+          birthDateCallback: (DateTime? value) {
+            birthDate = value;
           },
           genderCallback: (String? value) {
             gender = value;
@@ -560,7 +560,7 @@ class CatalogOfItemsPageStorage {
   double? internationalNormalizedRatio;
   double? partialThromboplastinTime;
 
-  int? age;
+  DateTime? birthDate;
   String? gender;
   double? bodyWeight;
   double? bodyHeight;

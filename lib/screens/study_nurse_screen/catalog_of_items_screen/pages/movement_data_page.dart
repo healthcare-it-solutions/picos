@@ -29,7 +29,7 @@ import '../widgets/catalog_of_items_label.dart';
 class MovementDataPage extends StatefulWidget {
   /// Creates MovementData.
   const MovementDataPage({
-    required this.ageCallback,
+    required this.birthDateCallback,
     required this.genderCallback,
     required this.bodyWeightCallback,
     required this.bodyHeightCallback,
@@ -49,7 +49,7 @@ class MovementDataPage extends StatefulWidget {
     required this.icuLengthOfStayCallback,
     required this.readmissionRateICUCallback,
     Key? key,
-    this.initialAge,
+    this.initialBirthDate,
     this.initialGender,
     this.initialBodyWeight,
     this.initialBodyHeight,
@@ -70,8 +70,8 @@ class MovementDataPage extends StatefulWidget {
     this.initialLungProtectiveVentilation70p,
   }) : super(key: key);
 
-  /// Main diagnosis callback.
-  final void Function(int? value) ageCallback;
+  /// Birthdate Callback.
+  final void Function(DateTime? value) birthDateCallback;
 
   /// Progress diagnosis callback.
   final void Function(String? value) genderCallback;
@@ -128,7 +128,7 @@ class MovementDataPage extends StatefulWidget {
   final void Function(bool? value) readmissionRateICUCallback;
 
   /// Starting value for Age.
-  final int? initialAge;
+  final DateTime? initialBirthDate;
 
   /// Starting value for Gender.
   final String? initialGender;
@@ -189,6 +189,7 @@ class MovementDataPage extends StatefulWidget {
 }
 
 class _MovementDataPageState extends State<MovementDataPage> {
+  DateTime? _selectedBirthDate;
   DateTime? _selectedAdmissionTime;
   DateTime? _selectedDischargeTime;
   DateTime? _selectedAdmissionTimeToTheHospital;
@@ -197,6 +198,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
   @override
   void initState() {
     super.initState();
+    _selectedBirthDate = widget.initialBirthDate;
     _selectedAdmissionTime = widget.initialAdmissionTime;
     _selectedDischargeTime = widget.initialDischargeTime;
     _selectedAdmissionTimeToTheHospital =
@@ -218,15 +220,16 @@ class _MovementDataPageState extends State<MovementDataPage> {
         Column(
           children: <Widget>[
             CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.age,
+              AppLocalizations.of(context)!.birthDate,
             ),
-            PicosNumberField(
-              hint: AppLocalizations.of(context)!.years,
-              initialValue: widget.initialAge?.toString(),
-              digitsOnly: true,
-              onChanged: (String value) {
-                widget.ageCallback(int.tryParse(value));
+            PicosDatePicker(
+              callBackFunction: (DateTime value) {
+                widget.birthDateCallback(value);
+                setState(() {
+                  _selectedBirthDate = value;
+                });
               },
+              initialValue: _selectedBirthDate,
             ),
             CatalogOfItemsLabel(
               AppLocalizations.of(context)!.gender,
