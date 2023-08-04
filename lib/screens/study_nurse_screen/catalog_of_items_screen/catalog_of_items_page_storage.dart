@@ -64,20 +64,12 @@ class CatalogOfItemsPageStorage {
     pages = <PicosPageViewItem>[
       PicosPageViewItem(
         child: IcuDiagnosisPage(
-          initialCoMorbidity: icuDiagnosis?.coMorbidity,
           initialIcuaw: icuDiagnosis?.intensiveCareUnitAcquiredWeakness,
           initialMainDiagnosis: icuDiagnosis?.mainDiagnosis,
           initialAncillaryDiagnosis: icuDiagnosis?.ancillaryDiagnosis,
           initialPics: icuDiagnosis?.postIntensiveCareSyndrome,
-          initialProgressDiagnosis: icuDiagnosis?.progressDiagnosis,
           mainDiagnosisCallback: (String? value) {
             mainDiagnosis = value;
-          },
-          progressDiagnosisCallback: (String? value) {
-            progressDiagnosis = value;
-          },
-          coMorbidityCallback: (String? value) {
-            coMorbidity = value;
           },
           ancillaryDiagnosisCallback: (List<dynamic>? value) {
             ancillaryDiagnosis = value;
@@ -461,12 +453,6 @@ class CatalogOfItemsPageStorage {
 
   /// The ICU main diagnosis.
   String? mainDiagnosis;
-
-  /// The ICU progress diagnosis.
-  String? progressDiagnosis;
-
-  /// The co-morbidity.
-  String? coMorbidity;
 
   /// The ancillary diagnosis.
   List<dynamic>? ancillaryDiagnosis;

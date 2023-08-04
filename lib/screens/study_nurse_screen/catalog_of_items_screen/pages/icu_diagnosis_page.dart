@@ -29,15 +29,11 @@ class IcuDiagnosisPage extends StatelessWidget {
   /// Creates IcuDiagnosis.
   const IcuDiagnosisPage({
     required this.mainDiagnosisCallback,
-    required this.progressDiagnosisCallback,
-    required this.coMorbidityCallback,
     required this.ancillaryDiagnosisCallback,
     required this.icuawCallback,
     required this.picsCallback,
     Key? key,
     this.initialMainDiagnosis,
-    this.initialProgressDiagnosis,
-    this.initialCoMorbidity,
     this.initialAncillaryDiagnosis,
     this.initialIcuaw,
     this.initialPics,
@@ -45,12 +41,6 @@ class IcuDiagnosisPage extends StatelessWidget {
 
   /// Main diagnosis callback.
   final void Function(String? value) mainDiagnosisCallback;
-
-  /// Progress diagnosis callback.
-  final void Function(String? value) progressDiagnosisCallback;
-
-  /// ICUAW callback.
-  final void Function(String? value) coMorbidityCallback;
 
   /// Ancillary diagnosis callback.
   final void Function(List<dynamic>? value) ancillaryDiagnosisCallback;
@@ -63,12 +53,6 @@ class IcuDiagnosisPage extends StatelessWidget {
 
   /// Starting value for main diagnosis.
   final String? initialMainDiagnosis;
-
-  /// Starting value for progress diagnosis.
-  final String? initialProgressDiagnosis;
-
-  /// Starting value for co-morbidity.
-  final String? initialCoMorbidity;
 
   /// Starting value for ancillary diagnosis.
   final List<dynamic>? initialAncillaryDiagnosis;
@@ -93,22 +77,6 @@ class IcuDiagnosisPage extends StatelessWidget {
               initialValue: initialMainDiagnosis,
               onChanged: (String value) {
                 mainDiagnosisCallback(value);
-              },
-            ),
-            CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.progressDiagnosis,
-            ),
-            PicosTextField(
-              initialValue: initialProgressDiagnosis,
-              onChanged: (String value) {
-                progressDiagnosisCallback(value);
-              },
-            ),
-            CatalogOfItemsLabel(AppLocalizations.of(context)!.coMorbidity),
-            PicosTextField(
-              initialValue: initialCoMorbidity,
-              onChanged: (String value) {
-                coMorbidityCallback(value);
               },
             ),
           ],

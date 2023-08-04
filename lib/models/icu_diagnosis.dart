@@ -24,8 +24,6 @@ class ICUDiagnosis extends AbstractDatabaseObject {
     required this.patientObjectId,
     required this.doctorObjectId,
     this.mainDiagnosis,
-    this.progressDiagnosis,
-    this.coMorbidity,
     this.intensiveCareUnitAcquiredWeakness,
     this.postIntensiveCareSyndrome,
     this.ancillaryDiagnosis,
@@ -39,12 +37,6 @@ class ICUDiagnosis extends AbstractDatabaseObject {
 
   /// The ICU main diagnosis.
   final String? mainDiagnosis;
-
-  /// The ICU progress diagnosis.
-  final String? progressDiagnosis;
-
-  /// The co-morbidity.
-  final String? coMorbidity;
 
   /// If the patient has ICUAW.
   final bool? intensiveCareUnitAcquiredWeakness;
@@ -69,8 +61,6 @@ class ICUDiagnosis extends AbstractDatabaseObject {
   @override
   ICUDiagnosis copyWith({
     String? mainDiagnosis,
-    String? progressDiagnosis,
-    String? coMorbidity,
     bool? intensiveCareUnitAcquiredWeakness,
     bool? postIntensiveCareSyndrome,
     List<dynamic>? ancillaryDiagnosis,
@@ -82,8 +72,6 @@ class ICUDiagnosis extends AbstractDatabaseObject {
   }) {
     return ICUDiagnosis(
       mainDiagnosis: mainDiagnosis ?? this.mainDiagnosis,
-      progressDiagnosis: progressDiagnosis ?? this.progressDiagnosis,
-      coMorbidity: coMorbidity ?? this.coMorbidity,
       intensiveCareUnitAcquiredWeakness: intensiveCareUnitAcquiredWeakness ??
           this.intensiveCareUnitAcquiredWeakness,
       postIntensiveCareSyndrome:
@@ -100,8 +88,6 @@ class ICUDiagnosis extends AbstractDatabaseObject {
   @override
   List<Object> get props => <Object>[
         mainDiagnosis!,
-        progressDiagnosis!,
-        coMorbidity!,
         intensiveCareUnitAcquiredWeakness!,
         postIntensiveCareSyndrome!,
         ancillaryDiagnosis!
@@ -120,8 +106,6 @@ class ICUDiagnosis extends AbstractDatabaseObject {
           'className': '_User'
         },
         if (mainDiagnosis != null) 'ICU_Hd': mainDiagnosis,
-        if (progressDiagnosis != null) 'ICU_Vd': progressDiagnosis,
-        if (coMorbidity != null) 'CO_Morb': coMorbidity,
         if (intensiveCareUnitAcquiredWeakness != null)
           'ICU_AW': intensiveCareUnitAcquiredWeakness,
         if (postIntensiveCareSyndrome != null)

@@ -424,8 +424,6 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
           icuDiagnosisResults.add(
             ICUDiagnosis(
               mainDiagnosis: element['ICU_Hd'] ?? '',
-              progressDiagnosis: element['ICU_Vd'] ?? '',
-              coMorbidity: element['CO_Morb'] ?? '',
               ancillaryDiagnosis: element['Nebendiagnose'],
               intensiveCareUnitAcquiredWeakness: element['ICU_AW'],
               postIntensiveCareSyndrome: element['PICS'],

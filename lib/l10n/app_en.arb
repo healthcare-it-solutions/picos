@@ -1015,14 +1015,6 @@
   "@mainDiagnosis": {
     "description": "ICU main diagnosis"
   },
-  "progressDiagnosis": "ICU progress diagnosis",
-  "@progressDiagnosis": {
-    "description": "ICU progress diagnosis"
-  },
-  "coMorbidity": "Co-morbidity",
-  "@coMorbidity": {
-    "description": "Co-morbidity"
-  },
   "ancillaryDiagnosis": "Ancillary diagnosis",
   "@ancillaryDiagnosis": {
     "description": "Ancillary diagnosis"

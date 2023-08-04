@@ -133,8 +133,6 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
           catalogOfItemsElement = CatalogOfItemsElement(
             icuDiagnosis: ICUDiagnosis(
               mainDiagnosis: pageStorage?.mainDiagnosis,
-              progressDiagnosis: pageStorage?.progressDiagnosis,
-              coMorbidity: pageStorage?.coMorbidity,
               ancillaryDiagnosis: pageStorage?.ancillaryDiagnosis,
               intensiveCareUnitAcquiredWeakness:
                   pageStorage?.intensiveCareUnitAcquiredWeakness,
@@ -240,8 +238,6 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
           if (_catalogOfItemsElement!.icuDiagnosis != null) {
             icud = _catalogOfItemsElement!.icuDiagnosis!.copyWith(
               mainDiagnosis: pageStorage?.mainDiagnosis,
-              progressDiagnosis: pageStorage?.progressDiagnosis,
-              coMorbidity: pageStorage?.coMorbidity,
               ancillaryDiagnosis: pageStorage?.ancillaryDiagnosis,
               intensiveCareUnitAcquiredWeakness:
                   pageStorage?.intensiveCareUnitAcquiredWeakness,
@@ -252,8 +248,6 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
           } else {
             icud = ICUDiagnosis(
               mainDiagnosis: pageStorage?.mainDiagnosis,
-              progressDiagnosis: pageStorage?.progressDiagnosis,
-              coMorbidity: pageStorage?.coMorbidity,
               ancillaryDiagnosis: pageStorage?.ancillaryDiagnosis,
               intensiveCareUnitAcquiredWeakness:
                   pageStorage?.intensiveCareUnitAcquiredWeakness,
