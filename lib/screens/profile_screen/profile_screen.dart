@@ -44,23 +44,66 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool disabled = false;
 
   bool _isStrongPassword(String password) {
-    if (password.length < 8) {
-      return false;
-    }
-    if (!password.contains(RegExp(r'[a-z]'))) {
-      return false;
-    }
-    if (!password.contains(RegExp(r'[A-Z]'))) {
-      return false;
-    }
-    if (!password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return false;
-    }
-    if (!password.contains(RegExp(r'[0-9]'))) {
-      return false;
+    return password.length >= 8 &&
+        password.contains(RegExp(r'[a-z]')) &&
+        password.contains(RegExp(r'[A-Z]')) &&
+        password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]')) &&
+        password.contains(RegExp(r'[0-9]'));
+  }
+
+  Future<void> _changePassword() async {
+    ParseUser currentUser = Backend.user;
+
+    if (newPassword.text.isEmpty || newPasswordRepeat.text.isEmpty) {
+      _setErrorMessage(AppLocalizations.of(context)!.allFieldsMustbeFilled);
+      return;
     }
 
-    return true;
+    if (newPassword.text != newPasswordRepeat.text) {
+      _setErrorMessage(
+        AppLocalizations.of(context)!.passwordMismatchErrorMessage,
+      );
+      return;
+    }
+
+    if (!_isStrongPassword(newPassword.text)) {
+      _setErrorMessage(AppLocalizations.of(context)!.strongPassword);
+      return;
+    }
+
+    currentUser.password = newPassword.text;
+    setState(() {
+      disabled = true;
+    });
+
+    ParseResponse responseSaveNewPassword = await currentUser.save();
+    if (!mounted) return;
+    if (responseSaveNewPassword.success) {
+      Backend.logout();
+      _setSuccessMessage(
+        AppLocalizations.of(context)!.passwordSavedSuccessMessage,
+      );
+    } else {
+      _setErrorMessage(
+        AppLocalizations.of(context)!.passwordSavedFailureMessage,
+      );
+    }
+  }
+
+  void _setErrorMessage(String message) {
+    setState(() {
+      errorMessage = message;
+      successMessage = '';
+      disabled = false;
+    });
+  }
+
+  void _setSuccessMessage(String message) {
+    setState(() {
+      successMessage = message;
+      errorMessage = '';
+      disabled = false;
+    });
   }
 
   @override
@@ -85,68 +128,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
             PicosInkWellButton(
               text: AppLocalizations.of(context)!.changePassword,
               disabled: disabled,
-              onTap: () async {
-                ParseUser currentUser = Backend.user;
-                if (newPassword.text.isNotEmpty &&
-                    newPasswordRepeat.text.isNotEmpty) {
-                  if (newPassword.text != newPasswordRepeat.text) {
-                    setState(() {
-                      errorMessage = AppLocalizations.of(context)!
-                          .passwordMismatchErrorMessage;
-                      successMessage = '';
-                      disabled = false;
-                    });
-                  } else {
-                    if (!_isStrongPassword(newPassword.text)) {
-                      setState(() {
-                        errorMessage =
-                            AppLocalizations.of(context)!.strongPassword;
-                        successMessage = '';
-                        disabled = false;
-                      });
-                    } else {
-                      currentUser.password = newPassword.text;
-
-                      setState(() {
-                        disabled = true;
-                      });
-
-                      ParseResponse responseSaveNewPassword =
-                          await currentUser.save();
-                      if (responseSaveNewPassword.success) {
-                        Backend.logout();
-                        setState(() {
-                          errorMessage = '';
-                          successMessage = AppLocalizations.of(context)!
-                              .passwordSavedSuccessMessage;
-                          disabled = false;
-                        });
-                      } else {
-                        setState(() {
-                          errorMessage = AppLocalizations.of(context)!
-                              .passwordSavedFailureMessage;
-                          successMessage = '';
-                          disabled = false;
-                        });
-                      }
-                    }
-                  }
-                } else {
-                  setState(() {
-                    errorMessage =
-                        AppLocalizations.of(context)!.allFieldsMustbeFilled;
-                    successMessage = '';
-                    disabled = false;
-                  });
-                }
-              },
+              onTap: _changePassword,
             ),
-            errorMessage != ''
+            errorMessage.isNotEmpty
                 ? Text(
                     errorMessage,
                     style: const TextStyle(color: Color(0xFFe63329)),
                   )
-                : successMessage != ''
+                : successMessage.isNotEmpty
                     ? Text(
                         successMessage,
                         style: const TextStyle(color: Colors.lightGreen),
