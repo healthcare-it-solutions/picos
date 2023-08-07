@@ -43,7 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   bool disabled = false;
 
-  bool isStrongPassword(String password) {
+  bool _isStrongPassword(String password) {
     if (password.length < 8) {
       return false;
     }
@@ -97,7 +97,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       disabled = false;
                     });
                   } else {
-                    if (!isStrongPassword(newPassword.text)) {
+                    if (!_isStrongPassword(newPassword.text)) {
                       setState(() {
                         errorMessage =
                             AppLocalizations.of(context)!.strongPassword;
