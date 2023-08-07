@@ -332,5 +332,14 @@
   "sa02": "arterielle Sauerstoffsättigung",
   "svO2": "zentralvenöse Sauerstoffsättigung",
   "af": "Atemfrequenz",
-  "lungProtectiveVentilation70p": "Lungenprotektive Beatmung > 70%"
+  "lungProtectiveVentilation70p": "Lungenprotektive Beatmung > 70%",
+    "myProfile": "Mein Profil",
+    "newPassword": "Neues Passwort",
+    "newPasswordRepeat": "Neues Passwort wiederholen",
+    "changePassword": "Passwort ändern",
+    "passwordSavedSuccessMessage": "Neues Passwort wurde erfolgreich gespeichert!",
+    "passwordMismatchErrorMessage": "Neue Passwörter stimmen nicht überein!",
+    "strongPassword": "Ihr Passwort muss aus Groß-, Kleinbuchstaben, Sonderzeichen, Zahlen und insgesamt aus mindestens 8 Zeichen bestehen!",
+    "passwordSavedFailureMessage": "Neues Passwort konnte nicht gespeichert werden!",
+    "allFieldsMustbeFilled": "Alle Felder müssen ausgefüllt sein!"
 }
