@@ -114,10 +114,10 @@ class BloodGasAnalysisPage extends StatelessWidget {
   final void Function(double?) arterialLactateCallback2;
 
   /// Arterial Lactate 1 (mmol/L) Callback.
-  final void Function(String?) bloodGlucoseLevelCallback1;
+  final void Function(double?) bloodGlucoseLevelCallback1;
 
   /// Artetial Lactate 2 (mmol/L) Callback.
-  final void Function(String?) bloodGlucoseLevelCallback2;
+  final void Function(double?) bloodGlucoseLevelCallback2;
 
   /// Starting value for arterial oxygen saturation 1.
   final double? initialArterialOxygenSaturation1;
@@ -168,10 +168,10 @@ class BloodGasAnalysisPage extends StatelessWidget {
   final double? initialArterialLactate2;
 
   /// Starting value for blood glucose level 1.
-  final String? initialBloodGlucoseLevel1;
+  final double? initialBloodGlucoseLevel1;
 
   /// Starting value for blood glucose level 2.
-  final String? initialBloodGlucoseLevel2;
+  final double? initialBloodGlucoseLevel2;
 
   @override
   Widget build(BuildContext context) {
@@ -540,7 +540,7 @@ class BloodGasAnalysisPage extends StatelessWidget {
                         initialValue: initialBloodGlucoseLevel1?.toString(),
                         onChanged: (String value) {
                           bloodGlucoseLevelCallback1(
-                            value,
+                            double.tryParse(value),
                           );
                         },
                       ),
@@ -558,7 +558,7 @@ class BloodGasAnalysisPage extends StatelessWidget {
                         initialValue: initialBloodGlucoseLevel2?.toString(),
                         onChanged: (String value) {
                           bloodGlucoseLevelCallback2(
-                            value,
+                              double.tryParse(value),
                           );
                         },
                       ),

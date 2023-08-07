@@ -19,11 +19,9 @@ import 'package:flutter/material.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/blood_gas_analysis_page.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/icu_diagnosis_page.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/laboratory_values_page.dart';
-import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/medicaments_page.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/movement_data_page.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/respiration_parameters_page.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/pages/vital_data_page.dart';
-
 import '../../../models/blood_gas_analysis_object.dart';
 import '../../../models/catalog_of_items_element.dart';
 import '../../../models/icu_diagnosis.dart';
@@ -31,7 +29,6 @@ import '../../../models/labor_parameters.dart';
 import '../../../models/patient_data.dart';
 import '../../../models/respiratory_parameters_object.dart';
 import '../../../models/vital_signs_object.dart';
-import '../../../models/medicaments.dart';
 import '../../../widgets/picos_page_view_item.dart';
 
 /// Manages the state of the Catalog of items pages.
@@ -49,7 +46,6 @@ class CatalogOfItemsPageStorage {
     BloodGasAnalysisObject? bloodGasAnalysisObject1;
     BloodGasAnalysisObject? bloodGasAnalysisObject2;
     LaborParameters? laborParameters;
-    Medicaments? medicaments;
     PatientData? movementData;
     if (catalogOfItemsElement != null) {
       icuDiagnosis = catalogOfItemsElement.icuDiagnosis;
@@ -62,31 +58,26 @@ class CatalogOfItemsPageStorage {
       bloodGasAnalysisObject1 = catalogOfItemsElement.bloodGasAnalysisObject1;
       bloodGasAnalysisObject2 = catalogOfItemsElement.bloodGasAnalysisObject2;
       laborParameters = catalogOfItemsElement.laborParameters;
-      medicaments = catalogOfItemsElement.medicaments;
       movementData = catalogOfItemsElement.movementData;
     }
 
     pages = <PicosPageViewItem>[
       PicosPageViewItem(
         child: IcuDiagnosisPage(
-          initialCoMorbidity: icuDiagnosis?.coMorbidity,
           initialIcuaw: icuDiagnosis?.intensiveCareUnitAcquiredWeakness,
           initialMainDiagnosis: icuDiagnosis?.mainDiagnosis,
+          initialAncillaryDiagnosis: icuDiagnosis?.ancillaryDiagnosis,
           initialPics: icuDiagnosis?.postIntensiveCareSyndrome,
-          initialProgressDiagnosis: icuDiagnosis?.progressDiagnosis,
           mainDiagnosisCallback: (String? value) {
             mainDiagnosis = value;
           },
-          progressDiagnosisCallback: (String? value) {
-            progressDiagnosis = value;
+          ancillaryDiagnosisCallback: (List<dynamic>? value) {
+            ancillaryDiagnosis = value;
           },
-          coMorbidityCallback: (String? value) {
-            coMorbidity = value;
-          },
-          icuawCallback: (bool value) {
+          icuawCallback: (bool? value) {
             intensiveCareUnitAcquiredWeakness = value;
           },
-          picsCallback: (bool value) {
+          picsCallback: (bool? value) {
             postIntensiveCareSyndrome = value;
           },
         ),
@@ -246,10 +237,10 @@ class CatalogOfItemsPageStorage {
           arterialLactateCallback2: (double? value) {
             arterialLactate2 = value;
           },
-          bloodGlucoseLevelCallback1: (String? value) {
+          bloodGlucoseLevelCallback1: (double? value) {
             bloodGlucoseLevel1 = value;
           },
-          bloodGlucoseLevelCallback2: (String? value) {
+          bloodGlucoseLevelCallback2: (double? value) {
             bloodGlucoseLevel2 = value;
           },
         ),
@@ -368,36 +359,8 @@ class CatalogOfItemsPageStorage {
         ),
       ),
       PicosPageViewItem(
-        child: MedicamentsPage(
-          initialMorning: medicaments?.morning,
-          initialNoon: medicaments?.noon,
-          initialEvening: medicaments?.evening,
-          initialAtNight: medicaments?.atNight,
-          initialUnit: medicaments?.unit,
-          initialMedicalProduct: medicaments?.medicalProduct,
-          morningCallback: (double? value) {
-            morning = value;
-          },
-          noonCallback: (double? value) {
-            noon = value;
-          },
-          eveningCallback: (double? value) {
-            evening = value;
-          },
-          atNightCallback: (double? value) {
-            atNight = value;
-          },
-          unitCallback: (String? value) {
-            unit = value;
-          },
-          medicalProductCallback: (String? value) {
-            medicalProduct = value;
-          },
-        ),
-      ),
-      PicosPageViewItem(
         child: MovementDataPage(
-          initialAge: movementData?.age,
+          initialBirthDate: movementData?.birthDate,
           initialGender: movementData?.gender,
           initialBodyWeight: movementData?.bodyWeight,
           initialBodyHeight: movementData?.bodyHeight,
@@ -405,23 +368,20 @@ class CatalogOfItemsPageStorage {
           initialIdealBodyWeight: movementData?.idealBMI,
           initialPatientID: movementData?.patientID,
           initialCaseNumber: movementData?.caseNumber,
-          initialReasonForDischarge: movementData?.dischargeReason,
           initialAdmissionTime: movementData?.azpICU,
           initialDischargeTime: movementData?.ezpICU,
           initialVentilationDays: movementData?.ventilationDays,
           initialAdmissionTimeToTheHospital: movementData?.azpKH,
-          initialDischargeTimeFromTheHospital: movementData?.ezpKH,
+          initialDischargeTimeFromTheHospital:
+              dischargeTimeFromTheHospital ?? movementData?.ezpKH,
           initialICD10Codes: movementData?.icd10Codes,
           initialPatientLocation: movementData?.station,
-          initialICUMortality: movementData?.icuMortality,
-          initialHospitalMortality: movementData?.khMortality,
           initialHospitalLengthOfStay: movementData?.khLengthStay,
           initialICULengthOfStay: movementData?.icuLengthStay,
           initialReadmissionRateToTheICU: movementData?.wdaICU,
-          initialHospitalReadmission: movementData?.wdaKH,
-          initialDaysUntilWorkReuptake: movementData?.weznDisease,
-          ageCallback: (int? value) {
-            age = value;
+          initialLungProtectiveVentilation70p: movementData?.lbgt70,
+          birthDateCallback: (DateTime? value) {
+            birthDate = value;
           },
           genderCallback: (String? value) {
             gender = value;
@@ -444,9 +404,6 @@ class CatalogOfItemsPageStorage {
           caseNumberCallback: (String? value) {
             caseNumber = value;
           },
-          reasonForDischargeCallback: (String? value) {
-            reasonForDischarge = value;
-          },
           admissionTimeICUCallback: (DateTime? value) {
             admissionTime = value;
           },
@@ -462,20 +419,14 @@ class CatalogOfItemsPageStorage {
           dischargeTimeHospitalCallback: (DateTime? value) {
             dischargeTimeFromTheHospital = value;
           },
-          icd10COdesCallback: (List<String>? value) {
+          icd10COdesCallback: (List<dynamic>? value) {
             icd10Codes = value;
           },
           patientLocationCallback: (String? value) {
             patientLocation = value;
           },
           lungProtectiveVentilationGt70pCallback: (bool? value) {
-            lungProtectiveVentilation70 = value!;
-          },
-          icuMortalityCallback: (double? value) {
-            icuMortality = value;
-          },
-          hospitalMortalityCallback: (double? value) {
-            hospitalMortality = value;
+            lungProtectiveVentilation70 = value;
           },
           hospitalLengthOfStayCallback: (int? value) {
             hospitalLengthOfStay = value;
@@ -483,14 +434,8 @@ class CatalogOfItemsPageStorage {
           icuLengthOfStayCallback: (int? value) {
             icuLengthOfStay = value;
           },
-          readmissionRateICUCallback: (double? value) {
+          readmissionRateICUCallback: (bool? value) {
             readmissionRateToTheICU = value;
-          },
-          hospitalReadmissionCallback: (int? value) {
-            hospitalReadmission = value;
-          },
-          daysUntilWorkReuptakeCallback: (double? value) {
-            daysUntilWorkReuptake = value;
           },
         ),
       ),
@@ -509,17 +454,14 @@ class CatalogOfItemsPageStorage {
   /// The ICU main diagnosis.
   String? mainDiagnosis;
 
-  /// The ICU progress diagnosis.
-  String? progressDiagnosis;
-
-  /// The co-morbidity.
-  String? coMorbidity;
+  /// The ancillary diagnosis.
+  List<dynamic>? ancillaryDiagnosis;
 
   /// If the patient has ICUAW.
-  bool intensiveCareUnitAcquiredWeakness = false;
+  bool? intensiveCareUnitAcquiredWeakness;
 
   /// If the patient has PICS.
-  bool postIntensiveCareSyndrome = false;
+  bool? postIntensiveCareSyndrome;
 
   /// Last heart rate.
   double? heartRate1;
@@ -615,10 +557,10 @@ class CatalogOfItemsPageStorage {
   double? arterialLactate2;
 
   /// Last Blood GLucose Level.
-  String? bloodGlucoseLevel1;
+  double? bloodGlucoseLevel1;
 
   /// Pre last Blood Glucose Level.
-  String? bloodGlucoseLevel2;
+  double? bloodGlucoseLevel2;
 
   /// Leukocyte Count.
   double? leukocyteCount;
@@ -698,28 +640,10 @@ class CatalogOfItemsPageStorage {
   /// Partial Thromboplastin Time. 
   double? partialThromboplastinTime;
 
-  /// Intake of medication in the morning.
-  double? morning;
+  /// Patient's Birthdate.
+  DateTime? birthDate;
 
-  /// Intake of medication in the noon.
-  double? noon;
-
-  /// Intake of medication in the evening.
-  double? evening;
-  
-  /// Intake of medication at the night.
-  double? atNight;
-
-  /// Medication Unit.
-  String? unit;
-
-  /// Denotation of the Medical Product.
-  String? medicalProduct;
-
-  /// Patient's age.
-  int? age;
-
-  /// Patient's gender.
+  /// Gender.
   String? gender;
 
   /// Patient's body weight.
@@ -740,10 +664,7 @@ class CatalogOfItemsPageStorage {
   /// Patient's case number.
   String? caseNumber;
 
-  /// Reason for Discharge.
-  String? reasonForDischarge;
-
-  /// Admission Time to the ICU
+  /// Admission Time to the ICU.
   DateTime? admissionTime;
 
   /// Discharge Time from the ICU
@@ -759,19 +680,12 @@ class CatalogOfItemsPageStorage {
   DateTime? dischargeTimeFromTheHospital;
 
   /// ICD 10 Codes.
-  List<String>? icd10Codes;
+  List<dynamic>? icd10Codes;
 
   /// Patient Location.
   String? patientLocation;
-
-  /// Lung protective Ventilation
-  bool lungProtectiveVentilation70 = false;
-
-  /// ICU Mortality.
-  double? icuMortality;
-
-  /// Hospital Mortality.
-  double? hospitalMortality;
+  /// Lung Protective Ventilation greater than 70%.
+  bool? lungProtectiveVentilation70;
 
   /// Length of Stay in Hospital.
   int? hospitalLengthOfStay;
@@ -780,13 +694,10 @@ class CatalogOfItemsPageStorage {
   int? icuLengthOfStay;
 
   /// Readmission Rate to the ICU.
-  double? readmissionRateToTheICU;
+  bool? readmissionRateToTheICU;
 
   /// Readmission to the Hospital.
   int? hospitalReadmission;
-
-  /// Days until Work Reuptake.
-  double? daysUntilWorkReuptake;
 
   /// Institute Key.
   String? instKey;

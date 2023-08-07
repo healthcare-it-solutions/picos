@@ -63,7 +63,7 @@ class BloodGasAnalysisObject extends AbstractDatabaseObject {
   final double? arterialLactate;
 
   /// Blood Glucose Level.
-  final String? bloodGlucoseLevel;
+  final double? bloodGlucoseLevel;
 
   @override
   get table {
@@ -80,7 +80,7 @@ class BloodGasAnalysisObject extends AbstractDatabaseObject {
     double? arterialPH,
     double? arterialSerumBicarbonateConcentration,
     double? arterialLactate,
-    String? bloodGlucoseLevel,
+    double? bloodGlucoseLevel,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -112,14 +112,18 @@ class BloodGasAnalysisObject extends AbstractDatabaseObject {
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
-        'BE': arterialBaseExcess,
-        'Bicarbonat': arterialSerumBicarbonateConcentration,
-        'SaO2': arterialOxygenSaturation,
-        'Laktat': arterialLactate,
-        'SzVO2': centralVenousOxygenSaturation,
-        'PaCO2_woTemp': partialPressureOfCarbonDioxide,
-        'PaO2_woTemp': partialPressureOfOxygen,
-        'pH': arterialPH,
-        'BloodSugar': bloodGlucoseLevel,
+        if (arterialBaseExcess != null) 'BE': arterialBaseExcess,
+        if (arterialSerumBicarbonateConcentration != null)
+          'Bicarbonat': arterialSerumBicarbonateConcentration,
+        if (arterialOxygenSaturation != null) 'SaO2': arterialOxygenSaturation,
+        if (arterialLactate != null) 'Laktat': arterialLactate,
+        if (centralVenousOxygenSaturation != null)
+          'SzVO2': centralVenousOxygenSaturation,
+        if (partialPressureOfCarbonDioxide != null)
+          'PaCO2_woTemp': partialPressureOfCarbonDioxide,
+        if (partialPressureOfOxygen != null)
+          'PaO2_woTemp': partialPressureOfOxygen,
+        if (arterialPH != null) 'pH': arterialPH,
+        if (bloodGlucoseLevel != null) 'BloodSugar': bloodGlucoseLevel,
       };
 }

@@ -29,11 +29,10 @@ class PatientData extends AbstractDatabaseObject {
     this.instKey,
     this.bodyWeight,
     this.ezpICU,
-    this.age,
+    this.birthDate,
     this.gender,
     this.bmi,
     this.idealBMI,
-    this.dischargeReason,
     this.azpICU,
     this.ventilationDays,
     this.azpKH,
@@ -41,20 +40,16 @@ class PatientData extends AbstractDatabaseObject {
     this.icd10Codes,
     this.station,
     this.lbgt70,
-    this.icuMortality,
-    this.khMortality,
     this.icuLengthStay,
     this.khLengthStay,
     this.wdaICU,
-    this.wdaKH,
-    this.weznDisease,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt);
 
-  /// denotes the age of the patient.
-  final int? age;
+  /// denotes the birthday of the patient.
+  final DateTime? birthDate;
 
   /// denotes the gender of the patient.
   final String? gender;
@@ -77,20 +72,14 @@ class PatientData extends AbstractDatabaseObject {
   /// denotes the case number.
   final String? caseNumber;
 
-  /// denotes the discharge reason.
-  final String? dischargeReason;
-
   /// denotes the start time of ICU stay.
   final DateTime? azpICU;
-
-  /// denotes the mortality rate within hospital.
-  final double? khMortality;
 
   /// denotes the LBgt70 value.
   final bool? lbgt70;
 
   /// denotes the list of ICD 10 codes.
-  final List<String>? icd10Codes;
+  final List<dynamic>? icd10Codes;
 
   /// denotes the start time in hospital.
   final DateTime? azpKH;
@@ -107,9 +96,6 @@ class PatientData extends AbstractDatabaseObject {
   /// denotes the station.
   final String? station;
 
-  /// denotes the ICU mortality.
-  final double? icuMortality;
-
   /// denotes the length of the ICU stay.
   final int? icuLengthStay;
 
@@ -117,13 +103,7 @@ class PatientData extends AbstractDatabaseObject {
   final int? khLengthStay;
 
   /// denotes Hospital Readmission ICU
-  final double? wdaICU;
-
-  /// denotes the WdaKH value.
-  final int? wdaKH;
-
-  /// denotes the WEZnDisease value.
-  final double? weznDisease;
+  final bool? wdaICU;
 
   /// denotes the institute key.
   final String? instKey;
@@ -145,7 +125,7 @@ class PatientData extends AbstractDatabaseObject {
   /// Returns a copy of this patient profile with the given values updated.
   @override
   PatientData copyWith({
-    int? age,
+    DateTime? birthDate,
     String? gender,
     double? bodyHeight,
     double? bodyWeight,
@@ -153,22 +133,17 @@ class PatientData extends AbstractDatabaseObject {
     double? idealBMI,
     String? patientID,
     String? caseNumber,
-    String? dischargeReason,
     DateTime? azpICU,
     DateTime? ezpICU,
     int? ventilationDays,
     DateTime? azpKH,
     DateTime? ezpKH,
-    List<String>? icd10Codes,
+    List<dynamic>? icd10Codes,
     String? station,
     bool? lbgt70,
-    double? icuMortality,
-    double? khMortality,
     int? icuLengthStay,
     int? khLengthStay,
-    double? wdaICU,
-    int? wdaKH,
-    double? weznDisease,
+    bool? wdaICU,
     String? instKey,
     String? patientObjectId,
     String? doctorObjectId,
@@ -177,7 +152,7 @@ class PatientData extends AbstractDatabaseObject {
     DateTime? updatedAt,
   }) {
     return PatientData(
-      age: age ?? this.age,
+      birthDate: birthDate ?? this.birthDate,
       gender: gender ?? this.gender,
       bodyHeight: bodyHeight ?? this.bodyHeight,
       bodyWeight: bodyWeight ?? this.bodyWeight,
@@ -185,7 +160,6 @@ class PatientData extends AbstractDatabaseObject {
       idealBMI: idealBMI ?? this.idealBMI,
       patientID: patientID ?? this.patientID,
       caseNumber: caseNumber ?? this.caseNumber,
-      dischargeReason: dischargeReason ?? this.dischargeReason,
       azpICU: azpICU ?? this.azpICU,
       ezpICU: ezpICU ?? this.ezpICU,
       ventilationDays: ventilationDays ?? this.ventilationDays,
@@ -194,13 +168,9 @@ class PatientData extends AbstractDatabaseObject {
       icd10Codes: icd10Codes ?? this.icd10Codes,
       station: station ?? this.station,
       lbgt70: lbgt70 ?? this.lbgt70,
-      icuMortality: icuMortality ?? this.icuMortality,
-      khMortality: khMortality ?? this.khMortality,
       icuLengthStay: icuLengthStay ?? this.icuLengthStay,
       khLengthStay: khLengthStay ?? this.khLengthStay,
       wdaICU: wdaICU ?? this.wdaICU,
-      wdaKH: wdaKH ?? this.wdaKH,
-      weznDisease: weznDisease ?? this.weznDisease,
       instKey: instKey ?? this.instKey,
       patientObjectId: patientObjectId ?? this.patientObjectId,
       doctorObjectId: doctorObjectId ?? this.doctorObjectId,
@@ -218,15 +188,14 @@ class PatientData extends AbstractDatabaseObject {
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
-        if (age != null) 'Age': age,
+        if (birthDate != null) 'Birthdate': birthDate,
         if (gender != null) 'Gender': gender,
-        'BodyHeight': bodyHeight,
+        if (bodyHeight != null) 'BodyHeight': bodyHeight,
         if (bodyWeight != null) 'BodyWeight': bodyWeight,
         if (bmi != null) 'BMI': bmi,
-        if (idealBMI != null) 'IdealBMI': idealBMI,
-        'ID': patientID,
-        'CaseNumber': caseNumber,
-        if (dischargeReason != null) 'DischargeReason': dischargeReason,
+        if (idealBMI != null) 'IdealBodyWeight': idealBMI,
+        if (patientID != null) 'ID': patientID,
+        if (caseNumber != null) 'CaseNumber': caseNumber,
         if (azpICU != null) 'AZP_ICU': azpICU,
         if (ezpICU != null) 'EZP_ICU': ezpICU,
         if (ventilationDays != null) 'VentilationDays': ventilationDays,
@@ -235,14 +204,10 @@ class PatientData extends AbstractDatabaseObject {
         if (icd10Codes != null) 'ICD_10_Codes': icd10Codes,
         if (station != null) 'Station': station,
         if (lbgt70 != null) 'LBgt70': lbgt70,
-        if (icuMortality != null) 'ICU_Mortality': icuMortality,
-        if (khMortality != null) 'KH_Mortality': khMortality,
         if (icuLengthStay != null) 'ICU_LengthStay': icuLengthStay,
         if (khLengthStay != null) 'KH_LengthStay': khLengthStay,
-        if (wdaICU != null) 'WdaICU': wdaICU,
-        if (wdaKH != null) 'WdaKH': wdaKH,
-        if (weznDisease != null) 'WEZnDisease': weznDisease,
-        'inst_key': instKey,
+        if (wdaICU != null) 'WdaICU2': wdaICU,
+        if (instKey != null) 'inst_key': instKey,
         'Patient': <String, String>{
           'objectId': patientObjectId,
           '__type': 'Pointer',

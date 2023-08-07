@@ -999,6 +999,10 @@
   "@age": {
     "description": "age"
   },
+  "birthDate": "birthday",
+  "@birthDate": {
+    "description": "birthday"
+  },
   "years": "years",
   "@years": {
     "description": "years"
@@ -1011,13 +1015,9 @@
   "@mainDiagnosis": {
     "description": "ICU main diagnosis"
   },
-  "progressDiagnosis": "ICU progress diagnosis",
-  "@progressDiagnosis": {
-    "description": "ICU progress diagnosis"
-  },
-  "coMorbidity": "Co-morbidity",
-  "@coMorbidity": {
-    "description": "Co-morbidity"
+  "ancillaryDiagnosis": "Ancillary diagnosis",
+  "@ancillaryDiagnosis": {
+    "description": "Ancillary diagnosis"
   },
   "icuaw": "ICUAW",
   "@icuaw": {
@@ -1258,10 +1258,6 @@
   "idealBodyWeight": "Ideal Body Weight",
   "@idealBodyWeight": {
     "description": "Ideal Body Weight"
-  },
-  "reasonForDischarge": "Reason for Discharge",
-  "@reasonForDischarge": {
-    "description": "Reason for Discharge"
   },
   "admissionTimeICU": "Admission Time ICU",
   "@admissionTimeICU": {

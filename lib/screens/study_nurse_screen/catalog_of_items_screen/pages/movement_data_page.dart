@@ -24,7 +24,6 @@ import 'package:picos/widgets/picos_number_field.dart';
 import 'package:picos/widgets/picos_switch.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_text_area.dart';
-import 'package:picos/widgets/picos_text_field.dart';
 
 import '../catalog_of_items_page.dart';
 import '../widgets/catalog_of_items_label.dart';
@@ -33,7 +32,7 @@ import '../widgets/catalog_of_items_label.dart';
 class MovementDataPage extends StatefulWidget {
   /// Creates MovementData.
   const MovementDataPage({
-    required this.ageCallback,
+    required this.birthDateCallback,
     required this.genderCallback,
     required this.bodyWeightCallback,
     required this.bodyHeightCallback,
@@ -41,7 +40,6 @@ class MovementDataPage extends StatefulWidget {
     required this.idealBodyWeightCallback,
     required this.patientIDCallback,
     required this.caseNumberCallback,
-    required this.reasonForDischargeCallback,
     required this.admissionTimeICUCallback,
     required this.dischargeTimeICUCallback,
     required this.ventilationDaysICUCallback,
@@ -50,15 +48,11 @@ class MovementDataPage extends StatefulWidget {
     required this.icd10COdesCallback,
     required this.patientLocationCallback,
     required this.lungProtectiveVentilationGt70pCallback,
-    required this.icuMortalityCallback,
-    required this.hospitalMortalityCallback,
     required this.hospitalLengthOfStayCallback,
     required this.icuLengthOfStayCallback,
     required this.readmissionRateICUCallback,
-    required this.hospitalReadmissionCallback,
-    required this.daysUntilWorkReuptakeCallback,
     Key? key,
-    this.initialAge,
+    this.initialBirthDate,
     this.initialGender,
     this.initialBodyWeight,
     this.initialBodyHeight,
@@ -66,7 +60,6 @@ class MovementDataPage extends StatefulWidget {
     this.initialIdealBodyWeight,
     this.initialPatientID,
     this.initialCaseNumber,
-    this.initialReasonForDischarge,
     this.initialAdmissionTime,
     this.initialDischargeTime,
     this.initialVentilationDays,
@@ -74,18 +67,14 @@ class MovementDataPage extends StatefulWidget {
     this.initialDischargeTimeFromTheHospital,
     this.initialICD10Codes,
     this.initialPatientLocation,
-    this.initialICUMortality,
-    this.initialHospitalMortality,
     this.initialHospitalLengthOfStay,
     this.initialICULengthOfStay,
     this.initialReadmissionRateToTheICU,
-    this.initialHospitalReadmission,
-    this.initialDaysUntilWorkReuptake,
     this.initialLungProtectiveVentilation70p,
   }) : super(key: key);
 
-  /// Main diagnosis callback.
-  final void Function(int? value) ageCallback;
+  /// Birthdate Callback.
+  final void Function(DateTime? value) birthDateCallback;
 
   /// Progress diagnosis callback.
   final void Function(String? value) genderCallback;
@@ -108,9 +97,6 @@ class MovementDataPage extends StatefulWidget {
   /// Case Number callback.
   final void Function(String? value) caseNumberCallback;
 
-  /// Reason for Discharge callback.
-  final void Function(String? value) reasonForDischargeCallback;
-
   /// Admission Time for ICU callback.
   final void Function(DateTime? value) admissionTimeICUCallback;
 
@@ -127,19 +113,13 @@ class MovementDataPage extends StatefulWidget {
   final void Function(DateTime? value) dischargeTimeHospitalCallback;
 
   /// ICD-10 Codes callback.
-  final void Function(List<String>? value) icd10COdesCallback;
+  final void Function(List<dynamic>? value) icd10COdesCallback;
 
   /// Patient Location callback.
   final void Function(String? value) patientLocationCallback;
 
   /// Lung Protective Ventilation > 70 % callback.
   final void Function(bool? value) lungProtectiveVentilationGt70pCallback;
-
-  /// ICU Mortality callback.
-  final void Function(double? value) icuMortalityCallback;
-
-  /// Hospital Mortality callback.
-  final void Function(double? value) hospitalMortalityCallback;
 
   /// Hospital Length of Stay Callback.
   final void Function(int? value) hospitalLengthOfStayCallback;
@@ -148,16 +128,10 @@ class MovementDataPage extends StatefulWidget {
   final void Function(int? value) icuLengthOfStayCallback;
 
   /// Readmission Rate of ICU callback.
-  final void Function(double? value) readmissionRateICUCallback;
-
-  /// Hospital Readmission callback.
-  final void Function(int? value) hospitalReadmissionCallback;
-
-  /// Days until Work Reuptake callback.
-  final void Function(double? value) daysUntilWorkReuptakeCallback;
+  final void Function(bool? value) readmissionRateICUCallback;
 
   /// Starting value for Age.
-  final int? initialAge;
+  final DateTime? initialBirthDate;
 
   /// Starting value for Gender.
   final String? initialGender;
@@ -180,9 +154,6 @@ class MovementDataPage extends StatefulWidget {
   /// Starting value for Case Number.
   final String? initialCaseNumber;
 
-  /// Starting value for Reason for Discharge.
-  final String? initialReasonForDischarge;
-
   /// Starting value for Admission Time.
   final DateTime? initialAdmissionTime;
 
@@ -199,16 +170,10 @@ class MovementDataPage extends StatefulWidget {
   final DateTime? initialDischargeTimeFromTheHospital;
 
   /// Starting value for ICD-10 Codes.
-  final List<String>? initialICD10Codes;
+  final List<dynamic>? initialICD10Codes;
 
   /// Starting value for Patient Location.
   final String? initialPatientLocation;
-
-  /// Starting value for ICU Mortality.
-  final double? initialICUMortality;
-
-  /// Starting value for Hospital Mortality.
-  final double? initialHospitalMortality;
 
   /// Starting value for Hospital Length of Stay.
   final int? initialHospitalLengthOfStay;
@@ -217,13 +182,7 @@ class MovementDataPage extends StatefulWidget {
   final int? initialICULengthOfStay;
 
   /// Starting value for Readmission Rate to the ICU.
-  final double? initialReadmissionRateToTheICU;
-
-  /// Starting value for Hospital Readmission.
-  final int? initialHospitalReadmission;
-
-  /// Starting value for Days until Work Reuptake.
-  final double? initialDaysUntilWorkReuptake;
+  final bool? initialReadmissionRateToTheICU;
 
   /// Starting value for Lung Protective Ventilation.
   final bool? initialLungProtectiveVentilation70p;
@@ -233,6 +192,24 @@ class MovementDataPage extends StatefulWidget {
 }
 
 class _MovementDataPageState extends State<MovementDataPage> {
+  DateTime? _selectedBirthDate;
+  DateTime? _selectedAdmissionTime;
+  DateTime? _selectedDischargeTime;
+  DateTime? _selectedAdmissionTimeToTheHospital;
+  DateTime? _selectedDischargeTimeFromTheHospital;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedBirthDate = widget.initialBirthDate;
+    _selectedAdmissionTime = widget.initialAdmissionTime;
+    _selectedDischargeTime = widget.initialDischargeTime;
+    _selectedAdmissionTimeToTheHospital =
+        widget.initialAdmissionTimeToTheHospital;
+    _selectedDischargeTimeFromTheHospital =
+        widget.initialDischargeTimeFromTheHospital;
+  }
+
   double bmi = 0;
   int bodyHeight = 0;
   double bodyWeight = 0;
@@ -255,15 +232,16 @@ class _MovementDataPageState extends State<MovementDataPage> {
         Column(
           children: <Widget>[
             CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.age,
+              AppLocalizations.of(context)!.birthDate,
             ),
-            PicosNumberField(
-              hint: AppLocalizations.of(context)!.years,
-              initialValue: widget.initialAge?.toString(),
-              digitsOnly: true,
-              onChanged: (String value) {
-                widget.ageCallback(int.tryParse(value));
+            PicosDatePicker(
+              callBackFunction: (DateTime value) {
+                widget.birthDateCallback(value);
+                setState(() {
+                  _selectedBirthDate = value;
+                });
               },
+              initialValue: _selectedBirthDate,
             ),
             CatalogOfItemsLabel(
               AppLocalizations.of(context)!.gender,
@@ -343,23 +321,16 @@ class _MovementDataPageState extends State<MovementDataPage> {
               },
             ),
             CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.reasonForDischarge,
-            ),
-            PicosTextArea(
-              maxLines: textAreaLines,
-              initialValue: widget.initialReasonForDischarge,
-              onChanged: (String value) {
-                widget.reasonForDischargeCallback(value);
-              },
-            ),
-            CatalogOfItemsLabel(
               AppLocalizations.of(context)!.admissionTimeICU,
             ),
             PicosDatePicker(
               callBackFunction: (DateTime value) {
                 widget.admissionTimeICUCallback(value);
+                setState(() {
+                  _selectedAdmissionTime = value;
+                });
               },
-              initialValue: widget.initialAdmissionTime,
+              initialValue: _selectedAdmissionTime,
             ),
             CatalogOfItemsLabel(
               AppLocalizations.of(context)!.dischargeTimeICU,
@@ -367,8 +338,11 @@ class _MovementDataPageState extends State<MovementDataPage> {
             PicosDatePicker(
               callBackFunction: (DateTime value) {
                 widget.dischargeTimeICUCallback(value);
+                setState(() {
+                  _selectedDischargeTime = value;
+                });
               },
-              initialValue: widget.initialDischargeTime,
+              initialValue: _selectedDischargeTime,
             ),
             CatalogOfItemsLabel(
               AppLocalizations.of(context)!.ventilationDaysICU,
@@ -386,8 +360,11 @@ class _MovementDataPageState extends State<MovementDataPage> {
             PicosDatePicker(
               callBackFunction: (DateTime value) {
                 widget.admissionTimeHospitalCallback(value);
+                setState(() {
+                  _selectedAdmissionTimeToTheHospital = value;
+                });
               },
-              initialValue: widget.initialAdmissionTimeToTheHospital,
+              initialValue: _selectedAdmissionTimeToTheHospital,
             ),
             CatalogOfItemsLabel(
               AppLocalizations.of(context)!.dischargeTimeHospital,
@@ -395,15 +372,20 @@ class _MovementDataPageState extends State<MovementDataPage> {
             PicosDatePicker(
               callBackFunction: (DateTime value) {
                 widget.dischargeTimeHospitalCallback(value);
+                setState(() {
+                  _selectedDischargeTimeFromTheHospital = value;
+                });
               },
-              initialValue: widget.initialDischargeTimeFromTheHospital,
+              initialValue: _selectedDischargeTimeFromTheHospital,
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.icd10Codes),
-            PicosTextField(
+            PicosTextArea(
               hint: 'ICD-10 Codes',
-              initialValue: widget.initialICD10Codes?.toString(),
+              initialValue: widget.initialICD10Codes?[0].toString(),
               onChanged: (String value) {
-                widget.icd10COdesCallback(value as List<String>?);
+                List<dynamic> list = <dynamic>[];
+                list.add(value);
+                widget.icd10COdesCallback(list);
               },
             ),
             CatalogOfItemsLabel(
@@ -428,14 +410,8 @@ class _MovementDataPageState extends State<MovementDataPage> {
             Expanded(
               child: PicosSwitch(
                 initialValue: widget.initialLungProtectiveVentilation70p,
-                onChanged: (bool value) {
-                  setState(
-                    () {
-                      widget.lungProtectiveVentilationGt70pCallback(
-                        value,
-                      );
-                    },
-                  );
+                onChanged: (bool? value) {
+                  widget.lungProtectiveVentilationGt70pCallback(value);
                 },
               ),
             ),
@@ -443,24 +419,6 @@ class _MovementDataPageState extends State<MovementDataPage> {
         ),
         Column(
           children: <Widget>[
-            CatalogOfItemsLabel(AppLocalizations.of(context)!.icuMortality),
-            PicosNumberField(
-              hint: percent,
-              initialValue: widget.initialICUMortality?.toString(),
-              onChanged: (String value) {
-                widget.icuMortalityCallback(double.tryParse(value));
-              },
-            ),
-            CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.hospitalMortality,
-            ),
-            PicosNumberField(
-              hint: percent,
-              initialValue: widget.initialHospitalMortality?.toString(),
-              onChanged: (String value) {
-                widget.hospitalMortalityCallback(double.tryParse(value));
-              },
-            ),
             CatalogOfItemsLabel(
               AppLocalizations.of(context)!.hospitalLengthOfStay,
             ),
@@ -481,35 +439,12 @@ class _MovementDataPageState extends State<MovementDataPage> {
                 widget.icuLengthOfStayCallback(int.tryParse(value));
               },
             ),
-            CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.readmissionRateICU,
-            ),
-            PicosNumberField(
-              hint: percent,
-              initialValue: widget.initialReadmissionRateToTheICU?.toString(),
-              onChanged: (String value) {
-                widget.readmissionRateICUCallback(double.tryParse(value));
+            PicosSwitch(
+              initialValue: widget.initialReadmissionRateToTheICU,
+              onChanged: (bool? value) {
+                widget.readmissionRateICUCallback(value);
               },
-            ),
-            CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.hospitalReadmission,
-            ),
-            PicosNumberField(
-              hint: nYear,
-              initialValue: widget.initialHospitalReadmission?.toString(),
-              onChanged: (String value) {
-                widget.hospitalReadmissionCallback(int.tryParse(value));
-              },
-            ),
-            CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.daysUntilWorkReuptake,
-            ),
-            PicosNumberField(
-              hint: AppLocalizations.of(context)!.days,
-              initialValue: widget.initialDaysUntilWorkReuptake?.toString(),
-              onChanged: (String value) {
-                widget.daysUntilWorkReuptakeCallback(double.tryParse(value));
-              },
+              title: AppLocalizations.of(context)!.readmissionRateICU,
             ),
           ],
         ),

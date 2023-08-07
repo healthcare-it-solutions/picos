@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:picos/widgets/picos_switch.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/widgets/picos_text_area.dart';
 import 'package:picos/widgets/picos_text_field.dart';
 
 import '../catalog_of_items_page.dart';
@@ -28,14 +29,12 @@ class IcuDiagnosisPage extends StatelessWidget {
   /// Creates IcuDiagnosis.
   const IcuDiagnosisPage({
     required this.mainDiagnosisCallback,
-    required this.progressDiagnosisCallback,
-    required this.coMorbidityCallback,
+    required this.ancillaryDiagnosisCallback,
     required this.icuawCallback,
     required this.picsCallback,
     Key? key,
     this.initialMainDiagnosis,
-    this.initialProgressDiagnosis,
-    this.initialCoMorbidity,
+    this.initialAncillaryDiagnosis,
     this.initialIcuaw,
     this.initialPics,
   }) : super(key: key);
@@ -43,26 +42,20 @@ class IcuDiagnosisPage extends StatelessWidget {
   /// Main diagnosis callback.
   final void Function(String? value) mainDiagnosisCallback;
 
-  /// Progress diagnosis callback.
-  final void Function(String? value) progressDiagnosisCallback;
-
-  /// ICUAW callback.
-  final void Function(String? value) coMorbidityCallback;
+  /// Ancillary diagnosis callback.
+  final void Function(List<dynamic>? value) ancillaryDiagnosisCallback;
 
   /// PICS callback.
-  final void Function(bool value) icuawCallback;
+  final void Function(bool? value) icuawCallback;
 
   /// Co-morbidity callback.
-  final void Function(bool value) picsCallback;
+  final void Function(bool? value) picsCallback;
 
   /// Starting value for main diagnosis.
   final String? initialMainDiagnosis;
 
-  /// Starting value for progress diagnosis.
-  final String? initialProgressDiagnosis;
-
-  /// Starting value for co-morbidity.
-  final String? initialCoMorbidity;
+  /// Starting value for ancillary diagnosis.
+  final List<dynamic>? initialAncillaryDiagnosis;
 
   /// Starting value for ICUAW.
   final bool? initialIcuaw;
@@ -87,19 +80,14 @@ class IcuDiagnosisPage extends StatelessWidget {
               },
             ),
             CatalogOfItemsLabel(
-              AppLocalizations.of(context)!.progressDiagnosis,
+              AppLocalizations.of(context)!.ancillaryDiagnosis,
             ),
-            PicosTextField(
-              initialValue: initialProgressDiagnosis,
+            PicosTextArea(
+              initialValue: initialAncillaryDiagnosis?[0].toString(),
               onChanged: (String value) {
-                progressDiagnosisCallback(value);
-              },
-            ),
-            CatalogOfItemsLabel(AppLocalizations.of(context)!.coMorbidity),
-            PicosTextField(
-              initialValue: initialCoMorbidity,
-              onChanged: (String value) {
-                coMorbidityCallback(value);
+                List<dynamic> list = <dynamic>[];
+                list.add(value);
+                ancillaryDiagnosisCallback(list);
               },
             ),
           ],
