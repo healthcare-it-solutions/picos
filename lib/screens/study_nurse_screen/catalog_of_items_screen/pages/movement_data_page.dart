@@ -421,11 +421,8 @@ class _MovementDataPageState extends State<MovementDataPage> {
         Row(
           children: <Expanded>[
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 15),
-                child: CatalogOfItemsLabel(
-                  AppLocalizations.of(context)!.lungProtectiveVentilation70p,
-                ),
+              child: CatalogOfItemsLabel(
+                AppLocalizations.of(context)!.lungProtectiveVentilation70p,
               ),
             ),
             Expanded(
