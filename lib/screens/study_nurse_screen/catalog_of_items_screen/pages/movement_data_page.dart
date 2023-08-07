@@ -289,6 +289,8 @@ class _MovementDataPageState extends State<MovementDataPage> {
 
                   if (bodyWeight != 0 && bodyHeight != 0) {
                     bmi = calculateBmi(bodyHeight, bodyWeight);
+                  } else {
+                    bmi = 0;
                   }
                 });
               },
@@ -301,11 +303,13 @@ class _MovementDataPageState extends State<MovementDataPage> {
               onChanged: (String value) {
                 widget.bodyHeightCallback(double.tryParse(value));
 
-                setState(() { 
+                setState(() {
                   bodyHeight = int.tryParse(value) ?? 0;
 
                   if (bodyWeight != 0 && bodyHeight != 0) {
                     bmi = calculateBmi(bodyHeight, bodyWeight);
+                  } else {
+                    bmi = 0;
                   }
                 });
               },
