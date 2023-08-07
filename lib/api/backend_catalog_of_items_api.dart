@@ -43,7 +43,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
   @override
   Future<void> saveObject(AbstractDatabaseObject object) async {
     BackendACL coiACL = BackendACL();
-    if (object.createdAt == null) {  
+    if (object.createdAt == null) {
       coiACL.setWriteAccess(userId: BackendRole.doctor.id);
       coiACL.setReadAccess(userId: BackendRole.doctor.id);
       coiACL.setReadAccess(userId: EditPatientScreen.patientObjectId!);
@@ -854,10 +854,39 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
 
       return result;
     } catch (e) {
+      // TODO: remove the print call
       if (kDebugMode) {
         print(e.toString());
       }
       return null;
+    }
+  }
+
+  @override
+  Future<void> removeObject(AbstractDatabaseObject object) async {
+    try {
+      await Backend.removeObject(
+          (object as CatalogOfItemsElement).bloodGasAnalysis,);
+      await Backend.removeObject(object.bloodGasAnalysisObject1);
+      await Backend.removeObject(object.bloodGasAnalysisObject2);
+      await Backend.removeObject(object.icuDiagnosis);
+      await Backend.removeObject(object.laborParameters);
+      await Backend.removeObject(object.movementData);
+      await Backend.removeObject(object.respiratoryParameters);
+      await Backend.removeObject(object.respiratoryParametersObject1);
+      await Backend.removeObject(object.respiratoryParametersObject2);
+      await Backend.removeObject(object.vitalSigns);
+      await Backend.removeObject(object.vitalSignsObject1);
+      await Backend.removeObject(object.vitalSignsObject2);
+
+      int objectIndex = getIndex(object);
+
+      objectList.removeAt(objectIndex);
+      objectList = <AbstractDatabaseObject>[...objectList];
+
+      dispatch();
+    } catch (e) {
+      return;
     }
   }
 }
