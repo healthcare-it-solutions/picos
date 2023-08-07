@@ -412,7 +412,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
     return matchingObjects;
   }
 
-  ///
+  /// Gets an object entry.
   static Future<CatalogOfItemsElement?> getObject() async {
     try {
       String? patientObjectId = EditPatientScreen.patientObjectId;
@@ -862,8 +862,8 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
     }
   }
 
-  @override
-  Future<void> removeObject(AbstractDatabaseObject object) async {
+  /// Removes a COI element.
+  static Future<void> removeElement(AbstractDatabaseObject object) async {
     try {
       await Backend.removeObject(
           (object as CatalogOfItemsElement).bloodGasAnalysis,);
@@ -879,12 +879,12 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       await Backend.removeObject(object.vitalSignsObject1);
       await Backend.removeObject(object.vitalSignsObject2);
 
-      int objectIndex = getIndex(object);
+      /*int objectIndex = getIndex(object);
 
       objectList.removeAt(objectIndex);
       objectList = <AbstractDatabaseObject>[...objectList];
 
-      dispatch();
+      dispatch();*/
     } catch (e) {
       return;
     }

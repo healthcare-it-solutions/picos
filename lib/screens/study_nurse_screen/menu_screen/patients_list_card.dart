@@ -17,6 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:picos/api/backend_catalog_of_items_api.dart';
 import 'package:picos/api/backend_patients_list_api.dart';
 import 'package:picos/models/patients_list_element.dart';
 import 'package:picos/screens/study_nurse_screen/menu_screen/patients_list_card_tile.dart';
@@ -41,8 +42,7 @@ class PatientsListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PicosListCard(
-      title:
-          '${_patientsListElement.patient.firstName} ' 
+      title: '${_patientsListElement.patient.firstName} '
           '${_patientsListElement.patient.familyName}',
       edit: () {
         Navigator.of(context).pushNamed(
@@ -54,6 +54,7 @@ class PatientsListCard extends StatelessWidget {
         context
             .read<ObjectsListBloc<BackendPatientsListApi>>()
             .add(RemoveObject(_patientsListElement));
+        //BackendCatalogOfItemsApi.removeElement(object);
       },
       child: Row(
         children: <Expanded>[
