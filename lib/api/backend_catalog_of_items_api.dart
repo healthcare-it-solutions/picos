@@ -29,6 +29,7 @@ import 'package:collection/collection.dart';
 import 'package:picos/models/respiratory_parameters_object.dart';
 import 'package:picos/models/vital_signs_object.dart';
 import 'package:picos/screens/study_nurse_screen/menu_screen/edit_patient_screen.dart';
+import 'package:picos/state/objects_list_bloc.dart';
 import 'package:picos/util/backend.dart';
 
 import 'package:picos/models/blood_gas_analysis.dart';
@@ -52,7 +53,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         dynamic responseICUDiagnosis = await Backend.saveObject(
           object.icuDiagnosis!,
           acl: coiACL,
-      );
+        );
 
         object.icuDiagnosis!.copyWith(
           objectId: responseICUDiagnosis['objectId'],
@@ -71,7 +72,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         dynamic responseVitalSignsObject1 = await Backend.saveObject(
           object.vitalSignsObject1!,
           acl: coiACL,
-      );
+        );
         vitalSignsObject1 = object.vitalSignsObject1!.copyWith(
           objectId: responseVitalSignsObject1['objectId'],
           createdAt: DateTime.tryParse(
@@ -90,7 +91,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         dynamic responseVitalSignsObject2 = await Backend.saveObject(
           object.vitalSignsObject2!,
           acl: coiACL,
-      );
+        );
 
         vitalSignsObject2 = object.vitalSignsObject2!.copyWith(
           objectId: responseVitalSignsObject2['objectId'],
@@ -112,7 +113,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         dynamic responseVitalSigns = await Backend.saveObject(
           object.vitalSigns!,
           acl: coiACL,
-      );
+        );
         object.vitalSigns!.copyWith(
           objectId: responseVitalSigns['objectId'],
           createdAt: DateTime.tryParse(responseVitalSigns['createdAt'] ?? '') ??
@@ -129,7 +130,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         dynamic responseRespiratoryParametersObject1 = await Backend.saveObject(
           object.respiratoryParametersObject1!,
           acl: coiACL,
-      );
+        );
 
         respiratoryParametersObject1 =
             object.respiratoryParametersObject1!.copyWith(
@@ -150,7 +151,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         dynamic responseRespiratoryParametersObject2 = await Backend.saveObject(
           object.respiratoryParametersObject2!,
           acl: coiACL,
-      );
+        );
 
         respiratoryParametersObject2 =
             object.respiratoryParametersObject2!.copyWith(
@@ -173,7 +174,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         dynamic responseRespiratoryParameters = await Backend.saveObject(
           object.respiratoryParameters!,
           acl: coiACL,
-      );
+        );
 
         object.respiratoryParameters!.copyWith(
           objectId: responseRespiratoryParameters['objectId'],
@@ -195,7 +196,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         dynamic responseBloodGasAnalysisObject1 = await Backend.saveObject(
           object.bloodGasAnalysisObject1!,
           acl: coiACL,
-      );
+        );
 
         bloodGasAnalysisObject1 = object.bloodGasAnalysisObject1!.copyWith(
           objectId: responseBloodGasAnalysisObject1['objectId'],
@@ -215,7 +216,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         dynamic responseBloodGasAnalysisObject2 = await Backend.saveObject(
           object.bloodGasAnalysisObject2!,
           acl: coiACL,
-      );
+        );
 
         bloodGasAnalysisObject2 = object.bloodGasAnalysisObject2!.copyWith(
           objectId: responseBloodGasAnalysisObject2['objectId'],
@@ -237,7 +238,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         dynamic responseBloodGasAnalysis = await Backend.saveObject(
           object.bloodGasAnalysis!,
           acl: coiACL,
-      );
+        );
 
         object.bloodGasAnalysis!.copyWith(
           objectId: responseBloodGasAnalysis['objectId'],
@@ -257,7 +258,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         dynamic responseLaborParameters = await Backend.saveObject(
           object.laborParameters!,
           acl: coiACL,
-      );
+        );
 
         object.laborParameters!.copyWith(
           objectId: responseLaborParameters['objectId'],
@@ -815,29 +816,87 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
     }
   }
 
-  /// Removes a COI element.
-  static Future<void> removeElement(AbstractDatabaseObject object) async {
+  @override
+  Future<void> removeObject(AbstractDatabaseObject object) async {
     try {
+      ParseResponse icuDIagnoses = await Backend.getEntry(
+        ICUDiagnosis.databaseTable,
+        'Patient',
+        object.objectId!,
+      );
+      ParseResponse bloodGasAnalysis = await Backend.getEntry(
+        BloodGasAnalysis.databaseTable,
+        'Patient',
+        object.objectId!,
+      );
+      ParseResponse laborParameters = await Backend.getEntry(
+        LaborParameters.databaseTable,
+        'Patient',
+        object.objectId!,
+      );
+      ParseResponse movementData = await Backend.getEntry(
+        PatientData.databaseTable,
+        'Patient',
+        object.objectId!,
+      );
+      ParseResponse vitalSigns = await Backend.getEntry(
+        VitalSigns.databaseTable,
+        'Patient',
+        object.objectId!,
+      );
+      ParseResponse respiratoryParameters = await Backend.getEntry(
+        RespiratoryParameters.databaseTable,
+        'Patient',
+        object.objectId!,
+      );
+
+      ParseResponse bloodGasAnalysisObject1 = await Backend.getEntry(
+        BloodGasAnalysisObject.databaseTable,
+        'objectId',
+        (bloodGasAnalysis.results?[0] as BloodGasAnalysis).valueObjectId1!,
+      );
+      ParseResponse bloodGasAnalysisObject2 = await Backend.getEntry(
+        BloodGasAnalysisObject.databaseTable,
+        'objectId',
+        (bloodGasAnalysis.results?[0] as BloodGasAnalysis).valueObjectId2!,
+      );
+      ParseResponse respiratoryParametersObject1 = await Backend.getEntry(
+        RespiratoryParametersObject.databaseTable,
+        'objectId',
+        (respiratoryParameters.results?[0] as RespiratoryParameters).valueObjectId1!,
+      );
+      ParseResponse respiratoryParametersObject2 = await Backend.getEntry(
+        RespiratoryParametersObject.databaseTable,
+        'objectId',
+        (respiratoryParameters.results?[0] as RespiratoryParameters).valueObjectId2!,
+      );
+      ParseResponse vitalSignsObject1 = await Backend.getEntry(
+        VitalSignsObject.databaseTable,
+        'objectId',
+        (vitalSigns.results?[0] as VitalSigns).valueObjectId1!,
+      );
+      ParseResponse vitalSignsObject2 = await Backend.getEntry(
+        VitalSignsObject.databaseTable,
+        'objectId',
+        (vitalSigns.results?[0] as VitalSigns).valueObjectId2!,
+      );
+
       await Backend.removeObject(
-          (object as CatalogOfItemsElement).bloodGasAnalysis!,);
-      await Backend.removeObject(object.bloodGasAnalysisObject1!);
-      await Backend.removeObject(object.bloodGasAnalysisObject2!);
-      await Backend.removeObject(object.icuDiagnosis!);
-      await Backend.removeObject(object.laborParameters!);
-      await Backend.removeObject(object.movementData!);
-      await Backend.removeObject(object.respiratoryParameters!);
-      await Backend.removeObject(object.respiratoryParametersObject1!);
-      await Backend.removeObject(object.respiratoryParametersObject2!);
-      await Backend.removeObject(object.vitalSigns!);
-      await Backend.removeObject(object.vitalSignsObject1!);
-      await Backend.removeObject(object.vitalSignsObject2!);
+        bloodGasAnalysis.result,
+      );
+      await Backend.removeObject(bloodGasAnalysisObject1.result);
+      await Backend.removeObject(bloodGasAnalysisObject2.result);
+      await Backend.removeObject(icuDIagnoses.result);
+      await Backend.removeObject(laborParameters.result);
+      await Backend.removeObject(movementData.result);
+      await Backend.removeObject(respiratoryParameters.result);
+      await Backend.removeObject(respiratoryParametersObject1.result);
+      await Backend.removeObject(respiratoryParametersObject2.result);
+      await Backend.removeObject(vitalSigns.result);
+      await Backend.removeObject(vitalSignsObject1.result);
+      await Backend.removeObject(vitalSignsObject2.result);
 
-      /*int objectIndex = getIndex(object);
-
-      objectList.removeAt(objectIndex);
-      objectList = <AbstractDatabaseObject>[...objectList];
-
-      dispatch();*/
+      dispatch();
     } catch (e) {
       return;
     }
