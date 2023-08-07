@@ -17,8 +17,6 @@
 
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
-
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:picos/api/backend_objects_api.dart';
 import 'package:picos/models/abstract_database_object.dart';
@@ -854,10 +852,6 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
 
       return result;
     } catch (e) {
-      // TODO: remove the print call
-      if (kDebugMode) {
-        print(e.toString());
-      }
       return null;
     }
   }
