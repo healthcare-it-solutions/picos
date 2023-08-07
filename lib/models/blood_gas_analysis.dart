@@ -21,7 +21,7 @@ import 'package:picos/models/blood_gas_analysis_object.dart';
 /// Class with Blood Gas Analysis information.
 class BloodGasAnalysis extends AbstractDatabaseObject {
   /// Creates a Blood Gas Analysis object.
-   BloodGasAnalysis({
+  const BloodGasAnalysis({
     required this.doctorObjectId,
     required this.patientObjectId,
     this.value1,
@@ -40,19 +40,27 @@ class BloodGasAnalysis extends AbstractDatabaseObject {
   final String doctorObjectId;
 
   /// Last value.
-  late BloodGasAnalysisObject? value1;
+  final BloodGasAnalysisObject? value1;
 
   /// Pre-last value.
-  late BloodGasAnalysisObject? value2;
+  final BloodGasAnalysisObject? value2;
 
   /// Patient Object Id.
   final String patientObjectId;
 
   /// Value of first Object ID.
-  late String? valueObjectId1;
-  
+  final String? valueObjectId1;
+
   /// Value of second Object ID.
-  late String? valueObjectId2;
+  final String? valueObjectId2;
+
+  set value1(BloodGasAnalysisObject? value1) {
+    this.value1 = value1;
+  }
+
+  set value2(BloodGasAnalysisObject? value2) {
+    this.value2 = value2;
+  }
 
   @override
   get table {

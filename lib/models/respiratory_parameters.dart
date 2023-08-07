@@ -21,7 +21,7 @@ import 'package:picos/models/respiratory_parameters_object.dart';
 /// Class with Respiratory Parameters object.
 class RespiratoryParameters extends AbstractDatabaseObject {
   /// Creates a Respiratory Parameters object.
-  RespiratoryParameters({
+  const RespiratoryParameters({
     required this.doctorObjectId,
     required this.patientObjectId,
     this.value1,
@@ -40,19 +40,27 @@ class RespiratoryParameters extends AbstractDatabaseObject {
   final String doctorObjectId;
 
   /// Last value.
-  late RespiratoryParametersObject? value1;
+  final RespiratoryParametersObject? value1;
 
   /// Pre-last value.
-  late RespiratoryParametersObject? value2;
+  final RespiratoryParametersObject? value2;
 
   /// Patient Object Id.
   final String patientObjectId;
 
   /// Value of first Object ID.
-  late String? valueObjectId1;
-  
+  final String? valueObjectId1;
+
   /// Value of second Object ID.
-  late String? valueObjectId2;
+  final String? valueObjectId2;
+
+  set value1(RespiratoryParametersObject? value1) {
+    this.value1 = value1;
+  }
+
+  set value2(RespiratoryParametersObject? value2) {
+    this.value2 = value2;
+  }
 
   @override
   get table {

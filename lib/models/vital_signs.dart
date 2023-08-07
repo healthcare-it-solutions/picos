@@ -21,7 +21,7 @@ import 'package:picos/models/vital_signs_object.dart';
 /// Class with Vital Signs.
 class VitalSigns extends AbstractDatabaseObject {
   /// Creates a Vital Signs object.
-  VitalSigns({
+  const VitalSigns({
     required this.doctorObjectId,
     required this.patientObjectId,
     this.value1,
@@ -40,19 +40,27 @@ class VitalSigns extends AbstractDatabaseObject {
   final String doctorObjectId;
 
   /// Last value.
-  late VitalSignsObject? value1;
+  final VitalSignsObject? value1;
 
   /// Pre-last value.
-  late VitalSignsObject? value2;
+  final VitalSignsObject? value2;
 
   /// Last value objectId.
-  late String? valueObjectId1;
+  final String? valueObjectId1;
 
   /// Pre-last value objectId.
-  late String? valueObjectId2;
+  final String? valueObjectId2;
 
   /// Patient Object Id.
   final String patientObjectId;
+
+  set value1(VitalSignsObject? value1) {
+    this.value1 = value1;
+  }
+
+  set value2(VitalSignsObject? value2) {
+    this.value2 = value2;
+  }
 
   @override
   get table {
