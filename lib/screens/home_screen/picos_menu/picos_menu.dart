@@ -88,6 +88,12 @@ class PicosMenu extends StatelessWidget {
         ),
       ),
       PicosMenuItem(
+        iconPath: 'assets/Profil.svg',
+        title: AppLocalizations.of(context)!.myProfile,
+        onTap: () => Navigator.of(context)
+            .pushNamed('profile-screen/profile'),
+      ),
+      PicosMenuItem(
         iconPath: 'assets/Impressum.svg',
         title: AppLocalizations.of(context)!.legals,
         onTap: () => Navigator.of(context).pushNamed('/legals-screen'),
