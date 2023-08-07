@@ -79,6 +79,16 @@ class IcuDiagnosisPage extends StatelessWidget {
                 mainDiagnosisCallback(value);
               },
             ),
+            CatalogOfItemsLabel(
+                AppLocalizations.of(context)!.ancillaryDiagnosis),
+            PicosTextArea(
+              initialValue: initialAncillaryDiagnosis?[0].toString(),
+              onChanged: (String value) {
+                List<dynamic> list = <dynamic>[];
+                list.add(value);
+                ancillaryDiagnosisCallback(list);
+              },
+            ),
           ],
         ),
         PicosSwitch(
@@ -97,15 +107,6 @@ class IcuDiagnosisPage extends StatelessWidget {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
           ),
-        ),
-        CatalogOfItemsLabel(AppLocalizations.of(context)!.ancillaryDiagnosis),
-        PicosTextArea(
-          initialValue: initialAncillaryDiagnosis?[0].toString(),
-          onChanged: (String value) {
-            List<dynamic> list = <dynamic>[];
-            list.add(value);
-            ancillaryDiagnosisCallback(list);
-          },
         ),
       ],
     );
