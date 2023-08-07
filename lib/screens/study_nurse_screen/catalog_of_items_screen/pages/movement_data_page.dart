@@ -198,6 +198,10 @@ class _MovementDataPageState extends State<MovementDataPage> {
   DateTime? _selectedAdmissionTimeToTheHospital;
   DateTime? _selectedDischargeTimeFromTheHospital;
 
+  double bmi = 0;
+  int bodyHeight = 0;
+  double bodyWeight = 0;
+  
   @override
   void initState() {
     super.initState();
@@ -208,22 +212,26 @@ class _MovementDataPageState extends State<MovementDataPage> {
         widget.initialAdmissionTimeToTheHospital;
     _selectedDischargeTimeFromTheHospital =
         widget.initialDischargeTimeFromTheHospital;
+
+    bodyHeight = widget.initialBodyHeight!.toInt();
+    bodyWeight = widget.initialBodyWeight ?? 0;
+
+    if (bodyWeight != 0 && bodyHeight != 0) {
+      bmi = _calculateBmi(bodyHeight, bodyWeight);
+    } else {
+      bmi = 0;
+    }
   }
 
-  double bmi = 0;
-  int bodyHeight = 0;
-  double bodyWeight = 0;
+  double _calculateBmi(int height, double bodyWeight) {
+    return (bodyWeight / pow(height / 100, 2));
+  }
 
   @override
   Widget build(BuildContext context) {
     const String cm = 'cm';
     const int textAreaLines = 3;
     const String kg = 'kg';
-
-
-    double calculateBmi(int height, double bodyWeight) {
-      return (bodyWeight / pow(height / 100, 2));
-    }
 
     return CatalogOfItemsPage(
       title: AppLocalizations.of(context)!.patientsMovementData,
@@ -265,7 +273,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
                   bodyWeight = double.tryParse(value) ?? 0;
 
                   if (bodyWeight != 0 && bodyHeight != 0) {
-                    bmi = calculateBmi(bodyHeight, bodyWeight);
+                    bmi = _calculateBmi(bodyHeight, bodyWeight);
                   } else {
                     bmi = 0;
                   }
@@ -284,7 +292,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
                   bodyHeight = int.tryParse(value) ?? 0;
 
                   if (bodyWeight != 0 && bodyHeight != 0) {
-                    bmi = calculateBmi(bodyHeight, bodyWeight);
+                    bmi = _calculateBmi(bodyHeight, bodyWeight);
                   } else {
                     bmi = 0;
                   }
