@@ -80,7 +80,8 @@ class IcuDiagnosisPage extends StatelessWidget {
               },
             ),
             CatalogOfItemsLabel(
-                AppLocalizations.of(context)!.ancillaryDiagnosis),
+              AppLocalizations.of(context)!.ancillaryDiagnosis,
+            ),
             PicosTextArea(
               initialValue: initialAncillaryDiagnosis?[0].toString(),
               onChanged: (String value) {
