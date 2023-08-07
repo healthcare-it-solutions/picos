@@ -144,7 +144,6 @@ class PatientData extends AbstractDatabaseObject {
     int? icuLengthStay,
     int? khLengthStay,
     bool? wdaICU,
-    int? wdaKH,
     String? instKey,
     String? patientObjectId,
     String? doctorObjectId,
