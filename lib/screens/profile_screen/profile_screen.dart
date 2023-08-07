@@ -15,8 +15,6 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-//TODO: Localizations
-
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:picos/util/backend.dart';
