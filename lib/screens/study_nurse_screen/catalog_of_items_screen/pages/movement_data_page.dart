@@ -219,8 +219,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
     const String cm = 'cm';
     const int textAreaLines = 3;
     const String kg = 'kg';
-    const String percent = '%';
-    String nYear = 'n/${AppLocalizations.of(context)!.year}';
+
 
     double calculateBmi(int height, double bodyWeight) {
       return (bodyWeight / pow(height / 100, 2));
