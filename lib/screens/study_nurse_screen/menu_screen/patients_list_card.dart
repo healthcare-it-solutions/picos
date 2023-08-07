@@ -17,7 +17,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:picos/api/backend_catalog_of_items_api.dart';
 import 'package:picos/api/backend_patients_list_api.dart';
 import 'package:picos/models/patients_list_element.dart';
 import 'package:picos/screens/study_nurse_screen/menu_screen/patients_list_card_tile.dart';
