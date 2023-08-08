@@ -29,7 +29,6 @@ import 'package:collection/collection.dart';
 import 'package:picos/models/respiratory_parameters_object.dart';
 import 'package:picos/models/vital_signs_object.dart';
 import 'package:picos/screens/study_nurse_screen/menu_screen/edit_patient_screen.dart';
-import 'package:picos/state/objects_list_bloc.dart';
 import 'package:picos/util/backend.dart';
 
 import 'package:picos/models/blood_gas_analysis.dart';
@@ -863,12 +862,14 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       ParseResponse respiratoryParametersObject1 = await Backend.getEntry(
         RespiratoryParametersObject.databaseTable,
         'objectId',
-        (respiratoryParameters.results?[0] as RespiratoryParameters).valueObjectId1!,
+        (respiratoryParameters.results?[0] as RespiratoryParameters)
+            .valueObjectId1!,
       );
       ParseResponse respiratoryParametersObject2 = await Backend.getEntry(
         RespiratoryParametersObject.databaseTable,
         'objectId',
-        (respiratoryParameters.results?[0] as RespiratoryParameters).valueObjectId2!,
+        (respiratoryParameters.results?[0] as RespiratoryParameters)
+            .valueObjectId2!,
       );
       ParseResponse vitalSignsObject1 = await Backend.getEntry(
         VitalSignsObject.databaseTable,

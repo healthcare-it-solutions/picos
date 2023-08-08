@@ -55,11 +55,25 @@ class RespiratoryParameters extends AbstractDatabaseObject {
   final String? valueObjectId2;
 
   set value1(RespiratoryParametersObject? value1) {
-    this.value1 = value1;
+    this.value1?.copyWith(
+          tidalVolume: value1?.tidalVolume,
+          respiratoryRate: value1?.respiratoryRate,
+          oxygenSaturation: value1?.oxygenSaturation,
+          objectId: value1?.objectId,
+          createdAt: value1?.createdAt,
+          updatedAt: value1?.updatedAt,
+        );
   }
 
   set value2(RespiratoryParametersObject? value2) {
-    this.value2 = value2;
+    this.value2?.copyWith(
+      tidalVolume: value2?.tidalVolume,
+      respiratoryRate: value2?.respiratoryRate,
+      oxygenSaturation: value2?.oxygenSaturation,
+      objectId: value2?.objectId,
+      createdAt: value2?.createdAt,
+      updatedAt: value2?.updatedAt,
+    );
   }
 
   @override
