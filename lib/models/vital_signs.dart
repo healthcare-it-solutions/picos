@@ -21,7 +21,7 @@ import 'package:picos/models/vital_signs_object.dart';
 /// Class with Vital Signs.
 class VitalSigns extends AbstractDatabaseObject {
   /// Creates a Vital Signs object.
-  const VitalSigns({
+  VitalSigns({
     required this.doctorObjectId,
     required this.patientObjectId,
     this.value1,
@@ -40,10 +40,10 @@ class VitalSigns extends AbstractDatabaseObject {
   final String doctorObjectId;
 
   /// Last value.
-  final VitalSignsObject? value1;
+  late VitalSignsObject? value1;
 
   /// Pre-last value.
-  final VitalSignsObject? value2;
+  late VitalSignsObject? value2;
 
   /// Last value objectId.
   final String? valueObjectId1;
@@ -53,32 +53,6 @@ class VitalSigns extends AbstractDatabaseObject {
 
   /// Patient Object Id.
   final String patientObjectId;
-
-  set value1(VitalSignsObject? value1) {
-    this.value1?.copyWith(
-          heartRate: value1?.heartRate,
-          systolicArterialPressure: value1?.systolicArterialPressure,
-          meanArterialPressure: value1?.meanArterialPressure,
-          diastolicArterialPressure: value1?.diastolicArterialPressure,
-          centralVenousPressure: value1?.centralVenousPressure,
-          objectId: value1?.objectId,
-          createdAt: value1?.createdAt,
-          updatedAt: value1?.updatedAt,
-        );
-  }
-
-  set value2(VitalSignsObject? value2) {
-    this.value2?.copyWith(
-          heartRate: value2?.heartRate,
-          systolicArterialPressure: value2?.systolicArterialPressure,
-          meanArterialPressure: value2?.meanArterialPressure,
-          diastolicArterialPressure: value2?.diastolicArterialPressure,
-          centralVenousPressure: value2?.centralVenousPressure,
-          objectId: value2?.objectId,
-          createdAt: value2?.createdAt,
-          updatedAt: value2?.updatedAt,
-        );
-  }
 
   @override
   get table {

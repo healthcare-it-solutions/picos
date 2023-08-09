@@ -21,7 +21,7 @@ import 'package:picos/models/blood_gas_analysis_object.dart';
 /// Class with Blood Gas Analysis information.
 class BloodGasAnalysis extends AbstractDatabaseObject {
   /// Creates a Blood Gas Analysis object.
-  const BloodGasAnalysis({
+  BloodGasAnalysis({
     required this.doctorObjectId,
     required this.patientObjectId,
     this.value1,
@@ -40,10 +40,10 @@ class BloodGasAnalysis extends AbstractDatabaseObject {
   final String doctorObjectId;
 
   /// Last value.
-  final BloodGasAnalysisObject? value1;
+  late BloodGasAnalysisObject? value1;
 
   /// Pre-last value.
-  final BloodGasAnalysisObject? value2;
+  late BloodGasAnalysisObject? value2;
 
   /// Patient Object Id.
   final String patientObjectId;
@@ -53,44 +53,6 @@ class BloodGasAnalysis extends AbstractDatabaseObject {
 
   /// Value of second Object ID.
   final String? valueObjectId2;
-
-  set value1(BloodGasAnalysisObject? value1) {
-    this.value1?.copyWith(
-          arterialOxygenSaturation: value1?.arterialOxygenSaturation,
-          centralVenousOxygenSaturation: value1?.centralVenousOxygenSaturation,
-          partialPressureOfOxygen: value1?.partialPressureOfOxygen,
-          partialPressureOfCarbonDioxide:
-              value1?.partialPressureOfCarbonDioxide,
-          arterialBaseExcess: value1?.arterialBaseExcess,
-          arterialPH: value1?.arterialPH,
-          arterialSerumBicarbonateConcentration:
-              value1?.arterialSerumBicarbonateConcentration,
-          arterialLactate: value1?.arterialLactate,
-          bloodGlucoseLevel: value1?.bloodGlucoseLevel,
-          objectId: value1?.objectId,
-          createdAt: value1?.createdAt,
-          updatedAt: value1?.updatedAt,
-        );
-  }
-
-  set value2(BloodGasAnalysisObject? value2) {
-    this.value2?.copyWith(
-      arterialOxygenSaturation: value2?.arterialOxygenSaturation,
-      centralVenousOxygenSaturation: value2?.centralVenousOxygenSaturation,
-      partialPressureOfOxygen: value2?.partialPressureOfOxygen,
-      partialPressureOfCarbonDioxide:
-      value2?.partialPressureOfCarbonDioxide,
-      arterialBaseExcess: value2?.arterialBaseExcess,
-      arterialPH: value2?.arterialPH,
-      arterialSerumBicarbonateConcentration:
-      value2?.arterialSerumBicarbonateConcentration,
-      arterialLactate: value2?.arterialLactate,
-      bloodGlucoseLevel: value2?.bloodGlucoseLevel,
-      objectId: value2?.objectId,
-      createdAt: value2?.createdAt,
-      updatedAt: value2?.updatedAt,
-    );
-  }
 
   @override
   get table {
