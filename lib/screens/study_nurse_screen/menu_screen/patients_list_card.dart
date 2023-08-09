@@ -24,6 +24,7 @@ import 'package:picos/screens/study_nurse_screen/menu_screen/patients_list_card_
 import 'package:picos/widgets/picos_list_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../models/catalog_of_items_element.dart';
 import '../../../state/objects_list_bloc.dart';
 
 /// The card displaying patient information.
@@ -39,6 +40,21 @@ class PatientsListCard extends StatelessWidget {
   /// Contains the value of the thickness of the Divider-widget.
   final double dividerThickness = 1.5;
 
+  Future<void> _deletePatient(BuildContext context) async {
+    final ObjectsListBloc<BackendCatalogOfItemsApi> objectsListBlocCatalog =
+        context.read<ObjectsListBloc<BackendCatalogOfItemsApi>>();
+    final ObjectsListBloc<BackendPatientsListApi> objectsListBlocPatients =
+        context.read<ObjectsListBloc<BackendPatientsListApi>>();
+
+    CatalogOfItemsElement? catalogOfItemsElement =
+        await BackendCatalogOfItemsApi.getObject();
+    if (catalogOfItemsElement != null) {
+      objectsListBlocCatalog.add(RemoveObject(catalogOfItemsElement));
+    }
+
+    objectsListBlocPatients.add(RemoveObject(_patientsListElement));
+  }
+
   @override
   Widget build(BuildContext context) {
     return PicosListCard(
@@ -50,14 +66,7 @@ class PatientsListCard extends StatelessWidget {
           arguments: _patientsListElement,
         );
       },
-      delete: () {
-        context
-            .read<ObjectsListBloc<BackendPatientsListApi>>()
-            .add(RemoveObject(_patientsListElement));
-        context
-            .read<ObjectsListBloc<BackendCatalogOfItemsApi>>()
-            .add(RemoveObject(_patientsListElement));
-      },
+      delete: () => _deletePatient(context),
       child: Row(
         children: <Expanded>[
           Expanded(
