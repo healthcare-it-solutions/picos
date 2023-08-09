@@ -235,11 +235,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
 
   @override
   Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
-    try {
-      return getObjectsStream();
-    } catch (e) {
-      return Stream<List<CatalogOfItemsElement>>.error(e);
-    }
+    return getObjectsStream();
   }
 
   ///Help method
@@ -374,7 +370,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         for (dynamic element in responseICUDiagnosis.results!) {
           icuDiagnosisResults.add(
             ICUDiagnosis(
-              mainDiagnosis: element['ICU_Hd'] ?? '',
+              mainDiagnosis: element['ICU_Hd'],
               ancillaryDiagnosis: element['Nebendiagnose'],
               intensiveCareUnitAcquiredWeakness: element['ICU_AW'],
               postIntensiveCareSyndrome: element['PICS'],
@@ -658,7 +654,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
               azpKH: element['AZP_KH'],
               ezpKH: element['EZP_KH'],
               icd10Codes: element['ICD_10_Codes'],
-              station: element['Station'] ?? '',
+              station: element['Station'],
               lbgt70: element['LBgt70'],
               icuLengthStay: element['ICU_LengthStay'],
               khLengthStay: element['KH_LengthStay'],

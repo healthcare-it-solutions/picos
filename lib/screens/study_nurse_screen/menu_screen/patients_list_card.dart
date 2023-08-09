@@ -46,13 +46,13 @@ class PatientsListCard extends StatelessWidget {
     final ObjectsListBloc<BackendPatientsListApi> objectsListBlocPatients =
         context.read<ObjectsListBloc<BackendPatientsListApi>>();
 
+    objectsListBlocPatients.add(RemoveObject(_patientsListElement));
+
     CatalogOfItemsElement? catalogOfItemsElement =
         await BackendCatalogOfItemsApi.getObject();
     if (catalogOfItemsElement != null) {
       objectsListBlocCatalog.add(RemoveObject(catalogOfItemsElement));
     }
-
-    objectsListBlocPatients.add(RemoveObject(_patientsListElement));
   }
 
   @override
