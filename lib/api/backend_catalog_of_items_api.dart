@@ -49,19 +49,9 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
     try {
       if ((object as CatalogOfItemsElement).icuDiagnosis != null) {
         /// ICUDiagnosis
-        dynamic responseICUDiagnosis = await Backend.saveObject(
+        await Backend.saveObject(
           object.icuDiagnosis!,
           acl: coiACL,
-        );
-
-        object.icuDiagnosis!.copyWith(
-          objectId: responseICUDiagnosis['objectId'],
-          createdAt:
-              DateTime.tryParse(responseICUDiagnosis['createdAt'] ?? '') ??
-                  object.icuDiagnosis!.createdAt,
-          updatedAt:
-              DateTime.tryParse(responseICUDiagnosis['updatedAt'] ?? '') ??
-                  object.icuDiagnosis!.updatedAt,
         );
       }
       VitalSignsObject? vitalSignsObject1;
@@ -109,16 +99,9 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         /// VitalSigns
         object.vitalSigns!.value1 = vitalSignsObject1;
         object.vitalSigns!.value2 = vitalSignsObject2;
-        dynamic responseVitalSigns = await Backend.saveObject(
+        await Backend.saveObject(
           object.vitalSigns!,
           acl: coiACL,
-        );
-        object.vitalSigns!.copyWith(
-          objectId: responseVitalSigns['objectId'],
-          createdAt: DateTime.tryParse(responseVitalSigns['createdAt'] ?? '') ??
-              object.vitalSigns!.createdAt,
-          updatedAt: DateTime.tryParse(responseVitalSigns['updatedAt'] ?? '') ??
-              object.vitalSigns!.updatedAt,
         );
       }
 
@@ -170,21 +153,9 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         /// Respiratory parameters
         object.respiratoryParameters!.value1 = respiratoryParametersObject1;
         object.respiratoryParameters!.value2 = respiratoryParametersObject2;
-        dynamic responseRespiratoryParameters = await Backend.saveObject(
+        await Backend.saveObject(
           object.respiratoryParameters!,
           acl: coiACL,
-        );
-
-        object.respiratoryParameters!.copyWith(
-          objectId: responseRespiratoryParameters['objectId'],
-          createdAt: DateTime.tryParse(
-                responseRespiratoryParameters['createdAt'] ?? '',
-              ) ??
-              object.respiratoryParameters!.createdAt,
-          updatedAt: DateTime.tryParse(
-                responseRespiratoryParameters['updatedAt'] ?? '',
-              ) ??
-              object.respiratoryParameters!.updatedAt,
         );
       }
 
@@ -234,57 +205,25 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         /// Blood gas analysis
         object.bloodGasAnalysis!.value1 = bloodGasAnalysisObject1;
         object.bloodGasAnalysis!.value2 = bloodGasAnalysisObject2;
-        dynamic responseBloodGasAnalysis = await Backend.saveObject(
+        await Backend.saveObject(
           object.bloodGasAnalysis!,
           acl: coiACL,
-        );
-
-        object.bloodGasAnalysis!.copyWith(
-          objectId: responseBloodGasAnalysis['objectId'],
-          createdAt: DateTime.tryParse(
-                responseBloodGasAnalysis['createdAt'] ?? '',
-              ) ??
-              object.bloodGasAnalysis!.createdAt,
-          updatedAt: DateTime.tryParse(
-                responseBloodGasAnalysis['updatedAt'] ?? '',
-              ) ??
-              object.bloodGasAnalysis!.updatedAt,
         );
       }
 
       if (object.laborParameters != null) {
         /// Labor parameters
-        dynamic responseLaborParameters = await Backend.saveObject(
+        await Backend.saveObject(
           object.laborParameters!,
           acl: coiACL,
-        );
-
-        object.laborParameters!.copyWith(
-          objectId: responseLaborParameters['objectId'],
-          createdAt:
-              DateTime.tryParse(responseLaborParameters['createdAt'] ?? '') ??
-                  object.laborParameters!.createdAt,
-          updatedAt:
-              DateTime.tryParse(responseLaborParameters['updatedAt'] ?? '') ??
-                  object.laborParameters!.updatedAt,
         );
       }
 
       if (object.movementData != null) {
         /// Movement data
-        dynamic responseMovementData = await Backend.saveObject(
+        await Backend.saveObject(
           object.movementData!,
           acl: coiACL,
-        );
-
-        object.movementData!.copyWith(
-          objectId: responseMovementData['objectId'],
-          createdAt:
-              DateTime.tryParse(responseMovementData['createdAt'] ?? '') ??
-                  object.movementData!.createdAt,
-          updatedAt:
-              DateTime.tryParse(responseMovementData['updatedAt'] ?? '') ??
-                  object.movementData!.updatedAt,
         );
       }
 
@@ -818,84 +757,41 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
   @override
   Future<void> removeObject(AbstractDatabaseObject object) async {
     try {
-      ParseResponse icuDIagnoses = await Backend.getEntry(
-        ICUDiagnosis.databaseTable,
-        'Patient',
-        object.objectId!,
-      );
-      ParseResponse bloodGasAnalysis = await Backend.getEntry(
-        BloodGasAnalysis.databaseTable,
-        'Patient',
-        object.objectId!,
-      );
-      ParseResponse laborParameters = await Backend.getEntry(
-        LaborParameters.databaseTable,
-        'Patient',
-        object.objectId!,
-      );
-      ParseResponse movementData = await Backend.getEntry(
-        PatientData.databaseTable,
-        'Patient',
-        object.objectId!,
-      );
-      ParseResponse vitalSigns = await Backend.getEntry(
-        VitalSigns.databaseTable,
-        'Patient',
-        object.objectId!,
-      );
-      ParseResponse respiratoryParameters = await Backend.getEntry(
-        RespiratoryParameters.databaseTable,
-        'Patient',
-        object.objectId!,
-      );
+      CatalogOfItemsElement? coi = object as CatalogOfItemsElement?;
 
-      ParseResponse bloodGasAnalysisObject1 = await Backend.getEntry(
-        BloodGasAnalysisObject.databaseTable,
-        'objectId',
-        (bloodGasAnalysis.results?[0] as BloodGasAnalysis).valueObjectId1!,
-      );
-      ParseResponse bloodGasAnalysisObject2 = await Backend.getEntry(
-        BloodGasAnalysisObject.databaseTable,
-        'objectId',
-        (bloodGasAnalysis.results?[0] as BloodGasAnalysis).valueObjectId2!,
-      );
-      ParseResponse respiratoryParametersObject1 = await Backend.getEntry(
-        RespiratoryParametersObject.databaseTable,
-        'objectId',
-        (respiratoryParameters.results?[0] as RespiratoryParameters)
-            .valueObjectId1!,
-      );
-      ParseResponse respiratoryParametersObject2 = await Backend.getEntry(
-        RespiratoryParametersObject.databaseTable,
-        'objectId',
-        (respiratoryParameters.results?[0] as RespiratoryParameters)
-            .valueObjectId2!,
-      );
-      ParseResponse vitalSignsObject1 = await Backend.getEntry(
-        VitalSignsObject.databaseTable,
-        'objectId',
-        (vitalSigns.results?[0] as VitalSigns).valueObjectId1!,
-      );
-      ParseResponse vitalSignsObject2 = await Backend.getEntry(
-        VitalSignsObject.databaseTable,
-        'objectId',
-        (vitalSigns.results?[0] as VitalSigns).valueObjectId2!,
-      );
-
-      await Backend.removeObject(
-        bloodGasAnalysis.result,
-      );
-      await Backend.removeObject(bloodGasAnalysisObject1.result);
-      await Backend.removeObject(bloodGasAnalysisObject2.result);
-      await Backend.removeObject(icuDIagnoses.result);
-      await Backend.removeObject(laborParameters.result);
-      await Backend.removeObject(movementData.result);
-      await Backend.removeObject(respiratoryParameters.result);
-      await Backend.removeObject(respiratoryParametersObject1.result);
-      await Backend.removeObject(respiratoryParametersObject2.result);
-      await Backend.removeObject(vitalSigns.result);
-      await Backend.removeObject(vitalSignsObject1.result);
-      await Backend.removeObject(vitalSignsObject2.result);
+      if (coi?.icuDiagnosis != null) {
+        await Backend.removeObject(coi!.icuDiagnosis!);
+      }
+      if (coi?.vitalSignsObject1 != null) {
+        await Backend.removeObject(coi!.vitalSignsObject1!);
+      }
+      if (coi?.vitalSignsObject2 != null) {
+        await Backend.removeObject(coi!.vitalSignsObject2!);
+      }
+      if (coi?.vitalSigns != null) {
+        await Backend.removeObject(coi!.vitalSigns!);
+      }
+      if (coi?.bloodGasAnalysisObject1 != null) {
+        await Backend.removeObject(coi!.bloodGasAnalysisObject1!);
+      }
+      if (coi?.bloodGasAnalysisObject2 != null) {
+        await Backend.removeObject(coi!.bloodGasAnalysisObject2!);
+      }
+      if (coi?.bloodGasAnalysis != null) {
+        await Backend.removeObject(coi!.bloodGasAnalysis!);
+      }
+      if (coi?.respiratoryParametersObject1 != null) {
+        await Backend.removeObject(coi!.respiratoryParametersObject1!);
+      }
+      if (coi?.respiratoryParametersObject2 != null) {
+        await Backend.removeObject(coi!.respiratoryParametersObject2!);
+      }
+      if (coi?.respiratoryParameters != null) {
+        await Backend.removeObject(coi!.respiratoryParameters!);
+      }
+      if (coi?.laborParameters != null) {
+        await Backend.removeObject(coi!.laborParameters!);
+      }
 
       dispatch();
     } catch (e) {
