@@ -126,7 +126,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
     );
 
     LaborParameters laborParameters = createLaborParameters();
-    PatientData movementData = createPatientData();
+    PatientData movementData = createMovementData();
 
     return CatalogOfItemsElement(
       icuDiagnosis: icuDiagnosis,
@@ -343,9 +343,9 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
     }
     if (_catalogOfItemsElement!.movementData != null) {
       movementData = _catalogOfItemsElement!.movementData!.copyWith(
-        bodyHeight: EditPatientScreen.bodyHeight!,
-        patientID: EditPatientScreen.patientID!,
-        caseNumber: EditPatientScreen.caseNumber!,
+        bodyHeight: pageStorage?.bodyHeight,
+        patientID: pageStorage?.patientID,
+        caseNumber: pageStorage?.caseNumber,
         instKey: EditPatientScreen.instituteKey!,
         patientObjectId: EditPatientScreen.patientObjectId!,
         doctorObjectId: Backend.user.objectId!,
@@ -367,7 +367,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
         khLengthStay: pageStorage?.hospitalLengthOfStay,
       );
     } else {
-      movementData = createPatientData();
+      movementData = createMovementData();
     }
 
     return _catalogOfItemsElement!.copyWith(
@@ -534,11 +534,11 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
     );
   }
 
-  PatientData createPatientData() {
+  PatientData createMovementData() {
     return PatientData(
-      bodyHeight: EditPatientScreen.bodyHeight!,
-      patientID: EditPatientScreen.patientID!,
-      caseNumber: EditPatientScreen.caseNumber!,
+      bodyHeight: pageStorage?.bodyHeight!,
+      patientID: pageStorage?.patientID!,
+      caseNumber: pageStorage?.caseNumber!,
       instKey: EditPatientScreen.instituteKey!,
       patientObjectId: EditPatientScreen.patientObjectId!,
       doctorObjectId: Backend.user.objectId!,
