@@ -201,7 +201,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
   double bmi = 0;
   int bodyHeight = 0;
   double bodyWeight = 0;
-  
+
   @override
   void initState() {
     super.initState();
@@ -307,6 +307,8 @@ class _MovementDataPageState extends State<MovementDataPage> {
                 });
               },
             ),
+            CatalogOfItemsLabel(AppLocalizations.of(context)!.bmi),
+            PicosLabel(bmi.toString()),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.patientID),
             PicosTextArea(
               maxLines: textAreaLines,
@@ -323,8 +325,6 @@ class _MovementDataPageState extends State<MovementDataPage> {
                 widget.caseNumberCallback(value);
               },
             ),
-            CatalogOfItemsLabel(AppLocalizations.of(context)!.bmi),
-            PicosLabel(bmi.toString()),
             CatalogOfItemsLabel(
               AppLocalizations.of(context)!.idealBodyWeight,
             ),
