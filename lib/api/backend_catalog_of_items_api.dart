@@ -749,49 +749,4 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
       return null;
     }
   }
-
-  @override
-  Future<void> removeObject(AbstractDatabaseObject object) async {
-    try {
-      CatalogOfItemsElement? coi = object as CatalogOfItemsElement?;
-
-      if (coi?.icuDiagnosis != null) {
-        await Backend.removeObject(coi!.icuDiagnosis!);
-      }
-      if (coi?.vitalSignsObject1 != null) {
-        await Backend.removeObject(coi!.vitalSignsObject1!);
-      }
-      if (coi?.vitalSignsObject2 != null) {
-        await Backend.removeObject(coi!.vitalSignsObject2!);
-      }
-      if (coi?.vitalSigns != null) {
-        await Backend.removeObject(coi!.vitalSigns!);
-      }
-      if (coi?.bloodGasAnalysisObject1 != null) {
-        await Backend.removeObject(coi!.bloodGasAnalysisObject1!);
-      }
-      if (coi?.bloodGasAnalysisObject2 != null) {
-        await Backend.removeObject(coi!.bloodGasAnalysisObject2!);
-      }
-      if (coi?.bloodGasAnalysis != null) {
-        await Backend.removeObject(coi!.bloodGasAnalysis!);
-      }
-      if (coi?.respiratoryParametersObject1 != null) {
-        await Backend.removeObject(coi!.respiratoryParametersObject1!);
-      }
-      if (coi?.respiratoryParametersObject2 != null) {
-        await Backend.removeObject(coi!.respiratoryParametersObject2!);
-      }
-      if (coi?.respiratoryParameters != null) {
-        await Backend.removeObject(coi!.respiratoryParameters!);
-      }
-      if (coi?.laborParameters != null) {
-        await Backend.removeObject(coi!.laborParameters!);
-      }
-
-      dispatch();
-    } catch (e) {
-      return;
-    }
-  }
 }

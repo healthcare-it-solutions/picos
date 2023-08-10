@@ -115,38 +115,6 @@ class PicosListCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                //Expanded(
-                //  child: Padding(
-                //    padding: const EdgeInsets.only(
-                //      bottom: 10,
-                //      top: 0,
-                //      left: 10,
-                //      right: 20,
-                //    ),
-                //    child: TextButton(
-                //      style: ButtonStyle(
-                //        backgroundColor: MaterialStateProperty.all(
-                //          Theme.of(context)
-                //              .extension<GlobalTheme>()!
-                //              .cardButton,
-                //        ),
-                //        shape:
-                //            MaterialStateProperty.all<RoundedRectangleBorder>(
-                //          RoundedRectangleBorder(
-                //            borderRadius: buttonBorderRadius,
-                //          ),
-                //        ),
-                //        foregroundColor: MaterialStateProperty.all(
-                //          Theme.of(context)
-                //              .extension<GlobalTheme>()!
-                //              .grey1,
-                //        ),
-                //      ),
-                //      onPressed: delete,
-                //      child: Text(AppLocalizations.of(context)!.delete),
-                //    ),
-                //  ),
-                //),
               ],
             ),
           ],
