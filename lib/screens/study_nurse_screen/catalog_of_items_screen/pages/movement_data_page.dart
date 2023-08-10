@@ -216,6 +216,14 @@ class _MovementDataPageState extends State<MovementDataPage> {
     bodyHeight = widget.initialBodyHeight!.toInt();
     bodyWeight = widget.initialBodyWeight ?? 0;
 
+    if (widget.initialBodyHeight != null) {
+      bodyHeight = widget.initialBodyHeight!.toInt();
+    } else {
+      bodyHeight = 0;
+    }
+
+    bodyWeight = widget.initialBodyWeight ?? 0;
+
     if (bodyWeight != 0 && bodyHeight != 0) {
       bmi = _calculateBmi(bodyHeight, bodyWeight);
     } else {
