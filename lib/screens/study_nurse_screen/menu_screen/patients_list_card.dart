@@ -16,16 +16,16 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:picos/api/backend_catalog_of_items_api.dart';
-import 'package:picos/api/backend_patients_list_api.dart';
+//import 'package:flutter_bloc/flutter_bloc.dart';
+//import 'package:picos/api/backend_catalog_of_items_api.dart';
+//import 'package:picos/api/backend_patients_list_api.dart';
 import 'package:picos/models/patients_list_element.dart';
 import 'package:picos/screens/study_nurse_screen/menu_screen/patients_list_card_tile.dart';
 import 'package:picos/widgets/picos_list_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../models/catalog_of_items_element.dart';
-import '../../../state/objects_list_bloc.dart';
+//import '../../../models/catalog_of_items_element.dart';
+//import '../../../state/objects_list_bloc.dart';
 
 /// The card displaying patient information.
 class PatientsListCard extends StatelessWidget {
@@ -40,20 +40,20 @@ class PatientsListCard extends StatelessWidget {
   /// Contains the value of the thickness of the Divider-widget.
   final double dividerThickness = 1.5;
 
-  Future<void> _deletePatient(BuildContext context) async {
-    final ObjectsListBloc<BackendCatalogOfItemsApi> objectsListBlocCatalog =
-        context.read<ObjectsListBloc<BackendCatalogOfItemsApi>>();
-    final ObjectsListBloc<BackendPatientsListApi> objectsListBlocPatients =
-        context.read<ObjectsListBloc<BackendPatientsListApi>>();
-
-    objectsListBlocPatients.add(RemoveObject(_patientsListElement));
-
-    CatalogOfItemsElement? catalogOfItemsElement =
-        await BackendCatalogOfItemsApi.getObject();
-    if (catalogOfItemsElement != null) {
-      objectsListBlocCatalog.add(RemoveObject(catalogOfItemsElement));
-    }
-  }
+  //Future<void> _deletePatient(BuildContext context) async {
+  //  final ObjectsListBloc<BackendCatalogOfItemsApi> objectsListBlocCatalog =
+  //      context.read<ObjectsListBloc<BackendCatalogOfItemsApi>>();
+  //  final ObjectsListBloc<BackendPatientsListApi> objectsListBlocPatients =
+  //      context.read<ObjectsListBloc<BackendPatientsListApi>>();
+//
+  //  objectsListBlocPatients.add(RemoveObject(_patientsListElement));
+//
+  //  CatalogOfItemsElement? catalogOfItemsElement =
+  //      await BackendCatalogOfItemsApi.getObject();
+  //  if (catalogOfItemsElement != null) {
+  //    objectsListBlocCatalog.add(RemoveObject(catalogOfItemsElement));
+  //  }
+  //}
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +66,7 @@ class PatientsListCard extends StatelessWidget {
           arguments: _patientsListElement,
         );
       },
-      delete: () => _deletePatient(context),
+      //delete: () => _deletePatient(context),
       child: Row(
         children: <Expanded>[
           Expanded(

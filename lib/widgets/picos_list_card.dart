@@ -53,107 +53,104 @@ class PicosListCard extends StatelessWidget {
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: borderRadius),
         elevation: 5,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.all(3),
-                decoration: BoxDecoration(
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(10)),
-                  color: Theme.of(context).extension<GlobalTheme>()!.darkGreen2,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(3),
+              decoration: BoxDecoration(
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(10)),
+                color: Theme.of(context).extension<GlobalTheme>()!.darkGreen2,
+              ),
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 5,
                 ),
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 5,
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
                   ),
-                  child: Text(
-                    title,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 23),
+              child: child,
+            ),
+            Row(
+              children: <Expanded>[
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: 10,
+                      top: 0,
+                      left: 20,
+                      right: 10,
                     ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 23),
-                child: child,
-              ),
-              Row(
-                children: <Expanded>[
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        bottom: 10,
-                        top: 0,
-                        left: 20,
-                        right: 10,
-                      ),
-                      child: TextButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                            Theme.of(context)
-                                .extension<GlobalTheme>()!
-                                .cardButton,
-                          ),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: buttonBorderRadius,
-                            ),
-                          ),
-                          foregroundColor: MaterialStateProperty.all(
-                            Theme.of(context)
-                                .extension<GlobalTheme>()!
-                                .grey1,
+                    child: TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          Theme.of(context)
+                              .extension<GlobalTheme>()!
+                              .cardButton,
+                        ),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: buttonBorderRadius,
                           ),
                         ),
-                        onPressed: edit,
-                        child: Text(AppLocalizations.of(context)!.edit),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        bottom: 10,
-                        top: 0,
-                        left: 10,
-                        right: 20,
-                      ),
-                      child: TextButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                            Theme.of(context)
-                                .extension<GlobalTheme>()!
-                                .cardButton,
-                          ),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: buttonBorderRadius,
-                            ),
-                          ),
-                          foregroundColor: MaterialStateProperty.all(
-                            Theme.of(context)
-                                .extension<GlobalTheme>()!
-                                .grey1,
-                          ),
+                        foregroundColor: MaterialStateProperty.all(
+                          Theme.of(context).extension<GlobalTheme>()!.grey1,
                         ),
-                        onPressed: delete,
-                        child: Text(AppLocalizations.of(context)!.delete),
                       ),
+                      onPressed: edit,
+                      child: Text(AppLocalizations.of(context)!.edit),
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+                //Expanded(
+                //  child: Padding(
+                //    padding: const EdgeInsets.only(
+                //      bottom: 10,
+                //      top: 0,
+                //      left: 10,
+                //      right: 20,
+                //    ),
+                //    child: TextButton(
+                //      style: ButtonStyle(
+                //        backgroundColor: MaterialStateProperty.all(
+                //          Theme.of(context)
+                //              .extension<GlobalTheme>()!
+                //              .cardButton,
+                //        ),
+                //        shape:
+                //            MaterialStateProperty.all<RoundedRectangleBorder>(
+                //          RoundedRectangleBorder(
+                //            borderRadius: buttonBorderRadius,
+                //          ),
+                //        ),
+                //        foregroundColor: MaterialStateProperty.all(
+                //          Theme.of(context)
+                //              .extension<GlobalTheme>()!
+                //              .grey1,
+                //        ),
+                //      ),
+                //      onPressed: delete,
+                //      child: Text(AppLocalizations.of(context)!.delete),
+                //    ),
+                //  ),
+                //),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
