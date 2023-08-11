@@ -19,23 +19,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/api/backend_patients_list_api.dart';
-import 'package:picos/models/patient_data.dart';
 import 'package:picos/models/patient_profile.dart';
 import 'package:picos/models/patients_list_element.dart';
-import 'package:picos/screens/study_nurse_screen/models/institute_key.dart';
 import 'package:picos/state/objects_list_bloc.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
 import 'package:picos/widgets/picos_body.dart';
+import 'package:picos/widgets/picos_ink_well_button.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
-import 'package:picos/widgets/picos_select.dart';
 import 'package:picos/widgets/picos_switch.dart';
-import 'package:picos/widgets/picos_text_field.dart';
 
 /// A screen for adding new patient.
 class EditPatientScreen extends StatefulWidget {
   /// Creates the AddPatientScreen.
   const EditPatientScreen({Key? key}) : super(key: key);
+
+  /// global patientObjectId.
+  static String? patientObjectId;
+
+  /// global body height.
+  static double? bodyHeight;
+
+  /// global patient ID.
+  static String? patientID;
+
+  /// global case number.
+  static String? caseNumber;
+
+  /// global institute key.
+  static String? instituteKey;
 
   @override
   State<EditPatientScreen> createState() => _EditPatientScreenState();
@@ -77,18 +89,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
 
   /// Local variable for doctor visits.
   bool _doctorsVisit = false;
-
-  /// Local variable for case number.
-  String _caseNumber = '';
-
-  /// Local variable for Patient ID.
-  String _patientID = '';
-
-  /// Local vcariable for institute key.
-  String _instituteKey = '';
-
-  /// Local variable for body height.
-  double _bodyHeight = 0.0;
 
   /// Determines if you are able to add the patient.
   bool _addDisabled = true;
@@ -146,10 +146,16 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
       _therapy = _patientsListElement!.patientProfile.therapyEnabled;
       _doctorsVisit = _patientsListElement!.patientProfile.doctorsVisitEnabled;
 
-      _bodyHeight = _patientsListElement!.patientData.bodyHeight;
-      _patientID = _patientsListElement!.patientData.patientID;
-      _caseNumber = _patientsListElement!.patientData.caseNumber;
-      _instituteKey = _patientsListElement!.patientData.instKey;
+      EditPatientScreen.patientObjectId =
+          _patientsListElement!.patient.objectId;
+      EditPatientScreen.bodyHeight =
+          _patientsListElement!.patientData.bodyHeight;
+      EditPatientScreen.patientID = _patientsListElement!.patientData.patientID;
+      EditPatientScreen.caseNumber =
+          _patientsListElement!.patientData.caseNumber;
+      EditPatientScreen.instituteKey =
+          _patientsListElement!.patientData.instKey;
+
     }
 
     return BlocBuilder<ObjectsListBloc<BackendPatientsListApi>,
@@ -343,76 +349,15 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                     bottom: BorderSide(color: Colors.grey),
                   ),
                 ),
-                PicosLabel(AppLocalizations.of(context)!.caseNumber),
-                PicosTextField(
-                  hint: _caseNumber,
-                  onChanged: (String? value) {
-                    setState(() {
-                      _addDisabled = false;
-                    });
-
-                    _caseNumber = value!;
+                PicosInkWellButton(
+                  text: 'Zum Catalog of Items',
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      '/study-nurse-screen/catalog-of-items',
+                    );
                   },
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!.enterCaseNumber;
-                    }
-                    return null;
-                  },
-                ),
-                PicosLabel(AppLocalizations.of(context)!.patientID),
-                PicosTextField(
-                  hint: _patientID,
-                  onChanged: (String? value) {
-                    setState(() {
-                      _addDisabled = false;
-                    });
-
-                    _patientID = value!;
-                  },
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!.enterPatientID;
-                    }
-                    return null;
-                  },
-                ),
-                PicosLabel(AppLocalizations.of(context)!.instituteKey),
-                PicosSelect(
-                  selection: InstituteKey.instituteKey,
-                  callBackFunction: (String? value) {
-                    setState(() {
-                      _addDisabled = false;
-                    });
-
-                    _instituteKey = value!;
-                  },
-                  hint: _instituteKey,
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return '''     ${AppLocalizations.of(context)!.enterInstituteKey}''';
-                    }
-                    return null;
-                  },
-                ),
-                PicosLabel(AppLocalizations.of(context)!.height),
-                PicosTextField(
-                  hint: _bodyHeight.toString(),
-                  onChanged: (String? value) {
-                    setState(() {
-                      _addDisabled = false;
-                    });
-
-                    _bodyHeight = double.parse(value!);
-                  },
-                  keyboardType: TextInputType.number,
-                  validator: (String? value) {
-                    if (value == null) {
-                      return AppLocalizations.of(context)!.enterHeight;
-                    }
-                    return null;
-                  },
-                ),
+                )
               ],
             ),
           ),
@@ -421,15 +366,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
             disabled: _addDisabled,
             onTap: () {
               if (_patientsListElement != null) {
-                PatientData newPatientData;
-
-                newPatientData = _patientsListElement!.patientData.copyWith(
-                  bodyHeight: _bodyHeight,
-                  patientID: _patientID,
-                  caseNumber: _caseNumber,
-                  instKey: _instituteKey,
-                );
-
                 PatientProfile newPatientProfile;
                 newPatientProfile =
                     _patientsListElement!.patientProfile.copyWith(
@@ -450,7 +386,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 PatientsListElement newPatientListElement;
 
                 newPatientListElement = _patientsListElement!.copyWith(
-                  patientData: newPatientData,
                   patientProfile: newPatientProfile,
                 );
 

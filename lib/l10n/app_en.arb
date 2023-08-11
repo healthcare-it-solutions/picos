@@ -1,1093 +1,987 @@
 {
-    "overview": "Overview",
-    "@overview": {
-      "description": "Overview"
-    },
-
-    "inbox": "Inbox",
-    "@inbox": {
-        "description": "Inbox"
-    },
-    
-    "calendar": "Calendar",
-    "@calendar": {
-        "description": "Calendar"
-    },
-
-    "myPicos": "MyPICOS",
-    "@myPicos": {
-        "description": "MyPICOS"
-    },
-
-    "myMedications": "My medications",
-    "@myMedications": {
-        "description": "My medications"
-    },
-
-    "inTheMorning": "Morning",
-    "@inTheMorning": {
-        "description": "Morning"
-    },
-    "inTheEvening": "Evening",
-    "@inTheEvening": {
-        "description": "Evening"
-    },
-    "noon": "Noon",
-    "@noon": {
-        "description": "Noon"
-    },
-    "toTheNight": "To the night",
-    "@toTheNight": {
-        "description": "To the night"
-    },
-
-    "addMedication": "Add medication",
-    "@addMedication": {
-        "description": "Add medication"
-    },
-    "editMedication": "Edit medication",
-    "@editMedication": {
-        "description": "Edit medication"
-    },
-
-    "addMedicationInfoPart1": "Please enter ",
-    "@addMedicationInfoPart1": {
-        "description": "Patient advice for adding medication schedules. (Part 1)"
-    },
-    "addMedicationInfoPart2": "accurate and current medication schedules",
-    "@addMedicationInfoPart2": {
-        "description": "Patient advice for adding medication schedules. (Part 2)"
-    },
-    "addMedicationInfoPart3": ". These can be be of great use to the treating facilities and be incorporated into your treatment.",
-    "@addMedicationInfoPart3": {
-        "description": "Patient advice for adding medication schedules. (Part 3)"
-    },
-
-    "enterCompound": "Enter compound",
-    "@enterCompound": {
-        "description": "Enter compound"
-    },
-
-    "compound": "Compound",
-    "@compound": {
-        "description": "Compound"
-    },
-
-    "intake": "Intake",
-    "@intake": {
-        "description": "Intake"
-    },
-
-    "add": "Add",
-    "@add": {
-        "description": "Add"
-    },
-
-    "save": "Save",
-    "@save": {
-        "description": "Save"
-    },
-
-    "myHealth": "My health",
-    "@myHealth": {
-        "description": "My health"
-    },
-
-    "medicalData": "Medical data",
-    "@medicalData": {
-        "description": "Medical data"
-    },
-
-    "medicationScheme": "Medication scheme",
-    "@medicationScheme": {
-        "description": "Medication scheme"
-    },
-
-    "physicians": "Physicians",
-    "@physicians": {
-        "description": "Physicians"
-    },
-
-    "familyMembers": "Family members",
-    "@familyMembers": {
-        "description": "Family members"
-    },
-
-    "documents": "Documents",
-    "@documents": {
-        "description": "Documents"
-    },
-
-    "more": "More",
-    "@more": {
-        "description": "More"
-    },
-
-    "notifications": "Notifications",
-    "@notifications": {
-        "description": "Notifications"
-    },
-
-    "profile": "Profile",
-    "@profile": {
-        "description": "Profile"
-    },
-
-    "privacyNotice": "Privacy notice",
-    "@privacyNotice": {
-        "description": "Privacy notice"
-    },
-
-    "legals": "Legals",
-    "@legals": {
-        "description": "Legals"
-    },
-
-    "logout": "Logout",
-    "@logout": {
-        "description": "Logout"
-    },
-
-    "father": "Father",
-    "@father": {
-        "description": "Father"
-    },
-
-    "mother": "Mother",
-    "@mother": {
-        "Mother": "Mother"
-    },
-
-    "brother": "Brother",
-    "@brother": {
-        "description": "Brother"
-    },
-
-    "sister": "Sister",
-    "@sister": {
-        "description": "Sister"
-    },
-
-    "edit": "Edit",
-    "@edit": {
-        "description": "Edit"
-    },
-
-    "delete": "Delete",
-    "@delete": {
-        "description": "Delete"
-    },
-
-    "mr": "Mr.",
-    "@mr": {
-        "description": "Mr."
-    },
-
-    "mrs": "Mrs.",
-    "@mrs": {
-        "description": "Mrs."
-    },
-
-    "diverse": "Diverse",
-    "@diverse": {
-        "description": "Diverse"
-    },
-
-    "chooseFamilyMember": "Choose your family member",
-    "@chooseFamilyMember": {
-        "description": "Choose your family member"
-    },
-
-    "title": "Title",
-    "@title": {
-        "description": "Title"
-    },
-
-    "firstName": "First name",
-    "@firstName": {
-        "description": "First name"
-    },
-
-    "familyName": "Family name",
-    "@familyName": {
-        "description": "Family name"
-    },
-
-    "email": "E-Mail",
-    "@email": {
-        "description": "E-Mail"
-    },
-
-    "phoneNumber": "Telephone number",
-    "@phoneNumber": {
-        "description": "Telephone number"
-    },
-    "mobilePhone": "Cell phone",
-    "@mobilePhone": {
-        "description": "Cell phone"
-    },
-    "address": "Address",
-    "@address": {
-        "description": "Address"
-    },
-
-    "abort": "Abort",
-    "@abort": {
-        "description": "Abort"
-    },
-
-    "proceed": "Continue",
-    "@proceed": {
-        "description": "Continue"
-    },
-
-    "myEntries": "My Entries",
-    "@myEntries": {
-        "description": "My Entries"
-    },
-
-    "howFeel": "How do I feel today?",
-    "@howFeel": {
-        "description": "How do I feel today?"
-    },
-
-    "submitData": "The data is transmitted.",
-    "@submitData": {
-        "description": "The data is transmitted."
-    },
-
-    "husband": "Husband",
-    "@husband": {
-        "description": "Husband"
-    },
-    "spouse": "Spouse",
-    "@spouse": {
-        "description": "Spouse"
-    },
-    "siblings": "Siblings",
-    "@siblings": {
-        "description": "Siblings"
-    },
-    "roommates": "Roommates",
-    "@roommates": {
-        "description": "Roommates"
-    },
-    "otherRelatives": "Other relatives",
-    "@otherRelatives": {
-        "description": "Other relatives"
-    },
-    "editFamilyMember": "Edit family member",
-    "@editFamilyMember": {
-        "description": "Edit family member"
-    },
-    "typeOfRelation": "Type of relation",
-    "@typeOfRelation": {
-        "description": "Type of relation"
-    },
-
-    "wife": "Wife",
-    "@wife": {
-        "description": "Wife"
-    },
-
-    "entryEmail": "Please enter the e-mail-address!",
-    "@entryEmail": {
-        "description": "Please enter the e-mail-address!"
-    },
-
-    "entryValidEmail": "Please enter a valid e-mail-address!",
-    "@entryValidEmail": {
-        "description": "Please enter a valid e-mail-address!"
-    },
-
-    "entryFirstName": "Please enter the first name!",
-    "@entryFirstName": {
-        "description": "Please enter the first name!"
-    },
-
-    "entryFamilyName": "Please enter the family name!",
-    "@entryFamilyName": {
-        "description": "Please enter the family name!"
-    },
-
-    "entryAddress": "Please enter the address!",
-    "@entryAddress": {
-        "description": "Please enter the address!"
-    },
-
-    "entryPhoneNumber": "Please enter the phone number!",
-    "@entryPhoneNumber": {
-        "description": "Please enter the phone number!"
-    },
-
-    "myPhysicians": "My physicians",
-    "@myPhysicians": {
-        "description": "My physicians"
-    },
-
-    "practice": "Practice",
-    "@practice": {
-        "description": "Practice"
-    },
-
-    "practiceName": "Name of practice",
-    "@practiceName": {
-        "description": "Name of practice"
-    },
-
-    "website": "Website",
-    "@website": {
-        "description": "Website"
-    },
-    "ophthalmology": "Ophthalmology",
-    "@ophthalmology": {
-        "description": "Ophthalmology"
-    },
-    "gynecology": "Gynecology",
-    "@gynecology": {
-        "description": "Gynecology"
-    },
-    "otolaryngology": "Otolaryngology",
-    "@otolaryngology": {
-        "description": "Otolaryngology"
-    },
-    "generalPractitioner": "General practitioner",
-    "@generalPractitioner": {
-        "description": "General practitioner"
-    },
-    "skinAndVenerealDiseases": "Skin and venereal diseases",
-    "@skinAndVenerealDiseases": {
-        "description": "Skin and venereal diseases"
-    },
-    "internalMedicine": "Internal medicine",
-    "@internalMedicine": {
-        "description": "Internal medicine"
-    },
-    "microbiology": "Microbiology",
-    "@microbiology": {
-        "description": "Microbiology"
-    },
-    "neurology": "Neurology",
-    "@neurology": {
-        "description": "Neurology"
-    },
-    "pathology": "Pathology",
-    "@pathology": {
-        "description": "Pathology"
-    },
-    "pulmonology": "Pulmonology",
-    "@pulmonology": {
-        "description": "Pulmonology"
-    },
-    "psychiatry": "Psychiatry",
-    "@psychiatry": {
-        "description": "Psychiatry"
-    },
-    "urology": "Urology",
-    "@urology": {
-        "description": "Urology"
-    },
-    "addFamilyMember": "Add family member",
-    "@addFamilyMember": {
-        "description": "Add family member"
-    },
-
-    "addPhysician": "Add physician",
-    "@addPhysician": {
-        "description": "Add physician"
-    },
-    "editPhysician": "Edit physician",
-    "@editPhysician": {
-        "description": "Edit physician"
-    },
-
-    "chooseField": "Choose your medical field",
-    "@chooseField": {
-        "description": "Choose your medical field"
-    },
-
-    "entryWebsite": "Please enter the website!",
-    "@entryWebsite": {
-        "description": "Please enter the website!"
-    },
-
-    "entryValidWebsite": "Please enter a valid website!",
-    "@entryValidWebsite": {
-        "description": "Please enter a valid website!"
-    },
-
-    "entryPracticeName": "Please enter the practice name!",
-    "@entryPracticeName": {
-        "description": "Please enter the practice name!"
-    },
-
-    "myMedicalData": "My medical data",
-    "@myMedicalData": {
-        "description": "My medical data"
-    },
-
-    "submittedValues": "Submitted values (14 days)",
-    "@submittedValues": {
-        "description": "Submitted values (14 days)"
-    },
-
-    "days": "days",
-    "@days": {
-        "description": "days"
-    },
-
-    "month": "month",
-    "@month": {
-        "description": "month"
-    },
-
-    "months": "months",
-    "@months": {
-        "description": "months"
-    },
-
-    "configuration": "Configuration",
-    "@configuration": {
-        "description": "Configuration"
-    },
-
-    "startConfiguration": "Start configuration",
-    "@startConfiguration": {
-        "description": "Start configuration"
-    },
-
-    "letsStart": "Let's start",
-    "@letsStart": {
-        "description": "Let's start"
-    },
-
-    "back": "Back",
-    "@back": {
-        "description": "Back"
-    },
-
-    "next": "Next",
-    "@next": {
-        "description": "Next"
-    },
-
-    "configurationFinished": "That's it! - PICOS is now ready!",
-    "@configurationFinished": {
-        "description": "That's it! - PICOS is now ready!"
-    },
-
-    "questionnaireFinished": "That's it! - thank you for your participation!",
-    "@questionnaireFinished": {
-        "description": "That's it! - thank you for your participation!"
-    },
-
-    "endConfiguration": "End configuration",
-    "@endConfiguration": {
-        "description": "End configuration"
-    },
-
-    "finishText": "Discharge: Entries of the initial values..",
-    "@finishText": {
-        "description": "Discharge: Entries of the initial values.."
-    },
-
-    "medication": "Medication",
-    "@medication": {
-        "description": "Medication"
-    },
-
-    "therapy": "Therapy",
-    "@therapy": {
-        "description": "Therapy"
-    },
-
-    "doctorsVisit": "Doctor's visit",
-    "@doctorsVisit": {
-        "description": "Doctor's visit"
-    },
-
-    "medicationAndTherapy": "Medication & Therapy",
-    "@medicationAndTherapy": {
-        "description": "Medication & Therapy"
-    },
-
-    "infoText1": "Patient ID-12345 takes part in the section",
-    "@infoText1": {
-        "description": "Patient ID-12345 takes part in the section "
-    },
-
-    "infoText2": "with the following information:",
-    "@infoText2": {
-        "description": "with the following information:"
-    },
-
-    "bodyAndMind": "Body & Mind",
-    "@bodyAndMind": {
-        "description": "Body & Mind"
-    },
-
-    "pain": "Pain",
-    "@pain": {
-        "description": "Pain"
-    },
-
-    "activityAndRest": "Activity & Rest",
-    "@activityAndRest": {
-        "description": "Activity & Rest"
-    },
-
-    "walkDistance": "Walk distance",
-    "@walkDistance": {
-        "description": "Walk distance"
-    },
-
-    "sleepDuration": "Sleep duration",
-    "@sleepDuration": {
-        "description": "Sleep duration"
-    },
-
-    "sleepQuality": "Sleep quality",
-    "@sleepQuality": {
-        "description": "Sleep quality"
-    },
-
-    "vitalValues": "Vital values",
-    "@vitalValues": {
-        "description": "Vital values"
-    },
-
-    "weightBMI": "Weight & BMI",
-    "@weightBMI": {
-        "description": "Weight & BMI"
-    },
-
-    "heartFrequency": "Heart frequency",
-    "@heartFrequency": {
-        "description": "Heart frequency"
-    },
-
-    "bloodPressure": "Blood pressure",
-    "@bloodPressure": {
-        "description": "Blood pressure"
-    },
-
-    "bloodSugar": "Blood sugar",
-    "@bloodSugar": {
-        "description": "Blood sugar"
-    },
-
-    "myTherapy": "My Therapy",
-    "@myTherapy": {
-        "description": "My Therapy"
-    },
-
-    "addTherapy": "Add therapy",
-    "@addTherapy": {
-        "description": "Add therapy"
-    },
-
-    "date": "Date",
-    "@date": {
-        "description": "Date"
-    },
-
-    "day": "Day",
-    "@day": {
-        "description": "Day"
-    },
-
-    "year": "Year",
-    "@year": {
-        "description": "Year"
-    },
-
-    "selectDate": "Select date",
-    "@selectDate": {
-        "description": "Select date"
-    },
-
-    "editTherapy": "Edit therapy",
-    "@editTherapy": {
-        "description": "Edit therapy"
-    },
-
-    "bodyWeight": "Body weight",
-    "@bodyWeight": {
-        "description": "Body weight"
-    },
-
-    "possibleWalkDistance": "Possible walking distance within 2 minutes",
-    "@possibleWalkDistance": {
-        "description": "Possible walking distance within 2 minutes"
-    },
-
-    "hrs": "Hrs.",
-    "@hrs": {
-        "description": "Hrs."
-    },
-
-    "autoCalc": "(auto. calculation)",
-    "@autoCalc": {
-        "description": "(auto. calculation)"
-    },
-
-    "sleepQuality7Days": "Sleep quality during the last 7 days",
-    "@sleepQuality7Days": {
-        "description": "Sleep quality during the last 7 days"
-    },
-
-    "howOftenAffected": "During the past 2 weeks, how often did you feel affected by the following complaints?",
-    "@howOftenAffected": {
-        "description": "During the past 2 weeks, how often did you feel affected by the following complaints?"
-    },
-
-    "lowInterest": "a) little interest or pleasure in your activities",
-    "@lowInterest": {
-        "description": "a) little interest or pleasure in your activities"
-    },
-
-    "dejection": "b) dejection, melancholy or hopelessness",
-    "@dejection": {
-        "description": "b) dejection, melancholy or hopelessness"
-    },
-
-    "nervousness": "c) nervousness, anxiety or strain",
-    "@nervousness": {
-        "description": "c) nervousness, anxiety or strain"
-    },
-
-    "controlWorries": "d) Not being able to stop or control worries",
-    "@controlWorries": {
-        "description": "d) Not being able to stop or control worries"
-    },
-
-    "changedMedication": "Has anything changed with your medication?",
-    "@changedMedication": {
-        "description": "Has anything changed with your medication?"
-    },
-
-    "changedTherapy": "Has anything changed in your therapy?",
-    "@changedTherapy": {
-        "description": "Has anything changed in your therapy?"
-    },
-
-    "painless": "Painless",
-    "@painless": {
-        "description": "Painless"
-    },
-    "veryMild": "Very mild",
-    "@veryMild": {
-        "description": "Very mild"
-    },
-    "discomforting": "Discomforting",
-    "@discomforting": {
-        "description": "Discomforting"
-    },
-    "tolerable": "Tolerable",
-    "@tolerable": {
-        "description": "Tolerable"
-    },
-    "distressing": "Distressing",
-    "@distressing": {
-        "description": "Distressing"
-    },
-    "veryDistressing": "Very distressing",
-    "@veryDistressing": {
-        "description": "Very distressing"
-    },
-    "intense": "Intense",
-    "@intense": {
-        "description": "Intense"
-    },
-    "veryIntense": "Very intense",
-    "@veryIntense": {
-        "description": "Very intense"
-    },
-    "utterlyHorrible": "Utterly Horrible",
-    "@utterlyHorrible": {
-        "description": "Utterly Horrible"
-    },
-    "excruciatingUnbearable": "Excruciating Unbearable",
-    "@excruciatingUnbearable": {
-        "description": "Excruciating Unbearable"
-    },
-    "strongestImaginable": "Strongest imaginable",
-    "@strongestImaginable": {
-        "description": "Strongest imaginable"
-    },
-
-    "notAtAll": "Not at all",
-    "@notAtAll": {
-        "description": "Not at all"
-    },
-    "onIndividualDays": "On individual days",
-    "@onIndividualDays": {
-        "description": "On individual days"
-    },
-    "onMoreThanHalfDays": "On more than half of the days",
-    "@onMoreThanHalfDays": {
-        "description": "On more than half of the days"
-    },
-    "almostEveryDays": "Almost every day",
-    "@almostEveryDays": {
-        "description": "Almost every day"
-    },
-
-    "yes": "Yes",
-    "@yes": {
-        "description": "Yes"
-    },
-    "no": "No",
-    "@no": {
-        "description": "No"
-    },
-    "excellent": "Excellent",
-    "@excellent": {
-        "description": "Excellent"
-    },
-    "good": "Good",
-    "@Good": {
-        "description": "Good"
-    },
-    "medium": "Medium",
-    "@medium": {
-        "description": "Medium"
-    },
-    "bad": "Bad",
-    "@bad": {
-        "description": "Bad"
-    },
-    "terrible": "Terrible",
-    "@terrible": {
-        "description": "Terrible"
-    },
-    "tips": "Tips for a healthy everyday life",
-    "@tips": {
-        "description": "Tips for a healthy everyday life"
-    },
-    "drinkEnough": "Your body consists mainly of water. Therefore, sufficient water intake is important for optimal bodily function.",
-    "@drinkEnough": {
-        "description": "Your body consists mainly of water. Therefore, sufficient water intake is important for optimal bodily function."
-    },
-    "welcomeToPICOS": "Welcome to PICOS",
-    "@welcomeToPICOS": {
-        "description": "Welcome to PICOS"
-    },
-    "thankYouForParticipation": "Thank you for your participation in the DISTANCE project. We hope you enjoy using the PICOS App!",
-    "@thankYouForParticipation": {
-        "description": "Thank you for your participation in the DISTANCE project. We hope you enjoy using the PICOS App!"
-    },
-    "wrongCredentials": "Wrong credentials",
-    "@wrongCredentials": {
-        "description": "Wrong credentials"
-    },
-    "submit": "Submit",
-    "@submit": {
-        "description": "Submit"
-    },
-    "username": "Username",
-    "@username": {
-        "description": "Username"
-    },
-    "password": "Password",
-    "@password": {
-        "description": "Password"
-    },
-    "questionaireDoctorVisit1": "Have you ",
-    "@questionaireDoctorVisit1": {
-        "description": "Have you "
-    },
-    "questionaireDoctorVisit2": "been to a doctor or hospital ",
-    "@questionaireDoctorVisit2": {
-        "description": "been to a doctor or hospital "
-    },
-    "questionaireDoctorVisitUnscheduled": "unscheduled?",
-    "@questionaireDoctorVisitUnscheduled": {
-        "description": "unscheduled?"
-    },
-    "information5tmg": "Information according to § 5 TMG",
-    "@information5tmg": {
-        "description": "Information according to § 5 TMG"
-    },
-    "projectDISTANCE": "The DISTANCE project is one of the \"Digital Hubs: Advances in Research and Health Care\"-projects funded by the Federal Ministry of Education and Research (BMBF).",
-    "@projectDISTANCE": {
-        "description": "The DISTANCE project is one of the \"Digital Hubs: Advances in Research and Health Care\"-projects funded by the Federal Ministry of Education and Research (BMBF)."
-    },
-    "headOffice": "Head Office",
-    "@headOffice": {
-        "description": "Head Office"
-    },
-    "postalAddress": "Postal Address",
-    "@postalAddress": {
-        "description": "Postal Address"
-    },
-    "salesTaxID": "Sales tax identification number according to § 27a sales tax law",
-    "@salesTaxID": {
-        "description": "Sales tax identification number according to § 27a sales tax law"
-    },
-    "photoCredits": "Photo Credits",
-    "@photoCredits": {
-        "description": "Photo Credits"
-    },
-    "contact": "Contact",
-    "@contact": {
-        "description": "Contact"
-    },
-    "myFamilyMembers": "My Family Members",
-    "@myFamilyMembers": {
-        "description": "My Family Members"
-    },
-    "myDocuments": "My Documents",
-    "@myDocuments": {
-        "description": "My Documents"
-    },
-    "unknownHeight": "Unknown height",
-    "@unknownHeight": {
-        "description": "Unknown height"
-    },
-    "noPain": "No Pain",
-    "@noPain": {
-        "description": "No Pain"
-    },
-    "minorPain": "Minor Pain",
-    "@minorPain": {
-        "description": "Minor Pain"
-    },
-    "moderatePain": "Moderate Pain",
-    "@moderatePain": {
-        "description": "Moderate Pain"
-    },
-    "strongPain": "Strong Pain",
-    "@strongPain": {
-        "description": "Strong Pain"
-    },
-    "caseNumber": "Case Number",
-    "@caseNumber": {
-        "description": "Case Number"
-    },
-    "patientID": "Patient ID",
-    "@patientID": {
-        "description": "Patient ID"
-    },
-    "weight": "Weight",
-    "@weight": {
-        "description": "Weight"
-    },
-    "height": "Height",
-    "@height": {
-        "description": "Height"
-    },
-    "dischargeDate": "Date of Discharge",
-    "@dischargeDate": {
-        "description": "Date of Discharge"
-    },
-    "instituteKey": "Institute Key",
-    "@instituteKey": {
-        "description": "Institute Key"
-    },
-    "enterCaseNumber": "Please enter the case number!",
-    "@enterCaseNumber": {
-        "description": "Please enter the case number!"
-    },
-    "enterPatientID": "Please enter the patient ID!",
-    "@enterPatientID": {
-        "description": "Please enter the patient ID!"
-    },
-    "enterWeight": "Please enter the weight!",
-    "@enterWeight": {
-        "description": "Please enter the weight!"
-    },
-    "enterHeight": "Please enter the height!",
-    "@enterHeight": {
-        "description": "Please enter the height!"
-    },
-    "enterBloodPressure": "Please enter the blood pressure value!",
-    "@enterBloodPressure": {
-        "description": "Please enter the blood pressure value!"
-    },
-    "enterBloodSugar": "Please enter the blood sugar value!",
-    "@enterBloodSugar": {
-        "description": "Please enter the blood sugar value!"
-    },
-    "enterDischargeDate": "Please enter the date of discharge!",
-    "@enterDischargeDate": {
-        "description": "Please enter the date of discharge!"
-    },
-    "enterInstituteKey": "Please enter the institute key!",
-    "@enterInstituteKey": {
-        "description": "Please enter the institute key!"
-    },
-    "therapyName": "Therapy Name",
-    "@therapyName": {
-        "description": "Therapy Name"
-    },
-    "enterName": "Please enter the name",
-    "@enterName": {
-        "description": "Please enter the name"
-    },
-    "visits": "Doctor/hospital visits",
-    "@visits": {
-        "description": "Doctor/hospital visits"
-    },
-    "visitInfoPart1": "This information is only required if you have made an ",
-    "@visitInfoPart1": {
-        "description": "Patient advice for unplanned hospital and doctors visits. (Part 1)"
-    },
-    "visitInfoPart2": "unplanned",
-    "@visitInfoPart2": {
-        "description": "Patient advice for unplanned hospital and doctors visits. (Part 2)"
-    },
-    "visitInfoPart3": " visit to a doctor's office or hospital.",
-    "@visitInfoPart3": {
-        "description": "Patient advice for unplanned hospital and doctors visits. (Part 3)"
-    },
-    "iWasUnscheduled": "I was unscheduled",
-    "@iWasUnscheduled": {
-        "description": "I was unscheduled"
-    },
-    "toSeeAResidentPhysician": "to see a general practitioner",
-    "@toSeeAResidentPhysician": {
-        "description": "to see a general practitioner"
-    },
-    "inAHospital": "in a hospital",
-    "@inAHospital": {
-        "description": "in a hospital"
-    },
-    "whenDidYouSeeThePhysician": "When did you see the physician?",
-    "@whenDidYouSeeThePhysician": {
-        "description": "When did you see the physician?"
-    },
-    "whenWereYouInHospital": "When were you in the hospital?",
-    "@whenWereYouInHospital": {
-        "description": "When were you in the hospital?"
-    },
-    "dayOfRecording": "Date of admission",
-    "@dayOfRecording": {
-        "description": "Date of admission"
-    },
-    "dayOfDischarge": "Day of discharge",
-    "@dayOfDischarge": {
-        "description": "Day of discharge"
-    },
-    "reasonForHospitalization": "Reason for hospitalization",
-    "@reasonForHospitalization": {
-        "description": "Reason for hospitalization"
-    },
-    "reasonForVisitToTheDoctor": "Reason for visit to the doctor",
-    "@reasonForVisitToTheDoctor": {
-        "description": "Reason for visit to the doctor"
-    },
-    "needHelp": "Do you need help or have a question about using the PICOS app?",
-    "@needHelp": {
-        "description": "Do you need help or have a question about using the PICOS app?"
-    },
-    "specialty": "Specialty",
-    "@specialty": {
-        "description": "Specialty"
-    },
-    "streetAndHouseNo": "Street, house no.",
-    "@streetAndHouseNo": {
-        "description": "Street, house no."
-    },
-    "zipCode": "ZIP CODE",
-    "@zipCode": {
-        "description": "ZIP CODE"
-    },
-    "city": "City",
-    "@city": {
-        "description": "City"
-    },
-    "isInvalid": "is invalid",
-    "@isInvalid": {
-        "description": "is invalid"
-    },
-    "phone": "Phone",
-    "@phone": {
-        "description": "Phone"
-    },
-    "addDocument": "Add document",
-    "@addDocument": {
-        "description": "Add document"
-    },
-    "editDocument": "Edit document",
-    "@editDocument": {
-        "description": "Edit document"
-    },
-    "priority": "Priority",
-    "@priority": {
-        "description": "Priority"
-    },
-    "importantDocument": "Important document - keep on top",
-    "@importantDocument": {
-        "description": "Important document - keep on top"
-    },
-    "sortByDate": "Sort by date",
-    "@sortByDate": {
-        "description": "Sort by date"
-    },
-    "documentTitle": "Document title",
-    "@documentTitle": {
-        "description": "Document title"
-    },
-    "uploadDocument": "Upload Document",
-    "@uploadDocument": {
-        "description": "Upload Document"
-    },
-    "downloadDocument": "Download document",
-    "@downloadDocument": {
-        "description": "Download document"
-    },
-    "importantDocuments": "Important documents",
-    "@importantDocuments": {
-        "description": "Important documents"
-    },
-    "documentsSortedDesc": "Documents sorted descending",
-    "@documentsSortedDesc": {
-        "description": "Documents sorted descending"
-    },
-    "documentSelected": "Document selected",
-    "@documentSelected": {
-        "description": "Document selected"
-    },
-    "completeTheDays": "Please complete the red and orange days",
-    "@completeTheDays": {
-        "description": "Please complete the red and orange days"
-    },
-    "today": "today",
-    "@today": {
-        "description": "today"
-    },
-    "yesterday": "yesterday",
-    "@yesterday": {
-        "description": "yesterday"
-    },
-    "other": "other",
-    "@other": {
-        "description": "other"
-    },
-    "noData": "No Data",
-    "@noData": {
-        "description": "No Data"
-    },
-    "checkValue": "Please check whether your entry is correct!",
-    "@checkValue": {
-        "description": "Please check whether your entry is correct!"
-    },
-    "myPatients": "My Patients",
-    "@myPatients": {
-        "description": "My Patients"
-    },
-    "editPatientInformation": "Edit Patient Information",
-    "@editPatientInformation": {
-        "description": "Edit Patient Information"
-    },
-    "bruteforceLock": "Your account is locked for safety reasons. Please try again in 5 minutes.",
-    "@bruteforceLock": {
-        "description": "Your account is locked for safety reasons. Please try again in 5 minutes."
-    },
-    "connectionError": "Connection error",
-    "@connectionError": {
-        "description": "Connection error"
+  "overview": "Overview",
+  "@overview": {
+    "description": "Overview"
+  },
+  "inbox": "Inbox",
+  "@inbox": {
+    "description": "Inbox"
+  },
+  "calendar": "Calendar",
+  "@calendar": {
+    "description": "Calendar"
+  },
+  "myPicos": "MyPICOS",
+  "@myPicos": {
+    "description": "MyPICOS"
+  },
+  "myMedications": "My medications",
+  "@myMedications": {
+    "description": "My medications"
+  },
+  "inTheMorning": "Morning",
+  "@inTheMorning": {
+    "description": "Morning"
+  },
+  "inTheEvening": "Evening",
+  "@inTheEvening": {
+    "description": "Evening"
+  },
+  "noon": "Noon",
+  "@noon": {
+    "description": "Noon"
+  },
+  "toTheNight": "To the night",
+  "@toTheNight": {
+    "description": "To the night"
+  },
+  "unit": "Unit",
+  "@unit": {
+    "description": "Unit"
+  },
+  "medicalProduct": "Unit",
+  "@medicalProduct": {
+    "description": "Unit"
+  },
+  "addMedication": "Add medication",
+  "@addMedication": {
+    "description": "Add medication"
+  },
+  "editMedication": "Edit medication",
+  "@editMedication": {
+    "description": "Edit medication"
+  },
+  "addMedicationInfoPart1": "Please enter ",
+  "@addMedicationInfoPart1": {
+    "description": "Patient advice for adding medication schedules. (Part 1)"
+  },
+  "addMedicationInfoPart2": "accurate and current medication schedules",
+  "@addMedicationInfoPart2": {
+    "description": "Patient advice for adding medication schedules. (Part 2)"
+  },
+  "addMedicationInfoPart3": ". These can be be of great use to the treating facilities and be incorporated into your treatment.",
+  "@addMedicationInfoPart3": {
+    "description": "Patient advice for adding medication schedules. (Part 3)"
+  },
+  "enterCompound": "Enter compound",
+  "@enterCompound": {
+    "description": "Enter compound"
+  },
+  "compound": "Compound",
+  "@compound": {
+    "description": "Compound"
+  },
+  "intake": "Intake",
+  "@intake": {
+    "description": "Intake"
+  },
+  "add": "Add",
+  "@add": {
+    "description": "Add"
+  },
+  "save": "Save",
+  "@save": {
+    "description": "Save"
+  },
+  "myHealth": "My health",
+  "@myHealth": {
+    "description": "My health"
+  },
+  "medicalData": "Medical data",
+  "@medicalData": {
+    "description": "Medical data"
+  },
+  "medicationScheme": "Medication scheme",
+  "@medicationScheme": {
+    "description": "Medication scheme"
+  },
+  "physicians": "Physicians",
+  "@physicians": {
+    "description": "Physicians"
+  },
+  "familyMembers": "Family members",
+  "@familyMembers": {
+    "description": "Family members"
+  },
+  "documents": "Documents",
+  "@documents": {
+    "description": "Documents"
+  },
+  "more": "More",
+  "@more": {
+    "description": "More"
+  },
+  "notifications": "Notifications",
+  "@notifications": {
+    "description": "Notifications"
+  },
+  "profile": "Profile",
+  "@profile": {
+    "description": "Profile"
+  },
+  "privacyNotice": "Privacy notice",
+  "@privacyNotice": {
+    "description": "Privacy notice"
+  },
+  "legals": "Legals",
+  "@legals": {
+    "description": "Legals"
+  },
+  "logout": "Logout",
+  "@logout": {
+    "description": "Logout"
+  },
+  "father": "Father",
+  "@father": {
+    "description": "Father"
+  },
+  "mother": "Mother",
+  "@mother": {
+    "Mother": "Mother"
+  },
+  "brother": "Brother",
+  "@brother": {
+    "description": "Brother"
+  },
+  "sister": "Sister",
+  "@sister": {
+    "description": "Sister"
+  },
+  "edit": "Edit",
+  "@edit": {
+    "description": "Edit"
+  },
+  "delete": "Delete",
+  "@delete": {
+    "description": "Delete"
+  },
+  "mr": "Mr.",
+  "@mr": {
+    "description": "Mr."
+  },
+  "mrs": "Mrs.",
+  "@mrs": {
+    "description": "Mrs."
+  },
+  "diverse": "Diverse",
+  "@diverse": {
+    "description": "Diverse"
+  },
+  "chooseFamilyMember": "Choose your family member",
+  "@chooseFamilyMember": {
+    "description": "Choose your family member"
+  },
+  "title": "Title",
+  "@title": {
+    "description": "Title"
+  },
+  "firstName": "First name",
+  "@firstName": {
+    "description": "First name"
+  },
+  "familyName": "Family name",
+  "@familyName": {
+    "description": "Family name"
+  },
+  "email": "E-Mail",
+  "@email": {
+    "description": "E-Mail"
+  },
+  "phoneNumber": "Telephone number",
+  "@phoneNumber": {
+    "description": "Telephone number"
+  },
+  "mobilePhone": "Cell phone",
+  "@mobilePhone": {
+    "description": "Cell phone"
+  },
+  "address": "Address",
+  "@address": {
+    "description": "Address"
+  },
+  "abort": "Abort",
+  "@abort": {
+    "description": "Abort"
+  },
+  "proceed": "Continue",
+  "@proceed": {
+    "description": "Continue"
+  },
+  "myEntries": "My Entries",
+  "@myEntries": {
+    "description": "My Entries"
+  },
+  "howFeel": "How do I feel today?",
+  "@howFeel": {
+    "description": "How do I feel today?"
+  },
+  "submitData": "The data is transmitted.",
+  "@submitData": {
+    "description": "The data is transmitted."
+  },
+  "husband": "Husband",
+  "@husband": {
+    "description": "Husband"
+  },
+  "spouse": "Spouse",
+  "@spouse": {
+    "description": "Spouse"
+  },
+  "siblings": "Siblings",
+  "@siblings": {
+    "description": "Siblings"
+  },
+  "roommates": "Roommates",
+  "@roommates": {
+    "description": "Roommates"
+  },
+  "otherRelatives": "Other relatives",
+  "@otherRelatives": {
+    "description": "Other relatives"
+  },
+  "editFamilyMember": "Edit family member",
+  "@editFamilyMember": {
+    "description": "Edit family member"
+  },
+  "typeOfRelation": "Type of relation",
+  "@typeOfRelation": {
+    "description": "Type of relation"
+  },
+  "wife": "Wife",
+  "@wife": {
+    "description": "Wife"
+  },
+  "entryEmail": "Please enter the e-mail-address!",
+  "@entryEmail": {
+    "description": "Please enter the e-mail-address!"
+  },
+  "entryValidEmail": "Please enter a valid e-mail-address!",
+  "@entryValidEmail": {
+    "description": "Please enter a valid e-mail-address!"
+  },
+  "entryFirstName": "Please enter the first name!",
+  "@entryFirstName": {
+    "description": "Please enter the first name!"
+  },
+  "entryFamilyName": "Please enter the family name!",
+  "@entryFamilyName": {
+    "description": "Please enter the family name!"
+  },
+  "entryAddress": "Please enter the address!",
+  "@entryAddress": {
+    "description": "Please enter the address!"
+  },
+  "entryPhoneNumber": "Please enter the phone number!",
+  "@entryPhoneNumber": {
+    "description": "Please enter the phone number!"
+  },
+  "myPhysicians": "My physicians",
+  "@myPhysicians": {
+    "description": "My physicians"
+  },
+  "practice": "Practice",
+  "@practice": {
+    "description": "Practice"
+  },
+  "practiceName": "Name of practice",
+  "@practiceName": {
+    "description": "Name of practice"
+  },
+  "website": "Website",
+  "@website": {
+    "description": "Website"
+  },
+  "ophthalmology": "Ophthalmology",
+  "@ophthalmology": {
+    "description": "Ophthalmology"
+  },
+  "gynecology": "Gynecology",
+  "@gynecology": {
+    "description": "Gynecology"
+  },
+  "otolaryngology": "Otolaryngology",
+  "@otolaryngology": {
+    "description": "Otolaryngology"
+  },
+  "generalPractitioner": "General practitioner",
+  "@generalPractitioner": {
+    "description": "General practitioner"
+  },
+  "skinAndVenerealDiseases": "Skin and venereal diseases",
+  "@skinAndVenerealDiseases": {
+    "description": "Skin and venereal diseases"
+  },
+  "internalMedicine": "Internal medicine",
+  "@internalMedicine": {
+    "description": "Internal medicine"
+  },
+  "microbiology": "Microbiology",
+  "@microbiology": {
+    "description": "Microbiology"
+  },
+  "neurology": "Neurology",
+  "@neurology": {
+    "description": "Neurology"
+  },
+  "pathology": "Pathology",
+  "@pathology": {
+    "description": "Pathology"
+  },
+  "pulmonology": "Pulmonology",
+  "@pulmonology": {
+    "description": "Pulmonology"
+  },
+  "psychiatry": "Psychiatry",
+  "@psychiatry": {
+    "description": "Psychiatry"
+  },
+  "urology": "Urology",
+  "@urology": {
+    "description": "Urology"
+  },
+  "addFamilyMember": "Add family member",
+  "@addFamilyMember": {
+    "description": "Add family member"
+  },
+  "addPhysician": "Add physician",
+  "@addPhysician": {
+    "description": "Add physician"
+  },
+  "editPhysician": "Edit physician",
+  "@editPhysician": {
+    "description": "Edit physician"
+  },
+  "chooseField": "Choose your medical field",
+  "@chooseField": {
+    "description": "Choose your medical field"
+  },
+  "entryWebsite": "Please enter the website!",
+  "@entryWebsite": {
+    "description": "Please enter the website!"
+  },
+  "entryValidWebsite": "Please enter a valid website!",
+  "@entryValidWebsite": {
+    "description": "Please enter a valid website!"
+  },
+  "entryPracticeName": "Please enter the practice name!",
+  "@entryPracticeName": {
+    "description": "Please enter the practice name!"
+  },
+  "myMedicalData": "My medical data",
+  "@myMedicalData": {
+    "description": "My medical data"
+  },
+  "submittedValues": "Submitted values (14 days)",
+  "@submittedValues": {
+    "description": "Submitted values (14 days)"
+  },
+  "days": "days",
+  "@days": {
+    "description": "days"
+  },
+  "month": "month",
+  "@month": {
+    "description": "month"
+  },
+  "months": "months",
+  "@months": {
+    "description": "months"
+  },
+  "configuration": "Configuration",
+  "@configuration": {
+    "description": "Configuration"
+  },
+  "startConfiguration": "Start configuration",
+  "@startConfiguration": {
+    "description": "Start configuration"
+  },
+  "letsStart": "Let's start",
+  "@letsStart": {
+    "description": "Let's start"
+  },
+  "back": "Back",
+  "@back": {
+    "description": "Back"
+  },
+  "next": "Next",
+  "@next": {
+    "description": "Next"
+  },
+  "configurationFinished": "That's it! - PICOS is now ready!",
+  "@configurationFinished": {
+    "description": "That's it! - PICOS is now ready!"
+  },
+  "questionnaireFinished": "That's it! - thank you for your participation!",
+  "@questionnaireFinished": {
+    "description": "That's it! - thank you for your participation!"
+  },
+  "endConfiguration": "End configuration",
+  "@endConfiguration": {
+    "description": "End configuration"
+  },
+  "finishText": "Discharge: Entries of the initial values..",
+  "@finishText": {
+    "description": "Discharge: Entries of the initial values.."
+  },
+  "medication": "Medication",
+  "@medication": {
+    "description": "Medication"
+  },
+  "therapy": "Therapy",
+  "@therapy": {
+    "description": "Therapy"
+  },
+  "doctorsVisit": "Doctor's visit",
+  "@doctorsVisit": {
+    "description": "Doctor's visit"
+  },
+  "medicationAndTherapy": "Medication & Therapy",
+  "@medicationAndTherapy": {
+    "description": "Medication & Therapy"
+  },
+  "infoText1": "Patient ID-12345 takes part in the section",
+  "@infoText1": {
+    "description": "Patient ID-12345 takes part in the section "
+  },
+  "infoText2": "with the following information:",
+  "@infoText2": {
+    "description": "with the following information:"
+  },
+  "bodyAndMind": "Body & Mind",
+  "@bodyAndMind": {
+    "description": "Body & Mind"
+  },
+  "pain": "Pain",
+  "@pain": {
+    "description": "Pain"
+  },
+  "activityAndRest": "Activity & Rest",
+  "@activityAndRest": {
+    "description": "Activity & Rest"
+  },
+  "walkDistance": "Walk distance",
+  "@walkDistance": {
+    "description": "Walk distance"
+  },
+  "sleepDuration": "Sleep duration",
+  "@sleepDuration": {
+    "description": "Sleep duration"
+  },
+  "sleepQuality": "Sleep quality",
+  "@sleepQuality": {
+    "description": "Sleep quality"
+  },
+  "vitalValues": "Vital values",
+  "@vitalValues": {
+    "description": "Vital values"
+  },
+  "weightBMI": "Weight & BMI",
+  "@weightBMI": {
+    "description": "Weight & BMI"
+  },
+  "heartFrequency": "Heart frequency",
+  "@heartFrequency": {
+    "description": "Heart frequency"
+  },
+  "bloodPressure": "Blood pressure",
+  "@bloodPressure": {
+    "description": "Blood pressure"
+  },
+  "bloodSugar": "Blood sugar",
+  "@bloodSugar": {
+    "description": "Blood sugar"
+  },
+  "myTherapy": "My Therapy",
+  "@myTherapy": {
+    "description": "My Therapy"
+  },
+  "addTherapy": "Add therapy",
+  "@addTherapy": {
+    "description": "Add therapy"
+  },
+  "date": "Date",
+  "@date": {
+    "description": "Date"
+  },
+  "day": "Day",
+  "@day": {
+    "description": "Day"
+  },
+  "year": "Year",
+  "@year": {
+    "description": "Year"
+  },
+  "selectDate": "Select date",
+  "@selectDate": {
+    "description": "Select date"
+  },
+  "editTherapy": "Edit therapy",
+  "@editTherapy": {
+    "description": "Edit therapy"
+  },
+  "bodyWeight": "Body weight",
+  "@bodyWeight": {
+    "description": "Body weight"
+  },
+  "possibleWalkDistance": "Possible walking distance within 2 minutes",
+  "@possibleWalkDistance": {
+    "description": "Possible walking distance within 2 minutes"
+  },
+  "hrs": "Hrs.",
+  "@hrs": {
+    "description": "Hrs."
+  },
+  "autoCalc": "(auto. calculation)",
+  "@autoCalc": {
+    "description": "(auto. calculation)"
+  },
+  "sleepQuality7Days": "Sleep quality during the last 7 days",
+  "@sleepQuality7Days": {
+    "description": "Sleep quality during the last 7 days"
+  },
+  "howOftenAffected": "During the past 2 weeks, how often did you feel affected by the following complaints?",
+  "@howOftenAffected": {
+    "description": "During the past 2 weeks, how often did you feel affected by the following complaints?"
+  },
+  "lowInterest": "a) little interest or pleasure in your activities",
+  "@lowInterest": {
+    "description": "a) little interest or pleasure in your activities"
+  },
+  "dejection": "b) dejection, melancholy or hopelessness",
+  "@dejection": {
+    "description": "b) dejection, melancholy or hopelessness"
+  },
+  "nervousness": "c) nervousness, anxiety or strain",
+  "@nervousness": {
+    "description": "c) nervousness, anxiety or strain"
+  },
+  "controlWorries": "d) Not being able to stop or control worries",
+  "@controlWorries": {
+    "description": "d) Not being able to stop or control worries"
+  },
+  "changedMedication": "Has anything changed with your medication?",
+  "@changedMedication": {
+    "description": "Has anything changed with your medication?"
+  },
+  "changedTherapy": "Has anything changed in your therapy?",
+  "@changedTherapy": {
+    "description": "Has anything changed in your therapy?"
+  },
+  "painless": "Painless",
+  "@painless": {
+    "description": "Painless"
+  },
+  "veryMild": "Very mild",
+  "@veryMild": {
+    "description": "Very mild"
+  },
+  "discomforting": "Discomforting",
+  "@discomforting": {
+    "description": "Discomforting"
+  },
+  "tolerable": "Tolerable",
+  "@tolerable": {
+    "description": "Tolerable"
+  },
+  "distressing": "Distressing",
+  "@distressing": {
+    "description": "Distressing"
+  },
+  "veryDistressing": "Very distressing",
+  "@veryDistressing": {
+    "description": "Very distressing"
+  },
+  "intense": "Intense",
+  "@intense": {
+    "description": "Intense"
+  },
+  "veryIntense": "Very intense",
+  "@veryIntense": {
+    "description": "Very intense"
+  },
+  "utterlyHorrible": "Utterly Horrible",
+  "@utterlyHorrible": {
+    "description": "Utterly Horrible"
+  },
+  "excruciatingUnbearable": "Excruciating Unbearable",
+  "@excruciatingUnbearable": {
+    "description": "Excruciating Unbearable"
+  },
+  "strongestImaginable": "Strongest imaginable",
+  "@strongestImaginable": {
+    "description": "Strongest imaginable"
+  },
+  "notAtAll": "Not at all",
+  "@notAtAll": {
+    "description": "Not at all"
+  },
+  "onIndividualDays": "On individual days",
+  "@onIndividualDays": {
+    "description": "On individual days"
+  },
+  "onMoreThanHalfDays": "On more than half of the days",
+  "@onMoreThanHalfDays": {
+    "description": "On more than half of the days"
+  },
+  "almostEveryDays": "Almost every day",
+  "@almostEveryDays": {
+    "description": "Almost every day"
+  },
+  "yes": "Yes",
+  "@yes": {
+    "description": "Yes"
+  },
+  "no": "No",
+  "@no": {
+    "description": "No"
+  },
+  "excellent": "Excellent",
+  "@excellent": {
+    "description": "Excellent"
+  },
+  "good": "Good",
+  "@Good": {
+    "description": "Good"
+  },
+  "medium": "Medium",
+  "@medium": {
+    "description": "Medium"
+  },
+  "bad": "Bad",
+  "@bad": {
+    "description": "Bad"
+  },
+  "terrible": "Terrible",
+  "@terrible": {
+    "description": "Terrible"
+  },
+  "tips": "Tips for a healthy everyday life",
+  "@tips": {
+    "description": "Tips for a healthy everyday life"
+  },
+  "drinkEnough": "Drink enough: Drink at least 2 liters of water per day. The human body consists of two-thirds water. The substance serves, among other things, as a means of transport for urine and blood and as a solvent.",
+  "@drinkEnough": {
+    "description": "Drink enough: Drink at least 2 liters of water per day. The human body consists of two-thirds water. The substance serves, among other things, as a means of transport for urine and blood and as a solvent."
+  },
+  "welcomeToPICOS": "Welcome to PICOS",
+  "@welcomeToPICOS": {
+    "description": "Welcome to PICOS"
+  },
+  "thankYouForParticipation": "Thank you for your participation in the DISTANCE project. We hope you enjoy using the PICOS App!",
+  "@thankYouForParticipation": {
+    "description": "Thank you for your participation in the DISTANCE project. We hope you enjoy using the PICOS App!"
+  },
+  "wrongCredentials": "Wrong credentials",
+  "@wrongCredentials": {
+    "description": "Wrong credentials"
+  },
+  "submit": "Submit",
+  "@submit": {
+    "description": "Submit"
+  },
+  "username": "Username",
+  "@username": {
+    "description": "Username"
+  },
+  "password": "Password",
+  "@password": {
+    "description": "Password"
+  },
+  "questionaireDoctorVisit1": "Have you ",
+  "@questionaireDoctorVisit1": {
+    "description": "Have you "
+  },
+  "questionaireDoctorVisit2": "been to a doctor or hospital ",
+  "@questionaireDoctorVisit2": {
+    "description": "been to a doctor or hospital "
+  },
+  "questionaireDoctorVisitUnscheduled": "unscheduled?",
+  "@questionaireDoctorVisitUnscheduled": {
+    "description": "unscheduled?"
+  },
+  "information5tmg": "Information according to § 5 TMG",
+  "@information5tmg": {
+    "description": "Information according to § 5 TMG"
+  },
+  "projectDISTANCE": "The DISTANCE project is one of the \"Digital Hubs: Advances in Research and Health Care\"-projects funded by the Federal Ministry of Education and Research (BMBF).",
+  "@projectDISTANCE": {
+    "description": "The DISTANCE project is one of the \"Digital Hubs: Advances in Research and Health Care\"-projects funded by the Federal Ministry of Education and Research (BMBF)."
+  },
+  "headOffice": "Head Office",
+  "@headOffice": {
+    "description": "Head Office"
+  },
+  "postalAddress": "Postal Address",
+  "@postalAddress": {
+    "description": "Postal Address"
+  },
+  "salesTaxID": "Sales tax identification number according to § 27a sales tax law",
+  "@salesTaxID": {
+    "description": "Sales tax identification number according to § 27a sales tax law"
+  },
+  "photoCredits": "Photo Credits",
+  "@photoCredits": {
+    "description": "Photo Credits"
+  },
+  "contact": "Contact",
+  "@contact": {
+    "description": "Contact"
+  },
+  "myFamilyMembers": "My Family Members",
+  "@myFamilyMembers": {
+    "description": "My Family Members"
+  },
+  "myDocuments": "My Documents",
+  "@myDocuments": {
+    "description": "My Documents"
+  },
+  "unknownHeight": "Unknown height",
+  "@unknownHeight": {
+    "description": "Unknown height"
+  },
+  "noPain": "No Pain",
+  "@noPain": {
+    "description": "No Pain"
+  },
+  "minorPain": "Minor Pain",
+  "@minorPain": {
+    "description": "Minor Pain"
+  },
+  "moderatePain": "Moderate Pain",
+  "@moderatePain": {
+    "description": "Moderate Pain"
+  },
+  "strongPain": "Strong Pain",
+  "@strongPain": {
+    "description": "Strong Pain"
+  },
+  "caseNumber": "Case Number",
+  "@caseNumber": {
+    "description": "Case Number"
+  },
+  "patientID": "Patient ID",
+  "@patientID": {
+    "description": "Patient ID"
+  },
+  "weight": "Weight",
+  "@weight": {
+    "description": "Weight"
+  },
+  "height": "Height",
+  "@height": {
+    "description": "Height"
+  },
+  "dischargeDate": "Date of Discharge",
+  "@dischargeDate": {
+    "description": "Date of Discharge"
+  },
+  "instituteKey": "Institute Key",
+  "@instituteKey": {
+    "description": "Institute Key"
+  },
+  "enterCaseNumber": "Please enter the case number!",
+  "@enterCaseNumber": {
+    "description": "Please enter the case number!"
+  },
+  "enterPatientID": "Please enter the patient ID!",
+  "@enterPatientID": {
+    "description": "Please enter the patient ID!"
+  },
+  "enterWeight": "Please enter the weight!",
+  "@enterWeight": {
+    "description": "Please enter the weight!"
+  },
+  "enterHeight": "Please enter the height!",
+  "@enterHeight": {
+    "description": "Please enter the height!"
+  },
+  "enterBloodPressure": "Please enter the blood pressure value!",
+  "@enterBloodPressure": {
+    "description": "Please enter the blood pressure value!"
+  },
+  "enterBloodSugar": "Please enter the blood sugar value!",
+  "@enterBloodSugar": {
+    "description": "Please enter the blood sugar value!"
+  },
+  "enterDischargeDate": "Please enter the date of discharge!",
+  "@enterDischargeDate": {
+    "description": "Please enter the date of discharge!"
+  },
+  "enterInstituteKey": "Please enter the institute key!",
+  "@enterInstituteKey": {
+    "description": "Please enter the institute key!"
+  },
+  "therapyName": "Therapy Name",
+  "@therapyName": {
+    "description": "Therapy Name"
+  },
+  "enterName": "Please enter the name",
+  "@enterName": {
+    "description": "Please enter the name"
+  },
+  "visits": "Doctor/hospital visits",
+  "@visits": {
+    "description": "Doctor/hospital visits"
+  },
+  "visitInfoPart1": "This information is only required if you have made an ",
+  "@visitInfoPart1": {
+    "description": "Patient advice for unplanned hospital and doctors visits. (Part 1)"
+  },
+  "visitInfoPart2": "unplanned",
+  "@visitInfoPart2": {
+    "description": "Patient advice for unplanned hospital and doctors visits. (Part 2)"
+  },
+  "visitInfoPart3": " visit to a doctor's office or hospital.",
+  "@visitInfoPart3": {
+    "description": "Patient advice for unplanned hospital and doctors visits. (Part 3)"
+  },
+  "iWasUnscheduled": "I was unscheduled",
+  "@iWasUnscheduled": {
+    "description": "I was unscheduled"
+  },
+  "toSeeAResidentPhysician": "to see a general practitioner",
+  "@toSeeAResidentPhysician": {
+    "description": "to see a general practitioner"
+  },
+  "inAHospital": "in a hospital",
+  "@inAHospital": {
+    "description": "in a hospital"
+  },
+  "whenDidYouSeeThePhysician": "When did you see the physician?",
+  "@whenDidYouSeeThePhysician": {
+    "description": "When did you see the physician?"
+  },
+  "whenWereYouInHospital": "When were you in the hospital?",
+  "@whenWereYouInHospital": {
+    "description": "When were you in the hospital?"
+  },
+  "dayOfRecording": "Date of admission",
+  "@dayOfRecording": {
+    "description": "Date of admission"
+  },
+  "dayOfDischarge": "Day of discharge",
+  "@dayOfDischarge": {
+    "description": "Day of discharge"
+  },
+  "reasonForHospitalization": "Reason for hospitalization",
+  "@reasonForHospitalization": {
+    "description": "Reason for hospitalization"
+  },
+  "reasonForVisitToTheDoctor": "Reason for visit to the doctor",
+  "@reasonForVisitToTheDoctor": {
+    "description": "Reason for visit to the doctor"
+  },
+  "needHelp": "Do you need help or have a question about using the PICOS app?",
+  "@needHelp": {
+    "description": "Do you need help or have a question about using the PICOS app?"
+  },
+  "specialty": "Specialty",
+  "@specialty": {
+    "description": "Specialty"
+  },
+  "streetAndHouseNo": "Street, house no.",
+  "@streetAndHouseNo": {
+    "description": "Street, house no."
+  },
+  "zipCode": "ZIP CODE",
+  "@zipCode": {
+    "description": "ZIP CODE"
+  },
+  "city": "City",
+  "@city": {
+    "description": "City"
+  },
+  "isInvalid": "is invalid",
+  "@isInvalid": {
+    "description": "is invalid"
+  },
+  "phone": "Phone",
+  "@phone": {
+    "description": "Phone"
+  },
+  "addDocument": "Add document",
+  "@addDocument": {
+    "description": "Add document"
+  },
+  "editDocument": "Edit document",
+  "@editDocument": {
+    "description": "Edit document"
+  },
+  "priority": "Priority",
+  "@priority": {
+    "description": "Priority"
+  },
+  "importantDocument": "Important document - keep on top",
+  "@importantDocument": {
+    "description": "Important document - keep on top"
+  },
+  "sortByDate": "Sort by date",
+  "@sortByDate": {
+    "description": "Sort by date"
+  },
+  "documentTitle": "Document title",
+  "@documentTitle": {
+    "description": "Document title"
+  },
+  "uploadDocument": "Upload Document",
+  "@uploadDocument": {
+    "description": "Upload Document"
+  },
+  "downloadDocument": "Download document",
+  "@downloadDocument": {
+    "description": "Download document"
+  },
+  "importantDocuments": "Important documents",
+  "@importantDocuments": {
+    "description": "Important documents"
+  },
+  "documentsSortedDesc": "Documents sorted descending",
+  "@documentsSortedDesc": {
+    "description": "Documents sorted descending"
+  },
+  "documentSelected": "Document selected",
+  "@documentSelected": {
+    "description": "Document selected"
+  },
+  "completeTheDays": "Please complete the red and orange days",
+  "@completeTheDays": {
+    "description": "Please complete the red and orange days"
+  },
+  "today": "today",
+  "@today": {
+    "description": "today"
+  },
+  "yesterday": "yesterday",
+  "@yesterday": {
+    "description": "yesterday"
+  },
+  "other": "other",
+  "@other": {
+    "description": "other"
+  },
+  "noData": "No Data",
+  "@noData": {
+    "description": "No Data"
+  },
+  "checkValue": "Please check whether your entry is correct!",
+  "@checkValue": {
+    "description": "Please check whether your entry is correct!"
+  },
+  "myPatients": "My Patients",
+  "@myPatients": {
+    "description": "My Patients"
+  },
+  "editPatientInformation": "Edit Patient Information",
+  "@editPatientInformation": {
+    "description": "Edit Patient Information"
+  },
+  "bruteforceLock": "Your account is locked for safety reasons. Please try again in 5 minutes.",
+  "@bruteforceLock": {
+    "description": "Your account is locked for safety reasons. Please try again in 5 minutes."
+  },
+  "connectionError": "Connection error",
+  "@connectionError": {
+    "description": "Connection error"
     },
     "myProfile": "My profile",
     "@myProfile": {
@@ -1124,5 +1018,357 @@
     "allFieldsMustbeFilled": "All fields must be filled!",
     "@allFieldsMustbeFilled": {
         "description": "All fields must be filled!"
-    }
+  },
+  "inclusionCriteriaDistance": "Inclusion criteria DISTANCE",
+  "@inclusionCriteriaDistance": {
+    "description": "Inclusion criteria DISTANCE"
+  },
+  "mechanicalVentilation": "mechanical ventilation",
+  "@mechanicalVentilation": {
+    "description": "mechanical ventilation"
+  },
+  "icuStay": "ICU stay",
+  "@icuStay": {
+    "description": "ICU stay"
+  },
+  "age": "age",
+  "@age": {
+    "description": "age"
+  },
+  "birthDate": "birthday",
+  "@birthDate": {
+    "description": "birthday"
+  },
+  "years": "years",
+  "@years": {
+    "description": "years"
+  },
+  "icuDiagnosis": "ICU Diagnosis",
+  "@icuDiagnosis": {
+    "description": "ICU Diagnosis"
+  },
+  "mainDiagnosis": "ICU main diagnosis",
+  "@mainDiagnosis": {
+    "description": "ICU main diagnosis"
+  },
+  "ancillaryDiagnosis": "Ancillary diagnosis",
+  "@ancillaryDiagnosis": {
+    "description": "Ancillary diagnosis"
+  },
+  "icuaw": "ICUAW",
+  "@icuaw": {
+    "description": "ICUAW"
+  },
+  "pics": "PICS",
+  "@pics": {
+    "description": "PICS"
+  },
+  "vitalDataIcuDischarge": "Vital data ICU discharge",
+  "@vitalDataIcuDischarge": {
+    "description": "PICS"
+  },
+  "systolicArterialPressure": "SAP",
+  "@systolicArterialPressure": {
+    "description": "SAP"
+  },
+  "meanArterialPressure": "MAP",
+  "@meanArterialPressure": {
+    "description": "MAP"
+  },
+  "diastolicArterialPressure": "DAP",
+  "@diastolicArterialPressure": {
+    "description": "DAP"
+  },
+  "centralVenousPressure": "Central venous pressure",
+  "@centralVenousPressure": {
+    "description": "Central venous pressure"
+  },
+  "last": "Last",
+  "@last": {
+    "description": "Last"
+  },
+  "preLast": "Pre-Last",
+  "@preLast": {
+    "description": "Pre-Last"
+  },
+  "laboratoryValues": "Laboratory values (last values before discharge)",
+  "@laboratoryValues": {
+    "description": "Laboratory values (last values before discharge)"
+  },
+  "leukocyteCount": "Leukocyte count",
+  "@leukocyteCount": {
+    "description": "Leukocyte count"
+  },
+  "lymphocyteCount": "Lymphocyte count",
+  "@lymphocyteCount": {
+    "description": "Lymphocyte count"
+  },
+  "lymphocytePercentage": "Lymphocyte percentage",
+  "@lymphocytePercentage": {
+    "description": "Lymphocyte percentage"
+  },
+  "plateletCount": "Platelet count",
+  "@plateletCount": {
+    "description": "Platelet count"
+  },
+  "cReactiveProteinLevel": "C-Reactive protein level",
+  "@cReactiveProteinLevel": {
+    "description": "C-Reactive protein level"
+  },
+  "procalcitoninLevel": "Procalcitonin (PCT) level",
+  "@pct": {
+    "description": "Procalcitonin (PCT) level"
+  },
+  "interleukin": "Interleukin (IL-6)",
+  "@interleukin": {
+    "description": "Interleukin (IL-6) "
+  },
+  "bloodUreaNitrogen": "Blood Urea Nitrogen",
+  "@bloodUreaNitrogen": {
+    "description": "Blood Urea Nitrogen"
+  },
+  "creatinine": "Creatinine",
+  "@creatinine": {
+    "description": "Creatinine"
+  },
+  "heartFailureMarker": "Heart failure marker BNP",
+  "@hfmBNP": {
+    "description": "Heart failure marker BNP"
+  },
+  "heartFailureMarkerNTProBNP": "Heart failure marker NT-proBNP",
+  "@hfmNTBNP": {
+    "description": "Heart failure marker NT-proBNP"
+  },
+  "bilirubinTotal": "Bilirubin total",
+  "@bilirubinTotal": {
+    "description": "Bilirubin total"
+  },
+  "hemoglobin": "Hemoglobin",
+  "@hemoglobin": {
+    "description": "Hemoglobin"
+  },
+  "hematocrit": "Hematocrit",
+  "@hematocrit": {
+    "description": "Hematocrit"
+  },
+  "albumin": "Albumin",
+  "@albumin": {
+    "description": "Albumin"
+  },
+  "gotASAT": "Glutamat-Oxalacetat-Transaminase (GOT/ASAT)",
+  "@gotASAT": {
+    "description": "Glutamat-Oxalacetat-Transaminase (GOT/ASAT)"
+  },
+  "gptALAT": "Glutamat-Pyruvat-Transaminase (GPT/ALAT)",
+  "@gptALAT": {
+    "description": "Glutamat-Pyruvat-Transaminase (GPT/ALAT)"
+  },
+  "troponin": "Troponin",
+  "@troponin": {
+    "description": "Troponin"
+  },
+  "creatineKinase": "Creatine kinase",
+  "@creatineKinase": {
+    "description": "Creatine kinase"
+  },
+  "myocardialInfarctionMarkerCKMB": "Myocardial infarction marker CK-MB",
+  "@myocardialInfarctionMarkerCKMB": {
+    "description": "Myocardial infarction marker CK-MB"
+  },
+  "lactateDehydrogenaseLevel": "Lactate dehydrogenase level",
+  "@lactateDehydrogenaseLevel": {
+    "description": "Lactate dehydrogenase level"
+  },
+  "amylaseLevel": "Amylase level",
+  "@amylaseLevel": {
+    "description": "Amylase level"
+  },
+  "lipaseLevel": "Lipase level",
+  "@lipaseLevel": {
+    "description": "Lipase level"
+  },
+  "dDimer": "D-dimere",
+  "@dDimer": {
+    "description": "D-dimere"
+  },
+  "internationalNormalizedRatio": "International Normalized Ratio (INR)",
+  "@internationalNormalizedRatio": {
+    "description": "International Normalized Ratio (INR)"
+  },
+  "partialThromboplastinTime": "Partial thromboplastin time",
+  "@partialThromboplastinTime": {
+    "description": "Partial thromboplastin time"
+  },
+  "respirationParameters": "Respiration Parameters (last values before discharge)",
+  "@respirationParameters": {
+    "description": "Respiration Parameters (last values before discharge)"
+  },
+  "vtSpontanous": "VT spontanous",
+  "@vtSpontanous": {
+    "description": "VT spontanous"
+  },
+  "o2sat": "O2 sat",
+  "@o2sat": {
+    "description": "02 sat"
+  },
+  "medicaments": "Medicaments (last values before discharge)",
+  "@medicaments": {
+    "description": "Medicaments (last values before discharge)"
+  },
+  "thrombosisAggregation": "Thrombosis Aggreagtion",
+  "@thrombosisAggregation": {
+    "description": "Thrombosis Aggregation"
+  },
+  "noac": "NOAC",
+  "@noac": {
+    "description": "NOAC"
+  },
+  "thrombosisProphylaxis": "Thrombosis Prophylaxis",
+  "@thrombosisProphylaxis": {
+    "description": "Thrombosis Prophylaxis"
+  },
+  "antihypertensives": "Antihypertensives",
+  "@antihypertensives": {
+    "description": "Antihypertensives"
+  },
+  "antiarrythmics": "Antiarrythmics",
+  "@antiarrythmics": {
+    "description": "Antiarrythmics"
+  },
+  "antidiabetics": "Antidiabetics",
+  "@antidiabetics": {
+    "description": "Antidiabetics"
+  },
+  "antiinfectives": "Antiinfectives",
+  "@antiinfectives": {
+    "description": "Antiinfectives"
+  },
+  "stereoids": "Steroids",
+  "@stereoids": {
+    "description": "Steroids"
+  },
+  "inhalatives": "Inhalatives",
+  "@inhalatives": {
+    "description": "Inhalatives"
+  },
+  "analgesics": "Analgesics",
+  "@analgesics": {
+    "description": "Analgesics"
+  },
+  "bloodGasAnalysis": "Blood Gas Analysis",
+  "@bloodGasAnalysis": {
+    "description": "Blood Gas Analysis"
+  },
+  "paO2": "paO2 (without Temp-correcion)",
+  "@paO2": {
+    "description": "paO2 (without Temp-correcion)"
+  },
+  "paCO2": "paCO2 (without Temp-correction)",
+  "@paCO2": {
+    "description": "paCO2 (without Temp-correction)"
+  },
+  "arterialPH": "arterial PH",
+  "@arterialPH": {
+    "description": "arterial PH"
+  },
+  "arterialLactate": "Arterial Lactate",
+  "@arterialLactate": {
+    "description": "Arterial Lactate"
+  },
+  "arterialBicarbonate": "Aterial Serum Bicarbonate Concentration",
+  "@arterialBicarbonate": {
+    "description": "Aterial Serum Bicarbonate Concentration"
+  },
+  "arterialBaseExcess": "Arterial Base Excess",
+  "@arterialBaseExcess": {
+    "description": "arterial base excess"
+  },
+  "gender": "Gender",
+  "@gender": {
+    "description": "Gender"
+  },
+  "bmi": "BMI",
+  "@bmi": {
+    "description": "BMI"
+  },
+  "idealBodyWeight": "Ideal Body Weight",
+  "@idealBodyWeight": {
+    "description": "Ideal Body Weight"
+  },
+  "admissionTimeICU": "Admission Time ICU",
+  "@admissionTimeICU": {
+    "description": "Admission Time ICU"
+  },
+  "dischargeTimeICU": "Discharge Time ICU",
+  "@dischargeTimeICU": {
+    "description": "Discharge Time ICU"
+  },
+  "ventilationDaysICU": "Ventilation Days ICU",
+  "@ventilationDaysICU": {
+    "description": "Ventilation Days ICU"
+  },
+  "admissionTimeHospital": "Admission Time to the Hospital",
+  "@admissionTimeHospital": {
+    "description": "Admission Time to the Hospital"
+  },
+  "dischargeTimeHospital": "Discharge Time from the Hospital",
+  "@dischargeTimeHospital": {
+    "description": "Discharge Time from the Hospital"
+  },
+  "icd10Codes": "ICD-10 Codes",
+  "@icd10Codes": {
+    "description": "ICD-10 Codes"
+  },
+  "patientLocation": "Patient Location",
+  "@patientLocation": {
+    "description": "Patient Location"
+  },
+  "icuMortality": "ICU Mortality",
+  "@icuMortality": {
+    "description": "ICU Mortality"
+  },
+  "hospitalMortality": "Hospital Mortality",
+  "@hospitalMortality": {
+    "description": "Hospital Mortality"
+  },
+  "hospitalLengthOfStay": "Hospital Length of Stay",
+  "@hospitaalLengthOfStay": {
+    "description": "hospitalLengthOfStay"
+  },
+  "icuLengthOfStay": "ICU Length of Stay",
+  "@icuLengthOfStay": {
+    "description": "ICU Length of Stay"
+  },
+  "readmissionRateICU": "Readmission Rate to the ICU",
+  "@readmissionRateICU": {
+    "description": "Readmission Rate to the ICU"
+  },
+  "hospitalReadmission": "Hospital Readmission",
+  "@hospitalReadmission": {
+    "description": "Hospital Readmission"
+  },
+  "daysUntilWorkReuptake": "Days until Work Reupdake",
+  "@daysUntilWorkReuptake": {
+    "description": "Days until Work Reupdake"
+  },
+  "patientsMovementData": "Patients Movement Data",
+  "@patientsMovementData": {
+    "description": "Patients Movement Data"
+  },
+  "saO2": "arterial oxygen saturation",
+  "@saO2": {
+    "description": "arterial oxygen saturation"
+  },
+  "svO2": "central venous oxygen saturation",
+  "@svO2": {
+    "description": "central venous oxygen saturation"
+  },
+  "af": "respiratory rate",
+  "@af": {
+    "description": "respiratory rate"
+  },
+  "lungProtectiveVentilation70p": "Lung Protective Ventilation > 70%",
+  "@lungProtectiveVentilation70p": {
+    "description": "Lung Protective Ventilation > 70%"
+  }
 }

@@ -15,6 +15,7 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/picos_page_view_item.dart';
@@ -56,6 +57,9 @@ abstract class PageViewNavigation {
   /// Goes to the previous page. Executes [previousPageCallback] if set.
   void previousPage() {
     if (_buildContext == null) {
+      if (kDebugMode) {
+        print('INFO: buildcontext must be set!');
+      }
       return;
     }
 
@@ -79,6 +83,9 @@ abstract class PageViewNavigation {
   /// Goes to the next page. Executes [nextPageCallback] if set.
   void nextPage() {
     if (_buildContext == null) {
+      if (kDebugMode) {
+        print('INFO: buildcontext must be set!');
+      }
       return;
     }
 

@@ -38,6 +38,7 @@ class ObjectsListState extends Equatable {
   const ObjectsListState({
     this.objectsList = const <AbstractDatabaseObject>[],
     this.status = ObjectsListStatus.initial,
+    this.entry = AbstractDatabaseObject,
   });
 
   /// The current [ObjectsListStatus].
@@ -45,6 +46,9 @@ class ObjectsListState extends Equatable {
 
   /// The current [objectsList] containing all objects.
   final List<AbstractDatabaseObject> objectsList;
+
+  /// The current [entry] containing all objects.
+  final dynamic entry;
 
   /// Creates a copy with updated values.
   ObjectsListState copyWith({

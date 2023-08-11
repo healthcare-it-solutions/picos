@@ -127,6 +127,19 @@ class Backend {
     return _createListResponse(parses);
   }
 
+  /// Retrieves one possible object from a [table].
+  static Future<dynamic> getEntry(
+    String table,
+    String column,
+    String row,
+  ) async {
+    QueryBuilder<ParseObject> queryBuilder =
+        QueryBuilder<ParseObject>(ParseObject(table));
+    queryBuilder.whereEqualTo(column, row);
+    ParseResponse response = await queryBuilder.query();
+    return response;
+  }
+
   /// Calls the [endpoint].
   static Future<List<dynamic>> callEndpoint(
     String endpoint, [
@@ -162,16 +175,19 @@ class Backend {
   }) async {
     ParseObject parseObject = ParseObject(object.table);
 
-    if (object.objectId == null) {
+    if (object.objectId == null && acl == null) {
       acl = BackendACL();
-      acl.setDefault();
-      parseObject.setACL(acl.acl);
+      acl.setDefault();  
     }
 
+    if (acl != null) {
+      parseObject.setACL(acl.acl);
+    }
+    
     if (object.objectId != null) {
       parseObject.objectId = object.objectId;
     }
-    
+
     object.databaseMapping.forEach((String key, dynamic value) {
       parseObject.set(key, value);
     });
