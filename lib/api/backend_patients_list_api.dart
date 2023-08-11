@@ -31,18 +31,8 @@ class BackendPatientsListApi extends BackendObjectsApi {
   @override
   Future<void> saveObject(AbstractDatabaseObject object) async {
     try {
-      dynamic responsePatientData =
-          await Backend.saveObject((object as PatientsListElement).patientData);
-      PatientData patientData = object.patientData.copyWith(
-        objectId: responsePatientData['objectId'],
-        createdAt: DateTime.tryParse(responsePatientData['createdAt'] ?? '') ??
-            object.patientData.createdAt,
-        updatedAt: DateTime.tryParse(responsePatientData['updatedAt'] ?? '') ??
-            object.patientData.updatedAt,
-      );
-
-      dynamic responsePatientProfile =
-          await Backend.saveObject(object.patientProfile);
+      dynamic responsePatientProfile = await Backend.saveObject(
+          (object as PatientsListElement).patientProfile,);
       PatientProfile patientProfile = object.patientProfile.copyWith(
         objectId: responsePatientProfile['objectId'],
         createdAt:
@@ -54,7 +44,6 @@ class BackendPatientsListApi extends BackendObjectsApi {
       );
 
       object = object.copyWith(
-        patientData: patientData,
         patientProfile: patientProfile,
       );
 
@@ -171,24 +160,6 @@ class BackendPatientsListApi extends BackendObjectsApi {
       return getObjectsStream();
     } catch (e) {
       return Stream<List<PatientsListElement>>.error(e);
-    }
-  }
-
-  @override
-  Future<void> removeObject(AbstractDatabaseObject object) async {
-    try {
-      await Backend.removeObject((object as PatientsListElement).patient);
-      await Backend.removeObject((object).patientData);
-      await Backend.removeObject((object).patientProfile);
-
-      int objectIndex = getIndex(object);
-
-      objectList.removeAt(objectIndex);
-      objectList = <AbstractDatabaseObject>[...objectList];
-
-      dispatch();
-    } catch (e) {
-      return;
     }
   }
 }

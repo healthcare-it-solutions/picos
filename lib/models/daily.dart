@@ -56,7 +56,7 @@ class Daily extends AbstractDatabaseObject {
   final int? bloodDiastolic;
 
   /// The patients sleep duration.
-  final int? sleepDuration;
+  final double? sleepDuration;
 
   /// The patients pain assessment.
   final int? pain;
@@ -82,7 +82,7 @@ class Daily extends AbstractDatabaseObject {
     int? bloodSugar,
     int? bloodSystolic,
     int? bloodDiastolic,
-    int? sleepDuration,
+    double? sleepDuration,
     int? pain,
     double? bloodSugarMol,
     String? objectId,

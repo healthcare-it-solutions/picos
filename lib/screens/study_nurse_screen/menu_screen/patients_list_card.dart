@@ -16,14 +16,10 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:picos/api/backend_patients_list_api.dart';
 import 'package:picos/models/patients_list_element.dart';
 import 'package:picos/screens/study_nurse_screen/menu_screen/patients_list_card_tile.dart';
 import 'package:picos/widgets/picos_list_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../../../state/objects_list_bloc.dart';
 
 /// The card displaying patient information.
 class PatientsListCard extends StatelessWidget {
@@ -41,8 +37,7 @@ class PatientsListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PicosListCard(
-      title:
-          '${_patientsListElement.patient.firstName} ' 
+      title: '${_patientsListElement.patient.firstName} '
           '${_patientsListElement.patient.familyName}',
       edit: () {
         Navigator.of(context).pushNamed(
@@ -50,11 +45,7 @@ class PatientsListCard extends StatelessWidget {
           arguments: _patientsListElement,
         );
       },
-      delete: () {
-        context
-            .read<ObjectsListBloc<BackendPatientsListApi>>()
-            .add(RemoveObject(_patientsListElement));
-      },
+      //delete: () => _deletePatient(context),
       child: Row(
         children: <Expanded>[
           Expanded(
@@ -76,14 +67,14 @@ class PatientsListCard extends StatelessWidget {
                 ),
                 PatientsListCardTile(
                   AppLocalizations.of(context)!.patientID,
-                  _patientsListElement.patientData.patientID,
+                  _patientsListElement.patientData.patientID!,
                 ),
                 Divider(
                   thickness: dividerThickness,
                 ),
                 PatientsListCardTile(
                   AppLocalizations.of(context)!.caseNumber,
-                  _patientsListElement.patientData.caseNumber,
+                  _patientsListElement.patientData.caseNumber!,
                 ),
                 Divider(
                   thickness: dividerThickness,

@@ -62,14 +62,12 @@ class PicosMenu extends StatelessWidget {
             .pushNamed('/physician-list-screen/physicians'),
       ),
       PicosMenuItem(
-        iconSize: 20,
         iconPath: 'assets/Angehoerige_icon.svg',
         title: AppLocalizations.of(context)!.familyMembers,
         onTap: () => Navigator.of(context)
             .pushNamed('/family-member-list-screen/family-members'),
       ),
       PicosMenuItem(
-        // iconSize: ,
         iconPath: 'assets/Dokumente_icon.svg',
         title: AppLocalizations.of(context)!.documents,
         onTap: () => Navigator.of(context)
@@ -86,6 +84,12 @@ class PicosMenu extends StatelessWidget {
           AppLocalizations.of(context)!.more,
           fontSize: labelSize,
         ),
+      ),
+      PicosMenuItem(
+        iconPath: 'assets/Profil.svg',
+        title: AppLocalizations.of(context)!.myProfile,
+        onTap: () => Navigator.of(context)
+            .pushNamed('profile-screen/profile'),
       ),
       PicosMenuItem(
         iconPath: 'assets/Impressum.svg',
