@@ -346,5 +346,11 @@
   "changeLastname": "Nachname ändern",
   "changeAddress": "Adresse ändern",
   "changePhoneNumber": "Telefonnummer ändern",
-  "changeEmail": "E-Mail ändern"
+  "changeEmail": "E-Mail ändern",
+  "unknownError": "Unbekannter Fehler",
+  "updateFailed": "Aktualisierung fehlgeschlagen",
+  "updateSuccess": "Aktualisierung erfolgreich",
+  "passwordChangeSuccessful": "Passwort erfolgreich geändert!",
+  "passwordChangeLogoutMessage": "Sie wurden automatisch abgemeldet. Bitte melden Sie sich erneut an.",
+  "ok": "OK"
 }

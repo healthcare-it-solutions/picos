@@ -140,6 +140,21 @@ class Backend {
     return response;
   }
 
+  /// Updates one possible object from a [table].
+  static Future<ParseResponse> updateEntry(
+    String tableName,
+    String objectId,
+    Map<String, dynamic> changes,
+  ) async {
+    final ParseObject object = ParseObject(tableName)..objectId = objectId;
+
+    changes.forEach((String key, dynamic value) {
+      object.set(key, value);
+    });
+
+    return await object.save();
+  }
+
   /// Calls the [endpoint].
   static Future<List<dynamic>> callEndpoint(
     String endpoint, [
@@ -177,13 +192,13 @@ class Backend {
 
     if (object.objectId == null && acl == null) {
       acl = BackendACL();
-      acl.setDefault();  
+      acl.setDefault();
     }
 
     if (acl != null) {
       parseObject.setACL(acl.acl);
     }
-    
+
     if (object.objectId != null) {
       parseObject.objectId = object.objectId;
     }
