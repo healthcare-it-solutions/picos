@@ -37,6 +37,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  Future<void>? _fetchPatientFuture;
+
   Patient? _patient;
   final String _form = 'Form';
   final String _firstName = 'Firstname';
@@ -203,13 +205,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    _fetchPatient();
+    _fetchPatientFuture = _fetchPatient();
   }
+
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<void>(
-      future: _fetchPatient(),
+      future: _fetchPatientFuture,
       builder: (
         BuildContext context,
         AsyncSnapshot<void> snapshot,
@@ -281,7 +284,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 PicosInkWellButton(
                   text: AppLocalizations.of(context)!.changePassword,
                   disabled: disabled,
-                  //onTap: () => _updateField('password', newPassword.text),
                   onTap: _changePassword,
                 ),
                 errorMessage.isNotEmpty
