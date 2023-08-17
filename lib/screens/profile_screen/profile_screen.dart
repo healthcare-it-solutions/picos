@@ -62,10 +62,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   bool _isStrongPassword(String password) {
     return password.length >= 8 &&
-        password.contains(RegExp(r'[a-z]')) &&
-        password.contains(RegExp(r'[A-Z]')) &&
-        password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]')) &&
-        password.contains(RegExp(r'[0-9]'));
+        password.contains(RegExp('[a-z]')) &&
+        password.contains(RegExp('[A-Z]')) &&
+        password.contains(RegExp('[!"#\$%&\'()*+,-./:;<=>?@[\\]^_`{|}~]')) &&
+        password.contains(RegExp('[0-9]'));
   }
 
   Future<void> _changePassword() async {
@@ -210,11 +210,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
       }
     }
 
-    addressController.text = _patient?.address ?? '';
-    firstNameController.text = _patient?.firstName ?? '';
-    lastNameController.text = _patient?.familyName ?? '';
-    phoneController.text = _patient?.number ?? '';
-    emailController.text = _patient?.email ?? '';
+    setState(() {
+      addressController.text = _patient?.address ?? '';
+      firstNameController.text = _patient?.firstName ?? '';
+      lastNameController.text = _patient?.familyName ?? '';
+      phoneController.text = _patient?.number ?? '';
+      emailController.text = _patient?.email ?? '';
+    });
   }
 
   @override
