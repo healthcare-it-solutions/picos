@@ -140,18 +140,6 @@ class Backend {
     return response;
   }
 
-  ///
-  static Future<dynamic> getEntryDirect(
-    String table,
-    String objectId,
-    String targetField,
-  ) async {
-    ParseObject object = ParseObject(table)..objectId = objectId;
-    ParseObject? fetchedObject = await object.fetch();
-
-    return fetchedObject.get(targetField);
-  }
-
   /// Updates one possible object from a [table].
   static Future<ParseResponse> updateEntry(
     String tableName,
