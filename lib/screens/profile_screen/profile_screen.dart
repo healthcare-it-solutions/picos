@@ -179,7 +179,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Backend.user.objectId!,
       );
 
-      dynamic element = responsePatient.results?[0];
+      dynamic element = responsePatient.results?.first;
       if (element != null) {
         _patient = Patient(
           firstName: element[_firstName] ?? '',
@@ -208,7 +208,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _fetchPatientFuture = _fetchPatient();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<void>(
@@ -217,11 +216,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         BuildContext context,
         AsyncSnapshot<void> snapshot,
       ) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        }
         return PicosScreenFrame(
           title: AppLocalizations.of(context)!.myProfile,
           body: PicosBody(
