@@ -37,8 +37,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  Future<void>? _fetchPatientFuture;
-
   Patient? _patient;
   final String _form = 'Form';
   final String _firstName = 'Firstname';
@@ -163,7 +161,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _setSuccessMessage(
         AppLocalizations.of(context)!.updateSuccess,
       );
-      await _fetchPatient();
+
+      _patient = Patient(
+        firstName: changes[_firstName] ?? _patient!.firstName,
+        familyName: changes[_lastName] ?? _patient!.familyName,
+        email: changes[_eMail] ?? _patient!.email,
+        number: changes[_phoneNumber] ?? _patient!.number,
+        address: changes[_address] ?? _patient!.address,
+        formOfAddress: _patient!.formOfAddress,
+        objectId: _patient!.objectId,
+        createdAt: _patient!.createdAt,
+        updatedAt: DateTime.now(),
+      );
+      PatientCache().patient = _patient;
     }
   }
 
@@ -172,26 +182,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> _fetchPatient() async {
-    if (Backend.user.objectId != null) {
-      ParseResponse responsePatient = await Backend.getEntry(
-        Patient.databaseTable,
-        _objectId,
-        Backend.user.objectId!,
-      );
-
-      dynamic element = responsePatient.results?.first;
-      if (element != null) {
-        _patient = Patient(
-          firstName: element[_firstName] ?? '',
-          familyName: element[_lastName] ?? '',
-          email: element[_eMail] ?? '',
-          number: element[_phoneNumber] ?? '',
-          address: element[_address] ?? '',
-          formOfAddress: element[_form] ?? '',
-          objectId: element[_objectId],
-          createdAt: element['createdAt'],
-          updatedAt: element['updatedAt'],
+    if (PatientCache().patient != null) {
+      _patient = PatientCache().patient;
+    } else {
+      if (Backend.user.objectId != null) {
+        ParseResponse responsePatient = await Backend.getEntry(
+          Patient.databaseTable,
+          _objectId,
+          Backend.user.objectId!,
         );
+
+        dynamic element = responsePatient.results?.first;
+        if (element != null) {
+          _patient = Patient(
+            firstName: element[_firstName] ?? '',
+            familyName: element[_lastName] ?? '',
+            email: element[_eMail] ?? '',
+            number: element[_phoneNumber] ?? '',
+            address: element[_address] ?? '',
+            formOfAddress: element[_form] ?? '',
+            objectId: element[_objectId],
+            createdAt: element['createdAt'],
+            updatedAt: element['updatedAt'],
+          );
+          PatientCache().patient = _patient;
+        }
       }
     }
 
@@ -205,97 +220,108 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    _fetchPatientFuture = _fetchPatient();
+    _fetchPatient();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<void>(
-      future: _fetchPatientFuture,
-      builder: (
-        BuildContext context,
-        AsyncSnapshot<void> snapshot,
-      ) {
-        return PicosScreenFrame(
-          title: AppLocalizations.of(context)!.myProfile,
-          body: PicosBody(
-            child: Column(
-              children: <Widget>[
-                PicosLabel(AppLocalizations.of(context)!.firstName),
-                PicosTextField(controller: firstNameController),
-                PicosInkWellButton(
-                  text: AppLocalizations.of(context)!.changeFirstname,
-                  disabled: disabled,
-                  onTap: () =>
-                      _updateField(_firstName, firstNameController.text),
-                ),
-                PicosLabel(AppLocalizations.of(context)!.familyName),
-                PicosTextField(controller: lastNameController),
-                PicosInkWellButton(
-                  text: AppLocalizations.of(context)!.changeLastname,
-                  disabled: disabled,
-                  onTap: () => _updateField(_lastName, lastNameController.text),
-                ),
-                PicosLabel(AppLocalizations.of(context)!.email),
-                PicosTextField(
-                  keyboardType: TextInputType.emailAddress,
-                  controller: emailController,
-                ),
-                PicosInkWellButton(
-                  text: AppLocalizations.of(context)!.changeEmail,
-                  disabled: disabled,
-                  onTap: () => _updateField(_eMail, emailController.text),
-                ),
-                PicosLabel(AppLocalizations.of(context)!.phoneNumber),
-                PicosTextField(
-                  keyboardType: TextInputType.phone,
-                  controller: phoneController,
-                ),
-                PicosInkWellButton(
-                  text: AppLocalizations.of(context)!.changePhoneNumber,
-                  disabled: disabled,
-                  onTap: () => _updateField(_phoneNumber, phoneController.text),
-                ),
-                PicosLabel(AppLocalizations.of(context)!.address),
-                PicosTextField(controller: addressController),
-                PicosInkWellButton(
-                  text: AppLocalizations.of(context)!.changeAddress,
-                  disabled: disabled,
-                  onTap: () => _updateField(_address, addressController.text),
-                ),
-                PicosLabel(AppLocalizations.of(context)!.newPassword),
-                PicosTextField(
-                  keyboardType: TextInputType.visiblePassword,
-                  obscureText: true,
-                  controller: newPassword,
-                ),
-                PicosLabel(AppLocalizations.of(context)!.newPasswordRepeat),
-                PicosTextField(
-                  keyboardType: TextInputType.visiblePassword,
-                  obscureText: true,
-                  controller: newPasswordRepeat,
-                ),
-                PicosInkWellButton(
-                  text: AppLocalizations.of(context)!.changePassword,
-                  disabled: disabled,
-                  onTap: _changePassword,
-                ),
-                errorMessage.isNotEmpty
-                    ? Text(
-                        errorMessage,
-                        style: const TextStyle(color: Color(0xFFe63329)),
-                      )
-                    : successMessage.isNotEmpty
-                        ? Text(
-                            successMessage,
-                            style: const TextStyle(color: Colors.lightGreen),
-                          )
-                        : const Text(' '),
-              ],
+    if (_patient == null) {
+      return const CircularProgressIndicator();
+    }
+    return PicosScreenFrame(
+      title: AppLocalizations.of(context)!.myProfile,
+      body: PicosBody(
+        child: Column(
+          children: <Widget>[
+            PicosLabel(AppLocalizations.of(context)!.firstName),
+            PicosTextField(controller: firstNameController),
+            PicosInkWellButton(
+              text: AppLocalizations.of(context)!.changeFirstname,
+              disabled: disabled,
+              onTap: () => _updateField(_firstName, firstNameController.text),
             ),
-          ),
-        );
-      },
+            PicosLabel(AppLocalizations.of(context)!.familyName),
+            PicosTextField(controller: lastNameController),
+            PicosInkWellButton(
+              text: AppLocalizations.of(context)!.changeLastname,
+              disabled: disabled,
+              onTap: () => _updateField(_lastName, lastNameController.text),
+            ),
+            PicosLabel(AppLocalizations.of(context)!.email),
+            PicosTextField(
+              keyboardType: TextInputType.emailAddress,
+              controller: emailController,
+            ),
+            PicosInkWellButton(
+              text: AppLocalizations.of(context)!.changeEmail,
+              disabled: disabled,
+              onTap: () => _updateField(_eMail, emailController.text),
+            ),
+            PicosLabel(AppLocalizations.of(context)!.phoneNumber),
+            PicosTextField(
+              keyboardType: TextInputType.phone,
+              controller: phoneController,
+            ),
+            PicosInkWellButton(
+              text: AppLocalizations.of(context)!.changePhoneNumber,
+              disabled: disabled,
+              onTap: () => _updateField(_phoneNumber, phoneController.text),
+            ),
+            PicosLabel(AppLocalizations.of(context)!.address),
+            PicosTextField(controller: addressController),
+            PicosInkWellButton(
+              text: AppLocalizations.of(context)!.changeAddress,
+              disabled: disabled,
+              onTap: () => _updateField(_address, addressController.text),
+            ),
+            PicosLabel(AppLocalizations.of(context)!.newPassword),
+            PicosTextField(
+              keyboardType: TextInputType.visiblePassword,
+              obscureText: true,
+              controller: newPassword,
+            ),
+            PicosLabel(AppLocalizations.of(context)!.newPasswordRepeat),
+            PicosTextField(
+              keyboardType: TextInputType.visiblePassword,
+              obscureText: true,
+              controller: newPasswordRepeat,
+            ),
+            PicosInkWellButton(
+              text: AppLocalizations.of(context)!.changePassword,
+              disabled: disabled,
+              onTap: _changePassword,
+            ),
+            errorMessage.isNotEmpty
+                ? Text(
+                    errorMessage,
+                    style: const TextStyle(color: Color(0xFFe63329)),
+                  )
+                : successMessage.isNotEmpty
+                    ? Text(
+                        successMessage,
+                        style: const TextStyle(color: Colors.lightGreen),
+                      )
+                    : const Text(' '),
+          ],
+        ),
+      ),
     );
   }
+}
+
+/// A singleton class to cache the patient data.
+class PatientCache {
+  // Private constructor to prevent direct instantiation from outside.
+  PatientCache._internal();
+
+  /// Factory constructor that returns the singleton instance of PatientCache.
+  factory PatientCache() {
+    return _singleton;
+  }
+
+  // The singleton instance of the PatientCache.
+  static final PatientCache _singleton = PatientCache._internal();
+
+  /// The cached patient data.
+  Patient? patient;
 }
