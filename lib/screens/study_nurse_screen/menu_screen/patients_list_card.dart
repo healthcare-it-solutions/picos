@@ -45,7 +45,6 @@ class PatientsListCard extends StatelessWidget {
           arguments: _patientsListElement,
         );
       },
-      //delete: () => _deletePatient(context),
       child: Row(
         children: <Expanded>[
           Expanded(
