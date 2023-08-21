@@ -39,6 +39,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   Patient? _patient;
+  static const String _password = 'password';
   static const String _form = 'Form';
   static const String _firstName = 'Firstname';
   static const String _lastName = 'Lastname';
@@ -47,8 +48,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   static const String _address = 'Address';
   static const String _objectId = 'objectId';
 
-  String errorMessage = '';
-  String successMessage = '';
+  Map<String, String> errorMessages = <String, String>{};
+  Map<String, String> successMessages = <String, String>{};
 
   final TextEditingController addressController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
@@ -89,7 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     if (newPassword.text.isEmpty || newPasswordRepeat.text.isEmpty) {
       _setErrorMessage(
-        '_password',
+        _password,
         AppLocalizations.of(context)!.allFieldsMustbeFilled,
       );
       return;
@@ -97,7 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     if (newPassword.text != newPasswordRepeat.text) {
       _setErrorMessage(
-        '_password',
+        _password,
         AppLocalizations.of(context)!.passwordMismatchErrorMessage,
       );
       return;
@@ -105,7 +106,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     if (!_isStrongPassword(newPassword.text)) {
       _setErrorMessage(
-        '_password',
+        _password,
         AppLocalizations.of(context)!.strongPassword,
       );
       return;
@@ -139,89 +140,51 @@ class _ProfileScreenState extends State<ProfileScreen> {
         },
       );
       _setSuccessMessage(
-        '_password',
+        _password,
         AppLocalizations.of(context)!.passwordChangeSuccessful,
       );
     } else {
       _setErrorMessage(
-        '_password',
+        _password,
         AppLocalizations.of(context)!.passwordSavedFailureMessage,
       );
     }
   }
 
-  void _setErrorMessage(String field, String message) {
+  void _setMessage(Map<String, String> map, String field, String message) {
     setState(() {
-      switch (field) {
-        case _form:
-          titleSuccessMessage = '';
-          break;
-        case _firstName:
-          firstNameErrorMessage = message;
-          firstNameSuccessMessage = '';
-          break;
-        case _lastName:
-          lastNameErrorMessage = message;
-          lastNameSuccessMessage = '';
-          break;
-        case _eMail:
-          emailErrorMessage = message;
-          emailSuccessMessage = '';
-          break;
-        case _phoneNumber:
-          phoneErrorMessage = message;
-          phoneSuccessMessage = '';
-          break;
-        case _address:
-          addressErrorMessage = message;
-          addressSuccessMessage = '';
-          break;
-        case '_password':
-          passwordErrorMessage = message;
-          passwordSuccessMessage = '';
-          break;
-        default:
-          break;
+      map[field] = message;
+      if (map == errorMessages) {
+        successMessages[field] = '';
+      } else {
+        errorMessages[field] = '';
       }
       disabled = false;
     });
   }
 
+  void _setErrorMessage(String field, String message) {
+    _setMessage(errorMessages, field, message);
+  }
+
   void _setSuccessMessage(String field, String message) {
-    setState(() {
-      switch (field) {
-        case _form:
-          titleSuccessMessage = message;
-          break;
-        case _firstName:
-          firstNameSuccessMessage = message;
-          firstNameErrorMessage = '';
-          break;
-        case _lastName:
-          lastNameSuccessMessage = message;
-          lastNameErrorMessage = '';
-          break;
-        case _eMail:
-          emailSuccessMessage = message;
-          emailErrorMessage = '';
-          break;
-        case _phoneNumber:
-          phoneSuccessMessage = message;
-          phoneErrorMessage = '';
-          break;
-        case _address:
-          addressSuccessMessage = message;
-          addressErrorMessage = '';
-          break;
-        case '_password':
-          passwordSuccessMessage = message;
-          passwordErrorMessage = '';
-          break;
-        default:
-          break;
-      }
-      disabled = false;
-    });
+    _setMessage(successMessages, field, message);
+  }
+
+  Widget _getMessageText(String field) {
+    if (errorMessages.containsKey(field) && errorMessages[field]!.isNotEmpty) {
+      return Text(
+        errorMessages[field]!,
+        style: const TextStyle(color: Color(0xFFe63329)),
+      );
+    } else if (successMessages.containsKey(field) &&
+        successMessages[field]!.isNotEmpty) {
+      return Text(
+        successMessages[field]!,
+        style: const TextStyle(color: Colors.lightGreen),
+      );
+    }
+    return const Text(' ');
   }
 
   Future<void> _updatePatient(Map<String, dynamic> changes) async {
@@ -418,12 +381,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               onTap: () =>
                   _updateField(_form, selectedFormOfAddress.toString()),
             ),
-            titleSuccessMessage.isNotEmpty
-                ? Text(
-                    titleSuccessMessage,
-                    style: const TextStyle(color: Colors.lightGreen),
-                  )
-                : const Text(' '),
+            _getMessageText(_form),
             // Restliche Felder
             PicosLabel(AppLocalizations.of(context)!.firstName),
             PicosTextField(controller: firstNameController),
@@ -432,17 +390,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               disabled: disabled,
               onTap: () => _updateField(_firstName, firstNameController.text),
             ),
-            firstNameErrorMessage.isNotEmpty
-                ? Text(
-                    firstNameErrorMessage,
-                    style: const TextStyle(color: Color(0xFFe63329)),
-                  )
-                : firstNameSuccessMessage.isNotEmpty
-                    ? Text(
-                        firstNameSuccessMessage,
-                        style: const TextStyle(color: Colors.lightGreen),
-                      )
-                    : const Text(' '),
+            _getMessageText(_firstName),
             PicosLabel(AppLocalizations.of(context)!.familyName),
             PicosTextField(controller: lastNameController),
             PicosInkWellButton(
@@ -450,17 +398,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               disabled: disabled,
               onTap: () => _updateField(_lastName, lastNameController.text),
             ),
-            lastNameErrorMessage.isNotEmpty
-                ? Text(
-                    lastNameErrorMessage,
-                    style: const TextStyle(color: Color(0xFFe63329)),
-                  )
-                : lastNameSuccessMessage.isNotEmpty
-                    ? Text(
-                        lastNameSuccessMessage,
-                        style: const TextStyle(color: Colors.lightGreen),
-                      )
-                    : const Text(' '),
+            _getMessageText(_lastName),
             PicosLabel(AppLocalizations.of(context)!.email),
             PicosTextField(
               keyboardType: TextInputType.emailAddress,
@@ -471,17 +409,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               disabled: disabled,
               onTap: () => _updateField(_eMail, emailController.text),
             ),
-            emailErrorMessage.isNotEmpty
-                ? Text(
-                    emailErrorMessage,
-                    style: const TextStyle(color: Color(0xFFe63329)),
-                  )
-                : emailSuccessMessage.isNotEmpty
-                    ? Text(
-                        emailSuccessMessage,
-                        style: const TextStyle(color: Colors.lightGreen),
-                      )
-                    : const Text(' '),
+            _getMessageText(_eMail),
             PicosLabel(AppLocalizations.of(context)!.phoneNumber),
             PicosTextField(
               keyboardType: TextInputType.phone,
@@ -492,17 +420,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               disabled: disabled,
               onTap: () => _updateField(_phoneNumber, phoneController.text),
             ),
-            phoneErrorMessage.isNotEmpty
-                ? Text(
-                    phoneErrorMessage,
-                    style: const TextStyle(color: Color(0xFFe63329)),
-                  )
-                : phoneSuccessMessage.isNotEmpty
-                    ? Text(
-                        phoneSuccessMessage,
-                        style: const TextStyle(color: Colors.lightGreen),
-                      )
-                    : const Text(' '),
+            _getMessageText(_phoneNumber),
             PicosLabel(AppLocalizations.of(context)!.address),
             PicosTextField(controller: addressController),
             PicosInkWellButton(
@@ -510,17 +428,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               disabled: disabled,
               onTap: () => _updateField(_address, addressController.text),
             ),
-            addressErrorMessage.isNotEmpty
-                ? Text(
-                    addressErrorMessage,
-                    style: const TextStyle(color: Color(0xFFe63329)),
-                  )
-                : addressSuccessMessage.isNotEmpty
-                    ? Text(
-                        addressSuccessMessage,
-                        style: const TextStyle(color: Colors.lightGreen),
-                      )
-                    : const Text(' '),
+            _getMessageText(_address),
             PicosLabel(AppLocalizations.of(context)!.newPassword),
             PicosTextField(
               keyboardType: TextInputType.visiblePassword,
@@ -538,17 +446,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               disabled: disabled,
               onTap: _changePassword,
             ),
-            passwordErrorMessage.isNotEmpty
-                ? Text(
-                    passwordErrorMessage,
-                    style: const TextStyle(color: Color(0xFFe63329)),
-                  )
-                : passwordSuccessMessage.isNotEmpty
-                    ? Text(
-                        passwordSuccessMessage,
-                        style: const TextStyle(color: Colors.lightGreen),
-                      )
-                    : const Text(' '),
+            _getMessageText(_password),
           ],
         ),
       ),
