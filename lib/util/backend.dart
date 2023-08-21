@@ -128,16 +128,35 @@ class Backend {
   }
 
   /// Retrieves one possible object from a [table].
+
   static Future<dynamic> getEntry(
     String table,
     String column,
     String row,
   ) async {
+    //final ParseResponse apiResponse = await ParseObject(table).getObject(row);
+//
+    //if (apiResponse.success && apiResponse.results != null) {
+    //  for (dynamic o in apiResponse.results!) {
+    //    final ParseObject object = o as ParseObject;
+    //    print('${object.objectId} - ${object.get<String>('name')}');
+    //  }
+    //  return apiResponse;
+    //}
+
     QueryBuilder<ParseObject> queryBuilder =
-        QueryBuilder<ParseObject>(ParseObject(table));
-    queryBuilder.whereEqualTo(column, row);
-    ParseResponse response = await queryBuilder.query();
-    return response;
+        QueryBuilder<ParseObject>(ParseObject(table))
+          ..whereEqualTo(column, row);
+
+    return await queryBuilder.query();
+  }
+
+  ///
+  static Future<dynamic> getEntryDirect(
+    String table,
+    String objectId,
+  ) async {
+    return await ParseObject(table).getObject(objectId);
   }
 
   /// Updates one possible object from a [table].

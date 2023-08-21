@@ -181,18 +181,90 @@ class _ProfileScreenState extends State<ProfileScreen> {
     await _updatePatient(<String, dynamic>{fieldName: newValue});
   }
 
+  Future<Duration> measureExecutionTime(Future Function() function) async {
+    Stopwatch stopwatch = Stopwatch()..start();
+    await function();
+    stopwatch.stop();
+    return stopwatch.elapsed;
+  }
+
   Future<void> _fetchPatient() async {
     if (PatientCache().patient != null) {
       _patient = PatientCache().patient;
     } else {
       if (Backend.user.objectId != null) {
-        ParseResponse responsePatient = await Backend.getEntry(
+        List<dynamic> responsePatient1 =
+            await Backend.getAll(Patient.databaseTable);
+
+        String targetObjectId =
+            Backend.user.objectId!; // Die ObjectId, nach der du suchst
+
+        Patient targetPatient = responsePatient1.map((dynamic element) {
+          return Patient(
+            firstName: element[_firstName] ?? '',
+            familyName: element[_lastName] ?? '',
+            email: element[_eMail] ?? '',
+            number: element[_phoneNumber] ?? '',
+            address: element[_address] ?? '',
+            formOfAddress: element[_form] ?? '',
+            objectId: element[_objectId],
+            createdAt: DateTime.parse(element['createdAt']),
+            updatedAt: DateTime.parse(element['updatedAt']),
+          );
+        }).firstWhere((Patient patient) => patient.objectId == targetObjectId);
+
+        ParseResponse responsePatient2 = await Backend.getEntry(
           Patient.databaseTable,
           _objectId,
           Backend.user.objectId!,
         );
 
-        dynamic element = responsePatient.results?.first;
+        dynamic responsePatient3 = await Backend.getEntryDirect(
+          Patient.databaseTable,
+          Backend.user.objectId!,
+        );
+
+        Duration durationPatient1 = await measureExecutionTime(() async {
+          String targetObjectId =
+          Backend.user.objectId!; // Die ObjectId, nach der du suchst
+
+          Patient targetPatient = responsePatient1.map((dynamic element) {
+            return Patient(
+              firstName: element[_firstName] ?? '',
+              familyName: element[_lastName] ?? '',
+              email: element[_eMail] ?? '',
+              number: element[_phoneNumber] ?? '',
+              address: element[_address] ?? '',
+              formOfAddress: element[_form] ?? '',
+              objectId: element[_objectId],
+              createdAt: DateTime.parse(element['createdAt']),
+              updatedAt: DateTime.parse(element['updatedAt']),
+            );
+          }).firstWhere((Patient patient) => patient.objectId == targetObjectId);
+        });
+        print(
+            'Time taken for Backend.getAll: ${durationPatient1.inMilliseconds}ms');
+
+        Duration durationPatient2 = await measureExecutionTime(() async {
+          await Backend.getEntry(
+            Patient.databaseTable,
+            _objectId,
+            Backend.user.objectId!,
+          );
+        });
+        print(
+            'Time taken for Backend.getEntry: ${durationPatient2.inMilliseconds}ms');
+
+        Duration durationPatient3 = await measureExecutionTime(() async {
+          await Backend.getEntryDirect(
+            Patient.databaseTable,
+            Backend.user.objectId!,
+          );
+        });
+        print(
+            'Time taken for Backend.getEntryDirect: ${durationPatient3.inMilliseconds}ms');
+
+        dynamic element = responsePatient3.results?.first;
         if (element != null) {
           _patient = Patient(
             firstName: element[_firstName] ?? '',
@@ -228,7 +300,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     if (_patient == null) {
-      return const CircularProgressIndicator();
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
     }
     return PicosScreenFrame(
       title: AppLocalizations.of(context)!.myProfile,
