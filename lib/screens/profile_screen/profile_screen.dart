@@ -173,7 +173,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         createdAt: _patient!.createdAt,
         updatedAt: DateTime.now(),
       );
-      PatientCache().patient = _patient;
     }
   }
 
@@ -182,9 +181,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> _fetchPatient() async {
-    if (PatientCache().patient != null) {
-      _patient = PatientCache().patient;
-    } else {
+
       if (Backend.user.objectId != null) {
         List<dynamic> responsePatient1 =
             await Backend.getAll(Patient.databaseTable);
@@ -204,9 +201,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             updatedAt: DateTime.parse(element['updatedAt']),
           );
         }).firstWhere((Patient patient) => patient.objectId == targetObjectId);
-        PatientCache().patient = _patient;
+
       }
-    }
+
 
     setState(() {
       addressController.text = _patient?.address ?? '';
@@ -309,21 +306,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
-}
-
-/// A singleton class to cache the patient data.
-class PatientCache {
-  // Private constructor to prevent direct instantiation from outside.
-  PatientCache._internal();
-
-  /// Factory constructor that returns the singleton instance of PatientCache.
-  factory PatientCache() {
-    return _singleton;
-  }
-
-  // The singleton instance of the PatientCache.
-  static final PatientCache _singleton = PatientCache._internal();
-
-  /// The cached patient data.
-  Patient? patient;
 }
