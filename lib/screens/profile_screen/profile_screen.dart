@@ -26,6 +26,7 @@ import 'package:picos/widgets/picos_text_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../models/patient.dart';
+import '../../widgets/picos_form_of_address.dart';
 
 /// This is the screen for the user's profile information.
 class ProfileScreen extends StatefulWidget {
@@ -38,27 +39,42 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   Patient? _patient;
-  final String _form = 'Form';
-  final String _firstName = 'Firstname';
-  final String _lastName = 'Lastname';
-  final String _eMail = 'email';
-  final String _phoneNumber = 'PhoneNo';
-  final String _address = 'Address';
-  final String _objectId = 'objectId';
+  static const String _form = 'Form';
+  static const String _firstName = 'Firstname';
+  static const String _lastName = 'Lastname';
+  static const String _eMail = 'email';
+  static const String _phoneNumber = 'PhoneNo';
+  static const String _address = 'Address';
+  static const String _objectId = 'objectId';
 
   String errorMessage = '';
   String successMessage = '';
 
-  TextEditingController addressController = TextEditingController();
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-
-  TextEditingController newPassword = TextEditingController(text: '');
-  TextEditingController newPasswordRepeat = TextEditingController(text: '');
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController newPassword = TextEditingController();
+  final TextEditingController newPasswordRepeat = TextEditingController();
 
   bool disabled = false;
+
+  FormOfAddress selectedFormOfAddress = FormOfAddress.female;
+
+  String titleSuccessMessage = '';
+  String firstNameErrorMessage = '';
+  String firstNameSuccessMessage = '';
+  String lastNameErrorMessage = '';
+  String lastNameSuccessMessage = '';
+  String emailErrorMessage = '';
+  String emailSuccessMessage = '';
+  String phoneErrorMessage = '';
+  String phoneSuccessMessage = '';
+  String addressErrorMessage = '';
+  String addressSuccessMessage = '';
+  String passwordErrorMessage = '';
+  String passwordSuccessMessage = '';
 
   bool _isStrongPassword(String password) {
     return password.length >= 8 &&
@@ -72,19 +88,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ParseUser currentUser = Backend.user;
 
     if (newPassword.text.isEmpty || newPasswordRepeat.text.isEmpty) {
-      _setErrorMessage(AppLocalizations.of(context)!.allFieldsMustbeFilled);
+      _setErrorMessage(
+        '_password',
+        AppLocalizations.of(context)!.allFieldsMustbeFilled,
+      );
       return;
     }
 
     if (newPassword.text != newPasswordRepeat.text) {
       _setErrorMessage(
+        '_password',
         AppLocalizations.of(context)!.passwordMismatchErrorMessage,
       );
       return;
     }
 
     if (!_isStrongPassword(newPassword.text)) {
-      _setErrorMessage(AppLocalizations.of(context)!.strongPassword);
+      _setErrorMessage(
+        '_password',
+        AppLocalizations.of(context)!.strongPassword,
+      );
       return;
     }
 
@@ -115,32 +138,97 @@ class _ProfileScreenState extends State<ProfileScreen> {
           );
         },
       );
+      _setSuccessMessage(
+        '_password',
+        AppLocalizations.of(context)!.passwordChangeSuccessful,
+      );
     } else {
       _setErrorMessage(
+        '_password',
         AppLocalizations.of(context)!.passwordSavedFailureMessage,
       );
     }
   }
 
-  void _setErrorMessage(String message) {
+  void _setErrorMessage(String field, String message) {
     setState(() {
-      errorMessage = message;
-      successMessage = '';
+      switch (field) {
+        case _form:
+          titleSuccessMessage = '';
+          break;
+        case _firstName:
+          firstNameErrorMessage = message;
+          firstNameSuccessMessage = '';
+          break;
+        case _lastName:
+          lastNameErrorMessage = message;
+          lastNameSuccessMessage = '';
+          break;
+        case _eMail:
+          emailErrorMessage = message;
+          emailSuccessMessage = '';
+          break;
+        case _phoneNumber:
+          phoneErrorMessage = message;
+          phoneSuccessMessage = '';
+          break;
+        case _address:
+          addressErrorMessage = message;
+          addressSuccessMessage = '';
+          break;
+        case '_password':
+          passwordErrorMessage = message;
+          passwordSuccessMessage = '';
+          break;
+        default:
+          break;
+      }
       disabled = false;
     });
   }
 
-  void _setSuccessMessage(String message) {
+  void _setSuccessMessage(String field, String message) {
     setState(() {
-      successMessage = message;
-      errorMessage = '';
+      switch (field) {
+        case _form:
+          titleSuccessMessage = message;
+          break;
+        case _firstName:
+          firstNameSuccessMessage = message;
+          firstNameErrorMessage = '';
+          break;
+        case _lastName:
+          lastNameSuccessMessage = message;
+          lastNameErrorMessage = '';
+          break;
+        case _eMail:
+          emailSuccessMessage = message;
+          emailErrorMessage = '';
+          break;
+        case _phoneNumber:
+          phoneSuccessMessage = message;
+          phoneErrorMessage = '';
+          break;
+        case _address:
+          addressSuccessMessage = message;
+          addressErrorMessage = '';
+          break;
+        case '_password':
+          passwordSuccessMessage = message;
+          passwordErrorMessage = '';
+          break;
+        default:
+          break;
+      }
       disabled = false;
     });
   }
 
   Future<void> _updatePatient(Map<String, dynamic> changes) async {
+    String? changedField = changes.keys.first;
     if (_patient == null) {
       _setErrorMessage(
+        changedField,
         AppLocalizations.of(context)!.unknownError,
       );
       return;
@@ -155,10 +243,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     if (!response.success) {
       _setErrorMessage(
+        changedField,
         AppLocalizations.of(context)!.updateFailed,
       );
     } else {
       _setSuccessMessage(
+        changedField,
         AppLocalizations.of(context)!.updateSuccess,
       );
 
@@ -168,7 +258,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         email: changes[_eMail] ?? _patient!.email,
         number: changes[_phoneNumber] ?? _patient!.number,
         address: changes[_address] ?? _patient!.address,
-        formOfAddress: _patient!.formOfAddress,
+        formOfAddress: changes[_form] ?? _patient!.formOfAddress,
         objectId: _patient!.objectId,
         createdAt: _patient!.createdAt,
         updatedAt: DateTime.now(),
@@ -176,42 +266,78 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+  String getEmptyMessage(String fieldName) {
+    switch (fieldName) {
+      case _firstName:
+        return AppLocalizations.of(context)!.entryFirstName;
+      case _lastName:
+        return AppLocalizations.of(context)!.entryFamilyName;
+      case _eMail:
+        return AppLocalizations.of(context)!.entryEmail;
+      case _phoneNumber:
+        return AppLocalizations.of(context)!.entryPhoneNumber;
+      case _address:
+        return AppLocalizations.of(context)!.entryAddress;
+      default:
+        return '';
+    }
+  }
+
   Future<void> _updateField(String fieldName, String newValue) async {
+    if (newValue.isEmpty) {
+      _setErrorMessage(
+        fieldName,
+        getEmptyMessage(fieldName),
+      );
+      return;
+    }
     await _updatePatient(<String, dynamic>{fieldName: newValue});
   }
 
   Future<void> _fetchPatient() async {
+    if (Backend.user.objectId != null) {
+      List<dynamic> responsePatient1 =
+          await Backend.getAll(Patient.databaseTable);
 
-      if (Backend.user.objectId != null) {
-        List<dynamic> responsePatient1 =
-            await Backend.getAll(Patient.databaseTable);
+      String targetObjectId = Backend.user.objectId!;
 
-        String targetObjectId = Backend.user.objectId!;
-
-        _patient = responsePatient1.map((dynamic element) {
-          return Patient(
-            firstName: element[_firstName] ?? '',
-            familyName: element[_lastName] ?? '',
-            email: element[_eMail] ?? '',
-            number: element[_phoneNumber] ?? '',
-            address: element[_address] ?? '',
-            formOfAddress: element[_form] ?? '',
-            objectId: element[_objectId],
-            createdAt: DateTime.parse(element['createdAt']),
-            updatedAt: DateTime.parse(element['updatedAt']),
-          );
-        }).firstWhere((Patient patient) => patient.objectId == targetObjectId);
-
-      }
-
+      _patient = responsePatient1.map((dynamic element) {
+        return Patient(
+          firstName: element[_firstName] ?? '',
+          familyName: element[_lastName] ?? '',
+          email: element[_eMail] ?? '',
+          number: element[_phoneNumber] ?? '',
+          address: element[_address] ?? '',
+          formOfAddress: element[_form] ?? selectedFormOfAddress.toString(),
+          objectId: element[_objectId],
+          createdAt: DateTime.parse(element['createdAt']),
+          updatedAt: DateTime.parse(element['updatedAt']),
+        );
+      }).firstWhere((Patient patient) => patient.objectId == targetObjectId);
+    }
 
     setState(() {
+      selectedFormOfAddress =
+          fromName(_patient?.formOfAddress) ?? selectedFormOfAddress;
       addressController.text = _patient?.address ?? '';
       firstNameController.text = _patient?.firstName ?? '';
       lastNameController.text = _patient?.familyName ?? '';
       phoneController.text = _patient?.number ?? '';
       emailController.text = _patient?.email ?? '';
     });
+  }
+
+  static FormOfAddress? fromName(String? name) {
+    switch (name) {
+      case 'FormOfAddress.female':
+        return FormOfAddress.female;
+      case 'FormOfAddress.male':
+        return FormOfAddress.male;
+      case 'FormOfAddress.diverse':
+        return FormOfAddress.diverse;
+      default:
+        return null;
+    }
   }
 
   @override
@@ -232,6 +358,73 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: PicosBody(
         child: Column(
           children: <Widget>[
+            PicosLabel(AppLocalizations.of(context)!.title),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Flexible(
+                  child: RadioListTile<FormOfAddress>(
+                    title: Text(
+                      AppLocalizations.of(context)!.mrs,
+                    ),
+                    value: FormOfAddress.female,
+                    groupValue: selectedFormOfAddress,
+                    onChanged: (FormOfAddress? value) {
+                      setState(() {
+                        selectedFormOfAddress = value!;
+                      });
+                    },
+                    contentPadding: EdgeInsets.zero,
+                    selected: false,
+                  ),
+                ),
+                Flexible(
+                  child: RadioListTile<FormOfAddress>(
+                    title: Text(
+                      AppLocalizations.of(context)!.mr,
+                    ),
+                    value: FormOfAddress.male,
+                    groupValue: selectedFormOfAddress,
+                    onChanged: (FormOfAddress? value) {
+                      setState(() {
+                        selectedFormOfAddress = value!;
+                      });
+                    },
+                    contentPadding: EdgeInsets.zero,
+                    selected: false,
+                  ),
+                ),
+                Flexible(
+                  child: RadioListTile<FormOfAddress>(
+                    title: Text(
+                      AppLocalizations.of(context)!.diverse,
+                    ),
+                    value: FormOfAddress.diverse,
+                    groupValue: selectedFormOfAddress,
+                    onChanged: (FormOfAddress? value) {
+                      setState(() {
+                        selectedFormOfAddress = value!;
+                      });
+                    },
+                    contentPadding: EdgeInsets.zero,
+                    selected: false,
+                  ),
+                ),
+              ],
+            ),
+            PicosInkWellButton(
+              text: AppLocalizations.of(context)!.changeTitle,
+              disabled: disabled,
+              onTap: () =>
+                  _updateField(_form, selectedFormOfAddress.toString()),
+            ),
+            titleSuccessMessage.isNotEmpty
+                ? Text(
+                    titleSuccessMessage,
+                    style: const TextStyle(color: Colors.lightGreen),
+                  )
+                : const Text(' '),
+            // Restliche Felder
             PicosLabel(AppLocalizations.of(context)!.firstName),
             PicosTextField(controller: firstNameController),
             PicosInkWellButton(
@@ -239,6 +432,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               disabled: disabled,
               onTap: () => _updateField(_firstName, firstNameController.text),
             ),
+            firstNameErrorMessage.isNotEmpty
+                ? Text(
+                    firstNameErrorMessage,
+                    style: const TextStyle(color: Color(0xFFe63329)),
+                  )
+                : firstNameSuccessMessage.isNotEmpty
+                    ? Text(
+                        firstNameSuccessMessage,
+                        style: const TextStyle(color: Colors.lightGreen),
+                      )
+                    : const Text(' '),
             PicosLabel(AppLocalizations.of(context)!.familyName),
             PicosTextField(controller: lastNameController),
             PicosInkWellButton(
@@ -246,6 +450,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               disabled: disabled,
               onTap: () => _updateField(_lastName, lastNameController.text),
             ),
+            lastNameErrorMessage.isNotEmpty
+                ? Text(
+                    lastNameErrorMessage,
+                    style: const TextStyle(color: Color(0xFFe63329)),
+                  )
+                : lastNameSuccessMessage.isNotEmpty
+                    ? Text(
+                        lastNameSuccessMessage,
+                        style: const TextStyle(color: Colors.lightGreen),
+                      )
+                    : const Text(' '),
             PicosLabel(AppLocalizations.of(context)!.email),
             PicosTextField(
               keyboardType: TextInputType.emailAddress,
@@ -256,6 +471,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               disabled: disabled,
               onTap: () => _updateField(_eMail, emailController.text),
             ),
+            emailErrorMessage.isNotEmpty
+                ? Text(
+                    emailErrorMessage,
+                    style: const TextStyle(color: Color(0xFFe63329)),
+                  )
+                : emailSuccessMessage.isNotEmpty
+                    ? Text(
+                        emailSuccessMessage,
+                        style: const TextStyle(color: Colors.lightGreen),
+                      )
+                    : const Text(' '),
             PicosLabel(AppLocalizations.of(context)!.phoneNumber),
             PicosTextField(
               keyboardType: TextInputType.phone,
@@ -266,6 +492,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               disabled: disabled,
               onTap: () => _updateField(_phoneNumber, phoneController.text),
             ),
+            phoneErrorMessage.isNotEmpty
+                ? Text(
+                    phoneErrorMessage,
+                    style: const TextStyle(color: Color(0xFFe63329)),
+                  )
+                : phoneSuccessMessage.isNotEmpty
+                    ? Text(
+                        phoneSuccessMessage,
+                        style: const TextStyle(color: Colors.lightGreen),
+                      )
+                    : const Text(' '),
             PicosLabel(AppLocalizations.of(context)!.address),
             PicosTextField(controller: addressController),
             PicosInkWellButton(
@@ -273,6 +510,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               disabled: disabled,
               onTap: () => _updateField(_address, addressController.text),
             ),
+            addressErrorMessage.isNotEmpty
+                ? Text(
+                    addressErrorMessage,
+                    style: const TextStyle(color: Color(0xFFe63329)),
+                  )
+                : addressSuccessMessage.isNotEmpty
+                    ? Text(
+                        addressSuccessMessage,
+                        style: const TextStyle(color: Colors.lightGreen),
+                      )
+                    : const Text(' '),
             PicosLabel(AppLocalizations.of(context)!.newPassword),
             PicosTextField(
               keyboardType: TextInputType.visiblePassword,
@@ -290,14 +538,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               disabled: disabled,
               onTap: _changePassword,
             ),
-            errorMessage.isNotEmpty
+            passwordErrorMessage.isNotEmpty
                 ? Text(
-                    errorMessage,
+                    passwordErrorMessage,
                     style: const TextStyle(color: Color(0xFFe63329)),
                   )
-                : successMessage.isNotEmpty
+                : passwordSuccessMessage.isNotEmpty
                     ? Text(
-                        successMessage,
+                        passwordSuccessMessage,
                         style: const TextStyle(color: Colors.lightGreen),
                       )
                     : const Text(' '),

@@ -342,6 +342,7 @@
   "strongPassword": "Ihr Passwort muss aus Groß-, Kleinbuchstaben, Sonderzeichen, Zahlen und insgesamt aus mindestens 8 Zeichen bestehen!",
   "passwordSavedFailureMessage": "Neues Passwort konnte nicht gespeichert werden!",
   "allFieldsMustbeFilled": "Alle Felder müssen ausgefüllt sein!",
+  "changeTitle":"Anrede ändern",
   "changeFirstname": "Vorname ändern",
   "changeLastname": "Nachname ändern",
   "changeAddress": "Adresse ändern",

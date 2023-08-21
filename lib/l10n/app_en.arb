@@ -1371,6 +1371,10 @@
   "@allFieldsMustbeFilled": {
     "description": "All fields must be filled!"
   },
+  "changeTitle": "Change title",
+  "@changeTitle": {
+    "description": "Change title"
+  },
   "changeFirstname": "Change firstname",
   "@changeFirstname": {
     "description": "Change firstname"
