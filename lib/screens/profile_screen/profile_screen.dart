@@ -48,8 +48,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   static const String _address = 'Address';
   static const String _objectId = 'objectId';
 
-  Map<String, String> errorMessages = <String, String>{};
-  Map<String, String> successMessages = <String, String>{};
+  final Map<String, String> _errorMessages = <String, String>{};
+  final Map<String, String> _successMessages = <String, String>{};
 
   final TextEditingController addressController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
@@ -59,23 +59,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController newPassword = TextEditingController();
   final TextEditingController newPasswordRepeat = TextEditingController();
 
-  bool disabled = false;
-
+  bool _disabled = false;
   FormOfAddress selectedFormOfAddress = FormOfAddress.female;
 
-  String titleSuccessMessage = '';
-  String firstNameErrorMessage = '';
-  String firstNameSuccessMessage = '';
-  String lastNameErrorMessage = '';
-  String lastNameSuccessMessage = '';
-  String emailErrorMessage = '';
-  String emailSuccessMessage = '';
-  String phoneErrorMessage = '';
-  String phoneSuccessMessage = '';
-  String addressErrorMessage = '';
-  String addressSuccessMessage = '';
-  String passwordErrorMessage = '';
-  String passwordSuccessMessage = '';
+  @override
+  void initState() {
+    super.initState();
+    _fetchPatient();
+  }
 
   bool _isStrongPassword(String password) {
     return password.length >= 8 &&
@@ -114,7 +105,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     currentUser.password = newPassword.text;
     setState(() {
-      disabled = true;
+      _disabled = true;
     });
 
     ParseResponse responseSaveNewPassword = await currentUser.save();
@@ -154,33 +145,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _setMessage(Map<String, String> map, String field, String message) {
     setState(() {
       map[field] = message;
-      if (map == errorMessages) {
-        successMessages[field] = '';
+      if (map == _errorMessages) {
+        _successMessages[field] = '';
       } else {
-        errorMessages[field] = '';
+        _errorMessages[field] = '';
       }
-      disabled = false;
+      _disabled = false;
     });
   }
 
   void _setErrorMessage(String field, String message) {
-    _setMessage(errorMessages, field, message);
+    _setMessage(_errorMessages, field, message);
   }
 
   void _setSuccessMessage(String field, String message) {
-    _setMessage(successMessages, field, message);
+    _setMessage(_successMessages, field, message);
   }
 
   Widget _getMessageText(String field) {
-    if (errorMessages.containsKey(field) && errorMessages[field]!.isNotEmpty) {
+    if (_errorMessages.containsKey(field) &&
+        _errorMessages[field]!.isNotEmpty) {
       return Text(
-        errorMessages[field]!,
+        _errorMessages[field]!,
         style: const TextStyle(color: Color(0xFFe63329)),
       );
-    } else if (successMessages.containsKey(field) &&
-        successMessages[field]!.isNotEmpty) {
+    } else if (_successMessages.containsKey(field) &&
+        _successMessages[field]!.isNotEmpty) {
       return Text(
-        successMessages[field]!,
+        _successMessages[field]!,
         style: const TextStyle(color: Colors.lightGreen),
       );
     }
@@ -229,7 +221,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
-  String getEmptyMessage(String fieldName) {
+  String _getEmptyMessage(String fieldName) {
     switch (fieldName) {
       case _firstName:
         return AppLocalizations.of(context)!.entryFirstName;
@@ -250,7 +242,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (newValue.isEmpty) {
       _setErrorMessage(
         fieldName,
-        getEmptyMessage(fieldName),
+        _getEmptyMessage(fieldName),
       );
       return;
     }
@@ -281,7 +273,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     setState(() {
       selectedFormOfAddress =
-          fromName(_patient?.formOfAddress) ?? selectedFormOfAddress;
+          _fromName(_patient?.formOfAddress) ?? selectedFormOfAddress;
       addressController.text = _patient?.address ?? '';
       firstNameController.text = _patient?.firstName ?? '';
       lastNameController.text = _patient?.familyName ?? '';
@@ -290,7 +282,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  static FormOfAddress? fromName(String? name) {
+  static FormOfAddress? _fromName(String? name) {
     switch (name) {
       case 'FormOfAddress.female':
         return FormOfAddress.female;
@@ -301,12 +293,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       default:
         return null;
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchPatient();
   }
 
   @override
@@ -377,7 +363,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             PicosInkWellButton(
               text: AppLocalizations.of(context)!.changeTitle,
-              disabled: disabled,
+              disabled: _disabled,
               onTap: () =>
                   _updateField(_form, selectedFormOfAddress.toString()),
             ),
@@ -387,7 +373,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             PicosTextField(controller: firstNameController),
             PicosInkWellButton(
               text: AppLocalizations.of(context)!.changeFirstname,
-              disabled: disabled,
+              disabled: _disabled,
               onTap: () => _updateField(_firstName, firstNameController.text),
             ),
             _getMessageText(_firstName),
@@ -395,7 +381,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             PicosTextField(controller: lastNameController),
             PicosInkWellButton(
               text: AppLocalizations.of(context)!.changeLastname,
-              disabled: disabled,
+              disabled: _disabled,
               onTap: () => _updateField(_lastName, lastNameController.text),
             ),
             _getMessageText(_lastName),
@@ -406,7 +392,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             PicosInkWellButton(
               text: AppLocalizations.of(context)!.changeEmail,
-              disabled: disabled,
+              disabled: _disabled,
               onTap: () => _updateField(_eMail, emailController.text),
             ),
             _getMessageText(_eMail),
@@ -417,7 +403,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             PicosInkWellButton(
               text: AppLocalizations.of(context)!.changePhoneNumber,
-              disabled: disabled,
+              disabled: _disabled,
               onTap: () => _updateField(_phoneNumber, phoneController.text),
             ),
             _getMessageText(_phoneNumber),
@@ -425,7 +411,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             PicosTextField(controller: addressController),
             PicosInkWellButton(
               text: AppLocalizations.of(context)!.changeAddress,
-              disabled: disabled,
+              disabled: _disabled,
               onTap: () => _updateField(_address, addressController.text),
             ),
             _getMessageText(_address),
@@ -443,7 +429,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             PicosInkWellButton(
               text: AppLocalizations.of(context)!.changePassword,
-              disabled: disabled,
+              disabled: _disabled,
               onTap: _changePassword,
             ),
             _getMessageText(_password),
