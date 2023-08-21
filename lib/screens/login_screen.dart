@@ -16,13 +16,14 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:picos/themes/global_theme.dart';
 import 'package:picos/util/backend.dart';
+import 'package:picos/util/flutter_secure_storage.dart';
 import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_text_field.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 ///Displays the login screen.
 class LoginScreen extends StatefulWidget {
@@ -40,6 +41,8 @@ class _LoginScreenState extends State<LoginScreen>
 
   final SecureStorage _secureStorage = SecureStorage();
 
+  bool _isChecked = false;
+
   BackendError? _backendError;
 
   bool _passwordVisible = false;
@@ -48,8 +51,14 @@ class _LoginScreenState extends State<LoginScreen>
   static const double _sponsorLogoPadding = 30;
 
   Future<void> fetchSecureStorageData() async {
+    String? valueIsChecked;
     _loginController.text = await _secureStorage.getUsername() ?? '';
     _passwordController.text = await _secureStorage.getPassword() ?? '';
+    valueIsChecked = await _secureStorage.getIsChecked() ?? '';
+
+    setState(() {
+      _isChecked = valueIsChecked == 'true';
+    });
   }
 
   Future<void> _submitHandler(
@@ -67,6 +76,12 @@ class _LoginScreenState extends State<LoginScreen>
       String route = await Backend.getRole();
       // This belongs here, because of context usage in async
       if (!mounted) return;
+      if (_isChecked) {
+        _secureStorage.setUsername(_loginController.text);
+        _secureStorage.setPassword(_passwordController.text);
+      } else {
+        _secureStorage.deleteAll();
+      }
       Navigator.of(con).pushReplacementNamed(route);
       return;
     }
@@ -96,6 +111,8 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   Widget build(BuildContext context) {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+    
     return PicosScreenFrame(
       body: Center(
         child: PicosBody(
@@ -168,6 +185,29 @@ class _LoginScreenState extends State<LoginScreen>
               ),
               SizedBox(
                 width: 200,
+                child: Row(
+                  children: <Widget>[
+                    const Text('Angemeldet bleiben?'),
+                    Expanded(
+                      child: Checkbox(
+                        value: _isChecked,
+                        checkColor: Colors.white,
+                        activeColor: theme.darkGreen1,
+                        onChanged: (bool? value) {
+                          setState(
+                            () {
+                              _isChecked = value!;
+                              _secureStorage.setIsChecked(_isChecked);
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                width: 200,
                 child: PicosInkWellButton(
                   disabled: _sendDisabled,
                   onTap: () {
@@ -176,42 +216,6 @@ class _LoginScreenState extends State<LoginScreen>
                       _passwordController.text,
                       context,
                     );
-
-                    if (!_sendDisabled) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text('Passwort speichern'),
-                            content: const Text(
-                              'Wollen Sie Ihre Zugangsdaten speichern?',
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                child: const Text('Speichern'),
-                                onPressed: () {
-                                  if (_secureStorage.getUsername().toString() !=
-                                      _loginController.text) {
-                                    _secureStorage
-                                        .setUsername(_loginController.text);
-                                    _secureStorage
-                                        .setPassword(_passwordController.text);
-                                  }
-
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              TextButton(
-                                child: const Text('Nein'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    }
                   },
                   text: AppLocalizations.of(context)!.submit,
                 ),
@@ -240,38 +244,5 @@ class _LoginScreenState extends State<LoginScreen>
         ),
       ),
     );
-  }
-}
-
-/// Class for flutter secure storage.
-class SecureStorage {
-  /// Creates the storage.
-  final FlutterSecureStorage storage = const FlutterSecureStorage(
-    aOptions: AndroidOptions(
-      encryptedSharedPreferences: true,
-    ),
-  );
-
-  final String _keyUsername = 'username';
-  final String _keyPassword = 'password';
-
-  /// Sets username.
-  Future<void> setUsername(String username) async {
-    await storage.write(key: _keyUsername, value: username);
-  }
-
-  /// Retrieves username.
-  Future<String?> getUsername() async {
-    return await storage.read(key: _keyUsername);
-  }
-
-  /// Sets password.
-  Future<void> setPassword(String password) async {
-    await storage.write(key: _keyPassword, value: password);
-  }
-
-  /// Retrieves password.
-  Future<String?> getPassword() async {
-    return await storage.read(key: _keyPassword);
   }
 }
