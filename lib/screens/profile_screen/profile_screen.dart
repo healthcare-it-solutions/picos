@@ -368,7 +368,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   _updateField(_form, selectedFormOfAddress.toString()),
             ),
             _getMessageText(_form),
-            // Restliche Felder
             PicosLabel(AppLocalizations.of(context)!.firstName),
             PicosTextField(controller: firstNameController),
             PicosInkWellButton(
