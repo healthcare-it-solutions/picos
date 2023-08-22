@@ -134,16 +134,6 @@ class Backend {
     String column,
     String row,
   ) async {
-    //final ParseResponse apiResponse = await ParseObject(table).getObject(row);
-//
-    //if (apiResponse.success && apiResponse.results != null) {
-    //  for (dynamic o in apiResponse.results!) {
-    //    final ParseObject object = o as ParseObject;
-    //    print('${object.objectId} - ${object.get<String>('name')}');
-    //  }
-    //  return apiResponse;
-    //}
-
     QueryBuilder<ParseObject> queryBuilder =
         QueryBuilder<ParseObject>(ParseObject(table))
           ..whereEqualTo(column, row);
