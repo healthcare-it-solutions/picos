@@ -273,7 +273,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     setState(() {
       selectedFormOfAddress =
-          _fromName(_patient?.formOfAddress) ?? selectedFormOfAddress;
+          _formOfAddressFromString(_patient?.formOfAddress) ??
+              selectedFormOfAddress;
       addressController.text = _patient?.address ?? '';
       firstNameController.text = _patient?.firstName ?? '';
       lastNameController.text = _patient?.familyName ?? '';
@@ -282,8 +283,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  static FormOfAddress? _fromName(String? name) {
-    switch (name) {
+  static FormOfAddress? _formOfAddressFromString(String? str) {
+    switch (str) {
       case 'FormOfAddress.female':
         return FormOfAddress.female;
       case 'FormOfAddress.male':
