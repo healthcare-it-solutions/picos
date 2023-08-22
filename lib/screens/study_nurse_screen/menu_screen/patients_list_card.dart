@@ -80,7 +80,7 @@ class PatientsListCard extends StatelessWidget {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

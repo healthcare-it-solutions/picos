@@ -48,7 +48,7 @@ class PicosNumberField extends StatelessWidget {
 
     if (digitsOnly) {
       inputFormatter = <TextInputFormatter>[
-        FilteringTextInputFormatter.digitsOnly
+        FilteringTextInputFormatter.digitsOnly,
       ];
     }
 

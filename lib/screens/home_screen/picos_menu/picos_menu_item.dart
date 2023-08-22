@@ -83,7 +83,7 @@ class PicosMenuItem extends StatelessWidget {
             ),
             const SizedBox(
               width: padding,
-            )
+            ),
           ],
         ),
       ),

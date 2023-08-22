@@ -212,7 +212,7 @@ class _BarChart extends StatelessWidget {
             BarChartRodData(
               toY: 8,
               gradient: _barsGradient,
-            )
+            ),
           ],
           showingTooltipIndicators: <int>[0],
         ),
@@ -222,7 +222,7 @@ class _BarChart extends StatelessWidget {
             BarChartRodData(
               toY: 10,
               gradient: _barsGradient,
-            )
+            ),
           ],
           showingTooltipIndicators: <int>[0],
         ),
@@ -232,7 +232,7 @@ class _BarChart extends StatelessWidget {
             BarChartRodData(
               toY: 14,
               gradient: _barsGradient,
-            )
+            ),
           ],
           showingTooltipIndicators: <int>[0],
         ),
@@ -242,7 +242,7 @@ class _BarChart extends StatelessWidget {
             BarChartRodData(
               toY: 15,
               gradient: _barsGradient,
-            )
+            ),
           ],
           showingTooltipIndicators: <int>[0],
         ),
@@ -252,7 +252,7 @@ class _BarChart extends StatelessWidget {
             BarChartRodData(
               toY: 13,
               gradient: _barsGradient,
-            )
+            ),
           ],
           showingTooltipIndicators: <int>[0],
         ),
@@ -262,7 +262,7 @@ class _BarChart extends StatelessWidget {
             BarChartRodData(
               toY: 10,
               gradient: _barsGradient,
-            )
+            ),
           ],
           showingTooltipIndicators: <int>[0],
         ),

@@ -139,7 +139,7 @@ class CatalogOfItemsElement extends AbstractDatabaseObject {
         respiratoryParameters!,
         bloodGasAnalysis!,
         laborParameters!,
-        movementData!
+        movementData!,
       ];
 
   @override

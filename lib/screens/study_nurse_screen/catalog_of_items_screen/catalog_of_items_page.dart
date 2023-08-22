@@ -53,7 +53,7 @@ class CatalogOfItemsPage extends StatelessWidget {
           label,
           Column(
             children: children ?? <Widget>[],
-          )
+          ),
         ],
       ),
     );

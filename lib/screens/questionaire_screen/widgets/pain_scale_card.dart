@@ -77,7 +77,7 @@ class _PainScaleCardState extends State<PainScaleCard> {
     '7': 7,
     '8': 8,
     '9': 9,
-    '10': 10
+    '10': 10,
   };
 
   final Map<int, String> _sourceEmojis = <int, String>{
@@ -91,7 +91,7 @@ class _PainScaleCardState extends State<PainScaleCard> {
     7: 'assets/painIcons/7_VeryIntense.png',
     8: 'assets/painIcons/8_UtterlyHorrible.png',
     9: 'assets/painIcons/9_ExcruciatingUnbearable.png',
-    10: 'assets/painIcons/10_UnimaginableUnspeakable.png'
+    10: 'assets/painIcons/10_UnimaginableUnspeakable.png',
   };
 
   int? groupValue;
