@@ -1370,5 +1370,9 @@
   "lungProtectiveVentilation70p": "Lung Protective Ventilation > 70%",
   "@lungProtectiveVentilation70p": {
     "description": "Lung Protective Ventilation > 70%"
+  },
+  "rememberMe": "Remember me?",
+  "@rememberMe": {
+    "description": "Remember me?"
   }
 }

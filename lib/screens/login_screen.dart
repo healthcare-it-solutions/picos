@@ -187,7 +187,7 @@ class _LoginScreenState extends State<LoginScreen>
                 width: 200,
                 child: Row(
                   children: <Widget>[
-                    const Text('Angemeldet bleiben?'),
+                    Text(AppLocalizations.of(context)!.rememberMe),
                     Expanded(
                       child: Checkbox(
                         value: _isChecked,
