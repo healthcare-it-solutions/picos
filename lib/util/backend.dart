@@ -128,7 +128,6 @@ class Backend {
   }
 
   /// Retrieves one possible object from a [table].
-
   static Future<dynamic> getEntry(
     String table,
     String column,
@@ -141,7 +140,7 @@ class Backend {
     return await queryBuilder.query();
   }
 
-  ///
+  /// Retrieves one possible object directly from a [table].
   static Future<dynamic> getEntryDirect(
     String table,
     String objectId,

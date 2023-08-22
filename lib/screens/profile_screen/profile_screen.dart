@@ -249,91 +249,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
     await _updatePatient(<String, dynamic>{fieldName: newValue});
   }
 
-  Future<void> measureTime() async {
-    DateTime start, end;
-
-    /// Measure time for getAll.
-    start = DateTime.now();
-    /// getAll.
-    List<dynamic> responsePatient1 =
-    await Backend.getAll(Patient.databaseTable);
-    _patient = responsePatient1.map((dynamic element) {
-      return Patient(
-        firstName: element[_firstName] ?? '',
-        familyName: element[_lastName] ?? '',
-        email: element[_eMail] ?? '',
-        number: element[_phoneNumber] ?? '',
-        address: element[_address] ?? '',
-        formOfAddress: element[_form] ?? selectedFormOfAddress.toString(),
-        objectId: element[_objectId],
-        createdAt: DateTime.parse(element['createdAt']),
-        updatedAt: DateTime.parse(element['updatedAt']),
-      );
-    }).firstWhere(
-          (Patient patient) => patient.objectId == Backend.user.objectId!,
-    );
-    end = DateTime.now();
-    print('Time taken for getAll: ${end.difference(start)}');
-
-    /// Measure time for getEntry.
-    start = DateTime.now();
-    /// getEntry.
-    ParseResponse responsePatient2 = await Backend.getEntry(
-      Patient.databaseTable,
-      _objectId,
-      Backend.user.objectId!,
-    );
-    dynamic element = responsePatient2.results?.first;
-    if (element != null) {
-      _patient = Patient(
-        firstName: element[_firstName] ?? '',
-        familyName: element[_lastName] ?? '',
-        email: element[_eMail] ?? '',
-        number: element[_phoneNumber] ?? '',
-        address: element[_address] ?? '',
-        formOfAddress: element[_form] ?? '',
-        objectId: element[_objectId],
-        createdAt: element['createdAt'],
-        updatedAt: element['updatedAt'],
-      );
-    }
-    end = DateTime.now();
-    print('Time taken for getEntry: ${end.difference(start)}');
-
-    /// Measure time for getEntryDirect.
-    start = DateTime.now();
-    /// getEntryDirect.
-    dynamic responsePatient3 = await Backend.getEntryDirect(
-      Patient.databaseTable,
-      Backend.user.objectId!,
-    );
-    dynamic element3 = responsePatient3.results?.first;
-    if (element3 != null) {
-      _patient = Patient(
-        firstName: element3[_firstName] ?? '',
-        familyName: element3[_lastName] ?? '',
-        email: element3[_eMail] ?? '',
-        number: element3[_phoneNumber] ?? '',
-        address: element3[_address] ?? '',
-        formOfAddress: element3[_form] ?? '',
-        objectId: element3[_objectId],
-        createdAt: element3['createdAt'],
-        updatedAt: element3['updatedAt'],
-      );
-    }
-    end = DateTime.now();
-    print('Time taken for getEntryDirect: ${end.difference(start)}');
-  }
-
-
   Future<void> _fetchPatient() async {
     if (Backend.user.objectId != null) {
-
-      measureTime();
-      List<dynamic> responsePatient1 =
-          await Backend.getAll(Patient.databaseTable);
-      _patient = responsePatient1.map((dynamic element) {
-        return Patient(
+      dynamic responsePatient = await Backend.getEntryDirect(
+        Patient.databaseTable,
+        Backend.user.objectId!,
+      );
+      dynamic element = responsePatient.results?.first;
+      if (element != null) {
+        _patient = Patient(
           firstName: element[_firstName] ?? '',
           familyName: element[_lastName] ?? '',
           email: element[_eMail] ?? '',
@@ -341,12 +265,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           address: element[_address] ?? '',
           formOfAddress: element[_form] ?? selectedFormOfAddress.toString(),
           objectId: element[_objectId],
-          createdAt: DateTime.parse(element['createdAt']),
-          updatedAt: DateTime.parse(element['updatedAt']),
+          createdAt: element['createdAt'],
+          updatedAt: element['updatedAt'],
         );
-      }).firstWhere(
-        (Patient patient) => patient.objectId == Backend.user.objectId!,
-      );
+      }
     }
 
     setState(() {
