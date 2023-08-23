@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:picos/screens/questionaire_screen/widgets/questionaire_card.dart';
+import 'package:picos/util/replace_comma_formatter.dart';
 
 import '../../../widgets/picos_label.dart';
 import '../../../widgets/picos_text_field.dart';
@@ -75,20 +76,6 @@ class TextFieldCard extends StatelessWidget {
             ? <TextInputFormatter>[ReplaceCommaFormatter()]
             : null,
       ),
-    );
-  }
-}
-
-/// Replaces each comma with a period.
-class ReplaceCommaFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-    TextEditingValue oldValue,
-    TextEditingValue newValue,
-  ) {
-    return TextEditingValue(
-      text: newValue.text.replaceAll(',', '.'),
-      selection: newValue.selection,
     );
   }
 }
