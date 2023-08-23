@@ -202,28 +202,29 @@ class _ConfigurationPages extends State<ConfigurationPages> {
           ConfigurationActivityAndRest(
         callbackActivityAndRest: (String key, bool value) {
           _activityAndRestEntries[key] = value;
-        },
+        }, initiAlactivityAndRest: _activityAndRestEntries,
       );
 
       final ConfigurationBodyAndMind configurationBodyAndMind =
           ConfigurationBodyAndMind(
         callbackBodyAndMind: (String key, bool value) {
           _bodyAndMindEntries[key] = value;
-        },
+        }, initialBodyAndMind: _bodyAndMindEntries,
       );
 
       final ConfigurationMedicationAndTherapy
           configurationMedicationAndTherapy = ConfigurationMedicationAndTherapy(
         callbackMedicationAndTherapy: (String key, bool value) {
           _medicationAndTherapyEntries[key] = value;
-        },
+        }, initialMedicationAndTherapy: _medicationAndTherapyEntries,
       );
 
       final ConfigurationVitalValues configurationVitalValues =
-          ConfigurationVitalValues(
+      ConfigurationVitalValues(
         callbackVitalValues: (String key, bool value) {
           _vitalValuesEntries[key] = value;
         },
+        initialVitalValues: _vitalValuesEntries,
       );
 
       final ConfigurationAdditionalEntries configurationAdditionalEntries =
