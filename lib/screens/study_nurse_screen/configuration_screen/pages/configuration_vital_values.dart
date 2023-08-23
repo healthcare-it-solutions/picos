@@ -32,7 +32,7 @@ class ConfigurationVitalValues extends StatefulWidget {
   /// Callback function for vital values.
   final void Function(String, bool) callbackVitalValues;
 
-  ///
+  /// Starting values for vital values.
   final Map<String, bool> initialVitalValues;
 
   @override

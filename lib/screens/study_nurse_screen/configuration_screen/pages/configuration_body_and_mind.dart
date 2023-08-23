@@ -31,7 +31,7 @@ class ConfigurationBodyAndMind extends StatefulWidget {
   /// Callback function for body and mind.
   final void Function(String, bool) callbackBodyAndMind;
 
-  ///
+  /// Starting values for body and mind.
   final Map<String, bool> initialBodyAndMind;
 
   @override

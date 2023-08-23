@@ -31,7 +31,7 @@ class ConfigurationActivityAndRest extends StatefulWidget {
   /// Callback function for activity and rest.
   final void Function(String, bool) callbackActivityAndRest;
 
-  ///
+  /// Starting values for activity and rest.
   final Map<String, bool> initiAlactivityAndRest;
 
   @override

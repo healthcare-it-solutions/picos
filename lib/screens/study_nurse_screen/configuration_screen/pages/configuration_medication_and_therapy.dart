@@ -32,7 +32,7 @@ class ConfigurationMedicationAndTherapy extends StatefulWidget {
   /// Callback function for medication and therapy.
   final void Function(String, bool) callbackMedicationAndTherapy;
 
-  ///
+  /// Starting values for medication and therapy.
   final Map<String, bool> initialMedicationAndTherapy;
 
   @override
@@ -43,10 +43,11 @@ class ConfigurationMedicationAndTherapy extends StatefulWidget {
 class _ConfigurationMedicationAndTherapyState
     extends State<ConfigurationMedicationAndTherapy> {
   late bool _entryMedicationEnabled =
-  widget.initialMedicationAndTherapy['entryMedicationEnabled']!;
-  late bool _entryTherapyEnabled = widget.initialMedicationAndTherapy['entryTherapyEnabled']!;
+      widget.initialMedicationAndTherapy['entryMedicationEnabled']!;
+  late bool _entryTherapyEnabled =
+      widget.initialMedicationAndTherapy['entryTherapyEnabled']!;
   late bool _entryDoctorsVisitEnabled =
-  widget.initialMedicationAndTherapy['entryDoctorsVisitEnabled']!;
+      widget.initialMedicationAndTherapy['entryDoctorsVisitEnabled']!;
 
   @override
   Widget build(BuildContext context) {
