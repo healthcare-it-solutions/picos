@@ -88,7 +88,7 @@ class _PicosDatePickerState extends State<PicosDatePicker> {
         DateTime? date = await showDatePicker(
           context: context,
           initialDate: DateTime.now(),
-          firstDate: DateTime.now().subtract(const Duration(days: 365 * 10)),
+          firstDate: DateTime.now().subtract(const Duration(days: 365 * 120)),
           lastDate: DateTime.now().add(const Duration(days: 365 * 10)),
           builder: (BuildContext context, Widget? child) {
             return Theme(
