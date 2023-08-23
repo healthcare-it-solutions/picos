@@ -24,7 +24,7 @@ class ConfigurationActivityAndRest extends StatefulWidget {
   /// Constructor of page for configuration of "Activity & Rest"-information.
   const ConfigurationActivityAndRest({
     required this.callbackActivityAndRest,
-    required this.initiAlactivityAndRest,
+    required this.initialAlactivityAndRest,
     Key? key,
   }) : super(key: key);
 
@@ -32,7 +32,7 @@ class ConfigurationActivityAndRest extends StatefulWidget {
   final void Function(String, bool) callbackActivityAndRest;
 
   /// Starting values for activity and rest.
-  final Map<String, bool> initiAlactivityAndRest;
+  final Map<String, bool> initialAlactivityAndRest;
 
   @override
   State<ConfigurationActivityAndRest> createState() =>
@@ -42,11 +42,11 @@ class ConfigurationActivityAndRest extends StatefulWidget {
 class _ConfigurationActivityAndRestState
     extends State<ConfigurationActivityAndRest> {
   late bool _entryWalkDistanceEnabled =
-      widget.initiAlactivityAndRest['entryWalkDistanceEnabled']!;
+      widget.initialAlactivityAndRest['entryWalkDistanceEnabled']!;
   late bool _entrySleepDurationEnabled =
-      widget.initiAlactivityAndRest['entrySleepDurationEnabled']!;
+      widget.initialAlactivityAndRest['entrySleepDurationEnabled']!;
   late bool _entrySleepQualityEnabled =
-      widget.initiAlactivityAndRest['entrySleepQualityEnabled']!;
+      widget.initialAlactivityAndRest['entrySleepQualityEnabled']!;
 
   @override
   Widget build(BuildContext context) {

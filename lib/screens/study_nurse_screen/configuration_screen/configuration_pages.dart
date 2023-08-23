@@ -32,6 +32,7 @@ import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/conf
 import 'package:picos/state/objects_list_bloc.dart';
 import 'package:picos/util/backend.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
+import '../../../widgets/picos_form_of_address.dart';
 
 import 'package:picos/themes/global_theme.dart';
 
@@ -80,7 +81,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
     'entryEmail': '',
     'entryNumber': '',
     'entryAddress': '',
-    'entryFormOfAddress': '',
+    'entryFormOfAddress': FormOfAddress.female.toString(),
   };
 
   final Map<String, String> _additionalEntries = <String, String>{
@@ -196,31 +197,35 @@ class _ConfigurationPages extends State<ConfigurationPages> {
         callbackForm: (String key, String value) {
           _formEntries[key] = value;
         },
+        initialForm: _formEntries,
       );
 
       final ConfigurationActivityAndRest configurationActivityAndRest =
           ConfigurationActivityAndRest(
         callbackActivityAndRest: (String key, bool value) {
           _activityAndRestEntries[key] = value;
-        }, initiAlactivityAndRest: _activityAndRestEntries,
+        },
+        initialAlactivityAndRest: _activityAndRestEntries,
       );
 
       final ConfigurationBodyAndMind configurationBodyAndMind =
           ConfigurationBodyAndMind(
         callbackBodyAndMind: (String key, bool value) {
           _bodyAndMindEntries[key] = value;
-        }, initialBodyAndMind: _bodyAndMindEntries,
+        },
+        initialBodyAndMind: _bodyAndMindEntries,
       );
 
       final ConfigurationMedicationAndTherapy
           configurationMedicationAndTherapy = ConfigurationMedicationAndTherapy(
         callbackMedicationAndTherapy: (String key, bool value) {
           _medicationAndTherapyEntries[key] = value;
-        }, initialMedicationAndTherapy: _medicationAndTherapyEntries,
+        },
+        initialMedicationAndTherapy: _medicationAndTherapyEntries,
       );
 
       final ConfigurationVitalValues configurationVitalValues =
-      ConfigurationVitalValues(
+          ConfigurationVitalValues(
         callbackVitalValues: (String key, bool value) {
           _vitalValuesEntries[key] = value;
         },
@@ -286,31 +291,30 @@ class _ConfigurationPages extends State<ConfigurationPages> {
                 child: PicosInkWellButton(
                   text: AppLocalizations.of(context)!.proceed,
                   onTap: () async {
-                  if (_currentPage == _list.length - 1 &&
-                      formKeyConfiguration.currentState!.validate()) {
-
-                    formKeyConfiguration.currentState!.save();
-                    PatientsListElement patientsListElement =
-                        PatientsListElement(
-                      patient: await _savePatient(),
-                      patientData: await _savePatientData(),
-                      patientProfile: await _savePatientProfile(),
-                    );
-                    if (!mounted) return;
-                    context
-                        .read<ObjectsListBloc<BackendPatientsListApi>>()
-                        .add(SaveObject(patientsListElement));
-                    Navigator.of(context).pushReplacementNamed(
-                      '/study-nurse-screen/configuration-finish-screen',
-                    );
-                    return;
-                  }
-                  if ((_currentPage == 0 &&
-                          formKeyConfiguration.currentState!.validate()) ||
-                      _currentPage > 0 && _currentPage != _list.length - 1) {
-                    _controller.jumpToPage(_currentPage + 1);
-                  }
-                },
+                    if (_currentPage == _list.length - 1 &&
+                        formKeyConfiguration.currentState!.validate()) {
+                      formKeyConfiguration.currentState!.save();
+                      PatientsListElement patientsListElement =
+                          PatientsListElement(
+                        patient: await _savePatient(),
+                        patientData: await _savePatientData(),
+                        patientProfile: await _savePatientProfile(),
+                      );
+                      if (!mounted) return;
+                      context
+                          .read<ObjectsListBloc<BackendPatientsListApi>>()
+                          .add(SaveObject(patientsListElement));
+                      Navigator.of(context).pushReplacementNamed(
+                        '/study-nurse-screen/configuration-finish-screen',
+                      );
+                      return;
+                    }
+                    if ((_currentPage == 0 &&
+                            formKeyConfiguration.currentState!.validate()) ||
+                        _currentPage > 0 && _currentPage != _list.length - 1) {
+                      _controller.jumpToPage(_currentPage + 1);
+                    }
+                  },
                 ),
               ),
             ],
