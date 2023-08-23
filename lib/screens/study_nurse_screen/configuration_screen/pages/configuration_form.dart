@@ -159,7 +159,9 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
             validator: (String? value) {
               if (value == null || value.isEmpty) {
                 return AppLocalizations.of(context)!.entryEmail;
-              } else if (!RegExp('.+@.+',).hasMatch(value)) {
+              } else if (!RegExp(
+                '.+@.+',
+              ).hasMatch(value)) {
                 return AppLocalizations.of(context)!.entryValidEmail;
               } else {
                 return null;
