@@ -71,10 +71,24 @@ class TextFieldCard extends StatelessWidget {
           decimal: true,
         ),
         disabled: disabled,
-        inputFormatters: decimalValue == false
-            ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
+        inputFormatters: decimalValue == true
+            ? <TextInputFormatter>[ReplaceCommaFormatter()]
             : null,
       ),
+    );
+  }
+}
+
+/// Replaces each comma with a period.
+class ReplaceCommaFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    return TextEditingValue(
+      text: newValue.text.replaceAll(',', '.'),
+      selection: newValue.selection,
     );
   }
 }
