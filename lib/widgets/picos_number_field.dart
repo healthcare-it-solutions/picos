@@ -17,6 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:picos/util/replace_comma_formatter.dart';
 import 'package:picos/widgets/picos_text_field.dart';
 
 /// Creates a text field for entering a number.
@@ -48,7 +49,11 @@ class PicosNumberField extends StatelessWidget {
 
     if (digitsOnly) {
       inputFormatter = <TextInputFormatter>[
-        FilteringTextInputFormatter.digitsOnly
+        FilteringTextInputFormatter.digitsOnly,
+      ];
+    } else {
+      inputFormatter = <TextInputFormatter>[
+        ReplaceCommaFormatter(),
       ];
     }
 
