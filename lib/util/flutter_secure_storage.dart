@@ -20,54 +20,48 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 /// Class for flutter secure storage.
 class SecureStorage {
   /// Creates the storage.
-  final FlutterSecureStorage storage = const FlutterSecureStorage(
+  final FlutterSecureStorage _storage = const FlutterSecureStorage(
     aOptions: AndroidOptions(
       encryptedSharedPreferences: true,
     ),
   );
 
-  final String _keyUsername = 'username';
-  final String _keyPassword = 'password';
-  final String _keyIsChecked = 'isChecked';
+  static const String _keyUsername = 'username';
+  static const String _keyPassword = 'password';
+  static const String _keyIsChecked = 'isChecked';
 
   /// Sets username.
   Future<void> setUsername(String username) async {
-    await storage.write(key: _keyUsername, value: username);
+    await _storage.write(key: _keyUsername, value: username);
   }
 
   /// Retrieves username.
   Future<String?> getUsername() async {
-    return await storage.read(key: _keyUsername);
+    return await _storage.read(key: _keyUsername);
   }
 
   /// Sets password.
   Future<void> setPassword(String password) async {
-    await storage.write(key: _keyPassword, value: password);
+    await _storage.write(key: _keyPassword, value: password);
   }
 
   /// Retrieves password.
   Future<String?> getPassword() async {
-    return await storage.read(key: _keyPassword);
+    return await _storage.read(key: _keyPassword);
   }
 
   /// Sets isChecked used for Checkbox.
   Future<void> setIsChecked(bool isChecked) async {
-    String value = '';
-    if (isChecked) {
-      value = 'true';
-    } else {
-      value = 'false';
-    }
-    await storage.write(key: _keyIsChecked, value: value);
+    await _storage.write(key: _keyIsChecked, value: isChecked.toString());
   }
 
   /// Retrieves isChecked used for Checkbox.
   Future<String?> getIsChecked() async {
-    return await storage.read(key: _keyIsChecked);
+    return await _storage.read(key: _keyIsChecked);
   }
 
   /// Deletes all keys with corresponding values.
   Future<void> deleteAll() async {
-    await storage.deleteAll();
+    await _storage.deleteAll();
   }
 }
