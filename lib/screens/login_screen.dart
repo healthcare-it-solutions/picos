@@ -36,21 +36,18 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
-  late final TextEditingController _loginController;
-  late final TextEditingController _passwordController;
-
+  final TextEditingController _loginController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final SecureStorage _secureStorage = SecureStorage();
 
   bool _isChecked = false;
-
-  BackendError? _backendError;
-
   bool _passwordVisible = false;
   bool _sendDisabled = false;
+  BackendError? _backendError;
 
   static const double _sponsorLogoPadding = 30;
 
-  Future<void> fetchSecureStorageData() async {
+  Future<void> _fetchSecureStorageData() async {
     String? valueIsChecked;
     _loginController.text = await _secureStorage.getUsername() ?? '';
     _passwordController.text = await _secureStorage.getPassword() ?? '';
@@ -70,9 +67,9 @@ class _LoginScreenState extends State<LoginScreen>
       _sendDisabled = true;
     });
 
-    BackendError? login = await Backend.login(username, password);
+    BackendError? loginError = await Backend.login(username, password);
 
-    if (login == null) {
+    if (loginError == null) {
       String route = await Backend.getRole();
       // This belongs here, because of context usage in async
       if (!mounted) return;
@@ -87,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen>
     }
 
     setState(() {
-      _backendError = login;
+      _backendError = loginError;
       _sendDisabled = false;
     });
   }
@@ -96,10 +93,7 @@ class _LoginScreenState extends State<LoginScreen>
   void initState() {
     super.initState();
     Backend();
-    _loginController = TextEditingController(text: '');
-    _passwordController = TextEditingController(text: '');
-    fetchSecureStorageData();
-    _passwordVisible = false;
+    _fetchSecureStorageData();
   }
 
   @override
@@ -112,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen>
   @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-    
+
     return PicosScreenFrame(
       body: Center(
         child: PicosBody(
