@@ -23,11 +23,17 @@ import 'package:picos/widgets/picos_body.dart';
 /// Shows page for configuration of vital values.
 class ConfigurationVitalValues extends StatefulWidget {
   /// Constructor of page for configuration of vital values.
-  const ConfigurationVitalValues({required this.callbackVitalValues, Key? key})
-      : super(key: key);
+  const ConfigurationVitalValues({
+    required this.callbackVitalValues,
+    required this.initialVitalValues,
+    Key? key,
+  }) : super(key: key);
 
   /// Callback function for vital values.
   final void Function(String, bool) callbackVitalValues;
+
+  /// Starting values for vital values.
+  final Map<String, bool> initialVitalValues;
 
   @override
   State<ConfigurationVitalValues> createState() =>
@@ -35,17 +41,14 @@ class ConfigurationVitalValues extends StatefulWidget {
 }
 
 class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
-  /// Local variable for weight and BMI.
-  bool _entryWeightBMIEnabled = false;
-
-  /// Local variable for heart frequency.
-  bool _entryHeartFrequencyEnabled = false;
-
-  /// Local variable for blood pressure.
-  bool _entryBloodPressureEnabled = false;
-
-  /// Local variable for blood sugar levels.
-  bool _entryBloodSugarLevelsEnabled = false;
+  late bool _entryWeightBMIEnabled =
+      widget.initialVitalValues['entryWeightBMIEnabled']!;
+  late bool _entryHeartFrequencyEnabled =
+      widget.initialVitalValues['entryHeartFrequencyEnabled']!;
+  late bool _entryBloodPressureEnabled =
+      widget.initialVitalValues['entryBloodPressureEnabled']!;
+  late bool _entryBloodSugarLevelsEnabled =
+      widget.initialVitalValues['entryBloodSugarLevelsEnabled']!;
 
   @override
   Widget build(BuildContext context) {

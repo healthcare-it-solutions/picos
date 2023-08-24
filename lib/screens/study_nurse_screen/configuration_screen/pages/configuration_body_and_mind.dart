@@ -22,11 +22,17 @@ import 'package:picos/widgets/picos_body.dart';
 /// Shows page for configuration of "Body & Mind"-information.
 class ConfigurationBodyAndMind extends StatefulWidget {
   /// Constructor of page for configuration of "Body & Mind"-information.
-  const ConfigurationBodyAndMind({required this.callbackBodyAndMind, Key? key})
-      : super(key: key);
+  const ConfigurationBodyAndMind({
+    required this.callbackBodyAndMind,
+    required this.initialBodyAndMind,
+    Key? key,
+  }) : super(key: key);
 
   /// Callback function for body and mind.
   final void Function(String, bool) callbackBodyAndMind;
+
+  /// Starting values for body and mind.
+  final Map<String, bool> initialBodyAndMind;
 
   @override
   State<ConfigurationBodyAndMind> createState() =>
@@ -34,11 +40,8 @@ class ConfigurationBodyAndMind extends StatefulWidget {
 }
 
 class _ConfigurationBodyAndMindState extends State<ConfigurationBodyAndMind> {
-  /// Local variable for pain.
-  bool _entryPainEnabled = false;
-
-  /// Local variable for blood sugar levels.
-  bool _entryPhq4Enabled = false;
+  late bool _entryPainEnabled = widget.initialBodyAndMind['entryPainEnabled']!;
+  late bool _entryPhq4Enabled = widget.initialBodyAndMind['entryPhq4Enabled']!;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +67,10 @@ class _ConfigurationBodyAndMindState extends State<ConfigurationBodyAndMind> {
                 value: _entryPainEnabled,
                 onChanged: (bool value) {
                   setState(() {
-                    widget.callbackBodyAndMind('entryPainEnabled', value,);
+                    widget.callbackBodyAndMind(
+                      'entryPainEnabled',
+                      value,
+                    );
                     _entryPainEnabled = value;
                   });
                 },
@@ -83,7 +89,10 @@ class _ConfigurationBodyAndMindState extends State<ConfigurationBodyAndMind> {
                 value: _entryPhq4Enabled,
                 onChanged: (bool value) {
                   setState(() {
-                    widget.callbackBodyAndMind('entryPhq4Enabled', value,);
+                    widget.callbackBodyAndMind(
+                      'entryPhq4Enabled',
+                      value,
+                    );
                     _entryPhq4Enabled = value;
                   });
                 },

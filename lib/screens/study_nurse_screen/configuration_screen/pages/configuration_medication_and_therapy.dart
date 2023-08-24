@@ -25,11 +25,15 @@ class ConfigurationMedicationAndTherapy extends StatefulWidget {
   /// "Medication & Therapy"-information.
   const ConfigurationMedicationAndTherapy({
     required this.callbackMedicationAndTherapy,
+    required this.initialMedicationAndTherapy,
     Key? key,
   }) : super(key: key);
 
   /// Callback function for medication and therapy.
   final void Function(String, bool) callbackMedicationAndTherapy;
+
+  /// Starting values for medication and therapy.
+  final Map<String, bool> initialMedicationAndTherapy;
 
   @override
   State<ConfigurationMedicationAndTherapy> createState() =>
@@ -38,14 +42,12 @@ class ConfigurationMedicationAndTherapy extends StatefulWidget {
 
 class _ConfigurationMedicationAndTherapyState
     extends State<ConfigurationMedicationAndTherapy> {
-  /// Local variable for medication.
-  bool _entryMedicationEnabled = false;
-
-  /// Local variable for therapy.
-  bool _entryTherapyEnabled = false;
-
-  /// Local variable for doctor visits.
-  bool _entryDoctorsVisitEnabled = false;
+  late bool _entryMedicationEnabled =
+      widget.initialMedicationAndTherapy['entryMedicationEnabled']!;
+  late bool _entryTherapyEnabled =
+      widget.initialMedicationAndTherapy['entryTherapyEnabled']!;
+  late bool _entryDoctorsVisitEnabled =
+      widget.initialMedicationAndTherapy['entryDoctorsVisitEnabled']!;
 
   @override
   Widget build(BuildContext context) {
