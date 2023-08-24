@@ -982,42 +982,6 @@
   "connectionError": "Connection error",
   "@connectionError": {
     "description": "Connection error"
-    },
-    "myProfile": "My profile",
-    "@myProfile": {
-        "description": "My profile"
-    },
-    "newPassword": "New Password",
-    "@newPassword": {
-        "description": "New Password"
-    },
-    "newPasswordRepeat": "Repeat new Password",
-    "@newPasswordRepeat": {
-        "description": "Repeat new Password"
-    },
-    "changePassword": "Change Password",
-    "@changePassword": {
-        "description": "Change Password"
-    },
-    "passwordSavedSuccessMessage": "The new password has been successfully saved!",
-    "@passwordSavedSuccessMessage": {
-        "description": "The new password has been successfully saved!"
-    },
-    "passwordMismatchErrorMessage": "The new passwords do not match!",
-    "@passwordMismatchErrorMessage": {
-        "description": "The new passwords do not match!"
-    },
-    "strongPassword": "The new password must consist of lowercases, uppercases, special characters and at least 8 characters!",
-    "@strongPassword": {
-        "description": "The new password must consist of lowercases, uppercases, special characters and at least 8 characters!"
-    },
-    "passwordSavedFailureMessage": "New password could not be saved!",
-    "@passwordSavedFailureMessage": {
-        "description": "New password could not be saved!"
-    },
-    "allFieldsMustbeFilled": "All fields must be filled!",
-    "@allFieldsMustbeFilled": {
-        "description": "All fields must be filled!"
   },
   "inclusionCriteriaDistance": "Inclusion criteria DISTANCE",
   "@inclusionCriteriaDistance": {
@@ -1370,6 +1334,90 @@
   "lungProtectiveVentilation70p": "Lung Protective Ventilation > 70%",
   "@lungProtectiveVentilation70p": {
     "description": "Lung Protective Ventilation > 70%"
+  },
+  "myProfile": "My profile",
+  "@myProfile": {
+    "description": "My profile"
+  },
+  "newPassword": "New Password",
+  "@newPassword": {
+    "description": "New Password"
+  },
+  "newPasswordRepeat": "Repeat new Password",
+  "@newPasswordRepeat": {
+    "description": "Repeat new Password"
+  },
+  "changePassword": "Change Password",
+  "@changePassword": {
+    "description": "Change Password"
+  },
+  "passwordSavedSuccessMessage": "The new password has been successfully saved!",
+  "@passwordSavedSuccessMessage": {
+    "description": "The new password has been successfully saved!"
+  },
+  "passwordMismatchErrorMessage": "The new passwords do not match!",
+  "@passwordMismatchErrorMessage": {
+    "description": "The new passwords do not match!"
+  },
+  "strongPassword": "The new password must consist of lowercases, uppercases, special characters and at least 8 characters!",
+  "@strongPassword": {
+    "description": "The new password must consist of lowercases, uppercases, special characters and at least 8 characters!"
+  },
+  "passwordSavedFailureMessage": "New password could not be saved!",
+  "@passwordSavedFailureMessage": {
+    "description": "New password could not be saved!"
+  },
+  "allFieldsMustbeFilled": "All fields must be filled!",
+  "@allFieldsMustbeFilled": {
+    "description": "All fields must be filled!"
+  },
+  "changeTitle": "Change title",
+  "@changeTitle": {
+    "description": "Change title"
+  },
+  "changeFirstname": "Change firstname",
+  "@changeFirstname": {
+    "description": "Change firstname"
+  },
+  "changeLastname": "Change lastname ",
+  "@changeLastname": {
+    "description": "Change lastname"
+  },
+  "changeAddress": "Change Address",
+  "@changeAddress": {
+    "description": "Change Address"
+  },
+  "changePhoneNumber": "Change Phone number",
+  "@changePhoneNumber": {
+    "description": "Change Phone number"
+  },
+  "changeEmail": "Change email",
+  "@changeEmail": {
+    "description": "Change email"
+  },
+  "unknownError": "Unknown Error",
+  "@unknownError": {
+    "description": "Unknown Error"
+  },
+  "updateFailed": "Update Failed",
+  "@updateFailed": {
+    "description": "Update Failed"
+  },
+  "updateSuccess": "Update Successful",
+  "@updateSuccess": {
+    "description": "Update Successful"
+  },
+  "passwordChangeSuccessful": "Password changed successfully!",
+  "@passwordChangeSuccessful": {
+    "description": "Password changed successfully!"
+  },
+  "passwordChangeLogoutMessage": "You have been automatically logged out. Please log in again.",
+  "@passwordChangeLogoutMessage": {
+    "description": "You have been automatically logged out. Please log in again."
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "OK"
   },
   "rememberMe": "Remember me?",
   "@rememberMe": {
