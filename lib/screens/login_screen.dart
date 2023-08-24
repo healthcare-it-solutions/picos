@@ -16,7 +16,9 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:picos/themes/global_theme.dart';
 import 'package:picos/util/backend.dart';
+import 'package:picos/util/flutter_secure_storage.dart';
 import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
@@ -34,48 +36,60 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
-  late final TextEditingController _loginController;
-  late final TextEditingController _passwordController;
+  final TextEditingController _loginController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final SecureStorage _secureStorage = SecureStorage();
 
-  BackendError? _backendError;
-
+  bool _isChecked = false;
   bool _passwordVisible = false;
   bool _sendDisabled = false;
+  BackendError? _backendError;
 
   static const double _sponsorLogoPadding = 30;
 
-  Future<void> _submitHandler(
-    String username,
-    String password,
-    BuildContext con,
-  ) async {
+  Future<void> _fetchSecureStorageData() async {
+    String? valueIsChecked;
+    _loginController.text = await _secureStorage.getUsername() ?? '';
+    _passwordController.text = await _secureStorage.getPassword() ?? '';
+    valueIsChecked = await _secureStorage.getIsChecked() ?? '';
+
     setState(() {
-      _sendDisabled = true;
+      _isChecked = valueIsChecked == 'true';
     });
+  }
 
-    BackendError? login = await Backend.login(username, password);
+  Future<void> _submitHandler() async {
+    setState(() => _sendDisabled = true);
 
-    if (login == null) {
-      String route = await Backend.getRole();
-      // This belongs here, because of context usage in async
+    BackendError? loginError = await Backend.login(
+      _loginController.text,
+      _passwordController.text,
+    );
+
+    if (loginError == null) {
+      final String route = await Backend.getRole();
+
+      if (_isChecked) {
+        await _secureStorage.setUsername(_loginController.text);
+        await _secureStorage.setPassword(_passwordController.text);
+      } else {
+        await _secureStorage.deleteAll();
+      }
       if (!mounted) return;
-      Navigator.of(con).pushReplacementNamed(route);
-      return;
+      Navigator.of(context).pushReplacementNamed(route);
+    } else {
+      setState(() {
+        _backendError = loginError;
+        _sendDisabled = false;
+      });
     }
-
-    setState(() {
-      _backendError = login;
-      _sendDisabled = false;
-    });
   }
 
   @override
   void initState() {
     super.initState();
     Backend();
-    _loginController = TextEditingController(text: '');
-    _passwordController = TextEditingController(text: '');
-    _passwordVisible = false;
+    _fetchSecureStorageData();
   }
 
   @override
@@ -87,6 +101,8 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   Widget build(BuildContext context) {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
     return PicosScreenFrame(
       body: Center(
         child: PicosBody(
@@ -159,13 +175,35 @@ class _LoginScreenState extends State<LoginScreen>
               ),
               SizedBox(
                 width: 200,
+                child: Row(
+                  children: <Widget>[
+                    Text(AppLocalizations.of(context)!.rememberMe),
+                    Expanded(
+                      child: Checkbox(
+                        value: _isChecked,
+                        checkColor: Colors.white,
+                        activeColor: theme.darkGreen1,
+                        onChanged: (bool? value) {
+                          setState(
+                            () {
+                              _isChecked = value!;
+                              _secureStorage.setIsChecked(_isChecked);
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                width: 200,
                 child: PicosInkWellButton(
                   disabled: _sendDisabled,
-                  onTap: () => _submitHandler(
-                    _loginController.text,
-                    _passwordController.text,
-                    context,
-                  ),
+                  onTap: () {
+                    _submitHandler(
+                    );
+                  },
                   text: AppLocalizations.of(context)!.submit,
                 ),
               ),

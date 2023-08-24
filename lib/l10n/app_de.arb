@@ -353,5 +353,6 @@
   "updateSuccess": "Aktualisierung erfolgreich",
   "passwordChangeSuccessful": "Passwort erfolgreich geändert!",
   "passwordChangeLogoutMessage": "Sie wurden automatisch abgemeldet. Bitte melden Sie sich erneut an.",
-  "ok": "OK"
+  "ok": "OK",
+  "rememberMe": "Angemeldet bleiben?"
 }

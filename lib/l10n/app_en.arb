@@ -1418,5 +1418,9 @@
   "ok": "OK",
   "@ok": {
     "description": "OK"
+  },
+  "rememberMe": "Remember me?",
+  "@rememberMe": {
+    "description": "Remember me?"
   }
 }
