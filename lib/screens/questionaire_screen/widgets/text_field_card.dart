@@ -72,9 +72,9 @@ class TextFieldCard extends StatelessWidget {
           decimal: true,
         ),
         disabled: disabled,
-        inputFormatters: decimalValue == true
-            ? <TextInputFormatter>[ReplaceCommaFormatter()]
-            : null,
+        inputFormatters: decimalValue == false
+            ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
+            : <TextInputFormatter>[ReplaceCommaFormatter()],
       ),
     );
   }
