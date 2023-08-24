@@ -112,7 +112,7 @@ class Backend {
     // these are thr routes we are going to forward the user to
     Map<String, String> routes = <String, String>{
       'Patient': '/home-screen/home-screen',
-      'Doctor': '/study-nurse-screen/menu-screen/menu-main-screen'
+      'Doctor': '/study-nurse-screen/menu-screen/menu-main-screen',
     };
 
     // TODO: maybe refactor for type safety
@@ -134,10 +134,33 @@ class Backend {
     String row,
   ) async {
     QueryBuilder<ParseObject> queryBuilder =
-        QueryBuilder<ParseObject>(ParseObject(table));
-    queryBuilder.whereEqualTo(column, row);
-    ParseResponse response = await queryBuilder.query();
-    return response;
+        QueryBuilder<ParseObject>(ParseObject(table))
+          ..whereEqualTo(column, row);
+
+    return await queryBuilder.query();
+  }
+
+  /// Retrieves one possible object directly from a [table].
+  static Future<dynamic> getEntryDirect(
+    String table,
+    String objectId,
+  ) async {
+    return await ParseObject(table).getObject(objectId);
+  }
+
+  /// Updates one possible object from a [table].
+  static Future<ParseResponse> updateEntry(
+    String tableName,
+    String objectId,
+    Map<String, dynamic> changes,
+  ) async {
+    final ParseObject object = ParseObject(tableName)..objectId = objectId;
+
+    changes.forEach((String key, dynamic value) {
+      object.set(key, value);
+    });
+
+    return await object.save();
   }
 
   /// Calls the [endpoint].
@@ -177,13 +200,13 @@ class Backend {
 
     if (object.objectId == null && acl == null) {
       acl = BackendACL();
-      acl.setDefault();  
+      acl.setDefault();
     }
 
     if (acl != null) {
       parseObject.setACL(acl.acl);
     }
-    
+
     if (object.objectId != null) {
       parseObject.objectId = object.objectId;
     }

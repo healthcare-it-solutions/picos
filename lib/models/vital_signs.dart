@@ -95,24 +95,24 @@ class VitalSigns extends AbstractDatabaseObject {
         'Patient': <String, String>{
           'objectId': patientObjectId,
           '__type': 'Pointer',
-          'className': '_User'
+          'className': '_User',
         },
         'Doctor': <String, String>{
           'objectId': doctorObjectId,
           '__type': 'Pointer',
-          'className': '_User'
+          'className': '_User',
         },
         if (value1 != null && value1?.objectId != null)
           'value1': <String, dynamic>{
             'objectId': value1?.objectId,
             '__type': 'Pointer',
-            'className': 'VitalSigns_obj'
+            'className': 'VitalSigns_obj',
           },
         if (value2 != null && value2?.objectId != null)
           'value2': <String, dynamic>{
             'objectId': value2?.objectId,
             '__type': 'Pointer',
-            'className': 'VitalSigns_obj'
+            'className': 'VitalSigns_obj',
           },
       };
 }

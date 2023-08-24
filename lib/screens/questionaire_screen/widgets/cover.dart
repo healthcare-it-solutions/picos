@@ -145,7 +145,7 @@ class Cover extends StatelessWidget {
                       ],
                     ),
                   )
-                : const SizedBox.shrink()
+                : const SizedBox.shrink(),
           ],
         ),
       ),

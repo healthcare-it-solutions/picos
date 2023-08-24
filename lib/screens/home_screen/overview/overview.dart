@@ -42,7 +42,7 @@ class Overview extends StatelessWidget {
               Image.asset(
                 'assets/PICOS_Logo_RGB.png',
                 height: 75,
-              )
+              ),
             ],
           ),
           const QuestionaireSection(),
@@ -50,7 +50,7 @@ class Overview extends StatelessWidget {
             color: theme.blue,
             child: const MyHealthSection(),
           ),
-          const ContactSection()
+          const ContactSection(),
         ],
       ),
     );

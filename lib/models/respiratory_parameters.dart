@@ -96,12 +96,12 @@ class RespiratoryParameters extends AbstractDatabaseObject {
       'Patient': <String, String>{
         'objectId': patientObjectId,
         '__type': 'Pointer',
-        'className': '_User'
+        'className': '_User',
       },
       'Doctor': <String, String>{
         'objectId': doctorObjectId,
         '__type': 'Pointer',
-        'className': '_User'
+        'className': '_User',
       },
     };
 
@@ -109,14 +109,14 @@ class RespiratoryParameters extends AbstractDatabaseObject {
       map['value1'] = <String, dynamic>{
         'objectId': value1?.objectId,
         '__type': 'Pointer',
-        'className': 'RespiratoryParas_obj'
+        'className': 'RespiratoryParas_obj',
       };
     }
     if (value2 != null && value2?.objectId != null) {
       map['value2'] = <String, dynamic>{
         'objectId': value2?.objectId,
         '__type': 'Pointer',
-        'className': 'RespiratoryParas_obj'
+        'className': 'RespiratoryParas_obj',
       };
     }
     return map;
