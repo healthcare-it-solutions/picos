@@ -58,35 +58,31 @@ class _LoginScreenState extends State<LoginScreen>
     });
   }
 
-  Future<void> _submitHandler(
-    String username,
-    String password,
-    BuildContext con,
-  ) async {
-    setState(() {
-      _sendDisabled = true;
-    });
+  Future<void> _submitHandler() async {
+    setState(() => _sendDisabled = true);
 
-    BackendError? loginError = await Backend.login(username, password);
+    BackendError? loginError = await Backend.login(
+      _loginController.text,
+      _passwordController.text,
+    );
 
     if (loginError == null) {
-      String route = await Backend.getRole();
-      // This belongs here, because of context usage in async
-      if (!mounted) return;
-      if (_isChecked) {
-        _secureStorage.setUsername(_loginController.text);
-        _secureStorage.setPassword(_passwordController.text);
-      } else {
-        _secureStorage.deleteAll();
-      }
-      Navigator.of(con).pushReplacementNamed(route);
-      return;
-    }
+      final String route = await Backend.getRole();
 
-    setState(() {
-      _backendError = loginError;
-      _sendDisabled = false;
-    });
+      if (_isChecked) {
+        await _secureStorage.setUsername(_loginController.text);
+        await _secureStorage.setPassword(_passwordController.text);
+      } else {
+        await _secureStorage.deleteAll();
+      }
+      if (!mounted) return;
+      Navigator.of(context).pushReplacementNamed(route);
+    } else {
+      setState(() {
+        _backendError = loginError;
+        _sendDisabled = false;
+      });
+    }
   }
 
   @override
@@ -206,9 +202,6 @@ class _LoginScreenState extends State<LoginScreen>
                   disabled: _sendDisabled,
                   onTap: () {
                     _submitHandler(
-                      _loginController.text,
-                      _passwordController.text,
-                      context,
                     );
                   },
                   text: AppLocalizations.of(context)!.submit,
