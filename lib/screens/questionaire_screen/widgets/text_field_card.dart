@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:picos/screens/questionaire_screen/widgets/questionaire_card.dart';
+import 'package:picos/util/replace_comma_formatter.dart';
 
 import '../../../widgets/picos_label.dart';
 import '../../../widgets/picos_text_field.dart';
@@ -73,7 +74,7 @@ class TextFieldCard extends StatelessWidget {
         disabled: disabled,
         inputFormatters: decimalValue == false
             ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
-            : null,
+            : <TextInputFormatter>[ReplaceCommaFormatter()],
       ),
     );
   }

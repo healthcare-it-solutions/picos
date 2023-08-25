@@ -357,7 +357,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                       '/study-nurse-screen/catalog-of-items',
                     );
                   },
-                )
+                ),
               ],
             ),
           ),

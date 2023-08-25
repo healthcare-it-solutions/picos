@@ -288,12 +288,12 @@ class LaborParameters extends AbstractDatabaseObject {
         'Patient': <String, String>{
           'objectId': patientObjectId,
           '__type': 'Pointer',
-          'className': '_User'
+          'className': '_User',
         },
         'Doctor': <String, String>{
           'objectId': doctorObjectId,
           '__type': 'Pointer',
-          'className': '_User'
+          'className': '_User',
         },
       };
 }

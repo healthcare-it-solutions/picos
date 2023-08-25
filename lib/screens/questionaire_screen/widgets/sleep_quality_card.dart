@@ -242,7 +242,7 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
                       ),
                       const SizedBox(
                         width: 8,
-                      )
+                      ),
                     ],
                   ),
                 ],

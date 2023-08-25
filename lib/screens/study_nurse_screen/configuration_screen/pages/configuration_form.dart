@@ -27,27 +27,29 @@ import '../../../../widgets/picos_form_of_address.dart';
 /// Shows form for patient registration.
 class ConfigurationForm extends StatefulWidget {
   /// Constructor of form for patient registration.
-  const ConfigurationForm({required this.callbackForm, Key? key})
-      : super(key: key);
+  const ConfigurationForm({
+    required this.callbackForm,
+    required this.initialForm,
+    Key? key,
+  }) : super(key: key);
 
   /// Callback function for form.
   final Function(String, String) callbackForm;
+
+  /// Starting values for form.
+  final Map<String, String> initialForm;
 
   @override
   State<ConfigurationForm> createState() => _ConfigurationFormState();
 }
 
 class _ConfigurationFormState extends State<ConfigurationForm> {
-  /// Local variable for form of address.
-  FormOfAddress _entryFormOfAddress = FormOfAddress.female;
-
-  @override
-  void initState() {
-    setState(() {
-      widget.callbackForm('entryFormOfAddress', _entryFormOfAddress.toString());
-    });
-    super.initState();
-  }
+  late String _entryFormOfAddress = widget.initialForm['entryFormOfAddress']!;
+  late String _entryFirstName = widget.initialForm['entryFirstName']!;
+  late String _entryFamilyName = widget.initialForm['entryFamilyName']!;
+  late String _entryNumber = widget.initialForm['entryNumber']!;
+  late String _entryAddress = widget.initialForm['entryAddress']!;
+  late String _entryEmail = widget.initialForm['entryEmail']!;
 
   @override
   Widget build(BuildContext context) {
@@ -60,13 +62,13 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Flexible(
-                child: RadioListTile<FormOfAddress>(
+                child: RadioListTile<String>(
                   title: Text(
                     AppLocalizations.of(context)!.mrs,
                   ),
-                  value: FormOfAddress.female,
+                  value: FormOfAddress.female.toString(),
                   groupValue: _entryFormOfAddress,
-                  onChanged: (FormOfAddress? value) {
+                  onChanged: (String? value) {
                     setState(() {
                       widget.callbackForm(
                         'entryFormOfAddress',
@@ -77,16 +79,17 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
                   },
                   contentPadding: EdgeInsets.zero,
                   selected: false,
+                  enableFeedback: true,
                 ),
               ),
               Flexible(
-                child: RadioListTile<FormOfAddress>(
+                child: RadioListTile<String>(
                   title: Text(
                     AppLocalizations.of(context)!.mr,
                   ),
-                  value: FormOfAddress.male,
+                  value: FormOfAddress.male.toString(),
                   groupValue: _entryFormOfAddress,
-                  onChanged: (FormOfAddress? value) {
+                  onChanged: (String? value) {
                     setState(() {
                       widget.callbackForm(
                         'entryFormOfAddress',
@@ -100,13 +103,13 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
                 ),
               ),
               Flexible(
-                child: RadioListTile<FormOfAddress>(
+                child: RadioListTile<String>(
                   title: Text(
                     AppLocalizations.of(context)!.diverse,
                   ),
-                  value: FormOfAddress.diverse,
+                  value: FormOfAddress.diverse.toString(),
                   groupValue: _entryFormOfAddress,
-                  onChanged: (FormOfAddress? value) {
+                  onChanged: (String? value) {
                     setState(() {
                       widget.callbackForm(
                         'entryFormOfAddress',
@@ -123,10 +126,14 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
           ),
           PicosLabel(AppLocalizations.of(context)!.firstName),
           PicosTextField(
+            initialValue: _entryFirstName,
             hint: AppLocalizations.of(context)!.firstName,
             keyboardType: TextInputType.name,
             onChanged: (String? newValue) {
-              widget.callbackForm('entryFirstName', newValue!);
+              setState(() {
+                widget.callbackForm('entryFirstName', newValue!);
+                _entryFirstName = newValue;
+              });
             },
             validator: (String? value) {
               if (value == null || value.isEmpty) {
@@ -137,10 +144,14 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
           ),
           PicosLabel(AppLocalizations.of(context)!.familyName),
           PicosTextField(
+            initialValue: _entryFamilyName,
             hint: AppLocalizations.of(context)!.familyName,
             keyboardType: TextInputType.name,
             onChanged: (String? newValue) {
-              widget.callbackForm('entryFamilyName', newValue!);
+              setState(() {
+                widget.callbackForm('entryFamilyName', newValue!);
+                _entryFamilyName = newValue;
+              });
             },
             validator: (String? value) {
               if (value == null || value.isEmpty) {
@@ -151,15 +162,21 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
           ),
           PicosLabel(AppLocalizations.of(context)!.email),
           PicosTextField(
+            initialValue: _entryEmail,
             hint: AppLocalizations.of(context)!.email,
             keyboardType: TextInputType.emailAddress,
             onChanged: (String? newValue) {
-              widget.callbackForm('entryEmail', newValue!);
+              setState(() {
+                widget.callbackForm('entryEmail', newValue!);
+                _entryEmail = newValue;
+              });
             },
             validator: (String? value) {
               if (value == null || value.isEmpty) {
                 return AppLocalizations.of(context)!.entryEmail;
-              } else if (!RegExp('.+@.+',).hasMatch(value)) {
+              } else if (!RegExp(
+                '.+@.+',
+              ).hasMatch(value)) {
                 return AppLocalizations.of(context)!.entryValidEmail;
               } else {
                 return null;
@@ -168,10 +185,14 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
           ),
           PicosLabel(AppLocalizations.of(context)!.phoneNumber),
           PicosTextField(
+            initialValue: _entryNumber,
             hint: AppLocalizations.of(context)!.phoneNumber,
             keyboardType: TextInputType.phone,
             onChanged: (String? newValue) {
-              widget.callbackForm('entryNumber', newValue!);
+              setState(() {
+                widget.callbackForm('entryNumber', newValue!);
+                _entryNumber = newValue;
+              });
             },
             validator: (String? value) {
               if (value == null || value.isEmpty) {
@@ -182,9 +203,13 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
           ),
           PicosLabel(AppLocalizations.of(context)!.address),
           PicosTextArea(
+            initialValue: _entryAddress,
             hint: AppLocalizations.of(context)!.address,
             onChanged: (String? newValue) {
-              widget.callbackForm('entryAddress', newValue!);
+              setState(() {
+                widget.callbackForm('entryAddress', newValue!);
+                _entryAddress = newValue;
+              });
             },
             validator: (String? value) {
               if (value == null || value.isEmpty) {

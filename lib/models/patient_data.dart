@@ -183,7 +183,7 @@ class PatientData extends AbstractDatabaseObject {
   @override
   List<Object> get props => <Object>[
         patientObjectId,
-        doctorObjectId
+        doctorObjectId,
       ];
 
   @override
@@ -211,12 +211,12 @@ class PatientData extends AbstractDatabaseObject {
         'Patient': <String, String>{
           'objectId': patientObjectId,
           '__type': 'Pointer',
-          'className': '_User'
+          'className': '_User',
         },
         'Doctor': <String, String>{
           'objectId': doctorObjectId,
           '__type': 'Pointer',
-          'className': '_User'
+          'className': '_User',
         },
       };
 }

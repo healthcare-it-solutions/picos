@@ -90,7 +90,7 @@ class ICUDiagnosis extends AbstractDatabaseObject {
         mainDiagnosis!,
         intensiveCareUnitAcquiredWeakness!,
         postIntensiveCareSyndrome!,
-        ancillaryDiagnosis!
+        ancillaryDiagnosis!,
       ];
 
   @override
@@ -98,18 +98,18 @@ class ICUDiagnosis extends AbstractDatabaseObject {
         'Patient': <String, String>{
           'objectId': patientObjectId!,
           '__type': 'Pointer',
-          'className': '_User'
+          'className': '_User',
         },
         'Doctor': <String, String>{
           'objectId': doctorObjectId!,
           '__type': 'Pointer',
-          'className': '_User'
+          'className': '_User',
         },
         if (mainDiagnosis != null) 'ICU_Hd': mainDiagnosis,
         if (intensiveCareUnitAcquiredWeakness != null)
           'ICU_AW': intensiveCareUnitAcquiredWeakness,
         if (postIntensiveCareSyndrome != null)
           'PICS': postIntensiveCareSyndrome,
-        if (ancillaryDiagnosis != null) 'Nebendiagnose': ancillaryDiagnosis
+        if (ancillaryDiagnosis != null) 'Nebendiagnose': ancillaryDiagnosis,
       };
 }

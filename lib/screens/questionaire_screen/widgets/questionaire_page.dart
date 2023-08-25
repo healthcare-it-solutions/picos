@@ -96,7 +96,7 @@ class QuestionairePage extends StatelessWidget {
             text: textNext.isEmpty ? next : textNext,
             onTap: nextFunction ?? () {},
           ),
-        )
+        ),
       ],
     );
   }

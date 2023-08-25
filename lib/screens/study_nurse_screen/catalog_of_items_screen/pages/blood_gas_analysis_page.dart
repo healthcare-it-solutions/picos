@@ -568,7 +568,7 @@ class BloodGasAnalysisPage extends StatelessWidget {
               ],
             ),
           ],
-        )
+        ),
       ],
     );
   }
