@@ -32,6 +32,7 @@ import 'package:picos/screens/questionaire_screen/questionaire_screen.dart';
 import 'package:picos/screens/study_nurse_screen/menu_screen/edit_patient_screen.dart';
 import 'package:picos/screens/study_nurse_screen/menu_screen/menu_main_screen.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/catalog_of_items_screen.dart';
+import 'package:picos/screens/visits_screen/my_visits_screen.dart';
 import 'package:picos/screens/visits_screen/visits_screen.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_finished_screen.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_pages.dart';
@@ -76,6 +77,7 @@ class Routes {
       '/privacy-notice-screen': (BuildContext ctx) =>
           const PrivacyNoticeScreen(),
       '/visits-screen/visits': (BuildContext ctx) => const VisitsScreen(),
+      '/visits-screen/my-visits-screen':(BuildContext ctx) => const MyVisitsScreen(),
       '/login-screen': (BuildContext ctx) => const LoginScreen(),
       '/questionnaire-screen/questionnaire-screen': (BuildContext ctx) =>
           const QuestionaireScreen(),
