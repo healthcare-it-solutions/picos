@@ -354,5 +354,7 @@
   "passwordChangeSuccessful": "Passwort erfolgreich geändert!",
   "passwordChangeLogoutMessage": "Sie wurden automatisch abgemeldet. Bitte melden Sie sich erneut an.",
   "ok": "OK",
-  "rememberMe": "Angemeldet bleiben?"
+  "rememberMe": "Angemeldet bleiben?",
+  "hospital": "Krankenhaus",
+  "physician": "Arzt"
 }

@@ -1422,5 +1422,13 @@
   "rememberMe": "Remember me?",
   "@rememberMe": {
     "description": "Remember me?"
+  },
+  "hospital": "Hospital",
+  "@hospital": {
+    "description": "Hospital"
+  },
+  "physician": "Physician",
+  "@physician": {
+    "description": "Physician"
   }
 }
