@@ -53,7 +53,8 @@ class AddVisitScreen extends StatefulWidget {
   State<AddVisitScreen> createState() => _AddVisitScreenState();
 }
 
-class _AddVisitScreenState extends State<AddVisitScreen> with PageViewNavigation {
+class _AddVisitScreenState extends State<AddVisitScreen>
+    with PageViewNavigation {
   static Map<String, VisitOptions>? _unscheduledSelection;
 
   static String? _back;
