@@ -28,15 +28,15 @@ class MyVisitsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const PicosScreenFrame(
-      body: Padding(
+    return PicosScreenFrame(
+      body: const Padding(
         padding: EdgeInsets.only(top: 5),
         child: VisitsList(),
       ),
-      bottomNavigationBar: PicosAddMonoButtonBar(
+      bottomNavigationBar: const PicosAddMonoButtonBar(
         route: '/visits-screen/visits',
       ),
-      title: 'Meine Behandlungsbesuche',
+      title: AppLocalizations.of(context)!.myVisits,
     );
   }
 }

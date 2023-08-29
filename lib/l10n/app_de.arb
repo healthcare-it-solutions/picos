@@ -356,5 +356,6 @@
   "ok": "OK",
   "rememberMe": "Angemeldet bleiben?",
   "hospital": "Krankenhaus",
-  "physician": "Arzt"
+  "physician": "Arzt",
+  "myVisits": "Meine Behandlungsbesuche"
 }

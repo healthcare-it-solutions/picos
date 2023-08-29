@@ -1430,5 +1430,9 @@
   "physician": "Physician",
   "@physician": {
     "description": "Physician"
+  },
+  "myVisits": "My Visits",
+  "@myVisits": {
+    "description": "My Visits"
   }
 }
