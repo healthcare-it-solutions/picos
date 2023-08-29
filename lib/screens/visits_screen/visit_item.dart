@@ -29,7 +29,6 @@ class VisitItem extends StatelessWidget {
 
   final Stay _stay;
 
-  /// Checks whether 'where' is 'hospital'
   bool _isHospital() {
     return _stay.where.toLowerCase() == 'hospital';
   }
