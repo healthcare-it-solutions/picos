@@ -17,6 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:picos/models/stay.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// Displays a visit item.
 class VisitItem extends StatelessWidget {
@@ -29,19 +30,61 @@ class VisitItem extends StatelessWidget {
   final Stay _stay;
 
   /// Checks whether 'where' is 'hospital'
-  bool isHospital() {
+  bool _isHospital() {
     return _stay.where.toLowerCase() == 'hospital';
+  }
+
+  String _translateWhere(BuildContext context) {
+    return _isHospital()
+        ? AppLocalizations.of(context)!.hospital
+        : AppLocalizations.of(context)!.physician;
   }
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: isHospital() ? Text(
-        'Anfangszeit: ${_stay.record.day}.${_stay.record.month}.'
-        '${_stay.record.year} - Endzeit: ${_stay.record.day}.'
-        '${_stay.record.month}.${_stay.record.year} - ${_stay.where}',
-      ) : Text('Besuchsdatum: ${_stay.record.day}.${_stay.record.month}.'
-        '${_stay.record.year} - ${_stay.where}'),
+      title: _isHospital()
+          ? RichText(
+              text: TextSpan(
+                text: 'Anfangszeit: ${_stay.record.day}.${_stay.record.month}.'
+                    '${_stay.record.year} ',
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                ),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: 'Endzeit: ${_stay.discharge!.day}.'
+                        '${_stay.discharge!.month}.'
+                        '${_stay.discharge!.year} - ',
+                  ),
+                  TextSpan(
+                    text: _translateWhere(context),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          : RichText(
+              text: TextSpan(
+                text: 'Besuchsdatum: ${_stay.record.day}.${_stay.record.month}.'
+                    '${_stay.record.year} - ',
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                ),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: _translateWhere(context),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
     );
   }
 }

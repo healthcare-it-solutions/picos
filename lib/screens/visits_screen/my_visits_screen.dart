@@ -29,7 +29,10 @@ class MyVisitsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const PicosScreenFrame(
-      body: VisitsList(),
+      body: Padding(
+        padding: EdgeInsets.only(top: 5),
+        child: VisitsList(),
+      ),
       bottomNavigationBar: PicosAddMonoButtonBar(
         route: '/visits-screen/visits',
       ),
