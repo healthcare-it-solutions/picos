@@ -44,44 +44,6 @@ class _GraphState extends State<GraphSection> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          /*       ButtonBar(
-            alignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              ElevatedButton(
-                onPressed: () {
-                  return;
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: theme.green1,
-                ),
-                child: Text(
-                  '7 ${AppLocalizations.of(context)!.days}',
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  return;
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: theme.green1,
-                ),
-                child: Text(
-                  '1 ${AppLocalizations.of(context)!.month}',
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  return;
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: theme.green1,
-                ),
-                child: Text(
-                  '3 ${AppLocalizations.of(context)!.months}',
-                ),
-              ),
-            ],
-          ),*/
           SizedBox(
             height: 250,
             child: FutureBuilder<List<DailyInput>?>(
@@ -92,7 +54,13 @@ class _GraphState extends State<GraphSection> {
               ) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasData) {
-                    return _BarChart(data: snapshot.data);
+                    return Column(
+                      children: <Widget>[
+                        Expanded(child: _BloodSugarChart(data: snapshot.data)),
+                        const SizedBox(height: 20), // Abstand dazwischen.
+                        Expanded(child: _HeartRateChart(data: snapshot.data)),
+                      ],
+                    );
                   } else {
                     return const Center(child: Text('Keine Daten verfügbar.'));
                   }
@@ -108,137 +76,12 @@ class _GraphState extends State<GraphSection> {
   }
 }
 
-class _BarChart extends StatelessWidget {
-  const _BarChart({Key? key, this.data}) : super(key: key);
-  final List<DailyInput>? data;
-
-  List<FlSpot> prepareLineChartData(List<DailyInput>? data) {
-    List<FlSpot> chartData = <FlSpot>[];
-
-    if (data == null) return chartData;
-
-    for (int i = 0; i < data.length; i++) {
-      double? heartFrequency = data[i].daily?.heartFrequency?.toDouble();
-
-      if (heartFrequency != null) {
-        chartData.add(FlSpot(i.toDouble(), heartFrequency));
-      }
-    }
-
-    return chartData;
-  }
-
-  List<LineChartBarData> lineBarsData(List<FlSpot> spots) {
-    return <LineChartBarData>[
-      LineChartBarData(
-        spots: spots,
-        isCurved: true,
-        color: Colors.red,
-        barWidth: 4,
-        isStrokeCapRound: true,
-        belowBarData: BarAreaData(show: false),
-      )
-    ];
-  }
-
-  List<BarChartGroupData> prepareChartData(List<DailyInput>? data) {
-    List<BarChartGroupData> chartData = <BarChartGroupData>[];
-
-    if (data == null) return chartData;
-
-    for (int i = 0; i < data.length; i++) {
-      double? bloodSugar = data[i].daily?.bloodSugar?.toDouble();
-
-      if (bloodSugar != null) {
-        chartData.add(
-          BarChartGroupData(
-            x: i,
-            barRods: <BarChartRodData>[
-              BarChartRodData(toY: bloodSugar, gradient: _barsGradient),
-            ],
-          ),
-        );
-      }
-    }
-
-    return chartData;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-    List<BarChartGroupData> barChartData = prepareChartData(data);
-    List<FlSpot> lineChartData = prepareLineChartData(data);
-
-    return Stack(
-      children: <Widget>[
-        BarChart(
-          BarChartData(
-            barTouchData: barTouchData,
-            titlesData: titlesData,
-            borderData: borderData,
-            barGroups: barChartData,
-            gridData: FlGridData(show: false),
-            alignment: BarChartAlignment.spaceAround,
-            maxY: 0,
-          ),
-        ),
-        Positioned.fill(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Transform.scale(
-              scale: 1.1,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: theme.blue!, width: 1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: LineChart(
-                    LineChartData(
-                      lineBarsData: lineBarsData(lineChartData),
-                      titlesData: FlTitlesData(show: false),
-                      borderData: FlBorderData(show: false),
-                      minX: 0,
-                      maxX: 7,
-                      minY: 0,
-                      maxY: 150,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  BarTouchData get barTouchData => BarTouchData(
-        enabled: false,
-        touchTooltipData: BarTouchTooltipData(
-          tooltipBgColor: Colors.transparent,
-          tooltipPadding: const EdgeInsets.all(0),
-          tooltipMargin: 8,
-          getTooltipItem: (
-            BarChartGroupData group,
-            int groupIndex,
-            BarChartRodData rod,
-            int rodIndex,
-          ) {
-            return BarTooltipItem(
-              rod.toY.round().toString(),
-              const TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-            );
-          },
-        ),
-      );
-
-  Widget getTitles(double value, TitleMeta meta) {
+// This helper class holds methods and properties that are common
+// between _BloodSugarChart and _HeartRateChart to avoid repetition.
+///
+class ChartHelper {
+  ///
+  static Widget getTitles(double value, TitleMeta meta) {
     const TextStyle style = TextStyle(
       color: Color(0xff7589a2),
       fontWeight: FontWeight.bold,
@@ -274,7 +117,8 @@ class _BarChart extends StatelessWidget {
     return Text(text, style: style);
   }
 
-  FlTitlesData get titlesData => FlTitlesData(
+  ///
+  static FlTitlesData get titlesData => FlTitlesData(
         show: true,
         bottomTitles: AxisTitles(
           sideTitles: SideTitles(
@@ -294,8 +138,96 @@ class _BarChart extends StatelessWidget {
         ),
       );
 
-  FlBorderData get borderData => FlBorderData(
+  ///
+  static FlBorderData get borderData => FlBorderData(
         show: false,
+      );
+}
+
+class _BloodSugarChart extends StatelessWidget {
+  const _BloodSugarChart({Key? key, this.data}) : super(key: key);
+  final List<DailyInput>? data;
+
+  List<BarChartGroupData> prepareChartData(List<DailyInput>? data) {
+    List<BarChartGroupData> chartData = <BarChartGroupData>[];
+
+    if (data == null) return chartData;
+
+    for (int i = 0; i < data.length; i++) {
+      double? bloodSugar = data[i].daily?.bloodSugar?.toDouble();
+
+      if (bloodSugar != null) {
+        chartData.add(
+          BarChartGroupData(
+            x: i,
+            barRods: <BarChartRodData>[
+              BarChartRodData(toY: bloodSugar, gradient: _barsGradient),
+            ],
+          ),
+        );
+      }
+    }
+
+    return chartData;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+    List<BarChartGroupData> barChartData = prepareChartData(data);
+
+    return Stack(
+      children: <Widget>[
+        BarChart(
+          BarChartData(
+            barTouchData: barTouchData,
+            titlesData: ChartHelper.titlesData,
+            borderData: ChartHelper.borderData,
+            barGroups: barChartData,
+            gridData: FlGridData(show: false),
+            alignment: BarChartAlignment.spaceAround,
+            maxY: 0,
+          ),
+        ),
+        Positioned.fill(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Transform.scale(
+              scale: 1.1,
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: theme.blue!, width: 1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  BarTouchData get barTouchData => BarTouchData(
+        enabled: false,
+        touchTooltipData: BarTouchTooltipData(
+          tooltipBgColor: Colors.transparent,
+          tooltipPadding: const EdgeInsets.all(0),
+          tooltipMargin: 8,
+          getTooltipItem: (
+            BarChartGroupData group,
+            int groupIndex,
+            BarChartRodData rod,
+            int rodIndex,
+          ) {
+            return BarTooltipItem(
+              rod.toY.round().toString(),
+              const TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            );
+          },
+        ),
       );
 
   final LinearGradient _barsGradient = const LinearGradient(
@@ -369,4 +301,79 @@ class _BarChart extends StatelessWidget {
           showingTooltipIndicators: <int>[0],
         ),
       ];
+}
+
+class _HeartRateChart extends StatelessWidget {
+  const _HeartRateChart({Key? key, this.data}) : super(key: key);
+  final List<DailyInput>? data;
+
+  List<FlSpot> prepareLineChartData(List<DailyInput>? data) {
+    List<FlSpot> chartData = <FlSpot>[];
+
+    if (data == null) return chartData;
+
+    for (int i = 0; i < data.length; i++) {
+      double? heartFrequency = data[i].daily?.heartFrequency?.toDouble();
+
+      if (heartFrequency != null) {
+        chartData.add(FlSpot(i.toDouble(), heartFrequency));
+      }
+    }
+
+    return chartData;
+  }
+
+  List<LineChartBarData> lineBarsData(List<FlSpot> spots) {
+    return <LineChartBarData>[
+      LineChartBarData(
+        spots: spots,
+        isCurved: true,
+        color: Colors.red,
+        barWidth: 4,
+        isStrokeCapRound: true,
+        belowBarData: BarAreaData(show: false),
+      )
+    ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+    List<FlSpot> lineChartData = prepareLineChartData(data);
+
+    return Stack(
+      children: <Widget>[
+        Positioned.fill(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: LineChart(
+              LineChartData(
+                lineBarsData: lineBarsData(lineChartData),
+                titlesData: FlTitlesData(show: false),
+                borderData: FlBorderData(show: false),
+                minX: 0,
+                maxX: 7,
+                minY: 0,
+                maxY: 150,
+              ),
+            ),
+          ),
+        ),
+        Positioned.fill(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Transform.scale(
+              scale: 1.1,
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: theme.blue!, width: 1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }
