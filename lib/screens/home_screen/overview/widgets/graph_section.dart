@@ -19,6 +19,11 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/api/backend_values_api.dart';
+import 'package:picos/screens/home_screen/overview/widgets/section.dart';
+
+import '../../../../models/daily_input.dart';
+import '../../../../themes/global_theme.dart';
 
 /// Widget which shows a graph
 class GraphSection extends StatefulWidget {
@@ -32,22 +37,14 @@ class GraphSection extends StatefulWidget {
 class _GraphState extends State<GraphSection> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+    return Section(
+      title: AppLocalizations.of(context)!.myMedicalData,
+      titleColor: theme.blue,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          SizedBox(
-            width: double.infinity,
-            child: Text(
-              AppLocalizations.of(context)!.myMedicalData,
-            ),
-          ),
-          Container(
-            color: Colors.black,
-            height: 1,
-          ),
-          ButtonBar(
+          /*       ButtonBar(
             alignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               ElevatedButton(
@@ -55,7 +52,7 @@ class _GraphState extends State<GraphSection> {
                   return;
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
+                  backgroundColor: theme.green1,
                 ),
                 child: Text(
                   '7 ${AppLocalizations.of(context)!.days}',
@@ -66,7 +63,7 @@ class _GraphState extends State<GraphSection> {
                   return;
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
+                  backgroundColor: theme.green1,
                 ),
                 child: Text(
                   '1 ${AppLocalizations.of(context)!.month}',
@@ -77,17 +74,33 @@ class _GraphState extends State<GraphSection> {
                   return;
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
+                  backgroundColor: theme.green1,
                 ),
                 child: Text(
                   '3 ${AppLocalizations.of(context)!.months}',
                 ),
               ),
             ],
-          ),
-          const SizedBox(
+          ),*/
+          SizedBox(
             height: 250,
-            child: _BarChart(),
+            child: FutureBuilder<List<DailyInput>?>(
+              future: BackendValuesApi.getMyValues(),
+              builder: (
+                BuildContext context,
+                AsyncSnapshot<List<DailyInput>?> snapshot,
+              ) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasData) {
+                    return _BarChart(data: snapshot.data);
+                  } else {
+                    return const Center(child: Text('Keine Daten verfügbar.'));
+                  }
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              },
+            ),
           ),
         ],
       ),
@@ -96,20 +109,109 @@ class _GraphState extends State<GraphSection> {
 }
 
 class _BarChart extends StatelessWidget {
-  const _BarChart({Key? key}) : super(key: key);
+  const _BarChart({Key? key, this.data}) : super(key: key);
+  final List<DailyInput>? data;
+
+  List<FlSpot> prepareLineChartData(List<DailyInput>? data) {
+    List<FlSpot> chartData = <FlSpot>[];
+
+    if (data == null) return chartData;
+
+    for (int i = 0; i < data.length; i++) {
+      double? heartFrequency = data[i].daily?.heartFrequency?.toDouble();
+
+      if (heartFrequency != null) {
+        chartData.add(FlSpot(i.toDouble(), heartFrequency));
+      }
+    }
+
+    return chartData;
+  }
+
+  List<LineChartBarData> lineBarsData(List<FlSpot> spots) {
+    return <LineChartBarData>[
+      LineChartBarData(
+        spots: spots,
+        isCurved: true,
+        color: Colors.red,
+        barWidth: 4,
+        isStrokeCapRound: true,
+        belowBarData: BarAreaData(show: false),
+      )
+    ];
+  }
+
+  List<BarChartGroupData> prepareChartData(List<DailyInput>? data) {
+    List<BarChartGroupData> chartData = <BarChartGroupData>[];
+
+    if (data == null) return chartData;
+
+    for (int i = 0; i < data.length; i++) {
+      double? bloodSugar = data[i].daily?.bloodSugar?.toDouble();
+
+      if (bloodSugar != null) {
+        chartData.add(
+          BarChartGroupData(
+            x: i,
+            barRods: <BarChartRodData>[
+              BarChartRodData(toY: bloodSugar, gradient: _barsGradient),
+            ],
+          ),
+        );
+      }
+    }
+
+    return chartData;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BarChart(
-      BarChartData(
-        barTouchData: barTouchData,
-        titlesData: titlesData,
-        borderData: borderData,
-        barGroups: barGroups,
-        gridData: FlGridData(show: false),
-        alignment: BarChartAlignment.spaceAround,
-        maxY: 20,
-      ),
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+    List<BarChartGroupData> barChartData = prepareChartData(data);
+    List<FlSpot> lineChartData = prepareLineChartData(data);
+
+    return Stack(
+      children: <Widget>[
+        BarChart(
+          BarChartData(
+            barTouchData: barTouchData,
+            titlesData: titlesData,
+            borderData: borderData,
+            barGroups: barChartData,
+            gridData: FlGridData(show: false),
+            alignment: BarChartAlignment.spaceAround,
+            maxY: 0,
+          ),
+        ),
+        Positioned.fill(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Transform.scale(
+              scale: 1.1,
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: theme.blue!, width: 1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: LineChart(
+                    LineChartData(
+                      lineBarsData: lineBarsData(lineChartData),
+                      titlesData: FlTitlesData(show: false),
+                      borderData: FlBorderData(show: false),
+                      minX: 0,
+                      maxX: 7,
+                      minY: 0,
+                      maxY: 150,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -128,7 +230,7 @@ class _BarChart extends StatelessWidget {
             return BarTooltipItem(
               rod.toY.round().toString(),
               const TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontWeight: FontWeight.bold,
               ),
             );
@@ -136,41 +238,41 @@ class _BarChart extends StatelessWidget {
         ),
       );
 
-  // Widget getTitles(double value, TitleMeta meta) {
-  //   const style = TextStyle(
-  //     color: Color(0xff7589a2),
-  //     fontWeight: FontWeight.bold,
-  //     fontSize: 14,
-  //   );
-  //   String text;
-  //   switch (value.toInt()) {
-  //     case 0:
-  //       text = 'Mn';
-  //       break;
-  //     case 1:
-  //       text = 'Te';
-  //       break;
-  //     case 2:
-  //       text = 'Wd';
-  //       break;
-  //     case 3:
-  //       text = 'Tu';
-  //       break;
-  //     case 4:
-  //       text = 'Fr';
-  //       break;
-  //     case 5:
-  //       text = 'St';
-  //       break;
-  //     case 6:
-  //       text = 'Sn';
-  //       break;
-  //     default:
-  //       text = '';
-  //       break;
-  //   }
-  //   return
-  // }
+  Widget getTitles(double value, TitleMeta meta) {
+    const TextStyle style = TextStyle(
+      color: Color(0xff7589a2),
+      fontWeight: FontWeight.bold,
+      fontSize: 14,
+    );
+    String text;
+    switch (value.toInt()) {
+      case 0:
+        text = 'Mn';
+        break;
+      case 1:
+        text = 'Te';
+        break;
+      case 2:
+        text = 'Wd';
+        break;
+      case 3:
+        text = 'Tu';
+        break;
+      case 4:
+        text = 'Fr';
+        break;
+      case 5:
+        text = 'St';
+        break;
+      case 6:
+        text = 'Sn';
+        break;
+      default:
+        text = '';
+        break;
+    }
+    return Text(text, style: style);
+  }
 
   FlTitlesData get titlesData => FlTitlesData(
         show: true,
@@ -178,7 +280,7 @@ class _BarChart extends StatelessWidget {
           sideTitles: SideTitles(
             showTitles: true,
             reservedSize: 30,
-            //getTitlesWidget: getTitles,
+            getTitlesWidget: getTitles,
           ),
         ),
         leftTitles: AxisTitles(

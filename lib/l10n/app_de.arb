@@ -342,7 +342,7 @@
   "strongPassword": "Ihr Passwort muss aus Groß-, Kleinbuchstaben, Sonderzeichen, Zahlen und insgesamt aus mindestens 8 Zeichen bestehen!",
   "passwordSavedFailureMessage": "Neues Passwort konnte nicht gespeichert werden!",
   "allFieldsMustbeFilled": "Alle Felder müssen ausgefüllt sein!",
-  "changeTitle":"Anrede ändern",
+  "changeTitle": "Anrede ändern",
   "changeFirstname": "Vorname ändern",
   "changeLastname": "Nachname ändern",
   "changeAddress": "Adresse ändern",
@@ -354,5 +354,7 @@
   "passwordChangeSuccessful": "Passwort erfolgreich geändert!",
   "passwordChangeLogoutMessage": "Sie wurden automatisch abgemeldet. Bitte melden Sie sich erneut an.",
   "ok": "OK",
-  "rememberMe": "Angemeldet bleiben?"
+  "rememberMe": "Angemeldet bleiben?",
+  "myValues": "Werte",
+  "infoMyValue": "Behalten Sie Ihre Werte im Blick.\nWählen Sie hier Ihre persönlichen Eingaben, die auf der Startseite angezeigt werden sollen."
 }

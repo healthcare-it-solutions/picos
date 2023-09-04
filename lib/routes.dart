@@ -23,6 +23,7 @@ import 'package:picos/screens/my_documents_screen/my_documents_screen.dart';
 import 'package:picos/screens/my_medications_screen/add_medication_screen.dart';
 import 'package:picos/screens/my_therapies_screen/add_therapy_screen.dart';
 import 'package:picos/screens/my_therapies_screen/my_therapies_screen.dart';
+import 'package:picos/screens/my_values_screen/my_values_screen.dart';
 import 'package:picos/screens/physician_list_screen/add_physician_screen.dart';
 import 'package:picos/screens/family_member_list_screen/add_family_member_screen.dart';
 import 'package:picos/screens/family_member_list_screen/family_members_screen.dart';
@@ -90,6 +91,7 @@ class Routes {
       '/study-nurse-screen/catalog-of-items': (BuildContext ctx) =>
       const CatalogOfItemsScreen(),
       'profile-screen/profile': (BuildContext ctx) => const ProfileScreen(),
+      '/my-values_screen/my-values': (BuildContext ctx) => const MyValuesScreen(),
     };
   }
 

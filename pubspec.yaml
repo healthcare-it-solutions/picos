@@ -30,6 +30,7 @@ dependencies:
   collection: ^1.15.0
   flutter:
     sdk: flutter
+  shared_preferences: ^2.0.8
   flutter_localizations:
     sdk: flutter
   intl: ^0.18.0
