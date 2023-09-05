@@ -94,8 +94,7 @@ class ChartHelper {
   ///
   static Widget getTitles(double value, TitleMeta meta) {
     const TextStyle style = TextStyle(
-      color: Color(0xff7589a2),
-      fontWeight: FontWeight.bold,
+      color: Colors.black,
       fontSize: 14,
     );
     String text;
@@ -229,7 +228,6 @@ class _BloodSugarChart extends StatelessWidget {
               rod.toY.round().toString(),
               const TextStyle(
                 color: Colors.black,
-                fontWeight: FontWeight.bold,
               ),
             );
           },

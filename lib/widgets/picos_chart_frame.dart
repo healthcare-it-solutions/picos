@@ -54,26 +54,30 @@ class PicosChartFrame extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 20, // Adjust as needed
+          top: 5, // Adjust as needed
           left: 0,
-          right: 225,
+          right: 0,
           child: Center(
             child: Container(
+              width: 300,
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: theme.blue!, // Farbe des Unterstrichs
-                    width: ChartHelper.width, // Dicke des Unterstrichs
+                    color: theme.blue!,
+                    width: ChartHelper.width,
                   ),
                 ),
               ),
-              padding: const EdgeInsets.only(bottom: 1.0), // Abstand dazwischen
-              child: Text(
-                title ?? '',
-                style: TextStyle(
-                  color: theme.blue,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
+              padding: const EdgeInsets.only(bottom: 1.0),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  title ?? '',
+                  style: TextStyle(
+                    color: theme.blue,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
                 ),
               ),
             ),
