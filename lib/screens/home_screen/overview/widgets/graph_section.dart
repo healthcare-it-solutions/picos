@@ -26,6 +26,7 @@ import 'package:picos/screens/home_screen/overview/widgets/section.dart';
 
 import '../../../../themes/global_theme.dart';
 import '../../../../widgets/picos_chart_frame.dart';
+import '../../../../widgets/picos_ink_well_button.dart';
 
 /// Widget which shows a graph
 class GraphSection extends StatefulWidget {
@@ -47,7 +48,7 @@ class _GraphState extends State<GraphSection> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           SizedBox(
-            height: 250,
+            height: 175 * 2, //Zwei Graphen.
             child: FutureBuilder<MyValues?>(
               future: BackendValuesApi.getMyValues(),
               builder: (
@@ -62,10 +63,22 @@ class _GraphState extends State<GraphSection> {
                           child:
                               _BloodSugarChart(data: snapshot.data?.dailyList),
                         ),
-                        const SizedBox(height: 20), // Abstand dazwischen.
+                        const SizedBox(height: 15 * 2), // Abstand dazwischen.
                         Expanded(
                           child:
                               _HeartRateChart(data: snapshot.data?.dailyList),
+                        ),
+                        const SizedBox(height: 15 * 2), // Abstand dazwischen.
+                        PicosInkWellButton(
+                          padding: const EdgeInsets.symmetric(horizontal: 0),
+                          text: AppLocalizations.of(context)!.manageValues,
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              '/my-values_screen/my-values',
+                            );
+                          },
+                          fontSize: 20,
                         ),
                       ],
                     );
@@ -92,9 +105,12 @@ class ChartHelper {
   static double width = 1.0;
 
   ///
+  static Color colorBlack = Colors.black;
+
+  ///
   static Widget getTitles(double value, TitleMeta meta) {
-    const TextStyle style = TextStyle(
-      color: Colors.black,
+    TextStyle style = TextStyle(
+      color: colorBlack,
       fontSize: 14,
     );
     String text;
@@ -168,8 +184,7 @@ class _BloodSugarChart extends StatelessWidget {
 
     int length = data.length;
     for (int i = 0; i < length; i++) {
-      double? bloodSugar =
-          data[length - i - 1].bloodSugar?.toDouble(); // Umkehren hier
+      double? bloodSugar = data[length - i - 1].bloodSugar?.toDouble();
 
       if (bloodSugar != null) {
         chartData.add(
@@ -206,7 +221,7 @@ class _BloodSugarChart extends StatelessWidget {
           barGroups: barChartData,
           gridData: FlGridData(show: false),
           alignment: BarChartAlignment.spaceAround,
-          maxY: 160,
+          maxY: 500,
         ),
       ),
     );
@@ -226,8 +241,8 @@ class _BloodSugarChart extends StatelessWidget {
           ) {
             return BarTooltipItem(
               rod.toY.round().toString(),
-              const TextStyle(
-                color: Colors.black,
+              TextStyle(
+                color: ChartHelper.colorBlack,
               ),
             );
           },

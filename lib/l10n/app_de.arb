@@ -356,5 +356,6 @@
   "ok": "OK",
   "rememberMe": "Angemeldet bleiben?",
   "myValues": "Werte",
-  "infoMyValue": "Behalten Sie Ihre Werte im Blick.\nWählen Sie hier Ihre persönlichen Eingaben, die auf der Startseite angezeigt werden sollen."
+  "infoMyValue": "Behalten Sie Ihre Werte im Blick.\nWählen Sie hier Ihre persönlichen Eingaben, die auf der Startseite angezeigt werden sollen.",
+  "manageValues": "Werte verwalten"
 }
