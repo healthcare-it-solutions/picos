@@ -20,10 +20,12 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/api/backend_values_api.dart';
+import 'package:picos/models/daily.dart';
+import 'package:picos/models/myValues.dart';
 import 'package:picos/screens/home_screen/overview/widgets/section.dart';
 
-import '../../../../models/daily_input.dart';
 import '../../../../themes/global_theme.dart';
+import '../../../../widgets/picos_chart_frame.dart';
 
 /// Widget which shows a graph
 class GraphSection extends StatefulWidget {
@@ -46,19 +48,25 @@ class _GraphState extends State<GraphSection> {
         children: <Widget>[
           SizedBox(
             height: 250,
-            child: FutureBuilder<List<DailyInput>?>(
+            child: FutureBuilder<MyValues?>(
               future: BackendValuesApi.getMyValues(),
               builder: (
                 BuildContext context,
-                AsyncSnapshot<List<DailyInput>?> snapshot,
+                AsyncSnapshot<MyValues?> snapshot,
               ) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasData) {
                     return Column(
                       children: <Widget>[
-                        Expanded(child: _BloodSugarChart(data: snapshot.data)),
+                        Expanded(
+                          child:
+                              _BloodSugarChart(data: snapshot.data?.dailyList),
+                        ),
                         const SizedBox(height: 20), // Abstand dazwischen.
-                        Expanded(child: _HeartRateChart(data: snapshot.data)),
+                        Expanded(
+                          child:
+                              _HeartRateChart(data: snapshot.data?.dailyList),
+                        ),
                       ],
                     );
                   } else {
@@ -80,6 +88,9 @@ class _GraphState extends State<GraphSection> {
 // between _BloodSugarChart and _HeartRateChart to avoid repetition.
 ///
 class ChartHelper {
+  ///
+  static double width = 1.0;
+
   ///
   static Widget getTitles(double value, TitleMeta meta) {
     const TextStyle style = TextStyle(
@@ -146,23 +157,33 @@ class ChartHelper {
 
 class _BloodSugarChart extends StatelessWidget {
   const _BloodSugarChart({Key? key, this.data}) : super(key: key);
-  final List<DailyInput>? data;
+  final List<Daily>? data;
 
-  List<BarChartGroupData> prepareChartData(List<DailyInput>? data) {
+  List<BarChartGroupData> prepareChartData(
+    List<Daily>? data,
+    GlobalTheme theme,
+  ) {
     List<BarChartGroupData> chartData = <BarChartGroupData>[];
 
     if (data == null) return chartData;
 
-    for (int i = 0; i < data.length; i++) {
-      double? bloodSugar = data[i].daily?.bloodSugar?.toDouble();
+    int length = data.length;
+    for (int i = 0; i < length; i++) {
+      double? bloodSugar =
+          data[length - i - 1].bloodSugar?.toDouble(); // Umkehren hier
 
       if (bloodSugar != null) {
         chartData.add(
           BarChartGroupData(
             x: i,
             barRods: <BarChartRodData>[
-              BarChartRodData(toY: bloodSugar, gradient: _barsGradient),
+              BarChartRodData(
+                toY: bloodSugar,
+                gradient: _barsGradient(theme),
+                borderRadius: BorderRadius.zero,
+              ),
             ],
+            showingTooltipIndicators: <int>[0],
           ),
         );
       }
@@ -174,36 +195,21 @@ class _BloodSugarChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-    List<BarChartGroupData> barChartData = prepareChartData(data);
+    List<BarChartGroupData> barChartData = prepareChartData(data, theme);
 
-    return Stack(
-      children: <Widget>[
-        BarChart(
-          BarChartData(
-            barTouchData: barTouchData,
-            titlesData: ChartHelper.titlesData,
-            borderData: ChartHelper.borderData,
-            barGroups: barChartData,
-            gridData: FlGridData(show: false),
-            alignment: BarChartAlignment.spaceAround,
-            maxY: 0,
-          ),
+    return PicosChartFrame(
+      title: AppLocalizations.of(context)!.bloodSugar,
+      chart: BarChart(
+        BarChartData(
+          barTouchData: barTouchData,
+          titlesData: ChartHelper.titlesData,
+          borderData: ChartHelper.borderData,
+          barGroups: barChartData,
+          gridData: FlGridData(show: false),
+          alignment: BarChartAlignment.spaceAround,
+          maxY: 160,
         ),
-        Positioned.fill(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Transform.scale(
-              scale: 1.1,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: theme.blue!, width: 1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 
@@ -230,90 +236,31 @@ class _BloodSugarChart extends StatelessWidget {
         ),
       );
 
-  final LinearGradient _barsGradient = const LinearGradient(
-    colors: <Color>[
-      Colors.lightBlueAccent,
-      Colors.greenAccent,
-    ],
-    begin: Alignment.bottomCenter,
-    end: Alignment.topCenter,
-  );
-
-  List<BarChartGroupData> get barGroups => <BarChartGroupData>[
-        BarChartGroupData(
-          x: 0,
-          barRods: <BarChartRodData>[
-            BarChartRodData(
-              toY: 8,
-              gradient: _barsGradient,
-            ),
-          ],
-          showingTooltipIndicators: <int>[0],
-        ),
-        BarChartGroupData(
-          x: 1,
-          barRods: <BarChartRodData>[
-            BarChartRodData(
-              toY: 10,
-              gradient: _barsGradient,
-            ),
-          ],
-          showingTooltipIndicators: <int>[0],
-        ),
-        BarChartGroupData(
-          x: 2,
-          barRods: <BarChartRodData>[
-            BarChartRodData(
-              toY: 14,
-              gradient: _barsGradient,
-            ),
-          ],
-          showingTooltipIndicators: <int>[0],
-        ),
-        BarChartGroupData(
-          x: 3,
-          barRods: <BarChartRodData>[
-            BarChartRodData(
-              toY: 15,
-              gradient: _barsGradient,
-            ),
-          ],
-          showingTooltipIndicators: <int>[0],
-        ),
-        BarChartGroupData(
-          x: 3,
-          barRods: <BarChartRodData>[
-            BarChartRodData(
-              toY: 13,
-              gradient: _barsGradient,
-            ),
-          ],
-          showingTooltipIndicators: <int>[0],
-        ),
-        BarChartGroupData(
-          x: 3,
-          barRods: <BarChartRodData>[
-            BarChartRodData(
-              toY: 10,
-              gradient: _barsGradient,
-            ),
-          ],
-          showingTooltipIndicators: <int>[0],
-        ),
-      ];
+  LinearGradient _barsGradient(GlobalTheme theme) {
+    return LinearGradient(
+      colors: <Color>[
+        theme.blue!,
+        theme.blue!,
+      ],
+      begin: Alignment.bottomCenter,
+      end: Alignment.topCenter,
+    );
+  }
 }
 
 class _HeartRateChart extends StatelessWidget {
   const _HeartRateChart({Key? key, this.data}) : super(key: key);
-  final List<DailyInput>? data;
+  final List<Daily>? data;
 
-  List<FlSpot> prepareLineChartData(List<DailyInput>? data) {
+  List<FlSpot> prepareLineChartData(List<Daily>? data) {
     List<FlSpot> chartData = <FlSpot>[];
 
     if (data == null) return chartData;
 
-    for (int i = 0; i < data.length; i++) {
-      double? heartFrequency = data[i].daily?.heartFrequency?.toDouble();
+    int length = data.length;
+    for (int i = 0; i < length; i++) {
+      double? heartFrequency =
+          data[length - i - 1].heartFrequency?.toDouble(); // Umkehren hier
 
       if (heartFrequency != null) {
         chartData.add(FlSpot(i.toDouble(), heartFrequency));
@@ -323,15 +270,12 @@ class _HeartRateChart extends StatelessWidget {
     return chartData;
   }
 
-  List<LineChartBarData> lineBarsData(List<FlSpot> spots) {
+  List<LineChartBarData> lineBarsData(List<FlSpot> spots, GlobalTheme theme) {
     return <LineChartBarData>[
       LineChartBarData(
         spots: spots,
-        isCurved: true,
-        color: Colors.red,
-        barWidth: 4,
-        isStrokeCapRound: true,
-        belowBarData: BarAreaData(show: false),
+        color: theme.blue,
+        barWidth: 2,
       )
     ];
   }
@@ -341,39 +285,20 @@ class _HeartRateChart extends StatelessWidget {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
     List<FlSpot> lineChartData = prepareLineChartData(data);
 
-    return Stack(
-      children: <Widget>[
-        Positioned.fill(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: LineChart(
-              LineChartData(
-                lineBarsData: lineBarsData(lineChartData),
-                titlesData: FlTitlesData(show: false),
-                borderData: FlBorderData(show: false),
-                minX: 0,
-                maxX: 7,
-                minY: 0,
-                maxY: 150,
-              ),
-            ),
-          ),
+    return PicosChartFrame(
+      title: AppLocalizations.of(context)!.heartFrequency,
+      chart: LineChart(
+        LineChartData(
+          lineBarsData: lineBarsData(lineChartData, theme),
+          titlesData: FlTitlesData(show: false),
+          borderData: FlBorderData(show: false),
+          gridData: FlGridData(show: false),
+          minX: 0,
+          maxX: 7,
+          minY: 0,
+          maxY: 150,
         ),
-        Positioned.fill(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Transform.scale(
-              scale: 1.1,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: theme.blue!, width: 1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
