@@ -17,7 +17,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
-import 'package:picos/models/myValues.dart';
+import 'package:picos/models/values.dart';
 
 import '../models/daily.dart';
 import '../models/weekly.dart';
@@ -25,7 +25,7 @@ import '../models/weekly.dart';
 /// API for storing values at the backend.
 class BackendValuesApi {
   /// Ret
-  static Future<MyValues?> getMyValues() async {
+  static Future<Values?> getMyValues() async {
     try {
       DateTime now = DateTime.now();
 
@@ -77,7 +77,7 @@ class BackendValuesApi {
         );
       }
 
-      return MyValues(
+      return Values(
         dailyList: resultsLast7Days,
         weeklyList: resultsLast7Weeks,
       );

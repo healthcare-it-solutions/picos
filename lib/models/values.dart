@@ -19,9 +19,9 @@ import 'package:picos/models/daily.dart';
 import 'package:picos/models/weekly.dart';
 
 ///
-class MyValues {
+class Values {
   /// Creates a MyValues object.
-  MyValues({
+  Values({
     required this.dailyList,
     required this.weeklyList,
   });

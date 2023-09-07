@@ -318,10 +318,8 @@ class BackendFile {
       /// _createDocumentButtons"
       // saves file in users download folder
       FileSaver.instance.saveFile(
-        parseFile.name,
-        parseFile.file!,
-        '',
-        mimeType: MimeType.OTHER,
+        name: parseFile.name,
+        bytes: parseFile.file!,
       );
       return platformFile;
     } else {
