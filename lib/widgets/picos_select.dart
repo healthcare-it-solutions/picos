@@ -107,12 +107,14 @@ class _PicosSelectState extends State<PicosSelect> {
         absorbing: widget.disabled,
         child: ButtonTheme(
           alignedDropdown: true,
+
           child: SizedBox(
             height: widget.validator == null ? null : 75,
+            child: Expanded(
             child: DropdownButtonFormField<String>(
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.only(
-                  right: 10,
+                  right: 5,
                 ),
                 enabledBorder: outlineInputBorder,
                 focusedBorder: outlineInputBorder,
@@ -133,7 +135,7 @@ class _PicosSelectState extends State<PicosSelect> {
               },
               items: _createItemList(),
               validator: widget.validator,
-            ),
+            ),),
           ),
         ),
       ),
