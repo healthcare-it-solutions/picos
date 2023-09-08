@@ -16,8 +16,6 @@
 */
 
 import 'package:flutter/material.dart';
-import '../screens/home_screen/overview/widgets/graph_section.dart';
-import '../themes/global_theme.dart';
 
 ///
 class PicosChartFrame extends StatelessWidget {
@@ -33,79 +31,9 @@ class PicosChartFrame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-    final DateTime now = DateTime.now();
-    final DateTime sevenDayBefore = now.subtract(const Duration(days: 7));
     return Stack(
       children: <Widget>[
         chart,
-        Positioned.fill(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Transform.scale(
-              scaleX: 1.1,
-              scaleY: 1.5,
-              child: Container(
-                decoration: BoxDecoration(
-                  border:
-                      Border.all(color: theme.blue!, width: ChartHelper.width),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: 5, // Adjust as needed
-          left: 0,
-          right: 0,
-          child: Center(
-            child: Container(
-              width: 300,
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: theme.blue!,
-                    width: ChartHelper.width,
-                  ),
-                ),
-              ),
-              padding: const EdgeInsets.only(bottom: 1.0),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  '$title  ${sevenDayBefore.day.toString().padLeft(2, '0')}.'
-                  '${sevenDayBefore.month.toString().padLeft(2, '0')}.'
-                  '${sevenDayBefore.year}-${now.day.toString().padLeft(2, '0')}'
-                  '.${now.month.toString().padLeft(2, '0')}.${now.year}',
-                  style: TextStyle(
-                    color: theme.blue,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: 100, // Adjust as needed
-          left: 0,
-          right: 0,
-          child: Center(
-            child: Container(
-              width: 300,
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: theme.blue!,
-                    width: ChartHelper.width,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
       ],
     );
   }
