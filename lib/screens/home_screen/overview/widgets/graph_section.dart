@@ -22,10 +22,37 @@ import 'package:picos/api/backend_values_api.dart';
 import 'package:picos/models/daily.dart';
 import 'package:picos/models/values.dart';
 import 'package:picos/screens/home_screen/overview/widgets/section.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-
 import '../../../../themes/global_theme.dart';
+import '../../../../widgets/picos_column_chart.dart';
 import '../../../../widgets/picos_ink_well_button.dart';
+import '../../../../widgets/picos_line_chart.dart';
+
+///
+enum ValuesChartOptions {
+  /// The patients heart frequency.
+  heartFrequency,
+
+  /// The patients blood sugar value.
+  bloodSugar,
+
+  /// The patients blood pressure systolic value.
+  bloodSystolic,
+
+  /// The patients blood pressure diastolic value.
+  bloodDiastolic,
+
+  /// The patients sleep duration.
+  sleepDuration,
+
+  /// The patients body weight.
+  bodyWeight,
+
+  /// The patients BMI.
+  bmi,
+
+  /// The patients walking distance.
+  walkingDistance,
+}
 
 /// Widget to display a section with graphs.
 class GraphSection extends StatefulWidget {
@@ -49,13 +76,13 @@ class _GraphState extends State<GraphSection> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           SizedBox(
-            height: screenHeight* 0.4, // Space for two graphs.
+            height: screenHeight * 0.7, // Space for two graphs.
             child: FutureBuilder<Values?>(
               future: BackendValuesApi.getMyValues(),
               builder: (
-                  BuildContext context,
-                  AsyncSnapshot<Values?> snapshot,
-                  ) {
+                BuildContext context,
+                AsyncSnapshot<Values?> snapshot,
+              ) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasData) {
                     return _buildGraphsWithData(snapshot.data?.dailyList);
@@ -75,10 +102,23 @@ class _GraphState extends State<GraphSection> {
 
   /// Returns a column widget containing the graphs populated
   /// with the given data.
-  Widget _buildGraphsWithData(List<Daily>? data) {
+  Widget _buildGraphsWithData(List<Daily>? dailyList) {
     return Column(
       children: <Widget>[
-        Expanded(child: BloodSugarChart(dailyList: data)),
+        Expanded(
+          child: PicosColumnChart(
+            dailyList: dailyList,
+            title: AppLocalizations.of(context)!.bloodSugar,
+            valuesChartOptions: ValuesChartOptions.bloodSugar,
+          ),
+        ),
+        const SizedBox(height: 20), // Spacer.
+        Expanded(
+          child: PicosLineChart(
+            dailyList: dailyList,
+            title: AppLocalizations.of(context)!.heartFrequency,
+          ),
+        ),
         const SizedBox(height: 20), // Spacer.
         PicosInkWellButton(
           padding: const EdgeInsets.symmetric(horizontal: 0),
@@ -112,54 +152,6 @@ class ChartHelper {
       int dayIndex = (today - 6 + index) % 7;
       return weekDays[dayIndex];
     });
-  }
-}
-
-/// Widget to display blood sugar values in a column chart.
-class BloodSugarChart extends StatelessWidget {
-  /// Creates a [BloodSugarChart].
-  const BloodSugarChart({Key? key, this.dailyList}) : super(key: key);
-
-  ///
-  final List<Daily>? dailyList;
-
-  List<ChartSampleData> _prepareChartData() {
-    List<ChartSampleData> chartData = <ChartSampleData>[];
-    List<String> days = ChartHelper.getLastSevenDaysShortText();
-    if (dailyList == null) return chartData;
-    for (int i = 0; i < dailyList!.length; i++) {
-      double? bloodSugar = dailyList?[i].bloodSugar?.toDouble();
-      chartData.add(
-        ChartSampleData(
-          x: days[i],
-          y: bloodSugar ?? 0,
-        ),
-      );
-    }
-    return chartData;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SfCartesianChart(
-      plotAreaBorderWidth: 0,
-      title: ChartTitle(
-        text: 'Blutzucker',
-        alignment: ChartAlignment.near,
-      ),
-      primaryXAxis: CategoryAxis(
-        majorGridLines: const MajorGridLines(width: 0),
-      ),
-      primaryYAxis: NumericAxis(isVisible: false),
-      series: <ColumnSeries<ChartSampleData, String>>[
-        ColumnSeries<ChartSampleData, String>(
-          dataSource: _prepareChartData(),
-          xValueMapper: (ChartSampleData point, _) => point.x,
-          yValueMapper: (ChartSampleData point, _) => point.y,
-          dataLabelSettings: const DataLabelSettings(isVisible: true),
-        )
-      ],
-    );
   }
 }
 
