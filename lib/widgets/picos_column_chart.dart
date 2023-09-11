@@ -46,36 +46,6 @@ class PicosColumnChart extends StatelessWidget {
   ///
   final bool? isDaily;
 
-  List<ChartSampleData> _prepareChartDataTest() {
-    List<ChartSampleData> chartData = <ChartSampleData>[];
-    List<String> days = ChartHelper.getLastSevenDaysShortText();
-    if (dailyList == null) return chartData;
-    for (int i = 0; i < dailyList!.length; i++) {
-      double? data;
-      if (valuesChartOptions == ValuesChartOptions.bloodSugar) {
-        data = dailyList?[i].bloodSugar?.toDouble();
-      } else if (valuesChartOptions == ValuesChartOptions.bloodSystolic ||
-          valuesChartOptions == ValuesChartOptions.bloodDiastolic) {
-        //data = dailyList?[i].bloodSystolic?.toDouble();
-        //data = dailyList?[i].bloodDiastolic?.toDouble();
-      } else if (valuesChartOptions == ValuesChartOptions.sleepDuration) {
-        data = dailyList?[i].sleepDuration?.toDouble();
-      } else if (valuesChartOptions == ValuesChartOptions.bodyWeight) {
-        data = dailyList?[i].bloodSugar?.toDouble();
-      } else if (valuesChartOptions == ValuesChartOptions.walkingDistance) {
-        data = dailyList?[i].bloodSugar?.toDouble();
-      }
-
-      chartData.add(
-        ChartSampleData(
-          x: days[i],
-          y: data ?? 0,
-        ),
-      );
-    }
-    return chartData;
-  }
-
   List<ChartSampleData> _prepareChartData() {
     if (dailyList == null) return <ChartSampleData>[];
 
@@ -90,7 +60,21 @@ class PicosColumnChart extends StatelessWidget {
         (Daily daily) => ChartHelper.isSameDay(daily.date, date),
       );
 
-      double? value = matchingDaily?.bloodSugar?.toDouble() ;
+      double? value;
+      if (valuesChartOptions == ValuesChartOptions.bloodSugar) {
+        value = matchingDaily?.bloodSugar?.toDouble();
+      } else if (valuesChartOptions == ValuesChartOptions.sleepDuration) {
+        value = matchingDaily?.sleepDuration?.toDouble();
+      }
+      //else if (valuesChartOptions == ValuesChartOptions.bloodSystolic ||
+      //    valuesChartOptions == ValuesChartOptions.bloodDiastolic) {
+      //  value = matchingDaily?.bloodSystolic?.toDouble();
+      //  value = matchingDaily?.bloodDiastolic?.toDouble();
+      //}  else if (valuesChartOptions == ValuesChartOptions.bodyWeight) {
+      //  value = matchingDaily?.bloodSugar?.toDouble();
+      //} else if (valuesChartOptions == ValuesChartOptions.walkingDistance) {
+      //  value = matchingDaily?.bloodSugar?.toDouble();
+      //}
 
       return ChartSampleData(
         x: dayShortText,

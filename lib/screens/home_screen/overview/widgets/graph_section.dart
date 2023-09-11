@@ -76,7 +76,7 @@ class _GraphState extends State<GraphSection> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           SizedBox(
-            height: screenHeight * 0.7, // Space for two graphs.
+            height: screenHeight, // Space for two graphs.
             child: FutureBuilder<Values?>(
               future: BackendValuesApi.getMyValues(),
               builder: (
@@ -117,6 +117,14 @@ class _GraphState extends State<GraphSection> {
           child: PicosLineChart(
             dailyList: dailyList,
             title: AppLocalizations.of(context)!.heartFrequency,
+          ),
+        ),
+        const SizedBox(height: 20), // Spacer.
+        Expanded(
+          child: PicosColumnChart(
+            dailyList: dailyList,
+            title: AppLocalizations.of(context)!.sleepDuration,
+            valuesChartOptions: ValuesChartOptions.sleepDuration,
           ),
         ),
         const SizedBox(height: 20), // Spacer.
