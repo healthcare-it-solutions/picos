@@ -16,6 +16,7 @@
 *  along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:picos/screens/home_screen/overview/widgets/graph_section.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -45,7 +46,7 @@ class PicosColumnChart extends StatelessWidget {
   ///
   final bool? isDaily;
 
-  List<ChartSampleData> _prepareChartData() {
+  List<ChartSampleData> _prepareChartDataTest() {
     List<ChartSampleData> chartData = <ChartSampleData>[];
     List<String> days = ChartHelper.getLastSevenDaysShortText();
     if (dailyList == null) return chartData;
@@ -73,6 +74,29 @@ class PicosColumnChart extends StatelessWidget {
       );
     }
     return chartData;
+  }
+
+  List<ChartSampleData> _prepareChartData() {
+    if (dailyList == null) return <ChartSampleData>[];
+
+    Map<String, DateTime> daysWithDates =
+        ChartHelper.getLastSevenDaysWithDates();
+
+    return daysWithDates.entries.map((MapEntry<String, DateTime> entry) {
+      String dayShortText = entry.key;
+      DateTime date = entry.value;
+
+      Daily? matchingDaily = dailyList!.firstWhereOrNull(
+        (Daily daily) => ChartHelper.isSameDay(daily.date, date),
+      );
+
+      double? value = matchingDaily?.bloodSugar?.toDouble() ;
+
+      return ChartSampleData(
+        x: dayShortText,
+        y: value,
+      );
+    }).toList();
   }
 
   @override

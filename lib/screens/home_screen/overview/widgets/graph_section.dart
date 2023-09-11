@@ -144,7 +144,14 @@ class ChartHelper {
   ///
   static const Color colorBlack = Colors.black;
 
-  /// Returns the last seven days of the week starting from yesterday.
+  ///
+  static bool isSameDay(DateTime date1, DateTime date2) {
+    return date1.year == date2.year &&
+        date1.month == date2.month &&
+        date1.day == date2.day;
+  }
+
+  /// Returns the last seven days of the week.
   static List<String> getLastSevenDaysShortText() {
     int today = DateTime.now().weekday - 1;
     List<String> weekDays = <String>['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
@@ -152,6 +159,23 @@ class ChartHelper {
       int dayIndex = (today - index + 7) % 7;
       return weekDays[dayIndex];
     }).reversed.toList();
+  }
+
+  /// Returns the last seven days of the week.
+  static Map<String, DateTime> getLastSevenDaysWithDates() {
+    int today = DateTime.now().weekday - 1;
+    List<String> weekDays = <String>['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
+
+    Map<String, DateTime> weekDaysWithDates = <String, DateTime>{};
+
+    for (int i = 6; i >= 0; i--) {
+      int dayIndex = (today - i + 7) % 7;
+      DateTime dateForDay = DateTime.now().subtract(Duration(days: i));
+
+      weekDaysWithDates[weekDays[dayIndex]] = dateForDay;
+    }
+
+    return weekDaysWithDates;
   }
 }
 

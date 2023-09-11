@@ -16,6 +16,8 @@
 *  along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+import 'package:collection/collection.dart';
+
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../screens/home_screen/overview/widgets/graph_section.dart';
@@ -35,19 +37,26 @@ class PicosLineChart extends StatelessWidget {
   final String? title;
 
   List<ChartSampleData> _prepareChartData() {
-    List<ChartSampleData> chartData = <ChartSampleData>[];
-    List<String> days = ChartHelper.getLastSevenDaysShortText();
-    if (dailyList == null) return chartData;
-    for (int i = 0; i < dailyList!.length; i++) {
-      double? heartFrequency = dailyList?[i].heartFrequency?.toDouble();
-      chartData.add(
-        ChartSampleData(
-          x: days[i],
-          y: heartFrequency ?? 0,
-        ),
+    if (dailyList == null) return <ChartSampleData>[];
+
+    Map<String, DateTime> daysWithDates =
+        ChartHelper.getLastSevenDaysWithDates();
+
+    return daysWithDates.entries.map((MapEntry<String, DateTime> entry) {
+      String dayShortText = entry.key;
+      DateTime date = entry.value;
+
+      Daily? matchingDaily = dailyList!.firstWhereOrNull(
+        (Daily daily) => ChartHelper.isSameDay(daily.date, date),
       );
-    }
-    return chartData;
+
+      double? value = matchingDaily?.heartFrequency?.toDouble();
+
+      return ChartSampleData(
+        x: dayShortText,
+        y: value,
+      );
+    }).toList();
   }
 
   @override
@@ -93,6 +102,9 @@ class PicosLineChart extends StatelessWidget {
             dataLabelSettings: const DataLabelSettings(
               isVisible: true,
               labelAlignment: ChartDataLabelAlignment.top,
+            ),
+            emptyPointSettings: EmptyPointSettings(
+              mode: EmptyPointMode.drop,
             ),
           )
         ],
