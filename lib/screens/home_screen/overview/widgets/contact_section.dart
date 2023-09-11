@@ -23,7 +23,7 @@ import 'package:picos/themes/global_theme.dart';
 
 /// Widget which shows a graph
 class ContactSection extends StatelessWidget {
-  /// GraphSection constructor
+  /// ContactSection constructor
   const ContactSection({Key? key}) : super(key: key);
 
   @override
