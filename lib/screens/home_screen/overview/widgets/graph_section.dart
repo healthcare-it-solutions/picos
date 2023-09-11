@@ -146,12 +146,12 @@ class ChartHelper {
 
   /// Returns the last seven days of the week starting from yesterday.
   static List<String> getLastSevenDaysShortText() {
-    int today = DateTime.now().weekday;
+    int today = DateTime.now().weekday - 1;
     List<String> weekDays = <String>['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
     return List<String>.generate(7, (int index) {
-      int dayIndex = (today - 6 + index) % 7;
+      int dayIndex = (today - index + 7) % 7;
       return weekDays[dayIndex];
-    });
+    }).reversed.toList();
   }
 }
 
