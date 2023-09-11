@@ -81,17 +81,18 @@ class Routes {
       '/questionnaire-screen/questionnaire-screen': (BuildContext ctx) =>
           const QuestionaireScreen(),
       '/my-documents-screen/my-documents': (BuildContext ctx) =>
-      const MyDocumentsScreen(),
+          const MyDocumentsScreen(),
       '/my-documents-screen/add-documents': (BuildContext ctx) =>
-      const AddDocumentScreen(),
+          const AddDocumentScreen(),
       '/study-nurse-screen/menu-screen/menu-main-screen': (BuildContext ctx) =>
           const MenuMainScreen(),
       '/study-nurse-screen/menu-screen/add-patient': (BuildContext ctx) =>
-        const EditPatientScreen(),
+          const EditPatientScreen(),
       '/study-nurse-screen/catalog-of-items': (BuildContext ctx) =>
-      const CatalogOfItemsScreen(),
+          const CatalogOfItemsScreen(),
       'profile-screen/profile': (BuildContext ctx) => const ProfileScreen(),
-      '/my-values_screen/my-values': (BuildContext ctx) => const MyValuesScreen(),
+      '/my-values_screen/my-values': (BuildContext ctx) =>
+          const MyValuesScreen(),
     };
   }
 
