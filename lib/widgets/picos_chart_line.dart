@@ -25,9 +25,9 @@ import '../../../../models/daily.dart';
 import '../themes/global_theme.dart';
 
 /// Widget to display heart rate values in a line chart.
-class PicosLineChart extends StatelessWidget {
-  /// Creates a [PicosLineChart].
-  const PicosLineChart({Key? key, this.dailyList, this.title})
+class PicosChartLine extends StatelessWidget {
+  /// Creates a [PicosChartLine].
+  const PicosChartLine({Key? key, this.dailyList, this.title})
       : super(key: key);
 
   ///

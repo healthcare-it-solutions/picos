@@ -23,10 +23,10 @@ import 'package:picos/models/daily.dart';
 import 'package:picos/models/values.dart';
 import 'package:picos/screens/home_screen/overview/widgets/section.dart';
 import '../../../../themes/global_theme.dart';
-import '../../../../widgets/picos_column_chart.dart';
+import '../../../../widgets/picos_chart_column.dart';
 import '../../../../widgets/picos_ink_well_button.dart';
-import '../../../../widgets/picos_line_chart.dart';
-import '../../../../widgets/picos_two_columns_chart.dart';
+import '../../../../widgets/picos_chart_line.dart';
+import '../../../../widgets/picos_chart_two_columns.dart';
 import '../../../questionaire_screen/questionaire_screen.dart';
 
 ///
@@ -111,7 +111,7 @@ class _GraphState extends State<GraphSection> {
     return Column(
       children: <Widget>[
         Expanded(
-          child: PicosColumnChart(
+          child: PicosChartColumn(
             dailyList: dailyList,
             title: AppLocalizations.of(context)!.bloodSugar,
             valuesChartOptions: ValuesChartOptions.bloodSugar,
@@ -119,14 +119,14 @@ class _GraphState extends State<GraphSection> {
         ),
         const SizedBox(height: 20), // Spacer.
         Expanded(
-          child: PicosLineChart(
+          child: PicosChartLine(
             dailyList: dailyList,
             title: AppLocalizations.of(context)!.heartFrequency,
           ),
         ),
         const SizedBox(height: 20), // Spacer.
         Expanded(
-          child: PicosColumnChart(
+          child: PicosChartColumn(
             dailyList: dailyList,
             title: AppLocalizations.of(context)!.sleepDuration,
             valuesChartOptions: ValuesChartOptions.sleepDuration,
@@ -134,7 +134,7 @@ class _GraphState extends State<GraphSection> {
         ),
         const SizedBox(height: 20), // Spacer.
         Expanded(
-          child: PicosTwoColumnsChart(
+          child: PicosChartTwoColumns(
             dailyList: dailyList,
             title: AppLocalizations.of(context)!.bloodPressure,
             valuesChartOptions: ValuesChartOptions.bloodPressure,
