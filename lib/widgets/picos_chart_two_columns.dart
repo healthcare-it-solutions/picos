@@ -76,7 +76,6 @@ class PicosChartTwoColumns extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TooltipBehavior  tooltipBehavior = TooltipBehavior(enable: true);
     List<ChartSampleData> chartDataList = _prepareChartData();
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
     final DateTime now = DateTime.now();
@@ -110,7 +109,10 @@ class PicosChartTwoColumns extends StatelessWidget {
           ),
         ),
         primaryYAxis: NumericAxis(isVisible: false),
-        tooltipBehavior: tooltipBehavior,
+        legend: const Legend(
+          isVisible: true,
+          position: LegendPosition.top,
+        ),
         series: <ColumnSeries<ChartSampleData, String>>[
           ColumnSeries<ChartSampleData, String>(
             dataSource: chartDataList,
