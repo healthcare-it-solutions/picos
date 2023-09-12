@@ -26,6 +26,8 @@ import '../../../../themes/global_theme.dart';
 import '../../../../widgets/picos_column_chart.dart';
 import '../../../../widgets/picos_ink_well_button.dart';
 import '../../../../widgets/picos_line_chart.dart';
+import '../../../../widgets/picos_two_columns_chart.dart';
+import '../../../questionaire_screen/questionaire_screen.dart';
 
 ///
 enum ValuesChartOptions {
@@ -35,11 +37,8 @@ enum ValuesChartOptions {
   /// The patients blood sugar value.
   bloodSugar,
 
-  /// The patients blood pressure systolic value.
-  bloodSystolic,
-
-  /// The patients blood pressure diastolic value.
-  bloodDiastolic,
+  /// The patients blood pressure.
+  bloodPressure,
 
   /// The patients sleep duration.
   sleepDuration,
@@ -68,35 +67,41 @@ class _GraphState extends State<GraphSection> {
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
     double screenHeight = MediaQuery.of(context).size.height;
-
-    return Section(
-      title: AppLocalizations.of(context)!.myMedicalData,
-      titleColor: theme.blue,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(
-            height: screenHeight, // Space for two graphs.
-            child: FutureBuilder<Values?>(
-              future: BackendValuesApi.getMyValues(),
-              builder: (
-                BuildContext context,
-                AsyncSnapshot<Values?> snapshot,
-              ) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.hasData) {
-                    return _buildGraphsWithData(snapshot.data?.dailyList);
-                  } else {
-                    return const Center(child: Text('Keine Daten verfügbar.'));
-                  }
-                } else {
-                  return const Center(child: CircularProgressIndicator());
-                }
-              },
-            ),
+    return ValueListenableBuilder<bool>(
+      valueListenable: rebuildGraphNotifier,
+      builder: (BuildContext context, bool value, Widget? child) {
+        return Section(
+          title: AppLocalizations.of(context)!.myMedicalData,
+          titleColor: theme.blue,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: screenHeight*1.5, // Space for two graphs.
+                child: FutureBuilder<Values?>(
+                  future: BackendValuesApi.getMyValues(),
+                  builder: (
+                    BuildContext context,
+                    AsyncSnapshot<Values?> snapshot,
+                  ) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasData) {
+                        return _buildGraphsWithData(snapshot.data?.dailyList);
+                      } else {
+                        return const Center(
+                          child: Text('Keine Daten verfügbar.'),
+                        );
+                      }
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  },
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -128,6 +133,14 @@ class _GraphState extends State<GraphSection> {
           ),
         ),
         const SizedBox(height: 20), // Spacer.
+        Expanded(
+          child: PicosTwoColumnsChart(
+            dailyList: dailyList,
+            title: AppLocalizations.of(context)!.bloodPressure,
+            valuesChartOptions: ValuesChartOptions.bloodPressure,
+          ),
+        ),
+        const SizedBox(height: 20), // Spacer.
         PicosInkWellButton(
           padding: const EdgeInsets.symmetric(horizontal: 0),
           text: AppLocalizations.of(context)!.manageValues,
@@ -135,7 +148,9 @@ class _GraphState extends State<GraphSection> {
             Navigator.pushNamed(
               context,
               '/my-values_screen/my-values',
-            );
+            ).then((_) {
+              setState(() {});
+            });
           },
           fontSize: 20,
         ),
@@ -193,11 +208,15 @@ class ChartSampleData {
   ChartSampleData({
     this.x,
     this.y,
+    this.y1,
   });
 
-  /// Holds x value of the datapoint
+  /// Holds x value of the datapoint.
   final dynamic x;
 
-  /// Holds y value of the datapoint
+  /// Holds y value of the datapoint.
   final dynamic y;
+
+  /// Holds y value of the datapoint (for 2nd series).
+  final dynamic y1;
 }

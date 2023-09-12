@@ -40,6 +40,8 @@ class QuestionaireScreen extends StatefulWidget {
   @override
   State<QuestionaireScreen> createState() => _QuestionaireScreenState();
 }
+///
+final ValueNotifier<bool> rebuildGraphNotifier = ValueNotifier<bool>(false);
 
 class _QuestionaireScreenState extends State<QuestionaireScreen> {
   QuestionairePageStorage? _pageStorage;
@@ -72,6 +74,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
 
     if (_controller.page == _pageStorage!.pages.length - 1) {
       Navigator.of(context).pop();
+      rebuildGraphNotifier.value = !rebuildGraphNotifier.value;
       return;
     }
 

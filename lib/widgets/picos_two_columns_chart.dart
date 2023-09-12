@@ -24,9 +24,9 @@ import '../../../../models/daily.dart';
 import '../themes/global_theme.dart';
 
 /// Widget to display blood sugar values in a column chart.
-class PicosColumnChart extends StatelessWidget {
-  /// Creates a [PicosColumnChart].
-  const PicosColumnChart({
+class PicosTwoColumnsChart extends StatelessWidget {
+  /// Creates a [PicosTwoColumnsChart].
+  const PicosTwoColumnsChart({
     Key? key,
     this.dailyList,
     this.title,
@@ -60,22 +60,24 @@ class PicosColumnChart extends StatelessWidget {
         (Daily daily) => ChartHelper.isSameDay(daily.date, date),
       );
 
-      double? value;
-      if (valuesChartOptions == ValuesChartOptions.bloodSugar) {
-        value = matchingDaily?.bloodSugar?.toDouble();
-      } else if (valuesChartOptions == ValuesChartOptions.sleepDuration) {
-        value = matchingDaily?.sleepDuration?.toDouble();
-      }
+      double? y;
+      double? y1;
+
+      y = matchingDaily?.bloodSystolic?.toDouble();
+      y1 = matchingDaily?.bloodDiastolic?.toDouble();
 
       return ChartSampleData(
         x: dayShortText,
-        y: value,
+        y: y,
+        y1: y1,
       );
     }).toList();
   }
 
   @override
   Widget build(BuildContext context) {
+    TooltipBehavior  tooltipBehavior = TooltipBehavior(enable: true);
+    List<ChartSampleData> chartDataList = _prepareChartData();
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
     final DateTime now = DateTime.now();
     final DateTime sevenDayBefore = now.subtract(const Duration(days: 7));
@@ -108,13 +110,26 @@ class PicosColumnChart extends StatelessWidget {
           ),
         ),
         primaryYAxis: NumericAxis(isVisible: false),
+        tooltipBehavior: tooltipBehavior,
         series: <ColumnSeries<ChartSampleData, String>>[
           ColumnSeries<ChartSampleData, String>(
-            dataSource: _prepareChartData(),
+            dataSource: chartDataList,
+            width: 0.8,
+            spacing: 0.2,
             xValueMapper: (ChartSampleData point, _) => point.x,
             yValueMapper: (ChartSampleData point, _) => point.y,
+            name: 'Systolic',
             dataLabelSettings: const DataLabelSettings(isVisible: true),
-          )
+          ),
+          ColumnSeries<ChartSampleData, String>(
+            dataSource: chartDataList,
+            width: 0.8,
+            spacing: 0.2,
+            xValueMapper: (ChartSampleData point, _) => point.x as String,
+            yValueMapper: (ChartSampleData point, _) => point.y1,
+            name: 'Diastolic',
+            dataLabelSettings: const DataLabelSettings(isVisible: true),
+          ),
         ],
       ),
     );
