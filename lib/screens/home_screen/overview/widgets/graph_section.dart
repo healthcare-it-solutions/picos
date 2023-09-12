@@ -21,6 +21,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/api/backend_values_api.dart';
 import 'package:picos/models/daily.dart';
 import 'package:picos/models/values.dart';
+import 'package:picos/models/weekly.dart';
 import 'package:picos/screens/home_screen/overview/widgets/section.dart';
 import '../../../../themes/global_theme.dart';
 import '../../../../widgets/picos_chart_column.dart';
@@ -77,7 +78,7 @@ class _GraphState extends State<GraphSection> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(
-                height: screenHeight*1.5, // Space for two graphs.
+                height: screenHeight*2.0, // Space for two graphs.
                 child: FutureBuilder<Values?>(
                   future: BackendValuesApi.getMyValues(),
                   builder: (
@@ -86,7 +87,7 @@ class _GraphState extends State<GraphSection> {
                   ) {
                     if (snapshot.connectionState == ConnectionState.done) {
                       if (snapshot.hasData) {
-                        return _buildGraphsWithData(snapshot.data?.dailyList);
+                        return _buildGraphsWithData(snapshot.data!);
                       } else {
                         return const Center(
                           child: Text('Keine Daten verfügbar.'),
@@ -107,12 +108,14 @@ class _GraphState extends State<GraphSection> {
 
   /// Returns a column widget containing the graphs populated
   /// with the given data.
-  Widget _buildGraphsWithData(List<Daily>? dailyList) {
+  Widget _buildGraphsWithData(Values? values) {
+    List<Daily>? dailyList = values?.dailyList;
+    List<Weekly>? weeklyList = values?.weeklyList;
     return Column(
       children: <Widget>[
         Expanded(
           child: PicosChartColumn(
-            dailyList: dailyList,
+            dataList: dailyList,
             title: AppLocalizations.of(context)!.bloodSugar,
             valuesChartOptions: ValuesChartOptions.bloodSugar,
           ),
@@ -127,7 +130,7 @@ class _GraphState extends State<GraphSection> {
         const SizedBox(height: 20), // Spacer.
         Expanded(
           child: PicosChartColumn(
-            dailyList: dailyList,
+            dataList: dailyList,
             title: AppLocalizations.of(context)!.sleepDuration,
             valuesChartOptions: ValuesChartOptions.sleepDuration,
           ),
@@ -138,6 +141,24 @@ class _GraphState extends State<GraphSection> {
             dailyList: dailyList,
             title: AppLocalizations.of(context)!.bloodPressure,
             valuesChartOptions: ValuesChartOptions.bloodPressure,
+          ),
+        ),
+        const SizedBox(height: 20), // Spacer.
+        Expanded(
+          child: PicosChartColumn(
+            dataList: weeklyList,
+            title: AppLocalizations.of(context)!.walkDistance,
+            valuesChartOptions: ValuesChartOptions.walkingDistance,
+            isWeekly: true,
+          ),
+        ),
+        const SizedBox(height: 20), // Spacer.
+        Expanded(
+          child: PicosChartColumn(
+            dataList: weeklyList,
+            title: AppLocalizations.of(context)!.bodyWeight,
+            valuesChartOptions: ValuesChartOptions.bodyWeight,
+            isWeekly: true,
           ),
         ),
         const SizedBox(height: 20), // Spacer.
@@ -175,16 +196,6 @@ class ChartHelper {
   }
 
   /// Returns the last seven days of the week.
-  static List<String> getLastSevenDaysShortText() {
-    int today = DateTime.now().weekday - 1;
-    List<String> weekDays = <String>['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
-    return List<String>.generate(7, (int index) {
-      int dayIndex = (today - index + 7) % 7;
-      return weekDays[dayIndex];
-    }).reversed.toList();
-  }
-
-  /// Returns the last seven days of the week.
   static Map<String, DateTime> getLastSevenDaysWithDates() {
     int today = DateTime.now().weekday - 1;
     List<String> weekDays = <String>['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
@@ -199,6 +210,20 @@ class ChartHelper {
     }
 
     return weekDaysWithDates;
+  }
+
+  /// Returns the dates for the last seven weeks starting from today.
+  static Map<String, DateTime> getLastSevenWeeksFromToday() {
+    DateTime today = DateTime.now();
+
+    Map<String, DateTime> weeksFromToday = <String, DateTime>{};
+
+    for (int i = 6; i >= 0; i--) {
+      DateTime dateFromToday = today.subtract(Duration(days: 7 * i));
+      weeksFromToday['KW${7 - i}'] = dateFromToday;
+    }
+
+    return weeksFromToday;
   }
 }
 

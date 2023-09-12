@@ -18,6 +18,9 @@
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:picos/models/abstract_database_object.dart';
+import 'package:picos/models/weekly.dart';
 import 'package:picos/screens/home_screen/overview/widgets/graph_section.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../models/daily.dart';
@@ -28,14 +31,14 @@ class PicosChartColumn extends StatelessWidget {
   /// Creates a [PicosChartColumn].
   const PicosChartColumn({
     Key? key,
-    this.dailyList,
+    this.dataList,
     this.title,
     this.valuesChartOptions,
-    this.isDaily,
+    this.isWeekly,
   }) : super(key: key);
 
   ///
-  final List<Daily>? dailyList;
+  final List<dynamic>? dataList;
 
   ///
   final String? title;
@@ -44,27 +47,34 @@ class PicosChartColumn extends StatelessWidget {
   final ValuesChartOptions? valuesChartOptions;
 
   ///
-  final bool? isDaily;
+  final bool? isWeekly;
 
   List<ChartSampleData> _prepareChartData() {
-    if (dailyList == null) return <ChartSampleData>[];
+    Map<String, DateTime> datesWithValues = isWeekly == true
+        ? ChartHelper.getLastSevenWeeksFromToday()
+        : ChartHelper.getLastSevenDaysWithDates();
 
-    Map<String, DateTime> daysWithDates =
-        ChartHelper.getLastSevenDaysWithDates();
-
-    return daysWithDates.entries.map((MapEntry<String, DateTime> entry) {
+    return datesWithValues.entries.map((MapEntry<String, DateTime> entry) {
       String dayShortText = entry.key;
       DateTime date = entry.value;
 
-      Daily? matchingDaily = dailyList!.firstWhereOrNull(
-        (Daily daily) => ChartHelper.isSameDay(daily.date, date),
-      );
+      AbstractDatabaseObject? matchingData = isWeekly == true
+          ? (dataList as List<Weekly>?)?.firstWhereOrNull(
+              (Weekly weekly) => ChartHelper.isSameDay(weekly.date, date),
+            )
+          : (dataList as List<Daily>?)?.firstWhereOrNull(
+              (Daily daily) => ChartHelper.isSameDay(daily.date, date),
+            );
 
       double? value;
-      if (valuesChartOptions == ValuesChartOptions.bloodSugar) {
-        value = matchingDaily?.bloodSugar?.toDouble();
+      if (valuesChartOptions == ValuesChartOptions.bodyWeight) {
+        value = (matchingData as Weekly?)?.bodyWeight?.toDouble();
+      } else if (valuesChartOptions == ValuesChartOptions.walkingDistance) {
+        value = (matchingData as Weekly?)?.walkingDistance?.toDouble();
+      } else if (valuesChartOptions == ValuesChartOptions.bloodSugar) {
+        value = (matchingData as Daily?)?.bloodSugar?.toDouble();
       } else if (valuesChartOptions == ValuesChartOptions.sleepDuration) {
-        value = matchingDaily?.sleepDuration?.toDouble();
+        value = (matchingData as Daily?)?.sleepDuration?.toDouble();
       }
 
       return ChartSampleData(
@@ -74,16 +84,22 @@ class PicosChartColumn extends StatelessWidget {
     }).toList();
   }
 
+  String _formatDateRange(DateTime startDate, DateTime endDate) {
+    final DateFormat formatterStartDate = DateFormat('dd.MM.');
+    final DateFormat formatterEndDate = DateFormat('dd.MM.yyyy');
+    return '$title  ${formatterStartDate.format(startDate)}- '
+        '${formatterEndDate.format(endDate)}';
+  }
+
   @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-    final DateTime now = DateTime.now();
-    final DateTime sevenDayBefore = now.subtract(const Duration(days: 7));
-    final String titleText =
-        '$title  ${sevenDayBefore.day.toString().padLeft(2, '0')}.'
-        '${sevenDayBefore.month.toString().padLeft(2, '0')}.'
-        '- ${now.day.toString().padLeft(2, '0')}'
-        '.${now.month.toString().padLeft(2, '0')}.${now.year}';
+    final DateTime today = DateTime.now();
+    final DateTime startDate = today.subtract(
+      Duration(days: isWeekly == true ? 42 : 7),
+    );
+
+    final titleText = _formatDateRange(startDate, today);
 
     return Container(
       decoration: BoxDecoration(
