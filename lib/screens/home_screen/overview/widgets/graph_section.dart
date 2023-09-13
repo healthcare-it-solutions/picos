@@ -78,7 +78,7 @@ class _GraphState extends State<GraphSection> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(
-                height: screenHeight*2.0, // Space for two graphs.
+                height: screenHeight * 2.0, // Space graphs.
                 child: FutureBuilder<Values?>(
                   future: BackendValuesApi.getMyValues(),
                   builder: (

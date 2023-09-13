@@ -99,7 +99,7 @@ class PicosChartColumn extends StatelessWidget {
       Duration(days: isWeekly == true ? 42 : 7),
     );
 
-    final titleText = _formatDateRange(startDate, today);
+    final String titleText = _formatDateRange(startDate, today);
 
     return Container(
       decoration: BoxDecoration(
@@ -129,7 +129,10 @@ class PicosChartColumn extends StatelessWidget {
             dataSource: _prepareChartData(),
             xValueMapper: (ChartSampleData point, _) => point.x,
             yValueMapper: (ChartSampleData point, _) => point.y,
-            dataLabelSettings: const DataLabelSettings(isVisible: true),
+            dataLabelSettings: const DataLabelSettings(
+              isVisible: true,
+              labelAlignment: ChartDataLabelAlignment.outer,
+            ),
           )
         ],
       ),

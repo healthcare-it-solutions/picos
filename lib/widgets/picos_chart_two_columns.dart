@@ -121,7 +121,10 @@ class PicosChartTwoColumns extends StatelessWidget {
             xValueMapper: (ChartSampleData point, _) => point.x,
             yValueMapper: (ChartSampleData point, _) => point.y,
             name: 'Systolic',
-            dataLabelSettings: const DataLabelSettings(isVisible: true),
+            dataLabelSettings: const DataLabelSettings(
+              isVisible: true,
+              labelAlignment: ChartDataLabelAlignment.outer,
+            ),
           ),
           ColumnSeries<ChartSampleData, String>(
             dataSource: chartDataList,
@@ -130,7 +133,10 @@ class PicosChartTwoColumns extends StatelessWidget {
             xValueMapper: (ChartSampleData point, _) => point.x as String,
             yValueMapper: (ChartSampleData point, _) => point.y1,
             name: 'Diastolic',
-            dataLabelSettings: const DataLabelSettings(isVisible: true),
+            dataLabelSettings: const DataLabelSettings(
+              isVisible: true,
+              labelAlignment: ChartDataLabelAlignment.outer,
+            ),
           ),
         ],
       ),
