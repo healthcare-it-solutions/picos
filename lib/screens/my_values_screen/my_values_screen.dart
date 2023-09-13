@@ -39,31 +39,32 @@ class MyValuesScreen extends StatefulWidget {
 }
 
 class _MyValuesScreenState extends State<MyValuesScreen> {
-  bool _weightBMIEnabled = false;
-  bool _heartFrequencyEnabled = false;
-  bool _bloodPressureEnabled = false;
-  bool _bloodSugarLevelsEnabled = false;
-  bool _walkDistanceEnabled = false;
-  bool _sleepDurationEnabled = false;
+  final Map<String, bool> _preferences = <String, bool>{
+    'weight_bmi': false,
+    'heart_frequency': false,
+    'blood_pressure': false,
+    'blood_sugar': false,
+    'walk_distance': false,
+    'sleep_duration': false,
+  };
+
+  final Map<String, bool> _preferencesBackend = <String, bool>{
+    'weight_bmi': false,
+    'heart_frequency': false,
+    'blood_pressure': false,
+    'blood_sugar': false,
+    'walk_distance': false,
+    'sleep_duration': false,
+  };
 
   PatientProfile? _patientProfile;
-
-  bool? _weightBMIEnabledBackend;
-  bool? _heartFrequencyEnabledBackend;
-  bool? _bloodPressureEnabledBackend;
-  bool? _bloodSugarLevelsEnabledBackend;
-  bool? _walkDistanceEnabledBackend;
-  bool? _sleepDurationEnabledBackend;
 
   Future<void> _loadPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      _weightBMIEnabled = prefs.getBool('weight_bmi') ?? false;
-      _heartFrequencyEnabled = prefs.getBool('heart_frequency') ?? false;
-      _bloodPressureEnabled = prefs.getBool('blood_pressure') ?? false;
-      _bloodSugarLevelsEnabled = prefs.getBool('blood_sugar') ?? false;
-      _walkDistanceEnabled = prefs.getBool('walk_distance') ?? false;
-      _sleepDurationEnabled = prefs.getBool('sleep_duration') ?? false;
+      for (String key in _preferences.keys) {
+        _preferences[key] = prefs.getBool(key) ?? false;
+      }
     });
   }
 
@@ -100,17 +101,21 @@ class _MyValuesScreenState extends State<MyValuesScreen> {
           createdAt: element['createdAt'],
           updatedAt: element['updatedAt'],
         );
-      }
 
-      setState(() {
-        _weightBMIEnabledBackend = _patientProfile!.weightBMIEnabled;
-        _heartFrequencyEnabledBackend = _patientProfile!.heartFrequencyEnabled;
-        _bloodPressureEnabledBackend = _patientProfile!.bloodPressureEnabled;
-        _bloodSugarLevelsEnabledBackend =
-            _patientProfile!.bloodSugarLevelsEnabled;
-        _walkDistanceEnabledBackend = _patientProfile!.walkDistanceEnabled;
-        _sleepDurationEnabledBackend = _patientProfile!.sleepDurationEnabled;
-      });
+        setState(() {
+          _preferencesBackend['weight_bmi'] = _patientProfile!.weightBMIEnabled;
+          _preferencesBackend['heart_frequency'] =
+              _patientProfile!.heartFrequencyEnabled;
+          _preferencesBackend['blood_pressure'] =
+              _patientProfile!.bloodPressureEnabled;
+          _preferencesBackend['blood_sugar'] =
+              _patientProfile!.bloodSugarLevelsEnabled;
+          _preferencesBackend['walk_distance'] =
+              _patientProfile!.walkDistanceEnabled;
+          _preferencesBackend['sleep_duration'] =
+              _patientProfile!.sleepDurationEnabled;
+        });
+      }
     }
   }
 
@@ -165,162 +170,7 @@ class _MyValuesScreenState extends State<MyValuesScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  SwitchListTile(
-                    value:
-                        _weightBMIEnabled && (_weightBMIEnabledBackend ?? true),
-                    onChanged: _weightBMIEnabledBackend == false
-                        ? null
-                        : (bool value) {
-                            setState(() {
-                              _weightBMIEnabled = value;
-                            });
-                            _savePreference('weight_bmi', value);
-                          },
-                    secondary: const PicosSvgIcon(
-                      assetName: 'assets/Gewicht.svg',
-                      height: 25,
-                      width: 25,
-                    ),
-                    title: Text(
-                      AppLocalizations.of(context)!.weightBMI,
-                      style: const TextStyle(
-                        fontSize: PicosInfoCard.infoTextFontSize,
-                      ),
-                    ),
-                    shape: const Border(
-                      bottom: BorderSide(color: Colors.grey),
-                    ),
-                  ),
-                  SwitchListTile(
-                    value: _heartFrequencyEnabled &&
-                        (_heartFrequencyEnabledBackend ?? true),
-                    onChanged: _heartFrequencyEnabledBackend == false
-                        ? null
-                        : (bool value) {
-                            setState(() {
-                              _heartFrequencyEnabled = value;
-                            });
-                            _savePreference('heart_frequency', value);
-                          },
-                    secondary: const PicosSvgIcon(
-                      assetName: 'assets/Herzfrequenz.svg',
-                      height: 25,
-                      width: 25,
-                    ),
-                    title: Text(
-                      AppLocalizations.of(context)!.heartFrequency,
-                      style: const TextStyle(
-                        fontSize: PicosInfoCard.infoTextFontSize,
-                      ),
-                    ),
-                    shape: const Border(
-                      bottom: BorderSide(color: Colors.grey),
-                    ),
-                  ),
-                  SwitchListTile(
-                    value: _bloodPressureEnabled &&
-                        (_bloodPressureEnabledBackend ?? true),
-                    onChanged: _bloodPressureEnabledBackend == false
-                        ? null
-                        : (bool value) {
-                            setState(() {
-                              _bloodPressureEnabled = value;
-                            });
-                            _savePreference('blood_pressure', value);
-                          },
-                    secondary: const PicosSvgIcon(
-                      assetName: 'assets/Blutdruck.svg',
-                      height: 25,
-                      width: 25,
-                    ),
-                    title: Text(
-                      AppLocalizations.of(context)!.bloodPressure,
-                      style: const TextStyle(
-                        fontSize: PicosInfoCard.infoTextFontSize,
-                      ),
-                    ),
-                    shape: const Border(
-                      bottom: BorderSide(color: Colors.grey),
-                    ),
-                  ),
-                  SwitchListTile(
-                    value: _bloodSugarLevelsEnabled &&
-                        (_bloodSugarLevelsEnabledBackend ?? true),
-                    onChanged: _bloodSugarLevelsEnabledBackend == false
-                        ? null
-                        : (bool value) {
-                            setState(() {
-                              _bloodSugarLevelsEnabled = value;
-                            });
-                            _savePreference('blood_sugar', value);
-                          },
-                    secondary: const PicosSvgIcon(
-                      assetName: 'assets/Blutzucker.svg',
-                      height: 25,
-                      width: 25,
-                    ),
-                    title: Text(
-                      AppLocalizations.of(context)!.bloodSugar,
-                      style: const TextStyle(
-                        fontSize: PicosInfoCard.infoTextFontSize,
-                      ),
-                    ),
-                    shape: const Border(
-                      bottom: BorderSide(color: Colors.grey),
-                    ),
-                  ),
-                  SwitchListTile(
-                    value: _walkDistanceEnabled &&
-                        (_walkDistanceEnabledBackend ?? true),
-                    onChanged: _walkDistanceEnabledBackend == false
-                        ? null
-                        : (bool value) {
-                            setState(() {
-                              _walkDistanceEnabled = value;
-                            });
-                            _savePreference('walk_distance', value);
-                          },
-                    secondary: const PicosSvgIcon(
-                      assetName: 'assets/Schritte.svg',
-                      height: 25,
-                      width: 25,
-                    ),
-                    title: Text(
-                      AppLocalizations.of(context)!.walkDistance,
-                      style: const TextStyle(
-                        fontSize: PicosInfoCard.infoTextFontSize,
-                      ),
-                    ),
-                    shape: const Border(
-                      bottom: BorderSide(color: Colors.grey),
-                    ),
-                  ),
-                  SwitchListTile(
-                    value: _sleepDurationEnabled &&
-                        (_sleepDurationEnabledBackend ?? true),
-                    onChanged: _sleepDurationEnabledBackend == false
-                        ? null
-                        : (bool value) {
-                            setState(() {
-                              _sleepDurationEnabled = value;
-                            });
-                            _savePreference('sleep_duration', value);
-                          },
-                    secondary: const PicosSvgIcon(
-                      assetName: 'assets/Schlafdauer.svg',
-                      height: 25,
-                      width: 25,
-                    ),
-                    title: Text(
-                      AppLocalizations.of(context)!.sleepDuration,
-                      style: const TextStyle(
-                        fontSize: PicosInfoCard.infoTextFontSize,
-                      ),
-                    ),
-                    shape: const Border(
-                      bottom: BorderSide(color: Colors.grey),
-                    ),
-                  ),
+                  ..._buildPreferenceSwitches(),
                 ],
               ),
             ),
@@ -328,5 +178,53 @@ class _MyValuesScreenState extends State<MyValuesScreen> {
         ),
       ),
     );
+  }
+
+  List<Widget> _buildPreferenceSwitches() {
+    final Map<String, String> icons = <String, String>{
+      'weight_bmi': 'assets/Gewicht.svg',
+      'heart_frequency': 'assets/Herzfrequenz.svg',
+      'blood_pressure': 'assets/Blutdruck.svg',
+      'blood_sugar': 'assets/Blutzucker.svg',
+      'walk_distance': 'assets/Schritte.svg',
+      'sleep_duration': 'assets/Schlafdauer.svg',
+    };
+
+    final Map<String, String> titles = <String, String>{
+      'weight_bmi': AppLocalizations.of(context)!.weightBMI,
+      'heart_frequency': AppLocalizations.of(context)!.heartFrequency,
+      'blood_pressure': AppLocalizations.of(context)!.bloodPressure,
+      'blood_sugar': AppLocalizations.of(context)!.bloodSugar,
+      'walk_distance': AppLocalizations.of(context)!.walkDistance,
+      'sleep_duration': AppLocalizations.of(context)!.sleepDuration,
+    };
+
+    return _preferences.keys.map((String key) {
+      return SwitchListTile(
+        value: _preferences[key]!,
+        onChanged: _preferencesBackend[key] == false
+            ? null
+            : (bool value) {
+                setState(() {
+                  _preferences[key] = value;
+                });
+                _savePreference(key, value);
+              },
+        secondary: PicosSvgIcon(
+          assetName: icons[key]!,
+          height: 25,
+          width: 25,
+        ),
+        title: Text(
+          titles[key]!,
+          style: const TextStyle(
+            fontSize: PicosInfoCard.infoTextFontSize,
+          ),
+        ),
+        shape: const Border(
+          bottom: BorderSide(color: Colors.grey),
+        ),
+      );
+    }).toList();
   }
 }
