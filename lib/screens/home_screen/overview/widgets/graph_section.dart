@@ -215,15 +215,48 @@ class ChartHelper {
   /// Returns the dates for the last seven weeks starting from today.
   static Map<String, DateTime> getLastSevenWeeksFromToday() {
     DateTime today = DateTime.now();
+    int currentWeek = ((dayOfYear(today) - today.weekday + 10) / 7).floor();
 
     Map<String, DateTime> weeksFromToday = <String, DateTime>{};
 
     for (int i = 6; i >= 0; i--) {
-      DateTime dateFromToday = today.subtract(Duration(days: 7 * i));
-      weeksFromToday['KW${7 - i}'] = dateFromToday;
+      int weekNumber = currentWeek - i;
+      weeksFromToday['KW$weekNumber'] = today.subtract(Duration(days: 7 * i));
     }
 
     return weeksFromToday;
+  }
+
+  ///
+  static int dayOfYear(DateTime date) {
+    return date.difference(DateTime(date.year, 1, 1)).inDays + 1;
+  }
+
+  ///
+  static bool isWithinWeek(DateTime dateToCheck, DateTime referenceDate) {
+    DateTime startOfWeek = referenceDate
+        .subtract(Duration(days: referenceDate.weekday - 1))
+        .subtract(
+          Duration(
+            hours: referenceDate.hour,
+            minutes: referenceDate.minute,
+            seconds: referenceDate.second,
+            milliseconds: referenceDate.millisecond,
+          ),
+        );
+    DateTime endOfWeek = startOfWeek.add(const Duration(days: 6)).add(
+          const Duration(
+            hours: 23,
+            minutes: 59,
+            seconds: 59,
+            milliseconds: 999,
+          ),
+        );
+
+    return dateToCheck.isAtSameMomentAs(startOfWeek) ||
+        dateToCheck.isAfter(startOfWeek) &&
+            (dateToCheck.isAtSameMomentAs(endOfWeek) ||
+                dateToCheck.isBefore(endOfWeek));
   }
 }
 
