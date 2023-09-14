@@ -60,7 +60,7 @@ class PicosChartColumn extends StatelessWidget {
 
       AbstractDatabaseObject? matchingData = isWeekly == true
           ? (dataList as List<Weekly>?)?.firstWhereOrNull(
-              (Weekly weekly) => ChartHelper.isSameDay(weekly.date, date),
+              (Weekly weekly) => ChartHelper.isWithinWeek(weekly.date, date),
             )
           : (dataList as List<Daily>?)?.firstWhereOrNull(
               (Daily daily) => ChartHelper.isSameDay(daily.date, date),
