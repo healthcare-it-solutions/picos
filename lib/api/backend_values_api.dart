@@ -26,12 +26,9 @@ import '../models/weekly.dart';
 class BackendValuesApi {
   /// Ret
   static Future<Values?> getMyValues() async {
+    DateTime now = DateTime.now();
+    DateTime last7Weeks = now.subtract(const Duration(days: 49));
     try {
-      DateTime now = DateTime.now();
-
-      //Weekly.
-      DateTime last7Weeks = now.subtract(const Duration(days: 49));
-
       QueryBuilder<ParseObject> weeklyQueryBuilder =
           QueryBuilder<ParseObject>(ParseObject(Weekly.databaseTable));
       weeklyQueryBuilder.whereGreaterThanOrEqualsTo('datetime', last7Weeks);
@@ -43,7 +40,6 @@ class BackendValuesApi {
             date: element['datetime'],
             bmi: element['BMI']?.toDouble(),
             bodyWeight: element['BodyWeight']?.toDouble(),
-            sleepQuality: element['SISQS'],
             walkingDistance: element['WalkingDistance'],
             objectId: element['objectId'],
             createdAt: element['createdAt'],
