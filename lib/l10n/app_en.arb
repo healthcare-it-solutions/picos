@@ -1434,5 +1434,9 @@
   "manageValues": "Manage values",
   "@manageValues": {
     "description": "Manage values"
+  },
+  "noDataAvailable": "No data available",
+  "@noDataAvailable": {
+    "description": "No data available"
   }
 }
