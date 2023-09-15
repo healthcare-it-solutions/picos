@@ -1438,5 +1438,13 @@
   "noDataAvailable": "No data available",
   "@noDataAvailable": {
     "description": "No data available"
+  },
+  "systolic": "systolic",
+  "@systolic ": {
+    "description": "systolic"
+  },
+  "diastolic": "diastolic",
+  "@diastolic  ": {
+    "description": "diastolic"
   }
 }

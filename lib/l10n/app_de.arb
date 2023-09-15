@@ -358,5 +358,7 @@
   "myValues": "Werte",
   "infoMyValue": "Behalten Sie Ihre Werte im Blick.\nWählen Sie hier Ihre persönlichen Eingaben, die auf der Startseite angezeigt werden sollen.",
   "manageValues": "Werte verwalten",
-  "noDataAvailable": "Keine Daten verfügbar"
+  "noDataAvailable": "Keine Daten verfügbar",
+  "systolic" : "Systolisch",
+  "diastolic" : "Diastolisch"
 }
