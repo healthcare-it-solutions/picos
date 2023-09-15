@@ -27,25 +27,34 @@ class BackendValuesApi {
   /// Ret
   static Future<Values?> getMyValues() async {
     DateTime now = DateTime.now();
-    DateTime last7Weeks = now.subtract(const Duration(days: 49));
+    DateTime last7Weeks = now.subtract(const Duration(days: 49)).subtract(
+          Duration(
+            hours: now.hour,
+            minutes: now.minute,
+            seconds: now.second,
+            milliseconds: now.millisecond,
+          ),
+        );
     try {
       QueryBuilder<ParseObject> weeklyQueryBuilder =
           QueryBuilder<ParseObject>(ParseObject(Weekly.databaseTable));
       weeklyQueryBuilder.whereGreaterThanOrEqualsTo('datetime', last7Weeks);
       ParseResponse responseLast7Weeks = await weeklyQueryBuilder.query();
       List<Weekly> resultsLast7Weeks = <Weekly>[];
-      for (dynamic element in responseLast7Weeks.results!) {
-        resultsLast7Weeks.add(
-          Weekly(
-            date: element['datetime'],
-            bmi: element['BMI']?.toDouble(),
-            bodyWeight: element['BodyWeight']?.toDouble(),
-            walkingDistance: element['WalkingDistance'],
-            objectId: element['objectId'],
-            createdAt: element['createdAt'],
-            updatedAt: element['updatedAt'],
-          ),
-        );
+      if (responseLast7Weeks.results != null) {
+        for (dynamic element in responseLast7Weeks.results!) {
+          resultsLast7Weeks.add(
+            Weekly(
+              date: element['datetime'],
+              bmi: element['BMI']?.toDouble(),
+              bodyWeight: element['BodyWeight']?.toDouble(),
+              walkingDistance: element['WalkingDistance'],
+              objectId: element['objectId'],
+              createdAt: element['createdAt'],
+              updatedAt: element['updatedAt'],
+            ),
+          );
+        }
       }
 
       //Daily.
@@ -55,22 +64,24 @@ class BackendValuesApi {
       dailyQueryBuilder.whereGreaterThanOrEqualsTo('datetime', last7Days);
       dynamic responseLast7Days = await dailyQueryBuilder.query();
       List<Daily> resultsLast7Days = <Daily>[];
-      for (dynamic element in responseLast7Days.results!) {
-        resultsLast7Days.add(
-          Daily(
-            date: element['datetime'],
-            heartFrequency: element['HeartRate'],
-            bloodSugar: element['BloodSugar'],
-            bloodSystolic: element['BloodPSystolic'],
-            bloodDiastolic: element['BloodPDiastolic'],
-            sleepDuration: element['SleepDuration']?.toDouble(),
-            pain: element['Pain'],
-            bloodSugarMol: element['BloodSugarMol']?.toDouble(),
-            objectId: element['objectId'],
-            createdAt: element['createdAt'],
-            updatedAt: element['updatedAt'],
-          ),
-        );
+      if (responseLast7Days.results != null) {
+        for (dynamic element in responseLast7Days.results!) {
+          resultsLast7Days.add(
+            Daily(
+              date: element['datetime'],
+              heartFrequency: element['HeartRate'],
+              bloodSugar: element['BloodSugar'],
+              bloodSystolic: element['BloodPSystolic'],
+              bloodDiastolic: element['BloodPDiastolic'],
+              sleepDuration: element['SleepDuration']?.toDouble(),
+              pain: element['Pain'],
+              bloodSugarMol: element['BloodSugarMol']?.toDouble(),
+              objectId: element['objectId'],
+              createdAt: element['createdAt'],
+              updatedAt: element['updatedAt'],
+            ),
+          );
+        }
       }
 
       return Values(
