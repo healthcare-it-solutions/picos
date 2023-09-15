@@ -18,9 +18,12 @@
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/home_screen/overview/widgets/graph_section.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../models/daily.dart';
+import '../models/abstract_database_object.dart';
+import '../models/weekly.dart';
 import '../themes/global_theme.dart';
 
 /// Widget to display blood sugar values in a column chart.
@@ -28,14 +31,14 @@ class PicosChartTwoColumns extends StatelessWidget {
   /// Creates a [PicosChartTwoColumns].
   const PicosChartTwoColumns({
     Key? key,
-    this.dailyList,
+    this.dataList,
     this.title,
     this.valuesChartOptions,
-    this.isDaily,
+    this.isWeekly,
   }) : super(key: key);
 
   ///
-  final List<Daily>? dailyList;
+  final List<dynamic>? dataList;
 
   ///
   final String? title;
@@ -44,27 +47,35 @@ class PicosChartTwoColumns extends StatelessWidget {
   final ValuesChartOptions? valuesChartOptions;
 
   ///
-  final bool? isDaily;
+  final bool? isWeekly;
 
   List<ChartSampleData> _prepareChartData() {
-    if (dailyList == null) return <ChartSampleData>[];
+    Map<String, DateTime> datesWithValues = isWeekly == true
+        ? ChartHelper.getLastSevenWeeksFromToday()
+        : ChartHelper.getLastSevenDaysWithDates();
 
-    Map<String, DateTime> daysWithDates =
-        ChartHelper.getLastSevenDaysWithDates();
-
-    return daysWithDates.entries.map((MapEntry<String, DateTime> entry) {
+    return datesWithValues.entries.map((MapEntry<String, DateTime> entry) {
       String dayShortText = entry.key;
       DateTime date = entry.value;
 
-      Daily? matchingDaily = dailyList!.firstWhereOrNull(
-        (Daily daily) => ChartHelper.isSameDay(daily.date, date),
-      );
+      AbstractDatabaseObject? matchingData = isWeekly == true
+          ? (dataList as List<Weekly>?)?.firstWhereOrNull(
+              (Weekly weekly) => ChartHelper.isWithinWeek(weekly.date, date),
+            )
+          : (dataList as List<Daily>?)?.firstWhereOrNull(
+              (Daily daily) => ChartHelper.isSameDay(daily.date, date),
+            );
 
       double? y;
       double? y1;
-
-      y = matchingDaily?.bloodSystolic?.toDouble();
-      y1 = matchingDaily?.bloodDiastolic?.toDouble();
+      if (valuesChartOptions == ValuesChartOptions.bodyWeightAndBMI) {
+        y = (matchingData as Weekly?)?.bodyWeight?.toDouble();
+        y1 = (matchingData)?.bmi?.toDouble();
+        //y1 = ((matchingData?.bmi?.toDouble() ?? 0.0) * 100).round() / 100.0;
+      } else if (valuesChartOptions == ValuesChartOptions.bloodPressure) {
+        y = (matchingData as Daily?)?.bloodSystolic?.toDouble();
+        y1 = (matchingData)?.bloodDiastolic?.toDouble();
+      }
 
       return ChartSampleData(
         x: dayShortText,
@@ -120,7 +131,9 @@ class PicosChartTwoColumns extends StatelessWidget {
             spacing: 0.2,
             xValueMapper: (ChartSampleData point, _) => point.x,
             yValueMapper: (ChartSampleData point, _) => point.y,
-            name: 'Systolic',
+            name: valuesChartOptions == ValuesChartOptions.bodyWeightAndBMI
+                ? AppLocalizations.of(context)!.bodyWeight
+                : AppLocalizations.of(context)!.systolic,
             dataLabelSettings: const DataLabelSettings(
               isVisible: true,
               labelAlignment: ChartDataLabelAlignment.outer,
@@ -132,7 +145,9 @@ class PicosChartTwoColumns extends StatelessWidget {
             spacing: 0.2,
             xValueMapper: (ChartSampleData point, _) => point.x as String,
             yValueMapper: (ChartSampleData point, _) => point.y1,
-            name: 'Diastolic',
+            name: valuesChartOptions == ValuesChartOptions.bodyWeightAndBMI
+                ? AppLocalizations.of(context)!.bmi
+                : AppLocalizations.of(context)!.diastolic,
             dataLabelSettings: const DataLabelSettings(
               isVisible: true,
               labelAlignment: ChartDataLabelAlignment.outer,
