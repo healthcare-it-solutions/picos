@@ -16,8 +16,9 @@
 *  along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../screens/home_screen/overview/widgets/graph_section.dart';
@@ -30,10 +31,10 @@ class PicosChartLine extends StatelessWidget {
   const PicosChartLine({Key? key, this.dailyList, this.title})
       : super(key: key);
 
-  ///
+  /// A list of daily items.
   final List<Daily>? dailyList;
 
-  ///
+  /// An optional title, used for a chart name.
   final String? title;
 
   List<ChartSampleData> _prepareChartData() {
@@ -62,6 +63,12 @@ class PicosChartLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+    TooltipBehavior tooltipBehavior = TooltipBehavior(
+      enable: true,
+      textStyle: const TextStyle(
+        fontSize: kIsWeb ? 18 : 14,
+      ),
+    );
     final DateTime now = DateTime.now();
     final DateTime sevenDayBefore = now.subtract(const Duration(days: 7));
     final String titleText =
@@ -88,16 +95,21 @@ class PicosChartLine extends StatelessWidget {
         ),
         primaryXAxis: CategoryAxis(
           majorGridLines: const MajorGridLines(width: 0),
+          axisLine:  AxisLine(
+            color: theme.blue,
+          ),
           labelStyle: const TextStyle(
             color: ChartHelper.colorBlack,
           ),
         ),
         primaryYAxis: NumericAxis(isVisible: false),
+        tooltipBehavior: tooltipBehavior,
         series: <LineSeries<ChartSampleData, String>>[
           LineSeries<ChartSampleData, String>(
             dataSource: _prepareChartData(),
             xValueMapper: (ChartSampleData point, _) => point.x,
             yValueMapper: (ChartSampleData point, _) => point.y,
+            name: title,
             markerSettings: const MarkerSettings(isVisible: true),
             dataLabelSettings: const DataLabelSettings(
               isVisible: true,

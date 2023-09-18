@@ -15,6 +15,7 @@
 *  You should have received a copy of the GNU General Public License
 *  along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -37,16 +38,16 @@ class PicosChartColumn extends StatelessWidget {
     this.isWeekly,
   }) : super(key: key);
 
-  ///
+  /// A list of data items, potentially of varying types.
   final List<dynamic>? dataList;
 
-  ///
+  /// An optional title, used for a chart name.
   final String? title;
 
-  ///
+  /// Options related to how values in a chart are displayed or configured.
   final ValuesChartOptions? valuesChartOptions;
 
-  ///
+  /// A flag indicating if the data or display is based on a weekly timeframe.
   final bool? isWeekly;
 
   List<ChartSampleData> _prepareChartData() {
@@ -92,6 +93,12 @@ class PicosChartColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+    TooltipBehavior tooltipBehavior = TooltipBehavior(
+      enable: true,
+      textStyle: const TextStyle(
+        fontSize: kIsWeb ? 18 : 14,
+      ),
+    );
     final DateTime today = DateTime.now();
     final DateTime startDate = today.subtract(
       Duration(days: isWeekly == true ? 42 : 7),
@@ -117,16 +124,21 @@ class PicosChartColumn extends StatelessWidget {
         ),
         primaryXAxis: CategoryAxis(
           majorGridLines: const MajorGridLines(width: 0),
+          axisLine:  AxisLine(
+            color: theme.blue,
+          ),
           labelStyle: const TextStyle(
             color: ChartHelper.colorBlack,
           ),
         ),
         primaryYAxis: NumericAxis(isVisible: false),
+        tooltipBehavior: tooltipBehavior,
         series: <ColumnSeries<ChartSampleData, String>>[
           ColumnSeries<ChartSampleData, String>(
             dataSource: _prepareChartData(),
             xValueMapper: (ChartSampleData point, _) => point.x,
             yValueMapper: (ChartSampleData point, _) => point.y,
+            name: title,
             dataLabelSettings: const DataLabelSettings(
               isVisible: true,
               labelAlignment: ChartDataLabelAlignment.outer,

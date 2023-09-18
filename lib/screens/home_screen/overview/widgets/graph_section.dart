@@ -33,7 +33,7 @@ import '../../../../widgets/picos_chart_line.dart';
 import '../../../../widgets/picos_chart_two_columns.dart';
 import '../../../questionaire_screen/questionaire_screen.dart';
 
-///
+/// Options related to how values in a chart are displayed or configured.
 enum ValuesChartOptions {
   /// The patients heart frequency.
   heartFrequency,
@@ -99,7 +99,7 @@ class _GraphState extends State<GraphSection> {
       return Section(
         title: AppLocalizations.of(context)!.myMedicalData,
         titleColor: theme.blue,
-        child:       PicosInkWellButton(
+        child: PicosInkWellButton(
           padding: const EdgeInsets.symmetric(horizontal: 0),
           text: AppLocalizations.of(context)!.manageValues,
           onTap: () {
@@ -157,8 +157,6 @@ class _GraphState extends State<GraphSection> {
     );
   }
 
-  /// Returns a column widget containing the graphs populated
-  /// with the given data.
   Widget _buildGraphsWithData(Values? values) {
     return Column(
       children: _buildGraphsChildren(values),
@@ -286,7 +284,7 @@ class ChartHelper {
   ///
   static const Color colorBlack = Colors.black;
 
-  ///
+  /// Compare if two given [DateTime] objects fall on the same day.
   static bool isSameDay(DateTime date1, DateTime date2) {
     return date1.year == date2.year &&
         date1.month == date2.month &&
@@ -325,12 +323,13 @@ class ChartHelper {
     return weeksFromToday;
   }
 
-  ///
+  /// Returns the day of the year for the given [date].
   static int dayOfYear(DateTime date) {
     return date.difference(DateTime(date.year, 1, 1)).inDays + 1;
   }
 
-  ///
+  /// Checks if a given date, [dateToCheck], falls within the same week as
+  /// another reference date, [referenceDate].
   static bool isWithinWeek(DateTime dateToCheck, DateTime referenceDate) {
     DateTime startOfWeek = referenceDate
         .subtract(Duration(days: referenceDate.weekday - 1))

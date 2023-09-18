@@ -15,6 +15,7 @@
 *  You should have received a copy of the GNU General Public License
 *  along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -37,16 +38,16 @@ class PicosChartTwoColumns extends StatelessWidget {
     this.isWeekly,
   }) : super(key: key);
 
-  ///
+  /// A list of data items, potentially of varying types.
   final List<dynamic>? dataList;
 
-  ///
+  /// An optional title, used for a chart name.
   final String? title;
 
-  ///
+  /// Options related to how values in a chart are displayed or configured.
   final ValuesChartOptions? valuesChartOptions;
 
-  ///
+  /// A flag indicating if the data or display is based on a weekly timeframe.
   final bool? isWeekly;
 
   List<ChartSampleData> _prepareChartData() {
@@ -70,8 +71,10 @@ class PicosChartTwoColumns extends StatelessWidget {
       double? y1;
       if (valuesChartOptions == ValuesChartOptions.bodyWeightAndBMI) {
         y = (matchingData as Weekly?)?.bodyWeight?.toDouble();
-        y1 = (matchingData)?.bmi?.toDouble();
-        //y1 = ((matchingData?.bmi?.toDouble() ?? 0.0) * 100).round() / 100.0;
+        double? expressionY1 = (matchingData)?.bmi?.toDouble();
+        y1 = expressionY1 != null
+            ? (expressionY1 * 100).round() / 100.0
+            : expressionY1;
       } else if (valuesChartOptions == ValuesChartOptions.bloodPressure) {
         y = (matchingData as Daily?)?.bloodSystolic?.toDouble();
         y1 = (matchingData)?.bloodDiastolic?.toDouble();
@@ -89,6 +92,12 @@ class PicosChartTwoColumns extends StatelessWidget {
   Widget build(BuildContext context) {
     List<ChartSampleData> chartDataList = _prepareChartData();
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+    TooltipBehavior tooltipBehavior = TooltipBehavior(
+      enable: true,
+      textStyle: const TextStyle(
+        fontSize: kIsWeb ? 18 : 14,
+      ),
+    );
     final DateTime now = DateTime.now();
     final DateTime sevenDayBefore = now.subtract(const Duration(days: 7));
     final String titleText =
@@ -118,8 +127,12 @@ class PicosChartTwoColumns extends StatelessWidget {
           labelStyle: const TextStyle(
             color: ChartHelper.colorBlack,
           ),
+          axisLine:  AxisLine(
+            color: theme.blue,
+          ),
         ),
         primaryYAxis: NumericAxis(isVisible: false),
+        tooltipBehavior: tooltipBehavior,
         legend: const Legend(
           isVisible: true,
           position: LegendPosition.top,
@@ -127,8 +140,8 @@ class PicosChartTwoColumns extends StatelessWidget {
         series: <ColumnSeries<ChartSampleData, String>>[
           ColumnSeries<ChartSampleData, String>(
             dataSource: chartDataList,
-            width: 0.8,
-            spacing: 0.2,
+            width: 1,
+            spacing: 0.4,
             xValueMapper: (ChartSampleData point, _) => point.x,
             yValueMapper: (ChartSampleData point, _) => point.y,
             name: valuesChartOptions == ValuesChartOptions.bodyWeightAndBMI
@@ -141,8 +154,8 @@ class PicosChartTwoColumns extends StatelessWidget {
           ),
           ColumnSeries<ChartSampleData, String>(
             dataSource: chartDataList,
-            width: 0.8,
-            spacing: 0.2,
+            width: 1,
+            spacing: 0.4,
             xValueMapper: (ChartSampleData point, _) => point.x as String,
             yValueMapper: (ChartSampleData point, _) => point.y1,
             name: valuesChartOptions == ValuesChartOptions.bodyWeightAndBMI
