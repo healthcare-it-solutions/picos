@@ -20,6 +20,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:picos/widgets/picos_chart_helper.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../screens/home_screen/overview/widgets/graph_section.dart';
 import '../../../../models/daily.dart';
@@ -41,14 +42,14 @@ class PicosChartLine extends StatelessWidget {
     if (dailyList == null) return <ChartSampleData>[];
 
     Map<String, DateTime> daysWithDates =
-        ChartHelper.getLastSevenDaysWithDates();
+        PicosChartHelper.getLastSevenDaysWithDates();
 
     return daysWithDates.entries.map((MapEntry<String, DateTime> entry) {
       String dayShortText = entry.key;
       DateTime date = entry.value;
 
       Daily? matchingDaily = dailyList!.firstWhereOrNull(
-        (Daily daily) => ChartHelper.isSameDay(daily.date, date),
+        (Daily daily) => PicosChartHelper.isSameDay(daily.date, date),
       );
 
       double? value = matchingDaily?.heartFrequency?.toDouble();
@@ -79,7 +80,7 @@ class PicosChartLine extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: theme.blue!, width: ChartHelper.width),
+        border: Border.all(color: theme.blue!, width: PicosChartHelper.width),
         borderRadius: BorderRadius.circular(10),
       ),
       child: SfCartesianChart(
@@ -95,11 +96,11 @@ class PicosChartLine extends StatelessWidget {
         ),
         primaryXAxis: CategoryAxis(
           majorGridLines: const MajorGridLines(width: 0),
-          axisLine:  AxisLine(
+          axisLine: AxisLine(
             color: theme.blue,
           ),
           labelStyle: const TextStyle(
-            color: ChartHelper.colorBlack,
+            color: PicosChartHelper.colorBlack,
           ),
         ),
         primaryYAxis: NumericAxis(isVisible: false),

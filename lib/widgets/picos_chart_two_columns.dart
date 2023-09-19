@@ -21,6 +21,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/home_screen/overview/widgets/graph_section.dart';
+import 'package:picos/widgets/picos_chart_helper.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../models/daily.dart';
 import '../models/abstract_database_object.dart';
@@ -52,8 +53,8 @@ class PicosChartTwoColumns extends StatelessWidget {
 
   List<ChartSampleData> _prepareChartData() {
     Map<String, DateTime> datesWithValues = isWeekly == true
-        ? ChartHelper.getLastSevenWeeksFromToday()
-        : ChartHelper.getLastSevenDaysWithDates();
+        ? PicosChartHelper.getLastSevenWeeksFromToday()
+        : PicosChartHelper.getLastSevenDaysWithDates();
 
     return datesWithValues.entries.map((MapEntry<String, DateTime> entry) {
       String dayShortText = entry.key;
@@ -61,10 +62,11 @@ class PicosChartTwoColumns extends StatelessWidget {
 
       AbstractDatabaseObject? matchingData = isWeekly == true
           ? (dataList as List<Weekly>?)?.firstWhereOrNull(
-              (Weekly weekly) => ChartHelper.isWithinWeek(weekly.date, date),
+              (Weekly weekly) =>
+                  PicosChartHelper.isWithinWeek(weekly.date, date),
             )
           : (dataList as List<Daily>?)?.firstWhereOrNull(
-              (Daily daily) => ChartHelper.isSameDay(daily.date, date),
+              (Daily daily) => PicosChartHelper.isSameDay(daily.date, date),
             );
 
       double? y;
@@ -108,7 +110,7 @@ class PicosChartTwoColumns extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: theme.blue!, width: ChartHelper.width),
+        border: Border.all(color: theme.blue!, width: PicosChartHelper.width),
         borderRadius: BorderRadius.circular(10),
       ),
       child: SfCartesianChart(
@@ -125,9 +127,9 @@ class PicosChartTwoColumns extends StatelessWidget {
         primaryXAxis: CategoryAxis(
           majorGridLines: const MajorGridLines(width: 0),
           labelStyle: const TextStyle(
-            color: ChartHelper.colorBlack,
+            color: PicosChartHelper.colorBlack,
           ),
-          axisLine:  AxisLine(
+          axisLine: AxisLine(
             color: theme.blue,
           ),
         ),
