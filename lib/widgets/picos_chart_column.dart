@@ -24,6 +24,7 @@ import 'package:picos/models/abstract_database_object.dart';
 import 'package:picos/models/weekly.dart';
 import 'package:picos/screens/home_screen/overview/widgets/graph_section.dart';
 import 'package:picos/widgets/picos_chart_helper.dart';
+import 'package:picos/widgets/picos_chart_sample_data.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../models/daily.dart';
 import '../themes/global_theme.dart';
@@ -51,7 +52,7 @@ class PicosChartColumn extends StatelessWidget {
   /// A flag indicating if the data or display is based on a weekly timeframe.
   final bool? isWeekly;
 
-  List<ChartSampleData> _prepareChartData() {
+  List<PicosChartSampleData> _prepareChartData() {
     Map<String, DateTime> datesWithValues = isWeekly == true
         ? PicosChartHelper.getLastSevenWeeksFromToday()
         : PicosChartHelper.getLastSevenDaysWithDates();
@@ -78,7 +79,7 @@ class PicosChartColumn extends StatelessWidget {
         value = (matchingData as Daily?)?.sleepDuration?.toDouble();
       }
 
-      return ChartSampleData(
+      return PicosChartSampleData(
         x: dayShortText,
         y: value,
       );
@@ -135,11 +136,11 @@ class PicosChartColumn extends StatelessWidget {
         ),
         primaryYAxis: NumericAxis(isVisible: false),
         tooltipBehavior: tooltipBehavior,
-        series: <ColumnSeries<ChartSampleData, String>>[
-          ColumnSeries<ChartSampleData, String>(
+        series: <ColumnSeries<PicosChartSampleData, String>>[
+          ColumnSeries<PicosChartSampleData, String>(
             dataSource: _prepareChartData(),
-            xValueMapper: (ChartSampleData point, _) => point.x,
-            yValueMapper: (ChartSampleData point, _) => point.y,
+            xValueMapper: (PicosChartSampleData point, _) => point.x,
+            yValueMapper: (PicosChartSampleData point, _) => point.y,
             name: title,
             dataLabelSettings: const DataLabelSettings(
               isVisible: true,

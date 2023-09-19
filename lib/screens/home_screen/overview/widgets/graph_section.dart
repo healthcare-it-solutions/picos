@@ -275,22 +275,3 @@ class _GraphState extends State<GraphSection> {
     return widgets;
   }
 }
-
-///Chart sample data
-class ChartSampleData {
-  /// Holds the datapoint values like x, y.
-  ChartSampleData({
-    this.x,
-    this.y,
-    this.y1,
-  });
-
-  /// Holds x value of the datapoint.
-  final dynamic x;
-
-  /// Holds y value of the datapoint.
-  final dynamic y;
-
-  /// Holds y value of the datapoint (for 2nd series).
-  final dynamic y1;
-}

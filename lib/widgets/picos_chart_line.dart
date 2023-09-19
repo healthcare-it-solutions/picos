@@ -21,8 +21,8 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:picos/widgets/picos_chart_helper.dart';
+import 'package:picos/widgets/picos_chart_sample_data.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import '../screens/home_screen/overview/widgets/graph_section.dart';
 import '../../../../models/daily.dart';
 import '../themes/global_theme.dart';
 
@@ -38,8 +38,8 @@ class PicosChartLine extends StatelessWidget {
   /// An optional title, used for a chart name.
   final String? title;
 
-  List<ChartSampleData> _prepareChartData() {
-    if (dailyList == null) return <ChartSampleData>[];
+  List<PicosChartSampleData> _prepareChartData() {
+    if (dailyList == null) return <PicosChartSampleData>[];
 
     Map<String, DateTime> daysWithDates =
         PicosChartHelper.getLastSevenDaysWithDates();
@@ -54,7 +54,7 @@ class PicosChartLine extends StatelessWidget {
 
       double? value = matchingDaily?.heartFrequency?.toDouble();
 
-      return ChartSampleData(
+      return PicosChartSampleData(
         x: dayShortText,
         y: value,
       );
@@ -105,11 +105,11 @@ class PicosChartLine extends StatelessWidget {
         ),
         primaryYAxis: NumericAxis(isVisible: false),
         tooltipBehavior: tooltipBehavior,
-        series: <LineSeries<ChartSampleData, String>>[
-          LineSeries<ChartSampleData, String>(
+        series: <LineSeries<PicosChartSampleData, String>>[
+          LineSeries<PicosChartSampleData, String>(
             dataSource: _prepareChartData(),
-            xValueMapper: (ChartSampleData point, _) => point.x,
-            yValueMapper: (ChartSampleData point, _) => point.y,
+            xValueMapper: (PicosChartSampleData point, _) => point.x,
+            yValueMapper: (PicosChartSampleData point, _) => point.y,
             name: title,
             markerSettings: const MarkerSettings(isVisible: true),
             dataLabelSettings: const DataLabelSettings(
