@@ -20,10 +20,10 @@ import 'package:flutter/material.dart';
 
 /// Helper class for common chart properties and methods.
 class PicosChartHelper {
-  ///
+  /// Width chart.
   static const double width = 1.0;
 
-  ///
+  /// Color Black.
   static const Color colorBlack = Colors.black;
 
   /// Compare if two given [DateTime] objects fall on the same day.
