@@ -142,7 +142,7 @@ class PicosChartTwoColumns extends StatelessWidget {
         series: <ColumnSeries<ChartSampleData, String>>[
           ColumnSeries<ChartSampleData, String>(
             dataSource: chartDataList,
-            width: 1,
+            width: PicosChartHelper.width,
             spacing: 0.4,
             xValueMapper: (ChartSampleData point, _) => point.x,
             yValueMapper: (ChartSampleData point, _) => point.y,
@@ -156,7 +156,7 @@ class PicosChartTwoColumns extends StatelessWidget {
           ),
           ColumnSeries<ChartSampleData, String>(
             dataSource: chartDataList,
-            width: 1,
+            width: PicosChartHelper.width,
             spacing: 0.4,
             xValueMapper: (ChartSampleData point, _) => point.x as String,
             yValueMapper: (ChartSampleData point, _) => point.y1,
