@@ -31,7 +31,7 @@ class PatientsList extends StatefulWidget {
   State<PatientsList> createState() => _PatientsListState();
 }
 
-class _PatientsListState extends State<PatientsList> {
+class _PatientsListState extends State<PatientsList> { 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ObjectsListBloc<BackendPatientsListApi>,

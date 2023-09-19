@@ -536,10 +536,10 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
 
   PatientData createMovementData() {
     return PatientData(
-      bodyHeight: pageStorage?.bodyHeight!,
-      patientID: pageStorage?.patientID!,
-      caseNumber: pageStorage?.caseNumber!,
-      instKey: EditPatientScreen.instituteKey!,
+      bodyHeight: pageStorage?.bodyHeight,
+      patientID: pageStorage?.patientID,
+      caseNumber: pageStorage?.caseNumber,
+      instKey: EditPatientScreen.instituteKey,
       patientObjectId: EditPatientScreen.patientObjectId!,
       doctorObjectId: Backend.user.objectId!,
       bodyWeight: pageStorage?.bodyWeight,
