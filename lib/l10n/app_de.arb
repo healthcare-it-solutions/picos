@@ -357,5 +357,7 @@
   "rememberMe": "Angemeldet bleiben?",
   "hospital": "Krankenhaus",
   "physician": "Arzt",
-  "myVisits": "Meine Behandlungsbesuche"
+  "myVisits": "Meine Behandlungsbesuche",
+  "visitDate": "Besuchsdatum",
+  "recordDate": "Anfangszeit"
 }
