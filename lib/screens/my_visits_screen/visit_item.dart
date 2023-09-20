@@ -45,17 +45,18 @@ class VisitItem extends StatelessWidget {
       title: _isHospital()
           ? RichText(
               text: TextSpan(
-                text: 'Anfangszeit: ${_stay.record.day}.${_stay.record.month}.'
-                    '${_stay.record.year} ',
+                text: '${AppLocalizations.of(context)!.recordDate}: '
+                '${_stay.record.day}.${_stay.record.month}.'
+                '${_stay.record.year}, ',
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18,
                 ),
                 children: <TextSpan>[
                   TextSpan(
-                    text: 'Endzeit: ${_stay.discharge!.day}.'
-                        '${_stay.discharge!.month}.'
-                        '${_stay.discharge!.year} - ',
+                    text: '${AppLocalizations.of(context)!.dischargeDate}: '
+                    '${_stay.discharge!.day}.${_stay.discharge!.month}.'
+                    '${_stay.discharge!.year} - ',
                   ),
                   TextSpan(
                     text: _translateWhere(context),
@@ -68,8 +69,9 @@ class VisitItem extends StatelessWidget {
             )
           : RichText(
               text: TextSpan(
-                text: 'Besuchsdatum: ${_stay.record.day}.${_stay.record.month}.'
-                    '${_stay.record.year} - ',
+                text: '${AppLocalizations.of(context)!.visitDate}: '
+                '${_stay.record.day}.${_stay.record.month}.'
+                '${_stay.record.year} - ',
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18,
