@@ -70,15 +70,11 @@ class _LoginScreenState extends State<LoginScreen>
     if (loginError == null) {
       final String route = await Backend.getRole();
 
-      if (_isChecked) {
-        if (!kIsWeb) {
-          await _secureStorage.setUsername(_loginController.text);
-          await _secureStorage.setPassword(_passwordController.text);
-        }
-      } else {
-        if (!kIsWeb) {
-          await _secureStorage.deleteAll();
-        }
+      if (_isChecked && !kIsWeb) {
+        await _secureStorage.setUsername(_loginController.text);
+        await _secureStorage.setPassword(_passwordController.text);
+      } else if (!kIsWeb) {
+        await _secureStorage.deleteAll();
       }
       if (!mounted) return;
       Navigator.of(context).pushReplacementNamed(route);
@@ -217,9 +213,7 @@ class _LoginScreenState extends State<LoginScreen>
                 width: 200,
                 child: PicosInkWellButton(
                   disabled: _sendDisabled,
-                  onTap: () {
-                    _submitHandler();
-                  },
+                  onTap: _submitHandler,
                   text: AppLocalizations.of(context)!.submit,
                 ),
               ),
