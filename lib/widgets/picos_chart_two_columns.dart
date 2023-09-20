@@ -20,6 +20,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 import 'package:picos/screens/home_screen/overview/widgets/graph_section.dart';
 import 'package:picos/widgets/picos_chart_helper.dart';
 import 'package:picos/widgets/picos_chart_sample_data.dart';
@@ -91,6 +92,13 @@ class PicosChartTwoColumns extends StatelessWidget {
     }).toList();
   }
 
+  String _formatDateRange(DateTime startDate, DateTime endDate) {
+    final DateFormat formatterStartDate = DateFormat('dd.MM.');
+    final DateFormat formatterEndDate = DateFormat('dd.MM.yyyy');
+    return '$title  ${formatterStartDate.format(startDate)}- '
+        '${formatterEndDate.format(endDate)}';
+  }
+
   @override
   Widget build(BuildContext context) {
     List<PicosChartSampleData> chartDataList = _prepareChartData();
@@ -101,13 +109,12 @@ class PicosChartTwoColumns extends StatelessWidget {
         fontSize: kIsWeb ? 18 : 14,
       ),
     );
-    final DateTime now = DateTime.now();
-    final DateTime sevenDayBefore = now.subtract(const Duration(days: 7));
-    final String titleText =
-        '$title  ${sevenDayBefore.day.toString().padLeft(2, '0')}.'
-        '${sevenDayBefore.month.toString().padLeft(2, '0')}.'
-        '- ${now.day.toString().padLeft(2, '0')}'
-        '.${now.month.toString().padLeft(2, '0')}.${now.year}';
+    final DateTime today = DateTime.now();
+    final DateTime startDate = today.subtract(
+      Duration(days: isWeekly == true ? 42 : 7),
+    );
+
+    final String titleText = _formatDateRange(startDate, today);
 
     return Container(
       decoration: BoxDecoration(
