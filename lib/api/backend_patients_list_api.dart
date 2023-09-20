@@ -88,25 +88,30 @@ class BackendPatientsListApi extends BackendObjectsApi {
       List<PatientProfile> patientProfileResults = <PatientProfile>[];
 
       for (dynamic element in responsePatient) {
-        patientResults.add(
-          Patient(
-            firstName: element['Firstname'] ?? '',
-            familyName: element['Lastname'] ?? '',
-            email: element['username'] ?? '',
-            number: element['PhoneNo'] ?? '',
-            address: element['Address'] ?? '',
-            formOfAddress: element['Form'] ?? '',
-            objectId: element['objectId'],
-            createdAt: DateTime.parse(element['createdAt']),
-            updatedAt: DateTime.parse(element['updatedAt']),
-          ),
-        );
+        // Excluding own user.
+        if (element['Role'] != 'Doctor') {
+          patientResults.add(
+            Patient(
+              firstName: element['Firstname'] ?? '',
+              familyName: element['Lastname'] ?? '',
+              email: element['username'] ?? '',
+              number: element['PhoneNo'] ?? '',
+              address: element['Address'] ?? '',
+              formOfAddress: element['Form'] ?? '',
+              objectId: element['objectId'],
+              createdAt: DateTime.parse(element['createdAt']),
+              updatedAt: DateTime.parse(element['updatedAt']),
+            ),
+          );
+        }
       }
 
       for (dynamic element in responsePatientData) {
         patientDataResults.add(
           PatientData(
-            bodyHeight: element['BodyHeight'] != null ? element['BodyHeight']['estimateNumber'].toDouble() : null,
+            bodyHeight: element['BodyHeight'] != null
+                ? element['BodyHeight']['estimateNumber'].toDouble()
+                : null,
             patientID: element['ID'],
             caseNumber: element['CaseNumber'],
             instKey: element['inst_key'],
