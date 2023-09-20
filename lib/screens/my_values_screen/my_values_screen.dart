@@ -115,6 +115,15 @@ class _MyValuesScreenState extends State<MyValuesScreen> {
           _preferencesBackend['sleep_duration'] =
               _patientProfile!.sleepDurationEnabled;
         });
+      } else {
+        setState(() {
+          _preferencesBackend['weight_bmi'] = true;
+          _preferencesBackend['heart_frequency'] = true;
+          _preferencesBackend['blood_pressure'] = true;
+          _preferencesBackend['blood_sugar'] = true;
+          _preferencesBackend['walk_distance'] = true;
+          _preferencesBackend['sleep_duration'] = true;
+        });
       }
     }
   }
@@ -128,11 +137,6 @@ class _MyValuesScreenState extends State<MyValuesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (_patientProfile == null) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
-    }
     return PicosScreenFrame(
       title: AppLocalizations.of(context)!.myMedicalData,
       body: PicosBody(
