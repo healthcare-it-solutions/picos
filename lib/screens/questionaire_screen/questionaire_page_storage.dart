@@ -167,8 +167,6 @@ class QuestionairePageStorage {
 
   static int? _bodyHeight;
 
-  PatientProfile? _patientProfile;
-
   void _initValues() {
     selectedBloodSugarMol = dailyInput.daily?.bloodSugarMol;
     selectedBodyWeight = dailyInput.weekly?.bodyWeight;
@@ -210,16 +208,34 @@ class QuestionairePageStorage {
     _letsStart = AppLocalizations.of(context)!.letsStart;
   }
 
-  Future<void> _fetchPatientProfile() async {
-    if (Backend.user.objectId != null) {
+  Future<PatientProfile> _getPatientProfile() async {
+    PatientProfile patientProfile = const PatientProfile(
+      weightBMIEnabled: true,
+      heartFrequencyEnabled: true,
+      bloodPressureEnabled: true,
+      bloodSugarLevelsEnabled: true,
+      walkDistanceEnabled: true,
+      sleepDurationEnabled: true,
+      sleepQualityEnabled: true,
+      painEnabled: true,
+      phq4Enabled: true,
+      medicationEnabled: true,
+      therapyEnabled: true,
+      doctorsVisitEnabled: true,
+      patientObjectId: '',
+      doctorObjectId: '',
+    );
+
+    try {
       dynamic responsePatient = await Backend.getEntry(
         PatientProfile.databaseTable,
         'Patient',
         Backend.user.objectId!,
       );
-      dynamic element = responsePatient.results?.first;
+      dynamic element = responsePatient?.results?.first;
+
       if (element != null) {
-        _patientProfile = PatientProfile(
+        patientProfile = PatientProfile(
           weightBMIEnabled: element['Weight_BMI'],
           heartFrequencyEnabled: element['HeartRate'],
           bloodPressureEnabled: element['BloodPressure'],
@@ -239,230 +255,248 @@ class QuestionairePageStorage {
           updatedAt: element['updatedAt'],
         );
       }
+    } catch (e) {
+      rethrow;
     }
+    return patientProfile;
   }
 
   Future<void> _initPages(
     void Function() previousPage,
     void Function() nextPage,
   ) async {
-    _fetchPatientProfile();
-    _bodyHeight ??=
-        (await Backend.getAll(PatientRegistrationData.databaseTable))[0]
-            ['BodyHeight']?['estimateNumber'];
-    pages.add(
-      Cover(
-        title: _vitalValues!,
-        image: 'assets/Vitalwerte_neg.svg',
-        nextFunction: nextPage,
-        backFunction: previousPage,
-        textNext: _letsStart,
-      ),
-    );
-    titles.add(_myEntries!);
-    if (dailyInput.weeklyDay && _patientProfile?.weightBMIEnabled == true) {
-      pages.add(
-        Weight(
-          initialBmi: selectedBMI,
-          initialValue: selectedBodyWeight,
-          previousPage: previousPage,
-          nextPage: nextPage,
-          onChangedBodyWeight: (double? weight, double? bmi) {
-            selectedBodyWeight = weight;
-            selectedBMI = bmi;
-          },
-          bodyHeight: _bodyHeight,
-        ),
-      );
-      titles.add(_vitalValues!);
-    }
-    if (_patientProfile?.heartFrequencyEnabled == true) {
-      pages.add(
-        HeartFrequency(
-          initialValue: selectedHeartFrequency,
-          previousPage: previousPage,
-          nextPage: nextPage,
-          onChanged: (String value) {
-            int? intValue = int.tryParse(value);
+    PatientProfile patientProfile = await _getPatientProfile();
 
-            if (intValue == null && value.isNotEmpty) {
-              intValue = int.tryParse(value.split('.')[0]);
-            }
-
-            selectedHeartFrequency = intValue;
-          },
-        ),
-      );
-    }
-    if (_patientProfile?.bloodPressureEnabled == true) {
+    if ((dailyInput.weeklyDay && patientProfile.weightBMIEnabled == true) ||
+        patientProfile.heartFrequencyEnabled == true ||
+        patientProfile.bloodPressureEnabled == true ||
+        patientProfile.bloodSugarLevelsEnabled == true) {
+      _bodyHeight ??=
+          (await Backend.getAll(PatientRegistrationData.databaseTable))[0]
+              ['BodyHeight']?['estimateNumber'];
       pages.add(
-        BloodPressure(
-          initialDias: selectedDias,
-          initialSyst: selectedSyst,
-          previousPage: previousPage,
-          nextPage: nextPage,
-          onChangedSyst: (String value) {
-            selectedSyst = int.tryParse(value);
-          },
-          onChangedDias: (String value) {
-            selectedDias = int.tryParse(value);
-          },
-        ),
-      );
-    }
-    if (_patientProfile?.bloodSugarLevelsEnabled == true) {
-      pages.add(
-        BloodSugar(
-          previousPage: previousPage,
-          nextPage: nextPage,
-          onChanged: (String? value, String? valueMol) {
-            selectedBloodSugar = value == null ? null : int.tryParse(value);
-            selectedBloodSugarMol =
-                valueMol == null ? null : double.tryParse(valueMol);
-          },
-          initialValue: selectedBloodSugar,
-          initialValueMol: selectedBloodSugarMol,
-        ),
-      );
-    }
-
-    for (int i = 0; i < 3; i++) {
-      titles.add(_vitalValues!);
-    }
-    pages.add(
-      Cover(
-        title: _activityAndRest!,
-        image: 'assets/Aktivitaet+Ruhe_neg.svg',
-        backFunction: previousPage,
-        nextFunction: nextPage,
-      ),
-    );
-    titles.add(_myEntries!);
-    if (dailyInput.weeklyDay && _patientProfile?.walkDistanceEnabled == true) {
-      pages.add(
-        QuestionairePage(
-          backFunction: previousPage,
+        Cover(
+          title: _vitalValues!,
+          image: 'assets/Vitalwerte_neg.svg',
           nextFunction: nextPage,
-          child: TextFieldCard(
-            initialValue: selectedWalkDistance,
-            label: _possibleWalkDistance!,
-            hint: 'Meter',
+          backFunction: previousPage,
+          textNext: _letsStart,
+        ),
+      );
+      titles.add(_myEntries!);
+      if (dailyInput.weeklyDay && patientProfile.weightBMIEnabled == true) {
+        pages.add(
+          Weight(
+            initialBmi: selectedBMI,
+            initialValue: selectedBodyWeight,
+            previousPage: previousPage,
+            nextPage: nextPage,
+            onChangedBodyWeight: (double? weight, double? bmi) {
+              selectedBodyWeight = weight;
+              selectedBMI = bmi;
+            },
+            bodyHeight: _bodyHeight,
+          ),
+        );
+        titles.add(_vitalValues!);
+      }
+      if (patientProfile.heartFrequencyEnabled == true) {
+        pages.add(
+          HeartFrequency(
+            initialValue: selectedHeartFrequency,
+            previousPage: previousPage,
+            nextPage: nextPage,
             onChanged: (String value) {
-              selectedWalkDistance = int.tryParse(value);
+              int? intValue = int.tryParse(value);
+
+              if (intValue == null && value.isNotEmpty) {
+                intValue = int.tryParse(value.split('.')[0]);
+              }
+
+              selectedHeartFrequency = intValue;
             },
           ),
-        ),
-      );
-      titles.add(_activityAndRest!);
-    }
-    if (_patientProfile?.sleepDurationEnabled == true) {
-      pages.add(
-        Sleep(
-          previousPage: previousPage,
-          nextPage: nextPage,
-          onChangedSleepDuration: (double? value) {
-            selectedSleepDuration = value;
-          },
-          initialValue: selectedSleepDuration,
-        ),
-      );
-    }
-
-    titles.add(_activityAndRest!);
-    if (dailyInput.weeklyDay && _patientProfile?.sleepQualityEnabled == true) {
-      pages.add(
-        QuestionairePage(
-          backFunction: previousPage,
-          nextFunction: nextPage,
-          child: SleepQualityCard(
-            initialValue: selectedSleepQuality,
-            callBack: (dynamic value) {
-              selectedSleepQuality = value;
+        );
+      }
+      if (patientProfile.bloodPressureEnabled == true) {
+        pages.add(
+          BloodPressure(
+            initialDias: selectedDias,
+            initialSyst: selectedSyst,
+            previousPage: previousPage,
+            nextPage: nextPage,
+            onChangedSyst: (String value) {
+              selectedSyst = int.tryParse(value);
             },
-            label: _sleepQuality7Days!,
-          ),
-        ),
-      );
-      titles.add(_activityAndRest!);
-    }
-    pages.add(
-      Cover(
-        title: _bodyAndMind!,
-        image: 'assets/Koerper+Psyche_neg.svg',
-        backFunction: previousPage,
-        nextFunction: nextPage,
-      ),
-    );
-    titles.add(_myEntries!);
-    if (_patientProfile?.painEnabled == true) {
-      pages.add(
-        QuestionairePage(
-          backFunction: previousPage,
-          nextFunction: nextPage,
-          child: PainScaleCard(
-            initialValue: selectedPain,
-            label: _pain!,
-            callBack: (dynamic value) {
-              selectedPain = value as int;
+            onChangedDias: (String value) {
+              selectedDias = int.tryParse(value);
             },
           ),
-        ),
-      );
-    }
+        );
+      }
+      if (patientProfile.bloodSugarLevelsEnabled == true) {
+        pages.add(
+          BloodSugar(
+            previousPage: previousPage,
+            nextPage: nextPage,
+            onChanged: (String? value, String? valueMol) {
+              selectedBloodSugar = value == null ? null : int.tryParse(value);
+              selectedBloodSugarMol =
+                  valueMol == null ? null : double.tryParse(valueMol);
+            },
+            initialValue: selectedBloodSugar,
+            initialValueMol: selectedBloodSugarMol,
+          ),
+        );
+      }
 
-    titles.add(_bodyAndMind!);
-    if (dailyInput.phq4Day && _patientProfile?.phq4Enabled == true) {
-      pages.add(
-        BodyAndMind(
-          initialValue: selectedQuestionA,
-          previousPage: previousPage,
-          nextPage: nextPage,
-          onChangedInterest: (dynamic value) {
-            selectedQuestionA = value as int;
-          },
-          questionType: _lowInterest!,
-        ),
-      );
-      pages.add(
-        BodyAndMind(
-          initialValue: selectedQuestionB,
-          previousPage: previousPage,
-          nextPage: nextPage,
-          onChangedInterest: (dynamic value) {
-            selectedQuestionB = value as int;
-          },
-          questionType: _dejection!,
-        ),
-      );
-      pages.add(
-        BodyAndMind(
-          initialValue: selectedQuestionC,
-          previousPage: previousPage,
-          nextPage: nextPage,
-          onChangedInterest: (dynamic value) {
-            selectedQuestionC = value as int;
-          },
-          questionType: _nervousness!,
-        ),
-      );
-      pages.add(
-        BodyAndMind(
-          initialValue: selectedQuestionD,
-          previousPage: previousPage,
-          nextPage: nextPage,
-          onChangedInterest: (dynamic value) {
-            selectedQuestionD = value as int;
-          },
-          questionType: _worries!,
-        ),
-      );
-
-      for (int i = 0; i < 4; i++) {
-        titles.add(_bodyAndMind!);
+      for (int i = 0; i < 3; i++) {
+        titles.add(_vitalValues!);
       }
     }
-    if (_patientProfile?.medicationEnabled == true ||
-        _patientProfile?.therapyEnabled == true) {
+
+    if ((dailyInput.weeklyDay && patientProfile.walkDistanceEnabled == true) ||
+        patientProfile.sleepDurationEnabled == true ||
+        (dailyInput.weeklyDay && patientProfile.sleepQualityEnabled == true)) {
+      pages.add(
+        Cover(
+          title: _activityAndRest!,
+          image: 'assets/Aktivitaet+Ruhe_neg.svg',
+          backFunction: previousPage,
+          nextFunction: nextPage,
+        ),
+      );
+      titles.add(_myEntries!);
+      if (dailyInput.weeklyDay && patientProfile.walkDistanceEnabled == true) {
+        pages.add(
+          QuestionairePage(
+            backFunction: previousPage,
+            nextFunction: nextPage,
+            child: TextFieldCard(
+              initialValue: selectedWalkDistance,
+              label: _possibleWalkDistance!,
+              hint: 'Meter',
+              onChanged: (String value) {
+                selectedWalkDistance = int.tryParse(value);
+              },
+            ),
+          ),
+        );
+        titles.add(_activityAndRest!);
+      }
+      if (patientProfile.sleepDurationEnabled == true) {
+        pages.add(
+          Sleep(
+            previousPage: previousPage,
+            nextPage: nextPage,
+            onChangedSleepDuration: (double? value) {
+              selectedSleepDuration = value;
+            },
+            initialValue: selectedSleepDuration,
+          ),
+        );
+      }
+
+      titles.add(_activityAndRest!);
+      if (dailyInput.weeklyDay && patientProfile.sleepQualityEnabled == true) {
+        pages.add(
+          QuestionairePage(
+            backFunction: previousPage,
+            nextFunction: nextPage,
+            child: SleepQualityCard(
+              initialValue: selectedSleepQuality,
+              callBack: (dynamic value) {
+                selectedSleepQuality = value;
+              },
+              label: _sleepQuality7Days!,
+            ),
+          ),
+        );
+        titles.add(_activityAndRest!);
+      }
+    }
+    if (patientProfile.painEnabled == true ||
+        patientProfile.phq4Enabled == true) {
+      pages.add(
+        Cover(
+          title: _bodyAndMind!,
+          image: 'assets/Koerper+Psyche_neg.svg',
+          backFunction: previousPage,
+          nextFunction: nextPage,
+        ),
+      );
+      titles.add(_myEntries!);
+      if (patientProfile.painEnabled == true) {
+        pages.add(
+          QuestionairePage(
+            backFunction: previousPage,
+            nextFunction: nextPage,
+            child: PainScaleCard(
+              initialValue: selectedPain,
+              label: _pain!,
+              callBack: (dynamic value) {
+                selectedPain = value as int;
+              },
+            ),
+          ),
+        );
+      }
+
+      titles.add(_bodyAndMind!);
+      if (dailyInput.phq4Day && patientProfile.phq4Enabled == true) {
+        pages.add(
+          BodyAndMind(
+            initialValue: selectedQuestionA,
+            previousPage: previousPage,
+            nextPage: nextPage,
+            onChangedInterest: (dynamic value) {
+              selectedQuestionA = value as int;
+            },
+            questionType: _lowInterest!,
+          ),
+        );
+        pages.add(
+          BodyAndMind(
+            initialValue: selectedQuestionB,
+            previousPage: previousPage,
+            nextPage: nextPage,
+            onChangedInterest: (dynamic value) {
+              selectedQuestionB = value as int;
+            },
+            questionType: _dejection!,
+          ),
+        );
+        pages.add(
+          BodyAndMind(
+            initialValue: selectedQuestionC,
+            previousPage: previousPage,
+            nextPage: nextPage,
+            onChangedInterest: (dynamic value) {
+              selectedQuestionC = value as int;
+            },
+            questionType: _nervousness!,
+          ),
+        );
+        pages.add(
+          BodyAndMind(
+            initialValue: selectedQuestionD,
+            previousPage: previousPage,
+            nextPage: nextPage,
+            onChangedInterest: (dynamic value) {
+              selectedQuestionD = value as int;
+            },
+            questionType: _worries!,
+          ),
+        );
+
+        for (int i = 0; i < 4; i++) {
+          titles.add(_bodyAndMind!);
+        }
+      }
+    }
+
+    if (patientProfile.medicationEnabled == true ||
+        patientProfile.therapyEnabled == true) {
       pages.add(
         Cover(
           title: _medicationAndTherapy!,
@@ -472,7 +506,7 @@ class QuestionairePageStorage {
         ),
       );
 
-      if (_patientProfile?.medicationEnabled == true) {
+      if (patientProfile.medicationEnabled == true) {
         redirectingPages['medicationPage'] = pages.length;
         pages.add(
           QuestionairePage(
@@ -490,7 +524,7 @@ class QuestionairePageStorage {
         );
       }
 
-      if (_patientProfile?.therapyEnabled == true) {
+      if (patientProfile.therapyEnabled == true) {
         redirectingPages['therapyPage'] = pages.length;
         pages.add(
           QuestionairePage(
@@ -508,7 +542,7 @@ class QuestionairePageStorage {
         );
       }
     }
-    if (_patientProfile?.doctorsVisitEnabled == true) {
+    if (patientProfile.doctorsVisitEnabled == true) {
       redirectingPages['doctorPage'] = pages.length;
       pages.add(
         QuestionairePage(
