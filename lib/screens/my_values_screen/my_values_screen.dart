@@ -117,12 +117,9 @@ class _MyValuesScreenState extends State<MyValuesScreen> {
         });
       } else {
         setState(() {
-          _preferencesBackend['weight_bmi'] = true;
-          _preferencesBackend['heart_frequency'] = true;
-          _preferencesBackend['blood_pressure'] = true;
-          _preferencesBackend['blood_sugar'] = true;
-          _preferencesBackend['walk_distance'] = true;
-          _preferencesBackend['sleep_duration'] = true;
+          for (String key in _preferencesBackend.keys) {
+            _preferencesBackend[key] = true;
+          }
         });
       }
     }
