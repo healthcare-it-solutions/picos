@@ -107,35 +107,35 @@ class _PicosSelectState extends State<PicosSelect> {
         absorbing: widget.disabled,
         child: ButtonTheme(
           alignedDropdown: true,
-
           child: SizedBox(
             height: widget.validator == null ? null : 75,
             child: Expanded(
-            child: DropdownButtonFormField<String>(
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.only(
-                  right: 5,
+              child: DropdownButtonFormField<String>(
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.only(
+                    right: 5,
+                  ),
+                  enabledBorder: outlineInputBorder,
+                  focusedBorder: outlineInputBorder,
+                  errorBorder: errorInputBorder,
+                  focusedErrorBorder: errorInputBorder,
                 ),
-                enabledBorder: outlineInputBorder,
-                focusedBorder: outlineInputBorder,
-                errorBorder: errorInputBorder,
-                focusedErrorBorder: errorInputBorder,
-              ),
-              borderRadius: borderRadius,
-              value: _dropdownValue,
-              icon: const Icon(Icons.keyboard_arrow_down),
-              hint: Text(widget.hint ?? ''),
-              onChanged: (String? newValue) {
-                setState(() {
-                  final String value = newValue ?? '';
+                borderRadius: borderRadius,
+                value: _dropdownValue,
+                icon: const Icon(Icons.keyboard_arrow_down),
+                hint: Text(widget.hint ?? ''),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    final String value = newValue ?? '';
 
-                  widget.callBackFunction(value);
-                  _dropdownValue = value;
-                });
-              },
-              items: _createItemList(),
-              validator: widget.validator,
-            ),),
+                    widget.callBackFunction(value);
+                    _dropdownValue = value;
+                  });
+                },
+                items: _createItemList(),
+                validator: widget.validator,
+              ),
+            ),
           ),
         ),
       ),
