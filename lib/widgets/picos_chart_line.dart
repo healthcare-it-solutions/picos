@@ -119,7 +119,7 @@ class PicosChartLine extends StatelessWidget {
             emptyPointSettings: EmptyPointSettings(
               mode: EmptyPointMode.drop,
             ),
-          )
+          ),
         ],
       ),
     );
