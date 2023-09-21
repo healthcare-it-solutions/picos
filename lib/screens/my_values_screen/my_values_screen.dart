@@ -115,12 +115,6 @@ class _MyValuesScreenState extends State<MyValuesScreen> {
           _preferencesBackend['sleep_duration'] =
               _patientProfile!.sleepDurationEnabled;
         });
-      } else {
-        setState(() {
-          for (String key in _preferencesBackend.keys) {
-            _preferencesBackend[key] = true;
-          }
-        });
       }
     }
   }
