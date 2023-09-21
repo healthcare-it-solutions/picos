@@ -146,7 +146,7 @@ class PicosChartColumn extends StatelessWidget {
               isVisible: true,
               labelAlignment: ChartDataLabelAlignment.outer,
             ),
-          )
+          ),
         ],
       ),
     );
