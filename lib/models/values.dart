@@ -18,7 +18,7 @@
 import 'package:picos/models/daily.dart';
 import 'package:picos/models/weekly.dart';
 
-///
+/// A data model storing daily and weekly values for the user.
 class Values {
   /// Creates a MyValues object.
   Values({
@@ -26,9 +26,9 @@ class Values {
     required this.weeklyList,
   });
 
-  ///
+  /// Daily list.
   List<Daily>? dailyList;
 
-  ///
+  /// Weekly list.
   List<Weekly>? weeklyList;
 }

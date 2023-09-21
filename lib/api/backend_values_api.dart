@@ -24,7 +24,7 @@ import '../models/weekly.dart';
 
 /// API for storing values at the backend.
 class BackendValuesApi {
-  /// Ret
+  /// API interface providing methods to fetch values from the backend.
   static Future<Values?> getMyValues() async {
     DateTime now = DateTime.now();
     DateTime last7Weeks = now.subtract(const Duration(days: 49)).subtract(
