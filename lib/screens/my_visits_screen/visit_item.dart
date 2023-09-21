@@ -47,14 +47,14 @@ class VisitItem extends StatelessWidget {
               text: TextSpan(
                 text: '${AppLocalizations.of(context)!.recordDate}: '
                 '${_stay.record.day}.${_stay.record.month}.'
-                '${_stay.record.year}, ',
+                '${_stay.record.year}',
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18,
                 ),
                 children: <TextSpan>[
                   TextSpan(
-                    text: '${AppLocalizations.of(context)!.dischargeDate}: '
+                    text: '\n${AppLocalizations.of(context)!.dischargeDate}: '
                     '${_stay.discharge!.day}.${_stay.discharge!.month}.'
                     '${_stay.discharge!.year} - ',
                   ),
