@@ -360,5 +360,6 @@
   "manageValues": "Werte verwalten",
   "noDataAvailable": "Keine Daten verfügbar",
   "systolic" : "Systolisch",
-  "diastolic" : "Diastolisch"
+  "diastolic" : "Diastolisch",
+  "recordDate": "Aufnahmedatum"
 }
