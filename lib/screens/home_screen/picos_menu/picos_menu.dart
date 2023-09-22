@@ -76,7 +76,7 @@ class PicosMenu extends StatelessWidget {
       PicosMenuItem(
         iconPath: 'assets/Krankenhaus.svg',
         title: AppLocalizations.of(context)!.visits,
-        onTap: () => Navigator.of(context).pushNamed('/visits-screen/visits'),
+        onTap: () => Navigator.of(context).pushNamed('/visits-screen/my-visits-screen'),
       ),
       PicosMenuItem(
         iconPath: 'assets/Werte.svg',

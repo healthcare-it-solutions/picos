@@ -36,7 +36,9 @@ class BackendStaysApi extends BackendObjectsApi {
             reason: element['reason'],
             where: element['where'],
             record: DateTime.parse(element['dateRecord']['iso']),
-            discharge: DateTime.parse(element['dateDischarge']['iso']),
+            discharge: element['dateDischarge'] != null
+                ? DateTime.parse(element['dateDischarge']['iso'])
+                : null,
             objectId: element['objectId'],
             createdAt: DateTime.parse(element['createdAt']),
             updatedAt: DateTime.parse(element['updatedAt']),

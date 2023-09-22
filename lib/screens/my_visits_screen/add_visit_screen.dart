@@ -45,15 +45,16 @@ enum VisitOptions {
 }
 
 /// Displays a form for filling in hospital and doctors visits.
-class VisitsScreen extends StatefulWidget {
+class AddVisitScreen extends StatefulWidget {
   /// Creates StaysScreen
-  const VisitsScreen({Key? key}) : super(key: key);
+  const AddVisitScreen({Key? key}) : super(key: key);
 
   @override
-  State<VisitsScreen> createState() => _VisitsScreenState();
+  State<AddVisitScreen> createState() => _AddVisitScreenState();
 }
 
-class _VisitsScreenState extends State<VisitsScreen> with PageViewNavigation {
+class _AddVisitScreenState extends State<AddVisitScreen>
+    with PageViewNavigation {
   static Map<String, VisitOptions>? _unscheduledSelection;
 
   static String? _back;

@@ -1446,5 +1446,25 @@
   "diastolic": "diastolic",
   "@diastolic  ": {
     "description": "diastolic"
+  },
+  "hospital": "Hospital",
+  "@hospital": {
+    "description": "Hospital"
+  },
+  "physician": "Physician",
+  "@physician": {
+    "description": "Physician"
+  },
+  "myVisits": "My Visits",
+  "@myVisits": {
+    "description": "My Visits"
+  },
+  "visitDate": "Visit Date",
+  "@visitDate": {
+    "description": "Visit Date"
+  },
+  "recordDate": "Record Date",
+  "@recordDate": {
+    "description": "Record Date"
   }
 }
