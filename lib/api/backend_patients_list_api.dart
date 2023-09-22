@@ -31,6 +31,22 @@ class BackendPatientsListApi extends BackendObjectsApi {
   @override
   Future<void> saveObject(AbstractDatabaseObject object) async {
     try {
+       dynamic responsePatientProfile = await Backend.saveObject(
+          (object as PatientsListElement).patientProfile,);
+      PatientProfile patientProfile = object.patientProfile.copyWith(
+        objectId: responsePatientProfile['objectId'],
+        createdAt:
+            DateTime.tryParse(responsePatientProfile['createdAt'] ?? '') ??
+                object.patientProfile.createdAt,
+        updatedAt:
+            DateTime.tryParse(responsePatientProfile['updatedAt'] ?? '') ??
+                object.patientProfile.updatedAt,
+      );
+
+      object = object.copyWith(
+        patientProfile: patientProfile,
+      );
+      
       int index = getIndex(object);
 
       if (index >= 0) {
