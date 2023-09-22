@@ -361,5 +361,6 @@
   "noDataAvailable": "Keine Daten verfügbar",
   "systolic" : "Systolisch",
   "diastolic" : "Diastolisch",
-  "recordDate": "Aufnahmedatum"
+  "recordDate": "Aufnahmedatum",
+  "visitDate": "Besuchsdatum"
 }
