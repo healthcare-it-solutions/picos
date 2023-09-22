@@ -212,22 +212,25 @@ class _MovementDataPageState extends State<MovementDataPage> {
     _selectedDischargeTimeFromTheHospital =
         widget.initialDischargeTimeFromTheHospital;
 
-    bodyHeight = widget.initialBodyHeight!.toInt();
-    bodyWeight = widget.initialBodyWeight ?? 0;
-
-    if (widget.initialBodyHeight != null) {
+    if (widget.initialBodyHeight != null && widget.initialBodyWeight != null) {
       bodyHeight = widget.initialBodyHeight!.toInt();
-    } else {
-      bodyHeight = 0;
-    }
+      bodyWeight = widget.initialBodyWeight ?? 0;
 
-    bodyWeight = widget.initialBodyWeight ?? 0;
+      if (widget.initialBodyHeight != null) {
+        bodyHeight = widget.initialBodyHeight!.toInt();
+      } else {
+        bodyHeight = 0;
+      }
 
-    if (bodyWeight != 0 && bodyHeight != 0) {
-      bmi = _calculateBmi(bodyHeight, bodyWeight);
-    } else {
-      bmi = 0;
+      bodyWeight = widget.initialBodyWeight ?? 0;
+
+      if (bodyWeight != 0 && bodyHeight != 0) {
+        bmi = _calculateBmi(bodyHeight, bodyWeight);
+      } else {
+        bmi = 0;
+      }
     }
+    
   }
 
   double _calculateBmi(int height, double bodyWeight) {

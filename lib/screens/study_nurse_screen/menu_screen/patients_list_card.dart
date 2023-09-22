@@ -66,14 +66,14 @@ class PatientsListCard extends StatelessWidget {
                 ),
                 PatientsListCardTile(
                   AppLocalizations.of(context)!.patientID,
-                  _patientsListElement.patientData.patientID!,
+                  _patientsListElement.patientData.patientID ?? '',
                 ),
                 Divider(
                   thickness: dividerThickness,
                 ),
                 PatientsListCardTile(
                   AppLocalizations.of(context)!.caseNumber,
-                  _patientsListElement.patientData.caseNumber!,
+                  _patientsListElement.patientData.caseNumber ?? '',
                 ),
                 Divider(
                   thickness: dividerThickness,
