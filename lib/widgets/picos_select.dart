@@ -110,9 +110,10 @@ class _PicosSelectState extends State<PicosSelect> {
           child: SizedBox(
             height: widget.validator == null ? null : 75,
             child: DropdownButtonFormField<String>(
+              isExpanded: true,
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.only(
-                  right: 10,
+                  right: 5,
                 ),
                 enabledBorder: outlineInputBorder,
                 focusedBorder: outlineInputBorder,
@@ -126,7 +127,6 @@ class _PicosSelectState extends State<PicosSelect> {
               onChanged: (String? newValue) {
                 setState(() {
                   final String value = newValue ?? '';
-
                   widget.callBackFunction(value);
                   _dropdownValue = value;
                 });
