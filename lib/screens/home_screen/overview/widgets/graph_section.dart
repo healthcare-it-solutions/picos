@@ -16,13 +16,47 @@
 *  along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/api/backend_values_api.dart';
+import 'package:picos/models/daily.dart';
+import 'package:picos/models/values.dart';
+import 'package:picos/models/weekly.dart';
+import 'package:picos/screens/home_screen/overview/widgets/section.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../themes/global_theme.dart';
+import '../../../../widgets/picos_chart_column.dart';
+import '../../../../widgets/picos_ink_well_button.dart';
+import '../../../../widgets/picos_chart_line.dart';
+import '../../../../widgets/picos_chart_two_columns.dart';
+import '../../../questionaire_screen/questionaire_screen.dart';
 
-/// Widget which shows a graph
+/// Options related to how values in a chart are displayed or configured.
+enum ValuesChartOptions {
+  /// The patients heart frequency.
+  heartFrequency,
+
+  /// The patients blood sugar value.
+  bloodSugar,
+
+  /// The patients blood pressure.
+  bloodPressure,
+
+  /// The patients sleep duration.
+  sleepDuration,
+
+  /// The patients body weight and BMI.
+  bodyWeightAndBMI,
+
+  /// The patients walking distance.
+  walkingDistance,
+}
+
+/// Widget to display a section with graphs.
 class GraphSection extends StatefulWidget {
-  /// GraphSection constructor
+  /// Creates a [GraphSection].
   const GraphSection({Key? key}) : super(key: key);
 
   @override
@@ -30,241 +64,214 @@ class GraphSection extends StatefulWidget {
 }
 
 class _GraphState extends State<GraphSection> {
+  final Map<String, bool> _preferences = <String, bool>{
+    'weight_bmi': false,
+    'heart_frequency': false,
+    'blood_pressure': false,
+    'blood_sugar': false,
+    'walk_distance': false,
+    'sleep_duration': false,
+  };
+
+  Future<void> loadPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      for (String key in _preferences.keys) {
+        _preferences[key] = prefs.getBool(key) ?? false;
+      }
+    });
+  }
+
+  @override
+  initState() {
+    super.initState();
+    loadPreferences();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(
-            width: double.infinity,
-            child: Text(
-              AppLocalizations.of(context)!.myMedicalData,
-            ),
-          ),
-          Container(
-            color: Colors.black,
-            height: 1,
-          ),
-          ButtonBar(
-            alignment: MainAxisAlignment.spaceAround,
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+    double screenHeight = MediaQuery.of(context).size.height;
+    int trueCount = _preferences.values.where((bool value) => value).length;
+    double calculatedHeight = (screenHeight) * trueCount;
+    if (trueCount == 0) {
+      return Section(
+        title: AppLocalizations.of(context)!.myMedicalData,
+        titleColor: theme.blue,
+        child: PicosInkWellButton(
+          padding: const EdgeInsets.symmetric(horizontal: 0),
+          text: AppLocalizations.of(context)!.manageValues,
+          onTap: () {
+            Navigator.pushNamed(
+              context,
+              '/my-values_screen/my-values',
+            ).then((_) {
+              setState(() {
+                loadPreferences();
+              });
+            });
+          },
+          fontSize: 20,
+        ),
+      );
+    }
+    return ValueListenableBuilder<bool>(
+      valueListenable: rebuildGraphNotifier,
+      builder: (BuildContext context, bool value, Widget? child) {
+        return Section(
+          title: AppLocalizations.of(context)!.myMedicalData,
+          titleColor: theme.blue,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              ElevatedButton(
-                onPressed: () {
-                  return;
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                ),
-                child: Text(
-                  '7 ${AppLocalizations.of(context)!.days}',
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  return;
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                ),
-                child: Text(
-                  '1 ${AppLocalizations.of(context)!.month}',
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  return;
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                ),
-                child: Text(
-                  '3 ${AppLocalizations.of(context)!.months}',
+              SizedBox(
+                height:
+                    kIsWeb ? calculatedHeight * 0.5 : calculatedHeight * 0.4,
+                child: FutureBuilder<Values?>(
+                  future: BackendValuesApi.getMyValues(),
+                  builder: (
+                    BuildContext context,
+                    AsyncSnapshot<Values?> snapshot,
+                  ) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasData) {
+                        return _buildGraphsWithData(snapshot.data!);
+                      } else {
+                        return Center(
+                          child: Text(
+                            AppLocalizations.of(context)!.noDataAvailable,
+                          ),
+                        );
+                      }
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  },
                 ),
               ),
             ],
           ),
-          const SizedBox(
-            height: 250,
-            child: _BarChart(),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _BarChart extends StatelessWidget {
-  const _BarChart({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BarChart(
-      BarChartData(
-        barTouchData: barTouchData,
-        titlesData: titlesData,
-        borderData: borderData,
-        barGroups: barGroups,
-        gridData: FlGridData(show: false),
-        alignment: BarChartAlignment.spaceAround,
-        maxY: 20,
-      ),
+        );
+      },
     );
   }
 
-  BarTouchData get barTouchData => BarTouchData(
-        enabled: false,
-        touchTooltipData: BarTouchTooltipData(
-          tooltipBgColor: Colors.transparent,
-          tooltipPadding: const EdgeInsets.all(0),
-          tooltipMargin: 8,
-          getTooltipItem: (
-            BarChartGroupData group,
-            int groupIndex,
-            BarChartRodData rod,
-            int rodIndex,
-          ) {
-            return BarTooltipItem(
-              rod.toY.round().toString(),
-              const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            );
-          },
-        ),
-      );
+  Widget _buildGraphsWithData(Values? values) {
+    return Column(
+      children: _buildGraphsChildren(values),
+    );
+  }
 
-  // Widget getTitles(double value, TitleMeta meta) {
-  //   const style = TextStyle(
-  //     color: Color(0xff7589a2),
-  //     fontWeight: FontWeight.bold,
-  //     fontSize: 14,
-  //   );
-  //   String text;
-  //   switch (value.toInt()) {
-  //     case 0:
-  //       text = 'Mn';
-  //       break;
-  //     case 1:
-  //       text = 'Te';
-  //       break;
-  //     case 2:
-  //       text = 'Wd';
-  //       break;
-  //     case 3:
-  //       text = 'Tu';
-  //       break;
-  //     case 4:
-  //       text = 'Fr';
-  //       break;
-  //     case 5:
-  //       text = 'St';
-  //       break;
-  //     case 6:
-  //       text = 'Sn';
-  //       break;
-  //     default:
-  //       text = '';
-  //       break;
-  //   }
-  //   return
-  // }
+  List<Widget> _buildGraphsChildren(Values? values) {
+    List<Daily>? dailyList = values?.dailyList;
+    List<Weekly>? weeklyList = values?.weeklyList;
 
-  FlTitlesData get titlesData => FlTitlesData(
-        show: true,
-        bottomTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            reservedSize: 30,
-            //getTitlesWidget: getTitles,
+    List<Widget> widgets = <Widget>[];
+
+    if (_preferences['blood_sugar'] == true) {
+      widgets
+        ..add(
+          Expanded(
+            child: PicosChartColumn(
+              dataList: dailyList,
+              title: AppLocalizations.of(context)!.bloodSugar,
+              valuesChartOptions: ValuesChartOptions.bloodSugar,
+            ),
           ),
-        ),
-        leftTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-        topTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-        rightTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-      );
+        )
+        ..add(const SizedBox(height: 20));
+    }
 
-  FlBorderData get borderData => FlBorderData(
-        show: false,
-      );
+    if (_preferences['heart_frequency'] == true) {
+      widgets
+        ..add(
+          Expanded(
+            child: PicosChartLine(
+              dailyList: dailyList,
+              title: AppLocalizations.of(context)!.heartFrequency,
+            ),
+          ),
+        )
+        ..add(const SizedBox(height: 20));
+    }
 
-  final LinearGradient _barsGradient = const LinearGradient(
-    colors: <Color>[
-      Colors.lightBlueAccent,
-      Colors.greenAccent,
-    ],
-    begin: Alignment.bottomCenter,
-    end: Alignment.topCenter,
-  );
+    if (_preferences['sleep_duration'] == true) {
+      widgets
+        ..add(
+          Expanded(
+            child: PicosChartColumn(
+              dataList: dailyList,
+              title: AppLocalizations.of(context)!.sleepDuration,
+              valuesChartOptions: ValuesChartOptions.sleepDuration,
+            ),
+          ),
+        )
+        ..add(const SizedBox(height: 20));
+    }
 
-  List<BarChartGroupData> get barGroups => <BarChartGroupData>[
-        BarChartGroupData(
-          x: 0,
-          barRods: <BarChartRodData>[
-            BarChartRodData(
-              toY: 8,
-              gradient: _barsGradient,
+    if (_preferences['blood_pressure'] == true) {
+      widgets
+        ..add(
+          Expanded(
+            child: PicosChartTwoColumns(
+              dataList: dailyList,
+              title: AppLocalizations.of(context)!.bloodPressure,
+              valuesChartOptions: ValuesChartOptions.bloodPressure,
             ),
-          ],
-          showingTooltipIndicators: <int>[0],
-        ),
-        BarChartGroupData(
-          x: 1,
-          barRods: <BarChartRodData>[
-            BarChartRodData(
-              toY: 10,
-              gradient: _barsGradient,
+          ),
+        )
+        ..add(const SizedBox(height: 20));
+    }
+
+    if (_preferences['walk_distance'] == true) {
+      widgets
+        ..add(
+          Expanded(
+            child: PicosChartColumn(
+              dataList: weeklyList,
+              title: AppLocalizations.of(context)!.walkDistance,
+              valuesChartOptions: ValuesChartOptions.walkingDistance,
+              isWeekly: true,
             ),
-          ],
-          showingTooltipIndicators: <int>[0],
-        ),
-        BarChartGroupData(
-          x: 2,
-          barRods: <BarChartRodData>[
-            BarChartRodData(
-              toY: 14,
-              gradient: _barsGradient,
+          ),
+        )
+        ..add(const SizedBox(height: 20));
+    }
+
+    if (_preferences['weight_bmi'] == true) {
+      widgets
+        ..add(
+          Expanded(
+            child: PicosChartTwoColumns(
+              dataList: weeklyList,
+              title: AppLocalizations.of(context)!.bodyWeight,
+              valuesChartOptions: ValuesChartOptions.bodyWeightAndBMI,
+              isWeekly: true,
             ),
-          ],
-          showingTooltipIndicators: <int>[0],
-        ),
-        BarChartGroupData(
-          x: 3,
-          barRods: <BarChartRodData>[
-            BarChartRodData(
-              toY: 15,
-              gradient: _barsGradient,
-            ),
-          ],
-          showingTooltipIndicators: <int>[0],
-        ),
-        BarChartGroupData(
-          x: 3,
-          barRods: <BarChartRodData>[
-            BarChartRodData(
-              toY: 13,
-              gradient: _barsGradient,
-            ),
-          ],
-          showingTooltipIndicators: <int>[0],
-        ),
-        BarChartGroupData(
-          x: 3,
-          barRods: <BarChartRodData>[
-            BarChartRodData(
-              toY: 10,
-              gradient: _barsGradient,
-            ),
-          ],
-          showingTooltipIndicators: <int>[0],
-        ),
-      ];
+          ),
+        )
+        ..add(const SizedBox(height: 20));
+    }
+
+    widgets.add(
+      PicosInkWellButton(
+        padding: const EdgeInsets.symmetric(horizontal: 0),
+        text: AppLocalizations.of(context)!.manageValues,
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            '/my-values_screen/my-values',
+          ).then((_) {
+            setState(() {
+              loadPreferences();
+            });
+          });
+        },
+        fontSize: 20,
+      ),
+    );
+
+    return widgets;
+  }
 }

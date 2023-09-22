@@ -1422,5 +1422,29 @@
   "rememberMe": "Remember me?",
   "@rememberMe": {
     "description": "Remember me?"
+  },
+  "myValues": "Values",
+  "@myValues": {
+    "description": "Values"
+  },
+  "infoMyValue": "Values",
+  "@infoMyValue": {
+    "description": "Keep your values in view.\nSelect your personal entries here that should be displayed on the home page."
+  },
+  "manageValues": "Manage values",
+  "@manageValues": {
+    "description": "Manage values"
+  },
+  "noDataAvailable": "No data available",
+  "@noDataAvailable": {
+    "description": "No data available"
+  },
+  "systolic": "systolic",
+  "@systolic ": {
+    "description": "systolic"
+  },
+  "diastolic": "diastolic",
+  "@diastolic  ": {
+    "description": "diastolic"
   }
 }

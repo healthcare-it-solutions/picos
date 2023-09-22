@@ -17,6 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:picos/screens/home_screen/overview/widgets/contact_section.dart';
+import 'package:picos/screens/home_screen/overview/widgets/graph_section.dart';
 import 'package:picos/screens/home_screen/overview/widgets/my_health_section.dart';
 import 'package:picos/screens/home_screen/overview/widgets/questionnaire_section.dart';
 import '../../../themes/global_theme.dart';
@@ -46,6 +47,10 @@ class Overview extends StatelessWidget {
             ],
           ),
           const QuestionaireSection(),
+          Container(
+            color: theme.white,
+            child: const GraphSection(),
+          ),
           Container(
             color: theme.blue,
             child: const MyHealthSection(),
