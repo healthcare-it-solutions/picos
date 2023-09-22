@@ -15,6 +15,7 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:picos/themes/global_theme.dart';
 import 'package:picos/util/backend.dart';
@@ -69,19 +70,21 @@ class _LoginScreenState extends State<LoginScreen>
     if (loginError == null) {
       final String route = await Backend.getRole();
 
-      if (_isChecked) {
+      if (_isChecked && !kIsWeb) {
         await _secureStorage.setUsername(_loginController.text);
         await _secureStorage.setPassword(_passwordController.text);
-      } else {
+      } else if (!kIsWeb) {
         await _secureStorage.deleteAll();
       }
       if (!mounted) return;
       Navigator.of(context).pushReplacementNamed(route);
     } else {
-      setState(() {
-        _backendError = loginError;
-        _sendDisabled = false;
-      });
+      setState(
+        () {
+          _backendError = loginError;
+          _sendDisabled = false;
+        },
+      );
     }
   }
 
@@ -89,7 +92,9 @@ class _LoginScreenState extends State<LoginScreen>
   void initState() {
     super.initState();
     Backend();
-    _fetchSecureStorageData();
+    if (!kIsWeb) {
+      _fetchSecureStorageData();
+    }
   }
 
   @override
@@ -177,21 +182,29 @@ class _LoginScreenState extends State<LoginScreen>
                 width: 200,
                 child: Row(
                   children: <Widget>[
-                    Text(AppLocalizations.of(context)!.rememberMe),
+                    !kIsWeb
+                        ? Text(AppLocalizations.of(context)!.rememberMe)
+                        : const SizedBox(
+                            width: 0,
+                          ),
                     Expanded(
-                      child: Checkbox(
-                        value: _isChecked,
-                        checkColor: Colors.white,
-                        activeColor: theme.darkGreen1,
-                        onChanged: (bool? value) {
-                          setState(
-                            () {
-                              _isChecked = value!;
-                              _secureStorage.setIsChecked(_isChecked);
-                            },
-                          );
-                        },
-                      ),
+                      child: !kIsWeb
+                          ? Checkbox(
+                              value: _isChecked,
+                              checkColor: Colors.white,
+                              activeColor: theme.darkGreen1,
+                              onChanged: (bool? value) {
+                                setState(
+                                  () {
+                                    _isChecked = value!;
+                                    _secureStorage.setIsChecked(_isChecked);
+                                  },
+                                );
+                              },
+                            )
+                          : const SizedBox(
+                              width: 0,
+                            ),
                     ),
                   ],
                 ),
@@ -200,10 +213,7 @@ class _LoginScreenState extends State<LoginScreen>
                 width: 200,
                 child: PicosInkWellButton(
                   disabled: _sendDisabled,
-                  onTap: () {
-                    _submitHandler(
-                    );
-                  },
+                  onTap: _submitHandler,
                   text: AppLocalizations.of(context)!.submit,
                 ),
               ),
