@@ -21,9 +21,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/home_screen/overview/widgets/section.dart';
 import 'package:picos/themes/global_theme.dart';
 
-/// Widget which shows a graph
+/// A Flutter widget representing the contact section of the app.
 class ContactSection extends StatelessWidget {
-  /// GraphSection constructor
+  /// ContactSection constructor
   const ContactSection({Key? key}) : super(key: key);
 
   @override

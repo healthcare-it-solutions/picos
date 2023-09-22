@@ -31,7 +31,7 @@ class BackendPatientsListApi extends BackendObjectsApi {
   @override
   Future<void> saveObject(AbstractDatabaseObject object) async {
     try {
-      dynamic responsePatientProfile = await Backend.saveObject(
+       dynamic responsePatientProfile = await Backend.saveObject(
           (object as PatientsListElement).patientProfile,);
       PatientProfile patientProfile = object.patientProfile.copyWith(
         objectId: responsePatientProfile['objectId'],
@@ -46,7 +46,7 @@ class BackendPatientsListApi extends BackendObjectsApi {
       object = object.copyWith(
         patientProfile: patientProfile,
       );
-
+      
       int index = getIndex(object);
 
       if (index >= 0) {
@@ -60,6 +60,11 @@ class BackendPatientsListApi extends BackendObjectsApi {
     } catch (e) {
       Stream<List<PatientsListElement>>.error(e);
     }
+  }
+
+  /// Gets all Patients from the database.
+  static Future<List<dynamic>> getAll() {
+    return Backend.getAll(Patient.databaseTable);
   }
 
   @override
@@ -77,25 +82,30 @@ class BackendPatientsListApi extends BackendObjectsApi {
       List<PatientProfile> patientProfileResults = <PatientProfile>[];
 
       for (dynamic element in responsePatient) {
-        patientResults.add(
-          Patient(
-            firstName: element['Firstname'] ?? '',
-            familyName: element['Lastname'] ?? '',
-            email: element['username'] ?? '',
-            number: element['PhoneNo'] ?? '',
-            address: element['Address'] ?? '',
-            formOfAddress: element['Form'] ?? '',
-            objectId: element['objectId'],
-            createdAt: DateTime.parse(element['createdAt']),
-            updatedAt: DateTime.parse(element['updatedAt']),
-          ),
-        );
+        // Excluding own user.
+        if (element['Role'] != 'Doctor') {
+          patientResults.add(
+            Patient(
+              firstName: element['Firstname'] ?? '',
+              familyName: element['Lastname'] ?? '',
+              email: element['username'] ?? '',
+              number: element['PhoneNo'] ?? '',
+              address: element['Address'] ?? '',
+              formOfAddress: element['Form'] ?? '',
+              objectId: element['objectId'],
+              createdAt: DateTime.parse(element['createdAt']),
+              updatedAt: DateTime.parse(element['updatedAt']),
+            ),
+          );
+        }
       }
 
       for (dynamic element in responsePatientData) {
         patientDataResults.add(
           PatientData(
-            bodyHeight: element['BodyHeight']['estimateNumber'].toDouble(),
+            bodyHeight: element['BodyHeight'] != null
+                ? element['BodyHeight']['estimateNumber'].toDouble()
+                : null,
             patientID: element['ID'],
             caseNumber: element['CaseNumber'],
             instKey: element['inst_key'],
@@ -152,6 +162,80 @@ class BackendPatientsListApi extends BackendObjectsApi {
               patient: patientObject,
               patientData: matchingPatientData,
               patientProfile: matchingPatientProfile,
+              objectId: patientObject.objectId,
+            ),
+          );
+        } else if (matchingPatientData == null &&
+            matchingPatientProfile != null) {
+          PatientData emptyPatientData = PatientData(
+            patientObjectId: patientObjectId!,
+            doctorObjectId: Backend.user.objectId!,
+          );
+
+          objectList.add(
+            PatientsListElement(
+              patient: patientObject,
+              patientData: emptyPatientData,
+              patientProfile: matchingPatientProfile,
+              objectId: patientObject.objectId,
+            ),
+          );
+        } else if (matchingPatientData != null &&
+            matchingPatientProfile == null) {
+          PatientProfile emptyPatientProfile = PatientProfile(
+            weightBMIEnabled: false,
+            heartFrequencyEnabled: false,
+            bloodPressureEnabled: false,
+            bloodSugarLevelsEnabled: false,
+            walkDistanceEnabled: false,
+            sleepDurationEnabled: false,
+            sleepQualityEnabled: false,
+            painEnabled: false,
+            phq4Enabled: false,
+            medicationEnabled: false,
+            therapyEnabled: false,
+            doctorsVisitEnabled: false,
+            patientObjectId: patientObjectId!,
+            doctorObjectId: Backend.user.objectId!,
+          );
+
+          objectList.add(
+            PatientsListElement(
+              patient: patientObject,
+              patientData: matchingPatientData,
+              patientProfile: emptyPatientProfile,
+              objectId: patientObject.objectId,
+            ),
+          );
+        } else if (matchingPatientData == null &&
+            matchingPatientProfile == null) {
+          PatientData emptyPatientData = PatientData(
+            patientObjectId: patientObjectId!,
+            doctorObjectId: Backend.user.objectId!,
+          );
+
+          PatientProfile emptyPatientProfile = PatientProfile(
+            weightBMIEnabled: false,
+            heartFrequencyEnabled: false,
+            bloodPressureEnabled: false,
+            bloodSugarLevelsEnabled: false,
+            walkDistanceEnabled: false,
+            sleepDurationEnabled: false,
+            sleepQualityEnabled: false,
+            painEnabled: false,
+            phq4Enabled: false,
+            medicationEnabled: false,
+            therapyEnabled: false,
+            doctorsVisitEnabled: false,
+            patientObjectId: patientObjectId,
+            doctorObjectId: Backend.user.objectId!,
+          );
+
+          objectList.add(
+            PatientsListElement(
+              patient: patientObject,
+              patientData: emptyPatientData,
+              patientProfile: emptyPatientProfile,
               objectId: patientObject.objectId,
             ),
           );

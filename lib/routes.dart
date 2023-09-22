@@ -23,6 +23,7 @@ import 'package:picos/screens/my_documents_screen/my_documents_screen.dart';
 import 'package:picos/screens/my_medications_screen/add_medication_screen.dart';
 import 'package:picos/screens/my_therapies_screen/add_therapy_screen.dart';
 import 'package:picos/screens/my_therapies_screen/my_therapies_screen.dart';
+import 'package:picos/screens/my_values_screen/my_values_screen.dart';
 import 'package:picos/screens/physician_list_screen/add_physician_screen.dart';
 import 'package:picos/screens/family_member_list_screen/add_family_member_screen.dart';
 import 'package:picos/screens/family_member_list_screen/family_members_screen.dart';
@@ -32,7 +33,8 @@ import 'package:picos/screens/questionaire_screen/questionaire_screen.dart';
 import 'package:picos/screens/study_nurse_screen/menu_screen/edit_patient_screen.dart';
 import 'package:picos/screens/study_nurse_screen/menu_screen/menu_main_screen.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/catalog_of_items_screen.dart';
-import 'package:picos/screens/visits_screen/visits_screen.dart';
+import 'package:picos/screens/my_visits_screen/my_visits_screen.dart';
+import 'package:picos/screens/my_visits_screen/add_visit_screen.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_finished_screen.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_pages.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/configuration_screen.dart';
@@ -75,21 +77,24 @@ class Routes {
       '/legals-screen': (BuildContext ctx) => const LegalsScreen(),
       '/privacy-notice-screen': (BuildContext ctx) =>
           const PrivacyNoticeScreen(),
-      '/visits-screen/visits': (BuildContext ctx) => const VisitsScreen(),
+      '/visits-screen/visits': (BuildContext ctx) => const AddVisitScreen(),
+      '/visits-screen/my-visits-screen':(BuildContext ctx) => const MyVisitsScreen(),
       '/login-screen': (BuildContext ctx) => const LoginScreen(),
       '/questionnaire-screen/questionnaire-screen': (BuildContext ctx) =>
           const QuestionaireScreen(),
       '/my-documents-screen/my-documents': (BuildContext ctx) =>
-      const MyDocumentsScreen(),
+          const MyDocumentsScreen(),
       '/my-documents-screen/add-documents': (BuildContext ctx) =>
-      const AddDocumentScreen(),
+          const AddDocumentScreen(),
       '/study-nurse-screen/menu-screen/menu-main-screen': (BuildContext ctx) =>
           const MenuMainScreen(),
       '/study-nurse-screen/menu-screen/add-patient': (BuildContext ctx) =>
-        const EditPatientScreen(),
+          const EditPatientScreen(),
       '/study-nurse-screen/catalog-of-items': (BuildContext ctx) =>
-      const CatalogOfItemsScreen(),
+          const CatalogOfItemsScreen(),
       'profile-screen/profile': (BuildContext ctx) => const ProfileScreen(),
+      '/my-values_screen/my-values': (BuildContext ctx) =>
+          const MyValuesScreen(),
     };
   }
 
