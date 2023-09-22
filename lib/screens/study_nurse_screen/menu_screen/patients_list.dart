@@ -32,48 +32,30 @@ class PatientsList extends StatefulWidget {
 }
 
 class _PatientsListState extends State<PatientsList> {
-  Future<List<PatientsListElement>> fetchListData() async {
-    return await BackendPatientsListApi.getAll() as List<PatientsListElement>;
-  }
-
   @override
   Widget build(BuildContext context) {
-    print('Hallo');
     return BlocBuilder<ObjectsListBloc<BackendPatientsListApi>,
         ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
-        return FutureBuilder<List<PatientsListElement>>(
-          future: fetchListData(),
-          builder: (
-            BuildContext context,
-            AsyncSnapshot<List<PatientsListElement>> snapshot,
-          ) {
-            /*if (state.objectsList.isEmpty &&
-                state.status == ObjectsListStatus.loading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
+        if (state.objectsList.isEmpty &&
+            state.status == ObjectsListStatus.loading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
 
-            if (state.status == ObjectsListStatus.failure) {
-              return const Center(
-                child: Text('Error'),
-              );
-            }*/
+        if (state.status == ObjectsListStatus.failure) {
+          return const Center(
+            child: Text('Error'),
+          );
+        }
 
-            if (snapshot.hasData &&
-                snapshot.connectionState == ConnectionState.done) {
-              return ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return PatientsListCard(
-                    snapshot.data?[index] as PatientsListElement,
-                  );
-                },
-              );
-            } else {
-              return const CircularProgressIndicator();
-            }
+        return ListView.builder(
+          itemCount: state.objectsList.length,
+          itemBuilder: (BuildContext context, int index) {
+            return PatientsListCard(
+              state.objectsList[index] as PatientsListElement,
+            );
           },
         );
       },
