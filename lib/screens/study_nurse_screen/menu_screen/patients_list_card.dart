@@ -73,7 +73,7 @@ class _PatientsListCard extends State<PatientsListCard> {
         Navigator.of(context)
             .pushNamed(
           '/study-nurse-screen/menu-screen/add-patient',
-          arguments: _patientsListElement,
+          arguments: widget.patientsListElement,
         )
             .then((_) {
           setState(() {
