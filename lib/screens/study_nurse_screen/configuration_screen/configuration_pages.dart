@@ -55,23 +55,23 @@ class _ConfigurationPages extends State<ConfigurationPages> {
     'entryBloodPressureEnabled': false,
     'entryBloodSugarLevelsEnabled': false,
     'entryHeartFrequencyEnabled': false,
-    'entryWeightBMIEnabled': false,
+    'entryWeightBMIEnabled': true,
   };
 
   final Map<String, bool> _medicationAndTherapyEntries = <String, bool>{
-    'entryDoctorsVisitEnabled': false,
-    'entryMedicationEnabled': false,
-    'entryTherapyEnabled': false,
+    'entryDoctorsVisitEnabled': true,
+    'entryMedicationEnabled': true,
+    'entryTherapyEnabled': true,
   };
 
   final Map<String, bool> _bodyAndMindEntries = <String, bool>{
-    'entryPainEnabled': false,
-    'entryPhq4Enabled': false,
+    'entryPainEnabled': true,
+    'entryPhq4Enabled': true,
   };
 
   final Map<String, bool> _activityAndRestEntries = <String, bool>{
-    'entrySleepDurationEnabled': false,
-    'entrySleepQualityEnabled': false,
+    'entrySleepDurationEnabled': true,
+    'entrySleepQualityEnabled': true,
     'entryWalkDistanceEnabled': false,
   };
 

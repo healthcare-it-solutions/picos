@@ -71,15 +71,17 @@ class _ConfigurationMedicationAndTherapyState
               ),
               SwitchListTile(
                 value: _entryMedicationEnabled,
-                onChanged: (bool value) {
-                  setState(() {
-                    widget.callbackMedicationAndTherapy(
-                      'entryMedicationEnabled',
-                      value,
-                    );
-                    _entryMedicationEnabled = value;
-                  });
-                },
+                onChanged: _entryMedicationEnabled
+                    ? null
+                    : (bool value) {
+                        setState(() {
+                          widget.callbackMedicationAndTherapy(
+                            'entryMedicationEnabled',
+                            value,
+                          );
+                          _entryMedicationEnabled = value;
+                        });
+                      },
                 secondary: const Icon(Icons.medication),
                 title: Text(
                   AppLocalizations.of(context)!.medication,
@@ -93,15 +95,17 @@ class _ConfigurationMedicationAndTherapyState
               ),
               SwitchListTile(
                 value: _entryTherapyEnabled,
-                onChanged: (bool value) {
-                  setState(() {
-                    widget.callbackMedicationAndTherapy(
-                      'entryTherapyEnabled',
-                      value,
-                    );
-                    _entryTherapyEnabled = value;
-                  });
-                },
+                onChanged: _entryTherapyEnabled
+                    ? null
+                    : (bool value) {
+                        setState(() {
+                          widget.callbackMedicationAndTherapy(
+                            'entryTherapyEnabled',
+                            value,
+                          );
+                          _entryTherapyEnabled = value;
+                        });
+                      },
                 secondary: const Icon(Icons.healing_outlined),
                 title: Text(
                   AppLocalizations.of(context)!.therapy,
@@ -115,15 +119,17 @@ class _ConfigurationMedicationAndTherapyState
               ),
               SwitchListTile(
                 value: _entryDoctorsVisitEnabled,
-                onChanged: (bool value) {
-                  setState(() {
-                    widget.callbackMedicationAndTherapy(
-                      'entryDoctorsVisitEnabled',
-                      value,
-                    );
-                    _entryDoctorsVisitEnabled = value;
-                  });
-                },
+                onChanged: _entryDoctorsVisitEnabled
+                    ? null
+                    : (bool value) {
+                        setState(() {
+                          widget.callbackMedicationAndTherapy(
+                            'entryDoctorsVisitEnabled',
+                            value,
+                          );
+                          _entryDoctorsVisitEnabled = value;
+                        });
+                      },
                 secondary: const Icon(Icons.local_hospital_outlined),
                 title: Text(
                   AppLocalizations.of(context)!.doctorsVisit,

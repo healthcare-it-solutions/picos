@@ -65,15 +65,17 @@ class _ConfigurationBodyAndMindState extends State<ConfigurationBodyAndMind> {
               ),
               SwitchListTile(
                 value: _entryPainEnabled,
-                onChanged: (bool value) {
-                  setState(() {
-                    widget.callbackBodyAndMind(
-                      'entryPainEnabled',
-                      value,
-                    );
-                    _entryPainEnabled = value;
-                  });
-                },
+                onChanged: _entryPainEnabled
+                    ? null
+                    : (bool value) {
+                        setState(() {
+                          widget.callbackBodyAndMind(
+                            'entryPainEnabled',
+                            value,
+                          );
+                          _entryPainEnabled = value;
+                        });
+                      },
                 secondary: const Icon(Icons.mood_bad_outlined),
                 title: Text(
                   AppLocalizations.of(context)!.pain,
@@ -87,15 +89,17 @@ class _ConfigurationBodyAndMindState extends State<ConfigurationBodyAndMind> {
               ),
               SwitchListTile(
                 value: _entryPhq4Enabled,
-                onChanged: (bool value) {
-                  setState(() {
-                    widget.callbackBodyAndMind(
-                      'entryPhq4Enabled',
-                      value,
-                    );
-                    _entryPhq4Enabled = value;
-                  });
-                },
+                onChanged: _entryPhq4Enabled
+                    ? null
+                    : (bool value) {
+                        setState(() {
+                          widget.callbackBodyAndMind(
+                            'entryPhq4Enabled',
+                            value,
+                          );
+                          _entryPhq4Enabled = value;
+                        });
+                      },
                 secondary: const Icon(Icons.psychology_outlined),
                 title: const Text(
                   'PHQ-4',
