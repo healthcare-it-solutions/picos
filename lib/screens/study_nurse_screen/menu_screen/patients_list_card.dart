@@ -35,7 +35,7 @@ class PatientsListCard extends StatefulWidget {
   @override
   State<PatientsListCard> createState() => _PatientsListCard();
 
-  ///
+  /// `patientsListElement` includes patient information.
   final PatientsListElement patientsListElement;
 }
 
@@ -45,13 +45,10 @@ class _PatientsListCard extends State<PatientsListCard> {
 
   PatientsListElement? _patientsListElement;
 
-  @override
-  void initState() {
-    super.initState();
+  void _initializePatientsListElement() {
     _patientsListElement = widget.patientsListElement;
     if (EditPatientScreen.patientObjectId == _patientsListElement?.objectId) {
-      PatientData? newPatientData;
-      newPatientData = _patientsListElement?.patientData.copyWith(
+      PatientData? newPatientData = _patientsListElement?.patientData.copyWith(
         patientID: EditPatientScreen.patientID ?? '',
         caseNumber: EditPatientScreen.caseNumber ?? '',
       );
@@ -59,6 +56,12 @@ class _PatientsListCard extends State<PatientsListCard> {
         patientData: newPatientData,
       );
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initializePatientsListElement();
   }
 
   @override
@@ -74,17 +77,7 @@ class _PatientsListCard extends State<PatientsListCard> {
         )
             .then((_) {
           setState(() {
-            if (EditPatientScreen.patientObjectId ==
-                _patientsListElement?.objectId) {
-              PatientData? newPatientData;
-              newPatientData = _patientsListElement?.patientData.copyWith(
-                patientID: EditPatientScreen.patientID ?? '',
-                caseNumber: EditPatientScreen.caseNumber ?? '',
-              );
-              _patientsListElement = _patientsListElement?.copyWith(
-                patientData: newPatientData,
-              );
-            }
+            _initializePatientsListElement();
           });
         });
       },
