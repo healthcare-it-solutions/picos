@@ -24,6 +24,7 @@ import 'package:picos/widgets/picos_switch.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_text_area.dart';
 
+import '../../menu_screen/edit_patient_screen.dart';
 import '../catalog_of_items_page.dart';
 import '../widgets/catalog_of_items_label.dart';
 
@@ -317,6 +318,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
               initialValue: widget.initialPatientID,
               onChanged: (String value) {
                 widget.patientIDCallback(value);
+                EditPatientScreen.patientID = value;
               },
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.caseNumber),
@@ -325,6 +327,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
               initialValue: widget.initialCaseNumber,
               onChanged: (String value) {
                 widget.caseNumberCallback(value);
+                EditPatientScreen.caseNumber = value;
               },
             ),
             CatalogOfItemsLabel(
