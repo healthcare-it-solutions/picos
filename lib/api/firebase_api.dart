@@ -9,7 +9,6 @@ Future<void> handleBackgroundMessage(RemoteMessage message) async =>
 
 /// Firebase Api class.
 class FirebaseApi {
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   ///
   void handleShowNotification(String payload) {
@@ -18,8 +17,6 @@ class FirebaseApi {
 
   /// Initialize notifications.
   Future<void> initNotifications() async {
-    final String? fCMToken = await _firebaseMessaging.getToken();
-    print('Mein Token: $fCMToken');
     // Initialize Parse
     await Parse().initialize(
       appId,
@@ -37,18 +34,10 @@ class FirebaseApi {
     FirebaseMessaging.onMessage.listen(
       (RemoteMessage message) => ParsePush.instance.onMessage(message),
     );
+    // Save the token in backend
+    await ParseInstallation.currentInstallation()
+    ;
 
-    final ParseInstallation installation =
-        await ParseInstallation.currentInstallation();
-
-    installation.deviceToken = fCMToken;
-
-    final ParseResponse response = await installation.save();
-    if (response.success) {
-      print(response.result);
-    } else {
-      print(response.error?.message);
-    }
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
   }
 }
