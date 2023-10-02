@@ -20,8 +20,17 @@ import 'package:flutter/services.dart';
 import 'package:picos/app_config.dart';
 
 /// This is the main entry point of the application.
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+
+import 'api/firebase_api.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Initialize Firebase Core
+  await Firebase.initializeApp();
+
+
+  await FirebaseApi().initNotifications();
   SystemChrome.setPreferredOrientations(
     <DeviceOrientation>[DeviceOrientation.portraitUp],
   ).then((_) {
