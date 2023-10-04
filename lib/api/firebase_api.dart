@@ -9,7 +9,6 @@ Future<void> handleBackgroundMessage(RemoteMessage message) async =>
 
 /// Firebase Api class.
 class FirebaseApi {
-
   ///
   void handleShowNotification(String payload) {
     print('Notification shown with payload: $payload');
@@ -35,8 +34,7 @@ class FirebaseApi {
       (RemoteMessage message) => ParsePush.instance.onMessage(message),
     );
     // Save the token in backend
-    await ParseInstallation.currentInstallation()
-    ;
+    await ParseInstallation.currentInstallation();
 
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
   }
