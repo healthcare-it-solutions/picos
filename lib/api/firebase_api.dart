@@ -53,17 +53,26 @@ class FirebaseApi {
     final ParseInstallation currentInstallation =
         await ParseInstallation.currentInstallation();
     currentInstallation.clearUnsavedChanges();
-    await currentInstallation.create(allowCustomObjectId: true);
-    currentInstallation['deviceToken'] =
-        currentInstallation.deviceToken ?? fCMToken;
-    currentInstallation['installationId'] = currentInstallation.installationId;
 
-    if (currentInstallation.objectId == null) {
-      await currentInstallation.save();
-      return;
-    } else if (currentInstallation.objectId != null) {
+    currentInstallation
+      ..set('deviceToken', currentInstallation.deviceToken ?? fCMToken)
+      ..set('installationId', currentInstallation.installationId);
+
+    // Check if an installation already exists with the same
+    // deviceToken and installationId.
+    final QueryBuilder<ParseInstallation> query =
+        QueryBuilder<ParseInstallation>(ParseInstallation())
+          ..whereEqualTo('deviceToken', currentInstallation.deviceToken)
+          ..whereEqualTo('installationId', currentInstallation.installationId);
+
+    final ParseResponse response = await query.query();
+
+    if (response.success && response.results != null && response.count > 0) {
+      // Update existing installation
       await currentInstallation.update();
-      return;
+    } else {
+      // Create new installation
+      await currentInstallation.create(allowCustomObjectId: true);
     }
   }
 }
