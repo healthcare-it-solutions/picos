@@ -52,7 +52,6 @@ class FirebaseApi {
 
     final ParseInstallation currentInstallation =
         await ParseInstallation.currentInstallation();
-    currentInstallation.clearUnsavedChanges();
 
     currentInstallation
       ..set('deviceToken', currentInstallation.deviceToken ?? fCMToken)
@@ -71,8 +70,8 @@ class FirebaseApi {
       // Update existing installation
       await currentInstallation.update();
     } else {
-      // Create new installation
-      await currentInstallation.create(allowCustomObjectId: true);
+      // Save new installation
+      await currentInstallation.save();
     }
   }
 }
