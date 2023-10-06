@@ -61,7 +61,7 @@ class Medication extends AbstractDatabaseObject {
       if (i == i.toInt()) {
         selection[i.toInt().toString()] = i.toInt().toString();
       } else {
-        String value = '${i.toInt()} 1/2';
+        String value = i == 0.5 ? '1/2' : '${i.toInt()} 1/2';
         selection[value] = value;
       }
     }
