@@ -16,6 +16,7 @@
 */
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 import '../config.dart';
@@ -33,9 +34,8 @@ class FirebaseApi {
     // Initialize Parse
     await Parse().initialize(
       appId,
-      serverUrl,
+      kReleaseMode ? serverUrlProd : serverUrl,
       clientKey: clientKey,
-      debug: true,
     );
 
     // Initialize Parse push notifications
