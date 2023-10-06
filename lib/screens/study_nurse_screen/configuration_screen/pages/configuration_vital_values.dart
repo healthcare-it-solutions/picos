@@ -72,15 +72,17 @@ class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
               ),
               SwitchListTile(
                 value: _entryWeightBMIEnabled,
-                onChanged: (bool value) {
-                  setState(() {
-                    widget.callbackVitalValues(
-                      'entryWeightBMIEnabled',
-                      value,
-                    );
-                    _entryWeightBMIEnabled = value;
-                  });
-                },
+                onChanged: _entryWeightBMIEnabled
+                    ? null
+                    : (bool value) {
+                        setState(() {
+                          widget.callbackVitalValues(
+                            'entryWeightBMIEnabled',
+                            value,
+                          );
+                          _entryWeightBMIEnabled = value;
+                        });
+                      },
                 secondary: const Icon(Icons.monitor_weight_outlined),
                 title: Text(
                   AppLocalizations.of(context)!.weightBMI,
