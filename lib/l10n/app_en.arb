@@ -523,7 +523,7 @@
   "@bodyWeight": {
     "description": "Body weight"
   },
-  "possibleWalkDistance": "Possible walking distance within 2 minutes",
+  "possibleWalkDistance": "Possible walking distance within 2 minutes (meters)",
   "@possibleWalkDistance": {
     "description": "Possible walking distance within 2 minutes"
   },
