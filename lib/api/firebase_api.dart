@@ -24,10 +24,8 @@ import '../config.dart';
 class FirebaseApi {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
-  ///
-  void handleShowNotification(String payload) {
-    print('Notification shown with payload: $payload');
-  }
+  /// Handle show notification.
+  void handleShowNotification(String payload) {}
 
   /// Initialize notifications.
   Future<void> initNotifications() async {
@@ -57,16 +55,7 @@ class FirebaseApi {
       ..set('deviceToken', currentInstallation.deviceToken ?? fCMToken)
       ..set('installationId', currentInstallation.installationId);
 
-    // Check if an installation already exists with the same
-    // deviceToken and installationId.
-    final QueryBuilder<ParseInstallation> query =
-        QueryBuilder<ParseInstallation>(ParseInstallation())
-          ..whereEqualTo('deviceToken', currentInstallation.deviceToken)
-          ..whereEqualTo('installationId', currentInstallation.installationId);
-
-    final ParseResponse response = await query.query();
-
-    if (response.success && response.results != null && response.count > 0) {
+    if (currentInstallation.objectId != null) {
       // Update existing installation
       await currentInstallation.update();
     } else {
