@@ -20,11 +20,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/home_screen/overview/widgets/section.dart';
 import 'package:picos/themes/global_theme.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// A Flutter widget representing the contact section of the app.
 class ContactSection extends StatelessWidget {
   /// ContactSection constructor
   const ContactSection({Key? key}) : super(key: key);
+
+  void _launchURL(BuildContext context) async {
+    final Uri url = Uri.parse(
+      'https://hit-solutions.de/media/1170/benutzerhandbuch-picos_fuer-patienten_v160.pdf',
+    );
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Could not launch $url'),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +80,28 @@ class ContactSection extends StatelessWidget {
                 ],
               ),
               const SizedBox(
-                height: 45,
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Expanded>[
+                  Expanded(
+                    flex: 55,
+                    child: GestureDetector(
+                      onTap: () => _launchURL(context),
+                      child: const Text(
+                        'Handbuch',
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 11,
               ),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
