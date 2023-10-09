@@ -31,15 +31,7 @@ class ContactSection extends StatelessWidget {
     final Uri url = Uri.parse(
       'https://hit-solutions.de/media/1170/benutzerhandbuch-picos_fuer-patienten_v160.pdf',
     );
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Could not launch $url'),
-        ),
-      );
-    }
+    await launchUrl(url);
   }
 
   @override
