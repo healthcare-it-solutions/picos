@@ -289,7 +289,9 @@ class _ConfigurationPages extends State<ConfigurationPages> {
               ),
               Expanded(
                 child: PicosInkWellButton(
-                  text: AppLocalizations.of(context)!.proceed,
+                  text: _currentPage == _list.length - 1
+                      ? AppLocalizations.of(context)!.save
+                      : AppLocalizations.of(context)!.proceed,
                   onTap: () async {
                     if (_currentPage == _list.length - 1 &&
                         formKeyConfiguration.currentState!.validate()) {
