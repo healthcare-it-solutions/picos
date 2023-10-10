@@ -91,7 +91,7 @@ class ContactSection extends StatelessWidget {
                       onTap: () => _launchURL(context),
                       child:  Text(
                         AppLocalizations.of(context)!.handbook,
-                        style: TextStyle(
+                        style: const TextStyle(
                           decoration: TextDecoration.underline,
                           color: Colors.blue,
                         ),
