@@ -131,7 +131,7 @@
   "selectDate": "Datum auswählen",
   "editTherapy": "Therapie bearbeiten",
   "bodyWeight": "Körpergewicht",
-  "possibleWalkDistance": "Mögliche Gehstrecke innerhalb von 2 Minuten",
+  "possibleWalkDistance": "Mögliche Gehstrecke innerhalb von 2 Minuten (Meter)",
   "hrs": "Std.",
   "autoCalc": "(autom. Berechnung)",
   "sleepQuality7Days": "Schlafqualität während der letzten 7 Tage",

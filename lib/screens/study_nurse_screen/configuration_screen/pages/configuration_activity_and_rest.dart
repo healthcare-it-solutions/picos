@@ -92,15 +92,17 @@ class _ConfigurationActivityAndRestState
               ),
               SwitchListTile(
                 value: _entrySleepDurationEnabled,
-                onChanged: (bool value) {
-                  setState(() {
-                    widget.callbackActivityAndRest(
-                      'entrySleepDurationEnabled',
-                      value,
-                    );
-                    _entrySleepDurationEnabled = value;
-                  });
-                },
+                onChanged: _entrySleepDurationEnabled
+                    ? null
+                    : (bool value) {
+                        setState(() {
+                          widget.callbackActivityAndRest(
+                            'entrySleepDurationEnabled',
+                            value,
+                          );
+                          _entrySleepDurationEnabled = value;
+                        });
+                      },
                 secondary: const Icon(Icons.access_alarm_outlined),
                 title: Text(
                   AppLocalizations.of(context)!.sleepDuration,
@@ -114,15 +116,17 @@ class _ConfigurationActivityAndRestState
               ),
               SwitchListTile(
                 value: _entrySleepQualityEnabled,
-                onChanged: (bool value) {
-                  setState(() {
-                    widget.callbackActivityAndRest(
-                      'entrySleepQualityEnabled',
-                      value,
-                    );
-                    _entrySleepQualityEnabled = value;
-                  });
-                },
+                onChanged: _entrySleepQualityEnabled
+                    ? null
+                    : (bool value) {
+                        setState(() {
+                          widget.callbackActivityAndRest(
+                            'entrySleepQualityEnabled',
+                            value,
+                          );
+                          _entrySleepQualityEnabled = value;
+                        });
+                      },
                 secondary: const Icon(Icons.bed_outlined),
                 title: Text(
                   AppLocalizations.of(context)!.sleepQuality,

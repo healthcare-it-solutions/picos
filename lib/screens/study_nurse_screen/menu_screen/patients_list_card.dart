@@ -16,34 +16,70 @@
 */
 
 import 'package:flutter/material.dart';
+
+import 'package:picos/models/patient_data.dart';
 import 'package:picos/models/patients_list_element.dart';
+import 'package:picos/screens/study_nurse_screen/menu_screen/edit_patient_screen.dart';
 import 'package:picos/screens/study_nurse_screen/menu_screen/patients_list_card_tile.dart';
 import 'package:picos/widgets/picos_list_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// The card displaying patient information.
-class PatientsListCard extends StatelessWidget {
+class PatientsListCard extends StatefulWidget {
   /// Creates the card with the patient.
   const PatientsListCard(
-    this._patientsListElement, {
+    this.patientsListElement, {
     Key? key,
   }) : super(key: key);
 
-  final PatientsListElement _patientsListElement;
+  @override
+  State<PatientsListCard> createState() => _PatientsListCard();
 
+  /// `patientsListElement` includes patient information.
+  final PatientsListElement patientsListElement;
+}
+
+class _PatientsListCard extends State<PatientsListCard> {
   /// Contains the value of the thickness of the Divider-widget.
   final double dividerThickness = 1.5;
+
+  PatientsListElement? _patientsListElement;
+
+  void _initializePatientsListElement() {
+    _patientsListElement = widget.patientsListElement;
+    if (EditPatientScreen.patientObjectId == _patientsListElement?.objectId) {
+      PatientData? newPatientData = _patientsListElement?.patientData.copyWith(
+        patientID: EditPatientScreen.patientID ?? '',
+        caseNumber: EditPatientScreen.caseNumber ?? '',
+      );
+      _patientsListElement = _patientsListElement?.copyWith(
+        patientData: newPatientData,
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initializePatientsListElement();
+  }
 
   @override
   Widget build(BuildContext context) {
     return PicosListCard(
-      title: '${_patientsListElement.patient.firstName} '
-          '${_patientsListElement.patient.familyName}',
+      title: '${_patientsListElement?.patient.firstName} '
+          '${_patientsListElement?.patient.familyName}',
       edit: () {
-        Navigator.of(context).pushNamed(
+        Navigator.of(context)
+            .pushNamed(
           '/study-nurse-screen/menu-screen/add-patient',
-          arguments: _patientsListElement,
-        );
+          arguments: widget.patientsListElement,
+        )
+            .then((_) {
+          setState(() {
+            _initializePatientsListElement();
+          });
+        });
       },
       child: Row(
         children: <Expanded>[
@@ -52,28 +88,28 @@ class PatientsListCard extends StatelessWidget {
               children: <Widget>[
                 PatientsListCardTile(
                   AppLocalizations.of(context)!.email,
-                  _patientsListElement.patient.email,
+                  _patientsListElement!.patient.email,
                 ),
                 Divider(
                   thickness: dividerThickness,
                 ),
                 PatientsListCardTile(
                   AppLocalizations.of(context)!.address,
-                  _patientsListElement.patient.address,
+                  _patientsListElement!.patient.address,
                 ),
                 Divider(
                   thickness: dividerThickness,
                 ),
                 PatientsListCardTile(
                   AppLocalizations.of(context)!.patientID,
-                  _patientsListElement.patientData.patientID ?? '',
+                  _patientsListElement!.patientData.patientID ?? '',
                 ),
                 Divider(
                   thickness: dividerThickness,
                 ),
                 PatientsListCardTile(
                   AppLocalizations.of(context)!.caseNumber,
-                  _patientsListElement.patientData.caseNumber ?? '',
+                  _patientsListElement!.patientData.caseNumber ?? '',
                 ),
                 Divider(
                   thickness: dividerThickness,
