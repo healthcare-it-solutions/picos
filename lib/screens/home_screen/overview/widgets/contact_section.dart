@@ -31,11 +31,12 @@ class ContactSection extends StatelessWidget {
     final Uri url = Uri.parse(
       'https://hit-solutions.de/media/1170/benutzerhandbuch-picos_fuer-patienten_v160.pdf',
     );
-
+    final ScaffoldMessengerState scaffoldMessenger =
+        ScaffoldMessenger.of(context);
     try {
       await launchUrl(url, mode: LaunchMode.externalApplication);
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
+      scaffoldMessenger.showSnackBar(
         SnackBar(content: Text('Could not launch $url')),
       );
     }
