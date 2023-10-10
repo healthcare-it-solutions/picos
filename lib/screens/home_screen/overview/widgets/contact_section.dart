@@ -89,8 +89,8 @@ class ContactSection extends StatelessWidget {
                     flex: 55,
                     child: GestureDetector(
                       onTap: () => _launchURL(context),
-                      child: const Text(
-                        'Handbuch',
+                      child:  Text(
+                        AppLocalizations.of(context)!.handbook,
                         style: TextStyle(
                           decoration: TextDecoration.underline,
                           color: Colors.blue,

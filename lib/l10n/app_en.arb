@@ -1466,5 +1466,9 @@
   "recordDate": "Record Date",
   "@recordDate": {
     "description": "Record Date"
+  },
+  "handbook": "handbook",
+  "@handbook": {
+    "description": "handbook"
   }
 }
