@@ -363,5 +363,6 @@
   "diastolic" : "Diastolisch",
   "recordDate": "Aufnahmedatum",
   "visitDate": "Besuchsdatum",
-  "handbook": "Handbuch"
+  "handbook": "Handbuch",
+  "couldNotLaunch" : "Konnte nicht starten"
 }

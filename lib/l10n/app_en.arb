@@ -1470,5 +1470,9 @@
   "handbook": "handbook",
   "@handbook": {
     "description": "handbook"
+  },
+  "couldNotLaunch" : "Could not launch",
+  "@couldNotLaunch": {
+    "description": "Could not launch"
   }
 }

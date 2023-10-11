@@ -37,7 +37,11 @@ class ContactSection extends StatelessWidget {
       await launchUrl(url, mode: LaunchMode.externalApplication);
     } catch (e) {
       scaffoldMessenger.showSnackBar(
-        SnackBar(content: Text('Could not launch $url')),
+        SnackBar(
+          content: Text(
+            context.mounted ? AppLocalizations.of(context)!.couldNotLaunch : '',
+          ),
+        ),
       );
     }
   }
@@ -89,7 +93,7 @@ class ContactSection extends StatelessWidget {
                     flex: 55,
                     child: GestureDetector(
                       onTap: () => _launchURL(context),
-                      child:  Text(
+                      child: Text(
                         AppLocalizations.of(context)!.handbook,
                         style: const TextStyle(
                           decoration: TextDecoration.underline,
