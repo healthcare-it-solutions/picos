@@ -49,8 +49,10 @@ class _PatientsListCard extends State<PatientsListCard> {
     _patientsListElement = widget.patientsListElement;
     if (EditPatientScreen.patientObjectId == _patientsListElement?.objectId) {
       PatientData? newPatientData = _patientsListElement?.patientData.copyWith(
-        patientID: EditPatientScreen.patientID ?? '',
-        caseNumber: EditPatientScreen.caseNumber ?? '',
+        patientID: EditPatientScreen.patientID ??
+            _patientsListElement?.patientData.patientID,
+        caseNumber: EditPatientScreen.caseNumber ??
+            _patientsListElement?.patientData.caseNumber,
       );
       _patientsListElement = _patientsListElement?.copyWith(
         patientData: newPatientData,
