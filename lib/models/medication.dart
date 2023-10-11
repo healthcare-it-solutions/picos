@@ -50,15 +50,24 @@ class Medication extends AbstractDatabaseObject {
   final String compound;
 
   /// All possible amount values.
-  static const Map<String, String> selection = <String, String>{
-    '0': '0',
-    '1/2': '1/2',
-    '1': '1',
-    '1 1/2': '1 1/2',
-    '2': '2',
-    '2 1/2': '2 1/2',
-    '3': '3',
-  };
+  static final Map<String, String> selection = createSelection(50);
+
+  /// Generates a map from 0 to [upperLimit], including half values,
+  /// represented as strings.
+  static Map<String, String> createSelection(int upperLimit) {
+    Map<String, String> selection = <String, String>{};
+
+    for (double i = 0; i <= upperLimit; i += 0.5) {
+      if (i == i.toInt()) {
+        selection[i.toInt().toString()] = i.toInt().toString();
+      } else {
+        String value = i == 0.5 ? '1/2' : '${i.toInt()} 1/2';
+        selection[value] = value;
+      }
+    }
+
+    return selection;
+  }
 
   @override
   get table {
@@ -113,7 +122,7 @@ class Medication extends AbstractDatabaseObject {
     String intValue = values[0];
     String half = '0';
     if (values.length > 1) {
-      half =  values[1];
+      half = values[1];
     }
 
     if (intValue == '0' && half != '0') {
