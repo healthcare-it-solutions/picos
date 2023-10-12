@@ -362,5 +362,7 @@
   "systolic" : "Systolisch",
   "diastolic" : "Diastolisch",
   "recordDate": "Aufnahmedatum",
-  "visitDate": "Besuchsdatum"
+  "visitDate": "Besuchsdatum",
+  "handbook": "Handbuch",
+  "couldNotLaunch" : "Konnte nicht starten"
 }
