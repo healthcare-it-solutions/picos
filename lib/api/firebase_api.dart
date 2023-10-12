@@ -21,47 +21,68 @@ import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 import '../config.dart';
 
-/// Firebase Api class.
+/// [FirebaseApi] class is responsible for initializing and handling
+/// Firebase Cloud Messaging and Parse Server notifications.
 class FirebaseApi {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
-  /// Handle show notification.
+  /// Handle showing a notification.
+  /// This function can be customized to define behavior when a
+  /// notification is displayed.
   void handleShowNotification(String payload) {}
 
-  /// Initialize notifications.
+  /// Initializes notifications from Firebase Cloud Messaging and Parse Server.
+  ///
+  /// This function performs several operations:
+  /// 1. Retrieves the FCM Token for the current device.
+  /// 2. Initializes the Parse Server.
+  /// 3. Configures listening for incoming notifications.
+  /// 4. Registers or updates the device on the Parse Server.
   Future<void> initNotifications() async {
-    final String? fCMToken = await _firebaseMessaging.getToken();
-    // Initialize Parse
-    await Parse().initialize(
-      appId,
-      kReleaseMode ? serverUrlProd : serverUrl,
-      clientKey: clientKey,
-    );
+    try {
+      final String? fCMToken = await _firebaseMessaging.getToken();
 
-    // Initialize Parse push notifications
-    ParsePush.instance.initialize(
-      FirebaseMessaging.instance,
-      parseNotification:
-          ParseNotification(onShowNotification: handleShowNotification),
-    );
-    FirebaseMessaging.onMessage.listen(
-      (RemoteMessage message) => ParsePush.instance.onMessage(message),
-    );
+      // Initialize Parse
+      await Parse().initialize(
+        appId,
+        kReleaseMode ? serverUrlProd : serverUrl,
+        clientKey: clientKey,
+      );
 
-    final ParseInstallation currentInstallation =
-        await ParseInstallation.currentInstallation();
-    currentInstallation.clearUnsavedChanges();
-    await currentInstallation.create(allowCustomObjectId: true);
-    currentInstallation
-      ..set('deviceToken', currentInstallation.deviceToken ?? fCMToken)
-      ..set('installationId', currentInstallation.installationId);
+      // Initialize Parse push notifications.
+      ParsePush.instance.initialize(
+        FirebaseMessaging.instance,
+        parseNotification:
+            ParseNotification(onShowNotification: handleShowNotification),
+      );
+      FirebaseMessaging.onMessage.listen(
+        (RemoteMessage message) => ParsePush.instance.onMessage(message),
+      );
 
-    if (currentInstallation.objectId != null) {
-      // Update existing installation
-      await currentInstallation.update();
-    } else {
-      // Save new installation
-      await currentInstallation.save();
+      final ParseInstallation currentInstallation =
+          await ParseInstallation.currentInstallation();
+
+      // Discard any unsaved changes to start with a clean state.
+      currentInstallation.clearUnsavedChanges();
+
+      // Create a new installation on the Parse Server.
+      await currentInstallation.create(allowCustomObjectId: true);
+
+      // Update the installation with the latest FCM token and installationId.
+      currentInstallation
+        ..set('deviceToken', currentInstallation.deviceToken ?? fCMToken)
+        ..set('installationId', currentInstallation.installationId);
+
+      // Update or save the installation.
+      if (currentInstallation.objectId != null) {
+        await currentInstallation.update();
+      } else {
+        await currentInstallation.save();
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error initializing notifications: $e');
+      }
     }
   }
 }
