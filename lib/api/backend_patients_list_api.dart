@@ -196,41 +196,31 @@ class BackendPatientsListApi extends BackendObjectsApi {
           );
         } else if (matchingPatientData == null &&
             matchingPatientProfile != null) {
-          PatientData emptyPatientData = getEmptyPatientData(patientObjectId!);
-
           objectList.add(
             PatientsListElement(
               patient: patientObject,
-              patientData: emptyPatientData,
+              patientData: getEmptyPatientData(patientObjectId!),
               patientProfile: matchingPatientProfile,
               objectId: patientObject.objectId,
             ),
           );
         } else if (matchingPatientData != null &&
             matchingPatientProfile == null) {
-          PatientProfile emptyPatientProfile =
-              getEmptyPatientProfile(patientObjectId);
-
           objectList.add(
             PatientsListElement(
               patient: patientObject,
               patientData: matchingPatientData,
-              patientProfile: emptyPatientProfile,
+              patientProfile: getEmptyPatientProfile(patientObjectId),
               objectId: patientObject.objectId,
             ),
           );
         } else if (matchingPatientData == null &&
             matchingPatientProfile == null) {
-          PatientData emptyPatientData = getEmptyPatientData(patientObjectId);
-
-          PatientProfile emptyPatientProfile =
-              getEmptyPatientProfile(patientObjectId);
-
           objectList.add(
             PatientsListElement(
               patient: patientObject,
-              patientData: emptyPatientData,
-              patientProfile: emptyPatientProfile,
+              patientData: getEmptyPatientData(patientObjectId),
+              patientProfile: getEmptyPatientProfile(patientObjectId),
               objectId: patientObject.objectId,
             ),
           );
