@@ -365,5 +365,7 @@
   "physician": "Arzt",
   "myVisits": "Meine Behandlungsbesuche",
   "visitDate": "Besuchsdatum",
-  "recordDate": "Aufnahmedatum"
+  "recordDate": "Aufnahmedatum",
+  "handbook": "Handbuch",
+  "couldNotLaunch" : "Konnte nicht starten"
 }
