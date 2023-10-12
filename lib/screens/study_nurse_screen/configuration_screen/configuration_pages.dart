@@ -191,6 +191,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
   @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+    int lastPage = _list.length - 1;
 
     if (_list.isEmpty) {
       final ConfigurationForm configurationForm = ConfigurationForm(
@@ -289,9 +290,11 @@ class _ConfigurationPages extends State<ConfigurationPages> {
               ),
               Expanded(
                 child: PicosInkWellButton(
-                  text: AppLocalizations.of(context)!.proceed,
+                  text: _currentPage == lastPage
+                      ? AppLocalizations.of(context)!.save
+                      : AppLocalizations.of(context)!.proceed,
                   onTap: () async {
-                    if (_currentPage == _list.length - 1 &&
+                    if (_currentPage == lastPage &&
                         formKeyConfiguration.currentState!.validate()) {
                       formKeyConfiguration.currentState!.save();
                       PatientsListElement patientsListElement =
@@ -311,7 +314,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
                     }
                     if ((_currentPage == 0 &&
                             formKeyConfiguration.currentState!.validate()) ||
-                        _currentPage > 0 && _currentPage != _list.length - 1) {
+                        _currentPage > 0 && _currentPage != lastPage) {
                       _controller.jumpToPage(_currentPage + 1);
                     }
                   },
