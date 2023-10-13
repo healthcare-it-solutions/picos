@@ -21,11 +21,14 @@ import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 import '../config.dart';
 
+/// Background message handler.
+Future<void> backgroundMessageHandler(RemoteMessage message) async {
+  ParsePush.instance.onMessage(message);
+}
+
 /// [FirebaseApi] class is responsible for initializing and handling
 /// Firebase Cloud Messaging and Parse Server notifications.
 class FirebaseApi {
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-
   /// Handle showing a notification.
   /// This function can be customized to define behavior when a
   /// notification is displayed.
@@ -40,7 +43,8 @@ class FirebaseApi {
   /// 4. Registers or updates the device on the Parse Server.
   Future<void> initNotifications() async {
     try {
-      final String? fCMToken = await _firebaseMessaging.getToken();
+      final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+      final String? fCMToken = await firebaseMessaging.getToken();
 
       // Initialize Parse
       await Parse().initialize(
@@ -84,5 +88,6 @@ class FirebaseApi {
         print('Error initializing notifications: $e');
       }
     }
+    FirebaseMessaging.onBackgroundMessage(backgroundMessageHandler);
   }
 }
