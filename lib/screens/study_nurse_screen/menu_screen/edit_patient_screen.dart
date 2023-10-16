@@ -55,7 +55,7 @@ class EditPatientScreen extends StatefulWidget {
 
 class _EditPatientScreenState extends State<EditPatientScreen> {
   /// Local variable for weight and BMI.
-  bool _weightBMI = true;
+  bool _weightBMI = false;
 
   /// Local variable for heart frequency.
   bool _heartFrequency = false;
