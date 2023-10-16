@@ -25,6 +25,7 @@ import 'package:picos/widgets/picos_ink_well_button.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_text_field.dart';
+import 'package:upgrader/upgrader.dart';
 
 ///Displays the login screen.
 class LoginScreen extends StatefulWidget {
@@ -113,6 +114,7 @@ class _LoginScreenState extends State<LoginScreen>
         child: PicosBody(
           child: Column(
             children: <Widget>[
+              UpgradeCard(),
               const Image(
                 image: AssetImage('assets/PICOS_Logo_RGB.png'),
               ),
