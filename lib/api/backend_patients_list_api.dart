@@ -31,8 +31,9 @@ class BackendPatientsListApi extends BackendObjectsApi {
   @override
   Future<void> saveObject(AbstractDatabaseObject object) async {
     try {
-       dynamic responsePatientProfile = await Backend.saveObject(
-          (object as PatientsListElement).patientProfile,);
+      dynamic responsePatientProfile = await Backend.saveObject(
+        (object as PatientsListElement).patientProfile,
+      );
       PatientProfile patientProfile = object.patientProfile.copyWith(
         objectId: responsePatientProfile['objectId'],
         createdAt:
@@ -46,7 +47,7 @@ class BackendPatientsListApi extends BackendObjectsApi {
       object = object.copyWith(
         patientProfile: patientProfile,
       );
-      
+
       int index = getIndex(object);
 
       if (index >= 0) {
@@ -65,6 +66,34 @@ class BackendPatientsListApi extends BackendObjectsApi {
   /// Gets all Patients from the database.
   static Future<List<dynamic>> getAll() {
     return Backend.getAll(Patient.databaseTable);
+  }
+
+  /// Getter for an empty PatientData object.
+  PatientData getEmptyPatientData(String? patientObjectId) {
+    return PatientData(
+      patientObjectId: patientObjectId!,
+      doctorObjectId: Backend.user.objectId!,
+    );
+  }
+
+  /// Getter for an empty PatientProfile object.
+  PatientProfile getEmptyPatientProfile(String? patientObjectId) {
+    return PatientProfile(
+      weightBMIEnabled: false,
+      heartFrequencyEnabled: false,
+      bloodPressureEnabled: false,
+      bloodSugarLevelsEnabled: false,
+      walkDistanceEnabled: false,
+      sleepDurationEnabled: false,
+      sleepQualityEnabled: false,
+      painEnabled: false,
+      phq4Enabled: false,
+      medicationEnabled: false,
+      therapyEnabled: false,
+      doctorsVisitEnabled: false,
+      patientObjectId: patientObjectId!,
+      doctorObjectId: Backend.user.objectId!,
+    );
   }
 
   @override
@@ -167,75 +196,31 @@ class BackendPatientsListApi extends BackendObjectsApi {
           );
         } else if (matchingPatientData == null &&
             matchingPatientProfile != null) {
-          PatientData emptyPatientData = PatientData(
-            patientObjectId: patientObjectId!,
-            doctorObjectId: Backend.user.objectId!,
-          );
-
           objectList.add(
             PatientsListElement(
               patient: patientObject,
-              patientData: emptyPatientData,
+              patientData: getEmptyPatientData(patientObjectId!),
               patientProfile: matchingPatientProfile,
               objectId: patientObject.objectId,
             ),
           );
         } else if (matchingPatientData != null &&
             matchingPatientProfile == null) {
-          PatientProfile emptyPatientProfile = PatientProfile(
-            weightBMIEnabled: false,
-            heartFrequencyEnabled: false,
-            bloodPressureEnabled: false,
-            bloodSugarLevelsEnabled: false,
-            walkDistanceEnabled: false,
-            sleepDurationEnabled: false,
-            sleepQualityEnabled: false,
-            painEnabled: false,
-            phq4Enabled: false,
-            medicationEnabled: false,
-            therapyEnabled: false,
-            doctorsVisitEnabled: false,
-            patientObjectId: patientObjectId!,
-            doctorObjectId: Backend.user.objectId!,
-          );
-
           objectList.add(
             PatientsListElement(
               patient: patientObject,
               patientData: matchingPatientData,
-              patientProfile: emptyPatientProfile,
+              patientProfile: getEmptyPatientProfile(patientObjectId),
               objectId: patientObject.objectId,
             ),
           );
         } else if (matchingPatientData == null &&
             matchingPatientProfile == null) {
-          PatientData emptyPatientData = PatientData(
-            patientObjectId: patientObjectId!,
-            doctorObjectId: Backend.user.objectId!,
-          );
-
-          PatientProfile emptyPatientProfile = PatientProfile(
-            weightBMIEnabled: false,
-            heartFrequencyEnabled: false,
-            bloodPressureEnabled: false,
-            bloodSugarLevelsEnabled: false,
-            walkDistanceEnabled: false,
-            sleepDurationEnabled: false,
-            sleepQualityEnabled: false,
-            painEnabled: false,
-            phq4Enabled: false,
-            medicationEnabled: false,
-            therapyEnabled: false,
-            doctorsVisitEnabled: false,
-            patientObjectId: patientObjectId,
-            doctorObjectId: Backend.user.objectId!,
-          );
-
           objectList.add(
             PatientsListElement(
               patient: patientObject,
-              patientData: emptyPatientData,
-              patientProfile: emptyPatientProfile,
+              patientData: getEmptyPatientData(patientObjectId),
+              patientProfile: getEmptyPatientProfile(patientObjectId),
               objectId: patientObject.objectId,
             ),
           );
