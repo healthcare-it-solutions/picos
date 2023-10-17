@@ -99,7 +99,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
 
   Column _picosSwitchAndSizedBox(
     bool valueProfile,
-    Function(bool value) function,
+    Function(bool value)? function,
     String title,
     ShapeBorder shape,
   ) {
@@ -155,7 +155,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
           _patientsListElement!.patientData.caseNumber;
       EditPatientScreen.instituteKey =
           _patientsListElement!.patientData.instKey;
-
     }
 
     return BlocBuilder<ObjectsListBloc<BackendPatientsListApi>,
@@ -181,12 +180,14 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 PicosLabel(AppLocalizations.of(context)!.vitalValues),
                 _picosSwitchAndSizedBox(
                   _weightBMI,
-                  (bool value) {
-                    setState(() {
-                      _addDisabled = false;
-                      _weightBMI = value;
-                    });
-                  },
+                  _weightBMI
+                      ? null
+                      : (bool value) {
+                          setState(() {
+                            _addDisabled = false;
+                            _weightBMI = value;
+                          });
+                        },
                   AppLocalizations.of(context)!.weightBMI,
                   const Border(
                     bottom: BorderSide(color: Colors.grey),
@@ -250,12 +251,14 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 ),
                 _picosSwitchAndSizedBox(
                   _sleepDuration,
-                  (bool value) {
-                    setState(() {
-                      _addDisabled = false;
-                      _sleepDuration = value;
-                    });
-                  },
+                  _sleepDuration
+                      ? null
+                      : (bool value) {
+                          setState(() {
+                            _addDisabled = false;
+                            _sleepDuration = value;
+                          });
+                        },
                   AppLocalizations.of(context)!.sleepDuration,
                   const Border(
                     bottom: BorderSide(color: Colors.grey),
@@ -263,12 +266,14 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 ),
                 _picosSwitchAndSizedBox(
                   _sleepQuality,
-                  (bool value) {
-                    setState(() {
-                      _addDisabled = false;
-                      _sleepQuality = value;
-                    });
-                  },
+                  _sleepQuality
+                      ? null
+                      : (bool value) {
+                          setState(() {
+                            _addDisabled = false;
+                            _sleepQuality = value;
+                          });
+                        },
                   AppLocalizations.of(context)!.sleepQuality,
                   const Border(
                     bottom: BorderSide(color: Colors.grey),
@@ -280,12 +285,14 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 ),
                 _picosSwitchAndSizedBox(
                   _pain,
-                  (bool value) {
-                    setState(() {
-                      _addDisabled = false;
-                      _pain = value;
-                    });
-                  },
+                  _pain
+                      ? null
+                      : (bool value) {
+                          setState(() {
+                            _addDisabled = false;
+                            _pain = value;
+                          });
+                        },
                   AppLocalizations.of(context)!.pain,
                   const Border(
                     bottom: BorderSide(color: Colors.grey),
@@ -293,12 +300,14 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 ),
                 _picosSwitchAndSizedBox(
                   _phq4,
-                  (bool value) {
-                    setState(() {
-                      _addDisabled = false;
-                      _phq4 = value;
-                    });
-                  },
+                  _phq4
+                      ? null
+                      : (bool value) {
+                          setState(() {
+                            _addDisabled = false;
+                            _phq4 = value;
+                          });
+                        },
                   'PHQ-4',
                   const Border(
                     bottom: BorderSide(color: Colors.grey),
@@ -312,12 +321,14 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 ),
                 _picosSwitchAndSizedBox(
                   _medication,
-                  (bool value) {
-                    setState(() {
-                      _addDisabled = false;
-                      _medication = value;
-                    });
-                  },
+                  _medication
+                      ? null
+                      : (bool value) {
+                          setState(() {
+                            _addDisabled = false;
+                            _medication = value;
+                          });
+                        },
                   AppLocalizations.of(context)!.medication,
                   const Border(
                     bottom: BorderSide(color: Colors.grey),
@@ -325,12 +336,14 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 ),
                 _picosSwitchAndSizedBox(
                   _therapy,
-                  (bool value) {
-                    setState(() {
-                      _addDisabled = false;
-                      _therapy = value;
-                    });
-                  },
+                  _therapy
+                      ? null
+                      : (bool value) {
+                          setState(() {
+                            _addDisabled = false;
+                            _therapy = value;
+                          });
+                        },
                   AppLocalizations.of(context)!.therapy,
                   const Border(
                     bottom: BorderSide(color: Colors.grey),
@@ -338,12 +351,14 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 ),
                 _picosSwitchAndSizedBox(
                   _doctorsVisit,
-                  (bool value) {
-                    setState(() {
-                      _addDisabled = false;
-                      _doctorsVisit = value;
-                    });
-                  },
+                  _doctorsVisit
+                      ? null
+                      : (bool value) {
+                          setState(() {
+                            _addDisabled = false;
+                            _doctorsVisit = value;
+                          });
+                        },
                   AppLocalizations.of(context)!.doctorsVisit,
                   const Border(
                     bottom: BorderSide(color: Colors.grey),
