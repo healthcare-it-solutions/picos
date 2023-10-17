@@ -22,7 +22,6 @@ import 'package:picos/api/backend_patients_list_api.dart';
 import 'package:picos/models/patient.dart';
 import 'package:picos/models/patient_data.dart';
 import 'package:picos/models/patient_profile.dart';
-import 'package:picos/models/patients_list_element.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_additional_entries.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_form.dart';
 import 'package:picos/screens/study_nurse_screen/configuration_screen/pages/configuration_vital_values.dart';
@@ -297,16 +296,10 @@ class _ConfigurationPages extends State<ConfigurationPages> {
                     if (_currentPage == lastPage &&
                         formKeyConfiguration.currentState!.validate()) {
                       formKeyConfiguration.currentState!.save();
-                      PatientsListElement patientsListElement =
-                          PatientsListElement(
-                        patient: await _savePatient(),
-                        patientData: await _savePatientData(),
-                        patientProfile: await _savePatientProfile(),
-                      );
+                      await _savePatient();
+                      await _savePatientData();
+                      await _savePatientProfile();
                       if (!mounted) return;
-                      context
-                          .read<ObjectsListBloc<BackendPatientsListApi>>()
-                          .add(SaveObject(patientsListElement));
                       Navigator.of(context).pushReplacementNamed(
                         '/study-nurse-screen/configuration-finish-screen',
                       );
