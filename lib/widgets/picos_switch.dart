@@ -32,7 +32,7 @@ class PicosSwitch extends StatefulWidget {
   final bool? initialValue;
 
   /// The function to be called on changing values.
-  final void Function(bool value) onChanged;
+  final void Function(bool value)? onChanged;
 
   /// Switch title.
   final String? title;
@@ -60,13 +60,15 @@ class _PicosSwitchState extends State<PicosSwitch> {
   Widget build(BuildContext context) {
     return SwitchListTile(
       value: _value,
-      onChanged: (bool value) {
-        setState(() {
-          _value = value;
-        });
+      onChanged: widget.onChanged == null
+          ? null
+          : (bool value) {
+              setState(() {
+                _value = value;
+              });
 
-        widget.onChanged(value);
-      },
+              widget.onChanged!(value);
+            },
       title: Padding(
         padding: const EdgeInsets.only(left: 5.0),
         child: Text(
