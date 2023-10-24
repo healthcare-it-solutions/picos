@@ -44,6 +44,15 @@ class FirebaseApi {
   Future<void> initNotifications() async {
     try {
       final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+      await firebaseMessaging.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true,
+      );
       final String? fCMToken = await firebaseMessaging.getToken();
 
       // Initialize Parse
