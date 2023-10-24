@@ -21,82 +21,61 @@ import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 import '../config.dart';
 
-/// Background message handler.
-Future<void> backgroundMessageHandler(RemoteMessage message) async {
-  ParsePush.instance.onMessage(message);
-}
-
-/// [FirebaseApi] class is responsible for initializing and handling
-/// Firebase Cloud Messaging and Parse Server notifications.
+/// Firebase Api class.
 class FirebaseApi {
-  /// Handle showing a notification.
-  /// This function can be customized to define behavior when a
-  /// notification is displayed.
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
+  /// Handle show notification.
   void handleShowNotification(String payload) {}
 
-  /// Initializes notifications from Firebase Cloud Messaging and Parse Server.
-  ///
-  /// This function performs several operations:
-  /// 1. Retrieves the FCM Token for the current device.
-  /// 2. Initializes the Parse Server.
-  /// 3. Configures listening for incoming notifications.
-  /// 4. Registers or updates the device on the Parse Server.
+  /// Initialize notifications.
   Future<void> initNotifications() async {
-    try {
-      final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
-      await firebaseMessaging.requestPermission(
-        alert: true,
-        announcement: false,
-        badge: true,
-        carPlay: false,
-        criticalAlert: false,
-        provisional: false,
-        sound: true,
-      );
-      final String? fCMToken = await firebaseMessaging.getToken();
+    final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+    await firebaseMessaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
 
-      // Initialize Parse
-      await Parse().initialize(
-        appId,
-        kReleaseMode ? serverUrlProd : serverUrl,
-        clientKey: clientKey,
-      );
+    final String? fCMToken = await _firebaseMessaging.getToken();
+    // Initialize Parse
+    await Parse().initialize(
+      appId,
+      kReleaseMode ? serverUrlProd : serverUrl,
+      clientKey: clientKey,
+    );
 
-      // Initialize Parse push notifications.
-      ParsePush.instance.initialize(
-        FirebaseMessaging.instance,
-        parseNotification:
-            ParseNotification(onShowNotification: handleShowNotification),
-      );
-      FirebaseMessaging.onMessage.listen(
-        (RemoteMessage message) => ParsePush.instance.onMessage(message),
-      );
+    // Initialize Parse push notifications
+    ParsePush.instance.initialize(
+      FirebaseMessaging.instance,
+      parseNotification:
+          ParseNotification(onShowNotification: handleShowNotification),
+    );
+    FirebaseMessaging.onMessage.listen(
+      (RemoteMessage message) => ParsePush.instance.onMessage(message),
+    );
 
-      final ParseInstallation currentInstallation =
-          await ParseInstallation.currentInstallation();
+    final ParseInstallation currentInstallation =
+        await ParseInstallation.currentInstallation();
 
-      // Discard any unsaved changes to start with a clean state.
-      currentInstallation.clearUnsavedChanges();
+    currentInstallation.clearUnsavedChanges();
 
-      // Create a new installation on the Parse Server.
-      await currentInstallation.create(allowCustomObjectId: true);
+    await currentInstallation.create(allowCustomObjectId: true);
 
-      // Update the installation with the latest FCM token and installationId.
-      currentInstallation
-        ..set('deviceToken', currentInstallation.deviceToken ?? fCMToken)
-        ..set('installationId', currentInstallation.installationId);
+    currentInstallation
+      ..set('deviceToken', currentInstallation.deviceToken ?? fCMToken)
+      ..set('installationId', currentInstallation.installationId);
 
-      // Update or save the installation.
-      if (currentInstallation.objectId != null) {
-        await currentInstallation.update();
-      } else {
-        await currentInstallation.save();
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print('Error initializing notifications: $e');
-      }
+    if (currentInstallation.objectId != null) {
+      // Update existing installation
+      await currentInstallation.update();
+    } else {
+      // Save new installation
+      await currentInstallation.save();
     }
-    FirebaseMessaging.onBackgroundMessage(backgroundMessageHandler);
   }
 }
