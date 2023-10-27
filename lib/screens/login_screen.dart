@@ -108,13 +108,13 @@ class _LoginScreenState extends State<LoginScreen>
   @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-    if (!kIsWeb) UpgradeCard();
 
     return PicosScreenFrame(
       body: Center(
         child: PicosBody(
           child: Column(
             children: <Widget>[
+              if (!kIsWeb) UpgradeCard(),
               const Image(
                 image: AssetImage('assets/PICOS_Logo_RGB.png'),
               ),
