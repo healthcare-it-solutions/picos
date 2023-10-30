@@ -15,13 +15,22 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:picos/app_config.dart';
 
 /// This is the main entry point of the application.
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+
+import 'api/firebase_api.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  if (!kIsWeb) {
+    await Firebase.initializeApp();
+    await FirebaseApi().initNotifications();
+  }
   SystemChrome.setPreferredOrientations(
     <DeviceOrientation>[DeviceOrientation.portraitUp],
   ).then((_) {
