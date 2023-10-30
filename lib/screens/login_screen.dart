@@ -114,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen>
         child: PicosBody(
           child: Column(
             children: <Widget>[
-              UpgradeCard(),
+              if (!kIsWeb) UpgradeCard(),
               const Image(
                 image: AssetImage('assets/PICOS_Logo_RGB.png'),
               ),

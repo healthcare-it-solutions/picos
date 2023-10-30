@@ -63,11 +63,6 @@ class BackendPatientsListApi extends BackendObjectsApi {
     }
   }
 
-  /// Gets all Patients from the database.
-  static Future<List<dynamic>> getAll() {
-    return Backend.getAll(Patient.databaseTable);
-  }
-
   /// Getter for an empty PatientData object.
   PatientData getEmptyPatientData(String? patientObjectId) {
     return PatientData(
