@@ -17,9 +17,9 @@
 
 import 'package:picos/models/abstract_database_object.dart';
 
-/// Class with patient data information.
+/// Class with follow up investigation.
 class FollowUp extends AbstractDatabaseObject {
-  /// Creates a patient data object.
+  /// Creates a follow up data object.
   const FollowUp({
     required this.patientObjectId,
     required this.doctorObjectId,
