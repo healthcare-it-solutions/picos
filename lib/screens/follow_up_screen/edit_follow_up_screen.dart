@@ -36,7 +36,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
   final TextEditingController _diastolicController = TextEditingController();
   final TextEditingController _heartRateController = TextEditingController();
   final TextEditingController _twoMWTController = TextEditingController();
-  final TextEditingController _mocaController = TextEditingController();
+  final TextEditingController _moCaController = TextEditingController();
   List<TextEditingController> _healthStateControllers =
       <TextEditingController>[];
   final TextEditingController _healthScoreController = TextEditingController();
@@ -106,7 +106,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
     _diastolicController.dispose();
     _heartRateController.dispose();
     _twoMWTController.dispose();
-    _mocaController.dispose();
+    _moCaController.dispose();
     for (TextEditingController controller in _healthStateControllers) {
       controller.dispose();
     }
@@ -280,7 +280,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
               ),
               const SizedBox(height: 8),
               TextFormField(
-                controller: _mocaController,
+                controller: _moCaController,
                 decoration: const InputDecoration(
                   labelText: 'Testergebnis (0-30)',
                   border: OutlineInputBorder(),
