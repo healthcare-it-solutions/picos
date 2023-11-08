@@ -376,6 +376,10 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                 PicosInkWellButton(
                   text: 'Zum Follow Up',
                   onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      '/follow_up_screen/edit_follow_up_screen',
+                    );
                   },
                 ),
               ],
