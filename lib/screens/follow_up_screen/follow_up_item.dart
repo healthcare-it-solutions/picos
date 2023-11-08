@@ -22,7 +22,7 @@ import '../../themes/global_theme.dart';
 
 /// Displays a follow up item.
 class FollowUpItem extends StatelessWidget {
-  /// Creates TherapyItem.
+  /// Creates FollowUpItem.
   const FollowUpItem(
     this._followUp, {
     Key? key,
