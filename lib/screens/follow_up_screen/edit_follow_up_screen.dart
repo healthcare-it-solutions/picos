@@ -37,7 +37,8 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
   final TextEditingController _heartRateController = TextEditingController();
   final TextEditingController _twoMWTController = TextEditingController();
   final TextEditingController _mocaController = TextEditingController();
-  List<TextEditingController> _healthStateControllers = [];
+  List<TextEditingController> _healthStateControllers =
+      <TextEditingController>[];
   final TextEditingController _healthScoreController = TextEditingController();
 
   /// denotes the distance.
@@ -69,19 +70,18 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
 
   /// denotes the number.
   int? number;
-  
 
-  static Map<String, String>? _rythmusSelection1 = const <String, String>{
+  static const Map<String, String> _rythmusSelection1 = <String, String>{
     'SR': 'SR',
     'VHF': 'VHF',
     'VT': 'VT',
   };
-  static Map<String, String>? _rythmusSelection2 = const <String, String>{
+  static const Map<String, String> _rythmusSelection2 = <String, String>{
     'Rhythmisch': 'Rhythmisch',
     'Arrhythmisch': 'Arrhythmisch',
   };
 
-  static Map<String, String>? _locationTypeSelection = const <String, String>{
+  static const Map<String, String> _locationTypeSelection = <String, String>{
     'üRT': 'üRT',
     'RT': 'RT',
     'ST': 'ST',
@@ -93,9 +93,10 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
   @override
   void initState() {
     super.initState();
-    // Initialize healthStateControllers with five controllers for health state input fields.
-    _healthStateControllers =
-        List.generate(5, (index) => TextEditingController());
+    _healthStateControllers = List<TextEditingController>.generate(
+      5,
+      (int index) => TextEditingController(),
+    );
   }
 
   @override
@@ -106,18 +107,18 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
     _heartRateController.dispose();
     _twoMWTController.dispose();
     _mocaController.dispose();
-    _healthStateControllers.forEach((controller) => controller.dispose());
+    for (TextEditingController controller in _healthStateControllers) {
+      controller.dispose();
+    }
     _healthScoreController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // Initialisieren Sie Standardwerte, wenn diese noch nicht gesetzt sind.
-    rythmus = rythmus ?? _rythmusSelection1!.keys.first;
-    String? rythmusType = _rythmusSelection2!
-        .keys.first; // Neue Variable für den zweiten Dropdown
-    locationType = locationType ?? _locationTypeSelection!.keys.first;
+    rythmus = rythmus ?? _rythmusSelection1.keys.first;
+    String? rythmusType = _rythmusSelection2.keys.first;
+    locationType = locationType ?? _locationTypeSelection.keys.first;
     return PicosScreenFrame(
       title: 'V0',
       body: Padding(
@@ -130,8 +131,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                 AppLocalizations.of(context)!.bloodPressure,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
-              SizedBox(height: 8),
-              // Provide some spacing between the text and fields
+              const SizedBox(height: 8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
@@ -153,7 +153,6 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                     ),
                   ),
                   const SizedBox(width: 16),
-                  // Provide some spacing between the fields
                   Expanded(
                     child: TextFormField(
                       controller: _diastolicController,
@@ -174,25 +173,25 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                 ],
               ),
               // Add spacing between sections
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               Text(
                 'EKG',
-                // Replace with AppLocalizations.of(context)!.ekg if you have localization for "EKG"
                 style: Theme.of(context).textTheme.titleLarge,
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               TextFormField(
                 controller: _heartRateController,
                 decoration: const InputDecoration(
                   labelText: 'Herzrate (1-350)',
                   border: OutlineInputBorder(),
                 ),
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: <Widget>[
                   Expanded(
                     child: DropdownButtonFormField<String>(
                       value: rythmus,
@@ -200,7 +199,8 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                         labelText: 'Rhythmus',
                         border: OutlineInputBorder(),
                       ),
-                      items: _rythmusSelection1!.entries.map((entry) {
+                      items: _rythmusSelection1.entries
+                          .map((MapEntry<String, String> entry) {
                         return DropdownMenuItem<String>(
                           value: entry.key,
                           child: Text(entry.value),
@@ -213,7 +213,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                       },
                     ),
                   ),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
                   Expanded(
                     child: DropdownButtonFormField<String>(
                       value: rythmusType,
@@ -221,7 +221,8 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                         labelText: 'Rhythmus Typ',
                         border: OutlineInputBorder(),
                       ),
-                      items: _rythmusSelection2!.entries.map((entry) {
+                      items: _rythmusSelection2.entries
+                          .map((MapEntry<String, String> entry) {
                         return DropdownMenuItem<String>(
                           value: entry.key,
                           child: Text(entry.value),
@@ -236,14 +237,15 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               DropdownButtonFormField<String>(
                 value: locationType,
                 decoration: const InputDecoration(
                   labelText: 'Standorttyp',
                   border: OutlineInputBorder(),
                 ),
-                items: _locationTypeSelection!.entries.map((entry) {
+                items: _locationTypeSelection.entries
+                    .map((MapEntry<String, String> entry) {
                   return DropdownMenuItem<String>(
                     value: entry.key,
                     child: Text(entry.value),
@@ -255,61 +257,60 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                   });
                 },
               ),
-// Add spacing between sections
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               Text(
                 '2-MWT',
-                // Replace with AppLocalizations.of(context)!.ekg if you have localization for "EKG"
                 style: Theme.of(context).textTheme.titleLarge,
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               TextFormField(
                 controller: _twoMWTController,
                 decoration: const InputDecoration(
                   labelText: 'Strecke (1-600)',
                   border: OutlineInputBorder(),
                 ),
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
               ),
               // Add spacing between sections
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               Text(
                 'MoCA',
-                // Replace with AppLocalizations.of(context)!.ekg if you have localization for "EKG"
                 style: Theme.of(context).textTheme.titleLarge,
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               TextFormField(
                 controller: _mocaController,
                 decoration: const InputDecoration(
                   labelText: 'Testergebnis (0-30)',
                   border: OutlineInputBorder(),
                 ),
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
               ),
 
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               Text(
                 'EQ-5D-5L Gesundheitszustand',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: List<Widget>.generate(
                   _healthStateControllers.length,
-                  (index) => Expanded(
+                  (int index) => Expanded(
                     child: Padding(
                       padding: EdgeInsets.only(
-                          left: index == 0 ? 0 : 8,
-                          right: index == _healthStateControllers.length - 1
-                              ? 0
-                              : 8),
+                        left: index == 0 ? 0 : 8,
+                        right:
+                            index == _healthStateControllers.length - 1 ? 0 : 8,
+                      ),
                       child: TextFormField(
                         controller: _healthStateControllers[index],
                         decoration: InputDecoration(
                           labelText: 'Zustand ${index + 1}',
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                         ),
                         keyboardType: TextInputType.number,
                         onChanged: (String value) {
@@ -324,14 +325,15 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               TextFormField(
                 controller: _healthScoreController,
                 decoration: const InputDecoration(
                   labelText: 'Gesundheitsscore (1-100)',
                   border: OutlineInputBorder(),
                 ),
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
                 onChanged: (String value) {
                   double doubleValue = double.tryParse(value) ?? 0;
                   if (doubleValue < 1 || doubleValue > 100) {
@@ -341,8 +343,6 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                   }
                 },
               ),
-              // ... Further widgets for "EQ-5D-5L" categories ...
-              // You'll add those here similar to the EKG fields above, using TextFormFields and DropDowns.
             ],
           ),
         ),
