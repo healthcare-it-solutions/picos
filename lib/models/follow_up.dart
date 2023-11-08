@@ -42,10 +42,10 @@ class FollowUp extends AbstractDatabaseObject {
   final double? distance;
 
   /// denotes the bloodDiastolic.
-  final double? bloodDiastolic;
+  final int? bloodDiastolic;
 
   /// denotes the bloodSystolic.
-  final double? bloodSystolic;
+  final int? bloodSystolic;
 
   /// denotes the rythmus.
   final String? rythmus;
@@ -75,19 +75,19 @@ class FollowUp extends AbstractDatabaseObject {
   final String patientObjectId;
 
   /// The database table the objects are stored in.
-  static const String databaseTable = 'patientData';
+  static const String databaseTable = 'followUP';
 
   @override
   get table {
     return databaseTable;
   }
 
-  /// Returns a copy of this patient profile with the given values updated.
+  /// Returns a copy of this follow up with the given values updated.
   @override
   FollowUp copyWith({
     double? distance,
-    double? bloodDiastolic,
-    double? bloodSystolic,
+    int? bloodDiastolic,
+    int? bloodSystolic,
     String? rythmus,
     double? testResult,
     List<dynamic>? healthState,

@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/cupertino.dart';
+import 'package:picos/screens/follow_up_screen/edit_follow_up_screen.dart';
 import 'package:picos/screens/legals_screen.dart';
 import 'package:picos/screens/login_screen.dart';
 import 'package:picos/screens/my_documents_screen/add_document_screen.dart';
@@ -78,7 +79,8 @@ class Routes {
       '/privacy-notice-screen': (BuildContext ctx) =>
           const PrivacyNoticeScreen(),
       '/visits-screen/visits': (BuildContext ctx) => const AddVisitScreen(),
-      '/visits-screen/my-visits-screen':(BuildContext ctx) => const MyVisitsScreen(),
+      '/visits-screen/my-visits-screen': (BuildContext ctx) =>
+          const MyVisitsScreen(),
       '/login-screen': (BuildContext ctx) => const LoginScreen(),
       '/questionnaire-screen/questionnaire-screen': (BuildContext ctx) =>
           const QuestionaireScreen(),
@@ -95,6 +97,8 @@ class Routes {
       'profile-screen/profile': (BuildContext ctx) => const ProfileScreen(),
       '/my-values_screen/my-values': (BuildContext ctx) =>
           const MyValuesScreen(),
+      '/follow_up_screen/edit_follow_up_screen': (BuildContext ctx) =>
+          const EditFollowUpScreen(),
     };
   }
 
