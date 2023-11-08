@@ -128,15 +128,15 @@ class FollowUp extends AbstractDatabaseObject {
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
-        if (distance != null) 'distance': distance,
-        if (bloodDiastolic != null) 'bloodDiastolic': bloodDiastolic,
-        if (bloodSystolic != null) 'bloodSystolic': bloodSystolic,
-        if (rythmus != null) 'rythmus': rythmus,
-        if (testResult != null) 'testResult': testResult,
-        if (healthState != null) 'healthState': healthState,
-        if (locationType != null) 'locationType': locationType,
-        if (heartRate != null) 'heartRate': heartRate,
-        if (healthScore != null) 'healthScore': healthScore,
+        if (distance != null) 'Strecke': distance,
+        if (bloodDiastolic != null) 'BD_Diastolisch': bloodDiastolic,
+        if (bloodSystolic != null) 'BD_Systolisch': bloodSystolic,
+        if (rythmus != null) 'Rythmus': rythmus,
+        if (testResult != null) 'TestResult': testResult,
+        if (healthState != null) 'HealthState': healthState,
+        if (locationType != null) 'Lagetype': locationType,
+        if (heartRate != null) 'Herzfrequenz': heartRate,
+        if (healthScore != null) 'Gesundheitsscore': healthScore,
         if (number != null) 'number': number,
         'Patient': <String, String>{
           'objectId': patientObjectId,
