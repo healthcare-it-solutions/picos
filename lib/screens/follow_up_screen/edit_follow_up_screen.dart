@@ -44,15 +44,15 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       <TextEditingController>[];
   final TextEditingController _healthScoreController = TextEditingController();
 
-  double? distance;
+  int? distance;
   int? bloodDiastolic;
   int? bloodSystolic;
   String? rythmus;
-  double? testResult;
+  int? testResult;
   List<dynamic>? healthState;
   String? locationType;
-  double? heartRate;
-  double? healthScore;
+  int? heartRate;
+  int? healthScore;
   int? number;
 
   bool saveDisabled = true;
@@ -137,16 +137,16 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                     child: TextFormField(
                       controller: _systolicController,
                       decoration: const InputDecoration(
-                        labelText: 'Systolic (1-250)',
+                        labelText: 'Systolic (50-250)',
                         border: OutlineInputBorder(),
                       ),
                       keyboardType: TextInputType.number,
                       initialValue: bloodSystolic?.toString(),
                       onChanged: (String value) {
                         int intValue = int.tryParse(value) ?? 0;
-                        if (intValue < 1 || intValue > 250) {
+                        if (intValue < 50 || intValue > 250) {
                           _systolicController.text =
-                              (intValue < 1) ? '1' : '250';
+                              (intValue < 1) ? '50' : '250';
                         }
                         setState(() {
                           saveDisabled = false;
@@ -160,16 +160,16 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                     child: TextFormField(
                       controller: _diastolicController,
                       decoration: const InputDecoration(
-                        labelText: 'Diastolic (1-150)',
+                        labelText: 'Diastolic (35-150)',
                         border: OutlineInputBorder(),
                       ),
                       keyboardType: TextInputType.number,
                       initialValue: bloodDiastolic?.toString(),
                       onChanged: (String value) {
                         int intValue = int.tryParse(value) ?? 0;
-                        if (intValue < 1 || intValue > 150) {
+                        if (intValue < 35 || intValue > 150) {
                           _diastolicController.text =
-                              (intValue < 1) ? '1' : '150';
+                              (intValue < 1) ? '35' : '150';
                         }
                         setState(() {
                           saveDisabled = false;
@@ -189,16 +189,16 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
               TextFormField(
                 controller: _heartRateController,
                 decoration: const InputDecoration(
-                  labelText: 'Herzrate (1-350)',
+                  labelText: 'Herzrate (40-350)',
                   border: OutlineInputBorder(),
                 ),
                 keyboardType:
-                    const TextInputType.numberWithOptions(decimal: true),
+                    TextInputType.number,
                 initialValue: heartRate?.toString(),
                 onChanged: (String value) {
                   int intValue = int.tryParse(value) ?? 0;
-                  if (intValue < 1 || intValue > 350) {
-                    _heartRateController.text = (intValue < 1) ? '1' : '350';
+                  if (intValue < 40 || intValue > 350) {
+                    _heartRateController.text = (intValue < 1) ? '40' : '350';
                   }
                   setState(() {
                     saveDisabled = false;
@@ -290,7 +290,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                   border: OutlineInputBorder(),
                 ),
                 keyboardType:
-                    const TextInputType.numberWithOptions(decimal: true),
+                    TextInputType.number,
                 initialValue: distance?.toString(),
                 onChanged: (String value) {
                   int intValue = int.tryParse(value) ?? 0;
@@ -316,7 +316,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                   border: OutlineInputBorder(),
                 ),
                 keyboardType:
-                    const TextInputType.numberWithOptions(decimal: true),
+                    TextInputType.number,
                 onChanged: (String value) {
                   int intValue = int.tryParse(value) ?? 0;
                   if (intValue < 0 || intValue > 30) {
@@ -376,18 +376,18 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                   border: OutlineInputBorder(),
                 ),
                 keyboardType:
-                    const TextInputType.numberWithOptions(decimal: true),
+                    TextInputType.number,
                 initialValue: healthScore?.toString(),
                 onChanged: (String value) {
-                  double doubleValue = double.tryParse(value) ?? 0;
-                  if (doubleValue < 1 || doubleValue > 100) {
-                    _healthScoreController.text = (doubleValue < 1)
+                  int intValue = int.tryParse(value) ?? 0;
+                  if (intValue < 1 || intValue > 100) {
+                    _healthScoreController.text = (intValue < 1)
                         ? '1'
-                        : (doubleValue > 100 ? '100' : value);
+                        : (intValue > 100 ? '100' : value);
                   }
                   setState(() {
                     saveDisabled = false;
-                    healthScore = double.tryParse(value);
+                    healthScore = int.tryParse(value);
                   });
                 },
               ),

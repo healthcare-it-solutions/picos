@@ -39,7 +39,7 @@ class FollowUp extends AbstractDatabaseObject {
   }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt);
 
   /// denotes the distance.
-  final double? distance;
+  final int? distance;
 
   /// denotes the bloodDiastolic.
   final int? bloodDiastolic;
@@ -51,7 +51,7 @@ class FollowUp extends AbstractDatabaseObject {
   final String? rythmus;
 
   /// denotes the testResult.
-  final double? testResult;
+  final int? testResult;
 
   /// denotes the healthState.
   final List<dynamic>? healthState;
@@ -60,10 +60,10 @@ class FollowUp extends AbstractDatabaseObject {
   final String? locationType;
 
   /// denotes the heartRate.
-  final double? heartRate;
+  final int? heartRate;
 
   /// denotes the healthScore.
-  final double? healthScore;
+  final int? healthScore;
 
   /// denotes the number.
   final int? number;
@@ -85,15 +85,15 @@ class FollowUp extends AbstractDatabaseObject {
   /// Returns a copy of this follow up with the given values updated.
   @override
   FollowUp copyWith({
-    double? distance,
+    int? distance,
     int? bloodDiastolic,
     int? bloodSystolic,
     String? rythmus,
-    double? testResult,
+    int? testResult,
     List<dynamic>? healthState,
     String? locationType,
-    double? heartRate,
-    double? healthScore,
+    int? heartRate,
+    int? healthScore,
     int? number,
     String? patientObjectId,
     String? doctorObjectId,

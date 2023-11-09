@@ -46,14 +46,14 @@ class BackendFollowUpApi {
   /// Creates a FollowUp object from a Parse object element.
   static FollowUp createFollowUpFromElement(dynamic element) {
     return FollowUp(
-      distance: element['Strecke']?['estimateNumber']?.toDouble(),
+      distance: element['Strecke'],
       bloodDiastolic: element['BD_Diastolisch'],
       bloodSystolic: element['BD_Systolisch'],
       rythmus: element['Rythmus'],
       testResult: element['TestResult'],
       healthState: element['HealthState'],
       locationType: element['Lagetype'],
-      heartRate: element['Herzfrequenz']?['estimateNumber']?.toDouble(),
+      heartRate: element['Herzfrequenz'],
       healthScore: element['Gesundheitsscore'],
       number: element['number'],
       objectId: element['objectId'],
