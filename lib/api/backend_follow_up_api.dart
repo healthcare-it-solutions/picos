@@ -79,6 +79,20 @@ class BackendFollowUpApi {
 
   /// API interface providing methods to save values in the backend.
   static Future<void> saveFollowUp(FollowUp followUp) async {
-    await Backend.saveObject(followUp);
+    BackendACL followUpACL = BackendACL();
+    followUpACL.setReadAccess(
+      userId: EditPatientScreen.patientObjectId!,
+    );
+    followUpACL.setReadAccess(
+      userId: BackendRole.doctor.id,
+    );
+    followUpACL.setWriteAccess(
+      userId: BackendRole.doctor.id,
+    );
+
+    await Backend.saveObject(
+      followUp,
+      acl: followUpACL,
+    );
   }
 }
