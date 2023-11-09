@@ -46,18 +46,18 @@ class BackendFollowUpApi {
         'Patient',
         patientObjectId,
       );
-      if (responseFollowUps != null) {
-        for (dynamic element in responseFollowUps.results!) {
+      if (responseFollowUps?.results != null) {
+        for (dynamic element in responseFollowUps!.results!) {
           followUpResults.add(
             FollowUp(
-              distance: element['Strecke'],
+              distance: element['Strecke']['estimateNumber'].toDouble(),
               bloodDiastolic: element['BD_Diastolisch'],
               bloodSystolic: element['BD_Systolisch'],
               rythmus: element['Rythmus'],
               testResult: element['TestResult'],
               healthState: element['HealthState'],
               locationType: element['Lagetype'],
-              heartRate: element['Herzfrequenz'],
+              heartRate: element['Herzfrequenz']['estimateNumber'].toDouble(),
               healthScore: element['Gesundheitsscore'],
               number: element['number'],
               objectId: element['objectId'],
