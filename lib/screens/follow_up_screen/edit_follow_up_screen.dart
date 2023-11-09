@@ -55,6 +55,8 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
   double? healthScore;
   int? number;
 
+  bool saveDisabled = true;
+
   static const Map<String, String> _rythmusSelection1 = <String, String>{
     'SR': 'SR',
     'VHF': 'VHF',
@@ -100,8 +102,6 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool saveDisabled = true;
-
     FollowUp followUp = ModalRoute.of(context)!.settings.arguments as FollowUp;
     distance = followUp.distance;
     bloodDiastolic = followUp.bloodDiastolic;
@@ -150,6 +150,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                         }
                         setState(() {
                           saveDisabled = false;
+                          bloodSystolic = int.tryParse(value);
                         });
                       },
                     ),
@@ -193,6 +194,16 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                 ),
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
+                initialValue: heartRate?.toString(),
+                onChanged: (String value) {
+                  int intValue = int.tryParse(value) ?? 0;
+                  if (intValue < 1 || intValue > 350) {
+                    _heartRateController.text = (intValue < 1) ? '1' : '350';
+                  }
+                  setState(() {
+                    saveDisabled = false;
+                  });
+                },
               ),
               const SizedBox(height: 16),
               Row(
@@ -280,6 +291,16 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                 ),
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
+                initialValue: distance?.toString(),
+                onChanged: (String value) {
+                  int intValue = int.tryParse(value) ?? 0;
+                  if (intValue < 1 || intValue > 600) {
+                    _twoMWTController.text = (intValue < 1) ? '1' : '600';
+                  }
+                  setState(() {
+                    saveDisabled = false;
+                  });
+                },
               ),
               // Add spacing between sections
               const SizedBox(height: 24),
@@ -296,6 +317,15 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                 ),
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
+                onChanged: (String value) {
+                  int intValue = int.tryParse(value) ?? 0;
+                  if (intValue < 0 || intValue > 30) {
+                    _moCaController.text = (intValue < 0) ? '0' : '30';
+                  }
+                  setState(() {
+                    saveDisabled = false;
+                  });
+                },
               ),
 
               const SizedBox(height: 24),
@@ -381,6 +411,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
             number: number,
           );
           BackendFollowUpApi.saveFollowUp(newFollowUp);
+          Navigator.of(context).pop();
         },
       ),
     );
