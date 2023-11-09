@@ -18,8 +18,6 @@
 import 'package:flutter/material.dart';
 import 'package:picos/models/follow_up.dart';
 
-import '../../themes/global_theme.dart';
-
 /// Displays a follow up item.
 class FollowUpItem extends StatelessWidget {
   /// Creates FollowUpItem.
@@ -32,23 +30,19 @@ class FollowUpItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-
-    return ListTile(
-      title: Text(_followUp.number.toString()),
-      trailing: Padding(
-        padding: const EdgeInsets.only(
-          right: 10,
-        ),
-        child: Icon(
-          Icons.arrow_forward_ios_rounded,
-          color: theme.green2,
-        ),
+    const double sidePadding = 15;
+    return Card(
+      margin: const EdgeInsets.all(sidePadding),
+      child: ListTile(
+        title: Text('V${_followUp.number}'),
+        trailing: const Icon(Icons.keyboard_arrow_right),
+        onTap: () {
+          Navigator.of(context).pushNamed(
+            '/follow_up_screen/edit_follow_up_screen',
+            arguments: _followUp,
+          );
+        },
       ),
-      onTap: () {
-        Navigator.of(context)
-            .pushNamed('/follow_up_screen/edit_follow_up_screen', arguments: _followUp);
-      },
     );
   }
 }

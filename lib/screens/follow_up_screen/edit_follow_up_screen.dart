@@ -18,8 +18,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/api/backend_follow_up_api.dart';
-import '../../models/follow_up.dart';
+import 'package:picos/models/follow_up.dart';
 import '../../widgets/picos_add_button_bar.dart';
+import '../../widgets/picos_body.dart';
 import '../../widgets/picos_screen_frame.dart';
 
 /// Questionnaire blood pressure page.
@@ -43,34 +44,15 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       <TextEditingController>[];
   final TextEditingController _healthScoreController = TextEditingController();
 
-  /// denotes the distance.
   double? distance;
-
-  /// denotes the bloodDiastolic.
   int? bloodDiastolic;
-
-  /// denotes the bloodSystolic.
   int? bloodSystolic;
-
-  /// denotes the rythmus.
   String? rythmus;
-
-  /// denotes the testResult.
   double? testResult;
-
-  /// denotes the healthState.
   List<dynamic>? healthState;
-
-  /// denotes the locationType.
   String? locationType;
-
-  /// denotes the heartRate.
   double? heartRate;
-
-  /// denotes the healthScore.
   double? healthScore;
-
-  /// denotes the number.
   int? number;
 
   static const Map<String, String> _rythmusSelection1 = <String, String>{
@@ -118,248 +100,289 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool saveDisabled = true;
+
+    FollowUp followUp = ModalRoute.of(context)!.settings.arguments as FollowUp;
+    distance = followUp.distance;
+    bloodDiastolic = followUp.bloodDiastolic;
+    bloodSystolic = followUp.bloodSystolic;
+    rythmus = followUp.rythmus;
+    testResult = followUp.testResult;
+    healthState = followUp.healthState;
+    locationType = followUp.locationType;
+    heartRate = followUp.heartRate;
+    healthScore = followUp.healthScore;
+    number = followUp.number;
+
     rythmus = rythmus ?? _rythmusSelection1.keys.first;
     String? rythmusType = _rythmusSelection2.keys.first;
     locationType = locationType ?? _locationTypeSelection.keys.first;
-    return FutureBuilder<List<FollowUp>>(
-      future: BackendFollowUpApi.getFollowUps(),
-      builder: (BuildContext context, AsyncSnapshot<List<FollowUp>> snapshot) {
-        if (snapshot.connectionState != ConnectionState.done) {
-          return const CircularProgressIndicator();
-        }
 
-        return PicosScreenFrame(
-          title: 'V0',
-          body: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+    return PicosScreenFrame(
+      title: 'V${followUp.number}',
+      body: PicosBody(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                AppLocalizations.of(context)!.bloodPressure,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Text(
-                    AppLocalizations.of(context)!.bloodPressure,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Expanded(
-                        child: TextFormField(
-                          controller: _systolicController,
-                          decoration: const InputDecoration(
-                            labelText: 'Systolic (1-250)',
-                            border: OutlineInputBorder(),
-                          ),
-                          keyboardType: TextInputType.number,
-                          onChanged: (String value) {
-                            int intValue = int.tryParse(value) ?? 0;
-                            if (intValue < 1 || intValue > 250) {
-                              _systolicController.text =
-                                  (intValue < 1) ? '1' : '250';
-                            }
-                          },
-                        ),
+                  Expanded(
+                    child: TextFormField(
+                      controller: _systolicController,
+                      decoration: const InputDecoration(
+                        labelText: 'Systolic (1-250)',
+                        border: OutlineInputBorder(),
                       ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: TextFormField(
-                          controller: _diastolicController,
-                          decoration: const InputDecoration(
-                            labelText: 'Diastolic (1-150)',
-                            border: OutlineInputBorder(),
-                          ),
-                          keyboardType: TextInputType.number,
-                          onChanged: (String value) {
-                            int intValue = int.tryParse(value) ?? 0;
-                            if (intValue < 1 || intValue > 150) {
-                              _diastolicController.text =
-                                  (intValue < 1) ? '1' : '150';
-                            }
-                          },
-                        ),
+                      keyboardType: TextInputType.number,
+                      initialValue: bloodSystolic?.toString(),
+                      onChanged: (String value) {
+                        int intValue = int.tryParse(value) ?? 0;
+                        if (intValue < 1 || intValue > 250) {
+                          _systolicController.text =
+                              (intValue < 1) ? '1' : '250';
+                        }
+                        setState(() {
+                          saveDisabled = false;
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: TextFormField(
+                      controller: _diastolicController,
+                      decoration: const InputDecoration(
+                        labelText: 'Diastolic (1-150)',
+                        border: OutlineInputBorder(),
                       ),
-                    ],
-                  ),
-                  // Add spacing between sections
-                  const SizedBox(height: 24),
-                  Text(
-                    'EKG',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const SizedBox(height: 8),
-                  TextFormField(
-                    controller: _heartRateController,
-                    decoration: const InputDecoration(
-                      labelText: 'Herzrate (1-350)',
-                      border: OutlineInputBorder(),
+                      keyboardType: TextInputType.number,
+                      initialValue: bloodDiastolic?.toString(),
+                      onChanged: (String value) {
+                        int intValue = int.tryParse(value) ?? 0;
+                        if (intValue < 1 || intValue > 150) {
+                          _diastolicController.text =
+                              (intValue < 1) ? '1' : '150';
+                        }
+                        setState(() {
+                          saveDisabled = false;
+                        });
+                      },
                     ),
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Expanded(
-                        child: DropdownButtonFormField<String>(
-                          value: rythmus,
-                          decoration: const InputDecoration(
-                            labelText: 'Rhythmus',
-                            border: OutlineInputBorder(),
-                          ),
-                          items: _rythmusSelection1.entries
-                              .map((MapEntry<String, String> entry) {
-                            return DropdownMenuItem<String>(
-                              value: entry.key,
-                              child: Text(entry.value),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              rythmus = newValue;
-                            });
-                          },
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: DropdownButtonFormField<String>(
-                          value: rythmusType,
-                          decoration: const InputDecoration(
-                            labelText: 'Rhythmus Typ',
-                            border: OutlineInputBorder(),
-                          ),
-                          items: _rythmusSelection2.entries
-                              .map((MapEntry<String, String> entry) {
-                            return DropdownMenuItem<String>(
-                              value: entry.key,
-                              child: Text(entry.value),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              rythmusType = newValue;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  DropdownButtonFormField<String>(
-                    value: locationType,
-                    decoration: const InputDecoration(
-                      labelText: 'Standorttyp',
-                      border: OutlineInputBorder(),
-                    ),
-                    items: _locationTypeSelection.entries
-                        .map((MapEntry<String, String> entry) {
-                      return DropdownMenuItem<String>(
-                        value: entry.key,
-                        child: Text(entry.value),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        locationType = newValue;
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 24),
-                  Text(
-                    '2-MWT',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const SizedBox(height: 8),
-                  TextFormField(
-                    controller: _twoMWTController,
-                    decoration: const InputDecoration(
-                      labelText: 'Strecke (1-600)',
-                      border: OutlineInputBorder(),
-                    ),
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
-                  ),
-                  // Add spacing between sections
-                  const SizedBox(height: 24),
-                  Text(
-                    'MoCA',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const SizedBox(height: 8),
-                  TextFormField(
-                    controller: _moCaController,
-                    decoration: const InputDecoration(
-                      labelText: 'Testergebnis (0-30)',
-                      border: OutlineInputBorder(),
-                    ),
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
-                  ),
-
-                  const SizedBox(height: 24),
-                  Text(
-                    'EQ-5D-5L Gesundheitszustand',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: List<Widget>.generate(
-                      _healthStateControllers.length,
-                      (int index) => Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            left: index == 0 ? 0 : 8,
-                            right: index == _healthStateControllers.length - 1
-                                ? 0
-                                : 8,
-                          ),
-                          child: TextFormField(
-                            controller: _healthStateControllers[index],
-                            decoration: InputDecoration(
-                              labelText: 'Zustand ${index + 1}',
-                              border: const OutlineInputBorder(),
-                            ),
-                            keyboardType: TextInputType.number,
-                            onChanged: (String value) {
-                              int intValue = int.tryParse(value) ?? 0;
-                              if (intValue < 1 || intValue > 5) {
-                                _healthStateControllers[index].text =
-                                    (intValue < 1) ? '1' : '5';
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  TextFormField(
-                    controller: _healthScoreController,
-                    decoration: const InputDecoration(
-                      labelText: 'Gesundheitsscore (1-100)',
-                      border: OutlineInputBorder(),
-                    ),
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
-                    onChanged: (String value) {
-                      double doubleValue = double.tryParse(value) ?? 0;
-                      if (doubleValue < 1 || doubleValue > 100) {
-                        _healthScoreController.text = (doubleValue < 1)
-                            ? '1'
-                            : (doubleValue > 100 ? '100' : value);
-                      }
-                    },
                   ),
                 ],
               ),
-            ),
+              // Add spacing between sections
+              const SizedBox(height: 24),
+              Text(
+                'EKG',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 8),
+              TextFormField(
+                controller: _heartRateController,
+                decoration: const InputDecoration(
+                  labelText: 'Herzrate (1-350)',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+              ),
+              const SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Expanded(
+                    child: DropdownButtonFormField<String>(
+                      value: rythmus,
+                      decoration: const InputDecoration(
+                        labelText: 'Rhythmus',
+                        border: OutlineInputBorder(),
+                      ),
+                      items: _rythmusSelection1.entries
+                          .map((MapEntry<String, String> entry) {
+                        return DropdownMenuItem<String>(
+                          value: entry.key,
+                          child: Text(entry.value),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          saveDisabled = false;
+                          rythmus = newValue;
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: DropdownButtonFormField<String>(
+                      value: rythmusType,
+                      decoration: const InputDecoration(
+                        labelText: 'Rhythmus Typ',
+                        border: OutlineInputBorder(),
+                      ),
+                      items: _rythmusSelection2.entries
+                          .map((MapEntry<String, String> entry) {
+                        return DropdownMenuItem<String>(
+                          value: entry.key,
+                          child: Text(entry.value),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          saveDisabled = false;
+                          rythmusType = newValue;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              DropdownButtonFormField<String>(
+                value: locationType,
+                decoration: const InputDecoration(
+                  labelText: 'Standorttyp',
+                  border: OutlineInputBorder(),
+                ),
+                items: _locationTypeSelection.entries
+                    .map((MapEntry<String, String> entry) {
+                  return DropdownMenuItem<String>(
+                    value: entry.key,
+                    child: Text(entry.value),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    saveDisabled = false;
+                    locationType = newValue;
+                  });
+                },
+              ),
+              const SizedBox(height: 24),
+              Text(
+                '2-MWT',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 8),
+              TextFormField(
+                controller: _twoMWTController,
+                decoration: const InputDecoration(
+                  labelText: 'Strecke (1-600)',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+              ),
+              // Add spacing between sections
+              const SizedBox(height: 24),
+              Text(
+                'MoCA',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 8),
+              TextFormField(
+                controller: _moCaController,
+                decoration: const InputDecoration(
+                  labelText: 'Testergebnis (0-30)',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+              ),
+
+              const SizedBox(height: 24),
+              Text(
+                'EQ-5D-5L Gesundheitszustand',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: List<Widget>.generate(
+                  _healthStateControllers.length,
+                  (int index) => Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: index == 0 ? 0 : 8,
+                        right:
+                            index == _healthStateControllers.length - 1 ? 0 : 8,
+                      ),
+                      child: TextFormField(
+                        controller: _healthStateControllers[index],
+                        decoration: InputDecoration(
+                          labelText: 'Zustand ${index + 1}',
+                          border: const OutlineInputBorder(),
+                        ),
+                        keyboardType: TextInputType.number,
+                        initialValue: healthState?.toString(),
+                        onChanged: (String value) {
+                          int intValue = int.tryParse(value) ?? 0;
+                          if (intValue < 1 || intValue > 5) {
+                            _healthStateControllers[index].text =
+                                (intValue < 1) ? '1' : '5';
+                          }
+                          setState(() {
+                            saveDisabled = false;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+              TextFormField(
+                controller: _healthScoreController,
+                decoration: const InputDecoration(
+                  labelText: 'Gesundheitsscore (1-100)',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                initialValue: healthScore?.toString(),
+                onChanged: (String value) {
+                  double doubleValue = double.tryParse(value) ?? 0;
+                  if (doubleValue < 1 || doubleValue > 100) {
+                    _healthScoreController.text = (doubleValue < 1)
+                        ? '1'
+                        : (doubleValue > 100 ? '100' : value);
+                  }
+                  setState(() {
+                    saveDisabled = false;
+                    healthScore = double.tryParse(value);
+                  });
+                },
+              ),
+            ],
           ),
-          bottomNavigationBar: const PicosAddButtonBar(),
-        );
-      },
+        ),
+      ),
+      bottomNavigationBar: PicosAddButtonBar(
+        disabled: saveDisabled,
+        onTap: () {
+          FollowUp newFollowUp = followUp.copyWith(
+            distance: distance,
+            bloodDiastolic: bloodDiastolic,
+            bloodSystolic: bloodSystolic,
+            rythmus: rythmus,
+            testResult: testResult,
+            healthState: healthState,
+            locationType: locationType,
+            heartRate: heartRate,
+            healthScore: healthScore,
+            number: number,
+          );
+          BackendFollowUpApi.saveFollowUp(newFollowUp);
+        },
+      ),
     );
   }
 }

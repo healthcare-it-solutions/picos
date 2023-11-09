@@ -378,7 +378,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                   onTap: () {
                     Navigator.pushNamed(
                       context,
-                      '/follow_up_screen/edit_follow_up_screen',
+                      '/follow_up_screen/follow_up_menu',
                     );
                   },
                 ),
