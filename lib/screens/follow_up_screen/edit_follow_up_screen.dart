@@ -166,8 +166,6 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
               const SizedBox(height: 24),
               _buildHealthScoreField(),
               const SizedBox(height: 24),
-              // Andere Widgets oder Logik hier hinzufügen, falls notwendig
-              // ...
             ],
           ),
         ),
