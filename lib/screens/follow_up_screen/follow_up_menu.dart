@@ -42,7 +42,7 @@ class FollowUpMenu extends StatelessWidget {
           );
         }
         return PicosScreenFrame(
-          title: 'Follow Up',
+          title: 'Follow up',
           body: Column(
             children: <Widget>[
               const Padding(
