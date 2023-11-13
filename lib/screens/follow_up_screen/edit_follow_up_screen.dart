@@ -379,21 +379,26 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
   Widget _buildDistanceField() {
     return TextFormField(
       controller: _distanceController,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         labelText: 'Strecke (1-600)',
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
+        errorText: _isDistanceValid
+            ? null
+            : 'Bitte einen Wert zwischen 1-600 eingeben',
       ),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter.digitsOnly,
       ],
       onChanged: (String value) {
-        int intValue = int.tryParse(value) ?? 0;
-        if (intValue < 1 || intValue > 600) {
-          _distanceController.text = (intValue < 1) ? '1' : '600';
-        }
         setState(() {
-          saveDisabled = false;
+          int? intValue = int.tryParse(value);
+          if (intValue != null && (intValue < 1 || intValue > 600)) {
+            _isDistanceValid = false;
+          } else {
+            _isDistanceValid = true;
+            distance = intValue;
+          }
         });
       },
     );
