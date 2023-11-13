@@ -16,7 +16,6 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 
 import '../../api/backend_follow_up_api.dart';
@@ -43,7 +42,7 @@ class FollowUpMenu extends StatelessWidget {
           );
         }
         return PicosScreenFrame(
-          title: AppLocalizations.of(context)!.followUp,
+          title: 'Follow Up',
           body: Column(
             children: <Widget>[
               const Padding(
