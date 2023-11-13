@@ -290,27 +290,6 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
   }
 
   Widget _buildRhythmSelection() {
-    return TextFormField(
-      controller: _heartRateController,
-      decoration: const InputDecoration(
-        labelText: 'Herzrate (40-350)',
-        border: OutlineInputBorder(),
-      ),
-      keyboardType: TextInputType.number,
-      initialValue: heartRate?.toString(),
-      onChanged: (String value) {
-        int intValue = int.tryParse(value) ?? 0;
-        if (intValue < 40 || intValue > 350) {
-          _heartRateController.text = (intValue < 1) ? '40' : '350';
-        }
-        setState(() {
-          saveDisabled = false;
-        });
-      },
-    );
-  }
-
-  Widget _buildLocationTypeSelection() {
     rythmus = rythmus ?? _rythmusSelection1.keys.first;
     String? rythmusType = _rythmusSelection2.keys.first;
     locationType = locationType ?? _locationTypeSelection.keys.first;
@@ -363,6 +342,29 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildLocationTypeSelection() {
+    return DropdownButtonFormField<String>(
+      value: locationType,
+      decoration: const InputDecoration(
+        labelText: 'Standorttyp',
+        border: OutlineInputBorder(),
+      ),
+      items: _locationTypeSelection.entries
+          .map((MapEntry<String, String> entry) {
+        return DropdownMenuItem<String>(
+          value: entry.key,
+          child: Text(entry.value),
+        );
+      }).toList(),
+      onChanged: (String? newValue) {
+        setState(() {
+          saveDisabled = false;
+          locationType = newValue;
+        });
+      },
     );
   }
 
