@@ -407,21 +407,26 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
   Widget _buildTestResultField() {
     return TextFormField(
       controller: _testResultController,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         labelText: 'Testergebnis (0-30)',
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
+        errorText: _isTestResultValid
+            ? null
+            : 'Bitte einen Wert zwischen 0-30 eingeben',
       ),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter.digitsOnly,
       ],
       onChanged: (String value) {
-        int intValue = int.tryParse(value) ?? 0;
-        if (intValue < 0 || intValue > 30) {
-          _testResultController.text = (intValue < 0) ? '0' : '30';
-        }
         setState(() {
-          saveDisabled = false;
+          int? intValue = int.tryParse(value);
+          if (intValue != null && (intValue < 0 || intValue > 30)) {
+            _isTestResultValid = false;
+          } else {
+            _isTestResultValid = true;
+            testResult = intValue;
+          }
         });
       },
     );
