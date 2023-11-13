@@ -50,7 +50,7 @@ class BackendFollowUpApi {
       bloodDiastolic: element['BD_Diastolisch'],
       bloodSystolic: element['BD_Systolisch'],
       rythmus: element['Rythmus'],
-      testResult: element['TestResult'],
+      testResult: element['Testergebnis'],
       healthState: element['HealthState'],
       locationType: element['Lagetype'],
       heartRate: element['Herzfrequenz'],
