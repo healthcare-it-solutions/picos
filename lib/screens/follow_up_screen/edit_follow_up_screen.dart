@@ -36,14 +36,8 @@ class EditFollowUpScreen extends StatefulWidget {
 }
 
 class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
-  TextEditingController _systolicController = TextEditingController();
-  TextEditingController _diastolicController = TextEditingController();
-  TextEditingController _heartRateController = TextEditingController();
-  TextEditingController _distanceController = TextEditingController();
-  TextEditingController _testResultController = TextEditingController();
   List<TextEditingController> _healthStateControllers =
       <TextEditingController>[];
-  TextEditingController _healthScoreController = TextEditingController();
 
   late FollowUp _followUp;
   int? distance;
@@ -94,19 +88,10 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
     healthScore = _followUp.healthScore;
     number = _followUp.number;
 
-    _systolicController =
-        TextEditingController(text: bloodSystolic?.toString() ?? '');
-    _diastolicController =
-        TextEditingController(text: bloodDiastolic?.toString() ?? '');
-    _heartRateController = TextEditingController(text: heartRate?.toString());
-    _distanceController = TextEditingController(text: distance?.toString());
-    _testResultController = TextEditingController(text: testResult?.toString());
     _healthStateControllers = List<TextEditingController>.generate(
       5,
       (int index) => TextEditingController(),
     );
-    _healthScoreController =
-        TextEditingController(text: healthScore?.toString() ?? '');
   }
 
   @override
@@ -116,15 +101,9 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
 
   @override
   void dispose() {
-    _systolicController.dispose();
-    _diastolicController.dispose();
-    _heartRateController.dispose();
-    _distanceController.dispose();
-    _testResultController.dispose();
     for (TextEditingController controller in _healthStateControllers) {
       controller.dispose();
     }
-    _healthScoreController.dispose();
     super.dispose();
   }
 
@@ -133,7 +112,8 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
   bool _isHeartRateValid = true;
   bool _isDistanceValid = true;
   bool _isTestResultValid = true;
-  List<bool> _isHealthStateValid = List<bool>.generate(5, (int index) => true);
+  final List<bool> _isHealthStateValid =
+      List<bool>.generate(5, (int index) => true);
   bool _isHealthScoreValid = true;
 
   @override
