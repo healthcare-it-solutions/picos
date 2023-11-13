@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/api/backend_follow_up_api.dart';
 import 'package:picos/models/follow_up.dart';
@@ -248,18 +249,19 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
               errorText: _isDiastolicValid ? null : 'Bitte Interval beachten!',
             ),
             keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly,
+            ],
             onChanged: (String value) {
-              int? intValue = int.tryParse(value);
-              if (intValue != null && (intValue < 35 || intValue > 150)) {
-                setState(() {
+              setState(() {
+                int? intValue = int.tryParse(value);
+                if (intValue != null && (intValue < 35 || intValue > 150)) {
                   _isDiastolicValid = false;
-                });
-              } else {
-                setState(() {
+                } else {
                   _isDiastolicValid = true;
-                  bloodSystolic = intValue;
-                });
-              }
+                  bloodDiastolic = intValue;
+                }
+              });
             },
           ),
         ),
@@ -278,6 +280,9 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
             : null,
       ),
       keyboardType: TextInputType.number,
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.digitsOnly,
+      ],
       onChanged: (String value) {
         int? intValue = int.tryParse(value);
         setState(() {
@@ -352,8 +357,8 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         labelText: 'Standorttyp',
         border: OutlineInputBorder(),
       ),
-      items: _locationTypeSelection.entries
-          .map((MapEntry<String, String> entry) {
+      items:
+          _locationTypeSelection.entries.map((MapEntry<String, String> entry) {
         return DropdownMenuItem<String>(
           value: entry.key,
           child: Text(entry.value),
@@ -376,6 +381,9 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         border: OutlineInputBorder(),
       ),
       keyboardType: TextInputType.number,
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.digitsOnly,
+      ],
       onChanged: (String value) {
         int intValue = int.tryParse(value) ?? 0;
         if (intValue < 1 || intValue > 600) {
@@ -396,6 +404,9 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         border: OutlineInputBorder(),
       ),
       keyboardType: TextInputType.number,
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.digitsOnly,
+      ],
       onChanged: (String value) {
         int intValue = int.tryParse(value) ?? 0;
         if (intValue < 0 || intValue > 30) {
@@ -426,6 +437,9 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                 border: const OutlineInputBorder(),
               ),
               keyboardType: TextInputType.number,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly,
+              ],
               initialValue: healthState?.toString(),
               onChanged: (String value) {
                 int intValue = int.tryParse(value) ?? 0;
@@ -452,6 +466,9 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         border: OutlineInputBorder(),
       ),
       keyboardType: TextInputType.number,
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.digitsOnly,
+      ],
       initialValue: healthScore?.toString(),
       onChanged: (String value) {
         int intValue = int.tryParse(value) ?? 0;
