@@ -284,11 +284,14 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         FilteringTextInputFormatter.digitsOnly,
       ],
       onChanged: (String value) {
-        int? intValue = int.tryParse(value);
         setState(() {
-          _isHeartRateValid =
-              intValue != null && intValue >= 40 && intValue <= 350;
-          if (!_isHeartRateValid) _heartRateController.clear();
+          int? intValue = int.tryParse(value);
+          if (intValue != null && (intValue < 40 || intValue > 350)) {
+            _isHeartRateValid = false;
+          } else {
+            _isHeartRateValid = true;
+            heartRate = intValue;
+          }
         });
       },
     );
