@@ -448,6 +448,9 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
               decoration: InputDecoration(
                 labelText: 'Zustand ${index + 1}',
                 border: const OutlineInputBorder(),
+                errorText: _isHealthStateValid[index]
+                    ? null
+                    : 'Bitte einen Wert zwischen 1-5 eingeben',
               ),
               keyboardType: TextInputType.number,
               inputFormatters: <TextInputFormatter>[
@@ -455,13 +458,14 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
               ],
               initialValue: healthState?.toString(),
               onChanged: (String value) {
-                int intValue = int.tryParse(value) ?? 0;
-                if (intValue < 1 || intValue > 5) {
-                  _healthStateControllers[index].text =
-                      (intValue < 1) ? '1' : '5';
-                }
                 setState(() {
-                  saveDisabled = false;
+                  int? intValue = int.tryParse(value);
+                  if (intValue != null && (intValue < 1 || intValue > 5)) {
+                    _isHealthStateValid[index] = false;
+                  } else {
+                    _isHealthStateValid[index] = true;
+                    healthState?[index] = intValue;
+                  }
                 });
               },
             ),
