@@ -367,5 +367,7 @@
   "visitDate": "Besuchsdatum",
   "recordDate": "Aufnahmedatum",
   "handbook": "Handbuch",
-  "couldNotLaunch" : "Konnte nicht starten"
+  "couldNotLaunch": "Konnte nicht starten",
+  "toCoi": "Zum Catalog of Items",
+  "toFollowUp": "Zum Follow up"
 }

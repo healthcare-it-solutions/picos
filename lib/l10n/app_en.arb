@@ -1471,8 +1471,16 @@
   "@handbook": {
     "description": "handbook"
   },
-  "couldNotLaunch" : "Could not launch",
+  "couldNotLaunch": "Could not launch",
   "@couldNotLaunch": {
     "description": "Could not launch"
+  },
+  "toCoi": "To catalog of Items",
+  "@toCoi": {
+    "description": "To catalog of Items"
+  },
+  "toFollowUp": "To follow up",
+  "@toFollowUp": {
+    "description": "to follow up"
   }
 }
