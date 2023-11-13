@@ -43,7 +43,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
   TextEditingController _testResultController = TextEditingController();
   List<TextEditingController> _healthStateControllers =
       <TextEditingController>[];
-  final TextEditingController _healthScoreController = TextEditingController();
+  TextEditingController _healthScoreController = TextEditingController();
 
   late FollowUp _followUp;
   int? distance;
@@ -105,6 +105,8 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       5,
       (int index) => TextEditingController(),
     );
+    _healthScoreController =
+        TextEditingController(text: healthScore?.toString() ?? '');
   }
 
   @override
@@ -217,13 +219,16 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       children: <Widget>[
         Expanded(
           child: TextFormField(
-            controller: _systolicController,
+            initialValue: bloodSystolic?.toString(),
             decoration: InputDecoration(
               labelText: 'Systolisch (50-250)',
               border: const OutlineInputBorder(),
               errorText: _isSystolicValid ? null : 'Bitte Interval beachten!',
             ),
             keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly,
+            ],
             onChanged: (String value) {
               int? intValue = int.tryParse(value);
               if (intValue != null && (intValue < 50 || intValue > 250)) {
@@ -242,7 +247,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         const SizedBox(width: 16),
         Expanded(
           child: TextFormField(
-            controller: _diastolicController,
+            initialValue: bloodDiastolic?.toString(),
             decoration: InputDecoration(
               labelText: 'Diastolic (35-150)',
               border: const OutlineInputBorder(),
@@ -271,7 +276,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
 
   Widget _buildHeartRateField() {
     return TextFormField(
-      controller: _heartRateController,
+      initialValue: heartRate?.toString(),
       decoration: InputDecoration(
         labelText: 'Herzrate (40-350)',
         border: const OutlineInputBorder(),
@@ -378,7 +383,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
 
   Widget _buildDistanceField() {
     return TextFormField(
-      controller: _distanceController,
+      initialValue: distance?.toString(),
       decoration: InputDecoration(
         labelText: 'Strecke (1-600)',
         border: const OutlineInputBorder(),
@@ -406,7 +411,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
 
   Widget _buildTestResultField() {
     return TextFormField(
-      controller: _testResultController,
+      initialValue: testResult?.toString(),
       decoration: InputDecoration(
         labelText: 'Testergebnis (0-30)',
         border: const OutlineInputBorder(),
@@ -456,7 +461,6 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.digitsOnly,
               ],
-              initialValue: healthState?.toString(),
               onChanged: (String value) {
                 setState(() {
                   int? intValue = int.tryParse(value);
@@ -477,25 +481,27 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
 
   Widget _buildHealthScoreField() {
     return TextFormField(
-      controller: _healthScoreController,
-      decoration: const InputDecoration(
+      initialValue: healthScore?.toString(),
+      decoration: InputDecoration(
         labelText: 'Gesundheitsscore (1-100)',
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
+        errorText: _isHealthScoreValid
+            ? null
+            : 'Bitte einen Wert zwischen 1-100 eingeben',
       ),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter.digitsOnly,
       ],
-      initialValue: healthScore?.toString(),
       onChanged: (String value) {
-        int intValue = int.tryParse(value) ?? 0;
-        if (intValue < 1 || intValue > 100) {
-          _healthScoreController.text =
-              (intValue < 1) ? '1' : (intValue > 100 ? '100' : value);
-        }
         setState(() {
-          saveDisabled = false;
-          healthScore = int.tryParse(value);
+          int? intValue = int.tryParse(value);
+          if (intValue != null && (intValue < 1 || intValue > 100)) {
+            _isHealthScoreValid = false;
+          } else {
+            _isHealthScoreValid = true;
+            healthScore = intValue;
+          }
         });
       },
     );
