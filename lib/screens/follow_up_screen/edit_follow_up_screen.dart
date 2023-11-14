@@ -36,9 +36,6 @@ class EditFollowUpScreen extends StatefulWidget {
 }
 
 class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
-  List<TextEditingController> _healthStateControllers =
-      <TextEditingController>[];
-
   late FollowUp _followUp;
   int? distance;
   int? bloodDiastolic;
@@ -87,11 +84,6 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
     heartRate = _followUp.heartRate;
     healthScore = _followUp.healthScore;
     number = _followUp.number;
-
-    _healthStateControllers = List<TextEditingController>.generate(
-      5,
-      (int index) => TextEditingController(),
-    );
   }
 
   bool _isSystolicValid = true;
@@ -414,12 +406,12 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: List<Widget>.generate(
-        _healthStateControllers.length,
+        healthState!.length,
         (int index) => Expanded(
           child: Padding(
             padding: EdgeInsets.only(
               left: index == 0 ? 0 : 8,
-              right: index == _healthStateControllers.length - 1 ? 0 : 8,
+              right: index == healthState!.length - 1 ? 0 : 8,
             ),
             child: TextFormField(
               decoration: InputDecoration(
