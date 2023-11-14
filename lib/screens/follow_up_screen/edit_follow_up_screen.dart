@@ -210,7 +210,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
             onChanged: (String value) {
               setState(() {
                 int? intValue = int.tryParse(value);
-                if (intValue != null && (intValue < 50 || intValue > 250)) {
+                if (intValue == null || (intValue < 50 || intValue > 250)) {
                   _isSystolicValid = false;
                   saveDisabled = true;
                 } else {
@@ -238,7 +238,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
             onChanged: (String value) {
               setState(() {
                 int? intValue = int.tryParse(value);
-                if (intValue != null && (intValue < 35 || intValue > 150)) {
+                if (intValue == null || (intValue < 35 || intValue > 150)) {
                   _isDiastolicValid = false;
                   saveDisabled = true;
                 } else {
@@ -271,7 +271,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       onChanged: (String value) {
         setState(() {
           int? intValue = int.tryParse(value);
-          if (intValue != null && (intValue < 40 || intValue > 350)) {
+          if (intValue == null || (intValue < 40 || intValue > 350)) {
             _isHeartRateValid = false;
             saveDisabled = true;
           } else {
@@ -380,7 +380,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       onChanged: (String value) {
         setState(() {
           int? intValue = int.tryParse(value);
-          if (intValue != null && (intValue < 1 || intValue > 600)) {
+          if (intValue == null || (intValue < 1 || intValue > 600)) {
             _isDistanceValid = false;
             saveDisabled = true;
           } else {
@@ -410,7 +410,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       onChanged: (String value) {
         setState(() {
           int? intValue = int.tryParse(value);
-          if (intValue != null && (intValue < 0 || intValue > 30)) {
+          if (intValue == null || (intValue < 0 || intValue > 30)) {
             _isTestResultValid = false;
             saveDisabled = true;
           } else {
@@ -450,7 +450,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
               onChanged: (String value) {
                 setState(() {
                   int? intValue = int.tryParse(value);
-                  if (intValue != null && (intValue < 1 || intValue > 5)) {
+                  if (intValue == null || (intValue < 1 || intValue > 5)) {
                     _isHealthStateValid[index] = false;
                     saveDisabled = true;
                   } else {
@@ -484,7 +484,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       onChanged: (String value) {
         setState(() {
           int? intValue = int.tryParse(value);
-          if (intValue != null && (intValue < 1 || intValue > 100)) {
+          if (intValue == null || (intValue < 1 || intValue > 100)) {
             _isHealthScoreValid = false;
             saveDisabled = true;
           } else {
