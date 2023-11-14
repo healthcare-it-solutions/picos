@@ -70,10 +70,17 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
     'üLT': 'üLT',
   };
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  bool _isSystolicValid = true;
+  bool _isDiastolicValid = true;
+  bool _isHeartRateValid = true;
+  bool _isDistanceValid = true;
+  bool _isTestResultValid = true;
+  final List<bool> _isHealthStateValid =
+      List<bool>.generate(5, (int index) => true);
+  bool _isHealthScoreValid = true;
 
+  @override
+  Widget build(BuildContext context) {
     _followUp = ModalRoute.of(context)!.settings.arguments as FollowUp;
     distance = _followUp.distance;
     bloodDiastolic = _followUp.bloodDiastolic;
@@ -86,19 +93,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
     heartRate = _followUp.heartRate;
     healthScore = _followUp.healthScore;
     number = _followUp.number;
-  }
 
-  bool _isSystolicValid = true;
-  bool _isDiastolicValid = true;
-  bool _isHeartRateValid = true;
-  bool _isDistanceValid = true;
-  bool _isTestResultValid = true;
-  final List<bool> _isHealthStateValid =
-      List<bool>.generate(5, (int index) => true);
-  bool _isHealthScoreValid = true;
-
-  @override
-  Widget build(BuildContext context) {
     return PicosScreenFrame(
       title: 'V${_followUp.number}',
       body: PicosBody(
