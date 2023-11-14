@@ -51,17 +51,17 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
 
   bool saveDisabled = true;
 
-  static const Map<String, String> _rythmusSelection = <String, String>{
+  Map<String, String> rythmusSelect = <String, String>{
     'SR': 'SR',
     'VHF': 'VHF',
     'VT': 'VT',
   };
-  static const Map<String, String> _rythmusTypSelection = <String, String>{
+  Map<String, String> rythmusTypSelect = <String, String>{
     'Rhythmisch': 'Rhythmisch',
     'Arrhythmisch': 'Arrhythmisch',
   };
 
-  static const Map<String, String> _locationTypeSelection = <String, String>{
+  Map<String, String> locationTypeSelect = <String, String>{
     'üRT': 'üRT',
     'RT': 'RT',
     'ST': 'ST',
@@ -276,8 +276,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
               labelText: 'Rhythmus',
               border: OutlineInputBorder(),
             ),
-            items:
-                _rythmusSelection.entries.map((MapEntry<String, String> entry) {
+            items: rythmusSelect.entries.map((MapEntry<String, String> entry) {
               return DropdownMenuItem<String>(
                 value: entry.key,
                 child: Text(entry.value),
@@ -300,8 +299,8 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
               labelText: 'Rhythmus Typ',
               border: OutlineInputBorder(),
             ),
-            items: _rythmusTypSelection.entries
-                .map((MapEntry<String, String> entry) {
+            items:
+                rythmusTypSelect.entries.map((MapEntry<String, String> entry) {
               return DropdownMenuItem<String>(
                 value: entry.key,
                 child: Text(entry.value),
@@ -327,8 +326,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         labelText: 'Standorttyp',
         border: OutlineInputBorder(),
       ),
-      items:
-          _locationTypeSelection.entries.map((MapEntry<String, String> entry) {
+      items: locationTypeSelect.entries.map((MapEntry<String, String> entry) {
         return DropdownMenuItem<String>(
           value: entry.key,
           child: Text(entry.value),

@@ -24,9 +24,9 @@ import 'follow_up_item.dart';
 
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
-class FollowUpMenu extends StatelessWidget {
+class FollowUpList extends StatelessWidget {
   /// PicosMenu constructor
-  const FollowUpMenu({Key? key}) : super(key: key);
+  const FollowUpList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

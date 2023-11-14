@@ -17,7 +17,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:picos/screens/follow_up_screen/edit_follow_up_screen.dart';
-import 'package:picos/screens/follow_up_screen/follow_up_menu.dart';
+import 'package:picos/screens/follow_up_screen/follow_up_list.dart';
 import 'package:picos/screens/legals_screen.dart';
 import 'package:picos/screens/login_screen.dart';
 import 'package:picos/screens/my_documents_screen/add_document_screen.dart';
@@ -98,8 +98,8 @@ class Routes {
       'profile-screen/profile': (BuildContext ctx) => const ProfileScreen(),
       '/my-values_screen/my-values': (BuildContext ctx) =>
           const MyValuesScreen(),
-      '/follow_up_screen/follow_up_menu': (BuildContext ctx) =>
-      const FollowUpMenu(),
+      '/follow_up_screen/follow_up_list': (BuildContext ctx) =>
+          const FollowUpList(),
       '/follow_up_screen/edit_follow_up_screen': (BuildContext ctx) =>
           const EditFollowUpScreen(),
     };
