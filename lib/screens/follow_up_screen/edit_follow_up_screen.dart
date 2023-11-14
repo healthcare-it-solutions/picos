@@ -45,7 +45,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
   int? bloodSystolic;
   String? rythmus;
   int? testResult;
-  List<dynamic>? healthState = <dynamic>['', '', '', ''];
+  List<dynamic>? healthState;
   String? locationType;
   int? heartRate;
   int? healthScore;
@@ -82,7 +82,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
     bloodSystolic = _followUp.bloodSystolic;
     rythmus = _followUp.rythmus;
     testResult = _followUp.testResult;
-    healthState = _followUp.healthState;
+    healthState = _followUp.healthState ?? <dynamic>['', '', '', '', ''];
     locationType = _followUp.locationType;
     heartRate = _followUp.heartRate;
     healthScore = _followUp.healthScore;
@@ -92,19 +92,6 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       5,
       (int index) => TextEditingController(),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    for (TextEditingController controller in _healthStateControllers) {
-      controller.dispose();
-    }
-    super.dispose();
   }
 
   bool _isSystolicValid = true;
@@ -435,7 +422,6 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
               right: index == _healthStateControllers.length - 1 ? 0 : 8,
             ),
             child: TextFormField(
-              controller: _healthStateControllers[index],
               decoration: InputDecoration(
                 labelText: 'Zustand ${index + 1}',
                 border: const OutlineInputBorder(),
@@ -447,6 +433,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.digitsOnly,
               ],
+              initialValue: healthState?[index]?.toString(),
               onChanged: (String value) {
                 setState(() {
                   int? intValue = int.tryParse(value);
