@@ -81,7 +81,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
     rythmus = _followUp.rythmus;
     rythmusTyp = _followUp.rythmusTyp;
     testResult = _followUp.testResult;
-    healthState = _followUp.healthState ?? <dynamic>['', '', '', '', ''];
+    healthState = _followUp.healthState;
     locationType = _followUp.locationType;
     heartRate = _followUp.heartRate;
     healthScore = _followUp.healthScore;
@@ -405,15 +405,16 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
   }
 
   Widget _buildHealthStateFields() {
+    int fieldsCounter = 5;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: List<Widget>.generate(
-        healthState!.length,
+        fieldsCounter,
         (int index) => Expanded(
           child: Padding(
             padding: EdgeInsets.only(
               left: index == 0 ? 0 : 8,
-              right: index == healthState!.length - 1 ? 0 : 8,
+              right: index == fieldsCounter - 1 ? 0 : 8,
             ),
             child: TextFormField(
               decoration: InputDecoration(
@@ -437,6 +438,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                   } else {
                     _isHealthStateValid[index] = true;
                     saveDisabled = false;
+                    healthState ??= <dynamic>['', '', '', '', ''];
                     healthState?[index] = intValue;
                   }
                 });
