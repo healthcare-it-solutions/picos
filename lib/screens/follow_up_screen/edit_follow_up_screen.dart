@@ -45,7 +45,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
   int? bloodSystolic;
   String? rythmus;
   int? testResult;
-  List<dynamic>? healthState;
+  List<dynamic>? healthState = <dynamic>['', '', '', ''];
   String? locationType;
   int? heartRate;
   int? healthScore;
@@ -171,7 +171,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         ),
       ),
       bottomNavigationBar: PicosAddButtonBar(
-        disabled: !_validateForm(),
+        disabled: saveDisabled,
         onTap: () {
           if (_validateForm()) {
             _saveFollowUpData();
@@ -208,17 +208,17 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
               FilteringTextInputFormatter.digitsOnly,
             ],
             onChanged: (String value) {
-              int? intValue = int.tryParse(value);
-              if (intValue != null && (intValue < 50 || intValue > 250)) {
-                setState(() {
+              setState(() {
+                int? intValue = int.tryParse(value);
+                if (intValue != null && (intValue < 50 || intValue > 250)) {
                   _isSystolicValid = false;
-                });
-              } else {
-                setState(() {
+                  saveDisabled = true;
+                } else {
                   _isSystolicValid = true;
+                  saveDisabled = false;
                   bloodSystolic = intValue;
-                });
-              }
+                }
+              });
             },
           ),
         ),
@@ -240,8 +240,10 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                 int? intValue = int.tryParse(value);
                 if (intValue != null && (intValue < 35 || intValue > 150)) {
                   _isDiastolicValid = false;
+                  saveDisabled = true;
                 } else {
                   _isDiastolicValid = true;
+                  saveDisabled = false;
                   bloodDiastolic = intValue;
                 }
               });
@@ -271,8 +273,10 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
           int? intValue = int.tryParse(value);
           if (intValue != null && (intValue < 40 || intValue > 350)) {
             _isHeartRateValid = false;
+            saveDisabled = true;
           } else {
             _isHeartRateValid = true;
+            saveDisabled = false;
             heartRate = intValue;
           }
         });
@@ -378,8 +382,10 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
           int? intValue = int.tryParse(value);
           if (intValue != null && (intValue < 1 || intValue > 600)) {
             _isDistanceValid = false;
+            saveDisabled = true;
           } else {
             _isDistanceValid = true;
+            saveDisabled = false;
             distance = intValue;
           }
         });
@@ -406,8 +412,10 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
           int? intValue = int.tryParse(value);
           if (intValue != null && (intValue < 0 || intValue > 30)) {
             _isTestResultValid = false;
+            saveDisabled = true;
           } else {
             _isTestResultValid = true;
+            saveDisabled = false;
             testResult = intValue;
           }
         });
@@ -444,8 +452,10 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                   int? intValue = int.tryParse(value);
                   if (intValue != null && (intValue < 1 || intValue > 5)) {
                     _isHealthStateValid[index] = false;
+                    saveDisabled = true;
                   } else {
                     _isHealthStateValid[index] = true;
+                    saveDisabled = false;
                     healthState?[index] = intValue;
                   }
                 });
@@ -476,8 +486,10 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
           int? intValue = int.tryParse(value);
           if (intValue != null && (intValue < 1 || intValue > 100)) {
             _isHealthScoreValid = false;
+            saveDisabled = true;
           } else {
             _isHealthScoreValid = true;
+            saveDisabled = false;
             healthScore = intValue;
           }
         });
