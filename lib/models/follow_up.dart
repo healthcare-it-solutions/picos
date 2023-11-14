@@ -27,6 +27,7 @@ class FollowUp extends AbstractDatabaseObject {
     this.bloodDiastolic,
     this.bloodSystolic,
     this.rythmus,
+    this.rythmusTyp,
     this.testResult,
     this.healthState,
     this.locationType,
@@ -49,6 +50,9 @@ class FollowUp extends AbstractDatabaseObject {
 
   /// denotes the rythmus.
   final String? rythmus;
+
+ /// denotes the rythmusTyp.
+  final String? rythmusTyp;
 
   /// denotes the testResult.
   final int? testResult;
@@ -89,6 +93,7 @@ class FollowUp extends AbstractDatabaseObject {
     int? bloodDiastolic,
     int? bloodSystolic,
     String? rythmus,
+    String? rythmusTyp,
     int? testResult,
     List<dynamic>? healthState,
     String? locationType,
@@ -106,6 +111,7 @@ class FollowUp extends AbstractDatabaseObject {
       bloodDiastolic: bloodDiastolic ?? this.bloodDiastolic,
       bloodSystolic: bloodSystolic ?? this.bloodSystolic,
       rythmus: rythmus ?? this.rythmus,
+      rythmusTyp: rythmusTyp ?? this.rythmusTyp,
       testResult: testResult ?? this.testResult,
       healthState: healthState ?? this.healthState,
       locationType: locationType ?? this.locationType,
@@ -132,6 +138,7 @@ class FollowUp extends AbstractDatabaseObject {
         if (bloodDiastolic != null) 'BD_Diastolisch': bloodDiastolic,
         if (bloodSystolic != null) 'BD_Systolisch': bloodSystolic,
         if (rythmus != null) 'Rythmus': rythmus,
+        if (rythmusTyp != null) 'RythmusTyp': rythmusTyp,
         if (testResult != null) 'Testergebnis': testResult,
         if (healthState != null) 'HealthState': healthState,
         if (locationType != null) 'Lagetyp': locationType,

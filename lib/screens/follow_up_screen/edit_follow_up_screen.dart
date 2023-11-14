@@ -41,6 +41,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
   int? bloodDiastolic;
   int? bloodSystolic;
   String? rythmus;
+  String? rythmusTyp;
   int? testResult;
   List<dynamic>? healthState;
   String? locationType;
@@ -50,12 +51,12 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
 
   bool saveDisabled = true;
 
-  static const Map<String, String> _rythmusSelection1 = <String, String>{
+  static const Map<String, String> _rythmusSelection = <String, String>{
     'SR': 'SR',
     'VHF': 'VHF',
     'VT': 'VT',
   };
-  static const Map<String, String> _rythmusSelection2 = <String, String>{
+  static const Map<String, String> _rythmusTypSelection = <String, String>{
     'Rhythmisch': 'Rhythmisch',
     'Arrhythmisch': 'Arrhythmisch',
   };
@@ -78,6 +79,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
     bloodDiastolic = _followUp.bloodDiastolic;
     bloodSystolic = _followUp.bloodSystolic;
     rythmus = _followUp.rythmus;
+    rythmusTyp = _followUp.rythmusTyp;
     testResult = _followUp.testResult;
     healthState = _followUp.healthState ?? <dynamic>['', '', '', '', ''];
     locationType = _followUp.locationType;
@@ -98,7 +100,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
   @override
   Widget build(BuildContext context) {
     return PicosScreenFrame(
-      title: 'Follow-Up ${_followUp.number}',
+      title: 'V${_followUp.number}',
       body: PicosBody(
         child: SingleChildScrollView(
           child: Column(
@@ -264,9 +266,6 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
   }
 
   Widget _buildRhythmSelection() {
-    rythmus = rythmus ?? _rythmusSelection1.keys.first;
-    String? rythmusType = _rythmusSelection2.keys.first;
-    locationType = locationType ?? _locationTypeSelection.keys.first;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
@@ -277,13 +276,14 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
               labelText: 'Rhythmus',
               border: OutlineInputBorder(),
             ),
-            items: _rythmusSelection1.entries
-                .map((MapEntry<String, String> entry) {
+            items:
+                _rythmusSelection.entries.map((MapEntry<String, String> entry) {
               return DropdownMenuItem<String>(
                 value: entry.key,
                 child: Text(entry.value),
               );
             }).toList(),
+            hint: const Text('Rhythmus'),
             onChanged: (String? newValue) {
               setState(() {
                 saveDisabled = false;
@@ -295,22 +295,23 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         const SizedBox(width: 16),
         Expanded(
           child: DropdownButtonFormField<String>(
-            value: rythmusType,
+            value: rythmusTyp,
             decoration: const InputDecoration(
               labelText: 'Rhythmus Typ',
               border: OutlineInputBorder(),
             ),
-            items: _rythmusSelection2.entries
+            items: _rythmusTypSelection.entries
                 .map((MapEntry<String, String> entry) {
               return DropdownMenuItem<String>(
                 value: entry.key,
                 child: Text(entry.value),
               );
             }).toList(),
+            hint: const Text('Rhythmus Typ'),
             onChanged: (String? newValue) {
               setState(() {
                 saveDisabled = false;
-                rythmusType = newValue;
+                rythmusTyp = newValue;
               });
             },
           ),
@@ -333,6 +334,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
           child: Text(entry.value),
         );
       }).toList(),
+      hint: const Text('Standorttyp'),
       onChanged: (String? newValue) {
         setState(() {
           saveDisabled = false;
@@ -482,6 +484,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       bloodDiastolic: bloodDiastolic,
       bloodSystolic: bloodSystolic,
       rythmus: rythmus,
+      rythmusTyp: rythmusTyp,
       testResult: testResult,
       healthState: healthState,
       locationType: locationType,
