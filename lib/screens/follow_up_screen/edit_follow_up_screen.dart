@@ -120,7 +120,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
               _buildLocationTypeSelection(),
               const SizedBox(height: 24),
               Text(
-                '2-MWT (Meter)',
+                '2-MWT',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 8),
@@ -346,7 +346,8 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
     return TextFormField(
       initialValue: distance?.toString(),
       decoration: InputDecoration(
-        labelText: '${AppLocalizations.of(context)!.walkDistance} (1-600)',
+        labelText:
+            '${AppLocalizations.of(context)!.walkDistance} (1-600 meter)',
         border: const OutlineInputBorder(),
         errorText: _isDistanceValid
             ? null
