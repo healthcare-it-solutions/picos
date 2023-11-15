@@ -1439,13 +1439,13 @@
   "@noDataAvailable": {
     "description": "No data available"
   },
-  "systolic": "systolic",
+  "systolic": "Systolic",
   "@systolic ": {
-    "description": "systolic"
+    "description": "Systolic"
   },
-  "diastolic": "diastolic",
+  "diastolic": "Diastolic",
   "@diastolic  ": {
-    "description": "diastolic"
+    "description": "Diastolic"
   },
   "hospital": "Hospital",
   "@hospital": {

@@ -120,7 +120,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
               _buildLocationTypeSelection(),
               const SizedBox(height: 24),
               Text(
-                '2-MWT',
+                '2-MWT (Meter)',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 8),
@@ -134,7 +134,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
               _buildTestResultField(),
               const SizedBox(height: 24),
               Text(
-                'EQ-5D-5L ${AppLocalizations.of(context)!.healthState}',
+                'EQ-5D-5L (${AppLocalizations.of(context)!.healthState})',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 8),
@@ -175,7 +175,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
           child: TextFormField(
             initialValue: bloodSystolic?.toString(),
             decoration: InputDecoration(
-              labelText: '${AppLocalizations.of(context)!.systolic} (50-250)',
+              labelText: 'Syst (50-250 mmHg)',
               border: const OutlineInputBorder(),
               errorText: _isSystolicValid
                   ? null
@@ -205,7 +205,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
           child: TextFormField(
             initialValue: bloodDiastolic?.toString(),
             decoration: InputDecoration(
-              labelText: '${AppLocalizations.of(context)!.diastolic} (35-150)',
+              labelText: 'Dias (35-150 mmHg)',
               border: const OutlineInputBorder(),
               errorText: _isDiastolicValid
                   ? null
@@ -238,7 +238,8 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
     return TextFormField(
       initialValue: heartRate?.toString(),
       decoration: InputDecoration(
-        labelText: '${AppLocalizations.of(context)!.heartFrequency}  (40-350)',
+        labelText:
+            '${AppLocalizations.of(context)!.heartFrequency} (40-350 /min)',
         border: const OutlineInputBorder(),
         errorText: _isHeartRateValid
             ? null
