@@ -1498,5 +1498,13 @@
   "healthState": "Health state",
   "@healthState": {
     "description": "Health state"
+  },
+  "rhythm": "Rhythm",
+  "@rhythm": {
+    "description": "Rhythm"
+  },
+  "rhythmType": "Rhythm type",
+  "@rhythmType": {
+    "description": "Rhythm type"
   }
 }

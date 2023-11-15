@@ -40,8 +40,8 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
   int? distance;
   int? bloodDiastolic;
   int? bloodSystolic;
-  String? rythmus;
-  String? rythmusTyp;
+  String? rhythm;
+  String? rhythmTyp;
   int? testResult;
   List<dynamic>? healthState;
   String? locationType;
@@ -85,8 +85,8 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
     distance = _followUp.distance;
     bloodDiastolic = _followUp.bloodDiastolic;
     bloodSystolic = _followUp.bloodSystolic;
-    rythmus = _followUp.rythmus;
-    rythmusTyp = _followUp.rythmusTyp;
+    rhythm = _followUp.rhythm;
+    rhythmTyp = _followUp.rhythmTyp;
     testResult = _followUp.testResult;
     healthState = _followUp.healthState;
     locationType = _followUp.locationType;
@@ -270,10 +270,10 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       children: <Widget>[
         Expanded(
           child: DropdownButtonFormField<String>(
-            value: rythmus,
-            decoration: const InputDecoration(
-              labelText: 'Rhythmus',
-              border: OutlineInputBorder(),
+            value: rhythm,
+            decoration: InputDecoration(
+              labelText: AppLocalizations.of(context)!.rhythm,
+              border: const OutlineInputBorder(),
             ),
             items: rythmusSelect.entries.map((MapEntry<String, String> entry) {
               return DropdownMenuItem<String>(
@@ -281,11 +281,11 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                 child: Text(entry.value),
               );
             }).toList(),
-            hint: const Text('Rhythmus'),
+            hint: Text(AppLocalizations.of(context)!.rhythm),
             onChanged: (String? newValue) {
               setState(() {
                 saveDisabled = false;
-                rythmus = newValue;
+                rhythm = newValue;
               });
             },
           ),
@@ -293,10 +293,10 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         const SizedBox(width: 16),
         Expanded(
           child: DropdownButtonFormField<String>(
-            value: rythmusTyp,
-            decoration: const InputDecoration(
-              labelText: 'Rhythmus Typ',
-              border: OutlineInputBorder(),
+            value: rhythmTyp,
+            decoration: InputDecoration(
+              labelText: AppLocalizations.of(context)!.rhythmType,
+              border: const OutlineInputBorder(),
             ),
             items:
                 rythmusTypSelect.entries.map((MapEntry<String, String> entry) {
@@ -305,11 +305,11 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                 child: Text(entry.value),
               );
             }).toList(),
-            hint: const Text('Rhythmus Typ'),
+            hint: Text(AppLocalizations.of(context)!.rhythmType),
             onChanged: (String? newValue) {
               setState(() {
                 saveDisabled = false;
-                rythmusTyp = newValue;
+                rhythmTyp = newValue;
               });
             },
           ),
@@ -478,8 +478,8 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       distance: distance,
       bloodDiastolic: bloodDiastolic,
       bloodSystolic: bloodSystolic,
-      rythmus: rythmus,
-      rythmusTyp: rythmusTyp,
+      rythmus: rhythm,
+      rythmusTyp: rhythmTyp,
       testResult: testResult,
       healthState: healthState,
       locationType: locationType,

@@ -373,5 +373,7 @@
   "erroneousInput": "Fehlerhafte Eingabe",
   "testResult": "Testergebnis",
   "healthScore": "Gesundheitsscore",
-  "healthState": "Gesundheitszustand"
+  "healthState": "Gesundheitszustand",
+  "rhythm": "Rhythmus",
+  "rhythmType": "Rhythmus Typ"
 }
