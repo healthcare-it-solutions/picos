@@ -231,6 +231,8 @@ class _ProgressTileState extends State<ProgressTile> {
   void initState() {
     super.initState();
     _countPatientProfileValues();
+    _countWeeklyPatientProfileValues();
+    _countPHQ4PatientProfileValues();
     _progressTileState = _createProgressTileState();
   }
 
