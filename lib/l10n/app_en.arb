@@ -1486,5 +1486,17 @@
   "erroneousInput": "Erroneous input",
   "@erroneousInput": {
     "description": "Erroneous input"
+  },
+  "testResult": "Test result",
+  "@testResult": {
+    "description": "Test result"
+  },
+  "healthScore": "Health score",
+  "@healthScore": {
+    "description": "Health score"
+  },
+  "healthState": "Health state",
+  "@healthState": {
+    "description": "Health state"
   }
 }

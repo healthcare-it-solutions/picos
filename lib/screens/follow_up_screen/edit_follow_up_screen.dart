@@ -134,7 +134,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
               _buildTestResultField(),
               const SizedBox(height: 24),
               Text(
-                'EQ-5D-5L Gesundheitszustand',
+                'EQ-5D-5L ${AppLocalizations.of(context)!.healthState}',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 8),
@@ -175,7 +175,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
           child: TextFormField(
             initialValue: bloodSystolic?.toString(),
             decoration: InputDecoration(
-              labelText: 'Systolisch (50-250)',
+              labelText: '${AppLocalizations.of(context)!.systolic} (50-250)',
               border: const OutlineInputBorder(),
               errorText: _isSystolicValid
                   ? null
@@ -205,7 +205,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
           child: TextFormField(
             initialValue: bloodDiastolic?.toString(),
             decoration: InputDecoration(
-              labelText: 'Diastolic (35-150)',
+              labelText: '${AppLocalizations.of(context)!.diastolic} (35-150)',
               border: const OutlineInputBorder(),
               errorText: _isDiastolicValid
                   ? null
@@ -238,7 +238,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
     return TextFormField(
       initialValue: heartRate?.toString(),
       decoration: InputDecoration(
-        labelText: 'Herzrate (40-350)',
+        labelText: '${AppLocalizations.of(context)!.heartFrequency}  (40-350)',
         border: const OutlineInputBorder(),
         errorText: _isHeartRateValid
             ? null
@@ -345,7 +345,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
     return TextFormField(
       initialValue: distance?.toString(),
       decoration: InputDecoration(
-        labelText: 'Strecke (1-600)',
+        labelText: '${AppLocalizations.of(context)!.walkDistance} (1-600)',
         border: const OutlineInputBorder(),
         errorText: _isDistanceValid
             ? null
@@ -375,7 +375,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
     return TextFormField(
       initialValue: testResult?.toString(),
       decoration: InputDecoration(
-        labelText: 'Testergebnis (0-30)',
+        labelText: '${AppLocalizations.of(context)!.testResult} (0-30)',
         border: const OutlineInputBorder(),
         errorText: _isTestResultValid
             ? null
@@ -404,15 +404,11 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
   Widget _buildHealthStateFields() {
     int fieldsCounter = 5;
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: List<Widget>.generate(
         fieldsCounter,
         (int index) => Expanded(
           child: Padding(
-            padding: EdgeInsets.only(
-              left: index == 0 ? 0 : 8,
-              right: index == fieldsCounter - 1 ? 0 : 8,
-            ),
+            padding: EdgeInsets.symmetric(horizontal: fieldsCounter - 1),
             child: TextFormField(
               decoration: InputDecoration(
                 labelText: '(1-5)',
@@ -451,7 +447,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
     return TextFormField(
       initialValue: healthScore?.toString(),
       decoration: InputDecoration(
-        labelText: 'Gesundheitsscore (1-100)',
+        labelText: '${AppLocalizations.of(context)!.healthScore} (1-100)',
         border: const OutlineInputBorder(),
         errorText: _isHealthScoreValid
             ? null
