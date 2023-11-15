@@ -375,5 +375,6 @@
   "healthScore": "Gesundheitsscore",
   "healthState": "Gesundheitszustand",
   "rhythm": "Rhythmus",
-  "rhythmType": "Rhythmus Typ"
+  "rhythmType": "Rhythmus Typ",
+  "electricalAxisDeviation": "Lagetyp"
 }

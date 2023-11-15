@@ -30,7 +30,7 @@ class FollowUp extends AbstractDatabaseObject {
     this.rhythmTyp,
     this.testResult,
     this.healthState,
-    this.locationType,
+    this.electricalAxisDeviation,
     this.heartRate,
     this.healthScore,
     this.number,
@@ -51,7 +51,7 @@ class FollowUp extends AbstractDatabaseObject {
   /// denotes the rythmus.
   final String? rhythm;
 
- /// denotes the rythmusTyp.
+  /// denotes the rythmusTyp.
   final String? rhythmTyp;
 
   /// denotes the testResult.
@@ -61,7 +61,7 @@ class FollowUp extends AbstractDatabaseObject {
   final List<dynamic>? healthState;
 
   /// denotes the locationType.
-  final String? locationType;
+  final String? electricalAxisDeviation;
 
   /// denotes the heartRate.
   final int? heartRate;
@@ -114,7 +114,7 @@ class FollowUp extends AbstractDatabaseObject {
       rhythmTyp: rythmusTyp ?? this.rhythmTyp,
       testResult: testResult ?? this.testResult,
       healthState: healthState ?? this.healthState,
-      locationType: locationType ?? this.locationType,
+      electricalAxisDeviation: locationType ?? this.electricalAxisDeviation,
       heartRate: heartRate ?? this.heartRate,
       healthScore: healthScore ?? this.healthScore,
       number: number ?? this.number,
@@ -141,7 +141,7 @@ class FollowUp extends AbstractDatabaseObject {
         if (rhythmTyp != null) 'RythmusTyp': rhythmTyp,
         if (testResult != null) 'Testergebnis': testResult,
         if (healthState != null) 'HealthState': healthState,
-        if (locationType != null) 'Lagetyp': locationType,
+        if (electricalAxisDeviation != null) 'Lagetyp': electricalAxisDeviation,
         if (heartRate != null) 'Herzfrequenz': heartRate,
         if (healthScore != null) 'Gesundheitsscore': healthScore,
         if (number != null) 'number': number,

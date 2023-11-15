@@ -53,7 +53,7 @@ class BackendFollowUpApi {
       rhythmTyp: element['RythmusTyp'],
       testResult: element['Testergebnis'],
       healthState: element['HealthState'],
-      locationType: element['Lagetyp'],
+      electricalAxisDeviation: element['Lagetyp'],
       heartRate: element['Herzfrequenz'],
       healthScore: element['Gesundheitsscore'],
       number: element['number'],

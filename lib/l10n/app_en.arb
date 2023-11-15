@@ -1506,5 +1506,9 @@
   "rhythmType": "Rhythm type",
   "@rhythmType": {
     "description": "Rhythm type"
+  },
+  "electricalAxisDeviation": "Electrical axis deviation",
+  "@electricalAxisDeviation": {
+    "description": "Electrical axis deviation"
   }
 }

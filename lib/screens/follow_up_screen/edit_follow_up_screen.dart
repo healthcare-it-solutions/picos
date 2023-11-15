@@ -89,7 +89,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
     rhythmTyp = _followUp.rhythmTyp;
     testResult = _followUp.testResult;
     healthState = _followUp.healthState;
-    locationType = _followUp.locationType;
+    locationType = _followUp.electricalAxisDeviation;
     heartRate = _followUp.heartRate;
     healthScore = _followUp.healthScore;
     number = _followUp.number;
@@ -321,9 +321,9 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
   Widget _buildLocationTypeSelection() {
     return DropdownButtonFormField<String>(
       value: locationType,
-      decoration: const InputDecoration(
-        labelText: 'Standorttyp',
-        border: OutlineInputBorder(),
+      decoration: InputDecoration(
+        labelText: AppLocalizations.of(context)!.electricalAxisDeviation,
+        border: const OutlineInputBorder(),
       ),
       items: locationTypeSelect.entries.map((MapEntry<String, String> entry) {
         return DropdownMenuItem<String>(
@@ -331,7 +331,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
           child: Text(entry.value),
         );
       }).toList(),
-      hint: const Text('Standorttyp'),
+      hint: Text(AppLocalizations.of(context)!.electricalAxisDeviation),
       onChanged: (String? newValue) {
         setState(() {
           saveDisabled = false;
