@@ -32,6 +32,7 @@ class PHQ4 extends AbstractDatabaseObject {
   }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt) {
     hasNullValues = _checkHasNullValues();
     hasAnyValue = _checkHasAnyValue();
+    countPHQ4Values = _countPHQ4Values();
   }
 
   /// The database table the objects are stored in.
@@ -57,6 +58,9 @@ class PHQ4 extends AbstractDatabaseObject {
 
   /// The information if this objects has any non-null value.
   late final bool hasAnyValue;
+
+  /// The information how many PHQ4 values should be considered.
+  late final int countPHQ4Values;
 
   @override
   get table {
@@ -114,5 +118,16 @@ class PHQ4 extends AbstractDatabaseObject {
     }
 
     return false;
+  }
+
+  int _countPHQ4Values() {
+    int counterPHQ4Values = 0;
+
+    if (a != null) counterPHQ4Values++;
+    if (b != null) counterPHQ4Values++;
+    if (c != null) counterPHQ4Values++;
+    if (d != null) counterPHQ4Values++;
+
+    return counterPHQ4Values;
   }
 }

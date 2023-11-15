@@ -32,6 +32,7 @@ class Weekly extends AbstractDatabaseObject {
   }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt) {
     hasNullValues = _checkHasNullValues();
     hasAnyValue = _checkHasAnyValue();
+    countWeeklyValues = _countWeeklyValues();
   }
 
   /// The database table the objects are stored in.
@@ -57,6 +58,9 @@ class Weekly extends AbstractDatabaseObject {
 
   /// The information if this objects has any non-null value.
   late final bool hasAnyValue;
+
+  /// The information how many weekly values should be considered.
+  late final int countWeeklyValues;
 
   @override
   get table {
@@ -120,5 +124,16 @@ class Weekly extends AbstractDatabaseObject {
     }
 
     return false;
+  }
+
+  int _countWeeklyValues() {
+    int counterWeeklyValues = 0;
+
+    if (bodyWeight != null) counterWeeklyValues++;
+    if (bmi != null) counterWeeklyValues++;
+    if (sleepQuality != null) counterWeeklyValues++;
+    if (walkingDistance != null) counterWeeklyValues++;
+
+    return counterWeeklyValues;
   }
 }

@@ -35,6 +35,7 @@ class Daily extends AbstractDatabaseObject {
   }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt) {
     hasNullValues = _checkHasNullValues();
     hasAnyValue = _checkHasAnyValue();
+    countDailyValues = _countDailyValues();
   }
 
   /// The database table the objects are stored in.
@@ -69,6 +70,9 @@ class Daily extends AbstractDatabaseObject {
 
   /// The information if this objects has any non-null value.
   late final bool hasAnyValue;
+
+  /// The information how many Daily Values should be considered.
+  late final int countDailyValues;
 
   @override
   get table {
@@ -147,5 +151,19 @@ class Daily extends AbstractDatabaseObject {
     }
 
     return false;
+  }
+
+  int _countDailyValues() {
+    int counterDailyValues = 0;
+
+    if (bloodDiastolic != null) counterDailyValues++;
+    if (bloodSugar != null) counterDailyValues++;
+    if (bloodSystolic != null) counterDailyValues++;
+    if (heartFrequency != null) counterDailyValues++;
+    if (pain != null) counterDailyValues++;
+    if (sleepDuration != null) counterDailyValues++;
+    if (bloodSugarMol != null) counterDailyValues++;
+
+    return counterDailyValues;
   }
 }
