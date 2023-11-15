@@ -147,7 +147,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         ),
       ),
       bottomNavigationBar: PicosAddButtonBar(
-        disabled: saveDisabled,
+        disabled: saveDisabled || !_validateForm(),
         onTap: () {
           if (_validateForm()) {
             _saveFollowUpData();
