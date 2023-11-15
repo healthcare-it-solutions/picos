@@ -24,9 +24,9 @@ import '../../widgets/picos_add_button_bar.dart';
 import '../../widgets/picos_body.dart';
 import '../../widgets/picos_screen_frame.dart';
 
-/// Questionnaire blood pressure page.
+/// Edit follow up screen.
 class EditFollowUpScreen extends StatefulWidget {
-  /// BloodPressure constructor.
+  /// EditFollowUpScreen constructor.
   const EditFollowUpScreen({
     Key? key,
   }) : super(key: key);
@@ -177,7 +177,9 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
             decoration: InputDecoration(
               labelText: 'Systolisch (50-250)',
               border: const OutlineInputBorder(),
-              errorText: _isSystolicValid ? null : 'Bitte Interval beachten!',
+              errorText: _isSystolicValid
+                  ? null
+                  : AppLocalizations.of(context)!.erroneousInput,
             ),
             keyboardType: TextInputType.number,
             inputFormatters: <TextInputFormatter>[
@@ -205,7 +207,9 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
             decoration: InputDecoration(
               labelText: 'Diastolic (35-150)',
               border: const OutlineInputBorder(),
-              errorText: _isDiastolicValid ? null : 'Bitte Interval beachten!',
+              errorText: _isDiastolicValid
+                  ? null
+                  : AppLocalizations.of(context)!.erroneousInput,
             ),
             keyboardType: TextInputType.number,
             inputFormatters: <TextInputFormatter>[
@@ -236,9 +240,9 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       decoration: InputDecoration(
         labelText: 'Herzrate (40-350)',
         border: const OutlineInputBorder(),
-        errorText: !_isHeartRateValid
-            ? 'Bitte einen Wert zwischen 40-350 eingeben'
-            : null,
+        errorText: _isHeartRateValid
+            ? null
+            : AppLocalizations.of(context)!.erroneousInput,
       ),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
@@ -345,7 +349,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         border: const OutlineInputBorder(),
         errorText: _isDistanceValid
             ? null
-            : 'Bitte einen Wert zwischen 1-600 eingeben',
+            : AppLocalizations.of(context)!.erroneousInput,
       ),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
@@ -375,7 +379,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         border: const OutlineInputBorder(),
         errorText: _isTestResultValid
             ? null
-            : 'Bitte einen Wert zwischen 0-30 eingeben',
+            : AppLocalizations.of(context)!.erroneousInput,
       ),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
@@ -411,11 +415,11 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
             ),
             child: TextFormField(
               decoration: InputDecoration(
-                labelText: 'Zustand ${index + 1}',
+                labelText: '(1-5)',
                 border: const OutlineInputBorder(),
                 errorText: _isHealthStateValid[index]
                     ? null
-                    : 'Bitte einen Wert zwischen 1-5 eingeben',
+                    : AppLocalizations.of(context)!.erroneousInput,
               ),
               keyboardType: TextInputType.number,
               inputFormatters: <TextInputFormatter>[
@@ -451,7 +455,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         border: const OutlineInputBorder(),
         errorText: _isHealthScoreValid
             ? null
-            : 'Bitte einen Wert zwischen 1-100 eingeben',
+            : AppLocalizations.of(context)!.erroneousInput,
       ),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
