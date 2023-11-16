@@ -37,19 +37,19 @@ class EditFollowUpScreen extends StatefulWidget {
 
 class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
   late FollowUp _followUp;
-  int? distance;
-  int? bloodDiastolic;
-  int? bloodSystolic;
-  String? rhythm;
-  String? rhythmTyp;
-  int? testResult;
-  List<dynamic>? healthState;
-  String? locationType;
-  int? heartRate;
-  int? healthScore;
-  int? number;
+  int? _distance;
+  int? _bloodDiastolic;
+  int? _bloodSystolic;
+  String? _rhythm;
+  String? _rhythmTyp;
+  int? _testResult;
+  List<dynamic>? _healthState;
+  String? _locationType;
+  int? _heartRate;
+  int? _healthScore;
+  int? _number;
 
-  bool saveDisabled = true;
+  bool _saveDisabled = true;
 
   Map<String, String> rythmusSelect = <String, String>{
     'SR': 'SR',
@@ -78,83 +78,88 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
   final List<bool> _isHealthStateValid =
       List<bool>.generate(5, (int index) => true);
   bool _isHealthScoreValid = true;
+
   TextStyle errorTextStyle = const TextStyle(color: Colors.red, fontSize: 14);
 
   @override
-  Widget build(BuildContext context) {
-    _followUp = ModalRoute.of(context)!.settings.arguments as FollowUp;
-    distance = _followUp.distance;
-    bloodDiastolic = _followUp.bloodDiastolic;
-    bloodSystolic = _followUp.bloodSystolic;
-    rhythm = _followUp.rhythm;
-    rhythmTyp = _followUp.rhythmTyp;
-    testResult = _followUp.testResult;
-    healthState = _followUp.healthState;
-    locationType = _followUp.electricalAxisDeviation;
-    heartRate = _followUp.heartRate;
-    healthScore = _followUp.healthScore;
-    number = _followUp.number;
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _initFollowUpData();
+  }
 
+  void _initFollowUpData() {
+    _followUp = ModalRoute.of(context)!.settings.arguments as FollowUp;
+    _distance = _followUp.distance;
+    _bloodDiastolic = _followUp.bloodDiastolic;
+    _bloodSystolic = _followUp.bloodSystolic;
+    _rhythm = _followUp.rhythm;
+    _rhythmTyp = _followUp.rhythmTyp;
+    _testResult = _followUp.testResult;
+    _healthState = _followUp.healthState;
+    _locationType = _followUp.electricalAxisDeviation;
+    _heartRate = _followUp.heartRate;
+    _healthScore = _followUp.healthScore;
+    _number = _followUp.number;
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return PicosScreenFrame(
       title: 'V${_followUp.number}',
-      body: PicosBody(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                AppLocalizations.of(context)!.bloodPressure,
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const SizedBox(height: 8),
-              _buildBloodPressureField(),
-              const SizedBox(height: 24),
-              Text(
-                'EKG',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const SizedBox(height: 8),
-              _buildHeartRateField(),
-              const SizedBox(height: 16),
-              _buildRhythmSelection(),
-              const SizedBox(height: 16),
-              _buildLocationTypeSelection(),
-              const SizedBox(height: 24),
-              Text(
-                '2-MWT',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const SizedBox(height: 8),
-              _buildDistanceField(),
-              const SizedBox(height: 24),
-              Text(
-                'MoCA',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const SizedBox(height: 8),
-              _buildTestResultField(),
-              const SizedBox(height: 24),
-              Text(
-                'EQ-5D-5L (${AppLocalizations.of(context)!.healthState})',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const SizedBox(height: 8),
-              _buildHealthStateFields(),
-              const SizedBox(height: 24),
-              _buildHealthScoreField(),
-              const SizedBox(height: 24),
-            ],
+      body: PicosBody(child: _buildForm()),
+      bottomNavigationBar: _buildBottomNavigationBar(),
+    );
+  }
+
+  Widget _buildForm() {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _buildSectionTitle(AppLocalizations.of(context)!.bloodPressure),
+          const SizedBox(height: 8),
+          _buildBloodPressureField(),
+          const SizedBox(height: 24),
+          _buildSectionTitle('EKG'),
+          const SizedBox(height: 8),
+          _buildHeartRateField(),
+          const SizedBox(height: 16),
+          _buildRhythmSelection(),
+          const SizedBox(height: 16),
+          _buildLocationTypeSelection(),
+          const SizedBox(height: 24),
+          _buildSectionTitle('2-MWT'),
+          const SizedBox(height: 8),
+          _buildDistanceField(),
+          const SizedBox(height: 24),
+          _buildSectionTitle('MoCA'),
+          const SizedBox(height: 8),
+          _buildTestResultField(),
+          const SizedBox(height: 24),
+          _buildSectionTitle(
+            'EQ-5D-5L (${AppLocalizations.of(context)!.healthState})',
           ),
-        ),
+          const SizedBox(height: 8),
+          _buildHealthStateFields(),
+          const SizedBox(height: 24),
+          _buildHealthScoreField(),
+          const SizedBox(height: 24),
+        ],
       ),
-      bottomNavigationBar: PicosAddButtonBar(
-        disabled: saveDisabled || !_validateForm(),
-        onTap: () {
-          if (_validateForm()) {
-            _saveFollowUpData();
-          }
-        },
-      ),
+    );
+  }
+
+  Widget _buildSectionTitle(String title) {
+    return Text(
+      title,
+      style: Theme.of(context).textTheme.titleLarge,
+    );
+  }
+
+  Widget _buildBottomNavigationBar() {
+    return PicosAddButtonBar(
+      disabled: _saveDisabled || !_validateForm(),
+      onTap: _handleSave,
     );
   }
 
@@ -168,13 +173,38 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         _isHealthScoreValid;
   }
 
+  void _handleSave() {
+    if (_validateForm()) {
+      _saveFollowUpData();
+    }
+  }
+
+  void _saveFollowUpData() {
+    _followUp = _followUp.copyWith(
+      distance: _distance,
+      bloodDiastolic: _bloodDiastolic,
+      bloodSystolic: _bloodSystolic,
+      rythmus: _rhythm,
+      rythmusTyp: _rhythmTyp,
+      testResult: _testResult,
+      healthState: _healthState,
+      locationType: _locationType,
+      heartRate: _heartRate,
+      healthScore: _healthScore,
+      number: _number,
+    );
+    BackendFollowUpApi.saveFollowUp(_followUp);
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
+  }
+
   Widget _buildBloodPressureField() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Expanded(
           child: TextFormField(
-            initialValue: bloodSystolic?.toString(),
+            initialValue: _bloodSystolic?.toString(),
             decoration: InputDecoration(
               labelText: 'Syst (50-250 mmHg)',
               border: const OutlineInputBorder(),
@@ -192,11 +222,11 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                 int? intValue = int.tryParse(value);
                 if (intValue == null || (intValue < 50 || intValue > 250)) {
                   _isSystolicValid = false;
-                  saveDisabled = true;
+                  _saveDisabled = true;
                 } else {
                   _isSystolicValid = true;
-                  saveDisabled = false;
-                  bloodSystolic = intValue;
+                  _saveDisabled = false;
+                  _bloodSystolic = intValue;
                 }
               });
             },
@@ -205,7 +235,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         const SizedBox(width: 16),
         Expanded(
           child: TextFormField(
-            initialValue: bloodDiastolic?.toString(),
+            initialValue: _bloodDiastolic?.toString(),
             decoration: InputDecoration(
               labelText: 'Dias (35-150 mmHg)',
               border: const OutlineInputBorder(),
@@ -223,11 +253,11 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                 int? intValue = int.tryParse(value);
                 if (intValue == null || (intValue < 35 || intValue > 150)) {
                   _isDiastolicValid = false;
-                  saveDisabled = true;
+                  _saveDisabled = true;
                 } else {
                   _isDiastolicValid = true;
-                  saveDisabled = false;
-                  bloodDiastolic = intValue;
+                  _saveDisabled = false;
+                  _bloodDiastolic = intValue;
                 }
               });
             },
@@ -239,7 +269,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
 
   Widget _buildHeartRateField() {
     return TextFormField(
-      initialValue: heartRate?.toString(),
+      initialValue: _heartRate?.toString(),
       decoration: InputDecoration(
         labelText:
             '${AppLocalizations.of(context)!.heartFrequency} (40-350 /min)',
@@ -258,11 +288,11 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
           int? intValue = int.tryParse(value);
           if (intValue == null || (intValue < 40 || intValue > 350)) {
             _isHeartRateValid = false;
-            saveDisabled = true;
+            _saveDisabled = true;
           } else {
             _isHeartRateValid = true;
-            saveDisabled = false;
-            heartRate = intValue;
+            _saveDisabled = false;
+            _heartRate = intValue;
           }
         });
       },
@@ -275,7 +305,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       children: <Widget>[
         Expanded(
           child: DropdownButtonFormField<String>(
-            value: rhythm,
+            value: _rhythm,
             decoration: InputDecoration(
               labelText: AppLocalizations.of(context)!.rhythm,
               border: const OutlineInputBorder(),
@@ -289,8 +319,8 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
             hint: Text(AppLocalizations.of(context)!.rhythm),
             onChanged: (String? newValue) {
               setState(() {
-                saveDisabled = false;
-                rhythm = newValue;
+                _saveDisabled = false;
+                _rhythm = newValue;
               });
             },
           ),
@@ -298,7 +328,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         const SizedBox(width: 16),
         Expanded(
           child: DropdownButtonFormField<String>(
-            value: rhythmTyp,
+            value: _rhythmTyp,
             decoration: InputDecoration(
               labelText: AppLocalizations.of(context)!.rhythmType,
               border: const OutlineInputBorder(),
@@ -313,8 +343,8 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
             hint: Text(AppLocalizations.of(context)!.rhythmType),
             onChanged: (String? newValue) {
               setState(() {
-                saveDisabled = false;
-                rhythmTyp = newValue;
+                _saveDisabled = false;
+                _rhythmTyp = newValue;
               });
             },
           ),
@@ -325,7 +355,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
 
   Widget _buildLocationTypeSelection() {
     return DropdownButtonFormField<String>(
-      value: locationType,
+      value: _locationType,
       decoration: InputDecoration(
         labelText: AppLocalizations.of(context)!.electricalAxisDeviation,
         border: const OutlineInputBorder(),
@@ -339,8 +369,8 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       hint: Text(AppLocalizations.of(context)!.electricalAxisDeviation),
       onChanged: (String? newValue) {
         setState(() {
-          saveDisabled = false;
-          locationType = newValue;
+          _saveDisabled = false;
+          _locationType = newValue;
         });
       },
     );
@@ -348,7 +378,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
 
   Widget _buildDistanceField() {
     return TextFormField(
-      initialValue: distance?.toString(),
+      initialValue: _distance?.toString(),
       decoration: InputDecoration(
         labelText:
             '${AppLocalizations.of(context)!.walkDistance} (1-600 meter)',
@@ -367,11 +397,11 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
           int? intValue = int.tryParse(value);
           if (intValue == null || (intValue < 1 || intValue > 600)) {
             _isDistanceValid = false;
-            saveDisabled = true;
+            _saveDisabled = true;
           } else {
             _isDistanceValid = true;
-            saveDisabled = false;
-            distance = intValue;
+            _saveDisabled = false;
+            _distance = intValue;
           }
         });
       },
@@ -380,7 +410,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
 
   Widget _buildTestResultField() {
     return TextFormField(
-      initialValue: testResult?.toString(),
+      initialValue: _testResult?.toString(),
       decoration: InputDecoration(
         labelText: '${AppLocalizations.of(context)!.testResult} (0-30)',
         border: const OutlineInputBorder(),
@@ -398,11 +428,11 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
           int? intValue = int.tryParse(value);
           if (intValue == null || (intValue < 0 || intValue > 30)) {
             _isTestResultValid = false;
-            saveDisabled = true;
+            _saveDisabled = true;
           } else {
             _isTestResultValid = true;
-            saveDisabled = false;
-            testResult = intValue;
+            _saveDisabled = false;
+            _testResult = intValue;
           }
         });
       },
@@ -429,7 +459,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
             inputFormatters: <TextInputFormatter>[
               FilteringTextInputFormatter.digitsOnly,
             ],
-            initialValue: healthState?[index]?.toString(),
+            initialValue: _healthState?[index]?.toString(),
             onChanged: (String value) {
               setState(() {
                 int? intValue = int.tryParse(value);
@@ -437,10 +467,10 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
                   _isHealthStateValid[index] = false;
                 } else {
                   _isHealthStateValid[index] = true;
-                  healthState ??= <dynamic>['', '', '', '', ''];
-                  healthState?[index] = intValue;
+                  _healthState ??= <dynamic>['', '', '', '', ''];
+                  _healthState?[index] = intValue;
                 }
-                saveDisabled = _isHealthStateValid.contains(false);
+                _saveDisabled = _isHealthStateValid.contains(false);
               });
             },
           ),
@@ -465,7 +495,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
 
   Widget _buildHealthScoreField() {
     return TextFormField(
-      initialValue: healthScore?.toString(),
+      initialValue: _healthScore?.toString(),
       decoration: InputDecoration(
         labelText: '${AppLocalizations.of(context)!.healthScore} (1-100)',
         border: const OutlineInputBorder(),
@@ -483,33 +513,14 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
           int? intValue = int.tryParse(value);
           if (intValue == null || (intValue < 1 || intValue > 100)) {
             _isHealthScoreValid = false;
-            saveDisabled = true;
+            _saveDisabled = true;
           } else {
             _isHealthScoreValid = true;
-            saveDisabled = false;
-            healthScore = intValue;
+            _saveDisabled = false;
+            _healthScore = intValue;
           }
         });
       },
     );
-  }
-
-  void _saveFollowUpData() {
-    _followUp = _followUp.copyWith(
-      distance: distance,
-      bloodDiastolic: bloodDiastolic,
-      bloodSystolic: bloodSystolic,
-      rythmus: rhythm,
-      rythmusTyp: rhythmTyp,
-      testResult: testResult,
-      healthState: healthState,
-      locationType: locationType,
-      heartRate: heartRate,
-      healthScore: healthScore,
-      number: number,
-    );
-    BackendFollowUpApi.saveFollowUp(_followUp);
-    Navigator.of(context).pop();
-    Navigator.of(context).pop();
   }
 }
