@@ -78,6 +78,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
   final List<bool> _isHealthStateValid =
       List<bool>.generate(5, (int index) => true);
   bool _isHealthScoreValid = true;
+  TextStyle errorTextStyle = const TextStyle(color: Colors.red, fontSize: 14);
 
   @override
   Widget build(BuildContext context) {
@@ -180,6 +181,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
               errorText: _isSystolicValid
                   ? null
                   : AppLocalizations.of(context)!.erroneousInput,
+              errorStyle: errorTextStyle,
             ),
             keyboardType: TextInputType.number,
             inputFormatters: <TextInputFormatter>[
@@ -210,6 +212,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
               errorText: _isDiastolicValid
                   ? null
                   : AppLocalizations.of(context)!.erroneousInput,
+              errorStyle: errorTextStyle,
             ),
             keyboardType: TextInputType.number,
             inputFormatters: <TextInputFormatter>[
@@ -244,6 +247,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         errorText: _isHeartRateValid
             ? null
             : AppLocalizations.of(context)!.erroneousInput,
+        errorStyle: errorTextStyle,
       ),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
@@ -352,6 +356,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         errorText: _isDistanceValid
             ? null
             : AppLocalizations.of(context)!.erroneousInput,
+        errorStyle: errorTextStyle,
       ),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
@@ -382,6 +387,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         errorText: _isTestResultValid
             ? null
             : AppLocalizations.of(context)!.erroneousInput,
+        errorStyle: errorTextStyle,
       ),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
@@ -405,43 +411,55 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
 
   Widget _buildHealthStateFields() {
     int fieldsCounter = 5;
-    return Row(
-      children: List<Widget>.generate(
-        fieldsCounter,
-        (int index) => Expanded(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: fieldsCounter - 1),
-            child: TextFormField(
-              decoration: InputDecoration(
-                labelText: '(1-5)',
-                border: const OutlineInputBorder(),
-                errorText: _isHealthStateValid[index]
-                    ? null
-                    : AppLocalizations.of(context)!.erroneousInput,
-              ),
-              keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly,
-              ],
-              initialValue: healthState?[index]?.toString(),
-              onChanged: (String value) {
-                setState(() {
-                  int? intValue = int.tryParse(value);
-                  if (intValue == null || (intValue < 1 || intValue > 5)) {
-                    _isHealthStateValid[index] = false;
-                    saveDisabled = true;
-                  } else {
-                    _isHealthStateValid[index] = true;
-                    saveDisabled = false;
-                    healthState ??= <dynamic>['', '', '', '', ''];
-                    healthState?[index] = intValue;
-                  }
-                });
-              },
+    bool hasError = _isHealthStateValid.contains(false);
+
+    List<Widget> fieldWidgets = List<Widget>.generate(
+      fieldsCounter,
+      (int index) => Expanded(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: fieldsCounter - 1),
+          child: TextFormField(
+            decoration: InputDecoration(
+              labelText: '(1-5)',
+              border: const OutlineInputBorder(),
+              errorText: _isHealthStateValid[index] ? null : '',
+              errorStyle: errorTextStyle,
             ),
+            keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly,
+            ],
+            initialValue: healthState?[index]?.toString(),
+            onChanged: (String value) {
+              setState(() {
+                int? intValue = int.tryParse(value);
+                if (intValue == null || (intValue < 1 || intValue > 5)) {
+                  _isHealthStateValid[index] = false;
+                } else {
+                  _isHealthStateValid[index] = true;
+                  healthState ??= <dynamic>['', '', '', '', ''];
+                  healthState?[index] = intValue;
+                }
+                saveDisabled = _isHealthStateValid.contains(false);
+              });
+            },
           ),
         ),
       ),
+    );
+
+    return Column(
+      children: <Widget>[
+        Row(children: fieldWidgets),
+        if (hasError)
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              AppLocalizations.of(context)!.erroneousInput,
+              style: errorTextStyle,
+            ),
+          ),
+      ],
     );
   }
 
@@ -454,6 +472,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         errorText: _isHealthScoreValid
             ? null
             : AppLocalizations.of(context)!.erroneousInput,
+        errorStyle: errorTextStyle,
       ),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
