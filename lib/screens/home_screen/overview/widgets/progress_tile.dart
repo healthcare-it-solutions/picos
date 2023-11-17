@@ -60,167 +60,126 @@ class _ProgressTileState extends State<ProgressTile> {
     }
   }
 
-  Future<int> _countPatientProfileValues() async {
-    int counterEnabledValues = 0;
-    if (Backend.user.objectId != null) {
-      dynamic responsePatient = await Backend.getEntry(
-        PatientProfile.databaseTable,
-        'Patient',
-        Backend.user.objectId!,
-      );
-      dynamic element = await responsePatient.results?.first;
-      if (element != null) {
-        _patientProfile = PatientProfile(
-          weightBMIEnabled: element['Weight_BMI'],
-          heartFrequencyEnabled: element['HeartRate'],
-          bloodPressureEnabled: element['BloodPressure'],
-          bloodSugarLevelsEnabled: element['BloodSugar'],
-          walkDistanceEnabled: element['WalkingDistance'],
-          sleepDurationEnabled: element['SleepDuration'],
-          sleepQualityEnabled: element['SISQS'],
-          painEnabled: element['Pain'],
-          phq4Enabled: element['PHQ4'],
-          medicationEnabled: element['Medication'],
-          therapyEnabled: element['Therapies'],
-          doctorsVisitEnabled: element['Stays'],
-          patientObjectId: element['Patient']['objectId'],
-          doctorObjectId: element['Doctor']['objectId'],
-          objectId: element['objectId'],
-          createdAt: element['createdAt'],
-          updatedAt: element['updatedAt'],
-        );
-      }
-
-      //if (_patientProfile!.weightBMIEnabled) counterEnabledValues++;
-      if (_patientProfile!.heartFrequencyEnabled) counterEnabledValues++;
-      if (_patientProfile!.bloodPressureEnabled) {
-        counterEnabledValues = counterEnabledValues + 2;
-      }
-      if (_patientProfile!.bloodSugarLevelsEnabled) counterEnabledValues++;
-      //if (_patientProfile!.walkDistanceEnabled) counterEnabledValues++;
-      if (_patientProfile!.sleepDurationEnabled) counterEnabledValues++;
-      if (_patientProfile!.sleepQualityEnabled) counterEnabledValues++;
-      //if (_patientProfile!.painEnabled) counterEnabledValues++;
-      if (_patientProfile!.phq4Enabled) counterEnabledValues++;
-      /*if (_patientProfile!.medicationEnabled) counterEnabledValues++;
-      if (_patientProfile!.therapyEnabled) counterEnabledValues++;
-      if (_patientProfile!.doctorsVisitEnabled) counterEnabledValues++;*/
-    }
-
-    return counterEnabledValues;
-  }
-
-  Future<int> _countPHQ4PatientProfileValues() async {
-    int counterEnabledValues = 0;
-    if (Backend.user.objectId != null) {
-      dynamic responsePatient = await Backend.getEntry(
-        PatientProfile.databaseTable,
-        'Patient',
-        Backend.user.objectId!,
-      );
-      dynamic element = await responsePatient.results?.first;
-      if (element != null) {
-        _patientProfile = PatientProfile(
-          weightBMIEnabled: element['Weight_BMI'],
-          heartFrequencyEnabled: element['HeartRate'],
-          bloodPressureEnabled: element['BloodPressure'],
-          bloodSugarLevelsEnabled: element['BloodSugar'],
-          walkDistanceEnabled: element['WalkingDistance'],
-          sleepDurationEnabled: element['SleepDuration'],
-          sleepQualityEnabled: element['SISQS'],
-          painEnabled: element['Pain'],
-          phq4Enabled: element['PHQ4'],
-          medicationEnabled: element['Medication'],
-          therapyEnabled: element['Therapies'],
-          doctorsVisitEnabled: element['Stays'],
-          patientObjectId: element['Patient']['objectId'],
-          doctorObjectId: element['Doctor']['objectId'],
-          objectId: element['objectId'],
-          createdAt: element['createdAt'],
-          updatedAt: element['updatedAt'],
-        );
-      }
-
-      if (_patientProfile!.phq4Enabled) counterEnabledValues = 4;
-    }
-
-    return counterEnabledValues;
-  }
-
-  Future<int> _countWeeklyPatientProfileValues() async {
-    int counterEnabledValues = 0;
-    if (Backend.user.objectId != null) {
-      dynamic responsePatient = await Backend.getEntry(
-        PatientProfile.databaseTable,
-        'Patient',
-        Backend.user.objectId!,
-      );
-      dynamic element = await responsePatient.results?.first;
-      if (element != null) {
-        _patientProfile = PatientProfile(
-          weightBMIEnabled: element['Weight_BMI'],
-          heartFrequencyEnabled: element['HeartRate'],
-          bloodPressureEnabled: element['BloodPressure'],
-          bloodSugarLevelsEnabled: element['BloodSugar'],
-          walkDistanceEnabled: element['WalkingDistance'],
-          sleepDurationEnabled: element['SleepDuration'],
-          sleepQualityEnabled: element['SISQS'],
-          painEnabled: element['Pain'],
-          phq4Enabled: element['PHQ4'],
-          medicationEnabled: element['Medication'],
-          therapyEnabled: element['Therapies'],
-          doctorsVisitEnabled: element['Stays'],
-          patientObjectId: element['Patient']['objectId'],
-          doctorObjectId: element['Doctor']['objectId'],
-          objectId: element['objectId'],
-          createdAt: element['createdAt'],
-          updatedAt: element['updatedAt'],
-        );
-      }
-
-      if (_patientProfile!.weightBMIEnabled) counterEnabledValues++;
-      if (_patientProfile!.weightBMIEnabled) counterEnabledValues++;
-      if (_patientProfile!.sleepQualityEnabled) counterEnabledValues++;
-      if (_patientProfile!.walkDistanceEnabled) counterEnabledValues++;
-    }
-
-    return counterEnabledValues;
-  }
-
   Future<ProgressTileState>? _progressTileState;
 
+  Future<void> _fetchPatientProfileData() async {
+    if (Backend.user.objectId != null) {
+      dynamic responsePatient = await Backend.getEntry(
+        PatientProfile.databaseTable,
+        'Patient',
+        Backend.user.objectId!,
+      );
+      dynamic element = await responsePatient.results?.first;
+      if (element != null) {
+        _patientProfile = PatientProfile(
+          weightBMIEnabled: element['Weight_BMI'],
+          heartFrequencyEnabled: element['HeartRate'],
+          bloodPressureEnabled: element['BloodPressure'],
+          bloodSugarLevelsEnabled: element['BloodSugar'],
+          walkDistanceEnabled: element['WalkingDistance'],
+          sleepDurationEnabled: element['SleepDuration'],
+          sleepQualityEnabled: element['SISQS'],
+          painEnabled: element['Pain'],
+          phq4Enabled: element['PHQ4'],
+          medicationEnabled: element['Medication'],
+          therapyEnabled: element['Therapies'],
+          doctorsVisitEnabled: element['Stays'],
+          patientObjectId: element['Patient']['objectId'],
+          doctorObjectId: element['Doctor']['objectId'],
+          objectId: element['objectId'],
+          createdAt: element['createdAt'],
+          updatedAt: element['updatedAt'],
+        );
+      }
+    }
+  }
+
+  bool _dailyHasNullValues() {
+    return (widget.dailyInput.daily!.bloodDiastolic == null &&
+            _patientProfile!.bloodPressureEnabled) ||
+        (widget.dailyInput.daily!.bloodSugar == null) &&
+            _patientProfile!.bloodSugarLevelsEnabled ||
+        (widget.dailyInput.daily!.bloodSystolic == null &&
+            _patientProfile!.bloodPressureEnabled) ||
+        (widget.dailyInput.daily!.heartFrequency == null &&
+            _patientProfile!.heartFrequencyEnabled) ||
+        (widget.dailyInput.daily!.pain == null &&
+            _patientProfile!.painEnabled) ||
+        (widget.dailyInput.daily!.sleepDuration == null &&
+            _patientProfile!.sleepDurationEnabled);
+  }
+
+  bool _weeklyHasNullValues() {
+    return (widget.dailyInput.weekly!.bodyWeight == null &&
+            _patientProfile!.weightBMIEnabled) ||
+        (widget.dailyInput.weekly!.bmi == null &&
+            _patientProfile!.weightBMIEnabled) ||
+        (widget.dailyInput.weekly!.sleepQuality == null &&
+            _patientProfile!.sleepQualityEnabled) ||
+        (widget.dailyInput.weekly!.walkingDistance == null &&
+            _patientProfile!.walkDistanceEnabled);
+  }
+
+  bool _phq4HasNullValues() {
+    return ((widget.dailyInput.phq4!.a == null ||
+            widget.dailyInput.phq4!.b == null ||
+            widget.dailyInput.phq4!.c == null ||
+            widget.dailyInput.phq4!.d == null) &&
+        _patientProfile!.phq4Enabled);
+  }
+
+  bool _dailyHasAnyValues() {
+    return (widget.dailyInput.daily!.bloodDiastolic != null &&
+            _patientProfile!.bloodPressureEnabled) ||
+        (widget.dailyInput.daily!.bloodSugar != null &&
+            _patientProfile!.bloodSugarLevelsEnabled) ||
+        (widget.dailyInput.daily!.bloodSystolic != null &&
+            _patientProfile!.bloodPressureEnabled) ||
+        (widget.dailyInput.daily!.heartFrequency != null &&
+            _patientProfile!.heartFrequencyEnabled) ||
+        (widget.dailyInput.daily!.pain != null &&
+            _patientProfile!.painEnabled) ||
+        (widget.dailyInput.daily!.sleepDuration != null &&
+            _patientProfile!.sleepDurationEnabled);
+  }
+
+  bool _weeklyHasAnyValues() {
+    return (widget.dailyInput.weekly!.bodyWeight != null &&
+            _patientProfile!.weightBMIEnabled) ||
+        (widget.dailyInput.weekly!.bmi != null &&
+            _patientProfile!.weightBMIEnabled) ||
+        (widget.dailyInput.weekly!.sleepQuality != null &&
+            _patientProfile!.sleepQualityEnabled) ||
+        (widget.dailyInput.weekly!.walkingDistance != null &&
+            _patientProfile!.walkDistanceEnabled);
+  }
+
+  bool _phq4HasAnyValues() {
+    return (widget.dailyInput.phq4!.a != null ||
+            widget.dailyInput.phq4!.b != null ||
+            widget.dailyInput.phq4!.c != null ||
+            widget.dailyInput.phq4!.d != null) &&
+        _patientProfile!.phq4Enabled;
+  }
+
   Future<ProgressTileState> _createProgressTileState() async {
-    if ((widget.dailyInput.daily != null &&
-                !widget.dailyInput.daily!.hasNullValues &&
-                await _countPatientProfileValues() ==
-                    widget.dailyInput.daily!.countDailyValues) &&
-            !widget.dailyInput.weeklyDay ||
-        (widget.dailyInput.weekly != null &&
-                !widget.dailyInput.weekly!.hasNullValues &&
-                await _countWeeklyPatientProfileValues() ==
-                    widget.dailyInput.weekly!.countWeeklyValues) &&
-            !widget.dailyInput.phq4Day ||
-        (widget.dailyInput.phq4 != null &&
-            !widget.dailyInput.phq4!.hasNullValues &&
-            await _countPHQ4PatientProfileValues() ==
-                widget.dailyInput.phq4!.countPHQ4Values)) {
+    await _fetchPatientProfileData();
+
+    if ((widget.dailyInput.daily != null && !_dailyHasNullValues()) &&
+        (!widget.dailyInput.weeklyDay ||
+            (widget.dailyInput.weekly != null && !_weeklyHasNullValues())) &&
+        (!widget.dailyInput.phq4Day ||
+            (widget.dailyInput.phq4 != null && !_phq4HasNullValues()))) {
       return ProgressTileState.filled;
     }
 
-    if ((widget.dailyInput.daily != null &&
-            widget.dailyInput.daily!.hasAnyValue &&
-            await _countPatientProfileValues() !=
-                widget.dailyInput.daily!.countDailyValues) ||
+    if ((widget.dailyInput.daily != null && _dailyHasAnyValues()) ||
         (widget.dailyInput.weeklyDay &&
             widget.dailyInput.weekly != null &&
-            widget.dailyInput.weekly!.hasAnyValue &&
-            await _countWeeklyPatientProfileValues() !=
-                widget.dailyInput.weekly!.countWeeklyValues) ||
+            _weeklyHasAnyValues()) ||
         (widget.dailyInput.phq4Day &&
             widget.dailyInput.phq4 != null &&
-            widget.dailyInput.phq4!.hasAnyValue &&
-            await _countPHQ4PatientProfileValues() !=
-                widget.dailyInput.phq4!.countPHQ4Values)) {
+            (_phq4HasAnyValues()))) {
       return ProgressTileState.partiallyFilled;
     }
 
@@ -230,9 +189,6 @@ class _ProgressTileState extends State<ProgressTile> {
   @override
   void initState() {
     super.initState();
-    _countPatientProfileValues();
-    _countWeeklyPatientProfileValues();
-    _countPHQ4PatientProfileValues();
     _progressTileState = _createProgressTileState();
   }
 
@@ -241,88 +197,90 @@ class _ProgressTileState extends State<ProgressTile> {
     return FutureBuilder<ProgressTileState>(
       future: _progressTileState,
       builder: (BuildContext ctx, AsyncSnapshot<ProgressTileState> snapshot) {
-        if (snapshot.hasData) {
-          final ProgressTileState state = snapshot.data!;
-          final DateTime date =
-              DateTime.now().subtract(Duration(days: widget.dailyInput.day));
-          final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-          final double size = ProgressTileState.filled == state ? 80 : 50;
-          String title;
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text('lädt!');
+        }
 
-          switch (widget.dailyInput.day) {
-            case 0:
-              title = AppLocalizations.of(context)!.today;
-              break;
-            case 1:
-              title = AppLocalizations.of(context)!.yesterday;
-              break;
-            case 2:
-              if (Platform.localeName == 'de_DE' ||
-                  Platform.localeName == 'de-DE' ||
-                  Platform.localeName == 'de') {
-                title = 'Vorgestern';
-                break;
-              }
-              title = _getDateTitle(date);
-              break;
-            default:
-              title = _getDateTitle(date);
-          }
+        if (snapshot.hasError) {
+          return const Text('Fehler!');
+        }
 
-          return Container(
-            width: 100,
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                SizedBox(
-                  height: 95,
-                  child: SizedBox(
-                    height: size,
-                    width: size + 20,
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          '/questionnaire-screen/questionnaire-screen',
-                          arguments: widget.dailyInput,
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        shape: const CircleBorder(),
-                        backgroundColor: _getTileColor(theme, state),
-                        foregroundColor: theme.white,
-                      ),
-                      child: Text(
-                        _getWeekDay(date),
-                        style: const TextStyle(fontSize: 25),
-                        overflow: TextOverflow.visible,
-                        softWrap: false,
-                      ),
+        final ProgressTileState state = snapshot.data!;
+        final DateTime date =
+            DateTime.now().subtract(Duration(days: widget.dailyInput.day));
+        final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+        final double size = ProgressTileState.filled == state ? 80 : 50;
+        String title;
+
+        switch (widget.dailyInput.day) {
+          case 0:
+            title = AppLocalizations.of(context)!.today;
+            break;
+          case 1:
+            title = AppLocalizations.of(context)!.yesterday;
+            break;
+          case 2:
+            if (Platform.localeName == 'de_DE' ||
+                Platform.localeName == 'de-DE' ||
+                Platform.localeName == 'de') {
+              title = 'Vorgestern';
+              break;
+            }
+            title = _getDateTitle(date);
+            break;
+          default:
+            title = _getDateTitle(date);
+        }
+
+        return Container(
+          width: 100,
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              SizedBox(
+                height: 95,
+                child: SizedBox(
+                  height: size,
+                  width: size + 20,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        '/questionnaire-screen/questionnaire-screen',
+                        arguments: widget.dailyInput,
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                      backgroundColor: _getTileColor(theme, state),
+                      foregroundColor: theme.white,
+                    ),
+                    child: Text(
+                      _getWeekDay(date),
+                      style: const TextStyle(fontSize: 25),
+                      overflow: TextOverflow.visible,
+                      softWrap: false,
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                title,
+                style: TextStyle(
+                  color: theme.white,
+                  fontSize: 16,
                 ),
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: theme.white,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-              ],
-            ),
-          );
-        } else if (snapshot.hasError) {
-          return const Text('Error');
-        }
-        // TODO: Omit it!
-        return const Text('Irgendetwas');
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+            ],
+          ),
+        );
       },
     );
   }

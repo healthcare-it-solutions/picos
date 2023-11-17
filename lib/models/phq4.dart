@@ -20,7 +20,7 @@ import 'package:picos/models/abstract_database_object.dart';
 /// Class with PHQ4 answers.
 class PHQ4 extends AbstractDatabaseObject {
   /// Creates a PHQ4 object.
-  PHQ4({
+  const PHQ4({
     required this.date,
     this.a,
     this.b,
@@ -29,11 +29,7 @@ class PHQ4 extends AbstractDatabaseObject {
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
-  }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt) {
-    hasNullValues = _checkHasNullValues();
-    hasAnyValue = _checkHasAnyValue();
-    countPHQ4Values = _countPHQ4Values();
-  }
+  }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt);
 
   /// The database table the objects are stored in.
   static const String databaseTable = 'PICOS_PHQ4';
@@ -52,15 +48,6 @@ class PHQ4 extends AbstractDatabaseObject {
 
   /// The assessment date.
   final DateTime date;
-
-  /// The information if this objects has any null values.
-  late final bool hasNullValues;
-
-  /// The information if this objects has any non-null value.
-  late final bool hasAnyValue;
-
-  /// The information how many PHQ4 values should be considered.
-  late final int countPHQ4Values;
 
   @override
   get table {
@@ -103,31 +90,4 @@ class PHQ4 extends AbstractDatabaseObject {
         'd': d,
         'datetime': date,
       };
-
-  bool _checkHasNullValues() {
-    if (a == null || b == null || c == null || d == null) {
-      return true;
-    }
-
-    return false;
-  }
-
-  bool _checkHasAnyValue() {
-    if (a != null || b != null || c != null || d != null) {
-      return true;
-    }
-
-    return false;
-  }
-
-  int _countPHQ4Values() {
-    int counterPHQ4Values = 0;
-
-    if (a != null) counterPHQ4Values++;
-    if (b != null) counterPHQ4Values++;
-    if (c != null) counterPHQ4Values++;
-    if (d != null) counterPHQ4Values++;
-
-    return counterPHQ4Values;
-  }
 }
