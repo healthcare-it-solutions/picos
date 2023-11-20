@@ -198,7 +198,9 @@ class _ProgressTileState extends State<ProgressTile> {
       future: _progressTileState,
       builder: (BuildContext ctx, AsyncSnapshot<ProgressTileState> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text(AppLocalizations.of(context)!.loading);
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         }
 
         if (snapshot.hasError) {
