@@ -164,7 +164,7 @@ class QuestionairePageStorage {
   String? _changedMedication;
   String? _changedTherapy;
   Map<String, dynamic>? _medicationAndTherapyValues;
-  
+
   void _initValues() {
     selectedBloodSugarMol = dailyInput.daily?.bloodSugarMol;
     selectedBodyWeight = dailyInput.weekly?.bodyWeight;
@@ -260,34 +260,22 @@ class QuestionairePageStorage {
   }
 
   Future<int?> _getBodyHeight() async {
-    PatientData patientData = const PatientData(
-      patientObjectId: '',
-      doctorObjectId: '',
-    );
+    double? bodyHeight;
 
     try {
-      dynamic responsePatient = await Backend.getEntry(
+      dynamic responsePatientData = await Backend.getEntry(
         PatientData.databaseTable,
         'Patient',
         Backend.user.objectId!,
       );
-      dynamic element = responsePatient?.results?.first;
+      dynamic element = responsePatientData?.results?.first;
 
-      if (element != null) {
-        patientData = PatientData(
-          bodyHeight: element['BodyHeight'].toDouble(),
-          patientObjectId: element['Patient']['objectId'],
-          doctorObjectId: element['Doctor']['objectId'],
-          objectId: element['objectId'],
-          createdAt: element['createdAt'],
-          updatedAt: element['updatedAt'],
-        );
-      }
+      bodyHeight = element?['BodyHeight']?.toDouble();
     } catch (e) {
       rethrow;
     }
 
-    if (patientData.bodyHeight != null) return patientData.bodyHeight!.toInt();
+    if (bodyHeight != null) return bodyHeight.toInt();
 
     return null;
   }
