@@ -47,7 +47,7 @@ class BackendFollowUpApi {
       bloodDiastolic: element['BD_Diastolisch'],
       bloodSystolic: element['BD_Systolisch'],
       rhythm: element['Rythmus'],
-      rhythmTyp: element['RythmusTyp'],
+      rhythmType: element['RythmusTyp'],
       testResult: element['Testergebnis'],
       healthState: element['HealthState'],
       electricalAxisDeviation: element['Lagetyp'],
