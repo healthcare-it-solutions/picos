@@ -40,7 +40,8 @@ class QuestionaireScreen extends StatefulWidget {
   @override
   State<QuestionaireScreen> createState() => _QuestionaireScreenState();
 }
-///
+
+///Initialization of the ValueNotifier.
 final ValueNotifier<bool> rebuildGraphNotifier = ValueNotifier<bool>(false);
 
 class _QuestionaireScreenState extends State<QuestionaireScreen> {
