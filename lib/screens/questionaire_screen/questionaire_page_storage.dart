@@ -164,8 +164,6 @@ class QuestionairePageStorage {
   String? _changedMedication;
   String? _changedTherapy;
   Map<String, dynamic>? _medicationAndTherapyValues;
-
-  int? _bodyHeight;
   
   void _initValues() {
     selectedBloodSugarMol = dailyInput.daily?.bloodSugarMol;
@@ -300,11 +298,13 @@ class QuestionairePageStorage {
   ) async {
     PatientProfile patientProfile = await _getPatientProfile();
 
+    int? bodyHeight;
+
     if ((dailyInput.weeklyDay && patientProfile.weightBMIEnabled == true) ||
         patientProfile.heartFrequencyEnabled == true ||
         patientProfile.bloodPressureEnabled == true ||
         patientProfile.bloodSugarLevelsEnabled == true) {
-      _bodyHeight = await _getBodyHeight();
+      bodyHeight = await _getBodyHeight();
       pages.add(
         Cover(
           title: _vitalValues!,
@@ -326,7 +326,7 @@ class QuestionairePageStorage {
               selectedBodyWeight = weight;
               selectedBMI = bmi;
             },
-            bodyHeight: _bodyHeight,
+            bodyHeight: bodyHeight,
           ),
         );
         titles.add(_vitalValues!);
