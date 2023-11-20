@@ -1510,5 +1510,9 @@
   "electricalAxisDeviation": "Electrical axis deviation",
   "@electricalAxisDeviation": {
     "description": "Electrical axis deviation"
+  },
+  "error": "Error!",
+  "@error": {
+    "description": "Error!"
   }
 }
