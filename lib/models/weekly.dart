@@ -20,7 +20,7 @@ import 'package:picos/models/abstract_database_object.dart';
 /// Class with weekly questionaire information.
 class Weekly extends AbstractDatabaseObject {
   /// Creates a Daily object.
-  Weekly({
+  const Weekly({
     required this.date,
     this.bodyWeight,
     this.bmi,
@@ -29,10 +29,7 @@ class Weekly extends AbstractDatabaseObject {
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
-  }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt) {
-    hasNullValues = _checkHasNullValues();
-    hasAnyValue = _checkHasAnyValue();
-  }
+  }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt);
 
   /// The database table the objects are stored in.
   static const String databaseTable = 'PICOS_weekly';
@@ -51,12 +48,6 @@ class Weekly extends AbstractDatabaseObject {
 
   /// The assessment date.
   final DateTime date;
-
-  /// The information if this objects has any null values.
-  late final bool hasNullValues;
-
-  /// The information if this objects has any non-null value.
-  late final bool hasAnyValue;
 
   @override
   get table {
@@ -99,26 +90,4 @@ class Weekly extends AbstractDatabaseObject {
         'WalkingDistance': walkingDistance,
         'datetime': date,
       };
-
-  bool _checkHasNullValues() {
-    if (bodyWeight == null ||
-        bmi == null ||
-        sleepQuality == null ||
-        walkingDistance == null) {
-      return true;
-    }
-
-    return false;
-  }
-
-  bool _checkHasAnyValue() {
-    if (bodyWeight != null ||
-        bmi != null ||
-        sleepQuality != null ||
-        walkingDistance != null) {
-      return true;
-    }
-
-    return false;
-  }
 }

@@ -17,6 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:picos/models/daily_input.dart';
+import 'package:picos/models/patient_data.dart';
 import 'package:picos/screens/questionaire_screen/pages/blood_pressure.dart';
 import 'package:picos/screens/questionaire_screen/pages/blood_sugar.dart';
 import 'package:picos/screens/questionaire_screen/pages/body_and_mind.dart';
@@ -33,7 +34,6 @@ import 'package:picos/screens/questionaire_screen/widgets/text_field_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../models/patient_profile.dart';
-import '../../models/patient_registration_data.dart';
 import '../../util/backend.dart';
 
 import '../../widgets/picos_label.dart';
@@ -146,26 +146,24 @@ class QuestionairePageStorage {
     'doctorPage': 18,
   };
 
-  //Static Strings
-  static String? _myEntries;
-  static String? _vitalValues;
-  static String? _letsStart;
-  static String? _activityAndRest;
-  static String? _bodyAndMind;
-  static String? _medicationAndTherapy;
-  static String? _ready;
-  static String? _possibleWalkDistance;
-  static String? _sleepQuality7Days;
-  static String? _pain;
-  static String? _lowInterest;
-  static String? _dejection;
-  static String? _nervousness;
-  static String? _worries;
-  static String? _changedMedication;
-  static String? _changedTherapy;
-  static Map<String, dynamic>? _medicationAndTherapyValues;
-
-  static int? _bodyHeight;
+  //Denotation Strings
+  String? _myEntries;
+  String? _vitalValues;
+  String? _letsStart;
+  String? _activityAndRest;
+  String? _bodyAndMind;
+  String? _medicationAndTherapy;
+  String? _ready;
+  String? _possibleWalkDistance;
+  String? _sleepQuality7Days;
+  String? _pain;
+  String? _lowInterest;
+  String? _dejection;
+  String? _nervousness;
+  String? _worries;
+  String? _changedMedication;
+  String? _changedTherapy;
+  Map<String, dynamic>? _medicationAndTherapyValues;
 
   void _initValues() {
     selectedBloodSugarMol = dailyInput.daily?.bloodSugarMol;
@@ -261,19 +259,40 @@ class QuestionairePageStorage {
     return patientProfile;
   }
 
+  Future<int?> _getBodyHeight() async {
+    double? bodyHeight;
+
+    try {
+      dynamic responsePatientData = await Backend.getEntry(
+        PatientData.databaseTable,
+        'Patient',
+        Backend.user.objectId!,
+      );
+      dynamic element = responsePatientData?.results?.first;
+
+      bodyHeight = element?['BodyHeight']?.toDouble();
+    } catch (e) {
+      rethrow;
+    }
+
+    if (bodyHeight != null) return bodyHeight.toInt();
+
+    return null;
+  }
+
   Future<void> _initPages(
     void Function() previousPage,
     void Function() nextPage,
   ) async {
     PatientProfile patientProfile = await _getPatientProfile();
 
+    int? bodyHeight;
+
     if ((dailyInput.weeklyDay && patientProfile.weightBMIEnabled == true) ||
         patientProfile.heartFrequencyEnabled == true ||
         patientProfile.bloodPressureEnabled == true ||
         patientProfile.bloodSugarLevelsEnabled == true) {
-      _bodyHeight ??=
-          (await Backend.getAll(PatientRegistrationData.databaseTable))[0]
-              ['BodyHeight']?['estimateNumber'];
+      bodyHeight = await _getBodyHeight();
       pages.add(
         Cover(
           title: _vitalValues!,
@@ -295,7 +314,7 @@ class QuestionairePageStorage {
               selectedBodyWeight = weight;
               selectedBMI = bmi;
             },
-            bodyHeight: _bodyHeight,
+            bodyHeight: bodyHeight,
           ),
         );
         titles.add(_vitalValues!);
