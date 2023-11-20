@@ -39,29 +39,46 @@ import 'package:picos/models/vital_signs.dart';
 class BackendCatalogOfItemsApi extends BackendObjectsApi {
   @override
   Future<void> saveObject(AbstractDatabaseObject object) async {
+    object as CatalogOfItemsElement;
     BackendACL coiACL = BackendACL();
-    if (object.createdAt == null) {
-      coiACL.setWriteAccess(userId: BackendRole.doctor.id);
-      coiACL.setReadAccess(userId: BackendRole.doctor.id);
+    if (object.icuDiagnosis?.objectId == null) {
+      coiACL.setWriteAccess(userId: await BackendRole.doctor.id);
+      coiACL.setReadAccess(userId: await BackendRole.doctor.id);
       coiACL.setReadAccess(userId: EditPatientScreen.patientObjectId!);
     }
 
     try {
-      if ((object as CatalogOfItemsElement).icuDiagnosis != null) {
-        /// ICUDiagnosis
-        await Backend.saveObject(
-          object.icuDiagnosis!,
-          acl: coiACL,
-        );
+      /// ICUDiagnosis.
+      if (object.icuDiagnosis != null) {
+        if (object.icuDiagnosis?.objectId == null) {
+          await Backend.saveObject(
+            object.icuDiagnosis!,
+            acl: coiACL,
+          );
+        } else {
+          await Backend.saveObject(
+            object.icuDiagnosis!,
+          );
+        }
       }
+
       VitalSignsObject? vitalSignsObject1;
       VitalSignsObject? vitalSignsObject2;
+
+      /// VitalSigns value 1.
       if (object.vitalSignsObject1 != null) {
-        /// VitalSigns value 1
-        dynamic responseVitalSignsObject1 = await Backend.saveObject(
-          object.vitalSignsObject1!,
-          acl: coiACL,
-        );
+        dynamic responseVitalSignsObject1;
+        if (object.vitalSignsObject1?.objectId == null) {
+          responseVitalSignsObject1 = await Backend.saveObject(
+            object.vitalSignsObject1!,
+            acl: coiACL,
+          );
+        } else {
+          responseVitalSignsObject1 = await Backend.saveObject(
+            object.vitalSignsObject1!,
+          );
+        }
+
         vitalSignsObject1 = object.vitalSignsObject1!.copyWith(
           objectId: responseVitalSignsObject1['objectId'],
           createdAt: DateTime.tryParse(
@@ -75,12 +92,19 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         );
       }
 
+      /// VitalSigns value 2.
       if (object.vitalSignsObject2 != null) {
-        /// VitalSigns value 2
-        dynamic responseVitalSignsObject2 = await Backend.saveObject(
-          object.vitalSignsObject2!,
-          acl: coiACL,
-        );
+        dynamic responseVitalSignsObject2;
+        if (object.vitalSignsObject2?.objectId == null) {
+          responseVitalSignsObject2 = await Backend.saveObject(
+            object.vitalSignsObject2!,
+            acl: coiACL,
+          );
+        } else {
+          responseVitalSignsObject2 = await Backend.saveObject(
+            object.vitalSignsObject2!,
+          );
+        }
 
         vitalSignsObject2 = object.vitalSignsObject2!.copyWith(
           objectId: responseVitalSignsObject2['objectId'],
@@ -95,24 +119,39 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         );
       }
 
+      /// VitalSigns
       if (object.vitalSigns != null) {
-        /// VitalSigns
         object.vitalSigns!.value1 = vitalSignsObject1;
         object.vitalSigns!.value2 = vitalSignsObject2;
-        await Backend.saveObject(
-          object.vitalSigns!,
-          acl: coiACL,
-        );
+
+        if (object.vitalSigns?.objectId == null) {
+          await Backend.saveObject(
+            object.vitalSigns!,
+            acl: coiACL,
+          );
+        } else {
+          await Backend.saveObject(
+            object.vitalSigns!,
+          );
+        }
       }
 
       RespiratoryParametersObject? respiratoryParametersObject1;
       RespiratoryParametersObject? respiratoryParametersObject2;
+
+      /// Respiratory parameters value 1.
       if (object.respiratoryParametersObject1 != null) {
-        /// Respiratory parameters value 1
-        dynamic responseRespiratoryParametersObject1 = await Backend.saveObject(
-          object.respiratoryParametersObject1!,
-          acl: coiACL,
-        );
+        dynamic responseRespiratoryParametersObject1;
+        if (object.respiratoryParametersObject1?.objectId == null) {
+          responseRespiratoryParametersObject1 = await Backend.saveObject(
+            object.respiratoryParametersObject1!,
+            acl: coiACL,
+          );
+        } else {
+          responseRespiratoryParametersObject1 = await Backend.saveObject(
+            object.respiratoryParametersObject1!,
+          );
+        }
 
         respiratoryParametersObject1 =
             object.respiratoryParametersObject1!.copyWith(
@@ -128,12 +167,19 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         );
       }
 
+      /// Respiratory parameters value 2.
       if (object.respiratoryParametersObject2 != null) {
-        /// Respiratory parameters value 2
-        dynamic responseRespiratoryParametersObject2 = await Backend.saveObject(
-          object.respiratoryParametersObject2!,
-          acl: coiACL,
-        );
+        dynamic responseRespiratoryParametersObject2;
+        if (object.respiratoryParametersObject2?.objectId == null) {
+          responseRespiratoryParametersObject2 = await Backend.saveObject(
+            object.respiratoryParametersObject2!,
+            acl: coiACL,
+          );
+        } else {
+          responseRespiratoryParametersObject2 = await Backend.saveObject(
+            object.respiratoryParametersObject2!,
+          );
+        }
 
         respiratoryParametersObject2 =
             object.respiratoryParametersObject2!.copyWith(
@@ -149,24 +195,38 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         );
       }
 
+      /// Respiratory parameters.
       if (object.respiratoryParameters != null) {
-        /// Respiratory parameters
         object.respiratoryParameters!.value1 = respiratoryParametersObject1;
         object.respiratoryParameters!.value2 = respiratoryParametersObject2;
-        await Backend.saveObject(
-          object.respiratoryParameters!,
-          acl: coiACL,
-        );
+        if (object.respiratoryParameters?.objectId == null) {
+          await Backend.saveObject(
+            object.respiratoryParameters!,
+            acl: coiACL,
+          );
+        } else {
+          await Backend.saveObject(
+            object.respiratoryParameters!,
+          );
+        }
       }
 
       BloodGasAnalysisObject? bloodGasAnalysisObject1;
       BloodGasAnalysisObject? bloodGasAnalysisObject2;
+
+      /// Blood gas analysis value 1.
       if (object.bloodGasAnalysisObject1 != null) {
-        /// Blood gas analysis value 1
-        dynamic responseBloodGasAnalysisObject1 = await Backend.saveObject(
-          object.bloodGasAnalysisObject1!,
-          acl: coiACL,
-        );
+        dynamic responseBloodGasAnalysisObject1;
+        if (object.bloodGasAnalysisObject1?.objectId == null) {
+          responseBloodGasAnalysisObject1 = await Backend.saveObject(
+            object.bloodGasAnalysisObject1!,
+            acl: coiACL,
+          );
+        } else {
+          responseBloodGasAnalysisObject1 = await Backend.saveObject(
+            object.bloodGasAnalysisObject1!,
+          );
+        }
 
         bloodGasAnalysisObject1 = object.bloodGasAnalysisObject1!.copyWith(
           objectId: responseBloodGasAnalysisObject1['objectId'],
@@ -181,12 +241,20 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         );
       }
 
+      /// Blood gas analysis value 2.
       if (object.bloodGasAnalysisObject2 != null) {
-        /// Blood gas analysis value 2
-        dynamic responseBloodGasAnalysisObject2 = await Backend.saveObject(
-          object.bloodGasAnalysisObject2!,
-          acl: coiACL,
-        );
+        dynamic responseBloodGasAnalysisObject2;
+
+        if (object.bloodGasAnalysisObject2 == null) {
+          responseBloodGasAnalysisObject2 = await Backend.saveObject(
+            object.bloodGasAnalysisObject2!,
+            acl: coiACL,
+          );
+        } else {
+          responseBloodGasAnalysisObject2 = await Backend.saveObject(
+            object.bloodGasAnalysisObject2!,
+          );
+        }
 
         bloodGasAnalysisObject2 = object.bloodGasAnalysisObject2!.copyWith(
           objectId: responseBloodGasAnalysisObject2['objectId'],
@@ -201,30 +269,48 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         );
       }
 
+      /// Blood gas analysis.
       if (object.bloodGasAnalysis != null) {
-        /// Blood gas analysis
         object.bloodGasAnalysis!.value1 = bloodGasAnalysisObject1;
         object.bloodGasAnalysis!.value2 = bloodGasAnalysisObject2;
-        await Backend.saveObject(
-          object.bloodGasAnalysis!,
-          acl: coiACL,
-        );
+        if (object.bloodGasAnalysis?.objectId == null) {
+          await Backend.saveObject(
+            object.bloodGasAnalysis!,
+            acl: coiACL,
+          );
+        } else {
+          await Backend.saveObject(
+            object.bloodGasAnalysis!,
+          );
+        }
       }
 
+      /// Labor parameters.
       if (object.laborParameters != null) {
-        /// Labor parameters
-        await Backend.saveObject(
-          object.laborParameters!,
-          acl: coiACL,
-        );
+        if (object.laborParameters?.objectId == null) {
+          await Backend.saveObject(
+            object.laborParameters!,
+            acl: coiACL,
+          );
+        } else {
+          await Backend.saveObject(
+            object.laborParameters!,
+          );
+        }
       }
 
+      /// Movement data.
       if (object.movementData != null) {
-        /// Movement data
-        await Backend.saveObject(
-          object.movementData!,
-          acl: coiACL,
-        );
+        if (object.movementData?.objectId == null) {
+          await Backend.saveObject(
+            object.movementData!,
+            acl: coiACL,
+          );
+        } else {
+          await Backend.saveObject(
+            object.movementData!,
+          );
+        }
       }
 
       dispatch();
