@@ -39,198 +39,133 @@ import 'package:picos/models/vital_signs.dart';
 class BackendCatalogOfItemsApi extends BackendObjectsApi {
   @override
   Future<void> saveObject(AbstractDatabaseObject object) async {
-    BackendACL coiACL = BackendACL();
-    if (object.createdAt == null) {
-      coiACL.setWriteAccess(userId: BackendRole.doctor.id);
-      coiACL.setReadAccess(userId: BackendRole.doctor.id);
-      coiACL.setReadAccess(userId: EditPatientScreen.patientObjectId!);
-    }
-
     try {
-      if ((object as CatalogOfItemsElement).icuDiagnosis != null) {
-        /// ICUDiagnosis
-        await Backend.saveObject(
-          object.icuDiagnosis!,
-          acl: coiACL,
-        );
-      }
+      acl = await _prepareACL(object);
+
+      /// ICUDiagnosis.
+      await _saveObject((object as CatalogOfItemsElement).icuDiagnosis);
+
       VitalSignsObject? vitalSignsObject1;
       VitalSignsObject? vitalSignsObject2;
-      if (object.vitalSignsObject1 != null) {
-        /// VitalSigns value 1
-        dynamic responseVitalSignsObject1 = await Backend.saveObject(
-          object.vitalSignsObject1!,
-          acl: coiACL,
-        );
-        vitalSignsObject1 = object.vitalSignsObject1!.copyWith(
-          objectId: responseVitalSignsObject1['objectId'],
-          createdAt: DateTime.tryParse(
-                responseVitalSignsObject1['createdAt'] ?? '',
-              ) ??
-              object.vitalSignsObject1!.createdAt,
-          updatedAt: DateTime.tryParse(
-                responseVitalSignsObject1['updatedAt'] ?? '',
-              ) ??
-              object.vitalSignsObject1!.updatedAt,
-        );
-      }
 
-      if (object.vitalSignsObject2 != null) {
-        /// VitalSigns value 2
-        dynamic responseVitalSignsObject2 = await Backend.saveObject(
-          object.vitalSignsObject2!,
-          acl: coiACL,
-        );
+      /// VitalSigns value 1.
+      dynamic responseVitalSignsObject1 =
+          await _saveObject(object.vitalSignsObject1);
+      vitalSignsObject1 = await _updateObjectProperties(
+        object.vitalSignsObject1,
+        responseVitalSignsObject1,
+      );
 
-        vitalSignsObject2 = object.vitalSignsObject2!.copyWith(
-          objectId: responseVitalSignsObject2['objectId'],
-          createdAt: DateTime.tryParse(
-                responseVitalSignsObject2['createdAt'] ?? '',
-              ) ??
-              object.vitalSignsObject2!.createdAt,
-          updatedAt: DateTime.tryParse(
-                responseVitalSignsObject2['updatedAt'] ?? '',
-              ) ??
-              object.vitalSignsObject2!.updatedAt,
-        );
-      }
+      /// VitalSigns value 2.
+      dynamic responseVitalSignsObject2 =
+          await _saveObject(object.vitalSignsObject2);
 
-      if (object.vitalSigns != null) {
-        /// VitalSigns
-        object.vitalSigns!.value1 = vitalSignsObject1;
-        object.vitalSigns!.value2 = vitalSignsObject2;
-        await Backend.saveObject(
-          object.vitalSigns!,
-          acl: coiACL,
-        );
-      }
+      vitalSignsObject2 = await _updateObjectProperties(
+        object.vitalSignsObject2,
+        responseVitalSignsObject2,
+      );
+
+      /// VitalSigns.
+      object.vitalSigns!.value1 = vitalSignsObject1;
+      object.vitalSigns!.value2 = vitalSignsObject2;
+      await _saveObject(object.vitalSigns);
 
       RespiratoryParametersObject? respiratoryParametersObject1;
       RespiratoryParametersObject? respiratoryParametersObject2;
-      if (object.respiratoryParametersObject1 != null) {
-        /// Respiratory parameters value 1
-        dynamic responseRespiratoryParametersObject1 = await Backend.saveObject(
-          object.respiratoryParametersObject1!,
-          acl: coiACL,
-        );
 
-        respiratoryParametersObject1 =
-            object.respiratoryParametersObject1!.copyWith(
-          objectId: responseRespiratoryParametersObject1['objectId'],
-          createdAt: DateTime.tryParse(
-                responseRespiratoryParametersObject1['createdAt'] ?? '',
-              ) ??
-              object.respiratoryParametersObject1!.createdAt,
-          updatedAt: DateTime.tryParse(
-                responseRespiratoryParametersObject1['updatedAt'] ?? '',
-              ) ??
-              object.respiratoryParametersObject1!.updatedAt,
-        );
-      }
+      /// Respiratory parameters value 1.
+      dynamic responseRespiratoryParametersObject1 =
+          await _saveObject(object.respiratoryParametersObject1);
 
-      if (object.respiratoryParametersObject2 != null) {
-        /// Respiratory parameters value 2
-        dynamic responseRespiratoryParametersObject2 = await Backend.saveObject(
-          object.respiratoryParametersObject2!,
-          acl: coiACL,
-        );
+      respiratoryParametersObject1 = await _updateObjectProperties(
+        object.respiratoryParametersObject1,
+        responseRespiratoryParametersObject1,
+      );
 
-        respiratoryParametersObject2 =
-            object.respiratoryParametersObject2!.copyWith(
-          objectId: responseRespiratoryParametersObject2['objectId'],
-          createdAt: DateTime.tryParse(
-                responseRespiratoryParametersObject2['createdAt'] ?? '',
-              ) ??
-              object.respiratoryParametersObject2!.createdAt,
-          updatedAt: DateTime.tryParse(
-                responseRespiratoryParametersObject2['updatedAt'] ?? '',
-              ) ??
-              object.respiratoryParametersObject2!.updatedAt,
-        );
-      }
+      /// Respiratory parameters value 2.
+      dynamic responseRespiratoryParametersObject2 =
+          await _saveObject(object.respiratoryParametersObject2);
 
-      if (object.respiratoryParameters != null) {
-        /// Respiratory parameters
-        object.respiratoryParameters!.value1 = respiratoryParametersObject1;
-        object.respiratoryParameters!.value2 = respiratoryParametersObject2;
-        await Backend.saveObject(
-          object.respiratoryParameters!,
-          acl: coiACL,
-        );
-      }
+      respiratoryParametersObject2 = await _updateObjectProperties(
+        object.respiratoryParametersObject2,
+        responseRespiratoryParametersObject2,
+      );
+
+      /// Respiratory parameters.
+      object.respiratoryParameters!.value1 = respiratoryParametersObject1;
+      object.respiratoryParameters!.value2 = respiratoryParametersObject2;
+      await _saveObject(object.respiratoryParameters);
 
       BloodGasAnalysisObject? bloodGasAnalysisObject1;
       BloodGasAnalysisObject? bloodGasAnalysisObject2;
-      if (object.bloodGasAnalysisObject1 != null) {
-        /// Blood gas analysis value 1
-        dynamic responseBloodGasAnalysisObject1 = await Backend.saveObject(
-          object.bloodGasAnalysisObject1!,
-          acl: coiACL,
-        );
 
-        bloodGasAnalysisObject1 = object.bloodGasAnalysisObject1!.copyWith(
-          objectId: responseBloodGasAnalysisObject1['objectId'],
-          createdAt: DateTime.tryParse(
-                responseBloodGasAnalysisObject1['createdAt'] ?? '',
-              ) ??
-              object.bloodGasAnalysisObject1!.createdAt,
-          updatedAt: DateTime.tryParse(
-                responseBloodGasAnalysisObject1['updatedAt'] ?? '',
-              ) ??
-              object.bloodGasAnalysisObject1!.updatedAt,
-        );
-      }
+      /// Blood gas analysis value 1.
+      dynamic responseBloodGasAnalysisObject1 =
+          await _saveObject(object.bloodGasAnalysisObject1);
 
-      if (object.bloodGasAnalysisObject2 != null) {
-        /// Blood gas analysis value 2
-        dynamic responseBloodGasAnalysisObject2 = await Backend.saveObject(
-          object.bloodGasAnalysisObject2!,
-          acl: coiACL,
-        );
+      bloodGasAnalysisObject1 = await _updateObjectProperties(
+        object.bloodGasAnalysisObject1,
+        responseBloodGasAnalysisObject1,
+      );
 
-        bloodGasAnalysisObject2 = object.bloodGasAnalysisObject2!.copyWith(
-          objectId: responseBloodGasAnalysisObject2['objectId'],
-          createdAt: DateTime.tryParse(
-                responseBloodGasAnalysisObject2['createdAt'] ?? '',
-              ) ??
-              object.bloodGasAnalysisObject2!.createdAt,
-          updatedAt: DateTime.tryParse(
-                responseBloodGasAnalysisObject2['updatedAt'] ?? '',
-              ) ??
-              object.bloodGasAnalysisObject2!.updatedAt,
-        );
-      }
+      /// Blood gas analysis value 2.
+      dynamic responseBloodGasAnalysisObject2 =
+          await _saveObject(object.bloodGasAnalysisObject2);
 
-      if (object.bloodGasAnalysis != null) {
-        /// Blood gas analysis
-        object.bloodGasAnalysis!.value1 = bloodGasAnalysisObject1;
-        object.bloodGasAnalysis!.value2 = bloodGasAnalysisObject2;
-        await Backend.saveObject(
-          object.bloodGasAnalysis!,
-          acl: coiACL,
-        );
-      }
+      bloodGasAnalysisObject2 = await _updateObjectProperties(
+        object.bloodGasAnalysisObject2,
+        responseBloodGasAnalysisObject2,
+      );
 
-      if (object.laborParameters != null) {
-        /// Labor parameters
-        await Backend.saveObject(
-          object.laborParameters!,
-          acl: coiACL,
-        );
-      }
+      /// Blood gas analysis.
+      object.bloodGasAnalysis!.value1 = bloodGasAnalysisObject1;
+      object.bloodGasAnalysis!.value2 = bloodGasAnalysisObject2;
 
-      if (object.movementData != null) {
-        /// Movement data
-        await Backend.saveObject(
-          object.movementData!,
-          acl: coiACL,
-        );
-      }
+      await _saveObject(object.bloodGasAnalysis);
+
+      /// Labor parameters.
+      await _saveObject(object.laborParameters);
+
+      /// Movement data.
+      await _saveObject(object.movementData);
 
       dispatch();
     } catch (e) {
       Stream<List<CatalogOfItemsElement>>.error(e);
     }
+  }
+
+  Future<BackendACL> _prepareACL(AbstractDatabaseObject object) async {
+    BackendACL acl = BackendACL();
+    String roleId = await BackendRole.userRoleName.id;
+    acl.setWriteAccess(userId: roleId);
+    acl.setReadAccess(userId: roleId);
+    acl.setReadAccess(userId: EditPatientScreen.patientObjectId!);
+
+    return acl;
+  }
+
+  Future<dynamic> _saveObject(dynamic object) async {
+    return object.objectId == null
+        ? await Backend.saveObject(object, acl: acl)
+        : await Backend.saveObject(object);
+  }
+
+  Future<dynamic> _updateObjectProperties(
+    dynamic object,
+    dynamic response,
+  ) async {
+    return object!.copyWith(
+      objectId: response['objectId'],
+      createdAt: DateTime.tryParse(
+            response['createdAt'] ?? '',
+          ) ??
+          object!.createdAt,
+      updatedAt: DateTime.tryParse(
+            response['updatedAt'] ?? '',
+          ) ??
+          object!.updatedAt,
+    );
   }
 
   @override

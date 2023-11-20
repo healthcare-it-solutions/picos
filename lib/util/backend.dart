@@ -338,22 +338,34 @@ class BackendFile {
 
 /// Enumeration for role.
 enum BackendRole {
-  /// Denotation for doctor's role.
-  doctor,
-
-  /// Denotation for patient's role.
-  patient,
+  /// Denotation for user's role name.
+  userRoleName,
 }
 
 /// Extension for Role-enumeration.
 extension BackendRoleExtension on BackendRole {
+  /// Holds the name of Role.
+  Future<String> getRoleName() async {
+    QueryBuilder<ParseObject> roleQuery =
+        QueryBuilder<ParseObject>(ParseObject('_Role'));
+
+    roleQuery.whereMatchesQuery(
+      'users',
+      QueryBuilder<ParseObject>(ParseUser.forQuery())
+        ..whereEqualTo('objectId', Backend.user.objectId),
+    );
+
+    ParseResponse resultRole = await roleQuery.query();
+    String roleName = 'role:${resultRole.results?.first.get<String>('name')}';
+
+    return roleName;
+  }
+
   /// ID of the Role.
-  String get id {
+  Future<String> get id {
     switch (this) {
-      case BackendRole.doctor:
-        return 'role:Doctor';
-      case BackendRole.patient:
-        return 'role:Patient';
+      case BackendRole.userRoleName:
+        return getRoleName();
     }
   }
 }
