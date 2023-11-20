@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:picos/models/follow_up.dart';
 import 'package:picos/util/backend.dart';
@@ -36,9 +35,7 @@ class BackendFollowUpApi {
         }
       }
     } catch (e) {
-      if (kDebugMode) {
-        print('Error fetching follow-ups: $e');
-      }
+      Stream<List<FollowUp>>.error(e);
     }
     return followUpResults;
   }
