@@ -22,10 +22,9 @@ import '../../api/backend_follow_up_api.dart';
 import '../../models/follow_up.dart';
 import 'follow_up_item.dart';
 
-/// This is the screen a user should see when prompted to provide some
-/// information about their health status.
+/// This is the list of follow up items.
 class FollowUpList extends StatelessWidget {
-  /// PicosMenu constructor
+  /// FollowUpList constructor
   const FollowUpList({Key? key}) : super(key: key);
 
   @override
