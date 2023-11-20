@@ -96,7 +96,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
 
   late Patient patient;
 
-  Future<Patient> _savePatient() async {
+  Future<Patient> _savePatient(String roleId) async {
     patient = Patient(
       firstName: _formEntries['entryFirstName']!,
       familyName: _formEntries['entryFamilyName']!,
@@ -107,7 +107,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
     );
     BackendACL patientACL = BackendACL();
     patientACL.setReadAccess(
-      userId: await BackendRole.userRoleName.id,
+      userId: roleId,
     );
     dynamic responsePatient = await Backend.saveObject(
       patient,
@@ -121,7 +121,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
     return patient;
   }
 
-  Future<PatientProfile> _savePatientProfile() async {
+  Future<PatientProfile> _savePatientProfile(String roleId) async {
     PatientProfile patientProfile = PatientProfile(
       bloodPressureEnabled: _vitalValuesEntries['entryBloodPressureEnabled']!,
       bloodSugarLevelsEnabled:
@@ -147,10 +147,10 @@ class _ConfigurationPages extends State<ConfigurationPages> {
       userId: patient.objectId!,
     );
     patientProfileACL.setReadAccess(
-      userId: await BackendRole.userRoleName.id,
+      userId: roleId,
     );
     patientProfileACL.setWriteAccess(
-      userId: await BackendRole.userRoleName.id,
+      userId: roleId,
     );
     await Backend.saveObject(
       patientProfile,
@@ -160,7 +160,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
     return patientProfile;
   }
 
-  Future<PatientData> _savePatientData() async {
+  Future<PatientData> _savePatientData(String roleId) async {
     PatientData patientData = PatientData(
       bodyHeight: double.parse(_additionalEntries['entryHeight']!),
       patientID: _additionalEntries['entryPatientID']!,
@@ -174,10 +174,10 @@ class _ConfigurationPages extends State<ConfigurationPages> {
       userId: patient.objectId!,
     );
     patientDataACL.setReadAccess(
-      userId: await BackendRole.userRoleName.id,
+      userId: roleId,
     );
     patientDataACL.setWriteAccess(
-      userId: await BackendRole.userRoleName.id,
+      userId: roleId,
     );
     await Backend.saveObject(
       patientData,
@@ -296,9 +296,10 @@ class _ConfigurationPages extends State<ConfigurationPages> {
                     if (_currentPage == lastPage &&
                         formKeyConfiguration.currentState!.validate()) {
                       formKeyConfiguration.currentState!.save();
-                      await _savePatient();
-                      await _savePatientData();
-                      await _savePatientProfile();
+                      String roleId = await BackendRole.userRoleName.id;
+                      await _savePatient(roleId);
+                      await _savePatientData(roleId);
+                      await _savePatientProfile(roleId);
                       if (!mounted) return;
                       Navigator.of(context).pushReplacementNamed(
                         '/study-nurse-screen/configuration-finish-screen',
