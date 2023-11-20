@@ -367,5 +367,14 @@
   "visitDate": "Besuchsdatum",
   "recordDate": "Aufnahmedatum",
   "handbook": "Handbuch",
-  "couldNotLaunch" : "Konnte nicht starten"
+  "couldNotLaunch": "Konnte nicht starten",
+  "toCoi": "Zum Catalog of Items",
+  "toFollowUp": "Zum Follow up",
+  "erroneousInput": "Fehlerhafte Eingabe",
+  "testResult": "Testergebnis",
+  "healthScore": "Gesundheitsscore",
+  "healthState": "Gesundheitszustand",
+  "rhythm": "Rhythmus",
+  "rhythmType": "Rhythmus Typ",
+  "electricalAxisDeviation": "Lagetyp"
 }

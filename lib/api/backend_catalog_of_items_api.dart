@@ -40,7 +40,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
   @override
   Future<void> saveObject(AbstractDatabaseObject object) async {
     try {
-      acl = await _prepareACL(object);
+      acl = await _prepareACL();
 
       /// ICUDiagnosis.
       await _saveObject((object as CatalogOfItemsElement).icuDiagnosis);
@@ -135,7 +135,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
     }
   }
 
-  Future<BackendACL> _prepareACL(AbstractDatabaseObject object) async {
+  Future<BackendACL> _prepareACL() async {
     BackendACL acl = BackendACL();
     String roleId = await BackendRole.userRoleName.id;
     acl.setWriteAccess(userId: roleId);
