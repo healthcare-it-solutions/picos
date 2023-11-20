@@ -1475,10 +1475,6 @@
   "@couldNotLaunch": {
     "description": "Could not launch"
   },
-  "loading": "loading!",
-  "@loading": {
-    "description": "Loading!"
-  },
   "error": "Error!",
   "@error": {
     "description": "Error!"
