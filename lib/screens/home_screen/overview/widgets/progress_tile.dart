@@ -198,11 +198,11 @@ class _ProgressTileState extends State<ProgressTile> {
       future: _progressTileState,
       builder: (BuildContext ctx, AsyncSnapshot<ProgressTileState> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Text('lädt!');
+          return Text(AppLocalizations.of(context)!.loading);
         }
 
         if (snapshot.hasError) {
-          return const Text('Fehler!');
+          return Text(AppLocalizations.of(context)!.error);
         }
 
         final ProgressTileState state = snapshot.data!;
