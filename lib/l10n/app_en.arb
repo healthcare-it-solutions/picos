@@ -1439,13 +1439,13 @@
   "@noDataAvailable": {
     "description": "No data available"
   },
-  "systolic": "systolic",
+  "systolic": "Systolic",
   "@systolic ": {
-    "description": "systolic"
+    "description": "Systolic"
   },
-  "diastolic": "diastolic",
+  "diastolic": "Diastolic",
   "@diastolic  ": {
-    "description": "diastolic"
+    "description": "Diastolic"
   },
   "hospital": "Hospital",
   "@hospital": {
@@ -1474,6 +1474,42 @@
   "couldNotLaunch": "Could not launch",
   "@couldNotLaunch": {
     "description": "Could not launch"
+  },
+  "toCoi": "To catalog of Items",
+  "@toCoi": {
+    "description": "To catalog of Items"
+  },
+  "toFollowUp": "To follow up",
+  "@toFollowUp": {
+    "description": "to follow up"
+  },
+  "erroneousInput": "Erroneous input",
+  "@erroneousInput": {
+    "description": "Erroneous input"
+  },
+  "testResult": "Test result",
+  "@testResult": {
+    "description": "Test result"
+  },
+  "healthScore": "Health score",
+  "@healthScore": {
+    "description": "Health score"
+  },
+  "healthState": "Health state",
+  "@healthState": {
+    "description": "Health state"
+  },
+  "rhythm": "Rhythm",
+  "@rhythm": {
+    "description": "Rhythm"
+  },
+  "rhythmType": "Rhythm type",
+  "@rhythmType": {
+    "description": "Rhythm type"
+  },
+  "electricalAxisDeviation": "Electrical axis deviation",
+  "@electricalAxisDeviation": {
+    "description": "Electrical axis deviation"
   },
   "error": "Error!",
   "@error": {

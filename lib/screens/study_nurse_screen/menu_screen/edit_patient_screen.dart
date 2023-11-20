@@ -365,11 +365,20 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                   ),
                 ),
                 PicosInkWellButton(
-                  text: 'Zum Catalog of Items',
+                  text: AppLocalizations.of(context)!.toCoi,
                   onTap: () {
                     Navigator.pushNamed(
                       context,
                       '/study-nurse-screen/catalog-of-items',
+                    );
+                  },
+                ),
+                PicosInkWellButton(
+                  text: AppLocalizations.of(context)!.toFollowUp,
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      '/follow_up_screen/follow_up_list',
                     );
                   },
                 ),

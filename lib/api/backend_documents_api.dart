@@ -27,12 +27,6 @@ import '../util/backend.dart';
 class BackendDocumentsApi extends BackendObjectsApi {
   @override
   Future<void> saveObject(AbstractDatabaseObject object) async {
-    if (object.createdAt == null) {
-      acl = BackendACL();
-      acl!.setDefault();
-      acl!.setReadAccess(userId: BackendRole.doctor.id);
-    }
-
     await super.saveObject(object);
   }
 
