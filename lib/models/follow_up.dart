@@ -27,7 +27,7 @@ class FollowUp extends AbstractDatabaseObject {
     this.bloodDiastolic,
     this.bloodSystolic,
     this.rhythm,
-    this.rhythmTyp,
+    this.rhythmType,
     this.testResult,
     this.healthState,
     this.electricalAxisDeviation,
@@ -51,8 +51,8 @@ class FollowUp extends AbstractDatabaseObject {
   /// denotes the rhythm.
   final String? rhythm;
 
-  /// denotes the rhythmTyp.
-  final String? rhythmTyp;
+  /// denotes the rhythmType.
+  final String? rhythmType;
 
   /// denotes the testResult.
   final int? testResult;
@@ -93,10 +93,10 @@ class FollowUp extends AbstractDatabaseObject {
     int? bloodDiastolic,
     int? bloodSystolic,
     String? rhythm,
-    String? rhythmTyp,
+    String? rhythmType,
     int? testResult,
     List<dynamic>? healthState,
-    String? locationType,
+    String? electricalAxisDeviation,
     int? heartRate,
     int? healthScore,
     int? number,
@@ -111,10 +111,11 @@ class FollowUp extends AbstractDatabaseObject {
       bloodDiastolic: bloodDiastolic ?? this.bloodDiastolic,
       bloodSystolic: bloodSystolic ?? this.bloodSystolic,
       rhythm: rhythm ?? this.rhythm,
-      rhythmTyp: rhythmTyp ?? this.rhythmTyp,
+      rhythmType: rhythmType ?? this.rhythmType,
       testResult: testResult ?? this.testResult,
       healthState: healthState ?? this.healthState,
-      electricalAxisDeviation: locationType ?? this.electricalAxisDeviation,
+      electricalAxisDeviation:
+          electricalAxisDeviation ?? this.electricalAxisDeviation,
       heartRate: heartRate ?? this.heartRate,
       healthScore: healthScore ?? this.healthScore,
       number: number ?? this.number,
@@ -138,7 +139,7 @@ class FollowUp extends AbstractDatabaseObject {
         if (bloodDiastolic != null) 'BD_Diastolisch': bloodDiastolic,
         if (bloodSystolic != null) 'BD_Systolisch': bloodSystolic,
         if (rhythm != null) 'Rythmus': rhythm,
-        if (rhythmTyp != null) 'RythmusTyp': rhythmTyp,
+        if (rhythmType != null) 'RythmusTyp': rhythmType,
         if (testResult != null) 'Testergebnis': testResult,
         if (healthState != null) 'HealthState': healthState,
         if (electricalAxisDeviation != null) 'Lagetyp': electricalAxisDeviation,

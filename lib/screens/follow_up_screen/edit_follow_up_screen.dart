@@ -41,10 +41,10 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
   int? _bloodDiastolic;
   int? _bloodSystolic;
   String? _rhythm;
-  String? _rhythmTyp;
+  String? _rhythmType;
   int? _testResult;
   List<dynamic>? _healthState;
-  String? _locationType;
+  String? _electricalAxisDeviation;
   int? _heartRate;
   int? _healthScore;
   int? _number;
@@ -93,10 +93,10 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
     _bloodDiastolic = _followUp.bloodDiastolic;
     _bloodSystolic = _followUp.bloodSystolic;
     _rhythm = _followUp.rhythm;
-    _rhythmTyp = _followUp.rhythmTyp;
+    _rhythmType = _followUp.rhythmType;
     _testResult = _followUp.testResult;
     _healthState = _followUp.healthState;
-    _locationType = _followUp.electricalAxisDeviation;
+    _electricalAxisDeviation = _followUp.electricalAxisDeviation;
     _heartRate = _followUp.heartRate;
     _healthScore = _followUp.healthScore;
     _number = _followUp.number;
@@ -184,11 +184,11 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       distance: _distance,
       bloodDiastolic: _bloodDiastolic,
       bloodSystolic: _bloodSystolic,
-      rythmus: _rhythm,
-      rythmusTyp: _rhythmTyp,
+      rhythm: _rhythm,
+      rhythmType: _rhythmType,
       testResult: _testResult,
       healthState: _healthState,
-      locationType: _locationType,
+      electricalAxisDeviation: _electricalAxisDeviation,
       heartRate: _heartRate,
       healthScore: _healthScore,
       number: _number,
@@ -328,7 +328,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         const SizedBox(width: 16),
         Expanded(
           child: DropdownButtonFormField<String>(
-            value: _rhythmTyp,
+            value: _rhythmType,
             decoration: InputDecoration(
               labelText: AppLocalizations.of(context)!.rhythmType,
               border: const OutlineInputBorder(),
@@ -344,7 +344,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
             onChanged: (String? newValue) {
               setState(() {
                 _saveDisabled = false;
-                _rhythmTyp = newValue;
+                _rhythmType = newValue;
               });
             },
           ),
@@ -355,7 +355,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
 
   Widget _buildLocationTypeSelection() {
     return DropdownButtonFormField<String>(
-      value: _locationType,
+      value: _electricalAxisDeviation,
       decoration: InputDecoration(
         labelText: AppLocalizations.of(context)!.electricalAxisDeviation,
         border: const OutlineInputBorder(),
@@ -370,7 +370,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       onChanged: (String? newValue) {
         setState(() {
           _saveDisabled = false;
-          _locationType = newValue;
+          _electricalAxisDeviation = newValue;
         });
       },
     );
