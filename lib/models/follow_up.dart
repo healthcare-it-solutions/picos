@@ -48,10 +48,10 @@ class FollowUp extends AbstractDatabaseObject {
   /// denotes the bloodSystolic.
   final int? bloodSystolic;
 
-  /// denotes the rythmus.
+  /// denotes the rhythm.
   final String? rhythm;
 
-  /// denotes the rythmusTyp.
+  /// denotes the rhythmTyp.
   final String? rhythmTyp;
 
   /// denotes the testResult.
@@ -92,8 +92,8 @@ class FollowUp extends AbstractDatabaseObject {
     int? distance,
     int? bloodDiastolic,
     int? bloodSystolic,
-    String? rythmus,
-    String? rythmusTyp,
+    String? rhythm,
+    String? rhythmTyp,
     int? testResult,
     List<dynamic>? healthState,
     String? locationType,
@@ -110,8 +110,8 @@ class FollowUp extends AbstractDatabaseObject {
       distance: distance ?? this.distance,
       bloodDiastolic: bloodDiastolic ?? this.bloodDiastolic,
       bloodSystolic: bloodSystolic ?? this.bloodSystolic,
-      rhythm: rythmus ?? this.rhythm,
-      rhythmTyp: rythmusTyp ?? this.rhythmTyp,
+      rhythm: rhythm ?? this.rhythm,
+      rhythmTyp: rhythmTyp ?? this.rhythmTyp,
       testResult: testResult ?? this.testResult,
       healthState: healthState ?? this.healthState,
       electricalAxisDeviation: locationType ?? this.electricalAxisDeviation,
