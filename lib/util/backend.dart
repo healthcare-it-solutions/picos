@@ -338,9 +338,8 @@ class BackendFile {
 
 /// Enumeration for role.
 enum BackendRole {
-  /// Denotation for doctor's role.
-  doctor,
-
+  /// Denotation for user's role name.
+  userRoleName,
 }
 
 /// Extension for Role-enumeration.
@@ -365,7 +364,7 @@ extension BackendRoleExtension on BackendRole {
   /// ID of the Role.
   Future<String> get id {
     switch (this) {
-      case BackendRole.doctor:
+      case BackendRole.userRoleName:
         return getRoleName();
     }
   }

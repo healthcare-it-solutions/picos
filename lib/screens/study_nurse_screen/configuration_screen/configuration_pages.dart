@@ -107,7 +107,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
     );
     BackendACL patientACL = BackendACL();
     patientACL.setReadAccess(
-      userId: await BackendRole.doctor.id,
+      userId: await BackendRole.userRoleName.id,
     );
     dynamic responsePatient = await Backend.saveObject(
       patient,
@@ -147,10 +147,10 @@ class _ConfigurationPages extends State<ConfigurationPages> {
       userId: patient.objectId!,
     );
     patientProfileACL.setReadAccess(
-      userId: await BackendRole.doctor.id,
+      userId: await BackendRole.userRoleName.id,
     );
     patientProfileACL.setWriteAccess(
-      userId: await BackendRole.doctor.id,
+      userId: await BackendRole.userRoleName.id,
     );
     await Backend.saveObject(
       patientProfile,
@@ -174,10 +174,10 @@ class _ConfigurationPages extends State<ConfigurationPages> {
       userId: patient.objectId!,
     );
     patientDataACL.setReadAccess(
-      userId: await BackendRole.doctor.id,
+      userId: await BackendRole.userRoleName.id,
     );
     patientDataACL.setWriteAccess(
-      userId: await BackendRole.doctor.id,
+      userId: await BackendRole.userRoleName.id,
     );
     await Backend.saveObject(
       patientData,
