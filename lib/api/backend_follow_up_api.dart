@@ -64,11 +64,14 @@ class BackendFollowUpApi {
 
   /// Saves a follow-up into the backend with the appropriate ACL settings.
   static Future<void> saveFollowUp(FollowUp followUp) async {
-    BackendACL followUpACL = BackendACL()
-      ..setReadAccess(userId: EditPatientScreen.patientObjectId!)
-      ..setReadAccess(userId: BackendRole.doctor.id)
-      ..setWriteAccess(userId: BackendRole.doctor.id);
-
-    await Backend.saveObject(followUp, acl: followUpACL);
+    if (followUp.objectId == null) {
+      BackendACL followUpACL = BackendACL()
+        ..setReadAccess(userId: EditPatientScreen.patientObjectId!)
+        ..setReadAccess(userId: await BackendRole.userRoleName.id)
+        ..setWriteAccess(userId: await BackendRole.userRoleName.id);
+      await Backend.saveObject(followUp, acl: followUpACL);
+    } else {
+      await Backend.saveObject(followUp);
+    }
   }
 }
