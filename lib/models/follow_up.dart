@@ -60,7 +60,7 @@ class FollowUp extends AbstractDatabaseObject {
   /// denotes the healthState.
   final List<dynamic>? healthState;
 
-  /// denotes the locationType.
+  /// denotes the electrical Axis Deviation.
   final String? electricalAxisDeviation;
 
   /// denotes the heartRate.
