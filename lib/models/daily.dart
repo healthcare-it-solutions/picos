@@ -20,7 +20,7 @@ import 'package:picos/models/abstract_database_object.dart';
 /// Class with daily questionaire information.
 class Daily extends AbstractDatabaseObject {
   /// Creates a Daily object.
-  Daily({
+  const Daily({
     required this.date,
     this.heartFrequency,
     this.bloodSugar,
@@ -32,10 +32,7 @@ class Daily extends AbstractDatabaseObject {
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
-  }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt) {
-    hasNullValues = _checkHasNullValues();
-    hasAnyValue = _checkHasAnyValue();
-  }
+  }) : super(objectId: objectId, createdAt: createdAt, updatedAt: updatedAt);
 
   /// The database table the objects are stored in.
   static const String databaseTable = 'PICOS_daily';
@@ -63,12 +60,6 @@ class Daily extends AbstractDatabaseObject {
 
   /// The assessment date.
   final DateTime date;
-
-  /// The information if this objects has any null values.
-  late final bool hasNullValues;
-
-  /// The information if this objects has any non-null value.
-  late final bool hasAnyValue;
 
   @override
   get table {
@@ -120,32 +111,4 @@ class Daily extends AbstractDatabaseObject {
         'datetime': date,
         'BloodSugarMol': bloodSugarMol,
       };
-
-  bool _checkHasNullValues() {
-    if (bloodDiastolic == null ||
-        bloodSugar == null ||
-        bloodSystolic == null ||
-        heartFrequency == null ||
-        pain == null ||
-        sleepDuration == null ||
-        bloodSugarMol == null) {
-      return true;
-    }
-
-    return false;
-  }
-
-  bool _checkHasAnyValue() {
-    if (bloodDiastolic != null ||
-        bloodSugar != null ||
-        bloodSystolic != null ||
-        heartFrequency != null ||
-        pain != null ||
-        sleepDuration != null ||
-        bloodSugarMol != null) {
-      return true;
-    }
-
-    return false;
-  }
 }
