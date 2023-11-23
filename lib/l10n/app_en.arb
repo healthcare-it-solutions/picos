@@ -1514,5 +1514,9 @@
   "error": "Error!",
   "@error": {
     "description": "Error!"
-  }
+  },
+  "@loadingFailed": {
+    "description": "Loading failed!"
+  },
+  "loadingFailed": "Loading failed!"
 }

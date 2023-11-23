@@ -33,7 +33,7 @@ class ProgressSection extends StatelessWidget {
   ///State of the required objects request;
   final ObjectsListState state;
 
-  Widget _buildContent() {
+  Widget _buildContent(BuildContext context) {
     if (state.status == ObjectsListStatus.initial ||
         state.status == ObjectsListStatus.loading) {
       return const Center(
@@ -42,8 +42,8 @@ class ProgressSection extends StatelessWidget {
     }
 
     if (state.status == ObjectsListStatus.failure) {
-      return const Center(
-        child: Text('Error'),
+      return Center(
+        child: Text(AppLocalizations.of(context)!.loadingFailed),
       );
     }
 
@@ -95,7 +95,7 @@ class ProgressSection extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 150, child: _buildContent()),
+        SizedBox(height: 150, child: _buildContent(context)),
       ],
     );
   }
