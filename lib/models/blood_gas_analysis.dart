@@ -19,6 +19,7 @@ import 'package:picos/models/abstract_database_object.dart';
 import 'package:picos/models/blood_gas_analysis_object.dart';
 
 /// Class with Blood Gas Analysis information.
+//ignore: must_be_immutable
 class BloodGasAnalysis extends AbstractDatabaseObject {
   /// Creates a Blood Gas Analysis object.
   BloodGasAnalysis({
