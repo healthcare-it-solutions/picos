@@ -573,62 +573,56 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
   Widget build(BuildContext context) {
     _theme ??= Theme.of(context).extension<GlobalTheme>()!;
 
-    return BlocBuilder<ObjectsListBloc<BackendCatalogOfItemsApi>,
-        ObjectsListState>(
-      builder: (BuildContext context, ObjectsListState state) {
-        return FutureBuilder<List<CatalogOfItemsElement>>(
-          future: fetchListData(),
-          builder: (
-            BuildContext context,
-            AsyncSnapshot<List<CatalogOfItemsElement>> snapshot,
-          ) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            } else {
-              buildContext = context;
-              _back = AppLocalizations.of(context)!.back;
-              _next = AppLocalizations.of(context)!.next;
-              if (snapshot.data!.isNotEmpty) {
-                _catalogOfItemsElement =
-                    snapshot.data?[0] as CatalogOfItemsElement;
-                pageStorage = CatalogOfItemsPageStorage(
-                  context: context,
-                  catalogOfItemsElement: _catalogOfItemsElement,
-                );
-              }
-              // When the DB is empty
-              else {
-                pageStorage = CatalogOfItemsPageStorage(context: context);
-              }
-              pages = pageStorage!.pages;
-              nextPageCallback = _nextPageCallback;
+    return FutureBuilder<List<CatalogOfItemsElement>>(
+      future: fetchListData(),
+      builder: (
+        BuildContext context,
+        AsyncSnapshot<List<CatalogOfItemsElement>> snapshot,
+      ) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          buildContext = context;
+          _back = AppLocalizations.of(context)!.back;
+          _next = AppLocalizations.of(context)!.next;
+          if (snapshot.data!.isNotEmpty) {
+            _catalogOfItemsElement = snapshot.data?[0] as CatalogOfItemsElement;
+            pageStorage = CatalogOfItemsPageStorage(
+              context: context,
+              catalogOfItemsElement: _catalogOfItemsElement,
+            );
+          }
+          // When the DB is empty
+          else {
+            pageStorage = CatalogOfItemsPageStorage(context: context);
+          }
+          pages = pageStorage!.pages;
+          nextPageCallback = _nextPageCallback;
 
-              return PicosScreenFrame(
-                title: 'Catalog of items',
-                body: PageView(
-                  controller: controller,
-                  children: pages,
-                ),
-                bottomNavigationBar: PicosAddButtonBar(
-                  leftButton: PicosInkWellButton(
-                    text: _back!,
-                    onTap: previousPage,
-                    buttonColor1: _theme!.grey3,
-                    buttonColor2: _theme!.grey1,
-                  ),
-                  rightButton: PicosInkWellButton(
-                    text: _next!,
-                    onTap: nextPage,
-                  ),
-                ),
-              );
-            }
-          },
-        );
+          return PicosScreenFrame(
+            title: 'Catalog of items',
+            body: PageView(
+              controller: controller,
+              children: pages,
+            ),
+            bottomNavigationBar: PicosAddButtonBar(
+              leftButton: PicosInkWellButton(
+                text: _back!,
+                onTap: previousPage,
+                buttonColor1: _theme!.grey3,
+                buttonColor2: _theme!.grey1,
+              ),
+              rightButton: PicosInkWellButton(
+                text: _next!,
+                onTap: nextPage,
+              ),
+            ),
+          );
+        }
       },
     );
   }
