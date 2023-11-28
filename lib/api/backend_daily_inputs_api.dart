@@ -20,6 +20,7 @@ import 'dart:async';
 import 'package:picos/api/backend_objects_api.dart';
 import 'package:picos/models/abstract_database_object.dart';
 import 'package:picos/models/daily_input.dart';
+import 'package:picos/models/patient_profile.dart';
 import 'package:picos/models/phq4.dart';
 import 'package:picos/models/weekly.dart';
 
@@ -34,6 +35,40 @@ class BackendDailyInputsApi extends BackendObjectsApi {
     }
 
     return false;
+  }
+
+  Future<PatientProfile?> _fetchPatientProfileData() async {
+    if (Backend.user.objectId != null) {
+      dynamic responsePatient = await Backend.getEntry(
+        PatientProfile.databaseTable,
+        'Patient',
+        Backend.user.objectId!,
+      );
+      dynamic element = await responsePatient.results?.first;
+      if (element != null) {
+        return PatientProfile(
+          weightBMIEnabled: element['Weight_BMI'],
+          heartFrequencyEnabled: element['HeartRate'],
+          bloodPressureEnabled: element['BloodPressure'],
+          bloodSugarLevelsEnabled: element['BloodSugar'],
+          walkDistanceEnabled: element['WalkingDistance'],
+          sleepDurationEnabled: element['SleepDuration'],
+          sleepQualityEnabled: element['SISQS'],
+          painEnabled: element['Pain'],
+          phq4Enabled: element['PHQ4'],
+          medicationEnabled: element['Medication'],
+          therapyEnabled: element['Therapies'],
+          doctorsVisitEnabled: element['Stays'],
+          patientObjectId: element['Patient']['objectId'],
+          doctorObjectId: element['Doctor']['objectId'],
+          objectId: element['objectId'],
+          createdAt: element['createdAt'],
+          updatedAt: element['updatedAt'],
+        );
+      }
+    }
+
+    return null;
   }
 
   @override
@@ -94,6 +129,8 @@ class BackendDailyInputsApi extends BackendObjectsApi {
 
       int day = 0;
 
+      PatientProfile? patientProfileData = await _fetchPatientProfileData();
+
       response.forEach((String key, dynamic value) {
         Daily? daily;
         Weekly? weekly;
@@ -151,6 +188,7 @@ class BackendDailyInputsApi extends BackendObjectsApi {
             phq4: phq4,
             weeklyDay: weeklyDay,
             phq4Day: phq4Day,
+            patientProfileData: patientProfileData,
           ),
         );
 
