@@ -65,6 +65,23 @@ class BackendDailyInputsApi extends BackendObjectsApi {
           createdAt: element['createdAt'],
           updatedAt: element['updatedAt'],
         );
+      } else {
+        return const PatientProfile(
+          weightBMIEnabled: true,
+          heartFrequencyEnabled: true,
+          bloodPressureEnabled: true,
+          bloodSugarLevelsEnabled: true,
+          walkDistanceEnabled: true,
+          sleepDurationEnabled: true,
+          sleepQualityEnabled: true,
+          painEnabled: true,
+          phq4Enabled: true,
+          medicationEnabled: true,
+          therapyEnabled: true,
+          doctorsVisitEnabled: true,
+          patientObjectId: '',
+          doctorObjectId: '',
+        );
       }
     }
 
@@ -129,7 +146,7 @@ class BackendDailyInputsApi extends BackendObjectsApi {
 
       int day = 0;
 
-      PatientProfile? patientProfileData = await _fetchPatientProfileData();
+      PatientProfile? patientProfile = await _fetchPatientProfileData();
 
       response.forEach((String key, dynamic value) {
         Daily? daily;
@@ -188,7 +205,7 @@ class BackendDailyInputsApi extends BackendObjectsApi {
             phq4: phq4,
             weeklyDay: weeklyDay,
             phq4Day: phq4Day,
-            patientProfileData: patientProfileData,
+            patientProfile: patientProfile,
           ),
         );
 
