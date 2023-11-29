@@ -33,7 +33,7 @@ class DailyInput extends AbstractDatabaseObject {
     this.phq4,
     this.weeklyDay = false,
     this.phq4Day = false,
-    this.patientProfileData,
+    this.patientProfile,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -61,7 +61,7 @@ class DailyInput extends AbstractDatabaseObject {
   final bool phq4Day;
 
   /// Contains the data for PatientProfile.
-  final PatientProfile? patientProfileData;
+  final PatientProfile? patientProfile;
 
   @override
   get table {
@@ -76,7 +76,7 @@ class DailyInput extends AbstractDatabaseObject {
     PHQ4? phq4,
     bool? weeklyDay,
     bool? phq4Day,
-    PatientProfile? patientProfileData,
+    PatientProfile? patientProfile,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -88,7 +88,7 @@ class DailyInput extends AbstractDatabaseObject {
       phq4: phq4 ?? this.phq4,
       weeklyDay: weeklyDay ?? this.weeklyDay,
       phq4Day: phq4Day ?? this.phq4Day,
-      patientProfileData: patientProfileData ?? this.patientProfileData,
+      patientProfile: patientProfile ?? this.patientProfile,
       objectId: objectId ?? this.objectId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,

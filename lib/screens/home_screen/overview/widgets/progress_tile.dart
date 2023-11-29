@@ -55,28 +55,28 @@ class ProgressTile extends StatelessWidget {
 
   bool _dailyHasNullValues() {
     return (dailyInput.daily!.bloodDiastolic == null &&
-            dailyInput.patientProfileData!.bloodPressureEnabled) ||
+            dailyInput.patientProfile!.bloodPressureEnabled) ||
         (dailyInput.daily!.bloodSugar == null) &&
-            dailyInput.patientProfileData!.bloodSugarLevelsEnabled ||
+            dailyInput.patientProfile!.bloodSugarLevelsEnabled ||
         (dailyInput.daily!.bloodSystolic == null &&
-            dailyInput.patientProfileData!.bloodPressureEnabled) ||
+            dailyInput.patientProfile!.bloodPressureEnabled) ||
         (dailyInput.daily!.heartFrequency == null &&
-            dailyInput.patientProfileData!.heartFrequencyEnabled) ||
+            dailyInput.patientProfile!.heartFrequencyEnabled) ||
         (dailyInput.daily!.pain == null &&
-            dailyInput.patientProfileData!.painEnabled) ||
+            dailyInput.patientProfile!.painEnabled) ||
         (dailyInput.daily!.sleepDuration == null &&
-            dailyInput.patientProfileData!.sleepDurationEnabled);
+            dailyInput.patientProfile!.sleepDurationEnabled);
   }
 
   bool _weeklyHasNullValues() {
     return (dailyInput.weekly!.bodyWeight == null &&
-            dailyInput.patientProfileData!.weightBMIEnabled) ||
+            dailyInput.patientProfile!.weightBMIEnabled) ||
         (dailyInput.weekly!.bmi == null &&
-            dailyInput.patientProfileData!.weightBMIEnabled) ||
+            dailyInput.patientProfile!.weightBMIEnabled) ||
         (dailyInput.weekly!.sleepQuality == null &&
-            dailyInput.patientProfileData!.sleepQualityEnabled) ||
+            dailyInput.patientProfile!.sleepQualityEnabled) ||
         (dailyInput.weekly!.walkingDistance == null &&
-            dailyInput.patientProfileData!.walkDistanceEnabled);
+            dailyInput.patientProfile!.walkDistanceEnabled);
   }
 
   bool _phq4HasNullValues() {
@@ -84,33 +84,33 @@ class ProgressTile extends StatelessWidget {
             dailyInput.phq4!.b == null ||
             dailyInput.phq4!.c == null ||
             dailyInput.phq4!.d == null) &&
-        dailyInput.patientProfileData!.phq4Enabled);
+        dailyInput.patientProfile!.phq4Enabled);
   }
 
   bool _dailyHasAnyValues() {
     return (dailyInput.daily!.bloodDiastolic != null &&
-            dailyInput.patientProfileData!.bloodPressureEnabled) ||
+            dailyInput.patientProfile!.bloodPressureEnabled) ||
         (dailyInput.daily!.bloodSugar != null &&
-            dailyInput.patientProfileData!.bloodSugarLevelsEnabled) ||
+            dailyInput.patientProfile!.bloodSugarLevelsEnabled) ||
         (dailyInput.daily!.bloodSystolic != null &&
-            dailyInput.patientProfileData!.bloodPressureEnabled) ||
+            dailyInput.patientProfile!.bloodPressureEnabled) ||
         (dailyInput.daily!.heartFrequency != null &&
-            dailyInput.patientProfileData!.heartFrequencyEnabled) ||
+            dailyInput.patientProfile!.heartFrequencyEnabled) ||
         (dailyInput.daily!.pain != null &&
-            dailyInput.patientProfileData!.painEnabled) ||
+            dailyInput.patientProfile!.painEnabled) ||
         (dailyInput.daily!.sleepDuration != null &&
-            dailyInput.patientProfileData!.sleepDurationEnabled);
+            dailyInput.patientProfile!.sleepDurationEnabled);
   }
 
   bool _weeklyHasAnyValues() {
     return (dailyInput.weekly!.bodyWeight != null &&
-            dailyInput.patientProfileData!.weightBMIEnabled) ||
+            dailyInput.patientProfile!.weightBMIEnabled) ||
         (dailyInput.weekly!.bmi != null &&
-            dailyInput.patientProfileData!.weightBMIEnabled) ||
+            dailyInput.patientProfile!.weightBMIEnabled) ||
         (dailyInput.weekly!.sleepQuality != null &&
-            dailyInput.patientProfileData!.sleepQualityEnabled) ||
+            dailyInput.patientProfile!.sleepQualityEnabled) ||
         (dailyInput.weekly!.walkingDistance != null &&
-            dailyInput.patientProfileData!.walkDistanceEnabled);
+            dailyInput.patientProfile!.walkDistanceEnabled);
   }
 
   bool _phq4HasAnyValues() {
@@ -118,7 +118,7 @@ class ProgressTile extends StatelessWidget {
             dailyInput.phq4!.b != null ||
             dailyInput.phq4!.c != null ||
             dailyInput.phq4!.d != null) &&
-        dailyInput.patientProfileData!.phq4Enabled;
+        dailyInput.patientProfile!.phq4Enabled;
   }
 
   ProgressTileState _createProgressTileState() {
