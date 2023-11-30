@@ -35,6 +35,8 @@ import '../../../widgets/picos_form_of_address.dart';
 
 import 'package:picos/themes/global_theme.dart';
 
+import '../../../widgets/picos_screen_frame.dart';
+
 /// FormKey for the underlying PageView-Elements.
 final GlobalKey<FormState> formKeyConfiguration = GlobalKey<FormState>();
 
@@ -252,12 +254,8 @@ class _ConfigurationPages extends State<ConfigurationPages> {
     return BlocBuilder<ObjectsListBloc<BackendPatientsListApi>,
         ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
-        return Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            title: Text(AppLocalizations.of(context)!.configuration),
-            backgroundColor: theme.darkGreen2,
-          ),
+        return PicosScreenFrame(
+          title: AppLocalizations.of(context)!.configuration,
           body: Form(
             key: formKeyConfiguration,
             child: PageView(
