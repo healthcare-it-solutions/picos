@@ -32,8 +32,6 @@ class ProgressTile extends StatelessWidget {
   /// The [DailyInput] used to create the tile.
   final DailyInput dailyInput;
 
-  //PatientProfile? _patientProfile;
-
   String _getDateTitle(DateTime date) {
     return '${date.day}.${date.month}.';
   }
