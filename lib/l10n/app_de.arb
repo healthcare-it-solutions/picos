@@ -368,7 +368,6 @@
   "recordDate": "Aufnahmedatum",
   "handbook": "Handbuch",
   "couldNotLaunch": "Konnte nicht starten",
-  "error": "Fehler!",
   "toCoi": "Zum Catalog of Items",
   "toFollowUp": "Zum Follow up",
   "erroneousInput": "Fehlerhafte Eingabe",
@@ -377,5 +376,7 @@
   "healthState": "Gesundheitszustand",
   "rhythm": "Rhythmus",
   "rhythmType": "Rhythmus Typ",
-  "electricalAxisDeviation": "Lagetyp"
+  "electricalAxisDeviation": "Lagetyp",
+  "error": "Fehler!",
+  "loadingFailed": "Laden fehlgeschlagen!"
 }

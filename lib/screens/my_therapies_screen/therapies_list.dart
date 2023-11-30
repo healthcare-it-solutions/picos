@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../api/backend_therapies_api.dart';
 import '../../models/therapy.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../state/objects_list_bloc.dart';
 import 'therapy_item.dart';
 
@@ -44,8 +45,8 @@ class _TherapiesListState extends State<TherapiesList> {
         }
 
         if (state.status == ObjectsListStatus.failure) {
-          return const Center(
-            child: Text('Error'),
+          return Center(
+            child: Text(AppLocalizations.of(context)!.loadingFailed),
           );
         }
 

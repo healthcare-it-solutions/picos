@@ -75,9 +75,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
             );
         Navigator.of(context).pop();
       } catch (e) {
-        if (kDebugMode) {
-          print('Error: $e');
-        }
+        Stream<String>.error(e);
       }
     }
   }

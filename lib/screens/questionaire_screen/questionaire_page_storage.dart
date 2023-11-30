@@ -272,12 +272,10 @@ class QuestionairePageStorage {
 
       bodyHeight = element?['BodyHeight']?.toDouble();
     } catch (e) {
-      rethrow;
+      Stream<int?>.error(e);
     }
 
-    if (bodyHeight != null) return bodyHeight.toInt();
-
-    return null;
+    return bodyHeight?.toInt();
   }
 
   Future<void> _initPages(
