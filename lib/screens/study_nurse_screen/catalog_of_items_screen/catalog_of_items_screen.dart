@@ -15,6 +15,7 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/api/backend_catalog_of_items_api.dart';
@@ -41,10 +42,8 @@ import '../../../widgets/picos_ink_well_button.dart';
 import '../menu_screen/edit_patient_screen.dart';
 
 /// A catalog of items containing patient data as a form.
-
 class CatalogOfItemsScreen extends StatefulWidget {
   /// Creates CatalogOfItemsScreen.
-
   const CatalogOfItemsScreen({Key? key}) : super(key: key);
 
   @override
@@ -53,17 +52,16 @@ class CatalogOfItemsScreen extends StatefulWidget {
 
 class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
     with PageViewNavigation {
-  String? _back;
-  String? _next;
-  GlobalTheme? _theme;
+  int _currentPage = 0;
 
   // All values can be accessed here.
   CatalogOfItemsPageStorage? pageStorage;
   CatalogOfItemsElement? _catalogOfItemsElement;
+  bool isLoading = true;
 
   void _nextPageCallback() {
-    int currentPage = page.toInt() + 1;
-    if (currentPage == pages.length) {
+    _currentPage = page.toInt() + 1;
+    if (_currentPage == pages.length) {
       try {
         CatalogOfItemsElement catalogOfItemsElement;
         if (_catalogOfItemsElement == null) {
@@ -558,72 +556,71 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
     );
   }
 
-  Future<List<CatalogOfItemsElement>> fetchListData() async {
-    CatalogOfItemsElement? catalogOfItemsElement =
-        await BackendCatalogOfItemsApi.getObject();
-    List<CatalogOfItemsElement> results = <CatalogOfItemsElement>[];
-    if (catalogOfItemsElement != null) {
-      results.add(catalogOfItemsElement);
-    }
+  @override
+  void initState() {
+    super.initState();
+    _fetchCOI();
+  }
 
-    return results;
+  Future<CatalogOfItemsElement?> _fetchCOI() async {
+    _catalogOfItemsElement = await BackendCatalogOfItemsApi.getObject();
+
+    setState(() {
+      isLoading = false;
+      if (_catalogOfItemsElement != null && pageStorage == null) {
+        pageStorage = CatalogOfItemsPageStorage(
+          context: context,
+          catalogOfItemsElement: _catalogOfItemsElement,
+        );
+        pages = pageStorage!.pages;
+        nextPageCallback = _nextPageCallback;
+      }
+      // When the DB is empty
+      else {
+        pageStorage = CatalogOfItemsPageStorage(context: context);
+      }
+    });
+
+    return _catalogOfItemsElement;
   }
 
   @override
   Widget build(BuildContext context) {
-    _theme ??= Theme.of(context).extension<GlobalTheme>()!;
+    GlobalTheme? theme = Theme.of(context).extension<GlobalTheme>()!;
+    buildContext = context;
+    int lastPage = pages.length - 1;
 
-    return FutureBuilder<List<CatalogOfItemsElement>>(
-      future: fetchListData(),
-      builder: (
-        BuildContext context,
-        AsyncSnapshot<List<CatalogOfItemsElement>> snapshot,
-      ) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else {
-          buildContext = context;
-          _back = AppLocalizations.of(context)!.back;
-          _next = AppLocalizations.of(context)!.next;
-          if (snapshot.data!.isNotEmpty) {
-            _catalogOfItemsElement = snapshot.data?[0] as CatalogOfItemsElement;
-            pageStorage = CatalogOfItemsPageStorage(
-              context: context,
-              catalogOfItemsElement: _catalogOfItemsElement,
-            );
-          }
-          // When the DB is empty
-          else {
-            pageStorage = CatalogOfItemsPageStorage(context: context);
-          }
-          pages = pageStorage!.pages;
-          nextPageCallback = _nextPageCallback;
-
-          return PicosScreenFrame(
-            title: 'Catalog of items',
-            body: PageView(
-              controller: controller,
-              children: pages,
-            ),
-            bottomNavigationBar: PicosAddButtonBar(
-              leftButton: PicosInkWellButton(
-                text: _back!,
-                onTap: previousPage,
-                buttonColor1: _theme!.grey3,
-                buttonColor2: _theme!.grey1,
-              ),
-              rightButton: PicosInkWellButton(
-                text: _next!,
-                onTap: nextPage,
-              ),
-            ),
-          );
-        }
-      },
-    );
+    if (isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    } else {
+      return PicosScreenFrame(
+        title: 'Catalog of items',
+        body: Form(
+          child: PageView(
+            controller: controller,
+            onPageChanged: (int num) {
+              setState(() {
+                _currentPage = num;
+              });
+            },
+            children: pages,
+          ),
+        ),
+        bottomNavigationBar: PicosAddButtonBar(
+          leftButton: PicosInkWellButton(
+            text: AppLocalizations.of(context)!.back,
+            onTap: previousPage,
+            buttonColor1: theme.grey3,
+            buttonColor2: theme.grey1,
+          ),
+          rightButton: PicosInkWellButton(
+            onTap: nextPage,
+            text: _currentPage == lastPage
+                ? AppLocalizations.of(context)!.save
+                : AppLocalizations.of(context)!.next,
+          ),
+        ),
+      );
+    }
   }
 }
