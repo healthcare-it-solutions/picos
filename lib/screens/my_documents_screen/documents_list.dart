@@ -98,8 +98,8 @@ class _DocumentsListState extends State<DocumentsList> {
         }
 
         if (state.status == ObjectsListStatus.failure) {
-          return const Center(
-            child: Text('Error'),
+          return Center(
+            child: Text(AppLocalizations.of(context)!.loadingFailed),
           );
         }
 

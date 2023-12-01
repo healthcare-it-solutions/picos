@@ -19,6 +19,7 @@ import 'package:picos/models/abstract_database_object.dart';
 import 'package:picos/models/vital_signs_object.dart';
 
 /// Class with Vital Signs.
+//ignore: must_be_immutable
 class VitalSigns extends AbstractDatabaseObject {
   /// Creates a Vital Signs object.
   VitalSigns({
