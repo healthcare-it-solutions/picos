@@ -31,17 +31,25 @@ class BackendPatientsListApi extends BackendObjectsApi {
   @override
   Future<void> saveObject(AbstractDatabaseObject object) async {
     try {
-      dynamic responsePatientProfile = await Backend.saveObject(
-        (object as PatientsListElement).patientProfile,
-      );
-      PatientProfile patientProfile = object.patientProfile.copyWith(
+      dynamic responsePatientProfile;
+      PatientProfile patientProfile =
+          (object as PatientsListElement).patientProfile;
+      if (patientProfile.objectId == null) {
+        acl = await _prepareACL(patientProfile);
+        responsePatientProfile =
+            await Backend.saveObject(patientProfile, acl: acl);
+      } else {
+        responsePatientProfile = await Backend.saveObject(patientProfile);
+      }
+
+      patientProfile = patientProfile.copyWith(
         objectId: responsePatientProfile['objectId'],
         createdAt:
             DateTime.tryParse(responsePatientProfile['createdAt'] ?? '') ??
-                object.patientProfile.createdAt,
+                patientProfile.createdAt,
         updatedAt:
             DateTime.tryParse(responsePatientProfile['updatedAt'] ?? '') ??
-                object.patientProfile.updatedAt,
+                patientProfile.updatedAt,
       );
 
       object = object.copyWith(
@@ -61,6 +69,23 @@ class BackendPatientsListApi extends BackendObjectsApi {
     } catch (e) {
       Stream<List<PatientsListElement>>.error(e);
     }
+  }
+
+  Future<BackendACL> _prepareACL(PatientProfile patientProfile) async {
+    BackendACL acl = BackendACL();
+    String roleId = await BackendRole.userRoleName.id;
+
+    acl.setReadAccess(
+      userId: patientProfile.patientObjectId,
+    );
+    acl.setReadAccess(
+      userId: roleId,
+    );
+    acl.setWriteAccess(
+      userId: roleId,
+    );
+
+    return acl;
   }
 
   /// Getter for an empty PatientData object.

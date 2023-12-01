@@ -19,6 +19,7 @@ import 'package:picos/models/abstract_database_object.dart';
 import 'package:picos/models/respiratory_parameters_object.dart';
 
 /// Class with Respiratory Parameters object.
+//ignore: must_be_immutable
 class RespiratoryParameters extends AbstractDatabaseObject {
   /// Creates a Respiratory Parameters object.
   RespiratoryParameters({

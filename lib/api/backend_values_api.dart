@@ -15,7 +15,6 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import 'package:flutter/foundation.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:picos/models/values.dart';
 
@@ -89,9 +88,7 @@ class BackendValuesApi {
         weeklyList: resultsLast7Weeks,
       );
     } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
+      Stream<Values?>.error(e);
     }
     return null;
   }

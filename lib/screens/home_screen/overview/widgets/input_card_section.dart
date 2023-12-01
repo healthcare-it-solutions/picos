@@ -86,7 +86,7 @@ class InputCardSection extends StatelessWidget {
                   state.status == ObjectsListStatus.success ? false : true,
               padding: const EdgeInsets.symmetric(horizontal: 0),
               text: state.status == ObjectsListStatus.failure
-                  ? 'Error'
+                  ? AppLocalizations.of(context)!.loadingFailed
                   : AppLocalizations.of(context)!.howFeel,
               onTap: () {
                 Navigator.pushNamed(

@@ -48,6 +48,9 @@ class Backend {
   /// The user that is currently logged in.
   static late ParseUser user;
 
+  /// The user's Role in the table _User.
+  static late String userRole;
+
   static Future<bool> _initParse() async {
     _blockInit = true;
     String url = '';
@@ -116,9 +119,9 @@ class Backend {
     };
 
     // TODO: maybe refactor for type safety
-    String res = await user.get('Role');
+    userRole = await user.get('Role');
 
-    return routes[res] ?? '/main-screen/mainscreen';
+    return routes[userRole] ?? '/main-screen/mainscreen';
   }
 
   /// Retrieves all possible objects from a [table].
@@ -346,18 +349,24 @@ enum BackendRole {
 extension BackendRoleExtension on BackendRole {
   /// Holds the name of Role.
   Future<String> getRoleName() async {
-    QueryBuilder<ParseObject> roleQuery =
-        QueryBuilder<ParseObject>(ParseObject('_Role'));
+    String roleName = '';
+    try {
+      QueryBuilder<ParseObject> roleQuery =
+          QueryBuilder<ParseObject>(ParseObject('_Role'));
 
-    roleQuery.whereMatchesQuery(
-      'users',
-      QueryBuilder<ParseObject>(ParseUser.forQuery())
-        ..whereEqualTo('objectId', Backend.user.objectId),
-    );
+      roleQuery.whereMatchesQuery(
+        'users',
+        QueryBuilder<ParseObject>(ParseUser.forQuery())
+          ..whereEqualTo('objectId', Backend.user.objectId),
+      );
 
-    ParseResponse resultRole = await roleQuery.query();
-    String roleName = 'role:${resultRole.results?.first.get<String>('name')}';
+      ParseResponse resultRole = await roleQuery.query();
+      roleName = 'role:${resultRole.results?.first?.get<String>('name')}';
 
+      return roleName;
+    } catch (e) {
+      Stream<String>.error(e);
+    }
     return roleName;
   }
 

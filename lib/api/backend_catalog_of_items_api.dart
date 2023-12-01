@@ -280,6 +280,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
 
   /// Gets an object entry.
   static Future<CatalogOfItemsElement?> getObject() async {
+    CatalogOfItemsElement? result;
     try {
       String? patientObjectId = EditPatientScreen.patientObjectId;
 
@@ -637,7 +638,6 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
             movementDataObject.patientObjectId == patientObjectId,
       );
 
-      CatalogOfItemsElement? result;
       if (matchingICUDiagnosis != null ||
           matchingVitalSigns != null ||
           matchingRespiratoryParameters != null ||
@@ -681,7 +681,8 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
 
       return result;
     } catch (e) {
-      return null;
+      Stream<CatalogOfItemsElement?>.error(e);
     }
+    return result;
   }
 }
