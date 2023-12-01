@@ -50,7 +50,8 @@ dependencies:
   universal_io: ^2.2.2
   file_saver: ^0.2.6
   flutter_secure_storage: ^9.0.0
-  syncfusion_flutter_charts: ^23.1.40
+  syncfusion_flutter_charts: 23.1.44
+  syncfusion_flutter_core: 23.1.44
   upgrader: ^8.1.0
   url_launcher: ^6.1.14
   parse_server_sdk_flutter: ^7.0.0
