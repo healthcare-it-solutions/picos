@@ -16,6 +16,7 @@
 */
 
 import 'package:picos/models/abstract_database_object.dart';
+import 'package:picos/models/patient_profile.dart';
 import 'package:picos/models/phq4.dart';
 import 'package:picos/models/weekly.dart';
 
@@ -32,6 +33,7 @@ class DailyInput extends AbstractDatabaseObject {
     this.phq4,
     this.weeklyDay = false,
     this.phq4Day = false,
+    this.patientProfile,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -58,6 +60,9 @@ class DailyInput extends AbstractDatabaseObject {
   /// Tells if a new [PHQ4] has to be created.
   final bool phq4Day;
 
+  /// Contains the data for PatientProfile.
+  final PatientProfile? patientProfile;
+
   @override
   get table {
     return databaseTable;
@@ -71,6 +76,7 @@ class DailyInput extends AbstractDatabaseObject {
     PHQ4? phq4,
     bool? weeklyDay,
     bool? phq4Day,
+    PatientProfile? patientProfile,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -82,6 +88,7 @@ class DailyInput extends AbstractDatabaseObject {
       phq4: phq4 ?? this.phq4,
       weeklyDay: weeklyDay ?? this.weeklyDay,
       phq4Day: phq4Day ?? this.phq4Day,
+      patientProfile: patientProfile ?? this.patientProfile,
       objectId: objectId ?? this.objectId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
