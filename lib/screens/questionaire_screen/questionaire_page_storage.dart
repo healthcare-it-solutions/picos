@@ -153,7 +153,6 @@ class QuestionairePageStorage {
   String? _activityAndRest;
   String? _bodyAndMind;
   String? _medicationAndTherapy;
-  String? _ready;
   String? _possibleWalkDistance;
   String? _sleepQuality7Days;
   String? _pain;
@@ -185,7 +184,6 @@ class QuestionairePageStorage {
 
   void _initStrings(BuildContext context) {
     _possibleWalkDistance = AppLocalizations.of(context)!.possibleWalkDistance;
-    _ready = AppLocalizations.of(context)!.questionnaireFinished;
     _sleepQuality7Days = AppLocalizations.of(context)!.sleepQuality7Days;
     _pain = AppLocalizations.of(context)!.pain;
     _lowInterest = AppLocalizations.of(context)!.lowInterest;
@@ -283,7 +281,10 @@ class QuestionairePageStorage {
     void Function() nextPage,
   ) async {
     PatientProfile patientProfile = await _getPatientProfile();
-
+    Map<String, dynamic> responseTip = (await Backend.callEndpoint(
+      'getRandTip',
+    ))
+        .first['result'];
     int? bodyHeight;
 
     if ((dailyInput.weeklyDay && patientProfile.weightBMIEnabled == true) ||
@@ -578,7 +579,7 @@ class QuestionairePageStorage {
 
     pages.add(
       Cover(
-        title: _ready!,
+        title: responseTip['text']!.toString(),
         image: 'assets/Fertig_Smiley_neg.svg',
         backFunction: previousPage,
         nextFunction: nextPage,
