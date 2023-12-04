@@ -411,10 +411,6 @@
   "@configurationFinished": {
     "description": "That's it! - PICOS is now ready!"
   },
-  "questionnaireFinished": "That's it! - thank you for your participation!",
-  "@questionnaireFinished": {
-    "description": "That's it! - thank you for your participation!"
-  },
   "endConfiguration": "End configuration",
   "@endConfiguration": {
     "description": "End configuration"
