@@ -281,10 +281,8 @@ class QuestionairePageStorage {
     void Function() nextPage,
   ) async {
     PatientProfile patientProfile = await _getPatientProfile();
-    Map<String, dynamic> responseTip = (await Backend.callEndpoint(
-      'getRandTip',
-    ))
-        .first['result'];
+    Map<String, dynamic> responseTip =
+        (await Backend.callEndpoint('getRandTip')).first['result'];
     int? bodyHeight;
 
     if ((dailyInput.weeklyDay && patientProfile.weightBMIEnabled == true) ||
