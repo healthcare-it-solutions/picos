@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:picos/themes/global_theme.dart';
 import 'package:picos/util/backend.dart';
 import 'package:picos/widgets/picos_body.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -165,7 +166,7 @@ class _MyValuesScreenState extends State<MyValuesScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  ..._buildPreferenceSwitches(),
+                  ..._buildPreferenceSwitches(context),
                 ],
               ),
             ),
@@ -175,7 +176,9 @@ class _MyValuesScreenState extends State<MyValuesScreen> {
     );
   }
 
-  List<Widget> _buildPreferenceSwitches() {
+  List<Widget> _buildPreferenceSwitches(BuildContext context) {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+    
     final Map<String, String> icons = <String, String>{
       'weight_bmi': 'assets/Gewicht.svg',
       'heart_frequency': 'assets/Herzfrequenz.svg',
@@ -219,6 +222,8 @@ class _MyValuesScreenState extends State<MyValuesScreen> {
         shape: const Border(
           bottom: BorderSide(color: Colors.grey),
         ),
+        activeColor: Colors.white,
+        activeTrackColor: theme.green2,
       );
     }).toList();
   }
