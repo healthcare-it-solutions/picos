@@ -101,7 +101,7 @@ class PicosListCard extends StatelessWidget {
                         backgroundColor: MaterialStateProperty.all(
                           Theme.of(context)
                               .extension<GlobalTheme>()!
-                              .cardButton,
+                              .white,
                         ),
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
