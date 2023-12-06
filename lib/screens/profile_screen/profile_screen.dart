@@ -17,6 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
+import 'package:picos/themes/global_theme.dart';
 import 'package:picos/util/backend.dart';
 import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
@@ -298,6 +299,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+    
     if (_patient == null) {
       return const Center(
         child: CircularProgressIndicator(),
@@ -326,6 +329,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                     contentPadding: EdgeInsets.zero,
                     selected: false,
+                    activeColor: theme.grey1,
                   ),
                 ),
                 Flexible(
@@ -342,6 +346,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                     contentPadding: EdgeInsets.zero,
                     selected: false,
+                    activeColor: theme.grey1,
                   ),
                 ),
                 Flexible(
@@ -358,6 +363,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                     contentPadding: EdgeInsets.zero,
                     selected: false,
+                    activeColor: theme.grey1,
                   ),
                 ),
               ],
