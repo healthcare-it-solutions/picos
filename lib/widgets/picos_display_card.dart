@@ -54,6 +54,7 @@ class PicosDisplayCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Card(
+        surfaceTintColor: Colors.white,
         color: backgroundColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 5,

@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:picos/themes/global_theme.dart';
 
 /// Creates a switch for [bool] values;
 class PicosSwitch extends StatefulWidget {
@@ -58,6 +59,8 @@ class _PicosSwitchState extends State<PicosSwitch> {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+    
     return SwitchListTile(
       value: _value,
       onChanged: widget.onChanged == null
@@ -80,6 +83,7 @@ class _PicosSwitchState extends State<PicosSwitch> {
         ),
       ),
       shape: widget.shape,
+      activeColor: theme.green2,
     );
   }
 }

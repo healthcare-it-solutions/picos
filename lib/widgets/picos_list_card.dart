@@ -53,7 +53,7 @@ class PicosListCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 0, left: 10, right: 10),
       child: Card(
-        color: theme.white,
+        surfaceTintColor: theme.white,
         shape: RoundedRectangleBorder(borderRadius: borderRadius),
         elevation: 5,
         child: Column(
