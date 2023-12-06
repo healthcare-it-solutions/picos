@@ -16,7 +16,6 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/themes/global_theme.dart';
 import 'package:picos/util/backend.dart';
 import 'package:picos/widgets/picos_body.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -27,6 +26,7 @@ import '../../widgets/picos_display_card.dart';
 import '../../widgets/picos_info_card.dart';
 import '../../widgets/picos_screen_frame.dart';
 import '../../widgets/picos_svg_icon.dart';
+import '../../widgets/picos_switch.dart';
 
 /// This is the screen for the user's profile information.
 class MyValuesScreen extends StatefulWidget {
@@ -166,7 +166,7 @@ class _MyValuesScreenState extends State<MyValuesScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  ..._buildPreferenceSwitches(context),
+                  ..._buildPreferenceSwitches(),
                 ],
               ),
             ),
@@ -176,9 +176,7 @@ class _MyValuesScreenState extends State<MyValuesScreen> {
     );
   }
 
-  List<Widget> _buildPreferenceSwitches(BuildContext context) {
-    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-    
+  List<Widget> _buildPreferenceSwitches() {
     final Map<String, String> icons = <String, String>{
       'weight_bmi': 'assets/Gewicht.svg',
       'heart_frequency': 'assets/Herzfrequenz.svg',
@@ -198,8 +196,8 @@ class _MyValuesScreenState extends State<MyValuesScreen> {
     };
 
     return _preferences.keys.map((String key) {
-      return SwitchListTile(
-        value: _preferences[key]!,
+      return PicosSwitch(
+        initialValue: _preferences[key]!,
         onChanged: _preferencesBackend[key] == false
             ? null
             : (bool value) {
@@ -213,17 +211,10 @@ class _MyValuesScreenState extends State<MyValuesScreen> {
           height: 25,
           width: 25,
         ),
-        title: Text(
-          titles[key]!,
-          style: const TextStyle(
-            fontSize: PicosInfoCard.infoTextFontSize,
-          ),
+        title: titles[key]!,
+        textStyle: const TextStyle(
+          fontSize: PicosInfoCard.infoTextFontSize,
         ),
-        shape: const Border(
-          bottom: BorderSide(color: Colors.grey),
-        ),
-        activeColor: Colors.white,
-        activeTrackColor: theme.green2,
       );
     }).toList();
   }
