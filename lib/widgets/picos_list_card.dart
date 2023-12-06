@@ -48,9 +48,12 @@ class PicosListCard extends StatelessWidget {
     final BorderRadius borderRadius = BorderRadius.circular(10);
     final BorderRadius buttonBorderRadius = BorderRadius.circular(5);
 
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
     return Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 0, left: 10, right: 10),
       child: Card(
+        color: theme.white,
         shape: RoundedRectangleBorder(borderRadius: borderRadius),
         elevation: 5,
         child: Column(
