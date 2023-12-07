@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:picos/themes/global_theme.dart';
 
 import '../../../widgets/picos_label.dart';
 
@@ -47,11 +48,14 @@ class _QuestionaireCardState extends State<QuestionaireCard>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+    
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Card(
-        surfaceTintColor: Colors.white,
-        color: Colors.white,
+        surfaceTintColor: theme.white,
+        color: theme.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 5,
         child: Padding(

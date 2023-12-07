@@ -52,14 +52,14 @@ class PicosScreenFrame extends StatelessWidget {
         child: Scaffold(
           bottomNavigationBar: bottomNavigationBar,
           appBar: AppBar(
-            iconTheme: const IconThemeData(
-              color: Colors.white, //change your color here
+            iconTheme: IconThemeData(
+              color: theme.white, //change your color here
             ),
             centerTitle: true,
             title: Text(
               title ?? '',
-              style: const TextStyle(
-                color: Colors.white,
+              style: TextStyle(
+                color: theme.white,
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),

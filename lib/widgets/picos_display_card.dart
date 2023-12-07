@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:picos/themes/global_theme.dart';
 
 /// Creates a card or a box for displaying any content inside of it.
 class PicosDisplayCard extends StatelessWidget {
@@ -44,6 +45,8 @@ class PicosDisplayCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
     if (label != null) {
       _children.add(label!);
       _children.add(const SizedBox(height: 15));
@@ -54,7 +57,7 @@ class PicosDisplayCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Card(
-        surfaceTintColor: Colors.white,
+        surfaceTintColor: theme.white,
         color: backgroundColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 5,
