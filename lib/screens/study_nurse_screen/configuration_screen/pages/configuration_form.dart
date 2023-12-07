@@ -17,6 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/themes/global_theme.dart';
 import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_text_area.dart';
@@ -53,6 +54,8 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
     return PicosBody(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,6 +83,7 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
                   contentPadding: EdgeInsets.zero,
                   selected: false,
                   enableFeedback: true,
+                  activeColor: theme.grey1,
                 ),
               ),
               Flexible(
@@ -100,6 +104,7 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
                   },
                   contentPadding: EdgeInsets.zero,
                   selected: false,
+                  activeColor: theme.grey1,
                 ),
               ),
               Flexible(
@@ -120,6 +125,7 @@ class _ConfigurationFormState extends State<ConfigurationForm> {
                   },
                   contentPadding: EdgeInsets.zero,
                   selected: false,
+                  activeColor: theme.grey1,
                 ),
               ),
             ],
