@@ -108,13 +108,9 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
           initialValue: valueProfile,
           onChanged: function,
           title: title,
-          shape: const Border(
-            bottom: BorderSide(color: Colors.grey),
-          ),
+          shape: const Border(bottom: BorderSide(color: Colors.grey)),
         ),
-        const SizedBox(
-          height: 25,
-        ),
+        const SizedBox(height: 25),
       ],
     );
   }
