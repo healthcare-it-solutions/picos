@@ -15,7 +15,6 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -55,7 +54,7 @@ extension FormOfAddressConverter on FormOfAddress {
   /// Takes [value] and returns the corresponding [FormOfAddress].
   static FormOfAddress stringToFormOfAddress(String value) {
     return FormOfAddress.values
-        .firstWhere((FormOfAddress element) => describeEnum(element) == value);
+        .firstWhere((FormOfAddress element) => element.name == value);
   }
 
   /// Returns the correct [String] representation of [FormOfAddress].
