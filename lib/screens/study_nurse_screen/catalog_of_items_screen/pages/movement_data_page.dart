@@ -231,7 +231,6 @@ class _MovementDataPageState extends State<MovementDataPage> {
         bmi = 0;
       }
     }
-    
   }
 
   double _calculateBmi(int height, double bodyWeight) {
@@ -311,7 +310,10 @@ class _MovementDataPageState extends State<MovementDataPage> {
               },
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.bmi),
-            Text(bmi.toString(), textAlign: TextAlign.left,),
+            Text(
+              bmi.toString(),
+              textAlign: TextAlign.left,
+            ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.patientID),
             PicosTextArea(
               maxLines: textAreaLines,
@@ -433,6 +435,9 @@ class _MovementDataPageState extends State<MovementDataPage> {
                 onChanged: (bool? value) {
                   widget.lungProtectiveVentilationGt70pCallback(value);
                 },
+                shape: const RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.vertical(bottom: Radius.circular(10))),
               ),
             ),
           ],
@@ -465,6 +470,11 @@ class _MovementDataPageState extends State<MovementDataPage> {
                 widget.readmissionRateICUCallback(value);
               },
               title: AppLocalizations.of(context)!.readmissionRateICU,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(10),
+                ),
+              ),
             ),
           ],
         ),

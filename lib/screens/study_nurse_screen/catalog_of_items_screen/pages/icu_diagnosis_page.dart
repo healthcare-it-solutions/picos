@@ -98,6 +98,9 @@ class IcuDiagnosisPage extends StatelessWidget {
           },
           initialValue: initialIcuaw,
           title: AppLocalizations.of(context)!.icuaw,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+          ),
         ),
         PicosSwitch(
           onChanged: (bool value) {
