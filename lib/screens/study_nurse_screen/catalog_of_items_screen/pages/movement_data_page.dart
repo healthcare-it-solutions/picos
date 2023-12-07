@@ -242,7 +242,9 @@ class _MovementDataPageState extends State<MovementDataPage> {
     const String cm = 'cm';
     const int textAreaLines = 3;
     const String kg = 'kg';
-
+    const ShapeBorder roundedRectangleBorder = RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+    );
     return CatalogOfItemsPage(
       title: AppLocalizations.of(context)!.patientsMovementData,
       children: <Widget>[
@@ -435,9 +437,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
                 onChanged: (bool? value) {
                   widget.lungProtectiveVentilationGt70pCallback(value);
                 },
-                shape: const RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.vertical(bottom: Radius.circular(10))),
+                shape: roundedRectangleBorder,
               ),
             ),
           ],
@@ -470,11 +470,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
                 widget.readmissionRateICUCallback(value);
               },
               title: AppLocalizations.of(context)!.readmissionRateICU,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(10),
-                ),
-              ),
+              shape: roundedRectangleBorder,
             ),
           ],
         ),

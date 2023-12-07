@@ -65,6 +65,9 @@ class IcuDiagnosisPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const ShapeBorder roundedRectangleBorder = RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+    );
     return CatalogOfItemsPage(
       title: AppLocalizations.of(context)!.icuDiagnosis,
       children: <Widget>[
@@ -98,9 +101,7 @@ class IcuDiagnosisPage extends StatelessWidget {
           },
           initialValue: initialIcuaw,
           title: AppLocalizations.of(context)!.icuaw,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
-          ),
+          shape: roundedRectangleBorder,
         ),
         PicosSwitch(
           onChanged: (bool value) {
@@ -108,9 +109,7 @@ class IcuDiagnosisPage extends StatelessWidget {
           },
           initialValue: initialPics,
           title: AppLocalizations.of(context)!.pics,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
-          ),
+          shape: roundedRectangleBorder,
         ),
       ],
     );

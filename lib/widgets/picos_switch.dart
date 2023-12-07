@@ -75,7 +75,6 @@ class _PicosSwitchState extends State<PicosSwitch> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
