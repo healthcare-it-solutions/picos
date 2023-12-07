@@ -66,6 +66,16 @@ class _PicosSwitchState extends State<PicosSwitch> {
   }
 
   @override
+  void didUpdateWidget(PicosSwitch oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.initialValue != widget.initialValue) {
+      setState(() {
+        _value = widget.initialValue ?? false;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
 
