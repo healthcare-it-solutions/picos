@@ -27,6 +27,8 @@ class PicosSwitch extends StatefulWidget {
     this.initialValue,
     this.title,
     this.shape,
+    this.textStyle,
+    this.secondary,
   }) : super(key: key);
 
   /// The initial value.
@@ -40,6 +42,12 @@ class PicosSwitch extends StatefulWidget {
 
   /// Switch shape.
   final ShapeBorder? shape;
+
+  /// TextStyle
+  final TextStyle? textStyle;
+
+  /// Switch secondary.
+  final Widget? secondary;
 
   @override
   State<PicosSwitch> createState() => _PicosSwitchState();
@@ -60,7 +68,7 @@ class _PicosSwitchState extends State<PicosSwitch> {
   @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-    
+
     return SwitchListTile(
       value: _value,
       onChanged: widget.onChanged == null
@@ -76,14 +84,20 @@ class _PicosSwitchState extends State<PicosSwitch> {
         padding: const EdgeInsets.only(left: 5.0),
         child: Text(
           widget.title ?? '',
-          style: const TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-          ),
+          style: widget.textStyle ??
+              const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+              ),
         ),
       ),
-      shape: widget.shape,
-      activeColor: theme.green2,
+      secondary: widget.secondary,
+      shape: widget.shape ??
+          const Border(
+            bottom: BorderSide(color: Colors.grey),
+          ),
+      activeColor: Colors.white,
+      activeTrackColor: widget.onChanged != null ? theme.green2 : null,
     );
   }
 }
