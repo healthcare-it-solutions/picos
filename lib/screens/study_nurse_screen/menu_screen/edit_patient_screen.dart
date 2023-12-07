@@ -101,7 +101,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
     bool valueProfile,
     Function(bool value)? function,
     String title,
-    ShapeBorder shape,
   ) {
     return Column(
       children: <Widget>[
@@ -109,7 +108,9 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
           initialValue: valueProfile,
           onChanged: function,
           title: title,
-          shape: shape,
+          shape: const Border(
+            bottom: BorderSide(color: Colors.grey),
+          ),
         ),
         const SizedBox(
           height: 25,
@@ -189,9 +190,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           });
                         },
                   AppLocalizations.of(context)!.weightBMI,
-                  const Border(
-                    bottom: BorderSide(color: Colors.grey),
-                  ),
                 ),
                 _picosSwitchAndSizedBox(
                   _heartFrequency,
@@ -202,9 +200,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                     });
                   },
                   AppLocalizations.of(context)!.heartFrequency,
-                  const Border(
-                    bottom: BorderSide(color: Colors.grey),
-                  ),
                 ),
                 _picosSwitchAndSizedBox(
                   _bloodPressure,
@@ -215,9 +210,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                     });
                   },
                   AppLocalizations.of(context)!.bloodPressure,
-                  const Border(
-                    bottom: BorderSide(color: Colors.grey),
-                  ),
                 ),
                 _picosSwitchAndSizedBox(
                   _bloodSugarLevels,
@@ -228,9 +220,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                     });
                   },
                   AppLocalizations.of(context)!.bloodSugar,
-                  const Border(
-                    bottom: BorderSide(color: Colors.grey),
-                  ),
                 ),
                 PicosLabel(AppLocalizations.of(context)!.activityAndRest),
                 const SizedBox(
@@ -245,9 +234,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                     });
                   },
                   AppLocalizations.of(context)!.walkDistance,
-                  const Border(
-                    bottom: BorderSide(color: Colors.grey),
-                  ),
                 ),
                 _picosSwitchAndSizedBox(
                   _sleepDuration,
@@ -260,9 +246,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           });
                         },
                   AppLocalizations.of(context)!.sleepDuration,
-                  const Border(
-                    bottom: BorderSide(color: Colors.grey),
-                  ),
                 ),
                 _picosSwitchAndSizedBox(
                   _sleepQuality,
@@ -275,9 +258,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           });
                         },
                   AppLocalizations.of(context)!.sleepQuality,
-                  const Border(
-                    bottom: BorderSide(color: Colors.grey),
-                  ),
                 ),
                 PicosLabel(AppLocalizations.of(context)!.bodyAndMind),
                 const SizedBox(
@@ -294,9 +274,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           });
                         },
                   AppLocalizations.of(context)!.pain,
-                  const Border(
-                    bottom: BorderSide(color: Colors.grey),
-                  ),
                 ),
                 _picosSwitchAndSizedBox(
                   _phq4,
@@ -309,9 +286,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           });
                         },
                   'PHQ-4',
-                  const Border(
-                    bottom: BorderSide(color: Colors.grey),
-                  ),
                 ),
                 PicosLabel(
                   AppLocalizations.of(context)!.medicationAndTherapy,
@@ -330,9 +304,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           });
                         },
                   AppLocalizations.of(context)!.medication,
-                  const Border(
-                    bottom: BorderSide(color: Colors.grey),
-                  ),
                 ),
                 _picosSwitchAndSizedBox(
                   _therapy,
@@ -345,9 +316,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           });
                         },
                   AppLocalizations.of(context)!.therapy,
-                  const Border(
-                    bottom: BorderSide(color: Colors.grey),
-                  ),
                 ),
                 _picosSwitchAndSizedBox(
                   _doctorsVisit,
@@ -360,9 +328,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           });
                         },
                   AppLocalizations.of(context)!.doctorsVisit,
-                  const Border(
-                    bottom: BorderSide(color: Colors.grey),
-                  ),
                 ),
                 PicosInkWellButton(
                   text: AppLocalizations.of(context)!.toCoi,
