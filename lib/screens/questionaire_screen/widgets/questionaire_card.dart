@@ -50,6 +50,8 @@ class _QuestionaireCardState extends State<QuestionaireCard>
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Card(
+        surfaceTintColor: Colors.white,
+        color: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 5,
         child: Padding(
