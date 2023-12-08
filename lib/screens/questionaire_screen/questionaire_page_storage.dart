@@ -283,7 +283,8 @@ class QuestionairePageStorage {
     void Function() nextPage,
   ) async {
     PatientProfile patientProfile = await _getPatientProfile();
-
+    Map<String, dynamic> responseRandomTip =
+        (await Backend.callEndpoint('getRandTip')).first['result'];
     int? bodyHeight;
 
     if ((dailyInput.weeklyDay && patientProfile.weightBMIEnabled == true) ||
@@ -582,7 +583,7 @@ class QuestionairePageStorage {
         image: 'assets/Fertig_Smiley_neg.svg',
         backFunction: previousPage,
         nextFunction: nextPage,
-        isLastPage: true,
+        healthTip: responseRandomTip['text']!.toString(),
       ),
     );
 
