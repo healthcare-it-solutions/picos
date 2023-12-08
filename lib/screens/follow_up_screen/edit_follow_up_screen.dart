@@ -198,6 +198,12 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
     Navigator.of(context).pop();
   }
 
+  InputBorder focusedBorder() {
+    return OutlineInputBorder(
+          borderSide: BorderSide(color: Theme.of(context).focusColor),
+        );
+  }
+
   Widget _buildBloodPressureField() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -208,6 +214,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
             decoration: InputDecoration(
               labelText: 'Syst (50-250 mmHg)',
               border: const OutlineInputBorder(),
+              focusedBorder: focusedBorder(),
               errorText: _isSystolicValid
                   ? null
                   : AppLocalizations.of(context)!.erroneousInput,
@@ -239,6 +246,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
             decoration: InputDecoration(
               labelText: 'Dias (35-150 mmHg)',
               border: const OutlineInputBorder(),
+              focusedBorder: focusedBorder(),
               errorText: _isDiastolicValid
                   ? null
                   : AppLocalizations.of(context)!.erroneousInput,
@@ -274,6 +282,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         labelText:
             '${AppLocalizations.of(context)!.heartFrequency} (40-350 /min)',
         border: const OutlineInputBorder(),
+        focusedBorder: focusedBorder(),
         errorText: _isHeartRateValid
             ? null
             : AppLocalizations.of(context)!.erroneousInput,
@@ -309,6 +318,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
             decoration: InputDecoration(
               labelText: AppLocalizations.of(context)!.rhythm,
               border: const OutlineInputBorder(),
+              focusedBorder: focusedBorder(),
             ),
             items: rythmusSelect.entries.map((MapEntry<String, String> entry) {
               return DropdownMenuItem<String>(
@@ -332,6 +342,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
             decoration: InputDecoration(
               labelText: AppLocalizations.of(context)!.rhythmType,
               border: const OutlineInputBorder(),
+              focusedBorder: focusedBorder(),
             ),
             items:
                 rythmusTypSelect.entries.map((MapEntry<String, String> entry) {
@@ -359,6 +370,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       decoration: InputDecoration(
         labelText: AppLocalizations.of(context)!.electricalAxisDeviation,
         border: const OutlineInputBorder(),
+        focusedBorder: focusedBorder(),
       ),
       items: locationTypeSelect.entries.map((MapEntry<String, String> entry) {
         return DropdownMenuItem<String>(
@@ -383,6 +395,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         labelText:
             '${AppLocalizations.of(context)!.walkDistance} (1-600 meter)',
         border: const OutlineInputBorder(),
+        focusedBorder: focusedBorder(),
         errorText: _isDistanceValid
             ? null
             : AppLocalizations.of(context)!.erroneousInput,
@@ -414,6 +427,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       decoration: InputDecoration(
         labelText: '${AppLocalizations.of(context)!.testResult} (0-30)',
         border: const OutlineInputBorder(),
+        focusedBorder: focusedBorder(),
         errorText: _isTestResultValid
             ? null
             : AppLocalizations.of(context)!.erroneousInput,
@@ -452,6 +466,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
             decoration: InputDecoration(
               labelText: '(1-5)',
               border: const OutlineInputBorder(),
+              focusedBorder: focusedBorder(),
               errorText: _isHealthStateValid[index] ? null : '',
               errorStyle: errorTextStyle,
             ),
@@ -499,6 +514,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       decoration: InputDecoration(
         labelText: '${AppLocalizations.of(context)!.healthScore} (1-100)',
         border: const OutlineInputBorder(),
+        focusedBorder: focusedBorder(),
         errorText: _isHealthScoreValid
             ? null
             : AppLocalizations.of(context)!.erroneousInput,

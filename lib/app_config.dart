@@ -65,6 +65,9 @@ class AppConfig extends StatelessWidget {
           dialogBackgroundColor: theme.darkGreen2,
           focusColor: theme.darkGreen3,
           shadowColor: theme.grey2,
+          inputDecorationTheme: InputDecorationTheme(
+            floatingLabelStyle: TextStyle(color: theme.darkGreen3),
+          ),
         ).copyWith(
           extensions: <ThemeExtension<dynamic>>{
             theme,

@@ -29,7 +29,7 @@ class ContactSection extends StatelessWidget {
 
   void _launchURL(BuildContext context) async {
     final Uri url = Uri.parse(
-      'https://hit-solutions.de/media/1170/benutzerhandbuch-picos_fuer-patienten_v160.pdf',
+      'https://hit-solutions.de/media/1199/benutzerhandbuch-picos_fuer-patienten_v180.pdf',
     );
     final ScaffoldMessengerState scaffoldMessenger =
         ScaffoldMessenger.of(context);
