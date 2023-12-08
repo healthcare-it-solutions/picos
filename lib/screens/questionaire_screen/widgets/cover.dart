@@ -30,8 +30,8 @@ class Cover extends StatelessWidget {
     required this.image,
     required this.backFunction,
     required this.nextFunction,
-    this.isLastPage = false,
     this.textNext,
+    this.healthTip,
     Key? key,
   }) : super(key: key);
 
@@ -47,11 +47,11 @@ class Cover extends StatelessWidget {
   /// Function for getting the next page.
   final void Function()? nextFunction;
 
-  /// Determines whether it is the last cover page or not.
-  final bool isLastPage;
-
   /// The text for the "Next"-Button.
   final String? textNext;
+
+  /// Random tip for health.
+  final String? healthTip;
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +61,7 @@ class Cover extends StatelessWidget {
     double? width = MediaQuery.of(context).size.width;
     double? fontSize = 30;
 
-    String tips = AppLocalizations.of(context)!.tips;
-    String drinkEnough = AppLocalizations.of(context)!.drinkEnough;
+    String titleTips = AppLocalizations.of(context)!.tips;
 
     GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
 
@@ -95,12 +94,12 @@ class Cover extends StatelessWidget {
                 ),
               ),
             ),
-            isLastPage
+            healthTip != null
                 ? SizedBox(
                     height: height / 10,
                   )
                 : const SizedBox.shrink(),
-            isLastPage
+            healthTip != null
                 ? Container(
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.white),
@@ -121,13 +120,13 @@ class Cover extends StatelessWidget {
                               ),
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: '$tips\n',
+                                  text: '$titleTips\n',
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 TextSpan(
-                                  text: drinkEnough,
+                                  text: healthTip,
                                 ),
                               ],
                             ),
