@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_body.dart';
+import 'package:picos/widgets/picos_switch.dart';
 
 /// Shows page for configuration of "Medication & Therapy"-information.
 class ConfigurationMedicationAndTherapy extends StatefulWidget {
@@ -69,8 +70,8 @@ class _ConfigurationMedicationAndTherapyState
                   ),
                 ),
               ),
-              SwitchListTile(
-                value: _entryMedicationEnabled,
+              PicosSwitch(
+                initialValue: _entryMedicationEnabled,
                 onChanged: _entryMedicationEnabled
                     ? null
                     : (bool value) {
@@ -83,18 +84,11 @@ class _ConfigurationMedicationAndTherapyState
                         });
                       },
                 secondary: const Icon(Icons.medication),
-                title: Text(
-                  AppLocalizations.of(context)!.medication,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                shape: const Border(
-                  bottom: BorderSide(color: Colors.grey),
-                ),
+                title: AppLocalizations.of(context)!.medication,
+                textStyle: const TextStyle(fontSize: 16),
               ),
-              SwitchListTile(
-                value: _entryTherapyEnabled,
+              PicosSwitch(
+                initialValue: _entryTherapyEnabled,
                 onChanged: _entryTherapyEnabled
                     ? null
                     : (bool value) {
@@ -107,18 +101,11 @@ class _ConfigurationMedicationAndTherapyState
                         });
                       },
                 secondary: const Icon(Icons.healing_outlined),
-                title: Text(
-                  AppLocalizations.of(context)!.therapy,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                shape: const Border(
-                  bottom: BorderSide(color: Colors.grey),
-                ),
+                title: AppLocalizations.of(context)!.therapy,
+                textStyle: const TextStyle(fontSize: 16),
               ),
-              SwitchListTile(
-                value: _entryDoctorsVisitEnabled,
+              PicosSwitch(
+                initialValue: _entryDoctorsVisitEnabled,
                 onChanged: _entryDoctorsVisitEnabled
                     ? null
                     : (bool value) {
@@ -131,15 +118,8 @@ class _ConfigurationMedicationAndTherapyState
                         });
                       },
                 secondary: const Icon(Icons.local_hospital_outlined),
-                title: Text(
-                  AppLocalizations.of(context)!.doctorsVisit,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                shape: const Border(
-                  bottom: BorderSide(color: Colors.grey),
-                ),
+                title: AppLocalizations.of(context)!.doctorsVisit,
+                textStyle: const TextStyle(fontSize: 16),
               ),
             ],
           ),

@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:picos/themes/global_theme.dart';
 
 /// A ready to use list with selectable RadioListTiles.
 class PicosRadioSelect extends StatefulWidget {
@@ -47,6 +48,8 @@ class _PicosRadioSelectState extends State<PicosRadioSelect> {
   static const double _distance = 15;
 
   List<RadioListTile<dynamic>> _createItemList() {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
     return widget.selection.entries.map<RadioListTile<dynamic>>(
       (MapEntry<String, dynamic> element) {
         return RadioListTile<dynamic>(
@@ -61,6 +64,7 @@ class _PicosRadioSelectState extends State<PicosRadioSelect> {
             });
           },
           controlAffinity: ListTileControlAffinity.trailing,
+          activeColor: theme.grey1,
         );
       },
     ).toList();

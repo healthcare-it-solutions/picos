@@ -20,6 +20,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:picos/widgets/picos_body.dart';
 
+import '../../../../widgets/picos_switch.dart';
+
 /// Shows page for configuration of vital values.
 class ConfigurationVitalValues extends StatefulWidget {
   /// Constructor of page for configuration of vital values.
@@ -70,8 +72,8 @@ class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
                   ),
                 ),
               ),
-              SwitchListTile(
-                value: _entryWeightBMIEnabled,
+              PicosSwitch(
+                initialValue: _entryWeightBMIEnabled,
                 onChanged: _entryWeightBMIEnabled
                     ? null
                     : (bool value) {
@@ -84,18 +86,11 @@ class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
                         });
                       },
                 secondary: const Icon(Icons.monitor_weight_outlined),
-                title: Text(
-                  AppLocalizations.of(context)!.weightBMI,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                shape: const Border(
-                  bottom: BorderSide(color: Colors.grey),
-                ),
+                title: AppLocalizations.of(context)!.weightBMI,
+                textStyle: const TextStyle(fontSize: 16),
               ),
-              SwitchListTile(
-                value: _entryHeartFrequencyEnabled,
+              PicosSwitch(
+                initialValue: _entryHeartFrequencyEnabled,
                 onChanged: (bool value) {
                   setState(() {
                     widget.callbackVitalValues(
@@ -106,18 +101,11 @@ class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
                   });
                 },
                 secondary: const Icon(Icons.monitor_heart_outlined),
-                title: Text(
-                  AppLocalizations.of(context)!.heartFrequency,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                shape: const Border(
-                  bottom: BorderSide(color: Colors.grey),
-                ),
+                title: AppLocalizations.of(context)!.heartFrequency,
+                textStyle: const TextStyle(fontSize: 16),
               ),
-              SwitchListTile(
-                value: _entryBloodPressureEnabled,
+              PicosSwitch(
+                initialValue: _entryBloodPressureEnabled,
                 onChanged: (bool value) {
                   setState(() {
                     widget.callbackVitalValues(
@@ -128,18 +116,11 @@ class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
                   });
                 },
                 secondary: const Icon(Icons.bloodtype_outlined),
-                title: Text(
-                  AppLocalizations.of(context)!.bloodPressure,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                shape: const Border(
-                  bottom: BorderSide(color: Colors.grey),
-                ),
+                title: AppLocalizations.of(context)!.bloodPressure,
+                textStyle: const TextStyle(fontSize: 16),
               ),
-              SwitchListTile(
-                value: _entryBloodSugarLevelsEnabled,
+              PicosSwitch(
+                initialValue: _entryBloodSugarLevelsEnabled,
                 onChanged: (bool value) {
                   setState(() {
                     widget.callbackVitalValues(
@@ -150,15 +131,8 @@ class _ConfigurationVitalValuesState extends State<ConfigurationVitalValues> {
                   });
                 },
                 secondary: const Icon(Icons.device_thermostat_outlined),
-                title: Text(
-                  AppLocalizations.of(context)!.bloodSugar,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                shape: const Border(
-                  bottom: BorderSide(color: Colors.grey),
-                ),
+                title: AppLocalizations.of(context)!.bloodSugar,
+                textStyle: const TextStyle(fontSize: 16),
               ),
             ],
           ),
