@@ -231,7 +231,6 @@ class _MovementDataPageState extends State<MovementDataPage> {
         bmi = 0;
       }
     }
-    
   }
 
   double _calculateBmi(int height, double bodyWeight) {
@@ -243,7 +242,9 @@ class _MovementDataPageState extends State<MovementDataPage> {
     const String cm = 'cm';
     const int textAreaLines = 3;
     const String kg = 'kg';
-
+    const ShapeBorder roundedRectangleBorder = RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+    );
     return CatalogOfItemsPage(
       title: AppLocalizations.of(context)!.patientsMovementData,
       children: <Widget>[
@@ -311,7 +312,10 @@ class _MovementDataPageState extends State<MovementDataPage> {
               },
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.bmi),
-            Text(bmi.toString(), textAlign: TextAlign.left,),
+            Text(
+              bmi.toString(),
+              textAlign: TextAlign.left,
+            ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.patientID),
             PicosTextArea(
               maxLines: textAreaLines,
@@ -433,6 +437,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
                 onChanged: (bool? value) {
                   widget.lungProtectiveVentilationGt70pCallback(value);
                 },
+                shape: roundedRectangleBorder,
               ),
             ),
           ],
@@ -465,6 +470,7 @@ class _MovementDataPageState extends State<MovementDataPage> {
                 widget.readmissionRateICUCallback(value);
               },
               title: AppLocalizations.of(context)!.readmissionRateICU,
+              shape: roundedRectangleBorder,
             ),
           ],
         ),

@@ -79,7 +79,7 @@ class Tile extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 5,
-                    vertical: 10,
+                    vertical: 3,
                   ),
                   child: Text(
                     sectionName,

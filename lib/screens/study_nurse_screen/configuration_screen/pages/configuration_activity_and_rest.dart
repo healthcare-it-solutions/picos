@@ -19,6 +19,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_body.dart';
 
+import '../../../../widgets/picos_switch.dart';
+
 /// Shows page for configuration of "Activity & Rest"-information.
 class ConfigurationActivityAndRest extends StatefulWidget {
   /// Constructor of page for configuration of "Activity & Rest"-information.
@@ -68,8 +70,8 @@ class _ConfigurationActivityAndRestState
                   ),
                 ),
               ),
-              SwitchListTile(
-                value: _entryWalkDistanceEnabled,
+              PicosSwitch(
+                initialValue: _entryWalkDistanceEnabled,
                 onChanged: (bool value) {
                   setState(() {
                     widget.callbackActivityAndRest(
@@ -80,18 +82,11 @@ class _ConfigurationActivityAndRestState
                   });
                 },
                 secondary: const Icon(Icons.directions_walk_outlined),
-                title: Text(
-                  AppLocalizations.of(context)!.walkDistance,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                shape: const Border(
-                  bottom: BorderSide(color: Colors.grey),
-                ),
+                title: AppLocalizations.of(context)!.walkDistance,
+                textStyle: const TextStyle(fontSize: 16),
               ),
-              SwitchListTile(
-                value: _entrySleepDurationEnabled,
+              PicosSwitch(
+                initialValue: _entrySleepDurationEnabled,
                 onChanged: _entrySleepDurationEnabled
                     ? null
                     : (bool value) {
@@ -104,18 +99,11 @@ class _ConfigurationActivityAndRestState
                         });
                       },
                 secondary: const Icon(Icons.access_alarm_outlined),
-                title: Text(
-                  AppLocalizations.of(context)!.sleepDuration,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                shape: const Border(
-                  bottom: BorderSide(color: Colors.grey),
-                ),
+                title: AppLocalizations.of(context)!.sleepDuration,
+                textStyle: const TextStyle(fontSize: 16),
               ),
-              SwitchListTile(
-                value: _entrySleepQualityEnabled,
+              PicosSwitch(
+                initialValue: _entrySleepQualityEnabled,
                 onChanged: _entrySleepQualityEnabled
                     ? null
                     : (bool value) {
@@ -128,15 +116,8 @@ class _ConfigurationActivityAndRestState
                         });
                       },
                 secondary: const Icon(Icons.bed_outlined),
-                title: Text(
-                  AppLocalizations.of(context)!.sleepQuality,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                shape: const Border(
-                  bottom: BorderSide(color: Colors.grey),
-                ),
+                title: AppLocalizations.of(context)!.sleepQuality,
+                textStyle: const TextStyle(fontSize: 16),
               ),
             ],
           ),

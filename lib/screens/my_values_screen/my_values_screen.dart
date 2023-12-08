@@ -26,6 +26,7 @@ import '../../widgets/picos_display_card.dart';
 import '../../widgets/picos_info_card.dart';
 import '../../widgets/picos_screen_frame.dart';
 import '../../widgets/picos_svg_icon.dart';
+import '../../widgets/picos_switch.dart';
 
 /// This is the screen for the user's profile information.
 class MyValuesScreen extends StatefulWidget {
@@ -195,8 +196,8 @@ class _MyValuesScreenState extends State<MyValuesScreen> {
     };
 
     return _preferences.keys.map((String key) {
-      return SwitchListTile(
-        value: _preferences[key]!,
+      return PicosSwitch(
+        initialValue: _preferences[key]!,
         onChanged: _preferencesBackend[key] == false
             ? null
             : (bool value) {
@@ -210,14 +211,9 @@ class _MyValuesScreenState extends State<MyValuesScreen> {
           height: 25,
           width: 25,
         ),
-        title: Text(
-          titles[key]!,
-          style: const TextStyle(
-            fontSize: PicosInfoCard.infoTextFontSize,
-          ),
-        ),
-        shape: const Border(
-          bottom: BorderSide(color: Colors.grey),
+        title: titles[key]!,
+        textStyle: const TextStyle(
+          fontSize: PicosInfoCard.infoTextFontSize,
         ),
       );
     }).toList();

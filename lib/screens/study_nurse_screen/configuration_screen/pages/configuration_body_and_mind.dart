@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_body.dart';
+import 'package:picos/widgets/picos_switch.dart';
 
 /// Shows page for configuration of "Body & Mind"-information.
 class ConfigurationBodyAndMind extends StatefulWidget {
@@ -63,8 +64,8 @@ class _ConfigurationBodyAndMindState extends State<ConfigurationBodyAndMind> {
                   ),
                 ),
               ),
-              SwitchListTile(
-                value: _entryPainEnabled,
+              PicosSwitch(
+                initialValue: _entryPainEnabled,
                 onChanged: _entryPainEnabled
                     ? null
                     : (bool value) {
@@ -77,18 +78,11 @@ class _ConfigurationBodyAndMindState extends State<ConfigurationBodyAndMind> {
                         });
                       },
                 secondary: const Icon(Icons.mood_bad_outlined),
-                title: Text(
-                  AppLocalizations.of(context)!.pain,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                shape: const Border(
-                  bottom: BorderSide(color: Colors.grey),
-                ),
+                title: AppLocalizations.of(context)!.pain,
+                textStyle: const TextStyle(fontSize: 16),
               ),
-              SwitchListTile(
-                value: _entryPhq4Enabled,
+              PicosSwitch(
+                initialValue: _entryPhq4Enabled,
                 onChanged: _entryPhq4Enabled
                     ? null
                     : (bool value) {
@@ -101,15 +95,8 @@ class _ConfigurationBodyAndMindState extends State<ConfigurationBodyAndMind> {
                         });
                       },
                 secondary: const Icon(Icons.psychology_outlined),
-                title: const Text(
-                  'PHQ-4',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                shape: const Border(
-                  bottom: BorderSide(color: Colors.grey),
-                ),
+                title: 'PHQ-4',
+                textStyle: const TextStyle(fontSize: 16),
               ),
             ],
           ),
