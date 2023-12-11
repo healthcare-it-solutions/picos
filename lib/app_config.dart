@@ -74,7 +74,13 @@ class AppConfig extends StatelessWidget {
           },
         ),
         home: GestureDetector(
-          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          onTap: () {
+            FocusScopeNode currentFocus = FocusScope.of(context);
+
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.unfocus();
+            }
+          },
           child: const LoginScreen(),
         ),
         routes: Routes(context).getRoutes(),
