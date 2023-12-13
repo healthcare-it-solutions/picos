@@ -254,65 +254,74 @@ class _ConfigurationPages extends State<ConfigurationPages> {
     return BlocBuilder<ObjectsListBloc<BackendPatientsListApi>,
         ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
-        return PicosScreenFrame(
-          title: AppLocalizations.of(context)!.configuration,
-          body: Form(
-            key: formKeyConfiguration,
-            child: PageView(
-              physics: const NeverScrollableScrollPhysics(),
-              controller: _controller,
-              onPageChanged: (int num) {
-                setState(() {
-                  _currentPage = num;
-                });
-              },
-              children: _list,
+        return GestureDetector(
+          onTap: () {
+            FocusScopeNode currentFocus = FocusScope.of(context);
+
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.unfocus();
+            }
+          },
+          child: PicosScreenFrame(
+            title: AppLocalizations.of(context)!.configuration,
+            body: Form(
+              key: formKeyConfiguration,
+              child: PageView(
+                physics: const NeverScrollableScrollPhysics(),
+                controller: _controller,
+                onPageChanged: (int num) {
+                  setState(() {
+                    _currentPage = num;
+                  });
+                },
+                children: _list,
+              ),
             ),
-          ),
-          bottomNavigationBar: Row(
-            children: <Widget>[
-              Expanded(
-                child: PicosInkWellButton(
-                  text: AppLocalizations.of(context)!.back,
-                  onTap: () {
-                    if (_currentPage == 0) {
-                      Navigator.of(context).pop();
-                    } else {
-                      _controller.jumpToPage(_currentPage - 1);
-                    }
-                  },
-                  buttonColor1: theme.grey3,
-                  buttonColor2: theme.grey1,
+            bottomNavigationBar: Row(
+              children: <Widget>[
+                Expanded(
+                  child: PicosInkWellButton(
+                    text: AppLocalizations.of(context)!.back,
+                    onTap: () {
+                      if (_currentPage == 0) {
+                        Navigator.of(context).pop();
+                      } else {
+                        _controller.jumpToPage(_currentPage - 1);
+                      }
+                    },
+                    buttonColor1: theme.grey3,
+                    buttonColor2: theme.grey1,
+                  ),
                 ),
-              ),
-              Expanded(
-                child: PicosInkWellButton(
-                  text: _currentPage == lastPage
-                      ? AppLocalizations.of(context)!.save
-                      : AppLocalizations.of(context)!.proceed,
-                  onTap: () async {
-                    if (_currentPage == lastPage &&
-                        formKeyConfiguration.currentState!.validate()) {
-                      formKeyConfiguration.currentState!.save();
-                      String roleId = await BackendRole.userRoleName.id;
-                      await _savePatient(roleId);
-                      await _savePatientData(roleId);
-                      await _savePatientProfile(roleId);
-                      if (!mounted) return;
-                      Navigator.of(context).pushReplacementNamed(
-                        '/study-nurse-screen/configuration-finish-screen',
-                      );
-                      return;
-                    }
-                    if ((_currentPage == 0 &&
-                            formKeyConfiguration.currentState!.validate()) ||
-                        _currentPage > 0 && _currentPage != lastPage) {
-                      _controller.jumpToPage(_currentPage + 1);
-                    }
-                  },
+                Expanded(
+                  child: PicosInkWellButton(
+                    text: _currentPage == lastPage
+                        ? AppLocalizations.of(context)!.save
+                        : AppLocalizations.of(context)!.proceed,
+                    onTap: () async {
+                      if (_currentPage == lastPage &&
+                          formKeyConfiguration.currentState!.validate()) {
+                        formKeyConfiguration.currentState!.save();
+                        String roleId = await BackendRole.userRoleName.id;
+                        await _savePatient(roleId);
+                        await _savePatientData(roleId);
+                        await _savePatientProfile(roleId);
+                        if (!mounted) return;
+                        Navigator.of(context).pushReplacementNamed(
+                          '/study-nurse-screen/configuration-finish-screen',
+                        );
+                        return;
+                      }
+                      if ((_currentPage == 0 &&
+                              formKeyConfiguration.currentState!.validate()) ||
+                          _currentPage > 0 && _currentPage != lastPage) {
+                        _controller.jumpToPage(_currentPage + 1);
+                      }
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
