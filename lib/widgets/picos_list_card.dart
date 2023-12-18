@@ -43,6 +43,78 @@ class PicosListCard extends StatelessWidget {
   /// The content displayed inside the card.
   final Widget child;
 
+  Widget _createEditButton(
+    BuildContext context,
+    BorderRadius buttonBorderRadius,
+  ) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.only(
+          bottom: 10,
+          top: 0,
+          left: 20,
+          right: 10,
+        ),
+        child: TextButton(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(
+              Theme.of(context).extension<GlobalTheme>()!.cardButton,
+            ),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: buttonBorderRadius,
+              ),
+            ),
+            foregroundColor: MaterialStateProperty.all(
+              Theme.of(context).extension<GlobalTheme>()!.grey1,
+            ),
+          ),
+          onPressed: edit,
+          child: Text(AppLocalizations.of(context)!.edit),
+        ),
+      ),
+    );
+  }
+
+  Widget _createDeleteButton(
+    BuildContext context,
+    BorderRadius buttonBorderRadius,
+  ) {
+    if (delete != null) {
+      return Expanded(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            bottom: 10,
+            top: 0,
+            left: 10,
+            right: 20,
+          ),
+          child: TextButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(
+                Theme.of(context).extension<GlobalTheme>()!.cardButton,
+              ),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: buttonBorderRadius,
+                ),
+              ),
+              foregroundColor: MaterialStateProperty.all(
+                Theme.of(context).extension<GlobalTheme>()!.grey1,
+              ),
+            ),
+            onPressed: delete,
+            child: Text(AppLocalizations.of(context)!.delete),
+          ),
+        ),
+      );
+    }
+
+    return const SizedBox(
+      width: 0,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final BorderRadius borderRadius = BorderRadius.circular(10);
@@ -87,37 +159,9 @@ class PicosListCard extends StatelessWidget {
               child: child,
             ),
             Row(
-              children: <Expanded>[
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      bottom: 10,
-                      top: 0,
-                      left: 20,
-                      right: 10,
-                    ),
-                    child: TextButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                          Theme.of(context)
-                              .extension<GlobalTheme>()!
-                              .cardButton,
-                        ),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: buttonBorderRadius,
-                          ),
-                        ),
-                        foregroundColor: MaterialStateProperty.all(
-                          Theme.of(context).extension<GlobalTheme>()!.grey1,
-                        ),
-                      ),
-                      onPressed: edit,
-                      child: Text(AppLocalizations.of(context)!.edit),
-                    ),
-                  ),
-                ),
+              children: <Widget>[
+                _createEditButton(context, buttonBorderRadius),
+                _createDeleteButton(context, buttonBorderRadius),
               ],
             ),
           ],
