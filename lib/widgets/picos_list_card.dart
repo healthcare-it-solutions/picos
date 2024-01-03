@@ -43,17 +43,17 @@ class PicosListCard extends StatelessWidget {
   /// The content displayed inside the card.
   final Widget child;
 
-  Widget _createButton({
-    required BuildContext context,
-    required String label,
-    required Function()? onPressed,
-  }) {
+  Widget _createButton(
+    BuildContext context,
+    String label,
+    Function()? onPressed,
+  ) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: TextButton(
-          style: _buttonStyle(context, theme),
+          style: _buttonStyle(theme),
           onPressed: onPressed,
           child: Text(label),
         ),
@@ -61,7 +61,7 @@ class PicosListCard extends StatelessWidget {
     );
   }
 
-  ButtonStyle _buttonStyle(BuildContext context, GlobalTheme theme) {
+  ButtonStyle _buttonStyle(GlobalTheme theme) {
     return ButtonStyle(
       backgroundColor: MaterialStateProperty.all(theme.cardButton),
       shape: MaterialStateProperty.all(
@@ -85,7 +85,7 @@ class PicosListCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            _buildTitle(context, theme),
+            _buildTitle(theme),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 23),
               child: child,
@@ -97,7 +97,7 @@ class PicosListCard extends StatelessWidget {
     );
   }
 
-  Widget _buildTitle(BuildContext context, GlobalTheme theme) {
+  Widget _buildTitle(GlobalTheme theme) {
     return Container(
       padding: const EdgeInsets.all(3),
       decoration: BoxDecoration(
@@ -124,15 +124,15 @@ class PicosListCard extends StatelessWidget {
       children: <Widget>[
         if (edit != null)
           _createButton(
-            context: context,
-            label: AppLocalizations.of(context)!.edit,
-            onPressed: edit,
+            context,
+            AppLocalizations.of(context)!.edit,
+            edit,
           ),
         if (delete != null)
           _createButton(
-            context: context,
-            label: AppLocalizations.of(context)!.delete,
-            onPressed: delete,
+            context,
+            AppLocalizations.of(context)!.delete,
+            delete,
           ),
       ],
     );
