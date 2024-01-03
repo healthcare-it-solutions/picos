@@ -592,40 +592,31 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
     if (isLoading) {
       return const Center(child: CircularProgressIndicator());
     } else {
-      return GestureDetector(
-        onTap: () {
-          FocusScopeNode currentFocus = FocusScope.of(context);
-
-          if (!currentFocus.hasPrimaryFocus) {
-            currentFocus.unfocus();
-          }
-        },
-        child: PicosScreenFrame(
-          title: 'Catalog of items',
-          body: Form(
-            child: PageView(
-              controller: controller,
-              onPageChanged: (int num) {
-                setState(() {
-                  _currentPage = num;
-                });
-              },
-              children: pages,
-            ),
+      return PicosScreenFrame(
+        title: 'Catalog of items',
+        body: Form(
+          child: PageView(
+            controller: controller,
+            onPageChanged: (int num) {
+              setState(() {
+                _currentPage = num;
+              });
+            },
+            children: pages,
           ),
-          bottomNavigationBar: PicosAddButtonBar(
-            leftButton: PicosInkWellButton(
-              text: AppLocalizations.of(context)!.back,
-              onTap: previousPage,
-              buttonColor1: theme.grey3,
-              buttonColor2: theme.grey1,
-            ),
-            rightButton: PicosInkWellButton(
-              onTap: nextPage,
-              text: _currentPage == lastPage
-                  ? AppLocalizations.of(context)!.save
-                  : AppLocalizations.of(context)!.next,
-            ),
+        ),
+        bottomNavigationBar: PicosAddButtonBar(
+          leftButton: PicosInkWellButton(
+            text: AppLocalizations.of(context)!.back,
+            onTap: previousPage,
+            buttonColor1: theme.grey3,
+            buttonColor2: theme.grey1,
+          ),
+          rightButton: PicosInkWellButton(
+            onTap: nextPage,
+            text: _currentPage == lastPage
+                ? AppLocalizations.of(context)!.save
+                : AppLocalizations.of(context)!.next,
           ),
         ),
       );
