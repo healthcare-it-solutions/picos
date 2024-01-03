@@ -43,130 +43,98 @@ class PicosListCard extends StatelessWidget {
   /// The content displayed inside the card.
   final Widget child;
 
-  Widget _createEditButton(
-    BuildContext context,
-    BorderRadius buttonBorderRadius,
-  ) {
+  Widget _createButton({
+    required BuildContext context,
+    required String label,
+    required Function()? onPressed,
+  }) {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.only(
-          bottom: 10,
-          top: 0,
-          left: 20,
-          right: 10,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: TextButton(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(
-              Theme.of(context).extension<GlobalTheme>()!.cardButton,
-            ),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: buttonBorderRadius,
-              ),
-            ),
-            foregroundColor: MaterialStateProperty.all(
-              Theme.of(context).extension<GlobalTheme>()!.grey1,
-            ),
-          ),
-          onPressed: edit,
-          child: Text(AppLocalizations.of(context)!.edit),
+          style: _buttonStyle(context, theme),
+          onPressed: onPressed,
+          child: Text(label),
         ),
       ),
     );
   }
 
-  Widget _createDeleteButton(
-    BuildContext context,
-    BorderRadius buttonBorderRadius,
-  ) {
-    if (delete != null) {
-      return Expanded(
-        child: Padding(
-          padding: const EdgeInsets.only(
-            bottom: 10,
-            top: 0,
-            left: 10,
-            right: 20,
-          ),
-          child: TextButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(
-                Theme.of(context).extension<GlobalTheme>()!.cardButton,
-              ),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: buttonBorderRadius,
-                ),
-              ),
-              foregroundColor: MaterialStateProperty.all(
-                Theme.of(context).extension<GlobalTheme>()!.grey1,
-              ),
-            ),
-            onPressed: delete,
-            child: Text(AppLocalizations.of(context)!.delete),
-          ),
+  ButtonStyle _buttonStyle(BuildContext context, GlobalTheme theme) {
+    return ButtonStyle(
+      backgroundColor: MaterialStateProperty.all(theme.cardButton),
+      shape: MaterialStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
         ),
-      );
-    }
-
-    return const SizedBox(
-      width: 0,
+      ),
+      foregroundColor: MaterialStateProperty.all(theme.grey1),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final BorderRadius borderRadius = BorderRadius.circular(10);
-    final BorderRadius buttonBorderRadius = BorderRadius.circular(5);
-
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-
     return Padding(
-      padding: const EdgeInsets.only(top: 10, bottom: 0, left: 10, right: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Card(
         surfaceTintColor: theme.white,
-        shape: RoundedRectangleBorder(borderRadius: borderRadius),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 5,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Container(
-              padding: const EdgeInsets.all(3),
-              decoration: BoxDecoration(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(10)),
-                color: Theme.of(context).extension<GlobalTheme>()!.darkGreen2,
-              ),
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 5,
-                ),
-                child: Text(
-                  title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
+            _buildTitle(context, theme),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 23),
               child: child,
             ),
-            Row(
-              children: <Widget>[
-                _createEditButton(context, buttonBorderRadius),
-                _createDeleteButton(context, buttonBorderRadius),
-              ],
-            ),
+            _buildButtons(context),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildTitle(BuildContext context, GlobalTheme theme) {
+    return Container(
+      padding: const EdgeInsets.all(3),
+      decoration: BoxDecoration(
+        color: theme.darkGreen2,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+      ),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+        child: Text(
+          title,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 17,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildButtons(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        if (edit != null)
+          _createButton(
+            context: context,
+            label: AppLocalizations.of(context)!.edit,
+            onPressed: edit,
+          ),
+        if (delete != null)
+          _createButton(
+            context: context,
+            label: AppLocalizations.of(context)!.delete,
+            onPressed: delete,
+          ),
+      ],
     );
   }
 }
