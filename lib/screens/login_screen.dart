@@ -15,8 +15,11 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:picos/config.dart';
 import 'package:picos/themes/global_theme.dart';
 import 'package:picos/util/backend.dart';
 import 'package:picos/util/flutter_secure_storage.dart';
@@ -60,32 +63,60 @@ class _LoginScreenState extends State<LoginScreen>
     });
   }
 
+  Future<bool> _hasBackendConnection(String url) async {
+    try {
+      final List<InternetAddress> result = await InternetAddress.lookup(url);
+      return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
+    } on SocketException catch (_) {
+      return false;
+    }
+  }
+
   Future<void> _submitHandler() async {
     setState(() => _sendDisabled = true);
 
-    BackendError? loginError = await Backend.login(
-      _loginController.text,
-      _passwordController.text,
-    );
+    String backendURL = '';
 
-    if (loginError == null) {
-      final String route = await Backend.getRole();
+    if (kReleaseMode) {
+      backendURL = Uri.parse(serverUrlProd).host;
+    }
 
-      if (_isChecked && !kIsWeb) {
-        await _secureStorage.setUsername(_loginController.text);
-        await _secureStorage.setPassword(_passwordController.text);
-      } else if (!kIsWeb) {
-        await _secureStorage.deleteAll();
-      }
-      if (!mounted) return;
-      Navigator.of(context).pushReplacementNamed(route);
-    } else {
-      setState(
-        () {
-          _backendError = loginError;
-          _sendDisabled = false;
-        },
+    if (kDebugMode) {
+      backendURL = Uri.parse(serverUrl).host;
+    }
+
+    bool backendReachable = await _hasBackendConnection(backendURL);
+
+    if (backendReachable) {
+      BackendError? loginError = await Backend.login(
+        _loginController.text,
+        _passwordController.text,
       );
+
+      if (loginError == null) {
+        final String route = await Backend.getRole();
+
+        if (_isChecked && !kIsWeb) {
+          await _secureStorage.setUsername(_loginController.text);
+          await _secureStorage.setPassword(_passwordController.text);
+        } else if (!kIsWeb) {
+          await _secureStorage.deleteAll();
+        }
+        if (!mounted) return;
+        Navigator.of(context).pushReplacementNamed(route);
+      } else {
+        setState(
+          () {
+            _backendError = loginError;
+            _sendDisabled = false;
+          },
+        );
+      }
+    } else {
+      setState(() {
+        _backendError = BackendError.notReachable;
+        _sendDisabled = false;
+      });
     }
   }
 
