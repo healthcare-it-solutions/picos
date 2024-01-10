@@ -1514,5 +1514,9 @@
   "loadingFailed": "Loading failed!",
   "@loadingFailed": {
     "description": "Loading failed!"
+  },
+  "backendNotReachable": "Backend is not reachable!",
+  "@backendNotReachable": {
+    "description": "Backend is not reachable!"
   }
 }
