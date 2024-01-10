@@ -384,7 +384,7 @@ enum BackendError {
   /// Wrong credentials.
   credentials,
 
-  /// Account temporarily locke for brute force protection.
+  /// Account temporarily locked for brute force protection.
   bruteforceLock,
 
   /// Backend is not reachable.
