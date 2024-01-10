@@ -387,6 +387,9 @@ enum BackendError {
   /// Account temporarily locke for brute force protection.
   bruteforceLock,
 
+  /// Backend is not reachable.
+  notReachable,
+
   /// An undefined [BackendError].
   error,
 }
@@ -400,6 +403,8 @@ extension BackendErrorExtension on BackendError {
         return AppLocalizations.of(context)!.wrongCredentials;
       case BackendError.bruteforceLock:
         return AppLocalizations.of(context)!.bruteforceLock;
+      case BackendError.notReachable:
+        return AppLocalizations.of(context)!.backendNotReachable;
       default:
         return AppLocalizations.of(context)!.connectionError;
     }
