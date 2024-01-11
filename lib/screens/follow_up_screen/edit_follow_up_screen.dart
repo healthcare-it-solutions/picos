@@ -104,19 +104,10 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.unfocus();
-        }
-      },
-      child: PicosScreenFrame(
-        title: 'V${_followUp.number}',
-        body: PicosBody(child: _buildForm()),
-        bottomNavigationBar: _buildBottomNavigationBar(),
-      ),
+    return PicosScreenFrame(
+      title: 'V${_followUp.number}',
+      body: PicosBody(child: _buildForm()),
+      bottomNavigationBar: _buildBottomNavigationBar(),
     );
   }
 

@@ -46,27 +46,36 @@ class PicosScreenFrame extends StatelessWidget {
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
 
-    return Container(
-      color: theme.darkGreen1,
-      child: SafeArea(
-        child: Scaffold(
-          bottomNavigationBar: bottomNavigationBar,
-          appBar: AppBar(
-            iconTheme: IconThemeData(
-              color: theme.white, //change your color here
-            ),
-            centerTitle: true,
-            title: Text(
-              title ?? '',
-              style: TextStyle(
-                color: theme.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: Container(
+        color: theme.darkGreen1,
+        child: SafeArea(
+          child: Scaffold(
+            bottomNavigationBar: bottomNavigationBar,
+            appBar: AppBar(
+              iconTheme: IconThemeData(
+                color: theme.white, //change your color here
               ),
+              centerTitle: true,
+              title: Text(
+                title ?? '',
+                style: TextStyle(
+                  color: theme.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              elevation: appBarElevation,
             ),
-            elevation: appBarElevation,
+            body: body,
           ),
-          body: body,
         ),
       ),
     );
