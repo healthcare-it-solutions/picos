@@ -96,6 +96,13 @@ class _PatientsListCard extends State<PatientsListCard> {
                   thickness: dividerThickness,
                 ),
                 PatientsListCardTile(
+                  AppLocalizations.of(context)!.phoneNumber,
+                  _patientsListElement!.patient.number,
+                ),
+                Divider(
+                  thickness: dividerThickness,
+                ),
+                PatientsListCardTile(
                   AppLocalizations.of(context)!.address,
                   _patientsListElement!.patient.address,
                 ),
