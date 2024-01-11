@@ -32,7 +32,7 @@ class PatientsListCardTile extends StatelessWidget {
     return Row(
       children: <Widget>[
         SizedBox(
-          width: 90,
+          width: 105,
           child: Text(
             _denotation,
             style: const TextStyle(
