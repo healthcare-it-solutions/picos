@@ -378,5 +378,6 @@
   "electricalAxisDeviation": "Lagetyp",
   "error": "Fehler!",
   "loadingFailed": "Laden fehlgeschlagen!",
-  "backendNotReachable": "Backend ist nicht erreichbar!"
+  "backendNotReachable": "Backend ist nicht erreichbar!",
+  "incompleteCredentials": "Unvollständige Eingaben!"
 }

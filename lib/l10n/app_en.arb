@@ -1518,5 +1518,9 @@
   "backendNotReachable": "Backend is not reachable!",
   "@backendNotReachable": {
     "description": "Backend is not reachable!"
+  },
+  "incompleteCredentials": "Incomplete Credentials",
+  "@incompleteCredentials": {
+    "description": "Incomplete Credentials!"
   }
 }
