@@ -17,7 +17,6 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:picos/screens/fogot_password_screen/forgot_password_screen.dart';
 import 'package:picos/themes/global_theme.dart';
 import 'package:picos/util/backend.dart';
 import 'package:picos/util/flutter_secure_storage.dart';
@@ -188,13 +187,8 @@ class _LoginScreenState extends State<LoginScreen>
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute<dynamic>(
-                            builder: (BuildContext context) {
-                              return const ForgotPasswordScreen();
-                            },
-                          ),
+                        Navigator.of(context).pushNamed(
+                          '/forgot_password_screen',
                         );
                       },
                       child: Text(
