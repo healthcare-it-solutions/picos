@@ -35,10 +35,12 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  String? email;
-  static final RegExp emailRegex = RegExp('.+@.+');
+  final TextEditingController emailController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  void resetPassword(String email) async {
+  static final RegExp emailRegex = RegExp('.+@.+', caseSensitive: false);
+
+  Future<void> resetPassword(String email) async {
     try {
       await ParseUser(null, null, email).requestPasswordReset();
       if (mounted) {
@@ -56,14 +58,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   }
 
   void validateAndResetPassword() {
-    if (email == null || email!.isEmpty) {
-      showSnackBarMessage(AppLocalizations.of(context)!.entryEmail);
-      return;
-    } else if (!emailRegex.hasMatch(email!)) {
-      showSnackBarMessage(AppLocalizations.of(context)!.entryValidEmail);
-      return;
+    if (formKey.currentState!.validate()) {
+      resetPassword(emailController.text);
     }
-    resetPassword(email!);
   }
 
   @override
@@ -71,14 +68,17 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     return PicosScreenFrame(
       title: AppLocalizations.of(context)!.forgotPassword,
       body: PicosBody(
-        child: Column(
-          children: <Widget>[
-            Text(AppLocalizations.of(context)!.enterMailToResetPW),
-            const SizedBox(height: 10),
-            PicosLabel(AppLocalizations.of(context)!.email),
-            emailInputField(),
-            resetPasswordButton(),
-          ],
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: <Widget>[
+              Text(AppLocalizations.of(context)!.enterMailToResetPW),
+              const SizedBox(height: 10),
+              PicosLabel(AppLocalizations.of(context)!.email),
+              emailInputField(),
+              resetPasswordButton(),
+            ],
+          ),
         ),
       ),
     );
@@ -86,13 +86,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   PicosTextField emailInputField() {
     return PicosTextField(
+      controller: emailController,
       hint: AppLocalizations.of(context)!.email,
       keyboardType: TextInputType.emailAddress,
-      onChanged: (String? newValue) {
-        setState(() {
-          email = newValue!;
-        });
-      },
       validator: (String? value) {
         if (value == null || value.isEmpty) {
           return AppLocalizations.of(context)!.entryEmail;
