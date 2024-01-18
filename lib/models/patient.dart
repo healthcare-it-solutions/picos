@@ -91,13 +91,13 @@ class Patient extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-    firstName,
-    familyName,
-    email,
-    number,
-    address,
-    formOfAddress,
-  ];
+        firstName,
+        familyName,
+        email,
+        number,
+        address,
+        formOfAddress,
+      ];
 
   /// Method that returns a random password.
   static String _createPassword() {
@@ -116,24 +116,29 @@ class Patient extends AbstractDatabaseObject {
 
     Random randomString = Random.secure();
 
-    for (int i = 0; i < length; i++) {
-      int index = randomString.nextInt(listPassword.length);
-      password += listPassword[index];
-    }
+    do {
+      password = '';
+      for (int i = 0; i < length; i++) {
+        int index = randomString.nextInt(listPassword.length);
+        password += listPassword[index];
+      }
+    } while (!(password.contains(RegExp('(.*[a-z].*)')) &&
+        password.contains(RegExp('(.*[A-Z].*)')) &&
+        password.contains(RegExp('(.*[0-9].*)'))));
 
     return password;
   }
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
-    'username': email,
-    'password': _createPassword(),
-    'email': email,
-    'Form': formOfAddress,
-    'Firstname': firstName,
-    'Lastname': familyName,
-    'PhoneNo': number,
-    'Address': address,
-    'Role': role,
-  };
+        'username': email,
+        'password': _createPassword(),
+        'email': email,
+        'Form': formOfAddress,
+        'Firstname': firstName,
+        'Lastname': familyName,
+        'PhoneNo': number,
+        'Address': address,
+        'Role': role,
+      };
 }
