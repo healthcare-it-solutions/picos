@@ -104,14 +104,24 @@ class Patient extends AbstractDatabaseObject {
     // A non-negative number for determining the length of the password.
     const int length = 8;
 
+    const String lowercase = 'abcdefghijklmnopqrstuvwxyz';
+    const String uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const String numbers = '0123456789';
+
+    const String base = lowercase + uppercase + numbers;
+
+    String password = '';
+
+    List<String> listPassword = base.split('').toList();
+
     Random randomString = Random.secure();
 
-    return String.fromCharCodes(
-      List<int>.generate(
-        length.abs(),
-        (int index) => randomString.nextInt(33) + 89,
-      ),
-    );
+    for (int i = 0; i < length; i++) {
+      int index = randomString.nextInt(listPassword.length);
+      password += listPassword[index];
+    }
+
+    return password;
   }
 
   @override
