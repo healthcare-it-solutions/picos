@@ -180,6 +180,28 @@ class _LoginScreenState extends State<LoginScreen>
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                          '/forgot_password_screen',
+                        );
+                      },
+                      child: Text(
+                        AppLocalizations.of(context)!.forgotPassword,
+                        style: TextStyle(
+                          height: 2,
+                          color: theme.blue,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(
                 width: 200,
                 child: Row(

@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/cupertino.dart';
+import 'package:picos/screens/fogot_password_screen/forgot_password_screen.dart';
 import 'package:picos/screens/follow_up_screen/edit_follow_up_screen.dart';
 import 'package:picos/screens/follow_up_screen/follow_up_list.dart';
 import 'package:picos/screens/legals_screen.dart';
@@ -102,6 +103,8 @@ class Routes {
           const FollowUpList(),
       '/follow_up_screen/edit_follow_up_screen': (BuildContext ctx) =>
           const EditFollowUpScreen(),
+      '/forgot_password_screen': (BuildContext ctx) =>
+          const ForgotPasswordScreen(),
     };
   }
 
