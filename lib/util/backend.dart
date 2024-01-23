@@ -51,6 +51,10 @@ class Backend {
   /// The user's Role in the table _User.
   static late String userRole;
 
+  static String _errorMessage = '';
+
+  static int _errorCode = 0;
+
   static Future<bool> _initParse() async {
     _blockInit = true;
     String url = '';
@@ -83,7 +87,7 @@ class Backend {
     }
 
     if (login.isEmpty || password.isEmpty) {
-      return BackendError.credentials;
+      return BackendError.incompleteCredentials;
     }
 
     user = ParseUser.createUser(login, password);
@@ -94,6 +98,10 @@ class Backend {
       return null;
     }
 
+    if (response.error!.message.startsWith('Failed host lookup')) {
+      return BackendError.notReachable;
+    }
+
     if (response.error!.message.startsWith('Your account is locked')) {
       return BackendError.bruteforceLock;
     }
@@ -102,7 +110,10 @@ class Backend {
       return BackendError.credentials;
     }
 
-    return null;
+    // Other kind of error.
+    _errorMessage = response.error!.message;
+    _errorCode = response.error!.code;
+    return BackendError.error;
   }
 
   /// Logs the user out and return if it was successful.
@@ -381,11 +392,17 @@ extension BackendRoleExtension on BackendRole {
 
 /// An enum with different errors.
 enum BackendError {
+  ///Incomplete credentials.
+  incompleteCredentials,
+
   /// Wrong credentials.
   credentials,
 
-  /// Account temporarily locke for brute force protection.
+  /// Account temporarily locked for brute force protection.
   bruteforceLock,
+
+  /// Backend is not reachable.
+  notReachable,
 
   /// An undefined [BackendError].
   error,
@@ -396,12 +413,17 @@ extension BackendErrorExtension on BackendError {
   /// Shows the current error message.
   String getMessage(BuildContext context) {
     switch (this) {
+      case BackendError.incompleteCredentials:
+        return AppLocalizations.of(context)!.incompleteCredentials;
       case BackendError.credentials:
         return AppLocalizations.of(context)!.wrongCredentials;
       case BackendError.bruteforceLock:
         return AppLocalizations.of(context)!.bruteforceLock;
+      case BackendError.notReachable:
+        return AppLocalizations.of(context)!.backendNotReachable;
       default:
-        return AppLocalizations.of(context)!.connectionError;
+        return 'Errormessage: ${Backend._errorMessage}, '
+            'ErrorCode: ${Backend._errorCode}';
     }
   }
 }
