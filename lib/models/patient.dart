@@ -91,39 +91,48 @@ class Patient extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-    firstName,
-    familyName,
-    email,
-    number,
-    address,
-    formOfAddress,
-  ];
+        firstName,
+        familyName,
+        email,
+        number,
+        address,
+        formOfAddress,
+      ];
 
   /// Method that returns a random password.
   static String _createPassword() {
     // A non-negative number for determining the length of the password.
     const int length = 8;
-
+    const String letters = 'abcdefghijklmnopqrstuvwxyz';
+    const String capitals = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const String numbers = '0123456789';
     Random randomString = Random.secure();
 
-    return String.fromCharCodes(
-      List<int>.generate(
-        length.abs(),
-        (int index) => randomString.nextInt(33) + 89,
-      ),
-    );
+    String password = '';
+    password += letters[randomString.nextInt(letters.length)];
+    password += capitals[randomString.nextInt(capitals.length)];
+    password += numbers[randomString.nextInt(numbers.length)];
+
+    String allCharacters = letters + capitals + numbers;
+    for (int i = password.length; i < length; i++) {
+      password += allCharacters[randomString.nextInt(allCharacters.length)];
+    }
+
+    List<int> passwordChars = List<int>.of(password.codeUnits);
+    passwordChars.shuffle(randomString);
+    return String.fromCharCodes(passwordChars);
   }
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
-    'username': email,
-    'password': _createPassword(),
-    'email': email,
-    'Form': formOfAddress,
-    'Firstname': firstName,
-    'Lastname': familyName,
-    'PhoneNo': number,
-    'Address': address,
-    'Role': role,
-  };
+        'username': email,
+        'password': _createPassword(),
+        'email': email,
+        'Form': formOfAddress,
+        'Firstname': firstName,
+        'Lastname': familyName,
+        'PhoneNo': number,
+        'Address': address,
+        'Role': role,
+      };
 }
