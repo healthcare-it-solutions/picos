@@ -377,5 +377,9 @@
   "rhythmType": "Rhythmus Typ",
   "electricalAxisDeviation": "Lagetyp",
   "error": "Fehler!",
-  "loadingFailed": "Laden fehlgeschlagen!"
+  "loadingFailed": "Laden fehlgeschlagen!",
+  "forgotPassword": "Passwort vergessen?",
+  "resetPassword": "Passwort zurücksetzen",
+  "ifEmailCorrect": "Bei Korrektheit wird eine Mail verschickt!",
+  "enterMailToResetPW": "Bitte geben Sie die E-Mail-Adresse ein, mit der Sie sich registriert haben. Wir senden Ihnen eine E-Mail mit einem Link zum Zurücksetzen des Passwortes!"
 }
