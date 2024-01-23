@@ -104,19 +104,10 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.unfocus();
-        }
-      },
-      child: PicosScreenFrame(
-        title: 'V${_followUp.number}',
-        body: PicosBody(child: _buildForm()),
-        bottomNavigationBar: _buildBottomNavigationBar(),
-      ),
+    return PicosScreenFrame(
+      title: 'V${_followUp.number}',
+      body: PicosBody(child: _buildForm()),
+      bottomNavigationBar: _buildBottomNavigationBar(),
     );
   }
 
@@ -402,7 +393,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       initialValue: _distance?.toString(),
       decoration: InputDecoration(
         labelText:
-            '${AppLocalizations.of(context)!.walkDistance} (1-600 meter)',
+            '${AppLocalizations.of(context)!.walkDistance} (0-600 meter)',
         border: const OutlineInputBorder(),
         focusedBorder: focusedBorder(),
         errorText: _isDistanceValid
@@ -417,7 +408,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       onChanged: (String value) {
         setState(() {
           int? intValue = int.tryParse(value);
-          if (intValue == null || (intValue < 1 || intValue > 600)) {
+          if (intValue == null || (intValue < 0 || intValue > 600)) {
             _isDistanceValid = false;
             _saveDisabled = true;
           } else {

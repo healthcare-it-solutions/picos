@@ -1514,5 +1514,29 @@
   "loadingFailed": "Loading failed!",
   "@loadingFailed": {
     "description": "Loading failed!"
+  },
+  "forgotPassword": "Forgot password?",
+  "@forgotPassword": {
+    "description": "Forgot Password?"
+  },
+  "resetPassword": "Reset password",
+  "@resetPassword": {
+    "description": "Reset password"
+  },
+  "ifEmailCorrect": "If correct, an mail will be sent!",
+  "@ifEmailCorrect": {
+    "description": "If correct, an mail will be sent!"
+  },
+  "enterMailToResetPW": "Please enter the email address you registered with. We will send you an e-mail with a link to reset your password!",
+  "@enterMailToResetPW": {
+    "description": "Please enter the email address you registered with. We will send you an e-mail with a link to reset your password!"
+  },
+  "backendNotReachable": "Backend is not reachable!",
+  "@backendNotReachable": {
+    "description": "Backend is not reachable!"
+  },
+  "incompleteCredentials": "Incomplete Credentials",
+  "@incompleteCredentials": {
+    "description": "Incomplete Credentials!"
   }
 }
