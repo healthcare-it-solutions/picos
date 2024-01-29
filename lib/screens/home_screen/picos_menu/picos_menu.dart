@@ -76,15 +76,18 @@ class PicosMenu extends StatelessWidget {
       PicosMenuItem(
         iconPath: 'assets/Krankenhaus.svg',
         title: AppLocalizations.of(context)!.visits,
-        onTap: () => Navigator.of(context).pushNamed('/visits-screen/my-visits-screen'),
+        onTap: () =>
+            Navigator.of(context).pushNamed('/visits-screen/my-visits-screen'),
       ),
       PicosMenuItem(
         iconPath: 'assets/Werte.svg',
         title: AppLocalizations.of(context)!.myValues,
-        onTap: () => Navigator.of(context).pushNamed('/my-values_screen/my-values'),
+        onTap: () =>
+            Navigator.of(context).pushNamed('/my-values_screen/my-values'),
       ),
       Padding(
-        padding: const EdgeInsets.only(left: labelPadding),
+        padding:
+            const EdgeInsets.only(left: labelPadding, bottom: labelPadding),
         child: PicosLabel(
           AppLocalizations.of(context)!.more,
           fontSize: labelSize,
@@ -93,8 +96,7 @@ class PicosMenu extends StatelessWidget {
       PicosMenuItem(
         iconPath: 'assets/Profil.svg',
         title: AppLocalizations.of(context)!.myProfile,
-        onTap: () => Navigator.of(context)
-            .pushNamed('profile-screen/profile'),
+        onTap: () => Navigator.of(context).pushNamed('profile-screen/profile'),
       ),
       PicosMenuItem(
         iconPath: 'assets/Impressum.svg',
@@ -124,7 +126,7 @@ class PicosMenu extends StatelessWidget {
 
     return ListView.separated(
       separatorBuilder: (BuildContext context, int index) {
-        if (index == 7 || index == 8) {
+        if (index == 7) {
           return const SizedBox(height: labelPadding);
         }
 
