@@ -29,6 +29,7 @@ class PicosAddButtonBar extends StatelessWidget {
     this.leftButton,
     this.rightButton,
     this.shadows = true,
+    this.color = Colors.white,
     Key? key,
   }) : super(key: key);
 
@@ -43,6 +44,9 @@ class PicosAddButtonBar extends StatelessWidget {
 
   /// For custom button replacement of the right button.
   final PicosInkWellButton? rightButton;
+
+  /// Determines the color of this button bar.
+  final Color color;
 
   /// Determines if the elevation shadows should be casted or not.
   final bool shadows;
@@ -71,41 +75,53 @@ class PicosAddButtonBar extends StatelessWidget {
                 ),
               ],
             )
-          : null,
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: leftButton ??
-                PicosInkWellButton(
-                  padding: const EdgeInsets.only(
-                    left: 30,
-                    right: 13,
-                    top: 15,
-                    bottom: 10,
-                  ),
-                  text: AppLocalizations.of(context)!.abort,
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  buttonColor1: theme.grey3,
-                  buttonColor2: theme.grey1,
+          : BoxDecoration(
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  offset: Offset.zero,
+                  blurRadius: 0.0,
+                  spreadRadius: 0.0,
+                  color: theme.darkGreen1!,
                 ),
-          ),
-          Expanded(
-            child: rightButton ??
-                PicosInkWellButton(
-                  padding: const EdgeInsets.only(
-                    right: 30,
-                    left: 13,
-                    top: 15,
-                    bottom: 10,
+              ],
+            ),
+      child: Container(
+        color: color,
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: leftButton ??
+                  PicosInkWellButton(
+                    padding: const EdgeInsets.only(
+                      left: 30,
+                      right: 13,
+                      top: 15,
+                      bottom: 10,
+                    ),
+                    text: AppLocalizations.of(context)!.abort,
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    buttonColor1: theme.grey3,
+                    buttonColor2: theme.grey1,
                   ),
-                  text: AppLocalizations.of(context)!.save,
-                  onTap: onTap ?? () {},
-                  disabled: disabled,
-                ),
-          ),
-        ],
+            ),
+            Expanded(
+              child: rightButton ??
+                  PicosInkWellButton(
+                    padding: const EdgeInsets.only(
+                      right: 30,
+                      left: 13,
+                      top: 15,
+                      bottom: 10,
+                    ),
+                    text: AppLocalizations.of(context)!.save,
+                    onTap: onTap ?? () {},
+                    disabled: disabled,
+                  ),
+            ),
+          ],
+        ),
       ),
     );
   }

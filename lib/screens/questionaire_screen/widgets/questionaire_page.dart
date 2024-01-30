@@ -35,6 +35,8 @@ class QuestionairePage extends StatelessWidget {
     this.nextFunction,
     this.textNext = '',
     this.disabledNext = false,
+    this.shadows = true,
+    this.backgroundColor = Colors.white,
   }) : super(key: key);
 
   /// The body of the page.
@@ -55,6 +57,12 @@ class QuestionairePage extends StatelessWidget {
   /// Deactivates the next button.
   final bool disabledNext;
 
+  /// Activates the shadows of the button bar.
+  final bool shadows;
+
+  /// Determines the color of the button bar.
+  final Color backgroundColor;
+
   @override
   Widget build(BuildContext context) {
     final String back = AppLocalizations.of(context)!.back;
@@ -73,6 +81,8 @@ class QuestionairePage extends StatelessWidget {
           ),
         ),
         PicosAddButtonBar(
+          shadows: shadows,
+          color: backgroundColor,
           leftButton: PicosInkWellButton(
             padding: const EdgeInsets.only(
               left: 30,

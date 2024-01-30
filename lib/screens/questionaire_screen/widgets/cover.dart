@@ -70,6 +70,8 @@ class Cover extends StatelessWidget {
       backFunction: backFunction,
       textNext: textNext ?? '',
       color: theme.darkGreen1!,
+      backgroundColor: theme.darkGreen1!,
+      shadows: false,
       child: SizedBox(
         width: width,
         child: Column(
