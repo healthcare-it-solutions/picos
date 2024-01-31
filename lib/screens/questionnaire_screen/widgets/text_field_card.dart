@@ -17,7 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:picos/screens/questionaire_screen/widgets/questionaire_card.dart';
+import 'package:picos/screens/questionnaire_screen/widgets/questionnaire_card.dart';
 import 'package:picos/util/replace_comma_formatter.dart';
 
 import '../../../widgets/picos_label.dart';

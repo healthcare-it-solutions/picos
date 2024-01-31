@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../widgets/questionaire_page.dart';
+import '../widgets/questionnaire_page.dart';
 import '../widgets/text_field_card.dart';
 
 /// Questionnaire Sleep page.

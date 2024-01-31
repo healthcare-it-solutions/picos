@@ -23,7 +23,7 @@ import 'package:picos/api/backend_daily_inputs_api.dart';
 import 'package:picos/models/daily_input.dart';
 import 'package:picos/models/phq4.dart';
 import 'package:picos/models/weekly.dart';
-import 'package:picos/screens/questionaire_screen/questionaire_page_storage.dart';
+import 'package:picos/screens/questionnaire_screen/questionnaire_page_storage.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 
 import '../../api/backend_medications_api.dart';

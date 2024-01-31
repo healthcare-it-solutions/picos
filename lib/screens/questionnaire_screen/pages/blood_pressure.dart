@@ -21,8 +21,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../widgets/picos_label.dart';
 import '../../../widgets/picos_select.dart';
-import '../widgets/questionaire_card.dart';
-import '../widgets/questionaire_page.dart';
+import '../widgets/questionnaire_card.dart';
+import '../widgets/questionnaire_page.dart';
 
 /// Questionnaire blood pressure page.
 class BloodPressure extends StatefulWidget {

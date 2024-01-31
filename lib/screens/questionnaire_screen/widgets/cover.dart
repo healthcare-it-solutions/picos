@@ -20,7 +20,7 @@ import 'package:picos/themes/global_theme.dart';
 import 'package:picos/widgets/picos_svg_icon.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'questionaire_page.dart';
+import 'questionnaire_page.dart';
 
 /// A cover for the different sections of the questionaire.
 class Cover extends StatelessWidget {
