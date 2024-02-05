@@ -141,6 +141,20 @@ class Backend {
     return _createListResponse(parses);
   }
 
+  /// Retrieves all entries from a [table] sorted in ascending
+  /// order by a specified [column].
+  static Future<List<dynamic>> getAllEntriesSortedAscending(
+    String table,
+    String colum,
+  ) async {
+    QueryBuilder<ParseObject> queryBuilder =
+        QueryBuilder<ParseObject>(ParseObject(table));
+    queryBuilder.orderByAscending(colum);
+    ParseResponse parses = await queryBuilder.query();
+
+    return _createListResponse(parses);
+  }
+
   /// Retrieves one possible object from a [table].
   static Future<dynamic> getEntry(
     String table,
