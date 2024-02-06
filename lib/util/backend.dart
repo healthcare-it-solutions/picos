@@ -150,9 +150,9 @@ class Backend {
     QueryBuilder<ParseObject> queryBuilder =
         QueryBuilder<ParseObject>(ParseObject(table));
     queryBuilder.orderByAscending(colum);
-    ParseResponse parses = await queryBuilder.query();
+    ParseResponse parseResponse = await queryBuilder.query();
 
-    return _createListResponse(parses);
+    return _createListResponse(parseResponse);
   }
 
   /// Retrieves one possible object from a [table].
