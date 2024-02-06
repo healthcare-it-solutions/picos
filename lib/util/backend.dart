@@ -137,8 +137,8 @@ class Backend {
 
   /// Retrieves all possible objects from a [table].
   static Future<List<dynamic>> getAll(String table) async {
-    ParseResponse parses = await ParseObject(table).getAll();
-    return _createListResponse(parses);
+    ParseResponse parseResponse = await ParseObject(table).getAll();
+    return _createListResponse(parseResponse);
   }
 
   /// Retrieves all entries from a [table] sorted in ascending
@@ -202,10 +202,10 @@ class Backend {
       parseCloudFunction.set(key, value);
     });
 
-    ParseResponse parses =
+    ParseResponse parseResponse =
         await parseCloudFunction.executeObjectFunction<ParseObject>();
 
-    return _createListResponse(parses);
+    return _createListResponse(parseResponse);
   }
 
   static List<dynamic> _createListResponse(ParseResponse response) {
