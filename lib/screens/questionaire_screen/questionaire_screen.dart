@@ -18,6 +18,7 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/api/backend_daily_inputs_api.dart';
 import 'package:picos/models/daily_input.dart';
@@ -29,6 +30,7 @@ import 'package:picos/widgets/picos_screen_frame.dart';
 import '../../api/backend_medications_api.dart';
 import '../../models/daily.dart';
 import '../../state/objects_list_bloc.dart';
+import '../home_screen/overview/overview.dart';
 
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
@@ -185,6 +187,25 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     }
   }
 
+  void _setStatusBarColor(Color color, Brightness iconBrightness) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle.light.copyWith(
+        statusBarColor: color,
+        statusBarIconBrightness: iconBrightness,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (Overview.isScrolled) {
+      _setStatusBarColor(const Color(0xFF197888), Brightness.light);
+    } else {
+      _setStatusBarColor(Colors.white, Brightness.dark);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ObjectsListBloc<BackendMedicationsApi>,
@@ -201,7 +222,6 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
             _title ??= _pageStorage!.titles[0];
 
             return PicosScreenFrame(
-              appBarElevation: 0.0,
               title: _title,
               body: PageView(
                 controller: _controller,

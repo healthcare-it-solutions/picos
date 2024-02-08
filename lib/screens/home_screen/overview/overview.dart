@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:picos/screens/home_screen/overview/widgets/contact_section.dart';
 import 'package:picos/screens/home_screen/overview/widgets/graph_section.dart';
 import 'package:picos/screens/home_screen/overview/widgets/my_health_section.dart';
@@ -23,15 +24,65 @@ import 'package:picos/screens/home_screen/overview/widgets/questionnaire_section
 import '../../../themes/global_theme.dart';
 
 /// Main widget using all subwidgets to build up the "overview"-screen
-class Overview extends StatelessWidget {
+class Overview extends StatefulWidget {
   /// OverviewScreen constructor
   const Overview({Key? key}) : super(key: key);
+
+  ///
+  static bool isScrolled = false;
+
+  @override
+  createState() => _OverviewState();
+}
+
+class _OverviewState extends State<Overview> {
+  final ScrollController _scrollController = ScrollController();
+  bool _isScrolled = false;
+  double appBarHeight = 0;
+  double statusBarHeight = 0;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    appBarHeight = AppBar().preferredSize.height;
+    statusBarHeight = MediaQuery.of(context).padding.top;
+    _scrollController.addListener(_handleScroll);
+    _setSystemNavigationBarColor(context);
+  }
+
+  void _handleScroll() {
+    Overview.isScrolled =
+        _scrollController.offset >= (appBarHeight + statusBarHeight);
+    setState(() {
+      _isScrolled = Overview.isScrolled;
+    });
+  }
+
+  void _setSystemNavigationBarColor(BuildContext context) {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+    final Color? statusBarColorValue;
+    final Brightness? statusBarIconBrightnessValue;
+    if (_isScrolled) {
+      statusBarColorValue = theme.darkGreen1;
+      statusBarIconBrightnessValue = Brightness.light;
+    } else {
+      statusBarColorValue = theme.white;
+      statusBarIconBrightnessValue = Brightness.dark;
+    }
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: statusBarColorValue,
+        statusBarIconBrightness: statusBarIconBrightnessValue,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-
+    _setSystemNavigationBarColor(context);
     return SingleChildScrollView(
+      controller: _scrollController,
       child: Column(
         children: <Widget>[
           const SizedBox(

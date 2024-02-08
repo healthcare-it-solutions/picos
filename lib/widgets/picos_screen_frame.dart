@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../themes/global_theme.dart';
 
@@ -24,20 +25,20 @@ class PicosScreenFrame extends StatelessWidget {
   /// Creates PicosScreenFrame.
   const PicosScreenFrame({
     Key? key,
-    this.appBarElevation = 4,
     this.bottomNavigationBar,
     this.title,
+    this.appBar,
     this.body,
   }) : super(key: key);
-
-  /// The setting for the App Bar Elevation (Shadow).
-  final double appBarElevation;
 
   /// A Navigation bar displayed at the bottom.
   final Widget? bottomNavigationBar;
 
   /// The title of the screen.
   final String? title;
+
+  /// An app bar to display at the top of the PicosScreenFrame.
+  final PreferredSizeWidget? appBar;
 
   /// The content inside the frame to display.
   final Widget? body;
@@ -56,26 +57,29 @@ class PicosScreenFrame extends StatelessWidget {
       },
       child: Container(
         color: theme.darkGreen1,
-        child: SafeArea(
-          child: Scaffold(
-            bottomNavigationBar: bottomNavigationBar,
-            appBar: AppBar(
-              iconTheme: IconThemeData(
-                color: theme.white, //change your color here
-              ),
-              centerTitle: true,
-              title: Text(
-                title ?? '',
-                style: TextStyle(
-                  color: theme.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
+        child: Scaffold(
+          bottomNavigationBar: bottomNavigationBar,
+          appBar: appBar ??
+              AppBar(
+                systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: theme.darkGreen1,
+                  statusBarIconBrightness: Brightness.light,
                 ),
+                iconTheme: IconThemeData(
+                  color: theme.white,
+                ),
+                centerTitle: true,
+                title: Text(
+                  title ?? '',
+                  style: TextStyle(
+                    color: theme.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+                backgroundColor: theme.darkGreen1,
               ),
-              elevation: appBarElevation,
-            ),
-            body: body,
-          ),
+          body: body,
         ),
       ),
     );

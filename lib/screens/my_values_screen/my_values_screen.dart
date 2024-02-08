@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:picos/util/backend.dart';
 import 'package:picos/widgets/picos_body.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -27,6 +28,7 @@ import '../../widgets/picos_info_card.dart';
 import '../../widgets/picos_screen_frame.dart';
 import '../../widgets/picos_svg_icon.dart';
 import '../../widgets/picos_switch.dart';
+import '../home_screen/overview/overview.dart';
 
 /// This is the screen for the user's profile information.
 class MyValuesScreen extends StatefulWidget {
@@ -125,6 +127,25 @@ class _MyValuesScreenState extends State<MyValuesScreen> {
     super.initState();
     _loadPreferences();
     _fetchPatientProfile();
+  }
+
+  void _setStatusBarColor(Color? color, Brightness iconBrightness) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle.light.copyWith(
+        statusBarColor: color,
+        statusBarIconBrightness: iconBrightness,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (Overview.isScrolled) {
+      _setStatusBarColor(const Color(0xFF197888), Brightness.light);
+    } else {
+      _setStatusBarColor(Colors.white, Brightness.dark);
+    }
   }
 
   @override

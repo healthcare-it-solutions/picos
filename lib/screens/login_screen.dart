@@ -17,6 +17,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:picos/themes/global_theme.dart';
 import 'package:picos/util/backend.dart';
 import 'package:picos/util/flutter_secure_storage.dart';
@@ -110,11 +111,21 @@ class _LoginScreenState extends State<LoginScreen>
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
 
     return PicosScreenFrame(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(0.0),
+        child: AppBar(
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Theme.of(context).canvasColor,
+            statusBarIconBrightness: Brightness.dark,
+          ),
+        ),
+      ),
       body: Center(
         child: PicosBody(
           child: Column(
             children: <Widget>[
               if (!kIsWeb) UpgradeCard(),
+              Container(height: 35),
               const Image(
                 image: AssetImage('assets/PICOS_Logo_RGB.png'),
               ),
