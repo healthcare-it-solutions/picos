@@ -16,6 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../themes/global_theme.dart';
 
@@ -45,6 +46,13 @@ class PicosScreenFrame extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle.dark.copyWith(
+        statusBarColor: theme.darkGreen1,
+        statusBarIconBrightness: Brightness.light,
+      ),
+    );
 
     return GestureDetector(
       onTap: () {

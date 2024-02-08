@@ -18,11 +18,13 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/api/backend_daily_inputs_api.dart';
 import 'package:picos/models/daily_input.dart';
 import 'package:picos/models/phq4.dart';
 import 'package:picos/models/weekly.dart';
+import 'package:picos/screens/home_screen/overview/overview.dart';
 import 'package:picos/screens/questionaire_screen/questionaire_page_storage.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 
@@ -183,6 +185,26 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     if (_pageStorage == null) {
       _init = _classInit(context);
     }
+  }
+
+  void _setStatusBarColor(Color color, Brightness iconBrightness) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle.light.copyWith(
+        statusBarColor: color,
+        statusBarIconBrightness: iconBrightness,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    if (Overview.overviewScrollPosition > 100) {
+      _setStatusBarColor(const Color(0xFF197888), Brightness.light);
+    } else {
+      _setStatusBarColor(Colors.white, Brightness.dark);
+    }
+
+    super.dispose();
   }
 
   @override
