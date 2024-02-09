@@ -85,7 +85,7 @@ class Routes {
           const MyVisitsScreen(),
       '/login-screen': (BuildContext ctx) => const LoginScreen(),
       '/questionnaire-screen/questionnaire-screen': (BuildContext ctx) =>
-          const QuestionaireScreen(),
+          const QuestionnaireScreen(),
       '/my-documents-screen/my-documents': (BuildContext ctx) =>
           const MyDocumentsScreen(),
       '/my-documents-screen/add-documents': (BuildContext ctx) =>

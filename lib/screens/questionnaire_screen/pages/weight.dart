@@ -109,7 +109,7 @@ class _WeightState extends State<Weight> {
 
     _createHint();
 
-    return QuestionairePage(
+    return QuestionnairePage(
       backFunction: widget.previousPage,
       nextFunction: widget.nextPage,
       child: Column(

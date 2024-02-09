@@ -294,7 +294,7 @@ class _PainScaleCardState extends State<PainScaleCard> {
       },
     );
 
-    return QuestionaireCard(
+    return QuestionnaireCard(
       padding: const EdgeInsets.symmetric(
         vertical: 15,
         horizontal: 0,

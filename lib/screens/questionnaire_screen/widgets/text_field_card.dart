@@ -62,7 +62,7 @@ class TextFieldCard extends StatelessWidget {
       initialStringValue = initialValue.toString();
     }
 
-    return QuestionaireCard(
+    return QuestionnaireCard(
       label: PicosLabel(label),
       child: PicosTextField(
         initialValue: initialStringValue,

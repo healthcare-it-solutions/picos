@@ -114,7 +114,7 @@ class _BloodSugarState extends State<BloodSugar> {
     final bool disabledNext = _setDisabledNext();
     final String label = _setLabel();
 
-    return QuestionairePage(
+    return QuestionnairePage(
       disabledNext: disabledNext,
       backFunction: widget.previousPage,
       nextFunction: widget.nextPage,

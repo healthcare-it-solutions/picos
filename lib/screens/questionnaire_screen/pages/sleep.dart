@@ -72,7 +72,7 @@ class _SleepState extends State<Sleep> {
       label = '${_sleepDuration!} ${_isInvalid!}';
     }
 
-    return QuestionairePage(
+    return QuestionnairePage(
       backFunction: widget.previousPage,
       nextFunction: widget.nextPage,
       child: TextFieldCard(

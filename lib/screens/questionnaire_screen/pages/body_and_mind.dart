@@ -65,7 +65,7 @@ class BodyAndMind extends StatelessWidget {
       };
     }
 
-    return QuestionairePage(
+    return QuestionnairePage(
       backFunction: previousPage,
       nextFunction: nextPage,
       child: RadioSelectCard(

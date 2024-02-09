@@ -65,7 +65,7 @@ class Cover extends StatelessWidget {
 
     GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
 
-    return QuestionairePage(
+    return QuestionnairePage(
       nextFunction: nextFunction,
       backFunction: backFunction,
       textNext: textNext ?? '',

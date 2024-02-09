@@ -148,11 +148,11 @@ class _BloodPressureState extends State<BloodPressure> {
 
     final bool disabledNext = _checkValues();
 
-    return QuestionairePage(
+    return QuestionnairePage(
       disabledNext: disabledNext,
       backFunction: widget.previousPage,
       nextFunction: widget.nextPage,
-      child: QuestionaireCard(
+      child: QuestionnaireCard(
         label: PicosLabel(_label!),
         child: Row(
           children: <Widget>[

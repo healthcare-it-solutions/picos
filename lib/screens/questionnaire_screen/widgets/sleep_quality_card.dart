@@ -253,7 +253,7 @@ class _SleepQualityCardState extends State<SleepQualityCard> {
       },
     );
 
-    return QuestionaireCard(
+    return QuestionnaireCard(
       padding: const EdgeInsets.symmetric(
         vertical: 15,
         horizontal: 0,
