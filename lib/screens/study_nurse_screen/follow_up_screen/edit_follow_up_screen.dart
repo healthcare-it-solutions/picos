@@ -20,9 +20,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/api/backend_follow_up_api.dart';
 import 'package:picos/models/follow_up.dart';
-import '../../widgets/picos_add_button_bar.dart';
-import '../../widgets/picos_body.dart';
-import '../../widgets/picos_screen_frame.dart';
+import '../../../widgets/picos_add_button_bar.dart';
+import '../../../widgets/picos_body.dart';
+import '../../../widgets/picos_screen_frame.dart';
 
 /// Edit follow up screen.
 class EditFollowUpScreen extends StatefulWidget {

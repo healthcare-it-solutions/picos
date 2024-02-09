@@ -18,19 +18,19 @@
 import 'package:flutter/material.dart';
 import 'package:picos/models/daily_input.dart';
 import 'package:picos/models/patient_data.dart';
-import 'package:picos/screens/questionaire_screen/pages/blood_pressure.dart';
-import 'package:picos/screens/questionaire_screen/pages/blood_sugar.dart';
-import 'package:picos/screens/questionaire_screen/pages/body_and_mind.dart';
-import 'package:picos/screens/questionaire_screen/pages/heart_frequency.dart';
-import 'package:picos/screens/questionaire_screen/pages/sleep.dart';
-import 'package:picos/screens/questionaire_screen/pages/weight.dart';
-import 'package:picos/screens/questionaire_screen/widgets/cover.dart';
-import 'package:picos/screens/questionaire_screen/widgets/doctor_card.dart';
-import 'package:picos/screens/questionaire_screen/widgets/pain_scale_card.dart';
-import 'package:picos/screens/questionaire_screen/widgets/questionaire_page.dart';
-import 'package:picos/screens/questionaire_screen/widgets/radio_select_card.dart';
-import 'package:picos/screens/questionaire_screen/widgets/sleep_quality_card.dart';
-import 'package:picos/screens/questionaire_screen/widgets/text_field_card.dart';
+import 'package:picos/screens/questionnaire_screen/pages/blood_pressure.dart';
+import 'package:picos/screens/questionnaire_screen/pages/blood_sugar.dart';
+import 'package:picos/screens/questionnaire_screen/pages/body_and_mind.dart';
+import 'package:picos/screens/questionnaire_screen/pages/heart_frequency.dart';
+import 'package:picos/screens/questionnaire_screen/pages/sleep.dart';
+import 'package:picos/screens/questionnaire_screen/pages/weight.dart';
+import 'package:picos/screens/questionnaire_screen/widgets/cover.dart';
+import 'package:picos/screens/questionnaire_screen/widgets/doctor_card.dart';
+import 'package:picos/screens/questionnaire_screen/widgets/pain_scale_card.dart';
+import 'package:picos/screens/questionnaire_screen/widgets/questionnaire_page.dart';
+import 'package:picos/screens/questionnaire_screen/widgets/radio_select_card.dart';
+import 'package:picos/screens/questionnaire_screen/widgets/sleep_quality_card.dart';
+import 'package:picos/screens/questionnaire_screen/widgets/text_field_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../models/patient_profile.dart';
@@ -39,8 +39,8 @@ import '../../util/backend.dart';
 import '../../widgets/picos_label.dart';
 
 /// Manages the state of the questionaire pages.
-class QuestionairePageStorage {
-  QuestionairePageStorage._create(
+class QuestionnairePageStorage {
+  QuestionnairePageStorage._create(
     BuildContext context, {
     required this.dailyInput,
   }) {
@@ -49,13 +49,13 @@ class QuestionairePageStorage {
   }
 
   /// Constructs QuestionairePageState.
-  static Future<QuestionairePageStorage> create(
+  static Future<QuestionnairePageStorage> create(
     void Function() previousPage,
     void Function() nextPage,
     BuildContext context,
     DailyInput dailyInput,
   ) async {
-    QuestionairePageStorage qps = QuestionairePageStorage._create(
+    QuestionnairePageStorage qps = QuestionnairePageStorage._create(
       context,
       dailyInput: dailyInput,
     );
@@ -387,7 +387,7 @@ class QuestionairePageStorage {
       titles.add(_myEntries!);
       if (dailyInput.weeklyDay && patientProfile.walkDistanceEnabled == true) {
         pages.add(
-          QuestionairePage(
+          QuestionnairePage(
             backFunction: previousPage,
             nextFunction: nextPage,
             child: TextFieldCard(
@@ -418,7 +418,7 @@ class QuestionairePageStorage {
       titles.add(_activityAndRest!);
       if (dailyInput.weeklyDay && patientProfile.sleepQualityEnabled == true) {
         pages.add(
-          QuestionairePage(
+          QuestionnairePage(
             backFunction: previousPage,
             nextFunction: nextPage,
             child: SleepQualityCard(
@@ -446,7 +446,7 @@ class QuestionairePageStorage {
       titles.add(_myEntries!);
       if (patientProfile.painEnabled == true) {
         pages.add(
-          QuestionairePage(
+          QuestionnairePage(
             backFunction: previousPage,
             nextFunction: nextPage,
             child: PainScaleCard(
@@ -527,7 +527,7 @@ class QuestionairePageStorage {
       if (patientProfile.medicationEnabled == true) {
         redirectingPages['medicationPage'] = pages.length;
         pages.add(
-          QuestionairePage(
+          QuestionnairePage(
             backFunction: previousPage,
             nextFunction: nextPage,
             child: RadioSelectCard(
@@ -545,7 +545,7 @@ class QuestionairePageStorage {
       if (patientProfile.therapyEnabled == true) {
         redirectingPages['therapyPage'] = pages.length;
         pages.add(
-          QuestionairePage(
+          QuestionnairePage(
             backFunction: previousPage,
             nextFunction: nextPage,
             child: RadioSelectCard(
@@ -563,7 +563,7 @@ class QuestionairePageStorage {
     if (patientProfile.doctorsVisitEnabled == true) {
       redirectingPages['doctorPage'] = pages.length;
       pages.add(
-        QuestionairePage(
+        QuestionnairePage(
           backFunction: previousPage,
           nextFunction: nextPage,
           child: DoctorCard(
