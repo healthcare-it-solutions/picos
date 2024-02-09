@@ -18,8 +18,8 @@
 import 'package:flutter/material.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 
-import '../../api/backend_follow_up_api.dart';
-import '../../models/follow_up.dart';
+import '../../../api/backend_follow_up_api.dart';
+import '../../../models/follow_up.dart';
 import 'follow_up_item.dart';
 
 /// This is the list of follow up items.

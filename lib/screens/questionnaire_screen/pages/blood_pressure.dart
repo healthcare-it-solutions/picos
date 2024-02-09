@@ -21,8 +21,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../widgets/picos_label.dart';
 import '../../../widgets/picos_select.dart';
-import '../widgets/questionaire_card.dart';
-import '../widgets/questionaire_page.dart';
+import '../widgets/questionnaire_card.dart';
+import '../widgets/questionnaire_page.dart';
 
 /// Questionnaire blood pressure page.
 class BloodPressure extends StatefulWidget {
@@ -148,11 +148,11 @@ class _BloodPressureState extends State<BloodPressure> {
 
     final bool disabledNext = _checkValues();
 
-    return QuestionairePage(
+    return QuestionnairePage(
       disabledNext: disabledNext,
       backFunction: widget.previousPage,
       nextFunction: widget.nextPage,
-      child: QuestionaireCard(
+      child: QuestionnaireCard(
         label: PicosLabel(_label!),
         child: Row(
           children: <Widget>[

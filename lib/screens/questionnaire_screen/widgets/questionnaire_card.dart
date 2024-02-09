@@ -21,9 +21,9 @@ import 'package:picos/themes/global_theme.dart';
 import '../../../widgets/picos_label.dart';
 
 /// Card item for displaying some input for use inside the QuestionaireScreen.
-class QuestionaireCard extends StatefulWidget {
+class QuestionnaireCard extends StatefulWidget {
   /// Creates a QuestionaireCard.
-  const QuestionaireCard({
+  const QuestionnaireCard({
     required this.child,
     this.label,
     this.padding,
@@ -40,10 +40,10 @@ class QuestionaireCard extends StatefulWidget {
   final EdgeInsetsGeometry? padding;
 
   @override
-  State<QuestionaireCard> createState() => _QuestionaireCardState();
+  State<QuestionnaireCard> createState() => _QuestionnaireCardState();
 }
 
-class _QuestionaireCardState extends State<QuestionaireCard>
+class _QuestionnaireCardState extends State<QuestionnaireCard>
     with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {

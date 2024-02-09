@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../widgets/questionaire_page.dart';
+import '../widgets/questionnaire_page.dart';
 import '../widgets/text_field_card.dart';
 
 /// Questionnaire Sleep page.
@@ -72,7 +72,7 @@ class _SleepState extends State<Sleep> {
       label = '${_sleepDuration!} ${_isInvalid!}';
     }
 
-    return QuestionairePage(
+    return QuestionnairePage(
       backFunction: widget.previousPage,
       nextFunction: widget.nextPage,
       child: TextFieldCard(

@@ -19,18 +19,19 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../widgets/questionaire_page.dart';
+import '../widgets/questionnaire_page.dart';
 import '../widgets/text_field_card.dart';
 
-/// Questionnaire heart frequency page.
-class HeartFrequency extends StatefulWidget {
-  /// HeartFrequency constructor.
-  const HeartFrequency({
+/// Questionnaire blood sugar page.
+class BloodSugar extends StatefulWidget {
+  /// BloodSugar constructor.
+  const BloodSugar({
     required this.previousPage,
     required this.nextPage,
     required this.onChanged,
     Key? key,
     this.initialValue,
+    this.initialValueMol,
   }) : super(key: key);
 
   /// Previous page button function.
@@ -40,73 +41,97 @@ class HeartFrequency extends StatefulWidget {
   final void Function() nextPage;
 
   /// Callback for syst.
-  final dynamic Function(String value) onChanged;
+  final dynamic Function(String? value, String? valueMol) onChanged;
 
   /// Initial value.
   final int? initialValue;
 
+  /// Initial value mmol/l.
+  final double? initialValueMol;
+
   @override
-  State<HeartFrequency> createState() => _HeartFrequencyState();
+  State<BloodSugar> createState() => _BloodSugarState();
 }
 
-class _HeartFrequencyState extends State<HeartFrequency> {
-  static String? _heartFrequency;
+class _BloodSugarState extends State<BloodSugar> {
+  static String? _bloodSugar;
   static String? _checkValue;
   int? _value;
+  double? _valueMol;
 
   bool _setDisabledNext() {
-    if (_value == null) {
+    bool bloodSugar = true;
+    bool bloodSugarMol = true;
+
+    if (_value == null && _valueMol == null) {
       return false;
     }
 
-    if (_value! < 30 || _value! > 180) {
-      return true;
+    if (_value != null) {
+      bloodSugar = _checkBloodSugar();
     }
 
-    return false;
+    if (_valueMol != null) {
+      bloodSugarMol = _checkBloodSugarMol();
+    }
+
+    return !(bloodSugarMol && bloodSugar);
+  }
+
+  bool _checkBloodSugar() {
+    return !(_value! < 50 || _value! > 300);
+  }
+
+  bool _checkBloodSugarMol() {
+    return !(_valueMol! < 3.9 || _valueMol! > 6.7);
   }
 
   String _setLabel() {
     if (_value == null) {
-      return _heartFrequency!;
+      return _bloodSugar!;
     }
 
-    if (_value! < 45 || _value! > 110) {
+    if (_value! < 70 || _value! > 120) {
       return _checkValue!;
     }
 
-    return _heartFrequency!;
+    return _bloodSugar!;
   }
 
   @override void initState() {
     _value = widget.initialValue;
+    _valueMol = widget.initialValueMol;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_heartFrequency == null) {
-      _heartFrequency = AppLocalizations.of(context)!.heartFrequency;
+    if (_bloodSugar == null) {
+      _bloodSugar = AppLocalizations.of(context)!.bloodSugar;
       _checkValue = AppLocalizations.of(context)!.checkValue;
     }
 
     final bool disabledNext = _setDisabledNext();
     final String label = _setLabel();
 
-    return QuestionairePage(
+    return QuestionnairePage(
       disabledNext: disabledNext,
       backFunction: widget.previousPage,
       nextFunction: widget.nextPage,
-      child: TextFieldCard(
-        initialValue: widget.initialValue,
-        label: label,
-        hint: 'bpm',
-        onChanged: (String value) {
-          widget.onChanged(value);
-          setState(() {
-            _value = int.tryParse(value);
-          });
-        },
+      child: Column(
+        children: <TextFieldCard>[
+          TextFieldCard(
+            initialValue: widget.initialValue,
+            label: label,
+            hint: 'mg/dL',
+            onChanged: (String value) {
+              widget.onChanged(value, null);
+              setState(() {
+                _value = int.tryParse(value);
+              });
+            },
+          ),
+        ],
       ),
     );
   }

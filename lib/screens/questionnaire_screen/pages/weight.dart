@@ -21,7 +21,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../widgets/questionaire_page.dart';
+import '../widgets/questionnaire_page.dart';
 import '../widgets/text_field_card.dart';
 
 /// Questionnaire Weight page.
@@ -109,7 +109,7 @@ class _WeightState extends State<Weight> {
 
     _createHint();
 
-    return QuestionairePage(
+    return QuestionnairePage(
       backFunction: widget.previousPage,
       nextFunction: widget.nextPage,
       child: Column(

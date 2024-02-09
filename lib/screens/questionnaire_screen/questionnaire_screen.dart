@@ -23,7 +23,7 @@ import 'package:picos/api/backend_daily_inputs_api.dart';
 import 'package:picos/models/daily_input.dart';
 import 'package:picos/models/phq4.dart';
 import 'package:picos/models/weekly.dart';
-import 'package:picos/screens/questionaire_screen/questionaire_page_storage.dart';
+import 'package:picos/screens/questionnaire_screen/questionnaire_page_storage.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 
 import '../../api/backend_medications_api.dart';
@@ -33,19 +33,19 @@ import '../../state/objects_list_bloc.dart';
 /// This is the screen a user should see when prompted to provide some
 /// information about their health status.
 /// Requires an [DailyInput] as argument.
-class QuestionaireScreen extends StatefulWidget {
+class QuestionnaireScreen extends StatefulWidget {
   /// QuestionaireScreen constructor
-  const QuestionaireScreen({Key? key}) : super(key: key);
+  const QuestionnaireScreen({Key? key}) : super(key: key);
 
   @override
-  State<QuestionaireScreen> createState() => _QuestionaireScreenState();
+  State<QuestionnaireScreen> createState() => _QuestionnaireScreenState();
 }
 
 ///Initialization of the ValueNotifier.
 final ValueNotifier<bool> rebuildGraphNotifier = ValueNotifier<bool>(false);
 
-class _QuestionaireScreenState extends State<QuestionaireScreen> {
-  QuestionairePageStorage? _pageStorage;
+class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
+  QuestionnairePageStorage? _pageStorage;
   late Future<bool> _init;
   static final PageController _controller = PageController();
   static const Duration _controllerDuration = Duration(milliseconds: 300);
@@ -119,7 +119,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
       return false;
     }
 
-    _pageStorage = await QuestionairePageStorage.create(
+    _pageStorage = await QuestionnairePageStorage.create(
       _previousPage,
       _nextPage,
       context,
