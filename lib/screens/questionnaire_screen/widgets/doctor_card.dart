@@ -18,7 +18,7 @@
 import 'package:universal_io/io.dart';
 
 import 'package:flutter/material.dart';
-import 'package:picos/screens/questionaire_screen/widgets/radio_select_card.dart';
+import 'package:picos/screens/questionnaire_screen/widgets/radio_select_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// The questionaire card for the question if the user visited a doctor.

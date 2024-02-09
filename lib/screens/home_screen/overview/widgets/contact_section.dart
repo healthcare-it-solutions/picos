@@ -27,9 +27,9 @@ class ContactSection extends StatelessWidget {
   /// ContactSection constructor
   const ContactSection({Key? key}) : super(key: key);
 
-  void _launchURL(BuildContext context) async {
+  void _launchURL(BuildContext context, String uri) async {
     final Uri url = Uri.parse(
-      'https://hit-solutions.de/picos-app-benutzerhandbuch/',
+      uri,
     );
     final ScaffoldMessengerState scaffoldMessenger =
         ScaffoldMessenger.of(context);
@@ -92,7 +92,10 @@ class ContactSection extends StatelessWidget {
                   Expanded(
                     flex: 55,
                     child: GestureDetector(
-                      onTap: () => _launchURL(context),
+                      onTap: () => _launchURL(
+                        context,
+                        'https://hit-solutions.de/picos-app-benutzerhandbuch/',
+                      ),
                       child: Text(
                         AppLocalizations.of(context)!.handbook,
                         style: const TextStyle(
@@ -108,13 +111,32 @@ class ContactSection extends StatelessWidget {
                 height: 11,
               ),
               const Row(
+                children: <Expanded>[
+                  Expanded(
+                    child: Text('E-Mail:'),
+                  ),
+                ],
+              ),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Expanded>[
                   Expanded(
                     flex: 55,
-                    child: Text('E-Mail:\npicos@hit-solutions.de'),
+                    child: GestureDetector(
+                      onTap: () => _launchURL(
+                        context,
+                        'mailto: picos@hit-solutions.de',
+                      ),
+                      child: const Text(
+                        'picos@hit-solutions.de',
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
                   ),
-                  Expanded(
+                  const Expanded(
                     flex: 45,
                     child: SizedBox(),
                   ),

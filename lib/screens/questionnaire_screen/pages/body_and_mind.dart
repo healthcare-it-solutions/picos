@@ -20,7 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../widgets/picos_label.dart';
-import '../widgets/questionaire_page.dart';
+import '../widgets/questionnaire_page.dart';
 import '../widgets/radio_select_card.dart';
 
 /// Questionnaire body and mind page.
@@ -65,7 +65,7 @@ class BodyAndMind extends StatelessWidget {
       };
     }
 
-    return QuestionairePage(
+    return QuestionnairePage(
       backFunction: previousPage,
       nextFunction: nextPage,
       child: RadioSelectCard(

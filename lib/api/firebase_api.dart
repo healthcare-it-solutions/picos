@@ -21,15 +21,19 @@ import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 import '../config.dart';
 
-/// Firebase Api class.
+/// Firebase API class.
 class FirebaseApi {
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-
-  /// Handle show notification.
+  /// Handle showing the notification.
   void handleShowNotification(String payload) {}
 
-  /// Initialize notifications.
+  /// Initializes notifications.
   Future<void> initNotifications() async {
+    await _requestNotificationPermission();
+    await _initializeParse();
+    await _initializeParsePush();
+  }
+
+  Future<void> _requestNotificationPermission() async {
     final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
     await firebaseMessaging.requestPermission(
       alert: true,
@@ -40,42 +44,40 @@ class FirebaseApi {
       provisional: false,
       sound: true,
     );
+  }
 
-    final String? fCMToken = await _firebaseMessaging.getToken();
-    // Initialize Parse
-    await Parse().initialize(
-      appId,
-      kReleaseMode ? serverUrlProd : serverUrl,
-      clientKey: clientKey,
-    );
+  Future<void> _initializeParse() async {
+    try {
+      await Parse().initialize(
+        appId,
+        kReleaseMode ? serverUrlProd : serverUrl,
+        clientKey: clientKey,
+        debug: true,
+      );
 
-    // Initialize Parse push notifications
-    ParsePush.instance.initialize(
-      FirebaseMessaging.instance,
-      parseNotification:
-          ParseNotification(onShowNotification: handleShowNotification),
-    );
-    FirebaseMessaging.onMessage.listen(
-      (RemoteMessage message) => ParsePush.instance.onMessage(message),
-    );
+      ParseInstallation parseInstallation =
+          await ParseInstallation.currentInstallation();
 
-    final ParseInstallation currentInstallation =
-        await ParseInstallation.currentInstallation();
+      if (parseInstallation.objectId == null) {
+        await parseInstallation.save();
+      }
+    } catch (e) {
+      Stream<FirebaseApi>.error(e);
+    }
+  }
 
-    currentInstallation.clearUnsavedChanges();
-
-    await currentInstallation.create(allowCustomObjectId: true);
-
-    currentInstallation
-      ..set('deviceToken', currentInstallation.deviceToken ?? fCMToken)
-      ..set('installationId', currentInstallation.installationId);
-
-    if (currentInstallation.objectId != null) {
-      // Update existing installation
-      await currentInstallation.update();
-    } else {
-      // Save new installation
-      await currentInstallation.save();
+  Future<void> _initializeParsePush() async {
+    try {
+      ParsePush.instance.initialize(
+        FirebaseMessaging.instance,
+        parseNotification:
+            ParseNotification(onShowNotification: handleShowNotification),
+      );
+      FirebaseMessaging.onMessage.listen(
+        (RemoteMessage message) => ParsePush.instance.onMessage(message),
+      );
+    } catch (e) {
+      Stream<FirebaseApi>.error(e);
     }
   }
 }

@@ -16,7 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:picos/screens/questionaire_screen/widgets/questionaire_card.dart';
+import 'package:picos/screens/questionnaire_screen/widgets/questionnaire_card.dart';
 import 'package:picos/widgets/picos_radio_select.dart';
 
 import '../../../widgets/picos_label.dart';
@@ -73,7 +73,7 @@ class RadioSelectCard extends StatelessWidget {
       ),
     );
 
-    return QuestionaireCard(
+    return QuestionnaireCard(
       padding: const EdgeInsets.symmetric(
         vertical: 15,
         horizontal: 0,
