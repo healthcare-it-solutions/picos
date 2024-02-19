@@ -404,7 +404,7 @@ class LaboratoryValuesPage extends StatelessWidget {
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.troponin),
             PicosNumberField(
-              hint: 'ug/L',
+              hint: 'µg/L',
               initialValue: initialTroponin?.toString(),
               onChanged: (String value) {
                 troponinCallback(double.tryParse(value));
