@@ -19,64 +19,84 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// Shows the Privacy Notice Page of the Picos App.
 class PrivacyNoticeScreen extends StatelessWidget {
   /// PicosMenu constructor
   const PrivacyNoticeScreen({Key? key}) : super(key: key);
 
+  void _launchURL(BuildContext context, String uri) async {
+    final Uri url = Uri.parse(
+      uri,
+    );
+    final ScaffoldMessengerState scaffoldMessenger =
+        ScaffoldMessenger.of(context);
+    try {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    } catch (e) {
+      scaffoldMessenger.showSnackBar(
+        SnackBar(
+          content: Text(
+            context.mounted ? AppLocalizations.of(context)!.couldNotLaunch : '',
+          ),
+        ),
+      );
+    }
+  }
+
+  Text _caption(String text) {
+    return Text(
+      text,
+      style: const TextStyle(
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return PicosScreenFrame(
       title: AppLocalizations.of(context)!.privacyNotice,
-      body: const PicosBody(
+      body: PicosBody(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Rechte des Betroffenen',
-              style: TextStyle(
-                fontSize: 30,
-              ),
-            ),
-            Text(
+            _caption('Rechte des Betroffenen'),
+            const Text(
               '''Sie können Ihre Rechte zum Datenschutz jederzeit und unentgeltlich in Anspruch nehmen. Unser Datenschutzbeauftragter überprüft und beantwortet jedes Anliegen individuell. Unseren Datenschutzbeauftragten können Sie per Mail unter dsb@hit-solutions.de  erreichen. \n''',
             ),
-            Text(
-              '''Auskunftsrecht (Art. 15 DSGVO, § 17 KDG, § 19 DSG-EKD)''',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
+            _caption('''Auskunftsrecht (Art. 15 DSGVO, § 17 KDG, § 19 DSG-EKD)'''),
+            const Text(
               '''Sie haben das Recht jederzeit unentgeltlich Auskunft darüber zu erhalten, ob wir Daten zu Ihrer Person verarbeiten.:\n''',
             ),
-            Text(
-              '''Recht auf Berichtigung (Art. 16 DSGVO, § 18 KDG, § 20 DSG-EKD), Löschung (Art. 17. DSGVO, § 19 KDG, § 21 DSG-EKD), Einschränkung der Verarbeitung (Art. 18 DSGVO, § 20 KDG, § 22 DSG-EKD), Datenübertragung (Art. 20 DSGVO, § 22 KDG, § 24 DSG-EKD) und das Widerspruchsrecht (Art. 21 DSGVO, § 23 KDG, § 25 DSG-EKD)''',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
+            _caption('''Recht auf Berichtigung (Art. 16 DSGVO, § 18 KDG, § 20 DSG-EKD), Löschung (Art. 17. DSGVO, § 19 KDG, § 21 DSG-EKD), Einschränkung der Verarbeitung (Art. 18 DSGVO, § 20 KDG, § 22 DSG-EKD), Datenübertragung (Art. 20 DSGVO, § 22 KDG, § 24 DSG-EKD) und das Widerspruchsrecht (Art. 21 DSGVO, § 23 KDG, § 25 DSG-EKD)''',),
+            const Text(
               '''Weiterhin haben Sie die Möglichkeit die Rechte auf Berichtigung, Löschung oder Einschränkung der Verarbeitung geltend zu machen. Sie können auch jederzeit Widerspruch gegen die Verarbeitung Ihrer Daten gegenüber uns einlegen.\n''',
             ),
-            Text(
-              '''Widerruf im Falle einer Einwilligung (Art. 7 Abs. 3 DSGVO, § 8 Abs. 6 KDG, § 11 Abs. 3 DSG-EKD):''',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
+            _caption('''Widerruf im Falle einer Einwilligung (Art. 7 Abs. 3 DSGVO, § 8 Abs. 6 KDG, § 11 Abs. 3 DSG-EKD):'''),
+            const Text(
               '''Sofern Sie Ihre personenbezogenen Daten auf Grundlage einer Einwilligung abgegeben haben, haben sie das Recht die Einwilligung jederzeit für die Zukunft zu widerrufen. Wir möchten Sie darauf hinweisen, dass durch den Widerruf der Einwilligung die Rechtmäßigkeit, der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung nicht berührt wird.\n''',
             ),
-            Text(
-              'Recht auf Beschwerde bei der Aufsichtsbehörde',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
+            _caption('Recht auf Beschwerde bei der Aufsichtsbehörde'),
+            const Text(
+              '''Sofern Sie der Meinung sind, die Verarbeitung Ihrer personenbezogenen Daten durch die Verantwortlichen erfolge nicht rechtmäßig, haben Sie das jederzeitige Recht, sich mit Ihrer Beschwerde an die zuständige Datenschutzaufsichtsbehörde zu wenden.\n''',
             ),
-            Text(
-              '''Sofern Sie der Meinung sind, die Verarbeitung Ihrer personenbezogenen Daten durch die Verantwortlichen erfolge nicht rechtmäßig, haben Sie das jederzeitige Recht, sich mit Ihrer Beschwerde an die zuständige Datenschutzaufsichtsbehörde zu wenden.''',
+            _caption('Antrag auf Löschung des PICOS-Kontos'),
+            GestureDetector(
+              onTap: () {
+                _launchURL(
+                  context,
+                  'https://www.hit-solutions.de/picos-account-loeschung/',
+                );
+              },
+              child: const Text(
+                '''Hier können Sie die Löschung Ihres Picos-Kontos beantragen.''',
+                style: TextStyle(
+                  decoration: TextDecoration.underline,
+                  color: Colors.blue,
+                ),
+              ),
             ),
           ],
         ),
