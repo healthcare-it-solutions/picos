@@ -19,9 +19,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-/// This class provides a method to launch links.
+/// This class provides a method to launch URLs.
 class UrlLauncher {
-  /// Method for launching links.
+  /// Method for launching URLs.
   void launch(BuildContext context, String uri) async {
     final Uri url = Uri.parse(
       uri,
