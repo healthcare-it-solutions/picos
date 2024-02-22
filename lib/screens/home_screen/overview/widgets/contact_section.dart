@@ -81,9 +81,9 @@ class ContactSection extends StatelessWidget {
                       ),
                       child: Text(
                         AppLocalizations.of(context)!.handbook,
-                        style: const TextStyle(
+                        style: TextStyle(
                           decoration: TextDecoration.underline,
-                          color: Colors.blue,
+                          color: theme.blue,
                         ),
                       ),
                     ),
@@ -110,11 +110,11 @@ class ContactSection extends StatelessWidget {
                         context,
                         'mailto: picos@hit-solutions.de',
                       ),
-                      child: const Text(
+                      child: Text(
                         'picos@hit-solutions.de',
                         style: TextStyle(
                           decoration: TextDecoration.underline,
-                          color: Colors.blue,
+                          color: theme.blue,
                         ),
                       ),
                     ),

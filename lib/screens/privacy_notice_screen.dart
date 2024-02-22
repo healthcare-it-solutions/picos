@@ -17,6 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/themes/global_theme.dart';
 import 'package:picos/util/url_launcher.dart';
 import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
@@ -37,6 +38,8 @@ class PrivacyNoticeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+    
     UrlLauncher urlLauncher = UrlLauncher();
 
     return PicosScreenFrame(
@@ -79,11 +82,11 @@ class PrivacyNoticeScreen extends StatelessWidget {
                   'https://www.hit-solutions.de/picos-account-loeschung/',
                 );
               },
-              child: const Text(
+              child: Text(
                 '''Hier können Sie die Löschung Ihres Picos-Kontos beantragen.''',
                 style: TextStyle(
                   decoration: TextDecoration.underline,
-                  color: Colors.blue,
+                  color: theme.blue,
                 ),
               ),
             ),
