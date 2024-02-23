@@ -19,7 +19,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../api/backend_therapies_api.dart';
 import '../../models/therapy.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../state/objects_list_bloc.dart';
 import 'therapy_item.dart';
 
@@ -34,6 +33,15 @@ class TherapiesList extends StatefulWidget {
 
 class _TherapiesListState extends State<TherapiesList> {
   @override
+  void initState() {
+    super.initState();
+    // Verwenden Sie hier den korrekten Namen Ihrer Event-Klasse, um Daten zu laden
+    context.read<ObjectsListBloc<BackendTherapiesApi>>().add(
+      const ObjectsListLoad(),
+    ); // Angenommen, dies ist Ihr Event zum Laden von Daten
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<ObjectsListBloc<BackendTherapiesApi>, ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
@@ -45,8 +53,8 @@ class _TherapiesListState extends State<TherapiesList> {
         }
 
         if (state.status == ObjectsListStatus.failure) {
-          return Center(
-            child: Text(AppLocalizations.of(context)!.loadingFailed),
+          return const Center(
+            child: Text('Error'),
           );
         }
 

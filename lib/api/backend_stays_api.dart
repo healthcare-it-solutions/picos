@@ -26,7 +26,7 @@ import '../util/backend.dart';
 /// API for storing stays at the backend.
 class BackendStaysApi extends BackendObjectsApi {
   @override
-  Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
+  Future<List<AbstractDatabaseObject>> getObjects() async {
     try {
       List<dynamic> response = await Backend.getAll(Stay.databaseTable);
 
@@ -46,9 +46,9 @@ class BackendStaysApi extends BackendObjectsApi {
         );
       }
 
-      return getObjectsStream();
+      return objectList;
     } catch (e) {
-      return Stream<List<Stay>>.error(e);
+      return throw Exception('Error: $e');
     }
   }
 }

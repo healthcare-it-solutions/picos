@@ -26,7 +26,7 @@ import 'backend_objects_api.dart';
 /// API for storing physicians at the backend.
 class BackendPhysiciansApi extends BackendObjectsApi {
   @override
-  Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
+  Future<List<AbstractDatabaseObject>> getObjects() async {
     try {
       List<dynamic> response = await Backend.getAll(Physician.databaseTable);
 
@@ -39,8 +39,8 @@ class BackendPhysiciansApi extends BackendObjectsApi {
             mail: element['Mail'],
             phone: element['Tele'],
             address: element['Address'],
-            city:  element['City'],
-            homepage:  element['Homepage'],
+            city: element['City'],
+            homepage: element['Homepage'],
             firstName: element['Firstname'],
             objectId: element['objectId'],
             createdAt: DateTime.parse(element['createdAt']),
@@ -48,10 +48,9 @@ class BackendPhysiciansApi extends BackendObjectsApi {
           ),
         );
       }
-
-      return getObjectsStream();
+      return objectList;
     } catch (e) {
-      return Stream<List<Physician>>.error(e);
+      throw Exception('Error: $e');
     }
   }
 }

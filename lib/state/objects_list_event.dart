@@ -32,6 +32,14 @@ class ObjectsListSubscriptionRequested extends ObjectsListEvent {
   const ObjectsListSubscriptionRequested();
 }
 
+/// Definiert ein Event für das Laden der gesamten Objektliste
+class ObjectsListLoad extends ObjectsListEvent {
+  /// Sie können zusätzliche Daten übergeben, wenn nötig, zum Beispiel, um zu filtern oder zu paginieren
+  const ObjectsListLoad();
+
+// Fügen Sie hier alle Eigenschaften hinzu, die zur Gleichheit von Events beitragen
+}
+
 /// Adds or replaces an object.
 class SaveObject extends ObjectsListEvent {
   /// SaveObject constructor.
