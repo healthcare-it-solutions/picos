@@ -32,14 +32,14 @@ class ObjectsListBloc<T extends DatabaseObjectApi>
   /// Creates the ObjectsListBloc.
   ObjectsListBloc(this._objectApi) : super(const ObjectsListState()) {
     on<ObjectsListSubscriptionRequested>(_onSubscriptionRequested);
-    on<ObjectsListLoad>(_onObjectsListLoad);
+    on<ObjectsListReload>(_onObjectsListReload);
     on<SaveObject>(_onSaveObject);
     on<RemoveObject>(_onRemoveObject);
   }
 
   final T _objectApi;
-  Future<void> _onObjectsListLoad(
-      ObjectsListLoad event,
+  Future<void> _onObjectsListReload(
+      ObjectsListReload event,
       Emitter<ObjectsListState> emit,
       ) async {
     emit(state.copyWith(status: ObjectsListStatus.loading));

@@ -35,10 +35,9 @@ class _TherapiesListState extends State<TherapiesList> {
   @override
   void initState() {
     super.initState();
-    // Verwenden Sie hier den korrekten Namen Ihrer Event-Klasse, um Daten zu laden
     context.read<ObjectsListBloc<BackendTherapiesApi>>().add(
-      const ObjectsListLoad(),
-    ); // Angenommen, dies ist Ihr Event zum Laden von Daten
+          const ObjectsListReload(),
+        );
   }
 
   @override
