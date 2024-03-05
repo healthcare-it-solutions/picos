@@ -17,6 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:picos/models/abstract_database_object.dart';
 import '../../api/backend_therapies_api.dart';
 import '../../models/therapy.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -50,10 +51,13 @@ class _TherapiesListState extends State<TherapiesList> {
           );
         }
 
+        List<Therapy> therapyList =
+            _sortTherapiesByDateDescending(state.objectsList);
+
         return ListView.separated(
-          itemCount: state.objectsList.length,
+          itemCount: therapyList.length,
           itemBuilder: (BuildContext context, int index) {
-            return TherapyItem(state.objectsList[index] as Therapy);
+            return TherapyItem(therapyList[index]);
           },
           separatorBuilder: (BuildContext context, int index) {
             return const Padding(
@@ -67,5 +71,15 @@ class _TherapiesListState extends State<TherapiesList> {
         );
       },
     );
+  }
+
+  List<Therapy> _sortTherapiesByDateDescending(
+    List<AbstractDatabaseObject> objectsList,
+  ) {
+    List<Therapy> therapyList = objectsList
+        .map((AbstractDatabaseObject item) => item as Therapy)
+        .toList();
+    therapyList.sort((Therapy a, Therapy b) => b.date.compareTo(a.date));
+    return therapyList;
   }
 }
