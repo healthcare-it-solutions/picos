@@ -51,13 +51,15 @@ class _TherapiesListState extends State<TherapiesList> {
           );
         }
 
-        List<Therapy> therapyList =
-            _sortTherapiesByDateDescending(state.objectsList);
+        state.objectsList.sort(
+          (AbstractDatabaseObject a, AbstractDatabaseObject b) =>
+              (b as Therapy).date.compareTo((a as Therapy).date),
+        );
 
         return ListView.separated(
-          itemCount: therapyList.length,
+          itemCount: state.objectsList.length,
           itemBuilder: (BuildContext context, int index) {
-            return TherapyItem(therapyList[index]);
+            return TherapyItem(state.objectsList[index] as Therapy);
           },
           separatorBuilder: (BuildContext context, int index) {
             return const Padding(
@@ -71,15 +73,5 @@ class _TherapiesListState extends State<TherapiesList> {
         );
       },
     );
-  }
-
-  List<Therapy> _sortTherapiesByDateDescending(
-    List<AbstractDatabaseObject> objectsList,
-  ) {
-    List<Therapy> therapyList = objectsList
-        .map((AbstractDatabaseObject item) => item as Therapy)
-        .toList();
-    therapyList.sort((Therapy a, Therapy b) => b.date.compareTo(a.date));
-    return therapyList;
   }
 }
