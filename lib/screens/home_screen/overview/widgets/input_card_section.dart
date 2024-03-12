@@ -23,6 +23,7 @@ import 'package:picos/widgets/picos_ink_well_button.dart';
 
 import '../../../../state/objects_list_bloc.dart';
 import '../../../../themes/global_theme.dart';
+import '../../../../util/backend.dart';
 import 'mini_calendar.dart';
 
 /// This class implements the top section of the 'overview'.
@@ -37,6 +38,19 @@ class InputCardSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
     const EdgeInsets inset = EdgeInsets.all(15);
+
+    DailyInput? dailyInput;
+    if (state.status == ObjectsListStatus.success) {
+      dailyInput = state.objectsList[0] as DailyInput;
+      if (Backend.userRole == 'TestPatient') {
+        dailyInput = DailyInput(
+          day: 0,
+          weeklyDay: true,
+          phq4Day: true,
+          patientProfile: dailyInput.patientProfile,
+        );
+      }
+    }
 
     return Card(
       shape: RoundedRectangleBorder(
@@ -92,7 +106,7 @@ class InputCardSection extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   '/questionnaire-screen/questionnaire-screen',
-                  arguments: state.objectsList[0] as DailyInput,
+                  arguments: dailyInput,
                 );
               },
               fontSize: 20,
