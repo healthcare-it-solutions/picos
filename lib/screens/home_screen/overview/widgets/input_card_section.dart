@@ -44,7 +44,7 @@ class InputCardSection extends StatelessWidget {
       dailyInput = state.objectsList[0] as DailyInput;
       if (Backend.userRole == 'TestPatient') {
         dailyInput = DailyInput(
-          day: 0,
+          day: -1,
           weeklyDay: true,
           phq4Day: true,
           patientProfile: dailyInput.patientProfile,

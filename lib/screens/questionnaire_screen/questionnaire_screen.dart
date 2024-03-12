@@ -248,7 +248,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
                       weekly: weekly,
                       phq4: phq4,
                     );
-                    if (_dailyInput?.day != 0) {
+                    if (_dailyInput?.day != -1) {
                       context
                           .read<ObjectsListBloc<BackendDailyInputsApi>>()
                           .add(
