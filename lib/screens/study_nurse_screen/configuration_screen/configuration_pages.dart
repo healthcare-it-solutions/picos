@@ -107,7 +107,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
       address: _formEntries['entryAddress']!,
       formOfAddress: _formEntries['entryFormOfAddress']!,
     );
-    if (roleId == 'DoctorTest' &&
+    if (roleId == 'role:DoctorTest' &&
         _additionalEntries['entryInstituteKey'] == 'Test') {
       patient = patient.copyWith(role: 'TestPatient');
     }
