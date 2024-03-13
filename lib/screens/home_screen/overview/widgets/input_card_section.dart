@@ -42,7 +42,7 @@ class InputCardSection extends StatelessWidget {
     DailyInput? dailyInput;
     if (state.status == ObjectsListStatus.success) {
       dailyInput = state.objectsList[0] as DailyInput;
-      if (Backend.userRole == 'TestPatient') {
+      if (Backend.userRole == UserRoles.testPatient) {
         dailyInput = DailyInput(
           day: -1,
           weeklyDay: true,

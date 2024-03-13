@@ -19,6 +19,8 @@ import 'dart:math';
 
 import 'package:picos/models/abstract_database_object.dart';
 
+import '../util/backend.dart';
+
 /// Class with patient information.
 class Patient extends AbstractDatabaseObject {
   /// Creates a patient object.
@@ -29,7 +31,7 @@ class Patient extends AbstractDatabaseObject {
     required this.number,
     required this.address,
     required this.formOfAddress,
-    this.role = 'Patient',
+    this.role = UserRoles.patient,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,

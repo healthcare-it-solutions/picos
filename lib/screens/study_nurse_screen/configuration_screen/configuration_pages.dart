@@ -109,7 +109,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
     );
     if (roleId == 'role:DoctorTest' &&
         _additionalEntries['entryInstituteKey'] == 'Test') {
-      patient = patient.copyWith(role: 'TestPatient');
+      patient = patient.copyWith(role: UserRoles.testPatient);
     }
 
     BackendACL patientACL = BackendACL();
