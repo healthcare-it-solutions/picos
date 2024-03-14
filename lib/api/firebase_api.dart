@@ -28,12 +28,6 @@ class FirebaseApi {
 
   /// Initializes notifications.
   Future<void> initNotifications() async {
-    await _requestNotificationPermission();
-    await _initializeParse();
-    await _initializeParsePush();
-  }
-
-  Future<void> _requestNotificationPermission() async {
     final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
     await firebaseMessaging.requestPermission(
       alert: true,
@@ -44,40 +38,31 @@ class FirebaseApi {
       provisional: false,
       sound: true,
     );
-  }
 
-  Future<void> _initializeParse() async {
-    try {
-      await Parse().initialize(
-        appId,
-        kReleaseMode ? serverUrlProd : serverUrl,
-        clientKey: clientKey,
-        debug: true,
-      );
+    // Initialize Parse
+    await Parse().initialize(
+      appId,
+      kReleaseMode ? serverUrlProd : serverUrl,
+      clientKey: clientKey,
+      debug: true,
+    );
 
-      ParseInstallation parseInstallation =
-          await ParseInstallation.currentInstallation();
+    ParseInstallation parseInstallation =
+        await ParseInstallation.currentInstallation();
 
-      if (parseInstallation.objectId == null) {
-        await parseInstallation.save();
-      }
-    } catch (e) {
-      Stream<FirebaseApi>.error(e);
-    }
-  }
+    parseInstallation.set('installationId', parseInstallation.installationId);
 
-  Future<void> _initializeParsePush() async {
-    try {
-      ParsePush.instance.initialize(
-        FirebaseMessaging.instance,
-        parseNotification:
-            ParseNotification(onShowNotification: handleShowNotification),
-      );
-      FirebaseMessaging.onMessage.listen(
-        (RemoteMessage message) => ParsePush.instance.onMessage(message),
-      );
-    } catch (e) {
-      Stream<FirebaseApi>.error(e);
-    }
+    await parseInstallation.save();
+
+    // Initialize Parse push notifications
+    ParsePush.instance.initialize(
+      FirebaseMessaging.instance,
+      parseNotification:
+          ParseNotification(onShowNotification: handleShowNotification),
+    );
+
+    FirebaseMessaging.onMessage.listen(
+      (RemoteMessage message) => ParsePush.instance.onMessage(message),
+    );
   }
 }
