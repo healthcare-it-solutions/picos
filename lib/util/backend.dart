@@ -124,11 +124,13 @@ class Backend {
   /// Retrieves the current user role as a [String].
   static Future<String> getRole() async {
     const String patientRoute = '/home-screen/home-screen';
+    const String doctorRoute =
+        '/study-nurse-screen/menu-screen/menu-main-screen';
     // these are thr routes we are going to forward the user to
     const Map<String, String> routes = <String, String>{
       UserRoles.patient: patientRoute,
       UserRoles.testPatient: patientRoute,
-      UserRoles.doctor: '/study-nurse-screen/menu-screen/menu-main-screen',
+      UserRoles.doctor: doctorRoute,
     };
 
     // TODO: maybe refactor for type safety
