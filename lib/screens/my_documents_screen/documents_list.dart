@@ -54,7 +54,10 @@ class _DocumentsListState extends State<DocumentsList> {
     _importantList = <Widget>[];
     _sortedList = <Widget>[];
 
-    list = _sortList(list);
+    list.sort(
+      (AbstractDatabaseObject a, AbstractDatabaseObject b) =>
+          (b as Document).date.compareTo((a as Document).date),
+    );
 
     for (AbstractDatabaseObject element in list) {
       DocumentItem documentItem = DocumentItem(element as Document);
@@ -68,17 +71,6 @@ class _DocumentsListState extends State<DocumentsList> {
       _sortedList!.add(documentItem);
       _sortedList!.add(separator);
     }
-  }
-
-  List<AbstractDatabaseObject> _sortList(List<AbstractDatabaseObject> list) {
-    List<AbstractDatabaseObject> sortedList = <AbstractDatabaseObject>[];
-    sortedList.addAll(list);
-
-    sortedList.sort((AbstractDatabaseObject a, AbstractDatabaseObject b) {
-      return (b as Document).date.compareTo((a as Document).date);
-    });
-
-    return sortedList;
   }
 
   @override
