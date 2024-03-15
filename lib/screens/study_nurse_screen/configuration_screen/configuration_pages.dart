@@ -107,6 +107,11 @@ class _ConfigurationPages extends State<ConfigurationPages> {
       address: _formEntries['entryAddress']!,
       formOfAddress: _formEntries['entryFormOfAddress']!,
     );
+    if (roleId == 'role:DoctorTest' &&
+        _additionalEntries['entryInstituteKey'] == 'Test') {
+      patient = patient.copyWith(role: UserRoles.testPatient);
+    }
+
     BackendACL patientACL = BackendACL();
     patientACL.setReadAccess(
       userId: roleId,

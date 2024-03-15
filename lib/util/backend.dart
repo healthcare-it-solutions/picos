@@ -123,10 +123,14 @@ class Backend {
 
   /// Retrieves the current user role as a [String].
   static Future<String> getRole() async {
+    const String patientRoute = '/home-screen/home-screen';
+    const String doctorRoute =
+        '/study-nurse-screen/menu-screen/menu-main-screen';
     // these are thr routes we are going to forward the user to
-    Map<String, String> routes = <String, String>{
-      'Patient': '/home-screen/home-screen',
-      'Doctor': '/study-nurse-screen/menu-screen/menu-main-screen',
+    const Map<String, String> routes = <String, String>{
+      UserRoles.patient: patientRoute,
+      UserRoles.testPatient: patientRoute,
+      UserRoles.doctor: doctorRoute,
     };
 
     // TODO: maybe refactor for type safety
@@ -402,6 +406,18 @@ extension BackendRoleExtension on BackendRole {
         return getRoleName();
     }
   }
+}
+
+/// This class defines constants for different user roles.
+class UserRoles {
+  /// Constant for the 'Doctor' role.
+  static const String doctor = 'Doctor';
+
+  /// Constant for the 'Patient' role.
+  static const String patient = 'Patient';
+
+  /// Constant for the 'TestPatient' role, used for demo purposes.
+  static const String testPatient = 'TestPatient';
 }
 
 /// An enum with different errors.
