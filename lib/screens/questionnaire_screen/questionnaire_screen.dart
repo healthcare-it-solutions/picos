@@ -248,16 +248,19 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
                       weekly: weekly,
                       phq4: phq4,
                     );
-
-                    context.read<ObjectsListBloc<BackendDailyInputsApi>>().add(
-                          SaveObject(
-                            _dailyInput!.copyWith(
-                              daily: daily,
-                              weekly: weekly,
-                              phq4: phq4,
+                    if (!_dailyInput!.hasDemoPurposes) {
+                      context
+                          .read<ObjectsListBloc<BackendDailyInputsApi>>()
+                          .add(
+                            SaveObject(
+                              _dailyInput!.copyWith(
+                                daily: daily,
+                                weekly: weekly,
+                                phq4: phq4,
+                              ),
                             ),
-                          ),
-                        );
+                          );
+                    }
                   }
                 },
                 children: _pageStorage!.pages,

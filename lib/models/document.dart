@@ -74,17 +74,17 @@ class Document extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-    filename,
-    important,
-    document,
-    date,
-  ];
+        filename,
+        important,
+        document,
+        date,
+      ];
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
-    'filename': filename,
-    'prio': important,
-    'document': document.file,
-    'date': date,
-  };
+        'filename': filename,
+        'prio': important,
+        'document': document.file,
+        'date': date,
+      };
 }
