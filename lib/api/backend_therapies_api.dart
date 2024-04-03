@@ -28,7 +28,6 @@ class BackendTherapiesApi extends BackendObjectsApi {
   Future<List<AbstractDatabaseObject>> getObjects() async {
     try {
       List<dynamic> response = await Backend.getAll(Therapy.databaseTable);
-      objectList = <AbstractDatabaseObject>[];
       for (dynamic element in response) {
         objectList.add(
           Therapy(

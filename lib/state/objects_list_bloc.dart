@@ -22,6 +22,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/api/database_object_api.dart';
 import 'package:picos/models/abstract_database_object.dart';
 
+import '../api/backend_objects_api.dart';
+
 part 'objects_list_event.dart';
 
 part 'objects_list_state.dart';
@@ -38,12 +40,14 @@ class ObjectsListBloc<T extends DatabaseObjectApi>
   }
 
   final T _objectApi;
+
   Future<void> _onObjectsListReload(
-      ObjectsListReload event,
-      Emitter<ObjectsListState> emit,
-      ) async {
+    ObjectsListReload event,
+    Emitter<ObjectsListState> emit,
+  ) async {
     emit(state.copyWith(status: ObjectsListStatus.loading));
     try {
+      ((_objectApi) as BackendObjectsApi).objectList.clear();
       List<AbstractDatabaseObject> objects = await _objectApi.getObjects();
       emit(
         state.copyWith(
