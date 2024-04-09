@@ -30,4 +30,7 @@ abstract class DatabaseObjectApi {
 
   /// Removes the given [AbstractDatabaseObject].
   Future<void> removeObject(AbstractDatabaseObject object);
+
+  /// Clear the [ObjectsList]
+  void clearObjects();
 }

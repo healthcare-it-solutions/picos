@@ -36,7 +36,7 @@ class _TherapiesListState extends State<TherapiesList> {
   void initState() {
     super.initState();
     context.read<ObjectsListBloc<BackendTherapiesApi>>().add(
-          const ObjectsListReload(),
+          const LoadObjectsList(),
         );
   }
 

@@ -27,9 +27,9 @@ abstract class ObjectsListEvent extends Equatable {
 }
 
 /// Subscribes to ObjectsListUpdates.
-class ObjectsListSubscriptionRequested extends ObjectsListEvent {
+class LoadObjectsList extends ObjectsListEvent {
   /// ObjectsListSubscriptionRequested constructor.
-  const ObjectsListSubscriptionRequested();
+  const LoadObjectsList();
 }
 
 /// Reload ObjectsList.
