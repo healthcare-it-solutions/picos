@@ -25,10 +25,9 @@ import 'backend_objects_api.dart';
 /// API for storing therapies at the backend.
 class BackendTherapiesApi extends BackendObjectsApi {
   @override
-  Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
+  Future<List<AbstractDatabaseObject>> getObjects() async {
     try {
       List<dynamic> response = await Backend.getAll(Therapy.databaseTable);
-
       for (dynamic element in response) {
         objectList.add(
           Therapy(
@@ -42,9 +41,9 @@ class BackendTherapiesApi extends BackendObjectsApi {
         );
       }
 
-      return getObjectsStream();
+      return objectList;
     } catch (e) {
-      return Stream<List<Therapy>>.error(e);
+      return throw Exception('Error: $e');
     }
   }
 }

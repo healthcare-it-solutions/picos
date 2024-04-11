@@ -31,7 +31,7 @@ class BackendDocumentsApi extends BackendObjectsApi {
   }
 
   @override
-  Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
+  Future<List<AbstractDatabaseObject>> getObjects() async {
     try {
       List<dynamic> response = await Backend.getAll(Document.databaseTable);
 
@@ -52,9 +52,9 @@ class BackendDocumentsApi extends BackendObjectsApi {
         );
       }
 
-      return getObjectsStream();
+      return objectList;
     } catch (e) {
-      return Stream<List<Document>>.error(e);
+      return throw Exception('Error: $e');
     }
   }
 }

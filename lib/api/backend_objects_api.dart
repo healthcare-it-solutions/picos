@@ -17,6 +17,8 @@
 
 import 'dart:async';
 
+import 'package:rxdart/rxdart.dart';
+
 import '../models/abstract_database_object.dart';
 import '../util/backend.dart';
 import 'database_object_api.dart';
@@ -31,7 +33,7 @@ abstract class BackendObjectsApi extends DatabaseObjectApi {
 
   /// Controls the database objects.
   final StreamController<List<AbstractDatabaseObject>> _objectController =
-      StreamController<List<AbstractDatabaseObject>>();
+      BehaviorSubject<List<AbstractDatabaseObject>>();
 
   @override
   Future<void> saveObject(AbstractDatabaseObject object) async {
@@ -79,14 +81,9 @@ abstract class BackendObjectsApi extends DatabaseObjectApi {
     }
   }
 
-  /// Returns the [objectList] as a stream for the application to use.
-  Stream<List<AbstractDatabaseObject>> getObjectsStream() {
-    return _objectController.stream.asBroadcastStream(
-      onListen:
-          (StreamSubscription<List<AbstractDatabaseObject>> subscription) {
-        dispatch();
-      },
-    );
+  @override
+  void clearObjects() {
+    objectList.clear();
   }
 
   /// Updates the objects.
@@ -94,7 +91,7 @@ abstract class BackendObjectsApi extends DatabaseObjectApi {
     _objectController.sink.add(objectList);
   }
 
-  /// Returns the index of the object. 
+  /// Returns the index of the object.
   int getIndex(AbstractDatabaseObject object) {
     return objectList.indexWhere(
       (AbstractDatabaseObject element) => element.objectId == object.objectId,

@@ -59,6 +59,7 @@ dependencies:
   firebase_messaging: ^14.8.0
   firebase_core_platform_interface: ^5.0.0
   flutter_local_notifications: ^16.1.0
+  rxdart: ^0.27.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1

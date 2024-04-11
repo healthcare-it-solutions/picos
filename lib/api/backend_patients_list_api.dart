@@ -117,7 +117,7 @@ class BackendPatientsListApi extends BackendObjectsApi {
   }
 
   @override
-  Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
+  Future<List<AbstractDatabaseObject>> getObjects() async {
     try {
       List<dynamic> responsePatient =
           await Backend.getAllEntriesSortedAscending(
@@ -249,9 +249,9 @@ class BackendPatientsListApi extends BackendObjectsApi {
           );
         }
       }
-      return getObjectsStream();
+      return objectList;
     } catch (e) {
-      return Stream<List<PatientsListElement>>.error(e);
+      return throw Exception('Error: $e');
     }
   }
 }

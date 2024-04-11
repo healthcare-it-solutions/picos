@@ -46,55 +46,55 @@ class Blocs extends StatelessWidget {
           create: (BuildContext context) =>
           ObjectsListBloc<BackendMedicationsApi>(
             BackendMedicationsApi(),
-          )..add(const ObjectsListSubscriptionRequested()),
+          )..add(const LoadObjectsList()),
         ),
         BlocProvider<ObjectsListBloc<BackendTherapiesApi>>(
           create: (BuildContext context) =>
           ObjectsListBloc<BackendTherapiesApi>(
             BackendTherapiesApi(),
-          )..add(const ObjectsListSubscriptionRequested()),
+          )..add(const LoadObjectsList()),
         ),
         BlocProvider<ObjectsListBloc<BackendStaysApi>>(
           create: (BuildContext context) =>
           ObjectsListBloc<BackendStaysApi>(
             BackendStaysApi(),
-          )..add(const ObjectsListSubscriptionRequested()),
+          )..add(const LoadObjectsList()),
         ),
         BlocProvider<ObjectsListBloc<BackendPhysiciansApi>>(
           create: (BuildContext context) =>
           ObjectsListBloc<BackendPhysiciansApi>(
             BackendPhysiciansApi(),
-          )..add(const ObjectsListSubscriptionRequested()),
+          )..add(const LoadObjectsList()),
         ),
         BlocProvider<ObjectsListBloc<BackendRelativesApi>>(
           create: (BuildContext context) =>
           ObjectsListBloc<BackendRelativesApi>(
             BackendRelativesApi(),
-          )..add(const ObjectsListSubscriptionRequested()),
+          )..add(const LoadObjectsList()),
         ),
         BlocProvider<ObjectsListBloc<BackendDocumentsApi>>(
           create: (BuildContext context) =>
           ObjectsListBloc<BackendDocumentsApi>(
             BackendDocumentsApi(),
-          )..add(const ObjectsListSubscriptionRequested()),
+          )..add(const LoadObjectsList()),
         ),
         BlocProvider<ObjectsListBloc<BackendDailyInputsApi>>(
           create: (BuildContext context) =>
           ObjectsListBloc<BackendDailyInputsApi>(
             BackendDailyInputsApi(),
-          )..add(const ObjectsListSubscriptionRequested()),
+          )..add(const LoadObjectsList()),
         ),
         BlocProvider<ObjectsListBloc<BackendPatientsListApi>>(
           create: (BuildContext context) =>
           ObjectsListBloc<BackendPatientsListApi>(
             BackendPatientsListApi(),
-          )..add(const ObjectsListSubscriptionRequested()),
+          )..add(const LoadObjectsList()),
         ),
         BlocProvider<ObjectsListBloc<BackendCatalogOfItemsApi>>(
           create: (BuildContext context) =>
           ObjectsListBloc<BackendCatalogOfItemsApi>(
             BackendCatalogOfItemsApi(),
-          )..add(const ObjectsListSubscriptionRequested()),
+          )..add(const LoadObjectsList()),
         ),
       ],
       child: child,

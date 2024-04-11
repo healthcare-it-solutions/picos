@@ -23,11 +23,14 @@ abstract class DatabaseObjectApi {
   const DatabaseObjectApi();
 
   /// Provides a [Stream] of all [AbstractDatabaseObject].
-  Future<Stream<List<AbstractDatabaseObject>>> getObjects();
+  Future<List<AbstractDatabaseObject>> getObjects();
 
   /// Saves or replaces a [AbstractDatabaseObject].
   Future<void> saveObject(AbstractDatabaseObject object);
 
   /// Removes the given [AbstractDatabaseObject].
   Future<void> removeObject(AbstractDatabaseObject object);
+
+  /// Clear the [ObjectsList]
+  void clearObjects();
 }

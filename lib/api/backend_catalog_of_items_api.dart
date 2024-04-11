@@ -169,8 +169,8 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
   }
 
   @override
-  Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
-    return getObjectsStream();
+  Future<List<AbstractDatabaseObject>> getObjects() async {
+    return objectList;
   }
 
   ///Help method

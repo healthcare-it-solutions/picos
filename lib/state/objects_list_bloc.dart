@@ -30,35 +30,33 @@ part 'objects_list_state.dart';
 class ObjectsListBloc<T extends DatabaseObjectApi>
     extends Bloc<ObjectsListEvent, ObjectsListState> {
   /// Creates the ObjectsListBloc.
-  ObjectsListBloc(this._objectApi)
-      : super(const ObjectsListState()) {
-    on<ObjectsListSubscriptionRequested>(_onSubscriptionRequested);
+  ObjectsListBloc(this._objectApi) : super(const ObjectsListState()) {
+    on<LoadObjectsList>(_onLoadObjectsList);
     on<SaveObject>(_onSaveObject);
     on<RemoveObject>(_onRemoveObject);
   }
 
   final T _objectApi;
 
-  Future<void> _onSubscriptionRequested(
-    ObjectsListSubscriptionRequested event,
+  Future<void> _onLoadObjectsList(
+    LoadObjectsList event,
     Emitter<ObjectsListState> emit,
   ) async {
     emit(state.copyWith(status: ObjectsListStatus.loading));
-
-    await emit.forEach<List<AbstractDatabaseObject>>(
-      await _objectApi.getObjects(),
-      onData: (List<AbstractDatabaseObject> objects) {
-        return state.copyWith(
+    try {
+      _objectApi.clearObjects();
+      //emit(state.copyWith(objectsList: <AbstractDatabaseObject>[]));
+      final List<AbstractDatabaseObject> objects =
+          await _objectApi.getObjects();
+      emit(
+        state.copyWith(
           status: ObjectsListStatus.success,
           objectsList: objects,
-        );
-      },
-      onError: (_, __) {
-        return state.copyWith(
-          status: ObjectsListStatus.failure,
-        );
-      },
-    );
+        ),
+      );
+    } catch (e) {
+      emit(state.copyWith(status: ObjectsListStatus.failure));
+    }
   }
 
   Future<void> _onSaveObject(
