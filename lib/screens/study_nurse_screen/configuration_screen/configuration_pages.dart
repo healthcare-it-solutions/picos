@@ -303,7 +303,7 @@ class _ConfigurationPages extends State<ConfigurationPages> {
                       await _savePatient(roleId);
                       await _savePatientData(roleId);
                       await _savePatientProfile(roleId);
-                      if (!mounted) return;
+                      if (!context.mounted) return;
                       Navigator.of(context).pushReplacementNamed(
                         '/study-nurse-screen/configuration-finish-screen',
                       );
