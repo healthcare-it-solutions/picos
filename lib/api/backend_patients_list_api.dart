@@ -56,14 +56,7 @@ class BackendPatientsListApi extends BackendObjectsApi {
         patientProfile: patientProfile,
       );
 
-      int index = getIndex(object);
-
-      if (index >= 0) {
-        objectList[index] = object;
-        objectList = <AbstractDatabaseObject>[...objectList];
-      } else {
-        objectList = <AbstractDatabaseObject>[...objectList, object];
-      }
+      super.updateObjectList(object);
 
       dispatch();
     } catch (e) {
@@ -249,9 +242,9 @@ class BackendPatientsListApi extends BackendObjectsApi {
           );
         }
       }
-      return objectList;
     } catch (e) {
-      return throw Exception('Error: $e');
+      Stream<List<AbstractDatabaseObject>>.error(e);
     }
+    return objectList;
   }
 }
