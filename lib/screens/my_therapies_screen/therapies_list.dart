@@ -20,6 +20,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/models/abstract_database_object.dart';
 import '../../api/backend_therapies_api.dart';
 import '../../models/therapy.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../state/objects_list_bloc.dart';
 import 'therapy_item.dart';
 
@@ -34,14 +35,6 @@ class TherapiesList extends StatefulWidget {
 
 class _TherapiesListState extends State<TherapiesList> {
   @override
-  void initState() {
-    super.initState();
-    context.read<ObjectsListBloc<BackendTherapiesApi>>().add(
-          const LoadObjectsList(),
-        );
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocBuilder<ObjectsListBloc<BackendTherapiesApi>, ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
@@ -53,8 +46,8 @@ class _TherapiesListState extends State<TherapiesList> {
         }
 
         if (state.status == ObjectsListStatus.failure) {
-          return const Center(
-            child: Text('Error'),
+          return Center(
+            child: Text(AppLocalizations.of(context)!.loadingFailed),
           );
         }
 
