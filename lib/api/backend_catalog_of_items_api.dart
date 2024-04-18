@@ -678,8 +678,6 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
           objectId: patientObjectId,
         );
       }
-
-      return result;
     } catch (e) {
       Stream<CatalogOfItemsElement?>.error(e);
     }

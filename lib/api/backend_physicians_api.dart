@@ -48,9 +48,9 @@ class BackendPhysiciansApi extends BackendObjectsApi {
           ),
         );
       }
-      return objectList;
     } catch (e) {
-      throw Exception('Error: $e');
+      Stream<List<AbstractDatabaseObject>>.error(e);
     }
+    return objectList;
   }
 }
