@@ -52,8 +52,8 @@ class _QuestionaireSectionState extends State<QuestionaireSection>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       context.read<ObjectsListBloc<BackendDailyInputsApi>>().add(
-        const LoadObjectsList(),
-      );
+            const LoadObjectsList(),
+          );
     }
   }
 

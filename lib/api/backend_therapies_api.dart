@@ -40,7 +40,6 @@ class BackendTherapiesApi extends BackendObjectsApi {
           ),
         );
       }
-
     } catch (e) {
       Stream<List<AbstractDatabaseObject>>.error(e);
     }

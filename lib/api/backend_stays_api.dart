@@ -45,7 +45,6 @@ class BackendStaysApi extends BackendObjectsApi {
           ),
         );
       }
-
     } catch (e) {
       Stream<List<AbstractDatabaseObject>>.error(e);
     }
