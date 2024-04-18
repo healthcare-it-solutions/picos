@@ -30,32 +30,32 @@ part 'objects_list_state.dart';
 class ObjectsListBloc<T extends DatabaseObjectApi>
     extends Bloc<ObjectsListEvent, ObjectsListState> {
   /// Creates the ObjectsListBloc.
-  ObjectsListBloc(this._objectApi) : super(const ObjectsListState()) {
+  ObjectsListBloc(this._dataServiceApi) : super(const ObjectsListState()) {
     on<LoadObjectsList>(_onLoadObjectsList);
     on<SaveObject>(_onSaveObject);
     on<RemoveObject>(_onRemoveObject);
   }
 
-  final T _objectApi;
+  final T _dataServiceApi;
 
   Future<void> _onLoadObjectsList(
     LoadObjectsList event,
     Emitter<ObjectsListState> emit,
   ) async {
     emit(state.copyWith(status: ObjectsListStatus.loading));
+    if (_dataServiceApi.hasObjects!) {
+      _dataServiceApi.clearObjects();
+    }
     try {
-      _objectApi.clearObjects();
-      //emit(state.copyWith(objectsList: <AbstractDatabaseObject>[]));
-      final List<AbstractDatabaseObject> objects =
-          await _objectApi.getObjects();
       emit(
         state.copyWith(
           status: ObjectsListStatus.success,
-          objectsList: objects,
+          objectsList: await _dataServiceApi.getObjects(),
         ),
       );
     } catch (e) {
       emit(state.copyWith(status: ObjectsListStatus.failure));
+      throw 'onLoadEventException: $e';
     }
   }
 
@@ -64,24 +64,13 @@ class ObjectsListBloc<T extends DatabaseObjectApi>
     Emitter<ObjectsListState> emit,
   ) async {
     emit(state.copyWith(status: ObjectsListStatus.loading));
-    await _objectApi
-        .saveObject(
-          event.object,
-        )
-        .onError(
-          (_, __) => emit(
-            state.copyWith(
-              status: ObjectsListStatus.failure,
-            ),
-          ),
-        )
-        .whenComplete(
-          () => emit(
-            state.copyWith(
-              status: ObjectsListStatus.success,
-            ),
-          ),
-        );
+    try {
+      await _dataServiceApi.saveObject(event.object);
+      emit(state.copyWith(status: ObjectsListStatus.success));
+    } catch (e) {
+      emit(state.copyWith(status: ObjectsListStatus.failure));
+      throw 'onSaveEventException: $e';
+    }
   }
 
   Future<void> _onRemoveObject(
@@ -89,23 +78,13 @@ class ObjectsListBloc<T extends DatabaseObjectApi>
     Emitter<ObjectsListState> emit,
   ) async {
     emit(state.copyWith(status: ObjectsListStatus.loading));
-    await _objectApi
-        .removeObject(
-          event.object,
-        )
-        .onError(
-          (_, __) => emit(
-            state.copyWith(
-              status: ObjectsListStatus.failure,
-            ),
-          ),
-        )
-        .whenComplete(
-          () => emit(
-            state.copyWith(
-              status: ObjectsListStatus.success,
-            ),
-          ),
-        );
+    try {
+      await _dataServiceApi.removeObject(event.object);
+      emit(state.copyWith(status: ObjectsListStatus.success));
+    } catch (e) {
+      emit(state.copyWith(status: ObjectsListStatus.failure));
+      // ToDo: schreib eine Klasse Exception.
+      throw 'onRemoveEventException: $e';
+    }
   }
 }
