@@ -17,20 +17,31 @@
 
 import 'package:picos/models/abstract_database_object.dart';
 
-/// The interface for an API that provides access to a list of objects.
+/// Provides an interface for an API that handles database objects.
+/// This includes methods for fetching, saving, and removing
+/// objects from a persistent store.
 abstract class DatabaseObjectApi {
   /// DatabaseObjectApi constructor.
-  const DatabaseObjectApi();
+  DatabaseObjectApi();
 
-  /// Provides a [Stream] of all [AbstractDatabaseObject].
+  /// Retrieves a list of all objects. This method should handle any necessary
+  /// conversions from the database format to the model format.
   Future<List<AbstractDatabaseObject>> getObjects();
 
-  /// Saves or replaces a [AbstractDatabaseObject].
+  /// Saves a given object to the database. If the object already exists,
+  /// it should be updated.
   Future<void> saveObject(AbstractDatabaseObject object);
 
-  /// Removes the given [AbstractDatabaseObject].
+  /// Removes a given object from the database.
   Future<void> removeObject(AbstractDatabaseObject object);
 
-  /// Clear the [ObjectsList]
+  /// Clears all cached objects in memory. Does not affect objects stored
+  /// in the database. Use this method to release memory or reset state
+  /// within the API without impacting stored data.
   void clearObjects();
+
+  /// Indicates whether there are any objects currently held in memory.
+  /// It may be used to check if objects need to be fetched before
+  /// performing certain operations.
+  bool? hasObjects;
 }
