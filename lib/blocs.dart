@@ -28,7 +28,7 @@ import 'api/backend_physicians_api.dart';
 import 'api/backend_relatives_api.dart';
 import 'api/backend_stays_api.dart';
 import 'api/backend_therapies_api.dart';
-import 'api/database_object_api.dart';
+import 'api/abstract_data_api.dart';
 
 /// This is a central place to manage all BLoCs.
 class Blocs extends StatelessWidget {
@@ -41,7 +41,7 @@ class Blocs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: <BlocProvider<ObjectsListBloc<DatabaseObjectApi>>>[
+      providers: <BlocProvider<ObjectsListBloc<AbstractDataApi>>>[
         BlocProvider<ObjectsListBloc<BackendMedicationsApi>>(
           create: (BuildContext context) =>
           ObjectsListBloc<BackendMedicationsApi>(

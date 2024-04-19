@@ -19,7 +19,7 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:picos/api/database_object_api.dart';
+import 'package:picos/api/abstract_data_api.dart';
 import 'package:picos/models/abstract_database_object.dart';
 
 part 'objects_list_event.dart';
@@ -27,7 +27,7 @@ part 'objects_list_event.dart';
 part 'objects_list_state.dart';
 
 /// BloC for gluing ObjectsListEvents and ObjectsListState together.
-class ObjectsListBloc<T extends DatabaseObjectApi>
+class ObjectsListBloc<T extends AbstractDataApi>
     extends Bloc<ObjectsListEvent, ObjectsListState> {
   /// Creates the ObjectsListBloc.
   ObjectsListBloc(this._dataServiceApi) : super(const ObjectsListState()) {
@@ -55,7 +55,7 @@ class ObjectsListBloc<T extends DatabaseObjectApi>
       );
     } catch (e) {
       emit(state.copyWith(status: ObjectsListStatus.failure));
-      throw 'onLoadEventException: $e';
+      Stream<void>.error(e);
     }
   }
 
@@ -69,7 +69,7 @@ class ObjectsListBloc<T extends DatabaseObjectApi>
       emit(state.copyWith(status: ObjectsListStatus.success));
     } catch (e) {
       emit(state.copyWith(status: ObjectsListStatus.failure));
-      throw 'onSaveEventException: $e';
+      Stream<void>.error(e);
     }
   }
 
@@ -83,8 +83,7 @@ class ObjectsListBloc<T extends DatabaseObjectApi>
       emit(state.copyWith(status: ObjectsListStatus.success));
     } catch (e) {
       emit(state.copyWith(status: ObjectsListStatus.failure));
-      // ToDo: schreib eine Klasse Exception.
-      throw 'onRemoveEventException: $e';
+      Stream<void>.error(e);
     }
   }
 }

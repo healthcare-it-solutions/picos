@@ -21,10 +21,10 @@ import 'package:rxdart/rxdart.dart';
 
 import '../models/abstract_database_object.dart';
 import '../util/backend.dart';
-import 'database_object_api.dart';
+import 'abstract_data_api.dart';
 
 /// API for storing objects at the backend.
-abstract class BackendObjectsApi extends DatabaseObjectApi {
+abstract class BackendObjectsApi extends AbstractDataApi {
   /// Contains all objects that are controlled by [_objectController].
   List<AbstractDatabaseObject> objectList = <AbstractDatabaseObject>[];
 
@@ -51,7 +51,7 @@ abstract class BackendObjectsApi extends DatabaseObjectApi {
       updateObjectList(object);
       dispatch();
     } catch (e) {
-      return;
+      Stream<void>.error(e);
     }
   }
 
@@ -64,7 +64,7 @@ abstract class BackendObjectsApi extends DatabaseObjectApi {
       );
       dispatch();
     } catch (e) {
-      return;
+      Stream<void>.error(e);
     }
   }
 
