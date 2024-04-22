@@ -35,7 +35,7 @@ class BackendFollowUpApi {
         }
       }
     } catch (e) {
-      Stream<List<FollowUp>>.error(e);
+      return Future<List<FollowUp>>.error(e);
     }
     return followUpResults;
   }

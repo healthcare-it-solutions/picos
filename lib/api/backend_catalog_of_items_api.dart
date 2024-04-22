@@ -679,7 +679,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
         );
       }
     } catch (e) {
-      Stream<CatalogOfItemsElement?>.error(e);
+      return Future<CatalogOfItemsElement?>.error(e);
     }
     return result;
   }

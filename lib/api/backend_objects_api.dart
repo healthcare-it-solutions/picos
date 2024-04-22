@@ -51,7 +51,7 @@ abstract class BackendObjectsApi extends AbstractDataApi {
       updateObjectList(object);
       dispatch();
     } catch (e) {
-      Stream<void>.error(e);
+      return Future<void>.error(e);
     }
   }
 
@@ -64,7 +64,7 @@ abstract class BackendObjectsApi extends AbstractDataApi {
       );
       dispatch();
     } catch (e) {
-      Stream<void>.error(e);
+      return Future<void>.error(e);
     }
   }
 
