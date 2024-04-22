@@ -34,10 +34,10 @@ class BackendFollowUpApi {
           }
         }
       }
+      return followUpResults;
     } catch (e) {
       return Future<List<FollowUp>>.error(e);
     }
-    return followUpResults;
   }
 
   /// Creates a FollowUp object from a Parse object element.

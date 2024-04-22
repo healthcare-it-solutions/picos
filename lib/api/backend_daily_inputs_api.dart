@@ -211,9 +211,10 @@ class BackendDailyInputsApi extends BackendObjectsApi {
 
         day++;
       });
+      dispatch();
+      return objectList;
     } catch (e) {
       return Future<List<AbstractDatabaseObject>>.error(e);
     }
-    return objectList;
   }
 }

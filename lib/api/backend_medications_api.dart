@@ -44,9 +44,10 @@ class BackendMedicationsApi extends BackendObjectsApi {
           ),
         );
       }
+      dispatch();
+      return objectList;
     } catch (e) {
       return Future<List<AbstractDatabaseObject>>.error(e);
     }
-    return objectList;
   }
 }
