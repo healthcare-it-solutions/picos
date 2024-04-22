@@ -76,15 +76,10 @@ abstract class BackendObjectsApi extends AbstractDataApi {
     objectList.clear();
   }
 
-  /// Updates the [objectList].
+  /// Notifies all subscribers with the latest list of objects.
   void dispatch() {
     _objectController.sink
         .add(List<AbstractDatabaseObject>.unmodifiable(objectList));
-  }
-
-  /// Closes the Controller.
-  void close() {
-    _objectController.close();
   }
 
   /// Updates the [objectList].
