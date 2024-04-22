@@ -55,7 +55,7 @@ class ObjectsListBloc<T extends AbstractDataApi>
       );
     } catch (e) {
       emit(state.copyWith(status: ObjectsListStatus.failure));
-      Stream<void>.error(e);
+      return Future<void>.error(e);
     }
   }
 
@@ -69,7 +69,7 @@ class ObjectsListBloc<T extends AbstractDataApi>
       emit(state.copyWith(status: ObjectsListStatus.success));
     } catch (e) {
       emit(state.copyWith(status: ObjectsListStatus.failure));
-      Stream<void>.error(e);
+      return Future<void>.error(e);
     }
   }
 
@@ -83,7 +83,7 @@ class ObjectsListBloc<T extends AbstractDataApi>
       emit(state.copyWith(status: ObjectsListStatus.success));
     } catch (e) {
       emit(state.copyWith(status: ObjectsListStatus.failure));
-      Stream<void>.error(e);
+      return Future<void>.error(e);
     }
   }
 }
