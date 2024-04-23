@@ -25,9 +25,9 @@ import '../../../widgets/picos_body.dart';
 import '../../../widgets/picos_ink_well_button.dart';
 
 /// Shows a single page for the questionaire.
-class QuestionairePage extends StatelessWidget {
+class QuestionnairePage extends StatelessWidget {
   /// Creates QuestionairePage.
-  const QuestionairePage({
+  const QuestionnairePage({
     required this.child,
     Key? key,
     this.color = Colors.white,

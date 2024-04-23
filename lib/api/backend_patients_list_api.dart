@@ -120,7 +120,10 @@ class BackendPatientsListApi extends BackendObjectsApi {
   Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
     try {
       List<dynamic> responsePatient =
-          await Backend.getAll(Patient.databaseTable);
+          await Backend.getAllEntriesSortedAscending(
+        Patient.databaseTable,
+        'Lastname',
+      );
       List<dynamic> responsePatientData =
           await Backend.getAll(PatientData.databaseTable);
       List<dynamic> responsePatientProfile =

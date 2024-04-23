@@ -123,10 +123,14 @@ class Backend {
 
   /// Retrieves the current user role as a [String].
   static Future<String> getRole() async {
+    const String patientRoute = '/home-screen/home-screen';
+    const String doctorRoute =
+        '/study-nurse-screen/menu-screen/menu-main-screen';
     // these are thr routes we are going to forward the user to
-    Map<String, String> routes = <String, String>{
-      'Patient': '/home-screen/home-screen',
-      'Doctor': '/study-nurse-screen/menu-screen/menu-main-screen',
+    const Map<String, String> routes = <String, String>{
+      UserRoles.patient: patientRoute,
+      UserRoles.testPatient: patientRoute,
+      UserRoles.doctor: doctorRoute,
     };
 
     // TODO: maybe refactor for type safety
@@ -137,8 +141,22 @@ class Backend {
 
   /// Retrieves all possible objects from a [table].
   static Future<List<dynamic>> getAll(String table) async {
-    ParseResponse parses = await ParseObject(table).getAll();
-    return _createListResponse(parses);
+    ParseResponse parseResponse = await ParseObject(table).getAll();
+    return _createListResponse(parseResponse);
+  }
+
+  /// Retrieves all entries from a [table] sorted in ascending
+  /// order by a specified [column].
+  static Future<List<dynamic>> getAllEntriesSortedAscending(
+    String table,
+    String colum,
+  ) async {
+    QueryBuilder<ParseObject> queryBuilder =
+        QueryBuilder<ParseObject>(ParseObject(table));
+    queryBuilder.orderByAscending(colum);
+    ParseResponse parseResponse = await queryBuilder.query();
+
+    return _createListResponse(parseResponse);
   }
 
   /// Retrieves one possible object from a [table].
@@ -188,10 +206,10 @@ class Backend {
       parseCloudFunction.set(key, value);
     });
 
-    ParseResponse parses =
+    ParseResponse parseResponse =
         await parseCloudFunction.executeObjectFunction<ParseObject>();
 
-    return _createListResponse(parses);
+    return _createListResponse(parseResponse);
   }
 
   static List<dynamic> _createListResponse(ParseResponse response) {
@@ -388,6 +406,18 @@ extension BackendRoleExtension on BackendRole {
         return getRoleName();
     }
   }
+}
+
+/// This class defines constants for different user roles.
+class UserRoles {
+  /// Constant for the 'Doctor' role.
+  static const String doctor = 'Doctor';
+
+  /// Constant for the 'Patient' role.
+  static const String patient = 'Patient';
+
+  /// Constant for the 'TestPatient' role, used for demo purposes.
+  static const String testPatient = 'TestPatient';
 }
 
 /// An enum with different errors.

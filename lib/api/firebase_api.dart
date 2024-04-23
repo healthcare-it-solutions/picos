@@ -21,14 +21,12 @@ import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 import '../config.dart';
 
-/// Firebase Api class.
+/// Firebase API class.
 class FirebaseApi {
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-
-  /// Handle show notification.
+  /// Handle showing the notification.
   void handleShowNotification(String payload) {}
 
-  /// Initialize notifications.
+  /// Initializes notifications.
   Future<void> initNotifications() async {
     final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
     await firebaseMessaging.requestPermission(
@@ -41,13 +39,20 @@ class FirebaseApi {
       sound: true,
     );
 
-    final String? fCMToken = await _firebaseMessaging.getToken();
     // Initialize Parse
     await Parse().initialize(
       appId,
       kReleaseMode ? serverUrlProd : serverUrl,
       clientKey: clientKey,
+      debug: true,
     );
+
+    ParseInstallation parseInstallation =
+        await ParseInstallation.currentInstallation();
+
+    parseInstallation.set('installationId', parseInstallation.installationId);
+
+    await parseInstallation.save();
 
     // Initialize Parse push notifications
     ParsePush.instance.initialize(
@@ -55,27 +60,9 @@ class FirebaseApi {
       parseNotification:
           ParseNotification(onShowNotification: handleShowNotification),
     );
+
     FirebaseMessaging.onMessage.listen(
       (RemoteMessage message) => ParsePush.instance.onMessage(message),
     );
-
-    final ParseInstallation currentInstallation =
-        await ParseInstallation.currentInstallation();
-
-    currentInstallation.clearUnsavedChanges();
-
-    await currentInstallation.create(allowCustomObjectId: true);
-
-    currentInstallation
-      ..set('deviceToken', currentInstallation.deviceToken ?? fCMToken)
-      ..set('installationId', currentInstallation.installationId);
-
-    if (currentInstallation.objectId != null) {
-      // Update existing installation
-      await currentInstallation.update();
-    } else {
-      // Save new installation
-      await currentInstallation.save();
-    }
   }
 }

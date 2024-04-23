@@ -17,6 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:picos/models/abstract_database_object.dart';
 import '../../api/backend_therapies_api.dart';
 import '../../models/therapy.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -49,6 +50,11 @@ class _TherapiesListState extends State<TherapiesList> {
             child: Text(AppLocalizations.of(context)!.loadingFailed),
           );
         }
+
+        state.objectsList.sort(
+          (AbstractDatabaseObject a, AbstractDatabaseObject b) =>
+              (b as Therapy).date.compareTo((a as Therapy).date),
+        );
 
         return ListView.separated(
           itemCount: state.objectsList.length,

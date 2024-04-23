@@ -239,12 +239,12 @@ class LaboratoryValuesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const String mmoll = 'mmol/L';
-    const String mgdl = 'mg/dL';
+    const String mgdL = 'mg/dL';
     const String tenUl = '10*3/µL';
-    const String pgml = 'pg/mL';
-    const String qdl = 'q/dL';
-    const String ul = 'U/L';
+    const String pgmL = 'pg/mL';
+    const String ngmL = 'ng/mL';
+    const String qdL = 'q/dL';
+    const String uL = 'U/L';
     const String percent = '%';
 
     return CatalogOfItemsPage(
@@ -302,7 +302,7 @@ class LaboratoryValuesPage extends StatelessWidget {
               AppLocalizations.of(context)!.procalcitoninLevel,
             ),
             PicosNumberField(
-              hint: mmoll,
+              hint: ngmL,
               initialValue: initialProcalcitoninLevel?.toString(),
               onChanged: (String value) {
                 procalcitoninLevelCallback(double.tryParse(value));
@@ -310,7 +310,7 @@ class LaboratoryValuesPage extends StatelessWidget {
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.interleukin),
             PicosNumberField(
-              hint: 'µmol/L',
+              hint: pgmL,
               initialValue: initialInterleukin?.toString(),
               onChanged: (String value) {
                 interleukinCallback(double.tryParse(value));
@@ -320,7 +320,7 @@ class LaboratoryValuesPage extends StatelessWidget {
               AppLocalizations.of(context)!.bloodUreaNitrogen,
             ),
             PicosNumberField(
-              hint: 'pmol/L',
+              hint: mgdL,
               initialValue: initialBloodUreaNitrogen?.toString(),
               onChanged: (String value) {
                 bloodUreaNitrogenCallback(double.tryParse(value));
@@ -328,7 +328,7 @@ class LaboratoryValuesPage extends StatelessWidget {
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.creatinine),
             PicosNumberField(
-              hint: mgdl,
+              hint: mgdL,
               initialValue: initialCreatinine?.toString(),
               onChanged: (String value) {
                 creatinineCallback(double.tryParse(value));
@@ -338,7 +338,7 @@ class LaboratoryValuesPage extends StatelessWidget {
               AppLocalizations.of(context)!.heartFailureMarker,
             ),
             PicosNumberField(
-              hint: pgml,
+              hint: pgmL,
               initialValue: initialHeartFailureMarker?.toString(),
               onChanged: (String value) {
                 heartFailureMarkerCallback(double.tryParse(value));
@@ -348,7 +348,7 @@ class LaboratoryValuesPage extends StatelessWidget {
               AppLocalizations.of(context)!.heartFailureMarkerNTProBNP,
             ),
             PicosNumberField(
-              hint: pgml,
+              hint: pgmL,
               initialValue: initialHeartFailureMarkerNTProBNP?.toString(),
               onChanged: (String value) {
                 heartFailureMarkerNTProBNPCallback(double.tryParse(value));
@@ -356,7 +356,7 @@ class LaboratoryValuesPage extends StatelessWidget {
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.bilirubinTotal),
             PicosNumberField(
-              hint: mgdl,
+              hint: mgdL,
               initialValue: initialBilirubinTotal?.toString(),
               onChanged: (String value) {
                 bilirubinTotalCallback(double.tryParse(value));
@@ -364,7 +364,7 @@ class LaboratoryValuesPage extends StatelessWidget {
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.hemoglobin),
             PicosNumberField(
-              hint: qdl,
+              hint: qdL,
               initialValue: initialHemoglobin?.toString(),
               onChanged: (String value) {
                 hemoglobinCallback(double.tryParse(value));
@@ -380,7 +380,7 @@ class LaboratoryValuesPage extends StatelessWidget {
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.albumin),
             PicosNumberField(
-              hint: qdl,
+              hint: qdL,
               initialValue: initialAlbumin?.toString(),
               onChanged: (String value) {
                 albuminCallback(double.tryParse(value));
@@ -388,7 +388,7 @@ class LaboratoryValuesPage extends StatelessWidget {
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.gotASAT),
             PicosNumberField(
-              hint: ul,
+              hint: uL,
               initialValue: initialGOTASAT?.toString(),
               onChanged: (String value) {
                 gotASATCallback(double.tryParse(value));
@@ -396,7 +396,7 @@ class LaboratoryValuesPage extends StatelessWidget {
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.gptALAT),
             PicosNumberField(
-              hint: ul,
+              hint: uL,
               initialValue: initialGPTALAT?.toString(),
               onChanged: (String value) {
                 gptALATCallback(double.tryParse(value));
@@ -404,7 +404,7 @@ class LaboratoryValuesPage extends StatelessWidget {
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.troponin),
             PicosNumberField(
-              hint: 'ug/L',
+              hint: 'µg/L',
               initialValue: initialTroponin?.toString(),
               onChanged: (String value) {
                 troponinCallback(double.tryParse(value));
@@ -412,7 +412,7 @@ class LaboratoryValuesPage extends StatelessWidget {
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.creatineKinase),
             PicosNumberField(
-              hint: ul,
+              hint: uL,
               initialValue: initialCreatineKinase?.toString(),
               onChanged: (String value) {
                 creatineKinaseCallback(double.tryParse(value));
@@ -422,7 +422,7 @@ class LaboratoryValuesPage extends StatelessWidget {
               AppLocalizations.of(context)!.myocardialInfarctionMarkerCKMB,
             ),
             PicosNumberField(
-              hint: ul,
+              hint: uL,
               initialValue: initialMyocardialInfarctionMarkerCKMB?.toString(),
               onChanged: (String value) {
                 myocardialInfarctionMarkerCKMBCallback(
@@ -434,7 +434,7 @@ class LaboratoryValuesPage extends StatelessWidget {
               AppLocalizations.of(context)!.lactateDehydrogenaseLevel,
             ),
             PicosNumberField(
-              hint: ul,
+              hint: uL,
               initialValue: initialLactateDehydrogenaseLevel?.toString(),
               onChanged: (String value) {
                 lactateDehydrogenaseLevelCallback(double.tryParse(value));
@@ -442,7 +442,7 @@ class LaboratoryValuesPage extends StatelessWidget {
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.amylaseLevel),
             PicosNumberField(
-              hint: ul,
+              hint: uL,
               initialValue: initialAmylaseLevel?.toString(),
               onChanged: (String value) {
                 amylaseLevelCallback(double.tryParse(value));
@@ -450,7 +450,7 @@ class LaboratoryValuesPage extends StatelessWidget {
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.lipaseLevel),
             PicosNumberField(
-              hint: ul,
+              hint: uL,
               initialValue: initialLipaseLevel?.toString(),
               onChanged: (String value) {
                 lipaseLevelCallback(double.tryParse(value));
@@ -458,7 +458,7 @@ class LaboratoryValuesPage extends StatelessWidget {
             ),
             CatalogOfItemsLabel(AppLocalizations.of(context)!.dDimer),
             PicosNumberField(
-              hint: 'ng/mL',
+              hint: ngmL,
               initialValue: initialDDimer?.toString(),
               onChanged: (String value) {
                 dDimerCallback(double.tryParse(value));

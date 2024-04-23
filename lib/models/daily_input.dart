@@ -31,13 +31,15 @@ class DailyInput extends AbstractDatabaseObject {
     this.daily,
     this.weekly,
     this.phq4,
-    this.weeklyDay = false,
-    this.phq4Day = false,
+    bool weeklyDay = false,
+    bool phq4Day = false,
+    this.hasDemoPurposes = false,
     this.patientProfile,
     String? objectId,
     DateTime? createdAt,
     DateTime? updatedAt,
-  });
+  })  : weeklyDay = hasDemoPurposes || weeklyDay,
+        phq4Day = hasDemoPurposes || phq4Day;
 
   /// The database table the objects are stored in.
   static const String databaseTable = '';
@@ -59,6 +61,9 @@ class DailyInput extends AbstractDatabaseObject {
 
   /// Tells if a new [PHQ4] has to be created.
   final bool phq4Day;
+
+  /// Tells if the [DailyInput] has demo purposes.
+  final bool hasDemoPurposes;
 
   /// Contains the data for PatientProfile.
   final PatientProfile? patientProfile;

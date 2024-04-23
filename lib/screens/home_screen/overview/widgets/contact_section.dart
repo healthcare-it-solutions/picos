@@ -20,35 +20,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/home_screen/overview/widgets/section.dart';
 import 'package:picos/themes/global_theme.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:picos/util/url_launcher.dart';
 
 /// A Flutter widget representing the contact section of the app.
 class ContactSection extends StatelessWidget {
   /// ContactSection constructor
   const ContactSection({Key? key}) : super(key: key);
 
-  void _launchURL(BuildContext context) async {
-    final Uri url = Uri.parse(
-      'https://hit-solutions.de/picos-app-benutzerhandbuch/',
-    );
-    final ScaffoldMessengerState scaffoldMessenger =
-        ScaffoldMessenger.of(context);
-    try {
-      await launchUrl(url, mode: LaunchMode.externalApplication);
-    } catch (e) {
-      scaffoldMessenger.showSnackBar(
-        SnackBar(
-          content: Text(
-            context.mounted ? AppLocalizations.of(context)!.couldNotLaunch : '',
-          ),
-        ),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
+
+    UrlLauncher urlLauncher = UrlLauncher();
 
     return Section(
       titleColor: theme.blue,
@@ -92,12 +75,15 @@ class ContactSection extends StatelessWidget {
                   Expanded(
                     flex: 55,
                     child: GestureDetector(
-                      onTap: () => _launchURL(context),
+                      onTap: () => urlLauncher.launch(
+                        context,
+                        'https://hit-solutions.de/picos-app-benutzerhandbuch/',
+                      ),
                       child: Text(
                         AppLocalizations.of(context)!.handbook,
-                        style: const TextStyle(
+                        style: TextStyle(
                           decoration: TextDecoration.underline,
-                          color: Colors.blue,
+                          color: theme.blue,
                         ),
                       ),
                     ),
@@ -108,13 +94,32 @@ class ContactSection extends StatelessWidget {
                 height: 11,
               ),
               const Row(
+                children: <Expanded>[
+                  Expanded(
+                    child: Text('E-Mail:'),
+                  ),
+                ],
+              ),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Expanded>[
                   Expanded(
                     flex: 55,
-                    child: Text('E-Mail:\npicos@hit-solutions.de'),
+                    child: GestureDetector(
+                      onTap: () => urlLauncher.launch(
+                        context,
+                        'mailto: picos@hit-solutions.de',
+                      ),
+                      child: Text(
+                        'picos@hit-solutions.de',
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: theme.blue,
+                        ),
+                      ),
+                    ),
                   ),
-                  Expanded(
+                  const Expanded(
                     flex: 45,
                     child: SizedBox(),
                   ),

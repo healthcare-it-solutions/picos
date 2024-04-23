@@ -31,7 +31,7 @@ import '../../../../widgets/picos_chart_column.dart';
 import '../../../../widgets/picos_ink_well_button.dart';
 import '../../../../widgets/picos_chart_line.dart';
 import '../../../../widgets/picos_chart_two_columns.dart';
-import '../../../questionaire_screen/questionaire_screen.dart';
+import '../../../questionnaire_screen/questionnaire_screen.dart';
 
 /// Options related to how values in a chart are displayed or configured.
 enum ValuesChartOptions {
