@@ -16,12 +16,12 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:picos/screens/home_screen/overview/widgets/contact_section.dart';
 import 'package:picos/screens/home_screen/overview/widgets/graph_section.dart';
 import 'package:picos/screens/home_screen/overview/widgets/my_health_section.dart';
 import 'package:picos/screens/home_screen/overview/widgets/questionnaire_section.dart';
 import '../../../themes/global_theme.dart';
+import '../../../util/status_bar.dart';
 
 /// Main widget using all subwidgets to build up the "overview"-screen
 class Overview extends StatefulWidget {
@@ -41,24 +41,18 @@ class _OverviewState extends State<Overview> {
   Color _initialStatusBarColor = Colors.white;
   Brightness _initialStatusBarIconBrightness = Brightness.dark;
 
-  void _setStatusBarColor(Color color, Brightness iconBrightness) {
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: color,
-        statusBarIconBrightness: iconBrightness,
-      ),
-    );
-  }
-
   void _onScroll() {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
 
     double scrollPosition = _scrollController.offset;
-    
+
     if (scrollPosition > 100) {
-      _setStatusBarColor(theme.darkGreen1!, Brightness.light);
+      StatusBar.setStatusBarProperties(
+        theme.darkGreen1!,
+        Brightness.light,
+      );
     } else {
-      _setStatusBarColor(
+      StatusBar.setStatusBarProperties(
         _initialStatusBarColor,
         _initialStatusBarIconBrightness,
       );
@@ -73,7 +67,10 @@ class _OverviewState extends State<Overview> {
     _scrollController.addListener(_onScroll);
     _initialStatusBarColor = Colors.white;
     _initialStatusBarIconBrightness = Brightness.dark;
-    _setStatusBarColor(_initialStatusBarColor, _initialStatusBarIconBrightness);
+    StatusBar.setStatusBarProperties(
+      _initialStatusBarColor,
+      _initialStatusBarIconBrightness,
+    );
   }
 
   @override
