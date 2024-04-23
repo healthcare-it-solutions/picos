@@ -52,6 +52,7 @@ class AppConfig extends StatelessWidget {
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         theme: ThemeData(
+          useMaterial3: false,
           colorScheme: Theme.of(context).colorScheme.copyWith(
                 secondary: theme.grey3,
               ),
@@ -68,6 +69,7 @@ class AppConfig extends StatelessWidget {
           inputDecorationTheme: InputDecorationTheme(
             floatingLabelStyle: TextStyle(color: theme.darkGreen3),
           ),
+          scaffoldBackgroundColor: Colors.white,
         ).copyWith(
           extensions: <ThemeExtension<dynamic>>{
             theme,
