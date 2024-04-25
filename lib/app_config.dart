@@ -69,7 +69,7 @@ class AppConfig extends StatelessWidget {
           inputDecorationTheme: InputDecorationTheme(
             floatingLabelStyle: TextStyle(color: theme.darkGreen3),
           ),
-          scaffoldBackgroundColor: Colors.white,
+          scaffoldBackgroundColor: theme.white,
         ).copyWith(
           extensions: <ThemeExtension<dynamic>>{
             theme,
