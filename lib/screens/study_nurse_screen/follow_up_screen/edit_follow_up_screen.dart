@@ -36,7 +36,7 @@ class EditFollowUpScreen extends StatefulWidget {
 }
 
 class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
-  late FollowUp _followUp;
+  FollowUp? _followUp;
   int? _distance;
   int? _bloodDiastolic;
   int? _bloodSystolic;
@@ -81,31 +81,28 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
 
   TextStyle errorTextStyle = const TextStyle(color: Colors.red, fontSize: 14);
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _initFollowUpData();
-  }
-
   void _initFollowUpData() {
-    _followUp = ModalRoute.of(context)!.settings.arguments as FollowUp;
-    _distance = _followUp.distance;
-    _bloodDiastolic = _followUp.bloodDiastolic;
-    _bloodSystolic = _followUp.bloodSystolic;
-    _rhythm = _followUp.rhythm;
-    _rhythmType = _followUp.rhythmType;
-    _testResult = _followUp.testResult;
-    _healthState = _followUp.healthState;
-    _electricalAxisDeviation = _followUp.electricalAxisDeviation;
-    _heartRate = _followUp.heartRate;
-    _healthScore = _followUp.healthScore;
-    _number = _followUp.number;
+    if (_followUp == null) {
+      _followUp = ModalRoute.of(context)!.settings.arguments as FollowUp;
+      _distance = _followUp!.distance;
+      _bloodDiastolic = _followUp!.bloodDiastolic;
+      _bloodSystolic = _followUp!.bloodSystolic;
+      _rhythm = _followUp!.rhythm;
+      _rhythmType = _followUp!.rhythmType;
+      _testResult = _followUp!.testResult;
+      _healthState = _followUp!.healthState;
+      _electricalAxisDeviation = _followUp!.electricalAxisDeviation;
+      _heartRate = _followUp!.heartRate;
+      _healthScore = _followUp!.healthScore;
+      _number = _followUp!.number;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    _initFollowUpData();
     return PicosScreenFrame(
-      title: 'V${_followUp.number}',
+      title: 'V${_followUp?.number}',
       body: PicosBody(child: _buildForm()),
       bottomNavigationBar: _buildBottomNavigationBar(),
     );
@@ -173,14 +170,14 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         _isHealthScoreValid;
   }
 
-  void _handleSave() {
+  Future<void> _handleSave() async {
     if (_validateForm()) {
-      _saveFollowUpData();
+      await _saveFollowUpData();
     }
   }
 
-  void _saveFollowUpData() {
-    _followUp = _followUp.copyWith(
+  Future<void> _saveFollowUpData() async {
+    _followUp = _followUp?.copyWith(
       distance: _distance,
       bloodDiastolic: _bloodDiastolic,
       bloodSystolic: _bloodSystolic,
@@ -193,7 +190,8 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       healthScore: _healthScore,
       number: _number,
     );
-    BackendFollowUpApi.saveFollowUp(_followUp);
+    await BackendFollowUpApi.saveFollowUp(_followUp!);
+    if (!mounted) return;
     Navigator.of(context).pop();
     Navigator.of(context).pop();
   }
