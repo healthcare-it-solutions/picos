@@ -169,8 +169,8 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
   }
 
   @override
-  Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
-    return getObjectsStream();
+  Future<List<AbstractDatabaseObject>> getObjects() async {
+    return objectList;
   }
 
   ///Help method
@@ -678,10 +678,8 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
           objectId: patientObjectId,
         );
       }
-
-      return result;
     } catch (e) {
-      Stream<CatalogOfItemsElement?>.error(e);
+      return Future<CatalogOfItemsElement?>.error(e);
     }
     return result;
   }

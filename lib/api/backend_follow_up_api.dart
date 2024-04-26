@@ -34,10 +34,10 @@ class BackendFollowUpApi {
           }
         }
       }
+      return followUpResults;
     } catch (e) {
-      Stream<List<FollowUp>>.error(e);
+      return Future<List<FollowUp>>.error(e);
     }
-    return followUpResults;
   }
 
   /// Creates a FollowUp object from a Parse object element.
@@ -65,10 +65,11 @@ class BackendFollowUpApi {
   /// Saves a follow-up into the backend with the appropriate ACL settings.
   static Future<void> saveFollowUp(FollowUp followUp) async {
     if (followUp.objectId == null) {
+      String roleId = await BackendRole.userRoleName.id;
       BackendACL followUpACL = BackendACL()
         ..setReadAccess(userId: EditPatientScreen.patientObjectId!)
-        ..setReadAccess(userId: await BackendRole.userRoleName.id)
-        ..setWriteAccess(userId: await BackendRole.userRoleName.id);
+        ..setReadAccess(userId: roleId)
+        ..setWriteAccess(userId: roleId);
       await Backend.saveObject(followUp, acl: followUpACL);
     } else {
       await Backend.saveObject(followUp);

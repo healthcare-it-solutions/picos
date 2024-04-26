@@ -17,12 +17,14 @@
 
 import 'dart:async';
 
+import 'package:rxdart/rxdart.dart';
+
 import '../models/abstract_database_object.dart';
 import '../util/backend.dart';
-import 'database_object_api.dart';
+import 'abstract_data_api.dart';
 
 /// API for storing objects at the backend.
-abstract class BackendObjectsApi extends DatabaseObjectApi {
+abstract class BackendObjectsApi extends AbstractDataApi {
   /// Contains all objects that are controlled by [_objectController].
   List<AbstractDatabaseObject> objectList = <AbstractDatabaseObject>[];
 
@@ -30,8 +32,8 @@ abstract class BackendObjectsApi extends DatabaseObjectApi {
   BackendACL? acl;
 
   /// Controls the database objects.
-  final StreamController<List<AbstractDatabaseObject>> _objectController =
-      StreamController<List<AbstractDatabaseObject>>();
+  final BehaviorSubject<List<AbstractDatabaseObject>> _objectController =
+      BehaviorSubject<List<AbstractDatabaseObject>>();
 
   @override
   Future<void> saveObject(AbstractDatabaseObject object) async {
@@ -46,20 +48,10 @@ abstract class BackendObjectsApi extends DatabaseObjectApi {
             DateTime.tryParse(response['updatedAt'] ?? '') ?? object.updatedAt,
       );
 
-      int objectIndex = getIndex(object);
-
-      if (objectIndex >= 0) {
-        objectList[objectIndex] = object;
-        objectList = <AbstractDatabaseObject>[...objectList];
-      }
-
-      if (objectIndex < 0) {
-        objectList = <AbstractDatabaseObject>[...objectList, object];
-      }
-
+      updateObjectList(object);
       dispatch();
     } catch (e) {
-      return;
+      return Future<void>.error(e);
     }
   }
 
@@ -67,37 +59,38 @@ abstract class BackendObjectsApi extends DatabaseObjectApi {
   Future<void> removeObject(AbstractDatabaseObject object) async {
     try {
       await Backend.removeObject(object);
-
-      int objectIndex = getIndex(object);
-
-      objectList.removeAt(objectIndex);
-      objectList = <AbstractDatabaseObject>[...objectList];
-
+      objectList.removeWhere(
+        (AbstractDatabaseObject elem) => elem.objectId == object.objectId,
+      );
       dispatch();
     } catch (e) {
-      return;
+      return Future<void>.error(e);
     }
   }
 
-  /// Returns the [objectList] as a stream for the application to use.
-  Stream<List<AbstractDatabaseObject>> getObjectsStream() {
-    return _objectController.stream.asBroadcastStream(
-      onListen:
-          (StreamSubscription<List<AbstractDatabaseObject>> subscription) {
-        dispatch();
-      },
-    );
+  @override
+  bool get hasObjects => objectList.isNotEmpty;
+
+  @override
+  void clearObjects() {
+    objectList.clear();
   }
 
-  /// Updates the objects.
+  /// Notifies all subscribers with the latest list of objects.
   void dispatch() {
-    _objectController.sink.add(objectList);
+    _objectController.sink
+        .add(List<AbstractDatabaseObject>.unmodifiable(objectList));
   }
 
-  /// Returns the index of the object. 
-  int getIndex(AbstractDatabaseObject object) {
-    return objectList.indexWhere(
-      (AbstractDatabaseObject element) => element.objectId == object.objectId,
+  /// Updates the [objectList].
+  void updateObjectList(AbstractDatabaseObject object) {
+    int index = objectList.indexWhere(
+      (AbstractDatabaseObject elem) => elem.objectId == object.objectId,
     );
+    if (index >= 0) {
+      objectList[index] = object;
+    } else {
+      objectList.add(object);
+    }
   }
 }

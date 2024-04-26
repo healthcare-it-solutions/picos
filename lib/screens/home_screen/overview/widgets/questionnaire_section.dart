@@ -26,9 +26,36 @@ import '../../../../themes/global_theme.dart';
 import 'input_card_section.dart';
 
 /// Widget which shows the questionaire section.
-class QuestionaireSection extends StatelessWidget {
+class QuestionaireSection extends StatefulWidget {
   /// QuestionaireSection constructor
   const QuestionaireSection({Key? key}) : super(key: key);
+
+  @override
+  State<QuestionaireSection> createState() => _QuestionaireSectionState();
+}
+
+class _QuestionaireSectionState extends State<QuestionaireSection>
+    with WidgetsBindingObserver {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      context.read<ObjectsListBloc<BackendDailyInputsApi>>().add(
+            const LoadObjectsList(),
+          );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
