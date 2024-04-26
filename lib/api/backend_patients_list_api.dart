@@ -56,14 +56,7 @@ class BackendPatientsListApi extends BackendObjectsApi {
         patientProfile: patientProfile,
       );
 
-      int index = getIndex(object);
-
-      if (index >= 0) {
-        objectList[index] = object;
-        objectList = <AbstractDatabaseObject>[...objectList];
-      } else {
-        objectList = <AbstractDatabaseObject>[...objectList, object];
-      }
+      super.updateObjectList(object);
 
       dispatch();
     } catch (e) {
@@ -117,7 +110,7 @@ class BackendPatientsListApi extends BackendObjectsApi {
   }
 
   @override
-  Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
+  Future<List<AbstractDatabaseObject>> getObjects() async {
     try {
       List<dynamic> responsePatient =
           await Backend.getAllEntriesSortedAscending(
@@ -249,9 +242,10 @@ class BackendPatientsListApi extends BackendObjectsApi {
           );
         }
       }
-      return getObjectsStream();
+      dispatch();
+      return objectList;
     } catch (e) {
-      return Stream<List<PatientsListElement>>.error(e);
+      return Future<List<AbstractDatabaseObject>>.error(e);
     }
   }
 }

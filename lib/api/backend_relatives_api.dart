@@ -25,7 +25,7 @@ import 'backend_objects_api.dart';
 /// API for storing relatives at the backend.
 class BackendRelativesApi extends BackendObjectsApi {
   @override
-  Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
+  Future<List<AbstractDatabaseObject>> getObjects() async {
     try {
       List<dynamic> response = await Backend.getAll(Relative.databaseTable);
 
@@ -37,7 +37,7 @@ class BackendRelativesApi extends BackendObjectsApi {
             mail: element['Mail'],
             phone: element['Tele'],
             address: element['Address'],
-            city:  element['City'],
+            city: element['City'],
             firstName: element['Name'],
             objectId: element['objectId'],
             createdAt: DateTime.parse(element['createdAt']),
@@ -45,10 +45,10 @@ class BackendRelativesApi extends BackendObjectsApi {
           ),
         );
       }
-
-      return getObjectsStream();
+      dispatch();
+      return objectList;
     } catch (e) {
-      return Stream<List<Relative>>.error(e);
+      return Future<List<AbstractDatabaseObject>>.error(e);
     }
   }
 }

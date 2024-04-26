@@ -26,10 +26,10 @@ abstract class ObjectsListEvent extends Equatable {
   List<Object> get props => <Object>[];
 }
 
-/// Subscribes to ObjectsListUpdates.
-class ObjectsListSubscriptionRequested extends ObjectsListEvent {
+/// Event to request the loading of the objects list from the data source.
+class LoadObjectsList extends ObjectsListEvent {
   /// ObjectsListSubscriptionRequested constructor.
-  const ObjectsListSubscriptionRequested();
+  const LoadObjectsList();
 }
 
 /// Adds or replaces an object.

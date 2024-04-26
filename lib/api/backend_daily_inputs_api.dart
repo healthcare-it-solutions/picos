@@ -136,7 +136,7 @@ class BackendDailyInputsApi extends BackendObjectsApi {
   }
 
   @override
-  Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
+  Future<List<AbstractDatabaseObject>> getObjects() async {
     try {
       Map<String, dynamic> response = (await Backend.callEndpoint(
         'getPatientsDailyInput',
@@ -211,10 +211,10 @@ class BackendDailyInputsApi extends BackendObjectsApi {
 
         day++;
       });
-
-      return getObjectsStream();
+      dispatch();
+      return objectList;
     } catch (e) {
-      return Stream<List<DailyInput>>.error(e);
+      return Future<List<AbstractDatabaseObject>>.error(e);
     }
   }
 }
