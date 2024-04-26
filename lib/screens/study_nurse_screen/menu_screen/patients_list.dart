@@ -24,15 +24,10 @@ import 'package:picos/screens/study_nurse_screen/menu_screen/patients_list_card.
 import 'package:picos/state/objects_list_bloc.dart';
 
 /// A List with all patients.
-class PatientsList extends StatefulWidget {
+class PatientsList extends StatelessWidget {
   /// Creates the patients list.
   const PatientsList({Key? key}) : super(key: key);
 
-  @override
-  State<PatientsList> createState() => _PatientsListState();
-}
-
-class _PatientsListState extends State<PatientsList> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ObjectsListBloc<BackendPatientsListApi>,

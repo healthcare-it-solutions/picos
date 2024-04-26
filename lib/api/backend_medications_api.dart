@@ -26,7 +26,7 @@ import '../util/backend.dart';
 /// API for storing medications at the backend.
 class BackendMedicationsApi extends BackendObjectsApi {
   @override
-  Future<Stream<List<AbstractDatabaseObject>>> getObjects() async {
+  Future<List<AbstractDatabaseObject>> getObjects() async {
     try {
       List<dynamic> response = await Backend.getAll(Medication.databaseTable);
 
@@ -44,10 +44,10 @@ class BackendMedicationsApi extends BackendObjectsApi {
           ),
         );
       }
-
-      return getObjectsStream();
+      dispatch();
+      return objectList;
     } catch (e) {
-      return Stream<List<Medication>>.error(e);
+      return Future<List<AbstractDatabaseObject>>.error(e);
     }
   }
 }
