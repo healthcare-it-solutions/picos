@@ -1,17 +1,51 @@
 import 'package:parse_server_sdk/parse_server_sdk.dart';
+import 'package:picos/models/abstract_database_object.dart';
 import 'package:picos/models/follow_up.dart';
 import 'package:picos/util/backend.dart';
 
 import '../screens/study_nurse_screen/menu_screen/edit_patient_screen.dart';
+import 'backend_objects_api.dart';
 
 /// API for storing values at the backend.
-class BackendFollowUpApi {
-  /// Fetches follow-ups from the backend for a given patient and doctor.
-  static Future<List<FollowUp>> getFollowUps() async {
+class BackendFollowUpApi extends BackendObjectsApi {
+  @override
+  Future<void> saveObject(AbstractDatabaseObject object) async {
+    try {
+      dynamic responseFollowUp;
+      FollowUp followUp = (object as FollowUp);
+
+      if (object.objectId == null) {
+        String roleId = await BackendRole.userRoleName.id;
+        BackendACL followUpACL = BackendACL()
+          ..setReadAccess(userId: EditPatientScreen.patientObjectId!)
+          ..setReadAccess(userId: roleId)
+          ..setWriteAccess(userId: roleId);
+        responseFollowUp = await Backend.saveObject(object, acl: followUpACL);
+      } else {
+        responseFollowUp = await Backend.saveObject(object);
+      }
+
+      followUp = followUp.copyWith(
+        objectId: responseFollowUp['objectId'],
+        createdAt: DateTime.tryParse(responseFollowUp['createdAt'] ?? '') ??
+            followUp.createdAt,
+        updatedAt: DateTime.tryParse(responseFollowUp['updatedAt'] ?? '') ??
+            followUp.updatedAt,
+      );
+
+      super.updateObjectList(followUp);
+      dispatch();
+    } catch (e) {
+      return Future<void>.error(e);
+    }
+  }
+
+  @override
+  Future<List<AbstractDatabaseObject>> getObjects() async {
     final String patientObjectId = EditPatientScreen.patientObjectId!;
     final String doctorObjectId = Backend.user.objectId!;
 
-    List<FollowUp> followUpResults = List<FollowUp>.generate(
+    objectList = List<FollowUp>.generate(
       4,
       (int i) => FollowUp(
         patientObjectId: patientObjectId,
@@ -29,19 +63,19 @@ class BackendFollowUpApi {
       if (responseFollowUps?.results != null) {
         for (dynamic element in responseFollowUps!.results!) {
           int index = element['number'];
-          if (index >= 0 && index < followUpResults.length) {
-            followUpResults[index] = createFollowUpFromElement(element);
+          if (index >= 0 && index < objectList.length) {
+            objectList[index] = _createFollowUpModel(element);
           }
         }
       }
-      return followUpResults;
+      return objectList;
     } catch (e) {
       return Future<List<FollowUp>>.error(e);
     }
   }
 
   /// Creates a FollowUp object from a Parse object element.
-  static FollowUp createFollowUpFromElement(dynamic element) {
+  FollowUp _createFollowUpModel(dynamic element) {
     return FollowUp(
       distance: element['Strecke'],
       bloodDiastolic: element['BD_Diastolisch'],
@@ -60,19 +94,5 @@ class BackendFollowUpApi {
       createdAt: element['createdAt'],
       updatedAt: element['updatedAt'],
     );
-  }
-
-  /// Saves a follow-up into the backend with the appropriate ACL settings.
-  static Future<void> saveFollowUp(FollowUp followUp) async {
-    if (followUp.objectId == null) {
-      String roleId = await BackendRole.userRoleName.id;
-      BackendACL followUpACL = BackendACL()
-        ..setReadAccess(userId: EditPatientScreen.patientObjectId!)
-        ..setReadAccess(userId: roleId)
-        ..setWriteAccess(userId: roleId);
-      await Backend.saveObject(followUp, acl: followUpACL);
-    } else {
-      await Backend.saveObject(followUp);
-    }
   }
 }

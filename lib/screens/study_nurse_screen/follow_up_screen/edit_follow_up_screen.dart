@@ -17,9 +17,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/api/backend_follow_up_api.dart';
 import 'package:picos/models/follow_up.dart';
+import '../../../state/objects_list_bloc.dart';
 import '../../../widgets/picos_add_button_bar.dart';
 import '../../../widgets/picos_body.dart';
 import '../../../widgets/picos_screen_frame.dart';
@@ -170,13 +172,13 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         _isHealthScoreValid;
   }
 
-  Future<void> _handleSave() async {
+  void _handleSave() {
     if (_validateForm()) {
-      await _saveFollowUpData();
+      _saveFollowUpData();
     }
   }
 
-  Future<void> _saveFollowUpData() async {
+  void _saveFollowUpData() {
     _followUp = _followUp?.copyWith(
       distance: _distance,
       bloodDiastolic: _bloodDiastolic,
@@ -190,9 +192,10 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       healthScore: _healthScore,
       number: _number,
     );
-    await BackendFollowUpApi.saveFollowUp(_followUp!);
-    if (!mounted) return;
-    Navigator.of(context).pop();
+
+    context
+        .read<ObjectsListBloc<BackendFollowUpApi>>()
+        .add(SaveObject(_followUp!));
     Navigator.of(context).pop();
   }
 
