@@ -25,27 +25,18 @@ import '../../../state/objects_list_bloc.dart';
 import 'follow_up_item.dart';
 
 /// This is the list of follow up items.
-class FollowUpList extends StatefulWidget {
+class FollowUpList extends StatelessWidget {
   /// FollowUpList constructor
   const FollowUpList({Key? key}) : super(key: key);
-
-  @override
-  State<FollowUpList> createState() => _FollowUpListState();
-}
-
-class _FollowUpListState extends State<FollowUpList> {
-  @override
-  void initState() {
-    super.initState();
-    context
-        .read<ObjectsListBloc<BackendFollowUpApi>>()
-        .add(const LoadObjectsList());
-  }
 
   @override
   Widget build(BuildContext context) {
     const int itemCount = 4;
     const double labelPadding = 10;
+
+    context
+        .read<ObjectsListBloc<BackendFollowUpApi>>()
+        .add(const LoadObjectsList());
 
     return BlocBuilder<ObjectsListBloc<BackendFollowUpApi>, ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
