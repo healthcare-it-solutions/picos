@@ -252,10 +252,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future<void> _fetchPatient() async {
     if (Backend.user.objectId != null) {
-      dynamic responsePatient = await Backend.getEntryDirect(
-        Patient.databaseTable,
-        Backend.user.objectId!,
-      );
+      dynamic responsePatient = await ParseObject(Patient.databaseTable)
+          .getObject(Backend.user.objectId!);
+
       dynamic element = responsePatient.results?.first;
       if (element != null) {
         _patient = Patient(
@@ -284,7 +283,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  static FormOfAddress? _formOfAddressFromString(String? str) {
+  FormOfAddress? _formOfAddressFromString(String? str) {
     switch (str) {
       case 'FormOfAddress.female':
         return FormOfAddress.female;
@@ -300,7 +299,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-    
+
     if (_patient == null) {
       return const Center(
         child: CircularProgressIndicator(),
