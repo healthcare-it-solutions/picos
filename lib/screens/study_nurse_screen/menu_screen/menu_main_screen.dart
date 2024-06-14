@@ -19,20 +19,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/study_nurse_screen/menu_screen/patients_list.dart';
 import 'package:picos/widgets/picos_add_mono_button_bar.dart';
-import 'package:picos/widgets/picos_screen_frame.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../api/backend_patients_list_api.dart';
+import '../../../state/objects_list_bloc.dart';
 
 /// Shows a list with all patients.
-class MenuMainScreen extends StatelessWidget {
+class MenuMainScreen extends StatefulWidget {
   /// Creates MenuMainScreen.
   const MenuMainScreen({Key? key}) : super(key: key);
 
   @override
+  State<MenuMainScreen> createState() => _MenuMainScreenState();
+}
+
+class _MenuMainScreenState extends State<MenuMainScreen> {
+  @override
+  void initState() {
+    super.initState();
+    refreshPatientsList();
+  }
+
+  /// Refresh the list of patients
+  void refreshPatientsList() {
+    context.read<ObjectsListBloc<BackendPatientsListApi>>().add(
+          const LoadObjectsList(),
+        );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return PicosScreenFrame(
-      title: AppLocalizations.of(context)!.myPatients,
+    return Scaffold(
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.myPatients)),
       body: const PatientsList(),
       bottomNavigationBar: const PicosAddMonoButtonBar(
         route: '/study-nurse-screen/configuration-screen',
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: refreshPatientsList,
+        tooltip: 'Refresh Patients List',
+        child: const Icon(Icons.refresh),
       ),
     );
   }
