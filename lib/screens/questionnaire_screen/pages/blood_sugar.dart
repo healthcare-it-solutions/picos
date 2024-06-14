@@ -56,6 +56,7 @@ class BloodSugar extends StatefulWidget {
 class _BloodSugarState extends State<BloodSugar> {
   static String? _bloodSugar;
   static String? _checkValue;
+  String? _selectedUnit;
   int? _value;
   double? _valueMol;
 
@@ -87,20 +88,37 @@ class _BloodSugarState extends State<BloodSugar> {
   }
 
   String _setLabel() {
+    final String bloodSugarMG = '${_bloodSugar!} (mg/dL)';
     if (_value == null) {
-      return _bloodSugar!;
+      return bloodSugarMG;
     }
 
     if (_value! < 70 || _value! > 120) {
       return _checkValue!;
     }
 
-    return _bloodSugar!;
+    return bloodSugarMG;
   }
 
-  @override void initState() {
+  String _setLabelMol() {
+    final String bloodSugarMol = '${_bloodSugar!} (mmol/L)';
+
+    if (_valueMol == null) {
+      return bloodSugarMol;
+    }
+
+    if (_valueMol! < 3.9 || _valueMol! > 6.7) {
+      return _checkValue!;
+    }
+
+    return bloodSugarMol;
+  }
+
+  @override
+  void initState() {
     _value = widget.initialValue;
     _valueMol = widget.initialValueMol;
+    _selectedUnit = _valueMol != null ? 'mmol/L' : 'mg/dL';
     super.initState();
   }
 
@@ -113,21 +131,49 @@ class _BloodSugarState extends State<BloodSugar> {
 
     final bool disabledNext = _setDisabledNext();
     final String label = _setLabel();
+    final String labelMol = _setLabelMol();
 
     return QuestionnairePage(
       disabledNext: disabledNext,
       backFunction: widget.previousPage,
       nextFunction: widget.nextPage,
       child: Column(
-        children: <TextFieldCard>[
-          TextFieldCard(
-            initialValue: widget.initialValue,
-            label: label,
-            hint: 'mg/dL',
-            onChanged: (String value) {
-              widget.onChanged(value, null);
+        children: <Widget>[
+          DropdownButton<String>(
+            value: _selectedUnit,
+            onChanged: (String? newValue) {
               setState(() {
-                _value = int.tryParse(value);
+                _selectedUnit = newValue!;
+              });
+            },
+            items: <String>['mg/dL', 'mmol/L']
+                .map<DropdownMenuItem<String>>((String value) {
+            //  _selectedUnit = value;
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+          TextFieldCard(
+            initialValue: _selectedUnit == 'mmol/L'
+                ? widget.initialValueMol
+                : widget.initialValue,
+            label: _selectedUnit == 'mmol/L' ? labelMol : label,
+            hint: _selectedUnit!,
+            decimalValue: _selectedUnit == 'mmol/L',
+            onChanged: (String value) {
+              setState(() {
+                if (_selectedUnit == 'mmol/L') {
+                  _valueMol = double.tryParse(value);
+                  if (_valueMol != null) {
+                    _value = (_valueMol! * 18.0182).round();
+                    widget.onChanged(_value.toString(), _valueMol.toString());
+                  }
+                } else {
+                  _value = int.tryParse(value);
+                  widget.onChanged(_value.toString(), null);
+                }
               });
             },
           ),
