@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/api/backend_catalog_of_items_api.dart';
+import 'package:picos/api/backend_patients_list_api.dart';
 import 'package:picos/models/blood_gas_analysis.dart';
 import 'package:picos/models/blood_gas_analysis_object.dart';
 import 'package:picos/models/catalog_of_items_element.dart';
@@ -71,6 +72,9 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
 
         context.read<ObjectsListBloc<BackendCatalogOfItemsApi>>().add(
               SaveObject(catalogOfItemsElement),
+            );
+        context.read<ObjectsListBloc<BackendPatientsListApi>>().add(
+              const LoadObjectsList(),
             );
         Navigator.of(context).pop();
       } catch (e) {
@@ -340,7 +344,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
         bodyHeight: pageStorage?.bodyHeight,
         patientID: pageStorage?.patientID,
         caseNumber: pageStorage?.caseNumber,
-        instKey: EditPatientScreen.instituteKey,
+        instKey: pageStorage?.instKey ,
         patientObjectId: EditPatientScreen.patientObjectId,
         doctorObjectId: Backend.user.objectId,
         bodyWeight: pageStorage?.bodyWeight,
@@ -533,7 +537,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
       bodyHeight: pageStorage?.bodyHeight,
       patientID: pageStorage?.patientID,
       caseNumber: pageStorage?.caseNumber,
-      instKey: EditPatientScreen.instituteKey,
+      instKey: pageStorage?.instKey,
       patientObjectId: EditPatientScreen.patientObjectId!,
       doctorObjectId: Backend.user.objectId!,
       bodyWeight: pageStorage?.bodyWeight,
