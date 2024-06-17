@@ -84,7 +84,7 @@ class _BloodSugarState extends State<BloodSugar> {
   }
 
   bool _checkBloodSugarMol() {
-    return !(_valueMol! < 3.9 || _valueMol! > 6.7);
+    return !(_valueMol! < 2.8 || _valueMol! > 16.6);
   }
 
   String _setLabel() {
@@ -148,7 +148,6 @@ class _BloodSugarState extends State<BloodSugar> {
             },
             items: <String>['mg/dL', 'mmol/L']
                 .map<DropdownMenuItem<String>>((String value) {
-            //  _selectedUnit = value;
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),
