@@ -55,12 +55,14 @@ class BloodSugar extends StatefulWidget {
 }
 
 class _BloodSugarState extends State<BloodSugar> {
-  static String? _bloodSugar;
-  static String? _checkValue;
+  String? _bloodSugar;
+  String? _checkValue;
   String? _selectedUnit;
   int? _value;
   double? _valueMol;
   final TextEditingController _textEditingController = TextEditingController();
+  final String _mg = 'mg/dL';
+  final String _mol = 'mmol/L';
 
   bool _setDisabledNext() {
     bool bloodSugar = true;
@@ -90,7 +92,7 @@ class _BloodSugarState extends State<BloodSugar> {
   }
 
   String _setLabel() {
-    final String bloodSugarMG = '${_bloodSugar!} (mg/dL)';
+    final String bloodSugarMG = '${_bloodSugar!} ($_mg)';
     if (_value == null) {
       return bloodSugarMG;
     }
@@ -103,7 +105,7 @@ class _BloodSugarState extends State<BloodSugar> {
   }
 
   String _setLabelMol() {
-    final String bloodSugarMol = '${_bloodSugar!} (mmol/L)';
+    final String bloodSugarMol = '${_bloodSugar!} ($_mol)';
 
     if (_valueMol == null) {
       return bloodSugarMol;
@@ -121,18 +123,17 @@ class _BloodSugarState extends State<BloodSugar> {
     _value = widget.initialValue;
     _valueMol = widget.initialValueMol;
     if (_value == null && _valueMol == null) {
-      _selectedUnit = Backend.user.get('unitMg') ? 'mg/dL' : 'mmol/L';
+      _selectedUnit = Backend.user.get('unitMg') ? _mg : _mol;
     } else {
-      _selectedUnit = _valueMol != null ? 'mmol/L' : 'mg/dL';
+      _selectedUnit = _valueMol != null ? _mol : _mg;
     }
     _updateTextEditingController();
     super.initState();
   }
 
   void _updateTextEditingController() {
-    num? initialVal = _selectedUnit == 'mmol/L'
-        ? widget.initialValueMol
-        : widget.initialValue;
+    num? initialVal =
+        _selectedUnit == _mol ? widget.initialValueMol : widget.initialValue;
     _textEditingController.text = initialVal?.toString() ?? '';
   }
 
@@ -171,7 +172,7 @@ class _BloodSugarState extends State<BloodSugar> {
           DropdownButton<String>(
             value: _selectedUnit,
             onChanged: _handleDropdownChange,
-            items: <String>['mg/dL', 'mmol/L']
+            items: <String>[_mg, _mol]
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -181,12 +182,12 @@ class _BloodSugarState extends State<BloodSugar> {
           ),
           TextFieldCard(
             controller: _textEditingController,
-            label: _selectedUnit == 'mmol/L' ? labelMol : label,
+            label: _selectedUnit == _mol ? labelMol : label,
             hint: _selectedUnit!,
-            decimalValue: _selectedUnit == 'mmol/L',
+            decimalValue: _selectedUnit == _mol,
             onChanged: (String value) {
               setState(() {
-                if (_selectedUnit == 'mmol/L') {
+                if (_selectedUnit == _mol) {
                   _valueMol = double.tryParse(value);
                   if (_valueMol != null) {
                     _value = (_valueMol! * 18.0182).round();
