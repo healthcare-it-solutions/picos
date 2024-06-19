@@ -1538,5 +1538,9 @@
   "incompleteCredentials": "Incomplete Credentials",
   "@incompleteCredentials": {
     "description": "Incomplete Credentials!"
+  },
+  "bloodSugarUnit": "Blood sugar unit",
+  "@bloodSugarUnit": {
+    "description": "Blood sugar unit"
   }
 }

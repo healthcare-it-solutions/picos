@@ -383,5 +383,6 @@
   "ifEmailCorrect": "Bei Korrektheit wird eine Mail verschickt!",
   "enterMailToResetPW": "Bitte geben Sie die E-Mail-Adresse ein, mit der Sie sich registriert haben. Wir senden Ihnen eine E-Mail mit einem Link zum Zurücksetzen des Passwortes!",
   "backendNotReachable": "Backend ist nicht erreichbar!",
-  "incompleteCredentials": "Unvollständige Eingaben!"
+  "incompleteCredentials": "Unvollständige Eingaben!",
+  "bloodSugarUnit": "Blutzuckereinheit"
 }
