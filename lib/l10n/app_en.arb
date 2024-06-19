@@ -1391,6 +1391,10 @@
   "@changeEmail": {
     "description": "Change email"
   },
+  "changeBloodSugarUnit": "Change unit",
+  "@changeBloodSugarUnit": {
+    "description": "Change unit"
+  },
   "unknownError": "Unknown Error",
   "@unknownError": {
     "description": "Unknown Error"

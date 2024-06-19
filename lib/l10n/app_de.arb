@@ -347,6 +347,7 @@
   "changeAddress": "Adresse ändern",
   "changePhoneNumber": "Telefonnummer ändern",
   "changeEmail": "E-Mail ändern",
+  "changeBloodSugarUnit": "Einheit ändern",
   "unknownError": "Unbekannter Fehler",
   "updateFailed": "Aktualisierung fehlgeschlagen",
   "updateSuccess": "Aktualisierung erfolgreich",
