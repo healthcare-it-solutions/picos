@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/util/backend.dart';
 
 import '../widgets/questionnaire_page.dart';
 import '../widgets/text_field_card.dart';
@@ -59,6 +60,7 @@ class _BloodSugarState extends State<BloodSugar> {
   String? _selectedUnit;
   int? _value;
   double? _valueMol;
+  final TextEditingController _textEditingController = TextEditingController();
 
   bool _setDisabledNext() {
     bool bloodSugar = true;
@@ -118,8 +120,35 @@ class _BloodSugarState extends State<BloodSugar> {
   void initState() {
     _value = widget.initialValue;
     _valueMol = widget.initialValueMol;
-    _selectedUnit = _valueMol != null ? 'mmol/L' : 'mg/dL';
+    if (_value == null && _valueMol == null) {
+      _selectedUnit = Backend.user.get('unitMg') ? 'mg/dL' : 'mmol/L';
+    } else {
+      _selectedUnit = _valueMol != null ? 'mmol/L' : 'mg/dL';
+    }
+    _updateTextEditingController();
     super.initState();
+  }
+
+  void _updateTextEditingController() {
+    num? initialVal = _selectedUnit == 'mmol/L'
+        ? widget.initialValueMol
+        : widget.initialValue;
+    _textEditingController.text = initialVal?.toString() ?? '';
+  }
+
+  void _handleDropdownChange(String? newValue) {
+    if (newValue != null && newValue != _selectedUnit) {
+      setState(() {
+        _selectedUnit = newValue;
+        _updateTextEditingController();
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
   }
 
   @override
@@ -141,11 +170,7 @@ class _BloodSugarState extends State<BloodSugar> {
         children: <Widget>[
           DropdownButton<String>(
             value: _selectedUnit,
-            onChanged: (String? newValue) {
-              setState(() {
-                _selectedUnit = newValue!;
-              });
-            },
+            onChanged: _handleDropdownChange,
             items: <String>['mg/dL', 'mmol/L']
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
@@ -155,9 +180,7 @@ class _BloodSugarState extends State<BloodSugar> {
             }).toList(),
           ),
           TextFieldCard(
-            initialValue: _selectedUnit == 'mmol/L'
-                ? widget.initialValueMol
-                : widget.initialValue,
+            controller: _textEditingController,
             label: _selectedUnit == 'mmol/L' ? labelMol : label,
             hint: _selectedUnit!,
             decimalValue: _selectedUnit == 'mmol/L',
