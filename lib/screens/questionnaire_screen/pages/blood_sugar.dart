@@ -109,7 +109,7 @@ class _BloodSugarState extends State<BloodSugar> {
       return bloodSugarMol;
     }
 
-    if (_valueMol! < 3.9 || _valueMol! > 6.7) {
+    if (_valueMol! < 3.9 || _valueMol! > 6.6) {
       return _checkValue!;
     }
 
