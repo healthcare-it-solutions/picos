@@ -150,7 +150,7 @@ class PicosTextField extends StatelessWidget {
         validator: validator,
         readOnly: readOnly,
         maxLines: maxLines,
-        initialValue: initialValue,
+        initialValue: controller == null ? initialValue : null,
         keyboardType: keyboardType ?? TextInputType.text,
         maxLength: maxLength,
         controller: controller,
