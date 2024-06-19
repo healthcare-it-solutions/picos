@@ -25,6 +25,7 @@ import 'package:picos/models/daily.dart';
 import 'package:picos/models/values.dart';
 import 'package:picos/models/weekly.dart';
 import 'package:picos/screens/home_screen/overview/widgets/section.dart';
+import 'package:picos/util/backend.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../themes/global_theme.dart';
 import '../../../../widgets/picos_chart_column.dart';
@@ -38,8 +39,11 @@ enum ValuesChartOptions {
   /// The patients heart frequency.
   heartFrequency,
 
-  /// The patients blood sugar value.
+  /// The patients blood sugar value in Mg unit.
   bloodSugar,
+
+  /// The patients blood sugar value in MMol unit.
+  bloodSugarMol,
 
   /// The patients blood pressure.
   bloodPressure,
@@ -176,7 +180,9 @@ class _GraphState extends State<GraphSection> {
             child: PicosChartColumn(
               dataList: dailyList,
               title: AppLocalizations.of(context)!.bloodSugar,
-              valuesChartOptions: ValuesChartOptions.bloodSugar,
+              valuesChartOptions: Backend.user.get('unitMg')
+                  ? ValuesChartOptions.bloodSugar
+                  : ValuesChartOptions.bloodSugarMol,
             ),
           ),
         )
