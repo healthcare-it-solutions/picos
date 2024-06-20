@@ -47,6 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   static const String _eMail = 'email';
   static const String _phoneNumber = 'PhoneNo';
   static const String _address = 'Address';
+  static const String _bloodSugarMg = 'unitMg';
   static const String _objectId = 'objectId';
 
   final Map<String, String> _errorMessages = <String, String>{};
@@ -62,11 +63,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   bool _disabled = false;
   FormOfAddress selectedFormOfAddress = FormOfAddress.female;
+  List<bool> isSelectedBloodSugarUnits = <bool>[];
 
   @override
   void initState() {
-    super.initState();
     _fetchPatient();
+    super.initState();
   }
 
   bool _isStrongPassword(String password) {
@@ -239,8 +241,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
-  Future<void> _updateField(String fieldName, String newValue) async {
-    if (newValue.isEmpty) {
+  Future<void> _updateField(String fieldName, dynamic newValue) async {
+    if (newValue.toString().isEmpty) {
       _setErrorMessage(
         fieldName,
         _getEmptyMessage(fieldName),
@@ -268,6 +270,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           createdAt: element['createdAt'],
           updatedAt: element['updatedAt'],
         );
+        isSelectedBloodSugarUnits.add(element[_bloodSugarMg]);
+        isSelectedBloodSugarUnits.add(!element[_bloodSugarMg]);
       }
     }
 
@@ -294,6 +298,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
       default:
         return null;
     }
+  }
+
+  Widget getPadding(String title) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        title,
+        style: const TextStyle(fontSize: 16),
+      ),
+    );
   }
 
   @override
@@ -438,6 +452,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
               onTap: _changePassword,
             ),
             _getMessageText(_password),
+            PicosLabel(AppLocalizations.of(context)!.bloodSugarUnit),
+            ToggleButtons(
+              borderColor: Colors.black,
+              fillColor: Colors.grey,
+              borderWidth: 2,
+              selectedBorderColor: Colors.black,
+              selectedColor: Colors.white,
+              borderRadius: BorderRadius.circular(5),
+              onPressed: (int index) {
+                setState(() {
+                  for (int i = 0; i < isSelectedBloodSugarUnits.length; i++) {
+                    isSelectedBloodSugarUnits[i] = i == index;
+                  }
+                });
+              },
+              isSelected: isSelectedBloodSugarUnits,
+              children: <Widget>[
+                getPadding('MG/DL'),
+                getPadding('MMol/L'),
+              ],
+            ),
+            PicosInkWellButton(
+              text: AppLocalizations.of(context)!.changeBloodSugarUnit,
+              disabled: _disabled,
+              onTap: () {
+                _updateField(_bloodSugarMg, isSelectedBloodSugarUnits[0]);
+                Backend.user.set('unitMg', isSelectedBloodSugarUnits[0]);
+              },
+            ),
+            _getMessageText(_bloodSugarMg),
           ],
         ),
       ),
