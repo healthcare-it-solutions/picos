@@ -75,6 +75,8 @@ class PicosChartColumn extends StatelessWidget {
         value = (matchingData as Weekly?)?.walkingDistance?.toDouble();
       } else if (valuesChartOptions == ValuesChartOptions.bloodSugar) {
         value = (matchingData as Daily?)?.bloodSugar?.toDouble();
+      } else if (valuesChartOptions == ValuesChartOptions.bloodSugarMol) {
+        value = (matchingData as Daily?)?.bloodSugarMol?.toDouble();
       } else if (valuesChartOptions == ValuesChartOptions.sleepDuration) {
         value = (matchingData as Daily?)?.sleepDuration?.toDouble();
       }

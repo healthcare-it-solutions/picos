@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/util/backend.dart';
 
 import '../widgets/questionnaire_page.dart';
 import '../widgets/text_field_card.dart';
@@ -54,10 +55,14 @@ class BloodSugar extends StatefulWidget {
 }
 
 class _BloodSugarState extends State<BloodSugar> {
-  static String? _bloodSugar;
-  static String? _checkValue;
+  String? _bloodSugar;
+  String? _checkValue;
+  String? _selectedUnit;
   int? _value;
   double? _valueMol;
+  final TextEditingController _textEditingController = TextEditingController();
+  final String _mg = 'mg/dL';
+  final String _mol = 'mmol/L';
 
   bool _setDisabledNext() {
     bool bloodSugar = true;
@@ -83,25 +88,68 @@ class _BloodSugarState extends State<BloodSugar> {
   }
 
   bool _checkBloodSugarMol() {
-    return !(_valueMol! < 3.9 || _valueMol! > 6.7);
+    return !(_valueMol! < 2.8 || _valueMol! > 16.6);
   }
 
   String _setLabel() {
+    final String bloodSugarMG = '${_bloodSugar!} ($_mg)';
     if (_value == null) {
-      return _bloodSugar!;
+      return bloodSugarMG;
     }
 
     if (_value! < 70 || _value! > 120) {
       return _checkValue!;
     }
 
-    return _bloodSugar!;
+    return bloodSugarMG;
   }
 
-  @override void initState() {
+  String _setLabelMol() {
+    final String bloodSugarMol = '${_bloodSugar!} ($_mol)';
+
+    if (_valueMol == null) {
+      return bloodSugarMol;
+    }
+
+    if (_valueMol! < 3.9 || _valueMol! > 6.6) {
+      return _checkValue!;
+    }
+
+    return bloodSugarMol;
+  }
+
+  @override
+  void initState() {
     _value = widget.initialValue;
     _valueMol = widget.initialValueMol;
+    if (_value == null && _valueMol == null) {
+      _selectedUnit = Backend.user.get('unitMg') ? _mg : _mol;
+    } else {
+      _selectedUnit = _valueMol != null ? _mol : _mg;
+    }
+    _updateTextEditingController();
     super.initState();
+  }
+
+  void _updateTextEditingController() {
+    num? initialVal =
+        _selectedUnit == _mol ? widget.initialValueMol : widget.initialValue;
+    _textEditingController.text = initialVal?.toString() ?? '';
+  }
+
+  void _handleDropdownChange(String? newValue) {
+    if (newValue != null && newValue != _selectedUnit) {
+      setState(() {
+        _selectedUnit = newValue;
+        _updateTextEditingController();
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
   }
 
   @override
@@ -113,21 +161,42 @@ class _BloodSugarState extends State<BloodSugar> {
 
     final bool disabledNext = _setDisabledNext();
     final String label = _setLabel();
+    final String labelMol = _setLabelMol();
 
     return QuestionnairePage(
       disabledNext: disabledNext,
       backFunction: widget.previousPage,
       nextFunction: widget.nextPage,
       child: Column(
-        children: <TextFieldCard>[
+        children: <Widget>[
+          DropdownButton<String>(
+            value: _selectedUnit,
+            onChanged: _handleDropdownChange,
+            items: <String>[_mg, _mol]
+                .map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
           TextFieldCard(
-            initialValue: widget.initialValue,
-            label: label,
-            hint: 'mg/dL',
+            controller: _textEditingController,
+            label: _selectedUnit == _mol ? labelMol : label,
+            hint: _selectedUnit!,
+            decimalValue: _selectedUnit == _mol,
             onChanged: (String value) {
-              widget.onChanged(value, null);
               setState(() {
-                _value = int.tryParse(value);
+                if (_selectedUnit == _mol) {
+                  _valueMol = double.tryParse(value);
+                  if (_valueMol != null) {
+                    _value = (_valueMol! * 18.0182).round();
+                    widget.onChanged(_value.toString(), _valueMol.toString());
+                  }
+                } else {
+                  _value = int.tryParse(value);
+                  widget.onChanged(_value.toString(), null);
+                }
               });
             },
           ),
