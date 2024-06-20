@@ -139,5 +139,6 @@ class Patient extends AbstractDatabaseObject {
         'PhoneNo': number,
         'Address': address,
         'Role': role,
+        'unitMg': true, //Default value for each newly created patient.
       };
 }
