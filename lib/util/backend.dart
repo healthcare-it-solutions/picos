@@ -159,25 +159,18 @@ class Backend {
     return _createListResponse(parseResponse);
   }
 
-  /// Retrieves one possible object from a [table].
+  /// Retrieves one possible object by [columnName] and [columnValue]
+  /// from a [table].
   static Future<dynamic> getEntry(
     String table,
-    String column,
-    String row,
+    String columnName,
+    String columnValue,
   ) async {
     QueryBuilder<ParseObject> queryBuilder =
         QueryBuilder<ParseObject>(ParseObject(table))
-          ..whereEqualTo(column, row);
+          ..whereEqualTo(columnName, columnValue);
 
     return await queryBuilder.query();
-  }
-
-  /// Retrieves one possible object directly from a [table].
-  static Future<dynamic> getEntryDirect(
-    String table,
-    String objectId,
-  ) async {
-    return await ParseObject(table).getObject(objectId);
   }
 
   /// Updates one possible object from a [table].

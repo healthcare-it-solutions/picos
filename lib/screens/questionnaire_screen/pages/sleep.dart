@@ -81,29 +81,11 @@ class _SleepState extends State<Sleep> {
         label: label,
         hint: AppLocalizations.of(context)!.hrs,
         onChanged: (String durationString) {
-          if (durationString.isEmpty) {
-            widget.onChangedSleepDuration(null);
-            setState(() {
-              _error = false;
-            });
-            return;
-          }
-
           double? duration = double.tryParse(durationString);
-
-          if (duration == null) {
-            widget.onChangedSleepDuration(null);
-            setState(() {
-              _error = true;
-            });
-            return;
-          }
-
-          setState(() {
-            _error = false;
-          });
-
           widget.onChangedSleepDuration(duration);
+          setState(() {
+            _error = duration == null;
+          });
         },
       ),
     );
