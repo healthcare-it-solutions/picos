@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/api/backend_catalog_of_items_api.dart';
 import 'package:picos/api/backend_patients_list_api.dart';
+import 'package:picos/models/abstract_database_object.dart';
 import 'package:picos/models/blood_gas_analysis.dart';
 import 'package:picos/models/blood_gas_analysis_object.dart';
 import 'package:picos/models/catalog_of_items_element.dart';
@@ -36,6 +37,7 @@ import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../models/labor_parameters.dart';
+import '../../../models/patients_list_element.dart';
 import '../../../themes/global_theme.dart';
 import '../../../widgets/picos_add_button_bar.dart';
 import '../../../widgets/picos_ink_well_button.dart';
@@ -73,14 +75,22 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
         context.read<ObjectsListBloc<BackendCatalogOfItemsApi>>().add(
               SaveObject(catalogOfItemsElement),
             );
-        context.read<ObjectsListBloc<BackendPatientsListApi>>().add(
-              const LoadObjectsList(),
-            );
+        updatePatientData(catalogOfItemsElement);
         Navigator.of(context).pop();
       } catch (e) {
         Stream<String>.error(e);
       }
     }
+  }
+
+  updatePatientData(CatalogOfItemsElement catalogOfItemsElement) {
+    context.read<ObjectsListBloc<BackendPatientsListApi>>().add(
+          SaveObject(
+            _patientsListElement?.copyWith(
+              patientData: catalogOfItemsElement.movementData,
+            ) as AbstractDatabaseObject,
+          ),
+        );
   }
 
   CatalogOfItemsElement createCatalogFromPageStorage() {
