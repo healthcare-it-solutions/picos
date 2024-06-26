@@ -588,7 +588,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
         pages = pageStorage!.pages;
         nextPageCallback = _nextPageCallback;
       }
-      // When the DB is empty
+      // When the DB is empty.
       else {
         pageStorage = CatalogOfItemsPageStorage(context: context);
       }
