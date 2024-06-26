@@ -28,6 +28,7 @@ class PicosScreenFrame extends StatelessWidget {
     this.bottomNavigationBar,
     this.title,
     this.body,
+    this.appBarActions,
   }) : super(key: key);
 
   /// The setting for the App Bar Elevation (Shadow).
@@ -41,6 +42,9 @@ class PicosScreenFrame extends StatelessWidget {
 
   /// The content inside the frame to display.
   final Widget? body;
+
+  /// A list of Widgets to represent common operations in the Appbar.
+  final List<Widget>? appBarActions;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +65,7 @@ class PicosScreenFrame extends StatelessWidget {
             bottomNavigationBar: bottomNavigationBar,
             appBar: AppBar(
               iconTheme: IconThemeData(
-                color: theme.white, //change your color here
+                color: theme.white,
               ),
               centerTitle: true,
               title: Text(
@@ -73,6 +77,7 @@ class PicosScreenFrame extends StatelessWidget {
                 ),
               ),
               elevation: appBarElevation,
+              actions: appBarActions,
             ),
             body: body,
           ),
