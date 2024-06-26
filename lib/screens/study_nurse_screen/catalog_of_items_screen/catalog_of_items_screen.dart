@@ -587,11 +587,15 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
     return _catalogOfItemsElement;
   }
 
+  PatientsListElement? _patientsListElement;
+
   @override
   Widget build(BuildContext context) {
     GlobalTheme? theme = Theme.of(context).extension<GlobalTheme>()!;
     buildContext = context;
     int lastPage = pages.length - 1;
+    _patientsListElement ??=
+        ModalRoute.of(context)!.settings.arguments as PatientsListElement;
 
     if (isLoading) {
       return const Center(child: CircularProgressIndicator());
