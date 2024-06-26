@@ -312,6 +312,8 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                     Navigator.pushNamed(
                       context,
                       '/study-nurse-screen/catalog-of-items',
+                      arguments: ModalRoute.of(context)!.settings.arguments
+                          as PatientsListElement,
                     );
                   },
                 ),
