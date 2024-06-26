@@ -25,9 +25,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class PatientsListCard extends StatelessWidget {
   /// Creates the card with the patient.
   const PatientsListCard(
-      this._patientsListElement, {
-        Key? key,
-      }) : super(key: key);
+    this._patientsListElement, {
+    Key? key,
+  }) : super(key: key);
 
   final PatientsListElement _patientsListElement;
 
