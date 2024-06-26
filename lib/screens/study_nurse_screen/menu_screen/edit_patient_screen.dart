@@ -37,18 +37,6 @@ class EditPatientScreen extends StatefulWidget {
   /// global patientObjectId.
   static String? patientObjectId;
 
-  /// global body height.
-  static double? bodyHeight;
-
-  /// global patient ID.
-  static String? patientID;
-
-  /// global case number.
-  static String? caseNumber;
-
-  /// global institute key.
-  static String? instituteKey;
-
   @override
   State<EditPatientScreen> createState() => _EditPatientScreenState();
 }
