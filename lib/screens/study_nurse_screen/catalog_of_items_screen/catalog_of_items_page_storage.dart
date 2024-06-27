@@ -540,7 +540,7 @@ class CatalogOfItemsPageStorage {
 
   /// Last Arterial PH.
   double? arterialPH1;
-  
+
   /// Pre last Arterial PH.
   double? arterialPH2;
 
@@ -637,7 +637,7 @@ class CatalogOfItemsPageStorage {
   /// International Normalized Ratio.
   double? internationalNormalizedRatio;
 
-  /// Partial Thromboplastin Time. 
+  /// Partial Thromboplastin Time.
   double? partialThromboplastinTime;
 
   /// Patient's Birthdate.
@@ -684,6 +684,7 @@ class CatalogOfItemsPageStorage {
 
   /// Patient Location.
   String? patientLocation;
+
   /// Lung Protective Ventilation greater than 70%.
   bool? lungProtectiveVentilation70;
 

@@ -31,28 +31,17 @@ class BackendPatientsListApi extends BackendObjectsApi {
   @override
   Future<void> saveObject(AbstractDatabaseObject object) async {
     try {
-      dynamic responsePatientProfile;
       PatientProfile patientProfile =
           (object as PatientsListElement).patientProfile;
       if (patientProfile.objectId == null) {
         acl = await _prepareACL(patientProfile);
-        responsePatientProfile =
-            await Backend.saveObject(patientProfile, acl: acl);
+        await Backend.saveObject(patientProfile, acl: acl);
       } else {
-        responsePatientProfile = await Backend.saveObject(patientProfile);
+        await Backend.saveObject(patientProfile);
       }
 
-      patientProfile = patientProfile.copyWith(
-        objectId: responsePatientProfile['objectId'],
-        createdAt:
-            DateTime.tryParse(responsePatientProfile['createdAt'] ?? '') ??
-                patientProfile.createdAt,
-        updatedAt:
-            DateTime.tryParse(responsePatientProfile['updatedAt'] ?? '') ??
-                patientProfile.updatedAt,
-      );
-
       object = object.copyWith(
+        patientData: object.patientData,
         patientProfile: patientProfile,
       );
 
