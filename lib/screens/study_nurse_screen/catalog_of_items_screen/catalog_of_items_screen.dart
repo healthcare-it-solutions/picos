@@ -58,6 +58,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
 
   // All values can be accessed here.
   CatalogOfItemsPageStorage? pageStorage;
+  PatientsListElement? _patientsListElement;
   CatalogOfItemsElement? _catalogOfItemsElement;
   bool isLoading = true;
 
@@ -354,7 +355,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
         bodyHeight: pageStorage?.bodyHeight,
         patientID: pageStorage?.patientID,
         caseNumber: pageStorage?.caseNumber,
-        instKey: pageStorage?.instKey ,
+        instKey: pageStorage?.instKey,
         patientObjectId: EditPatientScreen.patientObjectId,
         doctorObjectId: Backend.user.objectId,
         bodyWeight: pageStorage?.bodyWeight,
@@ -596,8 +597,6 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
 
     return _catalogOfItemsElement;
   }
-
-  PatientsListElement? _patientsListElement;
 
   @override
   Widget build(BuildContext context) {
