@@ -21,8 +21,8 @@ import 'package:picos/models/abstract_database_object.dart';
 class PatientData extends AbstractDatabaseObject {
   /// Creates a patient data object.
   const PatientData({
-    required this.patientObjectId, 
-    required this.doctorObjectId, 
+    required this.patientObjectId,
+    required this.doctorObjectId,
     this.bodyHeight,
     this.patientID,
     this.caseNumber,
