@@ -76,7 +76,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
         context.read<ObjectsListBloc<BackendCatalogOfItemsApi>>().add(
               SaveObject(catalogOfItemsElement),
             );
-        updatePatientData(catalogOfItemsElement);
+        updatePatientsListElement(catalogOfItemsElement);
         Navigator.of(context).pop();
       } catch (e) {
         Stream<String>.error(e);
@@ -84,7 +84,7 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
     }
   }
 
-  updatePatientData(CatalogOfItemsElement catalogOfItemsElement) {
+  updatePatientsListElement(CatalogOfItemsElement catalogOfItemsElement) {
     context.read<ObjectsListBloc<BackendPatientsListApi>>().add(
           SaveObject(
             _patientsListElement?.copyWith(
