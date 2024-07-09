@@ -14,8 +14,7 @@ if (keystorePropertiesFile.exists()) {
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader('UTF-8') { reader ->
-        localProperties.load(reader)
+    localPropertiesFile.withReader('UTF-8') { reader -> localProperties.load(reader)
     }
 }
 
@@ -49,8 +48,8 @@ android {
 
     defaultConfig {
         applicationId "de.hitsolutions.picos"
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
+        minSdkVersion 21 // Should use flutter.minSdkVersion as soon as updated in Flutter.
+        targetSdkVersion 34 // Should use flutter.targetSdkVersion as soon as updated in Flutter.
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
