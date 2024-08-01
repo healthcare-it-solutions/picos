@@ -24,12 +24,16 @@ class PicosScreenFrame extends StatelessWidget {
   /// Creates PicosScreenFrame.
   const PicosScreenFrame({
     Key? key,
+    this.leading,
     this.appBarElevation = 4,
     this.bottomNavigationBar,
     this.title,
     this.body,
     this.appBarActions,
   }) : super(key: key);
+
+  /// A Icon or an IconButton to display before the toolbar's title.
+  final Widget? leading;
 
   /// The setting for the App Bar Elevation (Shadow).
   final double appBarElevation;
@@ -78,6 +82,7 @@ class PicosScreenFrame extends StatelessWidget {
               ),
               elevation: appBarElevation,
               actions: appBarActions,
+              leading: leading,
             ),
             body: body,
           ),
