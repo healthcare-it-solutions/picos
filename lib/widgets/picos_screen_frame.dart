@@ -24,11 +24,16 @@ class PicosScreenFrame extends StatelessWidget {
   /// Creates PicosScreenFrame.
   const PicosScreenFrame({
     Key? key,
+    this.leading,
     this.appBarElevation = 4,
     this.bottomNavigationBar,
     this.title,
     this.body,
+    this.appBarActions,
   }) : super(key: key);
+
+  /// A Icon or an IconButton to display before the toolbar's title.
+  final Widget? leading;
 
   /// The setting for the App Bar Elevation (Shadow).
   final double appBarElevation;
@@ -41,6 +46,9 @@ class PicosScreenFrame extends StatelessWidget {
 
   /// The content inside the frame to display.
   final Widget? body;
+
+  /// A list of Widgets to represent common operations in the Appbar.
+  final List<Widget>? appBarActions;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +69,7 @@ class PicosScreenFrame extends StatelessWidget {
             bottomNavigationBar: bottomNavigationBar,
             appBar: AppBar(
               iconTheme: IconThemeData(
-                color: theme.white, //change your color here
+                color: theme.white,
               ),
               centerTitle: true,
               title: Text(
@@ -73,6 +81,8 @@ class PicosScreenFrame extends StatelessWidget {
                 ),
               ),
               elevation: appBarElevation,
+              actions: appBarActions,
+              leading: leading,
             ),
             body: body,
           ),
