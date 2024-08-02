@@ -48,7 +48,7 @@ android {
 
     defaultConfig {
         applicationId "de.hitsolutions.picos"
-        minSdkVersion 21 // Should use flutter.minSdkVersion as soon as updated in Flutter.
+        minSdkVersion flutter.minSdkVersion
         targetSdkVersion 34 // Should use flutter.targetSdkVersion as soon as updated in Flutter.
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
