@@ -131,7 +131,7 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
 
       dispatch();
     } catch (e) {
-      Stream<List<CatalogOfItemsElement>>.error(e);
+      return Future<void>.error(e);
     }
   }
 
