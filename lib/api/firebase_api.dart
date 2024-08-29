@@ -44,7 +44,7 @@ class FirebaseApi {
       appId,
       kReleaseMode ? serverUrlProd : serverUrl,
       clientKey: clientKey,
-      debug: true,
+      debug: kDebugMode,
     );
 
     ParseInstallation parseInstallation =

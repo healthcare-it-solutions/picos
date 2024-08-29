@@ -72,7 +72,7 @@ class Backend {
       url,
       clientKey: clientKey,
       appName: appName,
-      debug: true,
+      debug: kDebugMode,
       fileDirectory: await _getDownloadPath(),
     );
 
