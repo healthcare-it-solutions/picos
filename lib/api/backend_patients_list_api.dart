@@ -49,7 +49,7 @@ class BackendPatientsListApi extends BackendObjectsApi {
 
       dispatch();
     } catch (e) {
-      Stream<List<PatientsListElement>>.error(e);
+      Future<void>.error(e);
     }
   }
 
