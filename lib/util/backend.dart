@@ -33,7 +33,7 @@ import '../models/abstract_database_object.dart';
 /// to be extracted with shotgun surgery, should the decision fall not to use
 /// the parse_server_sdk lib.
 class Backend {
-  /// initializes the parse server
+  /// Initializes the Parse server
   Backend() {
     if (_blockInit) {
       return;
@@ -106,17 +106,7 @@ class Backend {
       return BackendError.bruteforceLock;
     }
 
-    if (response.statusCode == 101) {
-      return BackendError.credentials;
-    }
-
-    // Other kind of error.
-    _errorMessage = response.error!.message;
-    _errorCode = response.error!.code;
-    return BackendError.error;
-  }
-
-  /// Logs the user out and return if it was successful.
+  /// Logs the user out and returns if it was successful.
   static Future<bool> logout() async {
     return (await user.logout()).success;
   }
@@ -412,7 +402,7 @@ class UserRoles {
   static const String testPatient = 'TestPatient';
 }
 
-/// An enum with different errors.
+/// Enumeration for backend errors.
 enum BackendError {
   ///Incomplete credentials.
   incompleteCredentials,
@@ -430,7 +420,7 @@ enum BackendError {
   error,
 }
 
-/// Extends [BackendError].
+/// Extension to provide error messages for [BackendError].
 extension BackendErrorExtension on BackendError {
   /// Shows the current error message.
   String getMessage(BuildContext context) {
