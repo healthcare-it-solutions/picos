@@ -54,15 +54,7 @@ class Backend {
 
   static Future<bool> _initParse() async {
     _blockInit = true;
-    String url = '';
-
-    if (kReleaseMode) {
-      url = serverUrlProd;
-    }
-
-    if (kDebugMode) {
-      url = serverUrl;
-    }
+    String url = kReleaseMode ? serverUrlProd : serverUrl;
 
     await Parse().initialize(
       appId,
@@ -136,11 +128,10 @@ class Backend {
   /// order by a specified [column].
   static Future<List<dynamic>> getAllEntriesSortedAscending(
     String table,
-    String colum,
+    String column,
   ) async {
     QueryBuilder<ParseObject> queryBuilder =
-        QueryBuilder<ParseObject>(ParseObject(table));
-    queryBuilder.orderByAscending(colum);
+        QueryBuilder<ParseObject>(ParseObject(table))..orderByAscending(column);
     ParseResponse parseResponse = await queryBuilder.query();
 
     return _createListResponse(parseResponse);
@@ -168,9 +159,7 @@ class Backend {
   ) async {
     final ParseObject object = ParseObject(tableName)..objectId = objectId;
 
-    changes.forEach((String key, dynamic value) {
-      object.set(key, value);
-    });
+    changes.forEach(object.set);
 
     return await object.save();
   }
@@ -181,10 +170,7 @@ class Backend {
     Map<String, dynamic>? parameters,
   ]) async {
     ParseCloudFunction parseCloudFunction = ParseCloudFunction(endpoint);
-
-    parameters?.forEach((String key, dynamic value) {
-      parseCloudFunction.set(key, value);
-    });
+    parameters?.forEach(parseCloudFunction.set);
 
     ParseResponse parseResponse =
         await parseCloudFunction.executeObjectFunction<ParseObject>();
@@ -211,8 +197,7 @@ class Backend {
     ParseObject parseObject = ParseObject(object.table);
 
     if (object.objectId == null && acl == null) {
-      acl = BackendACL();
-      acl.setDefault();
+      acl = BackendACL()..setDefault();
     }
 
     if (acl != null) {
@@ -223,17 +208,13 @@ class Backend {
       parseObject.objectId = object.objectId;
     }
 
-    object.databaseMapping.forEach((String key, dynamic value) {
-      parseObject.set(key, value);
-    });
+    object.databaseMapping.forEach(parseObject.set);
 
     return jsonDecode((await parseObject.save()).results!.first.toString());
   }
 
   /// Deletes the [object].
-  static Future<void> removeObject(
-    AbstractDatabaseObject object,
-  ) async {
+  static Future<void> removeObject(AbstractDatabaseObject object) async {
     ParseObject parseObject = ParseObject(object.table);
     await parseObject.delete(id: object.objectId);
   }
@@ -260,9 +241,7 @@ class BackendACL {
   final ParseACL _parseACL = ParseACL();
 
   /// Returns the ACL.
-  ParseACL get acl {
-    return _parseACL;
-  }
+  ParseACL get acl => _parseACL;
 
   /// Sets some default ACL.
   void setDefault() {
@@ -285,33 +264,24 @@ class BackendACL {
 class BackendFile {
   /// Creates a new [BackendFile].
   BackendFile(PlatformFile file) {
-    if (kIsWeb) {
-      _parseFile = ParseWebFile(
-        file.bytes!,
-        name: file.name,
-      );
-    } else {
-      _parseFile = ParseFile(File(file.path!));
-    }
+    _parseFile = kIsWeb
+        ? ParseWebFile(file.bytes!, name: file.name)
+        : ParseFile(File(file.path!));
   }
 
   /// Creates a new [BackendFile] by [url] and a [name].
   /// This is usually relevant if you try to recreate a local BackendFile you
   /// already uploaded to the backend.
   BackendFile.byUrl(String name, String url) {
-    if (kIsWeb) {
-      _parseFile = ParseWebFile(null, name: name, url: url);
-    } else {
-      _parseFile = ParseFile(null, name: name, url: url);
-    }
+    _parseFile = kIsWeb
+        ? ParseWebFile(null, name: name, url: url)
+        : ParseFile(null, name: name, url: url);
   }
 
   late final ParseFileBase _parseFile;
 
   /// Returns the file.
-  ParseFileBase get file {
-    return _parseFile;
-  }
+  ParseFileBase get file => _parseFile;
 
   /// Downloads a file from Parse Server.
   Future<PlatformFile> download() async {
