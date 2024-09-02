@@ -387,9 +387,8 @@ extension BackendRoleExtension on BackendRole {
 
       return roleName;
     } catch (e) {
-      Stream<String>.error(e);
+      return Future<String>.error(e);
     }
-    return roleName;
   }
 
   /// ID of the Role.
