@@ -69,29 +69,43 @@ class Backend {
   /// Takes [login] and [password] to login a user.
   /// Returns [BackendError] when something went wrong.
   static Future<BackendError?> login(String login, String password) async {
-    if (!Parse().hasParseBeenInitialized()) {
-      await _initialized;
+    try {
+      if (!Parse().hasParseBeenInitialized()) {
+        await _initialized;
+      }
+
+      if (login.isEmpty || password.isEmpty) {
+        return BackendError.incompleteCredentials;
+      }
+
+      user = ParseUser.createUser(login, password);
+      ParseResponse response = await user.login();
+
+      if (response.success) {
+        return null;
+      }
+
+      return _mapError(response.error);
+    } catch (e) {
+      return Future<BackendError?>.error(e);
     }
+  }
 
-    if (login.isEmpty || password.isEmpty) {
-      return BackendError.incompleteCredentials;
-    }
+  static BackendError _mapError(ParseError? error) {
+    if (error == null) return BackendError.error;
 
-    user = ParseUser.createUser(login, password);
-
-    ParseResponse response = await user.login();
-
-    if (response.error == null) {
-      return null;
-    }
-
-    if (response.error!.message.startsWith('Failed host lookup')) {
+    if (error.message.startsWith('Failed host lookup')) {
       return BackendError.notReachable;
-    }
-
-    if (response.error!.message.startsWith('Your account is locked')) {
+    } else if (error.message.startsWith('Your account is locked')) {
       return BackendError.bruteforceLock;
+    } else if (error.code == 101) {
+      return BackendError.credentials;
+    } else {
+      _errorMessage = error.message;
+      _errorCode = error.code;
+      return BackendError.error;
     }
+  }
 
   /// Logs the user out and returns if it was successful.
   static Future<bool> logout() async {
