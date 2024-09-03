@@ -220,16 +220,14 @@ class Backend {
   }
 
   static Future<String?> _getDownloadPath() async {
+    const String path = '/storage/emulated/0/Download';
     if (Platform.isIOS) {
       return (await getApplicationDocumentsDirectory()).path;
-    }
-
-    if (Platform.isAndroid) {
-      if (!await Directory('/storage/emulated/0/Download').exists()) {
+    } else if (Platform.isAndroid) {
+      if (!await Directory(path).exists()) {
         return (await getExternalStorageDirectory())?.path;
       }
-
-      return Directory('/storage/emulated/0/Download').path;
+      return path;
     }
     return null;
   }
