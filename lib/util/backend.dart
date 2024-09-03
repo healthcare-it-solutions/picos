@@ -33,11 +33,9 @@ import '../models/abstract_database_object.dart';
 class Backend {
   /// Initializes the Parse server
   Backend() {
-    if (_blockInit) {
-      return;
+    if (!_blockInit) {
+      _initialized = _initParse();
     }
-
-    _initialized = _initParse();
   }
 
   static late final Future<bool> _initialized;
