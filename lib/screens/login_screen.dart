@@ -188,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen>
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).pushNamed(
-                          '/forgot_password_screen',
+                          '/forgot_password_screen/forgot_password_screen',
                         );
                       },
                       child: Text(

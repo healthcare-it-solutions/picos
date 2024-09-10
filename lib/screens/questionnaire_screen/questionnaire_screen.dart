@@ -97,7 +97,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
         _pageStorage!.doctorVisited == true &&
         _pageStorage!.doctorVisitedUpdated == false) {
       _pageStorage!.doctorVisitedUpdated = true;
-      Navigator.of(context).pushNamed('/visits-screen/visits');
+      Navigator.of(context).pushNamed('/visits-screen/add-visit');
     }
 
     _controller.nextPage(
