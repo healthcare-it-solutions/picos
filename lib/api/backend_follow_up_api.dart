@@ -65,7 +65,6 @@ class BackendFollowUpApi extends BackendObjectsApi {
     }
   }
 
-  /// Creates a FollowUp object from a Parse object element.
   FollowUp _createFollowUpModel(dynamic element) {
     return FollowUp(
       distance: element['Strecke'],
