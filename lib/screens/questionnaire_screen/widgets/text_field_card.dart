@@ -34,6 +34,7 @@ class TextFieldCard extends StatelessWidget {
     Key? key,
     this.initialValue,
     this.decimalValue = false,
+    this.controller,
   }) : super(key: key);
 
   /// The title of the input field.
@@ -54,18 +55,16 @@ class TextFieldCard extends StatelessWidget {
   /// Determines if you should be able to input an decimal value.
   final bool decimalValue;
 
+  /// Contains controller for further submissions.
+  final TextEditingController? controller;
+
   @override
   Widget build(BuildContext context) {
-    String initialStringValue = '';
-
-    if (initialValue != null) {
-      initialStringValue = initialValue.toString();
-    }
-
     return QuestionnaireCard(
       label: PicosLabel(label),
       child: PicosTextField(
-        initialValue: initialStringValue,
+        initialValue: initialValue?.toString(),
+        controller: controller,
         onChanged: onChanged,
         hint: hint,
         keyboardType: const TextInputType.numberWithOptions(

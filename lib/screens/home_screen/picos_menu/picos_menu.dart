@@ -76,12 +76,14 @@ class PicosMenu extends StatelessWidget {
       PicosMenuItem(
         iconPath: 'assets/Krankenhaus.svg',
         title: AppLocalizations.of(context)!.visits,
-        onTap: () => Navigator.of(context).pushNamed('/visits-screen/my-visits-screen'),
+        onTap: () =>
+            Navigator.of(context).pushNamed('/visits-screen/my-visits-screen'),
       ),
       PicosMenuItem(
         iconPath: 'assets/Werte.svg',
         title: AppLocalizations.of(context)!.myValues,
-        onTap: () => Navigator.of(context).pushNamed('/my-values_screen/my-values'),
+        onTap: () =>
+            Navigator.of(context).pushNamed('/my-values_screen/my-values'),
       ),
       Padding(
         padding: const EdgeInsets.only(left: labelPadding),
@@ -93,8 +95,7 @@ class PicosMenu extends StatelessWidget {
       PicosMenuItem(
         iconPath: 'assets/Profil.svg',
         title: AppLocalizations.of(context)!.myProfile,
-        onTap: () => Navigator.of(context)
-            .pushNamed('profile-screen/profile'),
+        onTap: () => Navigator.of(context).pushNamed('profile-screen/profile'),
       ),
       PicosMenuItem(
         iconPath: 'assets/Impressum.svg',
@@ -110,12 +111,7 @@ class PicosMenu extends StatelessWidget {
         iconPath: 'assets/Log-out.svg',
         title: AppLocalizations.of(context)!.logout,
         onTap: () async {
-          if (!context.mounted) {
-            return;
-          }
-
-          if (await Backend.logout()) {
-            // ignore: use_build_context_synchronously
+          if (await Backend.logout() && context.mounted) {
             Navigator.of(context).pushReplacementNamed('/login-screen');
           }
         },

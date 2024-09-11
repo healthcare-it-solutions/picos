@@ -37,18 +37,6 @@ class EditPatientScreen extends StatefulWidget {
   /// global patientObjectId.
   static String? patientObjectId;
 
-  /// global body height.
-  static double? bodyHeight;
-
-  /// global patient ID.
-  static String? patientID;
-
-  /// global case number.
-  static String? caseNumber;
-
-  /// global institute key.
-  static String? instituteKey;
-
   @override
   State<EditPatientScreen> createState() => _EditPatientScreenState();
 }
@@ -145,13 +133,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
 
       EditPatientScreen.patientObjectId =
           _patientsListElement!.patient.objectId;
-      EditPatientScreen.bodyHeight =
-          _patientsListElement!.patientData.bodyHeight;
-      EditPatientScreen.patientID = _patientsListElement!.patientData.patientID;
-      EditPatientScreen.caseNumber =
-          _patientsListElement!.patientData.caseNumber;
-      EditPatientScreen.instituteKey =
-          _patientsListElement!.patientData.instKey;
     }
 
     return BlocBuilder<ObjectsListBloc<BackendPatientsListApi>,
@@ -331,6 +312,8 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                     Navigator.pushNamed(
                       context,
                       '/study-nurse-screen/catalog-of-items',
+                      arguments: ModalRoute.of(context)!.settings.arguments
+                          as PatientsListElement,
                     );
                   },
                 ),
