@@ -78,7 +78,7 @@ class BackendFollowUpApi extends BackendObjectsApi {
       }
       return objectList;
     } catch (e) {
-      return Future<List<FollowUp>>.error(e);
+      return Future<List<AbstractDatabaseObject>>.error(e);
     }
   }
 
