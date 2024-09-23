@@ -165,12 +165,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _setMessage(_successMessages, field, message);
   }
 
-  Widget _getMessageText(String field) {
+  Widget _getMessageText(GlobalTheme theme, String field) {
     if (_errorMessages.containsKey(field) &&
         _errorMessages[field]!.isNotEmpty) {
       return Text(
         _errorMessages[field]!,
-        style: const TextStyle(color: Color(0xFFe63329)),
+        style: TextStyle(color: theme.red),
       );
     } else if (_successMessages.containsKey(field) &&
         _successMessages[field]!.isNotEmpty) {
@@ -387,7 +387,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               onTap: () =>
                   _updateField(_form, selectedFormOfAddress.toString()),
             ),
-            _getMessageText(_form),
+            _getMessageText(theme, _form),
             PicosLabel(AppLocalizations.of(context)!.firstName),
             PicosTextField(controller: firstNameController),
             PicosInkWellButton(
@@ -395,7 +395,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               disabled: _disabled,
               onTap: () => _updateField(_firstName, firstNameController.text),
             ),
-            _getMessageText(_firstName),
+            _getMessageText(theme, _firstName),
             PicosLabel(AppLocalizations.of(context)!.familyName),
             PicosTextField(controller: lastNameController),
             PicosInkWellButton(
@@ -403,7 +403,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               disabled: _disabled,
               onTap: () => _updateField(_lastName, lastNameController.text),
             ),
-            _getMessageText(_lastName),
+            _getMessageText(theme, _lastName),
             PicosLabel(AppLocalizations.of(context)!.email),
             PicosTextField(
               keyboardType: TextInputType.emailAddress,
@@ -414,7 +414,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               disabled: _disabled,
               onTap: () => _updateField(_eMail, emailController.text),
             ),
-            _getMessageText(_eMail),
+            _getMessageText(theme, _eMail),
             PicosLabel(AppLocalizations.of(context)!.phoneNumber),
             PicosTextField(
               keyboardType: TextInputType.phone,
@@ -425,7 +425,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               disabled: _disabled,
               onTap: () => _updateField(_phoneNumber, phoneController.text),
             ),
-            _getMessageText(_phoneNumber),
+            _getMessageText(theme, _phoneNumber),
             PicosLabel(AppLocalizations.of(context)!.address),
             PicosTextField(controller: addressController),
             PicosInkWellButton(
@@ -433,7 +433,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               disabled: _disabled,
               onTap: () => _updateField(_address, addressController.text),
             ),
-            _getMessageText(_address),
+            _getMessageText(theme, _address),
             PicosLabel(AppLocalizations.of(context)!.newPassword),
             PicosTextField(
               keyboardType: TextInputType.visiblePassword,
@@ -451,14 +451,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               disabled: _disabled,
               onTap: _changePassword,
             ),
-            _getMessageText(_password),
+            _getMessageText(theme, _password),
             PicosLabel(AppLocalizations.of(context)!.bloodSugarUnit),
             ToggleButtons(
-              borderColor: Colors.black,
-              fillColor: Colors.grey,
+              borderColor: theme.black,
+              fillColor: theme.grey3,
               borderWidth: 2,
-              selectedBorderColor: Colors.black,
-              selectedColor: Colors.white,
+              selectedBorderColor: theme.black,
+              selectedColor: theme.white,
               borderRadius: BorderRadius.circular(5),
               onPressed: (int index) {
                 setState(() {
@@ -481,7 +481,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Backend.user.set('unitMg', isSelectedBloodSugarUnits[0]);
               },
             ),
-            _getMessageText(_bloodSugarMg),
+            _getMessageText(theme, _bloodSugarMg),
           ],
         ),
       ),

@@ -141,7 +141,7 @@ class PicosChartTwoColumns extends StatelessWidget {
             color: theme.blue,
           ),
         ),
-        primaryYAxis: NumericAxis(isVisible: false),
+        primaryYAxis: const NumericAxis(isVisible: false),
         tooltipBehavior: tooltipBehavior,
         legend: const Legend(
           isVisible: true,
@@ -149,6 +149,7 @@ class PicosChartTwoColumns extends StatelessWidget {
         ),
         series: <ColumnSeries<PicosChartSampleData, String>>[
           ColumnSeries<PicosChartSampleData, String>(
+            color: theme.blue,
             dataSource: chartDataList,
             width: PicosChartHelper.width,
             spacing: 0.4,
@@ -163,6 +164,7 @@ class PicosChartTwoColumns extends StatelessWidget {
             ),
           ),
           ColumnSeries<PicosChartSampleData, String>(
+            color: theme.red,
             dataSource: chartDataList,
             width: PicosChartHelper.width,
             spacing: 0.4,

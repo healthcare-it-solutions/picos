@@ -47,7 +47,7 @@ class ProgressTile extends StatelessWidget {
       case ProgressTileState.partiallyFilled:
         return const Color(0xFFf29100);
       case ProgressTileState.empty:
-        return const Color(0xFFe63329);
+        return theme.red!;
     }
   }
 
