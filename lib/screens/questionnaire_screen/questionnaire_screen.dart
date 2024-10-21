@@ -213,7 +213,8 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
                     });
                   }
 
-                  if (value == _pageStorage!.pages.length - 1) {
+                  if (value == _pageStorage!.pages.length - 1 &&
+                      !_dailyInput!.hasDemoPurposes) {
                     DateTime date = DateTime.now()
                         .subtract(Duration(days: _dailyInput!.day));
 
@@ -248,19 +249,16 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
                       weekly: weekly,
                       phq4: phq4,
                     );
-                    if (!_dailyInput!.hasDemoPurposes) {
-                      context
-                          .read<ObjectsListBloc<BackendDailyInputsApi>>()
-                          .add(
-                            SaveObject(
-                              _dailyInput!.copyWith(
-                                daily: daily,
-                                weekly: weekly,
-                                phq4: phq4,
-                              ),
+
+                    context.read<ObjectsListBloc<BackendDailyInputsApi>>().add(
+                          SaveObject(
+                            _dailyInput!.copyWith(
+                              daily: daily,
+                              weekly: weekly,
+                              phq4: phq4,
                             ),
-                          );
-                    }
+                          ),
+                        );
                   }
                 },
                 children: _pageStorage!.pages,
