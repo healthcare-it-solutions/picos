@@ -81,6 +81,8 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
     if (_selection.isEmpty) {
       _selection.addAll(<String, String>{
         RelativeType.spouse.name: RelativeType.spouse.getLocalization(context),
+        RelativeType.lifePartner.name:
+            RelativeType.lifePartner.getLocalization(context),
         RelativeType.siblings.name:
             RelativeType.siblings.getLocalization(context),
         RelativeType.roommates.name:

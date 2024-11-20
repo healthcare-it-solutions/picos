@@ -147,6 +147,10 @@
   "@sister": {
     "description": "Sister"
   },
+  "lifePartner": "Life partner",
+  "@lifePartner": {
+    "description": "Life partner"
+  },
   "edit": "Edit",
   "@edit": {
     "description": "Edit"
