@@ -65,6 +65,18 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
   String? _title;
 
   @override
+  void initState() {
+    super.initState();
+    _selectedType = RelativeType.otherRelatives.name;
+    _selectedFirstName = '';
+    _selectedFamilyName = '';
+    _selectedEmail = '';
+    _selectedPhoneNumber = '';
+    _selectedAddress = '';
+    _selectedCity = '';
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (_selection.isEmpty) {
       _selection.addAll(<String, String>{
@@ -93,12 +105,13 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
     }
 
     _title = _addFamilyMember;
-    Object? relativeEdit = ModalRoute.of(context)!.settings.arguments;
 
-    if (_relativeEdit == null && relativeEdit != null) {
+    final Relative? relativeEdit =
+        ModalRoute.of(context)?.settings.arguments as Relative?;
+
+    if (relativeEdit != null && _relativeEdit == null) {
+      _relativeEdit = relativeEdit;
       _title = _editFamilyMember;
-      _relativeEdit = relativeEdit as Relative;
-
       _selectedType = _relativeEdit!.type;
       _selectedFirstName = _relativeEdit!.firstName;
       _selectedFamilyName = _relativeEdit!.lastName;
@@ -107,17 +120,6 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
       _selectedAddress = _relativeEdit!.address;
       _selectedCity = _relativeEdit!.city;
     }
-
-    if (relativeEdit == null) {
-      _selectedType = RelativeType.otherRelatives.name;
-      _selectedFirstName = '';
-      _selectedFamilyName = '';
-      _selectedEmail = '';
-      _selectedPhoneNumber = '';
-      _selectedAddress = '';
-      _selectedCity = '';
-    }
-
     return BlocBuilder<ObjectsListBloc<BackendRelativesApi>, ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
         const double columnPadding = 10;
