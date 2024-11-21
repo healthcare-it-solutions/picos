@@ -16,10 +16,12 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../api/backend_follow_up_api.dart';
 import '../../../models/follow_up.dart';
+import '../../../state/objects_list_bloc.dart';
 import 'follow_up_item.dart';
 
 /// This is the list of follow up items.
@@ -32,12 +34,22 @@ class FollowUpList extends StatelessWidget {
     const int itemCount = 4;
     const double labelPadding = 10;
 
-    return FutureBuilder<List<FollowUp>>(
-      future: BackendFollowUpApi.getFollowUps(),
-      builder: (BuildContext context, AsyncSnapshot<List<FollowUp>> snapshot) {
-        if (snapshot.connectionState != ConnectionState.done) {
+    context
+        .read<ObjectsListBloc<BackendFollowUpApi>>()
+        .add(const LoadObjectsList());
+
+    return BlocBuilder<ObjectsListBloc<BackendFollowUpApi>, ObjectsListState>(
+      builder: (BuildContext context, ObjectsListState state) {
+        if (state.objectsList.isEmpty &&
+            state.status == ObjectsListStatus.loading) {
           return const Center(
             child: CircularProgressIndicator(),
+          );
+        }
+
+        if (state.status == ObjectsListStatus.failure) {
+          return Center(
+            child: Text(AppLocalizations.of(context)!.loadingFailed),
           );
         }
         return PicosScreenFrame(
@@ -52,7 +64,7 @@ class FollowUpList extends StatelessWidget {
                 child: ListView.builder(
                   itemCount: itemCount,
                   itemBuilder: (BuildContext context, int index) {
-                    return FollowUpItem(snapshot.data![index]);
+                    return FollowUpItem(state.objectsList[index] as FollowUp);
                   },
                 ),
               ),

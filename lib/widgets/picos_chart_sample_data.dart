@@ -16,7 +16,7 @@
 *  along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-///Chart sample data
+/// Chart sample data (x; y) or (x; y, y1).
 class PicosChartSampleData {
   /// Holds the datapoint values like x, y.
   PicosChartSampleData({

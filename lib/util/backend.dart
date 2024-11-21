@@ -19,27 +19,23 @@ import 'dart:convert';
 import 'package:file_picker/file_picker.dart';
 import 'package:universal_io/io.dart';
 import 'package:file_saver/file_saver.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:picos/config.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../models/abstract_database_object.dart';
 
 /// Serves as a facade for all backend calls, so that the calls don't need
 /// to be extracted with shotgun surgery, should the decision fall not to use
 /// the parse_server_sdk lib.
 class Backend {
-  /// initializes the parse server
+  /// Initializes the Parse server
   Backend() {
-    if (_blockInit) {
-      return;
+    if (!_blockInit) {
+      _initialized = _initParse();
     }
-
-    _initialized = _initParse();
   }
 
   static late final Future<bool> _initialized;
@@ -52,27 +48,18 @@ class Backend {
   static late String userRole;
 
   static String _errorMessage = '';
-
   static int _errorCode = 0;
 
   static Future<bool> _initParse() async {
     _blockInit = true;
-    String url = '';
-
-    if (kReleaseMode) {
-      url = serverUrlProd;
-    }
-
-    if (kDebugMode) {
-      url = serverUrl;
-    }
+    String url = kReleaseMode ? serverUrlProd : serverUrl;
 
     await Parse().initialize(
       appId,
       url,
       clientKey: clientKey,
       appName: appName,
-      debug: true,
+      debug: kDebugMode,
       fileDirectory: await _getDownloadPath(),
     );
 
@@ -82,41 +69,45 @@ class Backend {
   /// Takes [login] and [password] to login a user.
   /// Returns [BackendError] when something went wrong.
   static Future<BackendError?> login(String login, String password) async {
-    if (!Parse().hasParseBeenInitialized()) {
-      await _initialized;
+    try {
+      if (!Parse().hasParseBeenInitialized()) {
+        await _initialized;
+      }
+
+      if (login.isEmpty || password.isEmpty) {
+        return BackendError.incompleteCredentials;
+      }
+
+      user = ParseUser.createUser(login, password);
+      ParseResponse response = await user.login();
+
+      if (response.success) {
+        return null;
+      }
+
+      return _mapError(response.error);
+    } catch (e) {
+      return Future<BackendError?>.error(e);
     }
-
-    if (login.isEmpty || password.isEmpty) {
-      return BackendError.incompleteCredentials;
-    }
-
-    user = ParseUser.createUser(login, password);
-
-    ParseResponse response = await user.login();
-
-    if (response.error == null) {
-      return null;
-    }
-
-    if (response.error!.message.startsWith('Failed host lookup')) {
-      return BackendError.notReachable;
-    }
-
-    if (response.error!.message.startsWith('Your account is locked')) {
-      return BackendError.bruteforceLock;
-    }
-
-    if (response.statusCode == 101) {
-      return BackendError.credentials;
-    }
-
-    // Other kind of error.
-    _errorMessage = response.error!.message;
-    _errorCode = response.error!.code;
-    return BackendError.error;
   }
 
-  /// Logs the user out and return if it was successful.
+  static BackendError _mapError(ParseError? error) {
+    if (error == null) return BackendError.error;
+
+    if (error.message.startsWith('Failed host lookup')) {
+      return BackendError.notReachable;
+    } else if (error.message.startsWith('Your account is locked')) {
+      return BackendError.bruteforceLock;
+    } else if (error.code == 101) {
+      return BackendError.credentials;
+    } else {
+      _errorMessage = error.message;
+      _errorCode = error.code;
+      return BackendError.error;
+    }
+  }
+
+  /// Logs the user out and returns if it was successful.
   static Future<bool> logout() async {
     return (await user.logout()).success;
   }
@@ -149,11 +140,10 @@ class Backend {
   /// order by a specified [column].
   static Future<List<dynamic>> getAllEntriesSortedAscending(
     String table,
-    String colum,
+    String column,
   ) async {
     QueryBuilder<ParseObject> queryBuilder =
-        QueryBuilder<ParseObject>(ParseObject(table));
-    queryBuilder.orderByAscending(colum);
+        QueryBuilder<ParseObject>(ParseObject(table))..orderByAscending(column);
     ParseResponse parseResponse = await queryBuilder.query();
 
     return _createListResponse(parseResponse);
@@ -181,9 +171,7 @@ class Backend {
   ) async {
     final ParseObject object = ParseObject(tableName)..objectId = objectId;
 
-    changes.forEach((String key, dynamic value) {
-      object.set(key, value);
-    });
+    changes.forEach(object.set);
 
     return await object.save();
   }
@@ -194,10 +182,7 @@ class Backend {
     Map<String, dynamic>? parameters,
   ]) async {
     ParseCloudFunction parseCloudFunction = ParseCloudFunction(endpoint);
-
-    parameters?.forEach((String key, dynamic value) {
-      parseCloudFunction.set(key, value);
-    });
+    parameters?.forEach(parseCloudFunction.set);
 
     ParseResponse parseResponse =
         await parseCloudFunction.executeObjectFunction<ParseObject>();
@@ -224,8 +209,7 @@ class Backend {
     ParseObject parseObject = ParseObject(object.table);
 
     if (object.objectId == null && acl == null) {
-      acl = BackendACL();
-      acl.setDefault();
+      acl = BackendACL()..setDefault();
     }
 
     if (acl != null) {
@@ -236,32 +220,26 @@ class Backend {
       parseObject.objectId = object.objectId;
     }
 
-    object.databaseMapping.forEach((String key, dynamic value) {
-      parseObject.set(key, value);
-    });
+    object.databaseMapping.forEach(parseObject.set);
 
     return jsonDecode((await parseObject.save()).results!.first.toString());
   }
 
   /// Deletes the [object].
-  static Future<void> removeObject(
-    AbstractDatabaseObject object,
-  ) async {
+  static Future<void> removeObject(AbstractDatabaseObject object) async {
     ParseObject parseObject = ParseObject(object.table);
     await parseObject.delete(id: object.objectId);
   }
 
   static Future<String?> _getDownloadPath() async {
+    const String path = '/storage/emulated/0/Download';
     if (Platform.isIOS) {
       return (await getApplicationDocumentsDirectory()).path;
-    }
-
-    if (Platform.isAndroid) {
-      if (!await Directory('/storage/emulated/0/Download').exists()) {
+    } else if (Platform.isAndroid) {
+      if (!await Directory(path).exists()) {
         return (await getExternalStorageDirectory())?.path;
       }
-
-      return Directory('/storage/emulated/0/Download').path;
+      return path;
     }
     return null;
   }
@@ -273,9 +251,7 @@ class BackendACL {
   final ParseACL _parseACL = ParseACL();
 
   /// Returns the ACL.
-  ParseACL get acl {
-    return _parseACL;
-  }
+  ParseACL get acl => _parseACL;
 
   /// Sets some default ACL.
   void setDefault() {
@@ -298,33 +274,24 @@ class BackendACL {
 class BackendFile {
   /// Creates a new [BackendFile].
   BackendFile(PlatformFile file) {
-    if (kIsWeb) {
-      _parseFile = ParseWebFile(
-        file.bytes!,
-        name: file.name,
-      );
-    } else {
-      _parseFile = ParseFile(File(file.path!));
-    }
+    _parseFile = kIsWeb
+        ? ParseWebFile(file.bytes!, name: file.name)
+        : ParseFile(File(file.path!));
   }
 
   /// Creates a new [BackendFile] by [url] and a [name].
   /// This is usually relevant if you try to recreate a local BackendFile you
   /// already uploaded to the backend.
   BackendFile.byUrl(String name, String url) {
-    if (kIsWeb) {
-      _parseFile = ParseWebFile(null, name: name, url: url);
-    } else {
-      _parseFile = ParseFile(null, name: name, url: url);
-    }
+    _parseFile = kIsWeb
+        ? ParseWebFile(null, name: name, url: url)
+        : ParseFile(null, name: name, url: url);
   }
 
   late final ParseFileBase _parseFile;
 
   /// Returns the file.
-  ParseFileBase get file {
-    return _parseFile;
-  }
+  ParseFileBase get file => _parseFile;
 
   /// Downloads a file from Parse Server.
   Future<PlatformFile> download() async {
@@ -387,9 +354,8 @@ extension BackendRoleExtension on BackendRole {
 
       return roleName;
     } catch (e) {
-      Stream<String>.error(e);
+      return Future<String>.error(e);
     }
-    return roleName;
   }
 
   /// ID of the Role.
@@ -413,7 +379,7 @@ class UserRoles {
   static const String testPatient = 'TestPatient';
 }
 
-/// An enum with different errors.
+/// Enumeration for backend errors.
 enum BackendError {
   ///Incomplete credentials.
   incompleteCredentials,
@@ -431,7 +397,7 @@ enum BackendError {
   error,
 }
 
-/// Extends [BackendError].
+/// Extension to provide error messages for [BackendError].
 extension BackendErrorExtension on BackendError {
   /// Shows the current error message.
   String getMessage(BuildContext context) {

@@ -1,3 +1,5 @@
 [submodule "assets"]
 	path = assets
 	url = git@github.com:healthcare-it-solutions/picos-assets.git
+	branch = main # <-- track main
+    update = merge # <-- merge updates

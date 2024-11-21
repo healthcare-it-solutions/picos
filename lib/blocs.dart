@@ -23,6 +23,7 @@ import 'package:picos/api/backend_patients_list_api.dart';
 import 'package:picos/state/objects_list_bloc.dart';
 
 import 'api/backend_documents_api.dart';
+import 'api/backend_follow_up_api.dart';
 import 'api/backend_medications_api.dart';
 import 'api/backend_physicians_api.dart';
 import 'api/backend_relatives_api.dart';
@@ -94,6 +95,12 @@ class Blocs extends StatelessWidget {
           create: (BuildContext context) =>
           ObjectsListBloc<BackendCatalogOfItemsApi>(
             BackendCatalogOfItemsApi(),
+          )..add(const LoadObjectsList()),
+        ),
+        BlocProvider<ObjectsListBloc<BackendFollowUpApi>>(
+          create: (BuildContext context) =>
+          ObjectsListBloc<BackendFollowUpApi>(
+            BackendFollowUpApi(),
           )..add(const LoadObjectsList()),
         ),
       ],

@@ -34,7 +34,7 @@ class MyVisitsScreen extends StatelessWidget {
         child: VisitsList(),
       ),
       bottomNavigationBar: const PicosAddMonoButtonBar(
-        route: '/visits-screen/visits',
+        route: '/visits-screen/add-visit',
       ),
       title: AppLocalizations.of(context)!.myVisits,
     );

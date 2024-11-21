@@ -64,7 +64,7 @@ class PicosChartColumn extends StatelessWidget {
       AbstractDatabaseObject? matchingData = isWeekly == true
           ? (dataList as List<Weekly>?)?.firstWhereOrNull(
               (Weekly weekly) =>
-                  PicosChartHelper.isWithinWeek(weekly.date, date),
+                  PicosChartHelper.isInSameWeek(weekly.date, date),
             )
           : (dataList as List<Daily>?)?.firstWhereOrNull(
               (Daily daily) => PicosChartHelper.isSameDay(daily.date, date),
@@ -136,10 +136,11 @@ class PicosChartColumn extends StatelessWidget {
             color: PicosChartHelper.colorBlack,
           ),
         ),
-        primaryYAxis: NumericAxis(isVisible: false),
+        primaryYAxis: const NumericAxis(isVisible: false),
         tooltipBehavior: tooltipBehavior,
         series: <ColumnSeries<PicosChartSampleData, String>>[
           ColumnSeries<PicosChartSampleData, String>(
+            color: theme.blue,
             dataSource: _prepareChartData(),
             xValueMapper: (PicosChartSampleData point, _) => point.x,
             yValueMapper: (PicosChartSampleData point, _) => point.y,

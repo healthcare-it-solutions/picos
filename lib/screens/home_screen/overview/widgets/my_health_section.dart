@@ -63,7 +63,7 @@ class MyHealthSection extends StatelessWidget {
                   imageName:
                       'assets/Rehospitalisierung_1225743855_┬®iStock.png',
                   sectionName: AppLocalizations.of(context)!.visits,
-                  routeName: '/visits-screen/visits',
+                  routeName: '/visits-screen/my-visits-screen',
                 ),
                 const SizedBox(
                   width: 15,
