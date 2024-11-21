@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../themes/global_theme.dart';
+
 /// Creates a standardized section for the overview.
 class Section extends StatelessWidget {
   /// Section constructor.
@@ -15,10 +17,9 @@ class Section extends StatelessWidget {
   /// The color for the title.
   final Color? titleColor;
 
-  static const Color _standardTitleColor = Colors.black;
-
   @override
   Widget build(BuildContext context) {
+    final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
     return Padding(
       padding: const EdgeInsets.all(15),
       child: Column(
@@ -32,14 +33,14 @@ class Section extends StatelessWidget {
             child: Text(
               title ?? '',
               style: TextStyle(
-                color: titleColor ?? _standardTitleColor,
+                color: titleColor ?? theme.black,
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
           Container(
-            color: titleColor ?? _standardTitleColor,
+            color: titleColor ?? theme.black,
             height: 1,
           ),
           const SizedBox(
