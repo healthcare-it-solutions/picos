@@ -103,7 +103,7 @@ class PicosChartLine extends StatelessWidget {
             color: PicosChartHelper.colorBlack,
           ),
         ),
-        primaryYAxis: NumericAxis(isVisible: false),
+        primaryYAxis: const NumericAxis(isVisible: false),
         tooltipBehavior: tooltipBehavior,
         series: <LineSeries<PicosChartSampleData, String>>[
           LineSeries<PicosChartSampleData, String>(
@@ -116,7 +116,7 @@ class PicosChartLine extends StatelessWidget {
               isVisible: true,
               labelAlignment: ChartDataLabelAlignment.top,
             ),
-            emptyPointSettings: EmptyPointSettings(
+            emptyPointSettings: const EmptyPointSettings(
               mode: EmptyPointMode.drop,
             ),
           ),

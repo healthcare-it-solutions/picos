@@ -28,7 +28,9 @@ class GlobalTheme extends ThemeExtension<GlobalTheme> {
     this.darkGreen2 = const Color(0xFF4a8a96),
     this.darkGreen3 = const Color(0xFF0f5868),
     this.white = const Color(0xFFffffff),
+    this.black = const Color(0xFF000000),
     this.blue = const Color(0xFF236fa8),
+    this.red = const Color(0xFFe63329),
     this.green1 = const Color(0xFF95c11f),
     this.green2 = const Color(0xFF6eab27),
     this.grey1 = const Color(0xFF5f7383),
@@ -47,11 +49,17 @@ class GlobalTheme extends ThemeExtension<GlobalTheme> {
   /// Standard: #0f5868
   final Color? darkGreen3;
 
-  /// Standard: #e8f1f3
+  /// Standard: #ffffff
   final Color? white;
+
+  /// Standard: #000000
+  final Color? black;
 
   /// Standard: #236fa8
   final Color? blue;
+
+  /// Standard: #e63329
+  final Color? red;
 
   /// Standard: #95c11f
   final Color? green1;
@@ -81,7 +89,9 @@ class GlobalTheme extends ThemeExtension<GlobalTheme> {
     Color? darkGreen2,
     Color? darkGreen3,
     Color? white,
+    Color? black,
     Color? blue,
+    Color? red,
     Color? green1,
     Color? green2,
     Color? grey1,
@@ -95,7 +105,9 @@ class GlobalTheme extends ThemeExtension<GlobalTheme> {
       darkGreen2: darkGreen2 ?? this.darkGreen2,
       darkGreen3: darkGreen3 ?? this.darkGreen3,
       white: white ?? this.white,
+      black: black ?? this.black,
       blue: blue ?? this.blue,
+      red: red ?? this.red,
       green1: green1 ?? this.green1,
       green2: green2 ?? this.green2,
       grey1: grey1 ?? this.grey1,
@@ -120,7 +132,9 @@ class GlobalTheme extends ThemeExtension<GlobalTheme> {
       darkGreen2: Color.lerp(darkGreen2, other.darkGreen2, t),
       darkGreen3: Color.lerp(darkGreen3, other.darkGreen3, t),
       white: Color.lerp(white, other.white, t),
+      black: Color.lerp(black, other.black, t),
       blue: Color.lerp(blue, other.blue, t),
+      red: Color.lerp(red, other.red, t),
       green1: Color.lerp(green1, other.green1, t),
       green2: Color.lerp(green2, other.green2, t),
       grey1: Color.lerp(grey1, other.grey1, t),

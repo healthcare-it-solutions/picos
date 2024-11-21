@@ -72,7 +72,7 @@ class PicosChartHelper {
 
   /// Checks if a given date, [dateToCheck], falls within the same week as
   /// another reference date, [referenceDate].
-  static bool isWithinWeek(DateTime dateToCheck, DateTime referenceDate) {
+  static bool isInSameWeek(DateTime dateToCheck, DateTime referenceDate) {
     DateTime startOfWeek = referenceDate
         .subtract(Duration(days: referenceDate.weekday - 1))
         .subtract(
