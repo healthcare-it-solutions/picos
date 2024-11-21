@@ -111,6 +111,8 @@ class Relative extends AbstractDatabaseObject {
 enum RelativeType {
   /// Spouse
   spouse,
+  /// lifePartner
+  lifePartner,
   /// Siblings
   siblings,
   /// Roommates
@@ -136,6 +138,8 @@ extension RelativeTypeConverter on RelativeType {
     switch (this) {
       case RelativeType.spouse:
         return AppLocalizations.of(context)!.spouse;
+      case RelativeType.lifePartner:
+        return AppLocalizations.of(context)!.lifePartner;
       case RelativeType.siblings:
         return AppLocalizations.of(context)!.siblings;
       case RelativeType.roommates:
@@ -144,8 +148,6 @@ extension RelativeTypeConverter on RelativeType {
         return AppLocalizations.of(context)!.mother;
       case RelativeType.father:
         return AppLocalizations.of(context)!.father;
-      case RelativeType.otherRelatives:
-        return AppLocalizations.of(context)!.otherRelatives;
       default:
         return AppLocalizations.of(context)!.otherRelatives;
     }
