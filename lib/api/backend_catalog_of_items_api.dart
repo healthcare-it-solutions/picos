@@ -638,46 +638,39 @@ class BackendCatalogOfItemsApi extends BackendObjectsApi {
             movementDataObject.patientObjectId == patientObjectId,
       );
 
-      if (matchingICUDiagnosis != null ||
-          matchingVitalSigns != null ||
-          matchingRespiratoryParameters != null ||
-          matchingBloodGasAnalysis != null ||
-          matchingLaborParameters != null ||
-          matchingMovementData != null) {
-        List<VitalSignsObject>? foundObjectsVitalSigns =
-            _findMatchingObjectsVitalSigns(
-          matchingVitalSigns,
-          vitalSignsObjectResults,
-        );
+      List<VitalSignsObject>? foundObjectsVitalSigns =
+          _findMatchingObjectsVitalSigns(
+        matchingVitalSigns,
+        vitalSignsObjectResults,
+      );
 
-        List<BloodGasAnalysisObject>? foundObjectsBloodGasAnalysis =
-            _findMatchingObjectsBloodGasAnalysis(
-          matchingBloodGasAnalysis,
-          bloodGasAnalysisObjectResults,
-        );
+      List<BloodGasAnalysisObject>? foundObjectsBloodGasAnalysis =
+          _findMatchingObjectsBloodGasAnalysis(
+        matchingBloodGasAnalysis,
+        bloodGasAnalysisObjectResults,
+      );
 
-        List<RespiratoryParametersObject>? foundObjectsRespiratoryParameters =
-            _findMatchingObjectsRespiratoryParameters(
-          matchingRespiratoryParameters,
-          respiratoryParametersObjectResults,
-        );
+      List<RespiratoryParametersObject>? foundObjectsRespiratoryParameters =
+          _findMatchingObjectsRespiratoryParameters(
+        matchingRespiratoryParameters,
+        respiratoryParametersObjectResults,
+      );
 
-        result = CatalogOfItemsElement(
-          icuDiagnosis: matchingICUDiagnosis,
-          vitalSigns: matchingVitalSigns,
-          vitalSignsObject1: foundObjectsVitalSigns?[0],
-          vitalSignsObject2: foundObjectsVitalSigns?[1],
-          respiratoryParameters: matchingRespiratoryParameters,
-          respiratoryParametersObject1: foundObjectsRespiratoryParameters?[0],
-          respiratoryParametersObject2: foundObjectsRespiratoryParameters?[1],
-          bloodGasAnalysis: matchingBloodGasAnalysis,
-          bloodGasAnalysisObject1: foundObjectsBloodGasAnalysis?[0],
-          bloodGasAnalysisObject2: foundObjectsBloodGasAnalysis?[1],
-          laborParameters: matchingLaborParameters,
-          movementData: matchingMovementData,
-          objectId: patientObjectId,
-        );
-      }
+      result = CatalogOfItemsElement(
+        icuDiagnosis: matchingICUDiagnosis,
+        vitalSigns: matchingVitalSigns,
+        vitalSignsObject1: foundObjectsVitalSigns?[0],
+        vitalSignsObject2: foundObjectsVitalSigns?[1],
+        respiratoryParameters: matchingRespiratoryParameters,
+        respiratoryParametersObject1: foundObjectsRespiratoryParameters?[0],
+        respiratoryParametersObject2: foundObjectsRespiratoryParameters?[1],
+        bloodGasAnalysis: matchingBloodGasAnalysis,
+        bloodGasAnalysisObject1: foundObjectsBloodGasAnalysis?[0],
+        bloodGasAnalysisObject2: foundObjectsBloodGasAnalysis?[1],
+        laborParameters: matchingLaborParameters,
+        movementData: matchingMovementData,
+        objectId: patientObjectId,
+      );
     } catch (e) {
       return Future<CatalogOfItemsElement?>.error(e);
     }
