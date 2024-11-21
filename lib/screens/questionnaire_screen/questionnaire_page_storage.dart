@@ -272,7 +272,7 @@ class QuestionnairePageStorage {
 
       bodyHeight = element?['BodyHeight']?.toDouble();
     } catch (e) {
-      Stream<int?>.error(e);
+      return Future<int?>.error(e);
     }
 
     return bodyHeight?.toInt();
