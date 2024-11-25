@@ -80,7 +80,7 @@ class Routes {
       '/legals-screen': (BuildContext ctx) => const LegalsScreen(),
       '/privacy-notice-screen': (BuildContext ctx) =>
           const PrivacyNoticeScreen(),
-      '/visits-screen/visits': (BuildContext ctx) => const AddVisitScreen(),
+      '/visits-screen/add-visit': (BuildContext ctx) => const AddVisitScreen(),
       '/visits-screen/my-visits-screen': (BuildContext ctx) =>
           const MyVisitsScreen(),
       '/login-screen': (BuildContext ctx) => const LoginScreen(),
@@ -103,7 +103,7 @@ class Routes {
           const FollowUpList(),
       '/follow_up_screen/edit_follow_up_screen': (BuildContext ctx) =>
           const EditFollowUpScreen(),
-      '/forgot_password_screen': (BuildContext ctx) =>
+      '/forgot_password_screen/forgot_password_screen': (BuildContext ctx) =>
           const ForgotPasswordScreen(),
     };
   }

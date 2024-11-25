@@ -120,9 +120,9 @@ class _LoginScreenState extends State<LoginScreen>
               ),
               RichText(
                 text: TextSpan(
-                  style: const TextStyle(
+                  style: TextStyle(
                     height: 2,
-                    color: Colors.black,
+                    color: theme.black,
                   ),
                   children: <TextSpan>[
                     TextSpan(
@@ -145,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen>
               _backendError != null
                   ? Text(
                       _backendError!.getMessage(context),
-                      style: const TextStyle(color: Color(0xFFe63329)),
+                      style: TextStyle(color: theme.red),
                     )
                   : const Text(''),
               const SizedBox(
@@ -173,7 +173,7 @@ class _LoginScreenState extends State<LoginScreen>
                           ? Icons.visibility_rounded
                           : Icons.visibility_off_rounded,
                     ),
-                    color: Colors.grey,
+                    color: theme.grey3,
                     onPressed: () => setState(() {
                       _passwordVisible = !_passwordVisible;
                     }),
@@ -188,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen>
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).pushNamed(
-                          '/forgot_password_screen',
+                          '/forgot_password_screen/forgot_password_screen',
                         );
                       },
                       child: Text(
@@ -215,7 +215,7 @@ class _LoginScreenState extends State<LoginScreen>
                       child: !kIsWeb
                           ? Checkbox(
                               value: _isChecked,
-                              checkColor: Colors.white,
+                              checkColor: theme.white,
                               activeColor: theme.darkGreen1,
                               onChanged: (bool? value) {
                                 setState(

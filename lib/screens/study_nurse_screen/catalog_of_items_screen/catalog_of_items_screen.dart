@@ -65,22 +65,18 @@ class _CatalogOfItemsScreenState extends State<CatalogOfItemsScreen>
   void _nextPageCallback() {
     _currentPage = page.toInt() + 1;
     if (_currentPage == pages.length) {
-      try {
-        CatalogOfItemsElement catalogOfItemsElement;
-        if (_catalogOfItemsElement == null) {
-          catalogOfItemsElement = createCatalogFromPageStorage();
-        } else {
-          catalogOfItemsElement = updateCatalogFromExistingElement();
-        }
-
-        context.read<ObjectsListBloc<BackendCatalogOfItemsApi>>().add(
-              SaveObject(catalogOfItemsElement),
-            );
-        updatePatientsListElement(catalogOfItemsElement);
-        Navigator.of(context).pop();
-      } catch (e) {
-        Stream<String>.error(e);
+      CatalogOfItemsElement catalogOfItemsElement;
+      if (_catalogOfItemsElement == null) {
+        catalogOfItemsElement = createCatalogFromPageStorage();
+      } else {
+        catalogOfItemsElement = updateCatalogFromExistingElement();
       }
+
+      context.read<ObjectsListBloc<BackendCatalogOfItemsApi>>().add(
+            SaveObject(catalogOfItemsElement),
+          );
+      updatePatientsListElement(catalogOfItemsElement);
+      Navigator.of(context).pop();
     }
   }
 

@@ -42,11 +42,11 @@ class ConfigurationScreen extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: theme.white,
         leading: BackButton(color: theme.darkGreen2),
       ),
       body: Container(
-        color: Colors.white,
+        color: theme.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
