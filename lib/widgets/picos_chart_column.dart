@@ -29,7 +29,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../models/daily.dart';
 import '../themes/global_theme.dart';
 
-/// Widget to display blood sugar values in a column chart.
+/// Widget to display values in a column chart.
 class PicosChartColumn extends StatelessWidget {
   /// Creates a [PicosChartColumn].
   const PicosChartColumn({

@@ -30,7 +30,7 @@ import '../models/abstract_database_object.dart';
 import '../models/weekly.dart';
 import '../themes/global_theme.dart';
 
-/// Widget to display blood sugar values in a column chart.
+/// Widget to display values in two columns chart.
 class PicosChartTwoColumns extends StatelessWidget {
   /// Creates a [PicosChartTwoColumns].
   const PicosChartTwoColumns({
