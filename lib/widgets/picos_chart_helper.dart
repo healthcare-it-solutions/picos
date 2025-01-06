@@ -17,6 +17,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 /// Helper class for common chart properties and methods.
 class PicosChartHelper {
@@ -31,6 +32,18 @@ class PicosChartHelper {
     return date1.year == date2.year &&
         date1.month == date2.month &&
         date1.day == date2.day;
+  }
+
+  /// Formats a title by appending a date range.
+  static String formatTitleWithDateRange(
+    DateTime startDate,
+    DateTime endDate,
+    String title,
+  ) {
+    final DateFormat formatterStartDate = DateFormat('dd.MM.');
+    final DateFormat formatterEndDate = DateFormat('dd.MM.yyyy');
+    return '$title  ${formatterStartDate.format(startDate)}- '
+        '${formatterEndDate.format(endDate)}';
   }
 
   /// Returns the last seven days of the week.
