@@ -21,8 +21,8 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/home_screen/overview/widgets/graph_section.dart';
-import 'package:picos/widgets/picos_chart_helper.dart';
-import 'package:picos/widgets/picos_chart_sample_data.dart';
+import 'package:picos/util/chart_helper.dart';
+import 'package:picos/util/chart_sample_data.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../models/daily.dart';
 import '../models/abstract_database_object.dart';
@@ -52,10 +52,10 @@ class PicosChartTwoColumns extends StatelessWidget {
   /// A flag indicating if the data or display is based on a weekly timeframe.
   final bool? isWeekly;
 
-  List<PicosChartSampleData> _prepareChartData() {
+  List<ChartSampleData> _prepareChartData() {
     Map<String, DateTime> datesWithValues = isWeekly == true
-        ? PicosChartHelper.getLastSevenWeeksFromToday()
-        : PicosChartHelper.getLastSevenDaysWithDates();
+        ? ChartHelper.getLastSevenWeeksFromToday()
+        : ChartHelper.getLastSevenDaysWithDates();
 
     return datesWithValues.entries.map((MapEntry<String, DateTime> entry) {
       String dayShortText = entry.key;
@@ -64,10 +64,10 @@ class PicosChartTwoColumns extends StatelessWidget {
       AbstractDatabaseObject? matchingData = isWeekly == true
           ? (dataList as List<Weekly>?)?.firstWhereOrNull(
               (Weekly weekly) =>
-                  PicosChartHelper.isInSameWeek(weekly.date, date),
+                  ChartHelper.isInSameWeek(weekly.date, date),
             )
           : (dataList as List<Daily>?)?.firstWhereOrNull(
-              (Daily daily) => PicosChartHelper.isSameDay(daily.date, date),
+              (Daily daily) => ChartHelper.isSameDay(daily.date, date),
             );
 
       double? y;
@@ -83,7 +83,7 @@ class PicosChartTwoColumns extends StatelessWidget {
         y1 = (matchingData)?.bloodDiastolic?.toDouble();
       }
 
-      return PicosChartSampleData(
+      return ChartSampleData(
         x: dayShortText,
         y: y,
         y1: y1,
@@ -93,7 +93,7 @@ class PicosChartTwoColumns extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<PicosChartSampleData> chartDataList = _prepareChartData();
+    List<ChartSampleData> chartDataList = _prepareChartData();
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
     TooltipBehavior tooltipBehavior = TooltipBehavior(
       enable: true,
@@ -107,11 +107,11 @@ class PicosChartTwoColumns extends StatelessWidget {
     );
 
     final String titleWithDateRange =
-        PicosChartHelper.formatTitleWithDateRange(startDate, today, title!);
+        ChartHelper.formatTitleWithDateRange(startDate, today, title!);
 
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: theme.blue!, width: PicosChartHelper.width),
+        border: Border.all(color: theme.blue!, width: ChartHelper.width),
         borderRadius: BorderRadius.circular(10),
       ),
       child: SfCartesianChart(
@@ -128,7 +128,7 @@ class PicosChartTwoColumns extends StatelessWidget {
         primaryXAxis: CategoryAxis(
           majorGridLines: const MajorGridLines(width: 0),
           labelStyle: const TextStyle(
-            color: PicosChartHelper.colorBlack,
+            color: ChartHelper.colorBlack,
           ),
           axisLine: AxisLine(
             color: theme.blue,
@@ -140,14 +140,14 @@ class PicosChartTwoColumns extends StatelessWidget {
           isVisible: true,
           position: LegendPosition.top,
         ),
-        series: <ColumnSeries<PicosChartSampleData, String>>[
-          ColumnSeries<PicosChartSampleData, String>(
+        series: <ColumnSeries<ChartSampleData, String>>[
+          ColumnSeries<ChartSampleData, String>(
             color: theme.blue,
             dataSource: chartDataList,
-            width: PicosChartHelper.width,
+            width: ChartHelper.width,
             spacing: 0.4,
-            xValueMapper: (PicosChartSampleData point, _) => point.x,
-            yValueMapper: (PicosChartSampleData point, _) => point.y,
+            xValueMapper: (ChartSampleData point, _) => point.x,
+            yValueMapper: (ChartSampleData point, _) => point.y,
             name: valuesChartOptions == ValuesChartOptions.bodyWeightAndBMI
                 ? AppLocalizations.of(context)!.bodyWeight
                 : AppLocalizations.of(context)!.systolic,
@@ -156,13 +156,13 @@ class PicosChartTwoColumns extends StatelessWidget {
               labelAlignment: ChartDataLabelAlignment.outer,
             ),
           ),
-          ColumnSeries<PicosChartSampleData, String>(
+          ColumnSeries<ChartSampleData, String>(
             color: theme.red,
             dataSource: chartDataList,
-            width: PicosChartHelper.width,
+            width: ChartHelper.width,
             spacing: 0.4,
-            xValueMapper: (PicosChartSampleData point, _) => point.x as String,
-            yValueMapper: (PicosChartSampleData point, _) => point.y1,
+            xValueMapper: (ChartSampleData point, _) => point.x as String,
+            yValueMapper: (ChartSampleData point, _) => point.y1,
             name: valuesChartOptions == ValuesChartOptions.bodyWeightAndBMI
                 ? AppLocalizations.of(context)!.bmi
                 : AppLocalizations.of(context)!.diastolic,

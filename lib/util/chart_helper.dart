@@ -20,7 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 /// Helper class for common chart properties and methods.
-class PicosChartHelper {
+class ChartHelper {
   /// Width chart.
   static const double width = 1.0;
 

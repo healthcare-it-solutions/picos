@@ -20,8 +20,8 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:picos/widgets/picos_chart_helper.dart';
-import 'package:picos/widgets/picos_chart_sample_data.dart';
+import 'package:picos/util/chart_helper.dart';
+import 'package:picos/util/chart_sample_data.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../models/daily.dart';
 import '../themes/global_theme.dart';
@@ -38,23 +38,23 @@ class PicosChartLine extends StatelessWidget {
   /// An optional title, used for a chart name.
   final String? title;
 
-  List<PicosChartSampleData> _prepareChartData() {
-    if (dailyList == null) return <PicosChartSampleData>[];
+  List<ChartSampleData> _prepareChartData() {
+    if (dailyList == null) return <ChartSampleData>[];
 
     Map<String, DateTime> daysWithDates =
-        PicosChartHelper.getLastSevenDaysWithDates();
+        ChartHelper.getLastSevenDaysWithDates();
 
     return daysWithDates.entries.map((MapEntry<String, DateTime> entry) {
       String dayShortText = entry.key;
       DateTime date = entry.value;
 
       Daily? matchingDaily = dailyList!.firstWhereOrNull(
-        (Daily daily) => PicosChartHelper.isSameDay(daily.date, date),
+        (Daily daily) => ChartHelper.isSameDay(daily.date, date),
       );
 
       double? value = matchingDaily?.heartFrequency?.toDouble();
 
-      return PicosChartSampleData(
+      return ChartSampleData(
         x: dayShortText,
         y: value,
       );
@@ -80,7 +80,7 @@ class PicosChartLine extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: theme.blue!, width: PicosChartHelper.width),
+        border: Border.all(color: theme.blue!, width: ChartHelper.width),
         borderRadius: BorderRadius.circular(10),
       ),
       child: SfCartesianChart(
@@ -100,16 +100,16 @@ class PicosChartLine extends StatelessWidget {
             color: theme.blue,
           ),
           labelStyle: const TextStyle(
-            color: PicosChartHelper.colorBlack,
+            color: ChartHelper.colorBlack,
           ),
         ),
         primaryYAxis: const NumericAxis(isVisible: false),
         tooltipBehavior: tooltipBehavior,
-        series: <LineSeries<PicosChartSampleData, String>>[
-          LineSeries<PicosChartSampleData, String>(
+        series: <LineSeries<ChartSampleData, String>>[
+          LineSeries<ChartSampleData, String>(
             dataSource: _prepareChartData(),
-            xValueMapper: (PicosChartSampleData point, _) => point.x,
-            yValueMapper: (PicosChartSampleData point, _) => point.y,
+            xValueMapper: (ChartSampleData point, _) => point.x,
+            yValueMapper: (ChartSampleData point, _) => point.y,
             name: title,
             markerSettings: const MarkerSettings(isVisible: true),
             dataLabelSettings: const DataLabelSettings(

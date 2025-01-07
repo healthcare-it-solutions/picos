@@ -17,9 +17,9 @@
 */
 
 /// Chart sample data (x; y) or (x; y, y1).
-class PicosChartSampleData {
+class ChartSampleData {
   /// Holds the datapoint values like x, y.
-  PicosChartSampleData({
+  ChartSampleData({
     this.x,
     this.y,
     this.y1,

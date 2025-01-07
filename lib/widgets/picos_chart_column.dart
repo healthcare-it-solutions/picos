@@ -22,8 +22,8 @@ import 'package:flutter/material.dart';
 import 'package:picos/models/abstract_database_object.dart';
 import 'package:picos/models/weekly.dart';
 import 'package:picos/screens/home_screen/overview/widgets/graph_section.dart';
-import 'package:picos/widgets/picos_chart_helper.dart';
-import 'package:picos/widgets/picos_chart_sample_data.dart';
+import 'package:picos/util/chart_helper.dart';
+import 'package:picos/util/chart_sample_data.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../models/daily.dart';
 import '../themes/global_theme.dart';
@@ -51,10 +51,10 @@ class PicosChartColumn extends StatelessWidget {
   /// A flag indicating if the data or display is based on a weekly timeframe.
   final bool? isWeekly;
 
-  List<PicosChartSampleData> _prepareChartData() {
+  List<ChartSampleData> _prepareChartData() {
     Map<String, DateTime> datesWithValues = isWeekly == true
-        ? PicosChartHelper.getLastSevenWeeksFromToday()
-        : PicosChartHelper.getLastSevenDaysWithDates();
+        ? ChartHelper.getLastSevenWeeksFromToday()
+        : ChartHelper.getLastSevenDaysWithDates();
 
     return datesWithValues.entries.map((MapEntry<String, DateTime> entry) {
       String dayShortText = entry.key;
@@ -63,10 +63,10 @@ class PicosChartColumn extends StatelessWidget {
       AbstractDatabaseObject? matchingData = isWeekly == true
           ? (dataList as List<Weekly>?)?.firstWhereOrNull(
               (Weekly weekly) =>
-                  PicosChartHelper.isInSameWeek(weekly.date, date),
+                  ChartHelper.isInSameWeek(weekly.date, date),
             )
           : (dataList as List<Daily>?)?.firstWhereOrNull(
-              (Daily daily) => PicosChartHelper.isSameDay(daily.date, date),
+              (Daily daily) => ChartHelper.isSameDay(daily.date, date),
             );
 
       double? value;
@@ -80,7 +80,7 @@ class PicosChartColumn extends StatelessWidget {
         value = (matchingData as Daily?)?.sleepDuration?.toDouble();
       }
 
-      return PicosChartSampleData(
+      return ChartSampleData(
         x: dayShortText,
         y: value,
       );
@@ -102,11 +102,11 @@ class PicosChartColumn extends StatelessWidget {
     );
 
     final String titleWithDateRange =
-        PicosChartHelper.formatTitleWithDateRange(startDate, today, title!);
+        ChartHelper.formatTitleWithDateRange(startDate, today, title!);
 
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: theme.blue!, width: PicosChartHelper.width),
+        border: Border.all(color: theme.blue!, width: ChartHelper.width),
         borderRadius: BorderRadius.circular(10),
       ),
       child: SfCartesianChart(
@@ -126,17 +126,17 @@ class PicosChartColumn extends StatelessWidget {
             color: theme.blue,
           ),
           labelStyle: const TextStyle(
-            color: PicosChartHelper.colorBlack,
+            color: ChartHelper.colorBlack,
           ),
         ),
         primaryYAxis: const NumericAxis(isVisible: false),
         tooltipBehavior: tooltipBehavior,
-        series: <ColumnSeries<PicosChartSampleData, String>>[
-          ColumnSeries<PicosChartSampleData, String>(
+        series: <ColumnSeries<ChartSampleData, String>>[
+          ColumnSeries<ChartSampleData, String>(
             color: theme.blue,
             dataSource: _prepareChartData(),
-            xValueMapper: (PicosChartSampleData point, _) => point.x,
-            yValueMapper: (PicosChartSampleData point, _) => point.y,
+            xValueMapper: (ChartSampleData point, _) => point.x,
+            yValueMapper: (ChartSampleData point, _) => point.y,
             name: title,
             dataLabelSettings: const DataLabelSettings(
               isVisible: true,
