@@ -17,27 +17,23 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:picos/api/backend_stays_api.dart';
-import 'package:picos/models/stay.dart';
+import 'package:picos/api/backend_patients_list_api.dart';
+import 'package:picos/models/patients_list_element.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/screens/my_visits_screen/visit_item.dart';
-import '../../state/objects_list_bloc.dart';
+import 'package:picos/screens/study_nurse_screen/menu_screen/widgets/patients_list_card.dart';
+import 'package:picos/state/objects_list_bloc.dart';
 
-/// A List with all visits.
-class VisitsList extends StatefulWidget {
-  /// Creates VisitsList.
-  const VisitsList({Key? key}) : super(key: key);
+/// A List with all patients.
+class PatientsList extends StatelessWidget {
+  /// Creates the patients list.
+  const PatientsList({Key? key}) : super(key: key);
 
-  @override
-  State<VisitsList> createState() => _VisitsListState();
-}
-
-class _VisitsListState extends State<VisitsList> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ObjectsListBloc<BackendStaysApi>, ObjectsListState>(
+    return BlocBuilder<ObjectsListBloc<BackendPatientsListApi>,
+        ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
-        if (state.status == ObjectsListStatus.initial ||
+        if (state.objectsList.isEmpty &&
             state.status == ObjectsListStatus.loading) {
           return const Center(
             child: CircularProgressIndicator(),
@@ -50,18 +46,11 @@ class _VisitsListState extends State<VisitsList> {
           );
         }
 
-        return ListView.separated(
+        return ListView.builder(
           itemCount: state.objectsList.length,
           itemBuilder: (BuildContext context, int index) {
-            return VisitItem(state.objectsList[index] as Stay);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Divider(
-                thickness: 1,
-                height: 0,
-              ),
+            return PatientsListCard(
+              state.objectsList[index] as PatientsListElement,
             );
           },
         );

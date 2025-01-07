@@ -21,9 +21,9 @@ import 'package:picos/models/abstract_database_object.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../api/backend_documents_api.dart';
-import '../../models/document.dart';
-import '../../state/objects_list_bloc.dart';
+import '../../../api/backend_documents_api.dart';
+import '../../../models/document.dart';
+import '../../../state/objects_list_bloc.dart';
 import 'document_item.dart';
 
 /// A List with all documents.

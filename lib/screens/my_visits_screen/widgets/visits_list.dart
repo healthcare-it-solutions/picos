@@ -17,30 +17,27 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:picos/widgets/picos_screen_frame.dart';
+import 'package:picos/api/backend_stays_api.dart';
+import 'package:picos/models/stay.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../../api/backend_follow_up_api.dart';
-import '../../../models/follow_up.dart';
+import 'package:picos/screens/my_visits_screen/widgets/visit_item.dart';
 import '../../../state/objects_list_bloc.dart';
-import 'follow_up_item.dart';
 
-/// This is the list of follow up items.
-class FollowUpList extends StatelessWidget {
-  /// FollowUpList constructor
-  const FollowUpList({Key? key}) : super(key: key);
+/// A List with all visits.
+class VisitsList extends StatefulWidget {
+  /// Creates VisitsList.
+  const VisitsList({Key? key}) : super(key: key);
 
   @override
+  State<VisitsList> createState() => _VisitsListState();
+}
+
+class _VisitsListState extends State<VisitsList> {
+  @override
   Widget build(BuildContext context) {
-    const int itemCount = 4;
-    const double labelPadding = 10;
-
-    context
-        .read<ObjectsListBloc<BackendFollowUpApi>>()
-        .add(const LoadObjectsList());
-
-    return BlocBuilder<ObjectsListBloc<BackendFollowUpApi>, ObjectsListState>(
+    return BlocBuilder<ObjectsListBloc<BackendStaysApi>, ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
-        if (state.objectsList.isEmpty &&
+        if (state.status == ObjectsListStatus.initial ||
             state.status == ObjectsListStatus.loading) {
           return const Center(
             child: CircularProgressIndicator(),
@@ -52,24 +49,21 @@ class FollowUpList extends StatelessWidget {
             child: Text(AppLocalizations.of(context)!.loadingFailed),
           );
         }
-        return PicosScreenFrame(
-          title: 'Follow up',
-          body: Column(
-            children: <Widget>[
-              const Padding(
-                padding:
-                    EdgeInsets.only(left: labelPadding, bottom: labelPadding),
+
+        return ListView.separated(
+          itemCount: state.objectsList.length,
+          itemBuilder: (BuildContext context, int index) {
+            return VisitItem(state.objectsList[index] as Stay);
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Divider(
+                thickness: 1,
+                height: 0,
               ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: itemCount,
-                  itemBuilder: (BuildContext context, int index) {
-                    return FollowUpItem(state.objectsList[index] as FollowUp);
-                  },
-                ),
-              ),
-            ],
-          ),
+            );
+          },
         );
       },
     );

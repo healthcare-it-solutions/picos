@@ -17,26 +17,26 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../api/backend_medications_api.dart';
-import '../../models/medication.dart';
+import 'package:picos/models/abstract_database_object.dart';
+import '../../../api/backend_therapies_api.dart';
+import '../../../models/therapy.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../state/objects_list_bloc.dart';
-import 'medication_card.dart';
+import '../../../state/objects_list_bloc.dart';
+import 'therapy_item.dart';
 
-/// A List with all medications.
-class MedicationsList extends StatefulWidget {
-  /// Creates the medication list.
-  const MedicationsList({Key? key}) : super(key: key);
+/// A List with all therapies.
+class TherapiesList extends StatefulWidget {
+  /// Creates TherapiesList.
+  const TherapiesList({Key? key}) : super(key: key);
 
   @override
-  State<MedicationsList> createState() => _MedicationsListState();
+  State<TherapiesList> createState() => _TherapiesListState();
 }
 
-class _MedicationsListState extends State<MedicationsList> {
+class _TherapiesListState extends State<TherapiesList> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ObjectsListBloc<BackendMedicationsApi>,
-        ObjectsListState>(
+    return BlocBuilder<ObjectsListBloc<BackendTherapiesApi>, ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
         if (state.status == ObjectsListStatus.initial ||
             state.status == ObjectsListStatus.loading) {
@@ -51,10 +51,24 @@ class _MedicationsListState extends State<MedicationsList> {
           );
         }
 
-        return ListView.builder(
+        state.objectsList.sort(
+          (AbstractDatabaseObject a, AbstractDatabaseObject b) =>
+              (b as Therapy).date.compareTo((a as Therapy).date),
+        );
+
+        return ListView.separated(
           itemCount: state.objectsList.length,
           itemBuilder: (BuildContext context, int index) {
-            return MedicationCard(state.objectsList[index] as Medication);
+            return TherapyItem(state.objectsList[index] as Therapy);
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Divider(
+                thickness: 1,
+                height: 0,
+              ),
+            );
           },
         );
       },

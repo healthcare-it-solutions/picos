@@ -17,7 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/screens/my_medications_screen/medications_list.dart';
+import 'package:picos/screens/my_medications_screen/widgets/medications_list.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 
 import '../../widgets/picos_add_mono_button_bar.dart';

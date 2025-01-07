@@ -17,7 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/screens/study_nurse_screen/menu_screen/patients_list.dart';
+import 'package:picos/screens/study_nurse_screen/menu_screen/widgets/patients_list.dart';
 import 'package:picos/widgets/picos_add_mono_button_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';

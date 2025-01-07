@@ -24,7 +24,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:open_file_plus/open_file_plus.dart';
 import 'package:picos/api/backend_documents_api.dart';
 import 'package:picos/models/document.dart';
-import 'package:picos/screens/my_documents_screen/document_button.dart';
+import 'package:picos/screens/my_documents_screen/widgets/document_button.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
 import 'package:picos/widgets/picos_date_picker.dart';
 import 'package:picos/widgets/picos_radio_select.dart';

@@ -17,7 +17,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../themes/global_theme.dart';
+import '../../../themes/global_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// Creates a light blue form button.

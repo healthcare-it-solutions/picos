@@ -17,30 +17,25 @@
 
 import 'package:flutter/material.dart';
 
-import '../../models/document.dart';
-import '../../themes/global_theme.dart';
+import '../../../models/therapy.dart';
+import '../../../themes/global_theme.dart';
 
-/// Displays a document item.
-class DocumentItem extends StatelessWidget {
-  /// Creates DocumentItem.
-  const DocumentItem(
-    this._document, {
+/// Displays a therapy item.
+class TherapyItem extends StatelessWidget {
+  /// Creates TherapyItem.
+  const TherapyItem(
+    this._therapy, {
     Key? key,
   }) : super(key: key);
 
-  final Document _document;
-
-  String _formatDate() {
-    //ignore: lines_longer_than_80_chars
-    return '${_document.date.year}-${_document.date.month}-${_document.date.day}';
-  }
+  final Therapy _therapy;
 
   @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
 
     return ListTile(
-      title: Text('${_formatDate()}  ${_document.filename}'),
+      title: Text('${_therapy.dateString} - ${_therapy.name}'),
       trailing: Padding(
         padding: const EdgeInsets.only(
           right: 10,
@@ -51,10 +46,8 @@ class DocumentItem extends StatelessWidget {
         ),
       ),
       onTap: () {
-        Navigator.of(context).pushNamed(
-          '/my-documents-screen/add-documents',
-          arguments: _document,
-        );
+        Navigator.of(context)
+            .pushNamed('/my-therapy-screen/view-therapy', arguments: _therapy);
       },
     );
   }

@@ -17,7 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:picos/models/patients_list_element.dart';
-import 'package:picos/screens/study_nurse_screen/menu_screen/patients_list_card_tile.dart';
+import 'package:picos/screens/study_nurse_screen/menu_screen/widgets/patients_list_card_tile.dart';
 import 'package:picos/widgets/picos_list_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

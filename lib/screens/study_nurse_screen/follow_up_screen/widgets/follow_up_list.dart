@@ -17,21 +17,28 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:picos/api/backend_patients_list_api.dart';
-import 'package:picos/models/patients_list_element.dart';
+import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:picos/screens/study_nurse_screen/menu_screen/patients_list_card.dart';
-import 'package:picos/state/objects_list_bloc.dart';
+import '../../../../api/backend_follow_up_api.dart';
+import '../../../../models/follow_up.dart';
+import '../../../../state/objects_list_bloc.dart';
+import '../widgets/follow_up_item.dart';
 
-/// A List with all patients.
-class PatientsList extends StatelessWidget {
-  /// Creates the patients list.
-  const PatientsList({Key? key}) : super(key: key);
+/// This is the list of follow up items.
+class FollowUpList extends StatelessWidget {
+  /// FollowUpList constructor
+  const FollowUpList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ObjectsListBloc<BackendPatientsListApi>,
-        ObjectsListState>(
+    const int itemCount = 4;
+    const double labelPadding = 10;
+
+    context
+        .read<ObjectsListBloc<BackendFollowUpApi>>()
+        .add(const LoadObjectsList());
+
+    return BlocBuilder<ObjectsListBloc<BackendFollowUpApi>, ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
         if (state.objectsList.isEmpty &&
             state.status == ObjectsListStatus.loading) {
@@ -45,14 +52,24 @@ class PatientsList extends StatelessWidget {
             child: Text(AppLocalizations.of(context)!.loadingFailed),
           );
         }
-
-        return ListView.builder(
-          itemCount: state.objectsList.length,
-          itemBuilder: (BuildContext context, int index) {
-            return PatientsListCard(
-              state.objectsList[index] as PatientsListElement,
-            );
-          },
+        return PicosScreenFrame(
+          title: 'Follow up',
+          body: Column(
+            children: <Widget>[
+              const Padding(
+                padding:
+                    EdgeInsets.only(left: labelPadding, bottom: labelPadding),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: itemCount,
+                  itemBuilder: (BuildContext context, int index) {
+                    return FollowUpItem(state.objectsList[index] as FollowUp);
+                  },
+                ),
+              ),
+            ],
+          ),
         );
       },
     );
