@@ -28,20 +28,27 @@ class BackendFollowUpApi extends BackendObjectsApi {
   @override
   Future<void> saveObject(AbstractDatabaseObject object) async {
     try {
-      FollowUp followUp = (object as FollowUp);
-
-      if (followUp.objectId == null) {
+      if ((object as FollowUp).objectId == null) {
         String roleId = await BackendRole.userRoleName.id;
         BackendACL followUpACL = BackendACL()
           ..setReadAccess(userId: EditPatientScreen.patientObjectId!)
           ..setReadAccess(userId: roleId)
           ..setWriteAccess(userId: roleId);
-        await Backend.saveObject(followUp, acl: followUpACL);
+        dynamic responseSave =
+            await Backend.saveObject(object, acl: followUpACL);
+        object = object.copyWith(
+          objectId: responseSave['objectId'],
+          createdAt: DateTime.tryParse(responseSave['createdAt'] ?? ''),
+        );
       } else {
-        await Backend.saveObject(followUp);
+        dynamic responseUpdate = await Backend.saveObject(object);
+        object = object.copyWith(
+          updatedAt: DateTime.tryParse(responseUpdate['updatedAt'] ?? ''),
+        );
       }
 
-      super.updateObjectList(followUp);
+      objectList[object.number!] = object;
+
       dispatch();
     } catch (e) {
       return Future<void>.error(e);
