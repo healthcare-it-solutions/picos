@@ -38,12 +38,12 @@ class BackendFollowUpApi extends BackendObjectsApi {
             await Backend.saveObject(object, acl: followUpACL);
         object = object.copyWith(
           objectId: responseSave['objectId'],
-          createdAt: DateTime.tryParse(responseSave['createdAt']),
+          createdAt: DateTime.tryParse(responseSave['createdAt'] ?? ''),
         );
       } else {
         dynamic responseUpdate = await Backend.saveObject(object);
         object = object.copyWith(
-          updatedAt: DateTime.tryParse(responseUpdate['updatedAt']),
+          updatedAt: DateTime.tryParse(responseUpdate['updatedAt'] ?? ''),
         );
       }
 
