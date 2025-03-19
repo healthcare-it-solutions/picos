@@ -40,7 +40,7 @@ class FollowUpList extends StatelessWidget {
 
     return BlocBuilder<ObjectsListBloc<BackendFollowUpApi>, ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
-        if (state.objectsList.isEmpty &&
+        if (state.status == ObjectsListStatus.initial ||
             state.status == ObjectsListStatus.loading) {
           return const Center(
             child: CircularProgressIndicator(),
