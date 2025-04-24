@@ -24,6 +24,7 @@ import 'package:picos/widgets/picos_ink_well_button.dart';
 import '../../../../state/objects_list_bloc.dart';
 import '../../../../themes/global_theme.dart';
 import '../../../../util/backend.dart';
+import '../../../../widgets/picos_overflow_text.dart';
 import 'mini_calendar.dart';
 
 /// This class implements the top section of the 'overview'.
@@ -63,8 +64,8 @@ class InputCardSection extends StatelessWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text(
-                  AppLocalizations.of(context)!.myEntries,
+                PicosOverflowText(
+                  text: AppLocalizations.of(context)!.myEntries,
                   style: TextStyle(
                     fontSize: 23,
                     color: theme.darkGreen1,

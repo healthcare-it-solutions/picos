@@ -27,6 +27,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_text_field.dart';
 import 'package:upgrader/upgrader.dart';
 
+import '../widgets/picos_overflow_text.dart';
+
 ///Displays the login screen.
 class LoginScreen extends StatefulWidget {
   ///LoginScreen constructor.
@@ -142,12 +144,11 @@ class _LoginScreenState extends State<LoginScreen>
               const SizedBox(
                 height: 15,
               ),
-              _backendError != null
-                  ? Text(
-                      _backendError!.getMessage(context),
-                      style: TextStyle(color: theme.red),
-                    )
-                  : const Text(''),
+              if (_backendError != null)
+                Text(
+                  _backendError!.getMessage(context),
+                  style: TextStyle(color: theme.red),
+                ),
               const SizedBox(
                 height: 15,
               ),
@@ -206,30 +207,22 @@ class _LoginScreenState extends State<LoginScreen>
                 width: 200,
                 child: Row(
                   children: <Widget>[
-                    !kIsWeb
-                        ? Text(AppLocalizations.of(context)!.rememberMe)
-                        : const SizedBox(
-                            width: 0,
-                          ),
-                    Expanded(
-                      child: !kIsWeb
-                          ? Checkbox(
-                              value: _isChecked,
-                              checkColor: theme.white,
-                              activeColor: theme.darkGreen1,
-                              onChanged: (bool? value) {
-                                setState(
-                                  () {
-                                    _isChecked = value!;
-                                    _secureStorage.setIsChecked(_isChecked);
-                                  },
-                                );
-                              },
-                            )
-                          : const SizedBox(
-                              width: 0,
-                            ),
-                    ),
+                    if (!kIsWeb) ...<Widget>[
+                      PicosOverflowText(
+                        text: AppLocalizations.of(context)!.rememberMe,
+                      ),
+                      Checkbox(
+                        value: _isChecked,
+                        checkColor: theme.white,
+                        activeColor: theme.darkGreen1,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            _isChecked = value!;
+                            _secureStorage.setIsChecked(_isChecked);
+                          });
+                        },
+                      ),
+                    ],
                   ],
                 ),
               ),

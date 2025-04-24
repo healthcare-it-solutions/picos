@@ -23,6 +23,7 @@ import 'package:picos/models/daily_input.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../themes/global_theme.dart';
+import '../../../../widgets/picos_overflow_text.dart';
 
 /// A list tile for showing the questionnaire progress.
 class ProgressTile extends StatelessWidget {
@@ -206,8 +207,8 @@ class ProgressTile extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          Text(
-            title,
+          PicosOverflowText(
+            text: title,
             style: TextStyle(
               color: theme.white,
               fontSize: 16,
