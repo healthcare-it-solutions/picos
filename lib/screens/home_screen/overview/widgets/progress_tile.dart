@@ -21,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:picos/models/daily_input.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/widgets/picos_overflow_text.dart';
 
 import '../../../../themes/global_theme.dart';
 
@@ -206,8 +207,8 @@ class ProgressTile extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          Text(
-            title,
+          PicosOverflowText(
+            text: title,
             style: TextStyle(
               color: theme.white,
               fontSize: 16,
