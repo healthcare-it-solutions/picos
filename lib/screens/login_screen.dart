@@ -26,8 +26,7 @@ import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_text_field.dart';
 import 'package:upgrader/upgrader.dart';
-
-import '../widgets/picos_overflow_text.dart';
+import 'package:picos/widgets/picos_overflow_text.dart';
 
 ///Displays the login screen.
 class LoginScreen extends StatefulWidget {
