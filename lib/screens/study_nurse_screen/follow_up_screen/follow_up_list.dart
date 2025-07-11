@@ -18,7 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 import '../../../api/backend_follow_up_api.dart';
 import '../../../models/follow_up.dart';
 import '../../../state/objects_list_bloc.dart';

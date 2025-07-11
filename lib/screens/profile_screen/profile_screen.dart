@@ -24,7 +24,7 @@ import 'package:picos/widgets/picos_ink_well_button.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
 import 'package:picos/widgets/picos_text_field.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 
 import '../../models/patient.dart';
 import '../../widgets/picos_form_of_address.dart';

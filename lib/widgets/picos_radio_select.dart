@@ -80,7 +80,7 @@ class _PicosRadioSelectState extends State<PicosRadioSelect> {
       physics: const NeverScrollableScrollPhysics(),
       itemCount: _createItemList().length,
       itemBuilder: (BuildContext context, int index) =>
-      _createItemList()[index],
+          _createItemList()[index],
       separatorBuilder: (BuildContext context, int index) {
         return const Divider(
           thickness: 1,

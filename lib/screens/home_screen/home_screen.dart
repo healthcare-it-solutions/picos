@@ -16,7 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/home_screen/picos_menu/picos_menu.dart';
 import 'package:picos/themes/global_theme.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';

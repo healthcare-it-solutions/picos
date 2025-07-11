@@ -17,7 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:picos/models/abstract_database_object.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 
 /// Class with physician information.
 class Physician extends AbstractDatabaseObject {

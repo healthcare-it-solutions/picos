@@ -17,7 +17,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 
 import '../../../themes/global_theme.dart';
 import '../../../widgets/picos_add_button_bar.dart';
