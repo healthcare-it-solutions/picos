@@ -24,7 +24,7 @@ import 'package:flutter/foundation.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:picos/config.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 import '../models/abstract_database_object.dart';
 
 /// Serves as a facade for all backend calls, so that the calls don't need

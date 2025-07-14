@@ -17,7 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:picos/screens/questionnaire_screen/widgets/questionnaire_card.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 import 'package:picos/themes/global_theme.dart';
 
 import '../../../widgets/picos_label.dart';
@@ -176,7 +176,7 @@ class _PainScaleCardState extends State<PainScaleCard> {
 
   Widget _createSelectRow(String key, int value) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-    
+
     return InkWell(
       onTap: () {
         setState(() {

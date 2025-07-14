@@ -17,7 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 import 'package:picos/api/backend_medications_api.dart';
 import 'package:picos/models/medication.dart';
 import 'package:picos/widgets/picos_add_button_bar.dart';
@@ -193,8 +193,8 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                 PicosInfoCard(
                   infoText: RichText(
                     text: TextSpan(
-                      text: AppLocalizations.of(context)!
-                          .addMedicationInfoPart1,
+                      text:
+                          AppLocalizations.of(context)!.addMedicationInfoPart1,
                       style: const TextStyle(
                         color: PicosInfoCard.infoTextFontColor,
                         fontSize: PicosInfoCard.infoTextFontSize,

@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/api/backend_relatives_api.dart';
 import 'package:picos/models/relative.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/family_member_list_screen/widgets/relative_card.dart';
 
 import '../../../state/objects_list_bloc.dart';
@@ -36,8 +36,7 @@ class FamilyMembersList extends StatefulWidget {
 class _FamilyMembersListState extends State<FamilyMembersList> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ObjectsListBloc<BackendRelativesApi>,
-        ObjectsListState>(
+    return BlocBuilder<ObjectsListBloc<BackendRelativesApi>, ObjectsListState>(
       builder: (BuildContext context, ObjectsListState state) {
         if (state.status == ObjectsListStatus.initial ||
             state.status == ObjectsListStatus.loading) {

@@ -16,7 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 import 'package:picos/themes/global_theme.dart';
 import 'package:picos/util/url_launcher.dart';
 import 'package:picos/widgets/picos_body.dart';
@@ -39,7 +39,7 @@ class PrivacyNoticeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-    
+
     UrlLauncher urlLauncher = UrlLauncher();
 
     return PicosScreenFrame(

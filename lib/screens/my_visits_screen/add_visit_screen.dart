@@ -25,7 +25,7 @@ import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_page_view_item.dart';
 import 'package:picos/widgets/picos_radio_select.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_text_area.dart';
 
 import '../../models/stay.dart';

@@ -18,7 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/api/backend_physicians_api.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 
 import '../../../models/physician.dart';
 import '../../../state/objects_list_bloc.dart';
@@ -80,65 +80,65 @@ class PhysicianCard extends StatelessWidget {
                 _physician.practice!,
                 style: const TextStyle(fontSize: fontSize),
               ),
-              const SizedBox(
-                height: padding,
-              ),
+            const SizedBox(
+              height: padding,
+            ),
             if (_physician.firstName != '' && _physician.lastName != '')
               Text(
                 '${_physician.firstName} ${_physician.lastName}',
                 style: const TextStyle(fontSize: fontSize),
               ),
-              const SizedBox(
-                height: padding,
-              ),
+            const SizedBox(
+              height: padding,
+            ),
             if (_physician.firstName != '' && _physician.lastName == '')
               Text(
                 '${_physician.firstName}',
                 style: const TextStyle(fontSize: fontSize),
               ),
-              const SizedBox(
-                height: padding,
-              ),
+            const SizedBox(
+              height: padding,
+            ),
             if (_physician.firstName == '' && _physician.lastName != '')
               Text(
                 '${_physician.lastName}',
                 style: const TextStyle(fontSize: fontSize),
               ),
-              const SizedBox(
-                height: padding,
-              ),
+            const SizedBox(
+              height: padding,
+            ),
             if (_physician.address != '')
               Text(
                 _physician.address!,
                 style: const TextStyle(fontSize: fontSize),
               ),
-              const SizedBox(
-                height: padding,
-              ),
+            const SizedBox(
+              height: padding,
+            ),
             if (_physician.city != '')
               Text(
                 _physician.city!,
                 style: const TextStyle(fontSize: fontSize),
               ),
-              const SizedBox(
-                height: padding,
-              ),
+            const SizedBox(
+              height: padding,
+            ),
             if (_physician.phone != '')
               Text(
                 '${AppLocalizations.of(context)!.phone} ${_physician.phone}',
                 style: const TextStyle(fontSize: fontSize),
               ),
-              const SizedBox(
-                height: padding,
-              ),
+            const SizedBox(
+              height: padding,
+            ),
             if (_physician.mail != '')
               Text(
                 _physician.mail!,
                 style: const TextStyle(fontSize: fontSize),
               ),
-              const SizedBox(
-                height: padding,
-              ),
+            const SizedBox(
+              height: padding,
+            ),
             if (_physician.homepage != '')
               Text(
                 _physician.homepage!,

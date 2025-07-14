@@ -16,7 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 
 import '../../../../widgets/picos_number_field.dart';
 import '../catalog_of_items_page.dart';

@@ -83,7 +83,6 @@ class VitalSignsObject extends AbstractDatabaseObject {
   // @override
   // List<Object> get props => <Object>[];
 
-
   @override
   List<Object> get props {
     final List<Object> list = <Object>[];

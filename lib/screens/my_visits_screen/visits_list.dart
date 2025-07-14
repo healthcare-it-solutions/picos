@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/api/backend_stays_api.dart';
 import 'package:picos/models/stay.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/my_visits_screen/visit_item.dart';
 import '../../state/objects_list_bloc.dart';
 

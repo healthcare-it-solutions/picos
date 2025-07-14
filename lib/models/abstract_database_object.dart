@@ -29,8 +29,10 @@ abstract class AbstractDatabaseObject extends Equatable {
 
   /// The object ID in the database.
   final String? objectId;
+
   /// The time the object was created at.
   final DateTime? createdAt;
+
   /// The time the object was last time updated at.
   final DateTime? updatedAt;
 

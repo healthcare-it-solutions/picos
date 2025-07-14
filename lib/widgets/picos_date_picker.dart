@@ -17,7 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:picos/widgets/picos_text_field.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 
 import '../themes/global_theme.dart';
 
@@ -93,9 +93,11 @@ class _PicosDatePickerState extends State<PicosDatePicker> {
           builder: (BuildContext context, Widget? child) {
             return Theme(
               data: Theme.of(context).copyWith(
-                dialogBackgroundColor: globalTheme!.bottomNavigationBar!,
                 colorScheme: ColorScheme.light(
                   primary: globalTheme!.darkGreen1!,
+                ),
+                dialogTheme: DialogThemeData(
+                  backgroundColor: globalTheme!.bottomNavigationBar!,
                 ),
               ),
               child: child!,

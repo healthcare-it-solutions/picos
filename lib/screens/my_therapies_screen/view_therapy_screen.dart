@@ -4,7 +4,7 @@ import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_edit_item_button_bar.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 
 import '../../api/backend_therapies_api.dart';
 import '../../models/therapy.dart';
@@ -46,7 +46,7 @@ class ViewTherapyScreen extends StatelessWidget {
               children: <Widget>[
                 PicosLabel(
                   '${therapy.dateString} - '
-                      '${therapy.name}',
+                  '${therapy.name}',
                 ),
                 const SizedBox(
                   height: 25,

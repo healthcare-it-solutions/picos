@@ -19,7 +19,7 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 import 'package:picos/api/backend_values_api.dart';
 import 'package:picos/models/daily.dart';
 import 'package:picos/models/values.dart';

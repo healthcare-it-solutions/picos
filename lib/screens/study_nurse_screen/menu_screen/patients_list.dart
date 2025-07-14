@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/api/backend_patients_list_api.dart';
 import 'package:picos/models/patients_list_element.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 import 'package:picos/screens/study_nurse_screen/menu_screen/patients_list_card.dart';
 import 'package:picos/state/objects_list_bloc.dart';
 
