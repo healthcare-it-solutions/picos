@@ -16,7 +16,7 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 
 import '../themes/global_theme.dart';
 
@@ -63,13 +63,13 @@ class PicosListCard extends StatelessWidget {
 
   ButtonStyle _buttonStyle(GlobalTheme theme) {
     return ButtonStyle(
-      backgroundColor: MaterialStateProperty.all(theme.cardButton),
-      shape: MaterialStateProperty.all(
+      backgroundColor: WidgetStateProperty.all(theme.cardButton),
+      shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
         ),
       ),
-      foregroundColor: MaterialStateProperty.all(theme.grey1),
+      foregroundColor: WidgetStateProperty.all(theme.grey1),
     );
   }
 

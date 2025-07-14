@@ -20,7 +20,7 @@ import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_label.dart';
 import 'package:picos/widgets/picos_select.dart';
 import 'package:picos/widgets/picos_text_field.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 
 /// Class for additional entries of the configuration pages.
 class ConfigurationAdditionalEntries extends StatefulWidget {

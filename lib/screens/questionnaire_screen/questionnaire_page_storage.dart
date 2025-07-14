@@ -31,7 +31,7 @@ import 'package:picos/screens/questionnaire_screen/widgets/questionnaire_page.da
 import 'package:picos/screens/questionnaire_screen/widgets/radio_select_card.dart';
 import 'package:picos/screens/questionnaire_screen/widgets/sleep_quality_card.dart';
 import 'package:picos/screens/questionnaire_screen/widgets/text_field_card.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 
 import '../../models/patient_profile.dart';
 import '../../util/backend.dart';

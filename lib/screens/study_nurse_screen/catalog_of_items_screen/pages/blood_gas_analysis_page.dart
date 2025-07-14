@@ -18,7 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:picos/screens/study_nurse_screen/catalog_of_items_screen/catalog_of_items_page.dart';
 import 'package:picos/widgets/picos_number_field.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 
 import '../widgets/catalog_of_items_label.dart';
 
@@ -558,7 +558,7 @@ class BloodGasAnalysisPage extends StatelessWidget {
                         initialValue: initialBloodGlucoseLevel2?.toString(),
                         onChanged: (String value) {
                           bloodGlucoseLevelCallback2(
-                              double.tryParse(value),
+                            double.tryParse(value),
                           );
                         },
                       ),

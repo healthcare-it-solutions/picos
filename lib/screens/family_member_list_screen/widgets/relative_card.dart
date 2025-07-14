@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/api/backend_relatives_api.dart';
 import 'package:picos/widgets/picos_list_card.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 
 import '../../../models/relative.dart';
 import '../../../state/objects_list_bloc.dart';
@@ -46,87 +46,88 @@ class RelativeCard extends StatelessWidget {
     const double padding = 2;
 
     return PicosListCard(
-        edit: () {
-          Navigator.of(context).pushNamed(
-            '/family-member-list-screen/add-family-member',
-            arguments: _relative,
-          );
-        },
-        delete: () {
-          context
-              .read<ObjectsListBloc<BackendRelativesApi>>()
-              .add(RemoveObject(_relative));
-        },
-        title: RelativeTypeConverter.stringToRelativeType(_relative.type!)
-            .getLocalization(context),
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              if (!_hasAnyValues())
-                Text(
-                  AppLocalizations.of(context)!.noData,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: fontSize,
-                  ),
+      edit: () {
+        Navigator.of(context).pushNamed(
+          '/family-member-list-screen/add-family-member',
+          arguments: _relative,
+        );
+      },
+      delete: () {
+        context
+            .read<ObjectsListBloc<BackendRelativesApi>>()
+            .add(RemoveObject(_relative));
+      },
+      title: RelativeTypeConverter.stringToRelativeType(_relative.type!)
+          .getLocalization(context),
+      child: SizedBox(
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            if (!_hasAnyValues())
+              Text(
+                AppLocalizations.of(context)!.noData,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: fontSize,
                 ),
-              if (_relative.firstName != '' && _relative.lastName != '')
-                Text(
-                  '${_relative.firstName} ${_relative.lastName}',
-                  style: const TextStyle(fontSize: fontSize),
-                ),
-                const SizedBox(
-                  height: padding,
-                ),
-              if (_relative.firstName == '' && _relative.lastName != '')
-                Text(
-                  '${_relative.lastName}',
-                  style: const TextStyle(fontSize: fontSize),
-                ),
-                const SizedBox(
-                  height: padding,
-                ),
-              if (_relative.firstName != '' && _relative.lastName == '')
-                Text(
-                  '${_relative.firstName}',
-                  style: const TextStyle(fontSize: fontSize),
-                ),
-                const SizedBox(
-                  height: padding,
-                ),
-              if (_relative.address != '')
-                Text(
-                  _relative.address!,
-                  style: const TextStyle(fontSize: fontSize),
-                ),
-                const SizedBox(
-                  height: padding,
-                ),
-              if (_relative.city != '')
-                Text(
-                  _relative.city!,
-                  style: const TextStyle(fontSize: fontSize),
-                ),
-                const SizedBox(
-                  height: padding,
-                ),
-              if (_relative.phone != '')
-                Text(
-                  '${AppLocalizations.of(context)!.phone} ${_relative.phone}',
-                  style: const TextStyle(fontSize: fontSize),
-                ),
-                const SizedBox(
-                  height: padding,
-                ),
-              if (_relative.mail != '')
+              ),
+            if (_relative.firstName != '' && _relative.lastName != '')
+              Text(
+                '${_relative.firstName} ${_relative.lastName}',
+                style: const TextStyle(fontSize: fontSize),
+              ),
+            const SizedBox(
+              height: padding,
+            ),
+            if (_relative.firstName == '' && _relative.lastName != '')
+              Text(
+                '${_relative.lastName}',
+                style: const TextStyle(fontSize: fontSize),
+              ),
+            const SizedBox(
+              height: padding,
+            ),
+            if (_relative.firstName != '' && _relative.lastName == '')
+              Text(
+                '${_relative.firstName}',
+                style: const TextStyle(fontSize: fontSize),
+              ),
+            const SizedBox(
+              height: padding,
+            ),
+            if (_relative.address != '')
+              Text(
+                _relative.address!,
+                style: const TextStyle(fontSize: fontSize),
+              ),
+            const SizedBox(
+              height: padding,
+            ),
+            if (_relative.city != '')
+              Text(
+                _relative.city!,
+                style: const TextStyle(fontSize: fontSize),
+              ),
+            const SizedBox(
+              height: padding,
+            ),
+            if (_relative.phone != '')
+              Text(
+                '${AppLocalizations.of(context)!.phone} ${_relative.phone}',
+                style: const TextStyle(fontSize: fontSize),
+              ),
+            const SizedBox(
+              height: padding,
+            ),
+            if (_relative.mail != '')
               Text(
                 _relative.mail!,
                 style: const TextStyle(fontSize: fontSize),
               ),
-            ],
-          ),
-        ),);
+          ],
+        ),
+      ),
+    );
   }
 }

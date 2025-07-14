@@ -50,7 +50,7 @@ class _QuestionnaireCardState extends State<QuestionnaireCard>
     super.build(context);
 
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
-    
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Card(

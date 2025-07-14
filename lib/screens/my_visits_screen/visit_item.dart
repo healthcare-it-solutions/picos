@@ -17,7 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:picos/models/stay.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 
 /// Displays a visit item.
 class VisitItem extends StatelessWidget {
@@ -46,8 +46,8 @@ class VisitItem extends StatelessWidget {
           ? RichText(
               text: TextSpan(
                 text: '${AppLocalizations.of(context)!.recordDate}: '
-                '${_stay.record.day}.${_stay.record.month}.'
-                '${_stay.record.year}',
+                    '${_stay.record.day}.${_stay.record.month}.'
+                    '${_stay.record.year}',
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18,
@@ -55,8 +55,8 @@ class VisitItem extends StatelessWidget {
                 children: <TextSpan>[
                   TextSpan(
                     text: '\n${AppLocalizations.of(context)!.dischargeDate}: '
-                    '${_stay.discharge!.day}.${_stay.discharge!.month}.'
-                    '${_stay.discharge!.year} - ',
+                        '${_stay.discharge!.day}.${_stay.discharge!.month}.'
+                        '${_stay.discharge!.year} - ',
                   ),
                   TextSpan(
                     text: _translateWhere(context),
@@ -70,8 +70,8 @@ class VisitItem extends StatelessWidget {
           : RichText(
               text: TextSpan(
                 text: '${AppLocalizations.of(context)!.visitDate}: '
-                '${_stay.record.day}.${_stay.record.month}.'
-                '${_stay.record.year} - ',
+                    '${_stay.record.day}.${_stay.record.month}.'
+                    '${_stay.record.year} - ',
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18,

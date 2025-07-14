@@ -18,7 +18,7 @@
 import 'package:flutter/material.dart';
 
 import '../../themes/global_theme.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 
 /// Creates a light blue form button.
 class DocumentButton extends StatefulWidget {

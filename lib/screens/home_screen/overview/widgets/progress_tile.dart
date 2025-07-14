@@ -20,7 +20,7 @@ import 'package:universal_io/io.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:picos/models/daily_input.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_overflow_text.dart';
 
 import '../../../../themes/global_theme.dart';
