@@ -136,43 +136,43 @@ class PatientProfile extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-    weightBMIEnabled,
-    heartFrequencyEnabled,
-    bloodPressureEnabled,
-    bloodSugarLevelsEnabled,
-    walkDistanceEnabled,
-    sleepDurationEnabled,
-    sleepQualityEnabled,
-    painEnabled,
-    phq4Enabled,
-    medicationEnabled,
-    therapyEnabled,
-    doctorsVisitEnabled,
-  ];
+        weightBMIEnabled,
+        heartFrequencyEnabled,
+        bloodPressureEnabled,
+        bloodSugarLevelsEnabled,
+        walkDistanceEnabled,
+        sleepDurationEnabled,
+        sleepQualityEnabled,
+        painEnabled,
+        phq4Enabled,
+        medicationEnabled,
+        therapyEnabled,
+        doctorsVisitEnabled,
+      ];
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
-    'Weight_BMI': weightBMIEnabled,
-    'HeartRate': heartFrequencyEnabled,
-    'BloodPressure': bloodPressureEnabled,
-    'BloodSugar': bloodSugarLevelsEnabled,
-    'WalkingDistance': walkDistanceEnabled,
-    'SleepDuration': sleepDurationEnabled,
-    'SISQS': sleepQualityEnabled,
-    'Pain': painEnabled,
-    'PHQ4': phq4Enabled,
-    'Medication': medicationEnabled,
-    'Therapies': therapyEnabled,
-    'Stays': doctorsVisitEnabled,
-    'Patient': <String, String>{
-      'objectId': patientObjectId,
-      '__type': 'Pointer',
-      'className': '_User',
-    },
-    'Doctor': <String, String>{
-      'objectId': doctorObjectId,
-      '__type': 'Pointer',
-      'className': '_User',
-    },
-  };
+        'Weight_BMI': weightBMIEnabled,
+        'HeartRate': heartFrequencyEnabled,
+        'BloodPressure': bloodPressureEnabled,
+        'BloodSugar': bloodSugarLevelsEnabled,
+        'WalkingDistance': walkDistanceEnabled,
+        'SleepDuration': sleepDurationEnabled,
+        'SISQS': sleepQualityEnabled,
+        'Pain': painEnabled,
+        'PHQ4': phq4Enabled,
+        'Medication': medicationEnabled,
+        'Therapies': therapyEnabled,
+        'Stays': doctorsVisitEnabled,
+        'Patient': <String, String>{
+          'objectId': patientObjectId,
+          '__type': 'Pointer',
+          'className': '_User',
+        },
+        'Doctor': <String, String>{
+          'objectId': doctorObjectId,
+          '__type': 'Pointer',
+          'className': '_User',
+        },
+      };
 }

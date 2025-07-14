@@ -35,7 +35,6 @@ class PicosPageViewItem extends StatefulWidget {
 
 class _PicosPageViewItemState extends State<PicosPageViewItem>
     with AutomaticKeepAliveClientMixin {
-
   @override
   Widget build(BuildContext context) {
     super.build(context);

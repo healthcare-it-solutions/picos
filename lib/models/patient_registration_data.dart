@@ -59,11 +59,11 @@ class PatientRegistrationData extends AbstractDatabaseObject {
 
   @override
   List<Object> get props => <Object>[
-    bodyHeight,
-  ];
+        bodyHeight,
+      ];
 
   @override
   Map<String, dynamic> get databaseMapping => <String, dynamic>{
-    'BodyHeight': bodyHeight,
-  };
+        'BodyHeight': bodyHeight,
+      };
 }

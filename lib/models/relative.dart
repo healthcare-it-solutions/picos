@@ -17,7 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:picos/models/abstract_database_object.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 
 /// Class with relative information.
 class Relative extends AbstractDatabaseObject {
@@ -111,16 +111,22 @@ class Relative extends AbstractDatabaseObject {
 enum RelativeType {
   /// Spouse
   spouse,
+
   /// lifePartner
   lifePartner,
+
   /// Siblings
   siblings,
+
   /// Roommates
   roommates,
+
   /// Mother
   mother,
+
   /// Father
   father,
+
   /// Other Relatives
   otherRelatives,
 }

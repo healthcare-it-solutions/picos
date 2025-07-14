@@ -23,7 +23,7 @@ import 'package:picos/util/flutter_secure_storage.dart';
 import 'package:picos/widgets/picos_body.dart';
 import 'package:picos/widgets/picos_ink_well_button.dart';
 import 'package:picos/widgets/picos_screen_frame.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 import 'package:picos/widgets/picos_text_field.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:picos/widgets/picos_overflow_text.dart';

@@ -17,7 +17,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 
 import '../../../widgets/picos_label.dart';
 import '../../../widgets/picos_select.dart';
@@ -60,10 +60,11 @@ class BloodPressure extends StatefulWidget {
 }
 
 class _BloodPressureState extends State<BloodPressure> {
-  static Map<String, String> _createBloodPressureSelection(int min,
-      int max, [
-        int interval = 5,
-      ]) {
+  static Map<String, String> _createBloodPressureSelection(
+    int min,
+    int max, [
+    int interval = 5,
+  ]) {
     Map<String, String> bloodPressureSelection = <String, String>{};
 
     int i = min;
@@ -101,7 +102,9 @@ class _BloodPressureState extends State<BloodPressure> {
       return true;
     }
 
-    if (_valueSyst! < 90 || _valueSyst! > 160 || _valueDias! < 60 ||
+    if (_valueSyst! < 90 ||
+        _valueSyst! > 160 ||
+        _valueDias! < 60 ||
         _valueDias! > 100) {
       _setLabel(_checkValue!);
       return false;

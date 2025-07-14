@@ -17,7 +17,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 
 import 'package:picos/screens/login_screen.dart';
 import 'package:picos/themes/global_theme.dart';
@@ -62,12 +62,12 @@ class AppConfig extends StatelessWidget {
           appBarTheme: AppBarTheme(
             backgroundColor: theme.darkGreen1,
           ),
-          dialogBackgroundColor: theme.darkGreen2,
           focusColor: theme.darkGreen3,
           shadowColor: theme.grey2,
           inputDecorationTheme: InputDecorationTheme(
             floatingLabelStyle: TextStyle(color: theme.darkGreen3),
           ),
+          dialogTheme: DialogThemeData(backgroundColor: theme.darkGreen2),
         ).copyWith(
           extensions: <ThemeExtension<dynamic>>{
             theme,

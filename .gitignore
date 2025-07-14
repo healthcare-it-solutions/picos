@@ -737,3 +737,9 @@ $RECYCLE.BIN/
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 /.flutter-plugins-dependencies
 /lib/generated_plugin_registrant.dart
+/macos/Flutter/ephemeral/Flutter-Generated.xcconfig
+/linux/flutter/generated_plugins.cmake
+/linux/flutter/generated_plugin_registrant.cc
+/macos/Flutter/GeneratedPluginRegistrant.swift
+/linux/flutter/generated_plugin_registrant.h
+/macos/Flutter/ephemeral/flutter_export_environment.sh

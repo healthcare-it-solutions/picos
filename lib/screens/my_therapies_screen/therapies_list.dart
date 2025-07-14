@@ -20,7 +20,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picos/models/abstract_database_object.dart';
 import '../../api/backend_therapies_api.dart';
 import '../../models/therapy.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 import '../../state/objects_list_bloc.dart';
 import 'therapy_item.dart';
 
