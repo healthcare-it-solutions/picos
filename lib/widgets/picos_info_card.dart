@@ -37,7 +37,7 @@ class PicosInfoCard extends StatelessWidget {
   static const Color infoTextFontColor = Colors.white;
 
   /// The size to be grabbed for the font.
-  static const double infoTextFontSize = 20;
+  static const double infoTextFontSize = 16.5;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,7 @@ class PicosInfoCard extends StatelessWidget {
         children: <Widget>[
           const Padding(
             padding: EdgeInsets.only(
-              right: 15,
+              right: 13,
             ),
             child: Icon(Icons.info, color: infoTextFontColor),
           ),
