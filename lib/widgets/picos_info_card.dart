@@ -58,7 +58,7 @@ class PicosInfoCard extends StatelessWidget {
     }
 
     return PicosDisplayCard(
-      backgroundColor: Theme.of(context).dialogBackgroundColor,
+      backgroundColor: Theme.of(context).dialogTheme.backgroundColor,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
