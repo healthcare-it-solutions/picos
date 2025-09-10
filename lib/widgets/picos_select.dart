@@ -56,15 +56,13 @@ class _PicosSelectState extends State<PicosSelect> {
   String? _dropdownValue;
 
   List<DropdownMenuItem<String>> _createItemList() {
-    List<DropdownMenuItem<String>> dropdownMenuItems =
-        <DropdownMenuItem<String>>[];
-
-    widget.selection.forEach((String key, dynamic value) {
-      dropdownMenuItems
-          .add(DropdownMenuItem<String>(value: key, child: Text(value)));
-    });
-
-    return dropdownMenuItems;
+    return widget.selection.entries.map((MapEntry<String, String> e) {
+      return DropdownMenuItem<String>(
+        value: e.key,
+        alignment: AlignmentDirectional.centerStart,
+        child: Text(e.value),
+      );
+    }).toList();
   }
 
   @override
