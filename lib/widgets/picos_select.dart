@@ -121,7 +121,7 @@ class _PicosSelectState extends State<PicosSelect> {
                 focusedErrorBorder: errorInputBorder,
               ),
               borderRadius: borderRadius,
-              value: _dropdownValue,
+              initialValue: _dropdownValue,
               icon: const Icon(Icons.keyboard_arrow_down),
               hint: Text(widget.hint ?? ''),
               onChanged: (String? newValue) {
