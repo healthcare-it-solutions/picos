@@ -112,9 +112,7 @@ class _PicosSelectState extends State<PicosSelect> {
             child: DropdownButtonFormField<String>(
               isExpanded: true,
               decoration: InputDecoration(
-                contentPadding: const EdgeInsets.only(
-                  right: 5,
-                ),
+                contentPadding: const EdgeInsets.all(10),
                 enabledBorder: outlineInputBorder,
                 focusedBorder: outlineInputBorder,
                 errorBorder: errorInputBorder,
