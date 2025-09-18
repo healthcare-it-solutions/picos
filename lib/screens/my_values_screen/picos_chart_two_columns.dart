@@ -19,20 +19,21 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:picos/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
-import 'package:picos/models/abstract_database_object.dart';
-import 'package:picos/models/weekly.dart';
 import 'package:picos/screens/home_screen/overview/widgets/graph_section.dart';
-import 'package:picos/widgets/picos_chart_helper.dart';
-import 'package:picos/widgets/picos_chart_sample_data.dart';
+import 'package:picos/screens/my_values_screen/picos_chart_helper.dart';
+import 'package:picos/screens/my_values_screen/picos_chart_sample_data.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../models/daily.dart';
-import '../themes/global_theme.dart';
+import '../../models/abstract_database_object.dart';
+import '../../models/weekly.dart';
+import '../../themes/global_theme.dart';
 
 /// Widget to display blood sugar values in a column chart.
-class PicosChartColumn extends StatelessWidget {
-  /// Creates a [PicosChartColumn].
-  const PicosChartColumn({
+class PicosChartTwoColumns extends StatelessWidget {
+  /// Creates a [PicosChartTwoColumns].
+  const PicosChartTwoColumns({
     Key? key,
     this.dataList,
     this.title,
@@ -70,20 +71,23 @@ class PicosChartColumn extends StatelessWidget {
               (Daily daily) => PicosChartHelper.isSameDay(daily.date, date),
             );
 
-      double? value;
-      if (valuesChartOptions == ValuesChartOptions.walkingDistance) {
-        value = (matchingData as Weekly?)?.walkingDistance?.toDouble();
-      } else if (valuesChartOptions == ValuesChartOptions.bloodSugar) {
-        value = (matchingData as Daily?)?.bloodSugar?.toDouble();
-      } else if (valuesChartOptions == ValuesChartOptions.bloodSugarMol) {
-        value = (matchingData as Daily?)?.bloodSugarMol?.toDouble();
-      } else if (valuesChartOptions == ValuesChartOptions.sleepDuration) {
-        value = (matchingData as Daily?)?.sleepDuration?.toDouble();
+      double? y;
+      double? y1;
+      if (valuesChartOptions == ValuesChartOptions.bodyWeightAndBMI) {
+        y = (matchingData as Weekly?)?.bodyWeight?.toDouble();
+        double? expressionY1 = (matchingData)?.bmi?.toDouble();
+        y1 = expressionY1 != null
+            ? (expressionY1 * 100).round() / 100.0
+            : expressionY1;
+      } else if (valuesChartOptions == ValuesChartOptions.bloodPressure) {
+        y = (matchingData as Daily?)?.bloodSystolic?.toDouble();
+        y1 = (matchingData)?.bloodDiastolic?.toDouble();
       }
 
       return PicosChartSampleData(
         x: dayShortText,
-        y: value,
+        y: y,
+        y1: y1,
       );
     }).toList();
   }
@@ -97,6 +101,7 @@ class PicosChartColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<PicosChartSampleData> chartDataList = _prepareChartData();
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
     TooltipBehavior tooltipBehavior = TooltipBehavior(
       enable: true,
@@ -129,22 +134,45 @@ class PicosChartColumn extends StatelessWidget {
         ),
         primaryXAxis: CategoryAxis(
           majorGridLines: const MajorGridLines(width: 0),
-          axisLine: AxisLine(
-            color: theme.blue,
-          ),
           labelStyle: const TextStyle(
             color: PicosChartHelper.colorBlack,
+          ),
+          axisLine: AxisLine(
+            color: theme.blue,
           ),
         ),
         primaryYAxis: const NumericAxis(isVisible: false),
         tooltipBehavior: tooltipBehavior,
+        legend: const Legend(
+          isVisible: true,
+          position: LegendPosition.top,
+        ),
         series: <ColumnSeries<PicosChartSampleData, String>>[
           ColumnSeries<PicosChartSampleData, String>(
             color: theme.blue,
-            dataSource: _prepareChartData(),
+            dataSource: chartDataList,
+            width: PicosChartHelper.width,
+            spacing: 0.4,
             xValueMapper: (PicosChartSampleData point, _) => point.x,
             yValueMapper: (PicosChartSampleData point, _) => point.y,
-            name: title,
+            name: valuesChartOptions == ValuesChartOptions.bodyWeightAndBMI
+                ? AppLocalizations.of(context)!.bodyWeight
+                : AppLocalizations.of(context)!.systolic,
+            dataLabelSettings: const DataLabelSettings(
+              isVisible: true,
+              labelAlignment: ChartDataLabelAlignment.outer,
+            ),
+          ),
+          ColumnSeries<PicosChartSampleData, String>(
+            color: theme.red,
+            dataSource: chartDataList,
+            width: PicosChartHelper.width,
+            spacing: 0.4,
+            xValueMapper: (PicosChartSampleData point, _) => point.x as String,
+            yValueMapper: (PicosChartSampleData point, _) => point.y1,
+            name: valuesChartOptions == ValuesChartOptions.bodyWeightAndBMI
+                ? AppLocalizations.of(context)!.bmi
+                : AppLocalizations.of(context)!.diastolic,
             dataLabelSettings: const DataLabelSettings(
               isVisible: true,
               labelAlignment: ChartDataLabelAlignment.outer,
