@@ -106,7 +106,7 @@ class _PicosSwitchState extends State<PicosSwitch> {
           const Border(
             bottom: BorderSide(color: Colors.grey),
           ),
-      activeColor: Colors.white,
+      activeThumbColor: Colors.white,
       activeTrackColor: widget.onChanged != null ? theme.green2 : null,
     );
   }
