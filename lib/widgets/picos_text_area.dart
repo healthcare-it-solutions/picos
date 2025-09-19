@@ -73,11 +73,6 @@ class PicosTextArea extends StatelessWidget {
       autofocus: autofocus,
       disabled: disabled,
       onChanged: onChanged,
-      contentPadding: const EdgeInsets.only(
-        bottom: 15,
-        left: 15,
-        right: 15,
-      ),
       initialValue: initialValue,
     );
   }

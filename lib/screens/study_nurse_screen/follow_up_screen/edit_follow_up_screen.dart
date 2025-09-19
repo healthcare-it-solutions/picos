@@ -315,7 +315,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
       children: <Widget>[
         Expanded(
           child: DropdownButtonFormField<String>(
-            value: _rhythm,
+            initialValue: _rhythm,
             decoration: InputDecoration(
               labelText: AppLocalizations.of(context)!.rhythm,
               border: const OutlineInputBorder(),
@@ -339,7 +339,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
         const SizedBox(width: 16),
         Expanded(
           child: DropdownButtonFormField<String>(
-            value: _rhythmType,
+            initialValue: _rhythmType,
             decoration: InputDecoration(
               labelText: AppLocalizations.of(context)!.rhythmType,
               border: const OutlineInputBorder(),
@@ -367,7 +367,7 @@ class _EditFollowUpScreenState extends State<EditFollowUpScreen> {
 
   Widget _buildLocationTypeSelection() {
     return DropdownButtonFormField<String>(
-      value: _electricalAxisDeviation,
+      initialValue: _electricalAxisDeviation,
       decoration: InputDecoration(
         labelText: AppLocalizations.of(context)!.electricalAxisDeviation,
         border: const OutlineInputBorder(),

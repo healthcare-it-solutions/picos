@@ -35,30 +35,32 @@ class PicosAddMonoButtonBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final GlobalTheme theme = Theme.of(context).extension<GlobalTheme>()!;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).canvasColor,
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Theme.of(context).shadowColor,
-            blurRadius: 5,
-            offset: const Offset(0, -4),
-          ),
-          BoxShadow(
-            color: theme.bottomNavigationBar!,
-            offset: const Offset(-10, 0),
-          ),
-          BoxShadow(
-            color: theme.bottomNavigationBar!,
-            offset: const Offset(10, 0),
-          ),
-        ],
-      ),
-      child: PicosInkWellButton(
-        text: AppLocalizations.of(context)!.add,
-        onTap: () {
-          Navigator.of(context).pushNamed(route);
-        },
+    return SafeArea(
+      child: Container(
+        decoration: BoxDecoration(
+          color: theme.white,
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Theme.of(context).shadowColor,
+              blurRadius: 5,
+              offset: const Offset(0, -4),
+            ),
+            BoxShadow(
+              color: theme.bottomNavigationBar!,
+              offset: const Offset(-10, 0),
+            ),
+            BoxShadow(
+              color: theme.bottomNavigationBar!,
+              offset: const Offset(10, 0),
+            ),
+          ],
+        ),
+        child: PicosInkWellButton(
+          text: AppLocalizations.of(context)!.add,
+          onTap: () {
+            Navigator.of(context).pushNamed(route);
+          },
+        ),
       ),
     );
   }
