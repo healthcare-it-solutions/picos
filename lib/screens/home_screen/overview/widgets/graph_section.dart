@@ -28,10 +28,10 @@ import 'package:picos/screens/home_screen/overview/widgets/section.dart';
 import 'package:picos/util/backend.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../themes/global_theme.dart';
-import '../../../../widgets/picos_chart_column.dart';
+import '../../../my_values_screen/picos_chart_column.dart';
 import '../../../../widgets/picos_ink_well_button.dart';
-import '../../../../widgets/picos_chart_line.dart';
-import '../../../../widgets/picos_chart_two_columns.dart';
+import '../../../my_values_screen/picos_chart_line.dart';
+import '../../../my_values_screen/picos_chart_two_columns.dart';
 import '../../../questionnaire_screen/questionnaire_screen.dart';
 
 /// Options related to how values in a chart are displayed or configured.

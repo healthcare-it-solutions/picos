@@ -134,43 +134,38 @@ class _MyValuesScreenState extends State<MyValuesScreen> {
       body: PicosBody(
         child: Padding(
           padding: const EdgeInsets.all(10),
-          child: Form(
-            child: Material(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  PicosDisplayCard(
-                    backgroundColor:
-                        Theme.of(context).dialogTheme.backgroundColor,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const Padding(
-                          padding: EdgeInsets.only(
-                            right: 13,
-                          ),
-                          child: Icon(
-                            Icons.info,
-                            color: PicosInfoCard.infoTextFontColor,
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            AppLocalizations.of(context)!.infoMyValue,
-                            style: const TextStyle(
-                              color: PicosInfoCard.infoTextFontColor,
-                              fontSize: 16.5,
-                            ),
-                          ),
-                        ),
-                      ],
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              PicosDisplayCard(
+                backgroundColor: Theme.of(context).dialogTheme.backgroundColor,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const Padding(
+                      padding: EdgeInsets.only(
+                        right: 13,
+                      ),
+                      child: Icon(
+                        Icons.info,
+                        color: PicosInfoCard.infoTextFontColor,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  ..._buildPreferenceSwitches(),
-                ],
+                    Expanded(
+                      child: Text(
+                        AppLocalizations.of(context)!.infoMyValue,
+                        style: const TextStyle(
+                          color: PicosInfoCard.infoTextFontColor,
+                          fontSize: PicosInfoCard.infoTextFontSize,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
+              const SizedBox(height: 20),
+              ..._buildPreferenceSwitches(),
+            ],
           ),
         ),
       ),

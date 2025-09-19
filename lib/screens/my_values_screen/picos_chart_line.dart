@@ -20,11 +20,11 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:picos/widgets/picos_chart_helper.dart';
-import 'package:picos/widgets/picos_chart_sample_data.dart';
+import 'package:picos/screens/my_values_screen/picos_chart_helper.dart';
+import 'package:picos/screens/my_values_screen/picos_chart_sample_data.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../models/daily.dart';
-import '../themes/global_theme.dart';
+import '../../themes/global_theme.dart';
 
 /// Widget to display heart rate values in a line chart.
 class PicosChartLine extends StatelessWidget {
