@@ -321,168 +321,158 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
     return PicosScreenFrame(
       title: AppLocalizations.of(context)!.myProfile,
-      body: PicosBody(
-        child: Column(
-          children: <Widget>[
-            PicosLabel(AppLocalizations.of(context)!.title),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Flexible(
-                  child: RadioListTile<FormOfAddress>(
-                    title: Text(
-                      AppLocalizations.of(context)!.mrs,
+      body: SafeArea(
+        child: PicosBody(
+          child: Column(
+            children: <Widget>[
+              PicosLabel(AppLocalizations.of(context)!.title),
+              RadioGroup<FormOfAddress>(
+                groupValue: selectedFormOfAddress,
+                onChanged: (FormOfAddress? newValue) {
+                  selectedFormOfAddress = newValue!;
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Flexible(
+                      child: RadioListTile<FormOfAddress>(
+                        title: Text(
+                          AppLocalizations.of(context)!.mrs,
+                        ),
+                        value: FormOfAddress.female,
+                        contentPadding: EdgeInsets.zero,
+                        selected: false,
+                        activeColor: theme.grey1,
+                      ),
                     ),
-                    value: FormOfAddress.female,
-                    groupValue: selectedFormOfAddress,
-                    onChanged: (FormOfAddress? value) {
-                      setState(() {
-                        selectedFormOfAddress = value!;
-                      });
-                    },
-                    contentPadding: EdgeInsets.zero,
-                    selected: false,
-                    activeColor: theme.grey1,
-                  ),
-                ),
-                Flexible(
-                  child: RadioListTile<FormOfAddress>(
-                    title: Text(
-                      AppLocalizations.of(context)!.mr,
+                    Flexible(
+                      child: RadioListTile<FormOfAddress>(
+                        title: Text(
+                          AppLocalizations.of(context)!.mr,
+                        ),
+                        value: FormOfAddress.male,
+                        contentPadding: EdgeInsets.zero,
+                        selected: false,
+                        activeColor: theme.grey1,
+                      ),
                     ),
-                    value: FormOfAddress.male,
-                    groupValue: selectedFormOfAddress,
-                    onChanged: (FormOfAddress? value) {
-                      setState(() {
-                        selectedFormOfAddress = value!;
-                      });
-                    },
-                    contentPadding: EdgeInsets.zero,
-                    selected: false,
-                    activeColor: theme.grey1,
-                  ),
-                ),
-                Flexible(
-                  child: RadioListTile<FormOfAddress>(
-                    title: Text(
-                      AppLocalizations.of(context)!.diverse,
+                    Flexible(
+                      child: RadioListTile<FormOfAddress>(
+                        title: Text(
+                          AppLocalizations.of(context)!.diverse,
+                        ),
+                        value: FormOfAddress.diverse,
+                        contentPadding: EdgeInsets.zero,
+                        selected: false,
+                        activeColor: theme.grey1,
+                      ),
                     ),
-                    value: FormOfAddress.diverse,
-                    groupValue: selectedFormOfAddress,
-                    onChanged: (FormOfAddress? value) {
-                      setState(() {
-                        selectedFormOfAddress = value!;
-                      });
-                    },
-                    contentPadding: EdgeInsets.zero,
-                    selected: false,
-                    activeColor: theme.grey1,
-                  ),
+                  ],
                 ),
-              ],
-            ),
-            PicosInkWellButton(
-              text: AppLocalizations.of(context)!.changeTitle,
-              disabled: _disabled,
-              onTap: () =>
-                  _updateField(_form, selectedFormOfAddress.toString()),
-            ),
-            _getMessageText(theme, _form),
-            PicosLabel(AppLocalizations.of(context)!.firstName),
-            PicosTextField(controller: firstNameController),
-            PicosInkWellButton(
-              text: AppLocalizations.of(context)!.changeFirstname,
-              disabled: _disabled,
-              onTap: () => _updateField(_firstName, firstNameController.text),
-            ),
-            _getMessageText(theme, _firstName),
-            PicosLabel(AppLocalizations.of(context)!.familyName),
-            PicosTextField(controller: lastNameController),
-            PicosInkWellButton(
-              text: AppLocalizations.of(context)!.changeLastname,
-              disabled: _disabled,
-              onTap: () => _updateField(_lastName, lastNameController.text),
-            ),
-            _getMessageText(theme, _lastName),
-            PicosLabel(AppLocalizations.of(context)!.email),
-            PicosTextField(
-              keyboardType: TextInputType.emailAddress,
-              controller: emailController,
-            ),
-            PicosInkWellButton(
-              text: AppLocalizations.of(context)!.changeEmail,
-              disabled: _disabled,
-              onTap: () => _updateField(_eMail, emailController.text),
-            ),
-            _getMessageText(theme, _eMail),
-            PicosLabel(AppLocalizations.of(context)!.phoneNumber),
-            PicosTextField(
-              keyboardType: TextInputType.phone,
-              controller: phoneController,
-            ),
-            PicosInkWellButton(
-              text: AppLocalizations.of(context)!.changePhoneNumber,
-              disabled: _disabled,
-              onTap: () => _updateField(_phoneNumber, phoneController.text),
-            ),
-            _getMessageText(theme, _phoneNumber),
-            PicosLabel(AppLocalizations.of(context)!.address),
-            PicosTextField(controller: addressController),
-            PicosInkWellButton(
-              text: AppLocalizations.of(context)!.changeAddress,
-              disabled: _disabled,
-              onTap: () => _updateField(_address, addressController.text),
-            ),
-            _getMessageText(theme, _address),
-            PicosLabel(AppLocalizations.of(context)!.newPassword),
-            PicosTextField(
-              keyboardType: TextInputType.visiblePassword,
-              obscureText: true,
-              controller: newPassword,
-            ),
-            PicosLabel(AppLocalizations.of(context)!.newPasswordRepeat),
-            PicosTextField(
-              keyboardType: TextInputType.visiblePassword,
-              obscureText: true,
-              controller: newPasswordRepeat,
-            ),
-            PicosInkWellButton(
-              text: AppLocalizations.of(context)!.changePassword,
-              disabled: _disabled,
-              onTap: _changePassword,
-            ),
-            _getMessageText(theme, _password),
-            PicosLabel(AppLocalizations.of(context)!.bloodSugarUnit),
-            ToggleButtons(
-              borderColor: theme.black,
-              fillColor: theme.grey3,
-              borderWidth: 2,
-              selectedBorderColor: theme.black,
-              selectedColor: theme.white,
-              borderRadius: BorderRadius.circular(5),
-              onPressed: (int index) {
-                setState(() {
-                  for (int i = 0; i < isSelectedBloodSugarUnits.length; i++) {
-                    isSelectedBloodSugarUnits[i] = i == index;
-                  }
-                });
-              },
-              isSelected: isSelectedBloodSugarUnits,
-              children: <Widget>[
-                getPadding('MG/DL'),
-                getPadding('MMol/L'),
-              ],
-            ),
-            PicosInkWellButton(
-              text: AppLocalizations.of(context)!.changeBloodSugarUnit,
-              disabled: _disabled,
-              onTap: () {
-                _updateField(_bloodSugarMg, isSelectedBloodSugarUnits[0]);
-                Backend.user.set('unitMg', isSelectedBloodSugarUnits[0]);
-              },
-            ),
-            _getMessageText(theme, _bloodSugarMg),
-          ],
+              ),
+              PicosInkWellButton(
+                text: AppLocalizations.of(context)!.changeTitle,
+                disabled: _disabled,
+                onTap: () =>
+                    _updateField(_form, selectedFormOfAddress.toString()),
+              ),
+              _getMessageText(theme, _form),
+              PicosLabel(AppLocalizations.of(context)!.firstName),
+              PicosTextField(controller: firstNameController),
+              PicosInkWellButton(
+                text: AppLocalizations.of(context)!.changeFirstname,
+                disabled: _disabled,
+                onTap: () => _updateField(_firstName, firstNameController.text),
+              ),
+              _getMessageText(theme, _firstName),
+              PicosLabel(AppLocalizations.of(context)!.familyName),
+              PicosTextField(controller: lastNameController),
+              PicosInkWellButton(
+                text: AppLocalizations.of(context)!.changeLastname,
+                disabled: _disabled,
+                onTap: () => _updateField(_lastName, lastNameController.text),
+              ),
+              _getMessageText(theme, _lastName),
+              PicosLabel(AppLocalizations.of(context)!.email),
+              PicosTextField(
+                keyboardType: TextInputType.emailAddress,
+                controller: emailController,
+              ),
+              PicosInkWellButton(
+                text: AppLocalizations.of(context)!.changeEmail,
+                disabled: _disabled,
+                onTap: () => _updateField(_eMail, emailController.text),
+              ),
+              _getMessageText(theme, _eMail),
+              PicosLabel(AppLocalizations.of(context)!.phoneNumber),
+              PicosTextField(
+                keyboardType: TextInputType.phone,
+                controller: phoneController,
+              ),
+              PicosInkWellButton(
+                text: AppLocalizations.of(context)!.changePhoneNumber,
+                disabled: _disabled,
+                onTap: () => _updateField(_phoneNumber, phoneController.text),
+              ),
+              _getMessageText(theme, _phoneNumber),
+              PicosLabel(AppLocalizations.of(context)!.address),
+              PicosTextField(controller: addressController),
+              PicosInkWellButton(
+                text: AppLocalizations.of(context)!.changeAddress,
+                disabled: _disabled,
+                onTap: () => _updateField(_address, addressController.text),
+              ),
+              _getMessageText(theme, _address),
+              PicosLabel(AppLocalizations.of(context)!.newPassword),
+              PicosTextField(
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: true,
+                controller: newPassword,
+              ),
+              PicosLabel(AppLocalizations.of(context)!.newPasswordRepeat),
+              PicosTextField(
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: true,
+                controller: newPasswordRepeat,
+              ),
+              PicosInkWellButton(
+                text: AppLocalizations.of(context)!.changePassword,
+                disabled: _disabled,
+                onTap: _changePassword,
+              ),
+              _getMessageText(theme, _password),
+              PicosLabel(AppLocalizations.of(context)!.bloodSugarUnit),
+              ToggleButtons(
+                borderColor: theme.black,
+                fillColor: theme.grey3,
+                borderWidth: 2,
+                selectedBorderColor: theme.black,
+                selectedColor: theme.white,
+                borderRadius: BorderRadius.circular(5),
+                onPressed: (int index) {
+                  setState(() {
+                    for (int i = 0; i < isSelectedBloodSugarUnits.length; i++) {
+                      isSelectedBloodSugarUnits[i] = i == index;
+                    }
+                  });
+                },
+                isSelected: isSelectedBloodSugarUnits,
+                children: <Widget>[
+                  getPadding('MG/DL'),
+                  getPadding('MMol/L'),
+                ],
+              ),
+              PicosInkWellButton(
+                text: AppLocalizations.of(context)!.changeBloodSugarUnit,
+                disabled: _disabled,
+                onTap: () {
+                  _updateField(_bloodSugarMg, isSelectedBloodSugarUnits[0]);
+                  Backend.user.set('unitMg', isSelectedBloodSugarUnits[0]);
+                },
+              ),
+              _getMessageText(theme, _bloodSugarMg),
+            ],
+          ),
         ),
       ),
     );

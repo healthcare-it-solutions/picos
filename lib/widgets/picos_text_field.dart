@@ -33,7 +33,6 @@ class PicosTextField extends StatelessWidget {
     this.readOnly = false,
     this.height = 55,
     this.maxLines = 1,
-    this.contentPadding,
     this.suffixIcon,
     this.initialValue,
     this.keyboardType,
@@ -71,9 +70,6 @@ class PicosTextField extends StatelessWidget {
 
   /// The maximum number of lines shown.
   final int maxLines;
-
-  /// The padding for the content.
-  final EdgeInsetsGeometry? contentPadding;
 
   /// The suffix icon within the text field.
   final IconButton? suffixIcon;
@@ -135,12 +131,7 @@ class PicosTextField extends StatelessWidget {
             ),
           ),
           hintText: hint,
-          contentPadding: contentPadding ??
-              EdgeInsets.only(
-                bottom: height / 2,
-                left: 15,
-                right: 15,
-              ),
+          contentPadding: const EdgeInsets.all(10),
           suffixIcon: suffixIcon,
         ),
         obscureText: obscureText,
